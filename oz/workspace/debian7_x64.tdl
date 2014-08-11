@@ -1,0 +1,227 @@
+<template>
+   <name>debian7_x86_64</name>
+   <description>debian7 x86_64 template</description>
+   <disk>
+      <size>20</size>
+   </disk>
+   <os>
+      <name>Debian</name>
+      <version>7</version>
+      <arch>x86_64</arch>
+      <rootpw>4rfv%TGB</rootpw>
+      <install type="iso">
+         <!--<iso>http://mirrors.sohu.com/debian-cd/7.3.0/amd64/iso-cd/debian-7.3.0-amd64-CD-1.iso</iso>-->
+         <iso>file:////home/hzsunzixiang/program/oz/images/debian-7.4.0-amd64-CD-1.iso</iso>
+      </install>
+   </os>
+
+   <files>
+
+       <!--cloud-init, backup...................-->
+       <file name='/root/cloud.cfg'>
+# to update this file, run dpkg-reconfigure cloud-init
+datasource_list: [ Ec2, None ]
+       </file>
+       <file name='/etc/cloud/cloud.cfg'>
+# The top level settings are used as module
+# and system configuration.
+
+# A set of users which may be applied and/or used by various modules
+# when a 'default' entry is found it will reference the 'default_user'
+# from the distro configuration specified below
+users:
+   - root
+
+# If this is set, 'root' will not be able to ssh in and they 
+# will get a message to login instead as the above $user (ubuntu)
+disable_root: false
+
+# This will cause the set+update hostname module to not operate (if true)
+preserve_hostname: false
+
+# datasource config
+datasource: 
+    Ec2: 
+      metadata_urls:
+       - http://169.254.169.254:80
+      timeout: 5 # (defaults to 50 seconds)
+      max_wait: 10 # (defaults to 120 seconds)
+
+# The modules that run in the 'init' stage
+cloud_init_modules:
+ - migrator
+ - bootcmd
+ - write-files
+ - resizefs
+ - set_hostname
+ - update_hostname
+ - update_etc_hosts
+ - ca-certs
+ - rsyslog
+ - users-groups
+ - ssh
+
+# The modules that run in the 'config' stage
+#cloud_config_modules:
+# Emit the cloud config ready event
+# this can be used by upstart jobs for 'start on cloud-config'.
+
+# The modules that run in the 'final' stage
+#cloud_final_modules:
+
+# System and/or distro specific settings
+# (not accessible to handlers/transforms)
+system_info:
+   # This will affect which distro class gets used
+   distro: debian
+   # Default user name + that default users groups (if added/used)
+   default_user:
+     name: debian
+     lock_passwd: True
+     gecos: Debian
+     groups: [adm, audio, cdrom, dialout, floppy, video, plugdev, dip]
+   # Other config here will be given to the distro class and/or path classes
+   paths:
+      cloud_dir: /var/lib/cloud/
+      templates_dir: /etc/cloud/templates/
+      upstart_dir: /etc/init/
+   package_mirrors:
+     - arches: [default]
+       failsafe:
+         primary: http://ftp.debian.org/debian
+       </file>
+
+       <!--90_dpkg.cfg...................-->
+       <file name='/root/90_dpkg.cfg'>
+# to update this file, run dpkg-reconfigure cloud-init
+datasource_list: [ Ec2, None ]
+       </file>
+
+       <!--source.list...................-->
+       <file name='/etc/apt/sources.list'>
+deb http://mirrors.163.com/debian wheezy main non-free contrib
+deb http://mirrors.163.com/debian wheezy-proposed-updates main contrib non-free
+deb-src http://mirrors.163.com/debian wheezy main non-free contrib
+deb-src http://mirrors.163.com/debian wheezy-proposed-updates main contrib non-free
+
+deb http://mirrors.163.com/debian-security wheezy/updates main contrib non-free
+deb-src http://mirrors.163.com/debian-security wheezy/updates main contrib non-free
+
+deb http://http.us.debian.org/debian wheezy main contrib non-free
+deb http://non-us.debian.org/debian-non-US wheezy/non-US main contrib non-free
+deb http://security.debian.org wheezy/updates main contrib non-free
+deb http://ftp.cn.debian.org/debian wheezy-backports main
+
+       </file>
+
+
+       <!--interface...................-->
+       <file name='/etc/network/interfaces'>
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+allow-hotplug eth0
+iface eth0 inet dhcp
+
+auto eth1
+allow-hotplug eth1
+iface eth1 inet dhcp
+
+auto eth2
+allow-hotplug eth2
+iface eth2 inet dhcp
+       </file>
+
+       <!--udev...................-->
+       <file name='/etc/udev/rules.d/60-nbs.rules'>
+# virtio-blk for nbs
+KERNEL=="vd*[!0-9]", PROGRAM="/etc/udev/nbs_id %p", SYMLINK+="nbs/%c"
+       </file>
+
+       <!--udev...................-->
+       <file name='/etc/udev/nbs_id'>
+#!/bin/bash
+
+id1=$1
+id2=${id1#*pci*/}
+id3=${id2%/virtio*}
+pci_domain=${id3%%:*}
+
+id4=${id3#*:}
+pci_bus=${id4%%:*}
+
+id5=${id4#*:}
+pci_slot=${id5%%.*}
+
+pci_function=${id5#*.}
+
+pci_domain=0x${pci_domain}
+pci_bus=0x${pci_bus}
+pci_slot=0x${pci_slot}
+
+pci_id=$((pci_function+pci_slot*8+pci_bus*256+pci_domain*65536))
+#echo id1=$id1,pci_domain=$pci_domain,pci_bus=$pci_bus,pci_slot=$pci_slot,pci_function=$pci_funtion,pci_id=$pci_id >>/tmp/tang.txt
+
+asciitable="abcdefghijklmnopqrstuvwxyz"
+nums=$pci_id
+nbsdisk=''
+while [ $nums -gt 0 ]
+do
+    value=$((nums%26))
+    char=${asciitable:value:1}
+    nbsdisk=$char$nbsdisk
+    nums=$((nums/26))
+done
+echo xd$nbsdisk
+       </file>
+   </files>
+
+
+
+
+   <commands>
+      <command name="update">
+        aptitude update
+        aptitude install curl acpid openssh-server  cloud-init cloud-initramfs-growroot
+      </command>
+
+      <command name="update-cloud-file">
+        cp -rf  /root/90_dpkg.cfg /etc/cloud/cloud.cfg.d/
+        cp -rf /root/cloud.cfg  /etc/cloud/cloud.cfg
+        rm  -rf  /root/90_dpkg.cfg 
+        rm  -rf /root/cloud.cfg
+      </command>
+
+      <command name="ssh-keygen">
+        ssh-keygen -t dsa  -f  /etc/ssh/ssh_host_dsa_key -N '' 
+        ssh-keygen -t rsa  -f  /etc/ssh/ssh_host_rsa_key -N ''
+        ssh-keygen -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key -N ''
+      </command>
+
+      <command name="nbs_udev">
+           chmod 755 /etc/udev/nbs_id
+      </command>
+
+      <command name="timezone">
+           cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+           echo 'Asia/Shanghai' > /etc/timezone
+      </command>
+
+      <command name="grub">
+        sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT="console=ttyS0 quiet"/g' /etc/default/grub
+        update-grub
+      </command>
+
+   </commands>
+
+</template>
+
+
+
+
