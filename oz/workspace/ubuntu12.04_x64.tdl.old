@@ -1,0 +1,67 @@
+<template>
+   <name>ubuntu12.04_x86_64</name>
+   <description>ubuntu12.04  x86_64 template</description>
+   <disk>
+      <size>20</size>
+   </disk>
+   <os>
+      <name>Ubuntu</name>
+      <version>12.04.4</version>
+      <arch>x86_64</arch>
+      <rootpw>4rfv%TGB</rootpw>
+      <install type="iso">
+         <iso>file:////home/hzsunzixiang/program/oz/images/ubuntu-12.04.4-server-amd64.iso</iso>
+      </install>
+   </os>
+   <packages>
+      <package name="openssh-server" />
+   </packages>
+
+   <files>
+       <file name='/etc/udev/rules.d/60-nbs.rules'>
+# virtio-blk for nbs
+KERNEL=="vd*[!0-9]", PROGRAM="/etc/udev/nbs_id %p", SYMLINK+="nbs/%c"
+       </file>
+       <file name='/etc/udev/nbs_id'>
+#!/bin/bash
+
+id1=$1
+id2=${id1#*pci*/}
+id3=${id2%/virtio*}
+pci_domain=${id3%%:*}
+
+id4=${id3#*:}
+pci_bus=${id4%%:*}
+
+id5=${id4#*:}
+pci_slot=${id5%%.*}
+
+pci_function=${id5#*.}
+
+pci_domain=0x${pci_domain}
+pci_bus=0x${pci_bus}
+pci_slot=0x${pci_slot}
+
+pci_id=$((pci_function+pci_slot*8+pci_bus*256+pci_domain*65536))
+#echo id1=$id1,pci_domain=$pci_domain,pci_bus=$pci_bus,pci_slot=$pci_slot,pci_function=$pci_funtion,pci_id=$pci_id >>/tmp/tang.txt
+
+asciitable="abcdefghijklmnopqrstuvwxyz"
+nums=$pci_id
+nbsdisk=''
+while [ $nums -gt 0 ]
+do
+    value=$((nums%26))
+    char=${asciitable:value:1}
+    nbsdisk=$char$nbsdisk
+    nums=$((nums/26))
+done
+echo xd$nbsdisk
+       </file>
+   </files>
+   <commands>
+      <command name="nbs_udev">
+           chmod 755 /etc/udev/nbs_id
+      </command>
+   </commands>
+   
+</template>

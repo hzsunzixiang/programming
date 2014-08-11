@@ -1,0 +1,54 @@
+<template>
+   <name>debian7_i386</name>
+   <description>debian7 i386 template</description>
+   <disk>
+      <size>20</size>
+   </disk>
+   <os>
+      <name>Debian</name>
+      <version>7</version>
+      <arch>i386</arch>
+      <rootpw>4rfv%TGB</rootpw>
+      <install type="iso">
+         <iso>file:////home/hzsunzixiang/program/oz/images/debian-7.5.0-i386-CD-1.iso</iso>
+      </install>
+   </os>
+   <packages>
+      <package name="openssh-server" />
+   </packages>
+
+   <files>
+       <file name='/etc/apt/sources.list'>
+deb http://mirrors.163.com/debian wheezy main non-free contrib
+deb-src http://mirrors.163.com/debian wheezy main non-free contrib
+
+deb http://mirrors.163.com/debian wheezy-proposed-updates main contrib non-free
+deb-src http://mirrors.163.com/debian wheezy-proposed-updates main contrib non-free
+
+deb http://mirrors.163.com/debian wheezy-updates main contrib non-free
+deb-src http://mirrors.163.com/debian wheezy-updates main contrib non-free
+
+deb http://mirrors.163.com/debian-security wheezy/updates main contrib non-free
+deb-src http://mirrors.163.com/debian-security wheezy/updates main contrib non-free
+
+deb http://ftp.us.debian.org/debian/ wheezy-updates main contrib non-free
+deb http://ftp.us.debian.org/debian/ wheezy-backports main contrib non-free
+
+deb http://http.debian.net/debian wheezy main
+       </file>
+   </files>
+   <commands>
+      <command name="update">
+        aptitude update
+      </command>
+      <command name="timezone">
+           cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+           echo 'Asia/Shanghai' > /etc/timezone
+      </command>
+   </commands>
+   
+</template>
+
+
+
+

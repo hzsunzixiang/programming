@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+   <name>debian7_x86_64</name>
+   <description>debian7 x86_64 template</description>
+   <disk>
+      <size>20</size>
+   </disk>
+   <os>
+      <name>Debian</name>
+      <version>7</version>
+      <arch>x86_64</arch>
+      <rootpw>4rfv%TGB</rootpw>
+      <install type="iso">
+         <!--<iso>http://mirrors.sohu.com/debian-cd/7.3.0/amd64/iso-cd/debian-7.3.0-amd64-CD-1.iso</iso>-->
+         <iso>file:////home/hzsunzixiang/program/oz/images/debian-7.4.0-amd64-CD-1.iso</iso>
+      </install>
+   </os>
+   <packages>
+      <package name="openssh-server" />
+   </packages>
+
+   <commands>
+      <command name="grub">
+        sed -i 's/^GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT="console=ttyS0"/g' /etc/default/grub
+        update-grub
+      </command>
+
+      <command name="nbs_udev">
+      </command>
+   </commands>
+
+   <files>
+       <file name='/etc/udev/rules.d/60-nbs.rules'>
+   # virtio-blk for nbs
+   KERNEL=="vd*[!0-9]", PROGRAM="/etc/udev/nbs_id %p", SYMLINK+="nbs/%c"
+       </file>
+       <file name='/etc/udev/nbs_id'>
+   #!/bin/bash
+
+   id1=$1
+   id2=${id1#*pci*/}
+   id3=${id2%/virtio*}
+   pci_domain=${id3%%:*}
+   
+   id4=${id3#*:}
+   pci_bus=${id4%%:*}
+   
+   id5=${id4#*:}
+   pci_slot=${id5%%.*}
+   
+   pci_function=${id5#*.}
+   
+   pci_domain=0x${pci_domain}
+   pci_bus=0x${pci_bus}
+   pci_slot=0x${pci_slot}
+   
+   pci_id=$((pci_function+pci_slot*8+pci_bus*256+pci_domain*65536))
+   #echo id1=$id1,pci_domain=$pci_domain,pci_bus=$pci_bus,pci_slot=$pci_slot,pci_function=$pci_funtion,pci_id=$pci_id >>/tmp/tang.txt
+   
+   asciitable="abcdefghijklmnopqrstuvwxyz"
+   nums=$pci_id
+   nbsdisk=''
+   while [ $nums -gt 0 ]
+   do
+       value=$((nums%26))
+       char=${asciitable:value:1}
+       nbsdisk=$char$nbsdisk
+       nums=$((nums/26))
+   done
+   echo xd$nbsdisk
+
+       </file>
+   </files>
+   <commands>
+      <command name="nbs_udev">
+           chmod 755 /etc/udev/nbs_id
+      </command>
+      <command name="ssh_port">
+           sed -i 's/^Port.*/Port 1046/g' etc/ssh/sshd_config
+      </command>
+   </commands>
+   
+</template>

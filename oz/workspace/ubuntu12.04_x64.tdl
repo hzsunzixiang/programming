@@ -1,0 +1,112 @@
+<template>
+   <name>ubuntu12.04.4_x86_64</name>
+   <description>ubuntu12.04.4 x86_64 template</description>
+   <disk>
+      <size>20</size>
+   </disk>
+   <os>
+      <name>Ubuntu</name>
+      <version>12.04</version>
+      <arch>x86_64</arch>
+      <rootpw>4rfv%TGB</rootpw>
+      <install type="iso">
+         <iso>file:////home/hzsunzixiang/program/oz/images/ubuntu-12.04.4-server-amd64.iso</iso>
+      </install>
+   </os>
+   <packages>
+      <package name="openssh-server" />
+      <package name="curl" />
+      <package name="dhcp-client" />
+   </packages>
+
+   <files>
+       <file name='/etc/apt/sources.list'>
+deb http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse
+       </file>
+       <file name='/etc/network/interfaces'>
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+allow-hotplug eth0
+iface eth0 inet dhcp
+
+auto eth1
+allow-hotplug eth1
+iface eth1 inet dhcp
+
+auto eth2
+allow-hotplug eth2
+iface eth2 inet dhcp
+       </file>
+       <file name='/etc/udev/rules.d/60-nbs.rules'>
+# virtio-blk for nbs
+KERNEL=="vd*[!0-9]", PROGRAM="/etc/udev/nbs_id %p", SYMLINK+="nbs/%c"
+       </file>
+       <file name='/etc/udev/nbs_id'>
+#!/bin/bash
+
+id1=$1
+id2=${id1#*pci*/}
+id3=${id2%/virtio*}
+pci_domain=${id3%%:*}
+
+id4=${id3#*:}
+pci_bus=${id4%%:*}
+
+id5=${id4#*:}
+pci_slot=${id5%%.*}
+
+pci_function=${id5#*.}
+
+pci_domain=0x${pci_domain}
+pci_bus=0x${pci_bus}
+pci_slot=0x${pci_slot}
+
+pci_id=$((pci_function+pci_slot*8+pci_bus*256+pci_domain*65536))
+#echo id1=$id1,pci_domain=$pci_domain,pci_bus=$pci_bus,pci_slot=$pci_slot,pci_function=$pci_funtion,pci_id=$pci_id >>/tmp/tang.txt
+
+asciitable="abcdefghijklmnopqrstuvwxyz"
+nums=$pci_id
+nbsdisk=''
+while [ $nums -gt 0 ]
+do
+    value=$((nums%26))
+    char=${asciitable:value:1}
+    nbsdisk=$char$nbsdisk
+    nums=$((nums/26))
+done
+echo xd$nbsdisk
+       </file>
+   </files>
+   <commands>
+      <command name="ssh-keygen">
+        ssh-keygen -t dsa  -f  /etc/ssh/ssh_host_dsa_key -N ''
+        ssh-keygen -t rsa  -f  /etc/ssh/ssh_host_rsa_key -N ''
+        ssh-keygen -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key -N ''
+        service ssh restart
+      </command>
+      <command name="nbs_udev">
+           chmod 755 /etc/udev/nbs_id
+      </command>
+      <command name="timezone">
+           cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+           echo 'Asia/Shanghai' > /etc/timezone
+      </command>
+   </commands>
+   
+</template>
