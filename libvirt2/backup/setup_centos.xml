@@ -1,0 +1,37 @@
+<domain type='kvm'>
+  <name>test-szx5</name>
+  <memory unit='KiB'>4194304</memory>
+  <currentMemory unit='KiB'>4194304</currentMemory>
+  <vcpu placement='static'>2</vcpu>
+  <os>
+    <type arch='x86_64' machine='pc-1.1'>hvm</type>
+    <boot dev='cdrom'/>
+  </os>
+  <features>
+    <acpi/>
+  </features>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+  <devices>
+    <emulator>/usr/bin/kvm</emulator>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2' cache='none'/>
+      <source file='/tmp/centos_final.qcow2'/>
+      <target dev='vda' bus='virtio'/>
+    </disk>
+    
+    <disk type='file' device='cdrom'>
+      <!--<driver name='qemu' type='raw' cache='none'/>-->
+      <driver name='qemu' type='raw' cache='none'/>
+      <source file='/tmp/CentOS-6.4-x86_64-minimal.iso'/>
+      <target dev='hdd' bus='ide'/>
+    </disk>
+    <input type='tablet' bus='usb'>
+      <alias name='input0'/>
+    </input>
+    <input type='mouse' bus='ps2'/>
+    <graphics type='vnc' port='5900' autoport='yes' listen='0.0.0.0' keymap='en-us'>
+    </graphics>
+  </devices>
+</domain>

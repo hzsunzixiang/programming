@@ -1,0 +1,6 @@
+ for i in /etc/init.d/nova-* ; do $i restart;done
+ nova-manage  service list
+ service  keystone  status
+ nova-manage  service list
+ service  glance-api  status
+ service  glance-registry  status 
