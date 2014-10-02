@@ -1,0 +1,23 @@
+VPATH=src include
+#VPATH=src 
+
+# 本文件演示如何使用VPATH , 特别是指定头文件所在目录
+
+# 只指定下面这行，而VPATH中不包含include，是不可以的
+# 虽然这行可以再指定VPATH的情况下可以不加
+CPPFLAGS=-I inlcude 
+
+count_words:count_words.o counter.o lexer.o -lfl
+	gcc $^ -o $@
+count_words.o:count_words.c counter.h
+	gcc -c $< -o $@
+counter.o:counter.c counter.h lexer.h
+	gcc -c $< -o $@
+lexer.o:lexer.c lexer.h
+	gcc -c $< -o $@ 
+lexer.c:src/lexer.l
+	flex -t $< >$@ 
+.PHONY:clean
+clean:
+	rm -f *.o src/lexer.c
+

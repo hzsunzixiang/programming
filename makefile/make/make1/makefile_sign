@@ -1,0 +1,6 @@
+count_words:count_words.o lexer.o -lfl
+	echo "$$^ is -----   "$^ 
+	echo "$$@ is -----   "$@ 
+count_words.o:count_words.c
+	echo "$$< is -----   "$< 
+
