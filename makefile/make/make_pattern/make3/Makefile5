@@ -7,5 +7,5 @@ counter.o:counter.h lexer.h
 lexer.o:lexer.h
 .PHONY:clean
 clean:
-	rm -f *.o lexer.c 
+	rm -f *.o lexer.c  count_words
 

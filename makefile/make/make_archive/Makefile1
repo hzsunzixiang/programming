@@ -1,0 +1,33 @@
+# make -p 中对程序库的默认支持为
+
+#(%): %
+##  commands to execute (built-in):
+#    $(AR) $(ARFLAGS) $@ $<
+
+
+CPPFLAGS=-I inlcude
+VPATH=src include
+
+#count_words:-lcounter  -lfl
+count_words:-lcounter  -lfl
+libcounter.a:libcounter.a(lexer.o) libcounter.a(counter.o)
+count_words.o:counter.h
+counter.o:counter.h lexer.h
+lexer.o:lexer.h
+.PHONY:clean
+clean:
+	rm -f *.o src/lexer.c 
+
+
+#root@debian:~/programming/makefile/make/make_archive# make -f Makefile1
+#cc  -I inlcude  -c -o count_words.o src/count_words.c
+#lex  -t src/lexer.l > lexer.c
+#cc  -I inlcude  -c -o lexer.o lexer.c
+#ar rv libcounter.a lexer.o
+#r - lexer.o
+#cc  -I inlcude  -c -o counter.o src/counter.c
+#ar rv libcounter.a counter.o
+#r - counter.o
+#cc   count_words.o libcounter.a /usr/lib/libfl.so   -o count_words
+#rm lexer.c
+#

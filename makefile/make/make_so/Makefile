@@ -11,6 +11,6 @@ lexer.c:src/lexer.l
 	flex -t $< >$@ 
 .PHONY:clean
 clean:
-	rm -f *.o src/lexer.c
+	rm -f count_words *.o *.so src/lexer.c
 
 # 最好加上头文件依赖，否则，头文件改变时，不会进行更新

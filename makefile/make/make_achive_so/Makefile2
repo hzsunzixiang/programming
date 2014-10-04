@@ -1,0 +1,13 @@
+CPPFLAGS=-I inlcude
+VPATH=src include
+
+# 根据默认规则,生成的是静态库，而非动态库，事实上没有动态库的默认规则
+count_words:libcounter.so  -lfl
+libcounter.so:libcounter.so(lexer.o) libcounter.so(counter.o)
+count_words.o:counter.h
+counter.o:counter.h lexer.h
+lexer.o:lexer.h
+.PHONY:clean
+clean:
+	rm -f *.o src/lexer.c  libcounter.so count_words
+
