@@ -18,10 +18,20 @@
 
 CPPFLAGS=-I inlcude
 VPATH=src include 
-count_words:libcounter.so  -lfl
-#gcc -o count_words -lcounter -Llib -lfl
-	gcc -o count_words -lcounter -B./lib -lfl
+# 依赖条件 count_words.o是必须的
+# 如果使用默认匹配规则（见另外一个makefile），则不用，否则必须加上
+count_words: count_words.o libcounter.so  -lfl
+# 下面这个通不过 ,必须用简写?
+#gcc -o count_words -B ./lib libcounter.so  -lfl
+# 下面的几个都可以
+#gcc -o count_words -B ./lib -lcounter  -lfl
+	gcc -o count_words count_words.o lib/libcounter.so -lfl
+#gcc -o count_words -L ./lib -lcounter  -lfl
+#注意这里，不要丢掉count_words.o的依赖条件，不然运行没有结果.
+#因为这里不是默认规则，所以不会自动匹配count_words.o
+#gcc -o count_words count_words.o lib/libcounter.so  -lfl
 libcounter.so:lexer.o counter.o
+#gcc -shared -Wall -fPIC  -o lib/libcounter.so lexer.o counter.o
 	gcc -shared -Wall -fPIC  -o lib/libcounter.so lexer.o counter.o
 count_words.o:counter.h
 counter.o:counter.h lexer.h
@@ -29,6 +39,19 @@ lexer.o:lexer.h
 .PHONY:clean
 clean:
 	rm -f *.o src/lexer.c  *.so lib/*.so count_words
+
+
+
+
+# 这种情形下，如下两种环境变量都可以， 会自动去 lib下面找？
+# export LD_LIBRARY_PATH=`pwd`
 # export LD_LIBRARY_PATH=`pwd`/lib
+
+
+
+
+
+
+
 
 

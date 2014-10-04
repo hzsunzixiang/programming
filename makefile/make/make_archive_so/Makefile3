@@ -2,9 +2,9 @@
 #链接方法II，手动指定库路径1. $ cc -o test test.o -llt -B /path/to/lib这里的-B 选项就添加 /path/to/lib 到gcc搜索的路径之中。这样链接没有问题但是方法II中手动链接好的程序在执行时候仍旧需要指定库路径(链接和执行是分开的)。需要添加系
 CPPFLAGS=-I inlcude
 VPATH=src include lib
-count_words:-lcounter  -lfl
+count_words:libcounter.so -lfl
 libcounter.so:lexer.o counter.o
-	gcc -shared -Wall -fPIC  -o lib/libcounter.so lexer.o counter.o
+	gcc -shared -Wall -fPIC  -o libcounter.so lexer.o counter.o
 count_words.o:counter.h
 counter.o:counter.h lexer.h
 lexer.o:lexer.h
