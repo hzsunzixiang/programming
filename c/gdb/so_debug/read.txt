@@ -1,0 +1,73 @@
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`
+
+http://www.searchtb.com/2013/03/%E4%B8%8E%E7%AC%A6%E5%8F%B7%E8%A1%A8%E5%88%86%E7%A6%BB%E7%A8%8B%E5%BA%8F%E6%88%96%E5%8A%A8%E6%80%81%E5%BA%93-%E5%A6%82%E4%BD%95%E7%94%A8gdb%E8%B0%83%E8%AF%95.html
+1）文件列表：
+> ls -l
+-rw-r--r--  1 hchen wheel 209 Nov 16 11:08 get.c
+-rw-r--r--  1 hchen wheel  28 Nov 16 11:07 get.h
+-rw-r--r--  1 hchen wheel 237 Nov 16 11:08 main.c
+-rw-r--r--  1 hchen wheel 213 Nov 16 11:52 makefile
+
+2）Makefile的样子
+> cat ./makefile
+all:main
+
+libget.so:get.c
+        gcc -g -c -o get.o get.c
+        gcc -g -shared -o libget.so get.o
+
+main:main.c libget.so
+        gcc -g -c -o main.o main.c
+        gcc -g -o main main.o -L./ -lget
+
+clean:
+        @rm libget.so get.o main.o main
+
+3）编译程序
+> make
+gcc -g -c -o get.o get.c
+gcc -g -shared -o libget.so get.o
+gcc -g -c -o main.o main.c
+gcc -g -o main main.o -L./ -lget
+
+4）设置LD_LIBRARY_PATH环境变量
+> setenv LD_LIBRARY_PATH ${PWD}
+> env | grep LD
+LD_LIBRARY_PATH=/home/hchen/test/so
+
+5）用GDB调试(step in)
+> gdb ./main
+
+(gdb) break main
+Breakpoint 1 at 0x80484d0: file main.c, line 5.
+(gdb) r
+Starting program: /home/hchen/test/so/main
+
+Breakpoint 1, main (argc=1, argv=0xbfe62fc4) at main.c:5
+5               int a = 100;
+(gdb) n
+6               int b = get ();
+(gdb) s    <------- 进入动态库
+get () at get.c:7
+7               printf ("get x=%d\n", x);
+(gdb) s
+get x=0
+8               return x;
+
+6）用GDB调试(break set)
+(gdb) break set
+Function "set" not defined.
+Make breakpoint pending on future shared library load? (y or [n]) y
+
+Breakpoint 1 (set) pending.
+
+
+我的GDB版本如下：（操作系统是RedHat Enterprise Linux Advance Server 4）
+(gdb) show version
+GNU gdb Red Hat Linux (6.1post-1.20040607.62rh)
+Copyright 2004 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i386-redhat-linux-gnu".
