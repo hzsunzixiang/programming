@@ -1,3 +1,4 @@
+// http://www.anyexample.com/programming/c/qsort__sorting_array_of_strings__integers_and_structs.xml
 #include <stdio.h> 
 #include <stdlib.h> 
 #include <string.h> 
