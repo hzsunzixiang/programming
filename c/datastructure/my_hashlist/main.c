@@ -4,14 +4,14 @@
 #include"hash.h"
 
 
-/* AS path may be include some AsSegments.  */
+/* the data to be hashed*/
 struct aspath;
 struct aspath
 {
 		int length;
 		int* data;
 };
-/* Hash for aspath.  This is the top level structure of AS path. */
+/* Hash for aspath.  */
 static struct aspath *aspath_new ();
 void aspath_free (struct aspath *aspath);
 unsigned int  aspath_key_make (struct aspath *aspath);
@@ -29,7 +29,7 @@ int main()
 		int *dt=malloc(sizeof(int));
 		int *dt2=malloc(sizeof(int));
 		*dt=1000;
-		*dt2=1000;
+		*dt2=2000;
 		aspath1->length=4;
 		aspath1->data=dt;
 
@@ -37,11 +37,27 @@ int main()
 		aspath2->data=dt2;
 		ashash = hash_create_size (32767, aspath_key_make, aspath_cmp);
 		find = hash_get (ashash, aspath1, hash_alloc_intern);
-		printf("\nfind the value find->length\t%d,*find->data\t%d\n",find->length,*find->data);
+		if(find != NULL ){
+			printf("\nfind the value find->length\t%d,*(find->data)\t%d\n", find->length, *(find->data));
+		}
 
 		find = hash_get (ashash, aspath1, hash_alloc_intern);
 		find = hash_get (ashash, aspath2, NULL);
+		if(find != NULL ){
+			printf("\nfind the value find->length\t%d,find->data\t%d\n", find->length, *(find->data));
+		}
+		else
+		{
+			printf("\ncannot find the value aspath2->length\t%d,aspath2->data\t%d\n",aspath2->length, *(aspath2->data));
+		}
 		find = hash_get (ashash, aspath2, hash_alloc_intern);
+		if(find != NULL ){
+			printf("\nfind the value find->length\t%d,*find->data\t%d\n", find->length, *(find->data));
+		}
+		else
+		{
+			printf("\ncannot find the value aspath2->length\t%d,aspath2->data\t%d\n",aspath2->length, *(aspath2->data));
+		}
 
 		if (find != aspath1)
 				aspath_free (aspath1);
@@ -49,7 +65,7 @@ int main()
 }
 /* AS path may be include some AsSegments.  */
 
-/* Hash for aspath.  This is the top level structure of AS path. */
+/* Hash for aspath. */
 		static struct aspath *
 aspath_new ()
 {
