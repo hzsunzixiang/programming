@@ -1,0 +1,10 @@
+# the dynamic libray cann't be found
+test:test.o
+#	gcc -o test test.o -B. -lit
+	gcc -o test test.o libit.so
+test.o:test.c
+	gcc -Wall -c  test.c
+libit.so:it.o
+	gcc -shared -Wall -fPIC
+it.o:it.h
+#./test: error while loading shared libraries: libit.so: cannot open shared object file: No such file or director

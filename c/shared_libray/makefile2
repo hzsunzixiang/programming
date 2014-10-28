@@ -1,0 +1,5 @@
+
+newcalc:calc.c
+#	gcc -Wall calc.c -lm -o newcalc
+#	gcc -Wall -lm calc.c -o nxx
+	gcc -Wall calc.c -o new

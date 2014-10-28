@@ -1,0 +1,2 @@
+badpow:badpow.c
+	gcc badpow.c -lm -o badpow

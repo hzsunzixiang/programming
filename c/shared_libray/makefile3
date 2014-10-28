@@ -1,0 +1,8 @@
+
+#main:main.c
+#	gcc -Wall main.c  libhello.a -o main 
+main:main.o
+	gcc  main.o libhello.a -o main
+#	gcc  libhello.a  main.o -o main
+main.o:main.c
+	gcc -Wall -c main.c
