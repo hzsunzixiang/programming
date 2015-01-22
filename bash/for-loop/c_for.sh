@@ -3,3 +3,6 @@ for (( c=1; c<=5; c++ ))
 do
    echo "Welcome $c times"
 done
+
+
+#for((i=0;i<10;i++));do echo $i ;done
