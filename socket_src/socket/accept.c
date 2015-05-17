@@ -41,18 +41,21 @@ int main( int argc, char *argv[] )
     }
     printf("bind socket sucess!\n");
 
-    /* Now start listening for the clients, here process will
-    * go in sleep mode and will wait for the incoming connection
+    /* Now start listening for the clients, here process will "not" 
+    * go in sleep mode and "kernel" will wait for the incoming connection
     */
     if (listen(sockfd ,5) < 0)
     {
         perror("listen failed.");
     }
 
+    printf("listen socket sucess!\n");
     while (1)
     {
+        printf("in while!\n");
         clilen = sizeof(cli_addr);
         newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
+        printf("accept socket sucess!\n");
         if (newsockfd < 0)
         {
             perror("ERROR on accept");

@@ -40,67 +40,48 @@ int main( int argc, char *argv[] )
     }
     printf("bind socket sucess!\n");
 
-    /* Now start listening for the clients, here process will
-    * go in sleep mode and will wait for the incoming connection
+    /* Now start listening for the clients, here process will "not"
+    * go in sleep mode and "kernel" will wait for the incoming connection
     */
-    if (listen(sockfd ,5) < 0)
-    {
-        perror("listen failed.");
-    }
-    
-    //   listen(sockfd,5);
-    //   clilen = sizeof(cli_addr);
-    //   
-    sleep(10000);
-
-
-
-    ///* Internet address.  */
-    //typedef uint32_t in_addr_t;
-    //struct in_addr
+    //if (listen(sockfd ,5) < 0)
     //{
-    //    in_addr_t s_addr;
-    //};
+    //    perror("listen failed.");
+    //}
+    //printf("listen socket sucess!\n");
 
-    //in_addr_t inet_addr(const char *cp);
-    //    int inet_aton(const char *cp, struct in_addr *inp);
+    //   EADDRINUSE
+    //          Another socket is already listening on the same port.
+    // 重复listen不会报错
+    //if (listen(sockfd ,5) < 0)
+    //{
+    //    perror("listen failed.");
+    //}
+
+    //printf("listen socket sucess!\n");
+    //   EBADF  The argument sockfd is not a valid descriptor.
+
+    // listen failed.: Bad file descriptor
+
+    //if (listen(50,5) < 0)
+    //{
+    //    perror("listen failed.");
+    //}
+    //printf("listen socket sucess!\n");
 
 
+    //   ENOTSOCK
+    //          The argument sockfd is not a socket.
+    // listen failed.: Socket operation on non-socket
+    //if (listen(0,5) < 0)
+    //{
+    //    perror("listen failed.");
+    //}
+    //printf("listen socket sucess!\n");
 
-
-
-
-
-
-
-    //   /* Accept actual connection from the client */
-    //   newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, &clilen);
-    //   if (newsockfd < 0)
-    //      {
-    //      perror("ERROR on accept");
-    //      exit(1);
-    //      }
-    //   
-    //   /* If connection is established then start communicating */
-    //   bzero(buffer,256);
-    //   n = read( newsockfd,buffer,255 );
-    //   
-    //   if (n < 0)
-    //      {
-    //      perror("ERROR reading from socket");
-    //      exit(1);
-    //      }
-    //   
-    //   printf("Here is the message: %s\n",buffer);
-    //   
-    //   /* Write a response to the client */
-    //   n = write(newsockfd,"I got your message",18);
-    //   
-    //   if (n < 0)
-    //      {
-    //      perror("ERROR writing to socket");
-    //      exit(1);
-    //      }
+    //   EOPNOTSUPP
+    //          The socket is not of a type that supports the listen() operation.
+ 
+    sleep(10000);
 
     return 0;
 }
