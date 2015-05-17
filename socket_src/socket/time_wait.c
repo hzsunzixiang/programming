@@ -36,20 +36,12 @@ int main(int argc, char *argv[])
         perror("connect fail");
         exit(1);
     }
+    fprintf(stderr, "being close fd\n");
+    char c = getchar();
+    close(sock);
+    fprintf(stderr, "after close fd\n");
 
-    //char sendbuf[1024] = {0};
-    //char recvbuf[1024] ={0};
-    //while (fgets(sendbuf, sizeof(sendbuf), stdin) != NULL)
-    //{
-    //    write(sock, sendbuf, strlen(sendbuf));
-    //    read(sock, recvbuf, sizeof(recvbuf));
-
-    //    fputs(recvbuf, stdout);
-    //    memset(sendbuf, 0, sizeof(sendbuf));
-    //    memset(recvbuf, 0, sizeof(recvbuf));
-    //}
-
-    //close(sock);
+    c = getchar();
 
     return 0;
 }

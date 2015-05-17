@@ -1,7 +1,7 @@
 .PHONY:clean all
 CC=gcc
 CFLAGS=-Wall -g
-BIN=socket bind listen accept bind_multi connect
+BIN=echosrv echocli  socket bind listen accept bind_multi connect time_wait connect_bind time_wait_s
 all:$(BIN)
 %.o:%.c
 	$(CC) $(CFLAGS) -c $< -o $@
