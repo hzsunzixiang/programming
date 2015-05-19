@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
 
-    if (connect_nonb(sockconn, (struct sockaddr*)&servaddr, sizeof(servaddr), 2000) < 0)
+    if (connect_nonb(sockconn, (struct sockaddr*)&servaddr, sizeof(servaddr), 20) < 0)
     {
         perror("connnect error");
         exit(EXIT_FAILURE);
@@ -119,7 +119,10 @@ int connect_nonb(int sockfd, const struct sockaddr * saptr, socklen_t salen, int
 		if (errno != EINPROGRESS)
 			return (-1);
 	/* Do whatever we want whille the connect is taking place */
-	fprintf(stderr, "after  connect, the return n = %d\n ", n);
+	
+	//这里可以做其他事情
+	//sleep(5);  // 在某些情况下不能阻塞，比如nginx编程时
+	fprintf(stderr, "after  connect, the return n = %d\n", n);
 	if (n == 0)
 	{
 		fprintf(stderr, "n==0, connect sucess, goto done");
@@ -138,6 +141,15 @@ int connect_nonb(int sockfd, const struct sockaddr * saptr, socklen_t salen, int
 		close(sockfd); /*timeout*/
 		fprintf(stderr, "select timeout finish use time:%d\n", (int)(nsec - tval.tv_sec));
 		errno = ETIMEDOUT;  //  #define ETIMEDOUT   110 /* Connection timed out */
+		//  88 #define EINPROGRESS 115 /* Operation now in progress */
+		//
+		// 这里是有必要设置的，不然返回错误码为 EINPROGRESS:
+		//root@debian:~/programming/socket_src/socket/mysocket/socket_nonblock# ./echocli 192.168.1.101
+		//after  connect, the return n = -1
+		// select begin
+		//select timeout finish use time:2
+		//select timeout quit: Operation now in progress
+		//connnect error: Operation now in progress
 		perror("select timeout quit");
 		return (-1);
 	}
