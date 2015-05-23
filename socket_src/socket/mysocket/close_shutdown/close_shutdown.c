@@ -37,14 +37,26 @@ int main(int argc, char *argv[])
         exit(1);
     }
     fprintf(stderr, "being close fd\n");
+
+    // 实验关闭读的一端，仍然读取数据的时候
+    //char* recvbuf = "abcdefghi\n";
+    //while(1)
+    //{
+    //    if(write(sock, recvbuf, strlen(recvbuf)) < 0)  // 把数据再发给客户端
+    //    {
+    //        perror("write error");
+    //        exit(EXIT_FAILURE);
+    //    }
+    //    sleep(5);
+    //}
+
+
     char c = getchar();
-    // 分别实验shutdown 和 close
-    //close(sock);
-    //shutdown(sock, SHUT_RD);
-    shutdown(sock, SHUT_WR);
+    close(sock);
     fprintf(stderr, "after close fd\n");
 
-    c = getchar();
+    //c = getchar();
+    pause();
 
     return 0;
 }
