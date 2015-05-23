@@ -49,6 +49,10 @@ int main(int argc, char* argv[])
         if (tmp != NULL)
         {
             //fputs("write to socket\n", stderr);
+            // 如果服务器过早终止 当服务器tcp接受到来自客户的数据时，既然先前打开的那个套接口进程已经终止
+            // 于是相应以一个RST， 通过使用tcpdump，来观察分组，我们可以验证该RST确实发送了
+            // 然而客户端进程看不到这个RST，因为它在调用write后立即调用read，并且服务器已发送FIN，所调用的
+            // read接收到FIN，立即返回0(表示EOF),我们的客户端未预期收到EOF，所以打印..server terminated prematurely
             if (write(sockconn, sendbuf, strlen(sendbuf)) < 0)
             {
                 perror("write to socket error");
