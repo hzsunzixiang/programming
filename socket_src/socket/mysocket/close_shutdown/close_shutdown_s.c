@@ -33,6 +33,15 @@ int main( int argc, char *argv[] )
     //}
     serv_addr.sin_addr.s_addr = htonl(INADDR_ANY);
     serv_addr.sin_port = htons(portno);
+
+    // 设置SO_REUSEADDR 选项不代表没有TIME_WAIT, 而是说，在TIME_WAIT状态允许再次监听
+    int on = 1;
+    if(setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
+    {
+        perror("setsockopt:");
+        exit(EXIT_FAILURE);
+    }
+
     /* Now bind the host address using bind() call.*/
     if (bind(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
     {
@@ -42,8 +51,8 @@ int main( int argc, char *argv[] )
     printf("bind socket sucess!\n");
 
     /* Now start listening for the clients, here process will
-    * go in sleep mode and will wait for the incoming connection
-    */
+     * go in sleep mode and will wait for the incoming connection
+     */
     if (listen(sockfd ,5) < 0)
     {
         perror("listen failed.");
@@ -61,8 +70,37 @@ int main( int argc, char *argv[] )
         //sleep(10);
         fprintf(stderr, "being close fd\n");
         char c = getchar();
-        close(newsockfd);
+        // 分别实验shutdown 和 close
+        //close(newsockfd);
+        //shutdown(newsockfd, SHUT_RD);
+        shutdown(newsockfd, SHUT_WR);
+        //shutdown(newsockfd, SHUT_RDWR);
         fprintf(stderr, "after close fd\n");
+
+        // 实验关闭读的一端，仍然读取数据的时候 发现还能写
+
+        // fprintf(stderr, "continue to read\n");
+        // c = getchar();
+        // char recvbuf[1024] = {0};
+
+        // memset(recvbuf, 0, sizeof(recvbuf));
+        // int ret = read(newsockfd, recvbuf, sizeof(recvbuf)); // 从客户端收取数据
+        // fprintf(stderr, "after read ret=%d, recvbuf:%s\n", ret, recvbuf);
+        // break;
+
+
+
+        // 实验关闭写的一端，仍然写数据的时候 进程会直接崩溃
+        //char* recvbuf = "abcdefghi\n";
+        //int ret = 0;
+        //while(1)
+        //{
+        //    ret = write(newsockfd, recvbuf, strlen(recvbuf)); // 把数据再发给客户端
+
+        //    fprintf(stderr, "write ret=%d\n", ret);
+        //    sleep(5);
+        //}
+        pause();
     }
 
 
