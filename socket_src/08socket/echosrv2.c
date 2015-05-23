@@ -19,10 +19,10 @@
 void do_service(int conn)
 {
 	char recvbuf[1024];
-        while (1)
-        {
-                memset(recvbuf, 0, sizeof(recvbuf));
-                int ret = read(conn, recvbuf, sizeof(recvbuf));
+	while (1)
+	{
+		memset(recvbuf, 0, sizeof(recvbuf));
+		int ret = read(conn, recvbuf, sizeof(recvbuf));
 		if (ret == 0)
 		{
 			printf("client close\n");
@@ -30,16 +30,16 @@ void do_service(int conn)
 		}
 		else if (ret == -1)
 			ERR_EXIT("read");
-                fputs(recvbuf, stdout);
-                write(conn, recvbuf, ret);
-        }
+		fputs(recvbuf, stdout);
+		write(conn, recvbuf, ret);
+	}
 }
 
 int main(void)
 {
 	int listenfd;
 	if ((listenfd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
-/*	if ((listenfd = socket(PF_INET, SOCK_STREAM, 0)) < 0)*/
+		/*	if ((listenfd = socket(PF_INET, SOCK_STREAM, 0)) < 0)*/
 		ERR_EXIT("socket");
 
 	struct sockaddr_in servaddr;
@@ -83,6 +83,6 @@ int main(void)
 		else
 			close(conn);
 	}
-	
+
 	return 0;
 }
