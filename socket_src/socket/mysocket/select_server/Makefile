@@ -2,7 +2,7 @@
 CC=gcc
 CFLAGS=-Wall -g
 #BIN=echosrv echocli
-BIN=echosrv  echocli abort_client dos_attach 
+BIN=echosrv  echocli abort_client dos_attack 
 all:$(BIN)
 %.o:%.c
 	$(CC) $(CFLAGS) -c $< -o $@
