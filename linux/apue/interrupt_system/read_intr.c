@@ -1,7 +1,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <error.h>
+#include <errno.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -34,8 +34,10 @@ int main(int argc, char **argv)
 
 	ret = read(0, buf, 100);
 	if (ret == -1) {
+		printf("errno: %d", errno);
 		perror("read");
 	}
+	printf("errno: %d", errno);
 
 	printf("read %d bytes:\n", ret);
 	printf("%s\n", buf);
