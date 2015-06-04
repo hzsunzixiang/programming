@@ -1,3 +1,4 @@
+#include<linux/tcp.h>  // TCP_NODELAY
 #include<unistd.h>
 #include<stdio.h>
 #include<stdlib.h>
@@ -39,6 +40,8 @@ int main(int argc, char* argv[])
         perror("setsockopt:");
         exit(EXIT_FAILURE);
     }
+	int enable = 1;
+	setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, (void*)&enable, sizeof(enable));
     if (bind(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr)) != 0)
     {
         perror("bind error!");

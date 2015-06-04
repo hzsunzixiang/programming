@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
     }
 
 	int enable = 1;
-	//setsockopt(sockconn, IPPROTO_TCP, TCP_NODELAY, (void*)&enable, sizeof(enable));
+	setsockopt(sockconn, IPPROTO_TCP, TCP_NODELAY, (void*)&enable, sizeof(enable));
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_port = htons(8888);
 	if (argv[1] == NULL)
