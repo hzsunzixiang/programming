@@ -1,5 +1,6 @@
 #include<unistd.h>
 #include<stdio.h>
+#include<signal.h>
 #include<stdlib.h>
 #include<sys/types.h>
 #include<sys/socket.h>
@@ -9,6 +10,11 @@
 
 #define MAXLINE 1024
 
+static void recvfrom_int(int);
+typedef void Sigfunc(int);
+static int count;
+    Sigfunc *
+signal(int signo, Sigfunc *func);
 void dg_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen);
 int main(int argc, char* argv[])
 {
@@ -57,25 +63,54 @@ void dg_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen)
 	socklen_t len;
 	char mesg[MAXLINE];
 
+    if (signal(SIGINT, recvfrom_int) == SIG_ERR)
+        perror("signal:");
     while(1)
     {
 		len = clilen;
         n = recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len); // 从客户端收取数据
-        fputs(mesg, stderr); // 把结果打印出来
-        if (n >= 0)
-        {
-            if(sendto(sockfd, mesg, n, 0, pcliaddr, len) < 0)  // 把数据再发给客户端
-            {
-                perror("sendto error");
-                exit(EXIT_FAILURE);
-            }
-        }
-        else
+        if (n < 0)
         {
             perror("read error");
             exit(EXIT_FAILURE);
         }
+        count++;
+        //fprintf(stderr, "count=%d\n", count);
     }
 }
 
 
+    Sigfunc *
+signal(int signo, Sigfunc *func)
+{
+    struct sigaction act, oact;
+
+    act.sa_handler = func;
+    sigemptyset(&act.sa_mask);
+    act.sa_flags = 0;
+    if (signo == SIGALRM)
+    {
+#ifdef SA_INTERRUPT
+        act.sa_flags |= SA_INTERRUPT;
+#endif
+    }
+    else
+    {
+#ifdef SA_RESTART
+        act.sa_flags |= SA_RESTART;
+#endif
+    }
+
+    if (sigaction(signo, &act, &oact) < 0)
+        return SIG_ERR;
+    return oact.sa_handler;
+
+}
+
+
+static void 
+recvfrom_int(int signo)
+{
+    printf("\nreceived %d datagram\n", count);
+    exit(1);
+}
