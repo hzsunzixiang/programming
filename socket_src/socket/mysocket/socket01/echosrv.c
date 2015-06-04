@@ -28,6 +28,13 @@ int main(int argc, char* argv[])
         printf("address:%u\n", servaddr.sin_addr.s_addr);
         exit(EXIT_FAILURE);
     }
+    // 设置SO_REUSEADDR 选项不代表没有TIME_WAIT, 而是说，在TIME_WAIT状态允许再次监听
+    int on = 1;
+    if(setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
+    {
+        perror("setsockopt:");
+        exit(EXIT_FAILURE);
+    }
     if (bind(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr)) != 0)
     {
         perror("bind error!");

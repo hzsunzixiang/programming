@@ -24,12 +24,19 @@ int main(int argc, char* argv[])
     servaddr.sin_port = htons(8888);
     if (argv[1] == NULL)
 	{
-		argv[1] = "127.0.0.1";
+		argv[1] = "0.0.0.0";
 	}
     if (inet_aton(argv[1], &servaddr.sin_addr) == 0)
     {
         perror("inet_aton failure!");
         printf("address:%u\n", servaddr.sin_addr.s_addr);
+        exit(EXIT_FAILURE);
+    }
+    // 设置SO_REUSEADDR 选项不代表没有TIME_WAIT, 而是说，在TIME_WAIT状态允许再次监听
+    int on = 1;
+    if(setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)) < 0)
+    {
+        perror("setsockopt:");
         exit(EXIT_FAILURE);
     }
     if (bind(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr)) != 0)
@@ -56,30 +63,23 @@ int main(int argc, char* argv[])
         memset(recvbuf, 0, sizeof(recvbuf));
         int ret = read(connfd, recvbuf, sizeof(recvbuf)); // 从客户端收取数据
         fputs(recvbuf, stderr); // 把结果打印出来
-        if (ret > 0)
+        if (ret == 0) //  从客户端接受FIN报文
         {
-            if(write(connfd, recvbuf, ret) < 0)  // 把数据再发给客户端
-            {
-                perror("write error");
-                exit(EXIT_FAILURE);
-            }
-        }
-        else if (ret == 0) //  从客户端接受FIN报文
-        {
-            sleep(10); // 在客户端正常终止时，为了查看close_wait 和 FIN_WAIT_2
             fputs("receive FIN from client\n", stderr);
             break;
         }
-        else
+        else if(ret < 0)
         {
             perror("read error");
             close(connfd);
             exit(EXIT_FAILURE);
         }
+        // 大于0 时什么都不做
     }
 
     fputs("will close connfd\n", stderr);
     close(connfd);
+    sleep(2);
 
     return 0;
 }

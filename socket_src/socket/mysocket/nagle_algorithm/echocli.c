@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
     }
 
 	int enable = 1;
-	setsockopt(sockconn, IPPROTO_TCP, TCP_NODELAY, (void*)&enable, sizeof(enable));
+	//setsockopt(sockconn, IPPROTO_TCP, TCP_NODELAY, (void*)&enable, sizeof(enable));
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_port = htons(8888);
 	if (argv[1] == NULL)
@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
 	char *str = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
 	int i = 0;
-	for (i = 0; i < 5; i++)
+	for (i = 0; i < 4; i++)
 	{
 		memset(recvbuf, 0, sizeof(recvbuf));
 		memset(sendbuf, 0, sizeof(sendbuf));
