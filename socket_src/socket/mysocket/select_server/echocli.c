@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
 
 void str_cli(FILE *fp, int sockconn)
 {
-    int maxfdp1, retval, stdineof;
+    int maxfdp1, retval, stdineof = 0;  // stdinefo 必须初始化，不然不能得到预期
     fd_set rset;
     char recvline[1024];
     char sendline[1024];
@@ -76,8 +76,10 @@ void str_cli(FILE *fp, int sockconn)
         FD_SET(sockconn, &rset);
         maxfdp1 = max(fileno(fp), sockconn) + 1;
 
-        //fprintf(stderr, "select........\n");
+        //fprintf(stderr, "fileno(fp):%d, maxfdp1 :%d........\n", fileno(fp), maxfdp1);
+        //fprintf(stderr, "select begin........\n");
         retval = select(maxfdp1, &rset, NULL, NULL, NULL);
+        //fprintf(stderr, "select over........\n");
 
         if (retval == -1)
         {
@@ -88,7 +90,7 @@ void str_cli(FILE *fp, int sockconn)
         {
             //  本例子的目的是为了解决，服务器关闭之后能立即收到FIN，
             // 这里不再使用readline
-            fprintf(stderr, "read from socket........\n");
+            //fprintf(stderr, "read from socket........\n");
             int ret = read(sockconn, recvline, sizeof(recvline));
             if (ret > 0)
                 write(fileno(stdout), recvline, ret);
@@ -115,6 +117,7 @@ void str_cli(FILE *fp, int sockconn)
         {
             //fprintf(stderr, "read from stdin........\n");
             int n = read(fileno(fp), sendline, sizeof(sendline)); // 键入EOF时，read 返回0
+            //int n = read(fileno(fp), sendline, 10); // 键入EOF时，read 返回0
             //fprintf(stderr, "read from stdin........:%s\n", sendline);
             if (n != 0)
             {

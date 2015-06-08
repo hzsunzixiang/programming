@@ -13,6 +13,7 @@
 #define MAXLINE 1024
 typedef void Sigfunc(int);
 
+ssize_t readline(int sockfd, void *buf, size_t maxline);
 
 Sigfunc *
 signal(int signo, Sigfunc *func);
@@ -22,9 +23,6 @@ void sig_chld(int signum)
 {
 	pid_t pid;
 	int stat;
-	
-	//pid = wait(&stat);
-	//printf("child %d terminated\n", pid);
 	
 	while ( (pid = waitpid(-1, &stat, WNOHANG)) > 0)
 	{
@@ -110,8 +108,11 @@ int main(int argc, char* argv[])
         fprintf(stderr, "select return:....\n");
         if (nready == -1)
         {
-            perror("select");
-            exit(EXIT_FAILURE);
+			// 如果客户端连接之后马上夭折，此时
+			// 客户端夭折之后，服务器端的accept仍然会返回正常的描述符，此时select操作这个描述符的时候就会 报错  //select: Bad file descriptor
+			// 
+            perror("select");  // select: Bad file descriptor
+            //exit(EXIT_FAILURE);  // 如果此时断开，则程序健壮性太差，应该打印日志，然后循环
         }
 
         if (FD_ISSET(listenfd, &rset))
@@ -131,7 +132,9 @@ int main(int argc, char* argv[])
                 else
                 {
                     perror("accept error");
-                    exit(EXIT_FAILURE);
+                    //exit(EXIT_FAILURE);
+					close(connfd);
+					continue;
                 }
             }
             fprintf(stderr, "the client addr:port,%s:%d\n", inet_ntoa(cliaddr.sin_addr), cliaddr.sin_port);
@@ -167,7 +170,10 @@ int main(int argc, char* argv[])
             if (FD_ISSET(sockfd, &rset))
             {
                 memset(buf, 0, sizeof(buf));
-                if ((n = read(sockfd, buf, MAXLINE)) < 0) // 收到RST 或其他
+				//如果使用readline函数，可能会遭受拒绝服务攻击
+				//客户端只发送几个字节，不发送换行符，那么此时服务器不能响应其他客户端的服务
+                if ((n = readline(sockfd, buf, MAXLINE)) < 0) // 收到RST 或其他
+                //if ((n = read(sockfd, buf, MAXLINE)) < 0) // 收到RST 或其他
                 {
                     if (errno == ECONNRESET) // 收到reset
                     {
@@ -200,8 +206,44 @@ int main(int argc, char* argv[])
     return 0;
 
 }
-ssize_t writen(int fd, const void *buf, size_t count)
+
+ssize_t recv_peek(int sockfd, void *buf, size_t len)
 {
+    while (1)
+    {
+        int ret = recv(sockfd, buf, len, MSG_PEEK);
+        if (ret == -1 && errno == EINTR)
+            continue;
+        return ret;
+    }
+}
+
+
+ssize_t readn(int fd, void *buf, size_t count)
+{
+    size_t nleft = count;
+    ssize_t nread;
+    char *bufp = (char*)buf;
+
+    while (nleft > 0)
+    {
+        if ((nread = read(fd, bufp, nleft)) < 0)
+        {
+            if (errno == EINTR)
+                continue;
+            return -1;
+        }
+        else if (nread == 0)
+            return count - nleft;
+
+        bufp += nread;
+        nleft -= nread;
+    }
+
+    return count;
+}
+
+ssize_t writen(int fd, const void *buf, size_t count) {
     size_t nleft = count;
     ssize_t nwritten;
     char *bufp = (char*)buf;
@@ -224,30 +266,45 @@ ssize_t writen(int fd, const void *buf, size_t count)
     return count;
 }
 
-
-    Sigfunc *
-signal(int signo, Sigfunc *func)
+ssize_t readline(int sockfd, void *buf, size_t maxline)
 {
-    struct sigaction act, oact;
-
-    act.sa_handler = func;
-    sigemptyset(&act.sa_mask);
-    act.sa_flags = 0;
-    if (signo == SIGALRM)
+    int ret;
+    int nread;
+    char *bufp = buf;
+    int nleft = maxline;
+    while (1)
     {
-#ifdef SA_INTERRUPT
-        act.sa_flags |= SA_INTERRUPT;
-#endif
-    }
-    else
-    {
-#ifdef SA_RESTART
-        act.sa_flags |= SA_RESTART;
-#endif
+        ret = recv_peek(sockfd, bufp, nleft);
+        if (ret < 0)
+            return ret;
+        else if (ret == 0)
+            return ret;
+
+        nread = ret;
+        int i;
+        for (i=0; i<nread; i++)
+        {
+            if (bufp[i] == '\n')
+            {
+                ret = readn(sockfd, bufp, i+1);
+                if (ret != i+1)
+                    exit(EXIT_FAILURE);
+
+                return ret;
+            }
+        }
+
+        if (nread > nleft)
+            exit(EXIT_FAILURE);
+
+        nleft -= nread;
+        ret = readn(sockfd, bufp, nread);
+        if (ret != nread)
+            exit(EXIT_FAILURE);
+
+        bufp += nread;
     }
 
-    if (sigaction(signo, &act, &oact) < 0)
-        return SIG_ERR;
-    return oact.sa_handler;
-
+    return -1;
 }
+

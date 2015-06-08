@@ -33,6 +33,10 @@ int main(int argc, char *argv[])
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_port = htons(8888);
 
+    if(argv[1] == NULL)
+    {
+        argv[1] = "127.0.0.1";
+    }
 	if (inet_aton(argv[1], &servaddr.sin_addr) == 0)
 	{
 		perror("inet_aton fail!");
@@ -46,7 +50,20 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
+
+	// 下面是夭折该连接时，服务器的输出行为
+	//select return:....
+	//listenfd:....
+	//the client addr:port,192.168.1.101:43172
+	//select:....maxfd = 4 connfd=4
+	//select return:....
+	//reset.....select:....maxfd = 4 connfd=4
+	//select return:....
+	//select: Bad file descriptor
+	
+	//
 	// 夭折该连接
+	// 夭折之后，服务器端的accept仍然会返回正常的描述符，此时select操作的时候就会 报错  //select: Bad file descriptor
 	struct linger so_linger;
 	so_linger.l_onoff = 1;
 	so_linger.l_linger = 0;
