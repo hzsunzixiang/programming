@@ -107,6 +107,7 @@ int main(int argc, char* argv[])
 	while(1)
 	{
         fprintf(stderr, "poll:.... maxi=%d\n", maxi);
+        //nready = poll(client, maxi + 1, 10000);  // 改成超时的看看行为
         nready = poll(client, maxi + 1, -1);  // 改成超时的看看行为
         fprintf(stderr, "poll return:....\n");
         if (nready == -1)
@@ -118,6 +119,10 @@ int main(int argc, char* argv[])
             //exit(EXIT_FAILURE);  // 如果此时断开，则程序健壮性太差，应该打印日志，然后循环
         }
 
+		if (nready == 0) // 超时
+		{
+			perror("timeout");
+		}
         if (client[0].revents & POLLIN)  // new client connection
         {
             fprintf(stderr, "listenfd:....\n");
