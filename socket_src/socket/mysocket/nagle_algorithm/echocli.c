@@ -1,4 +1,4 @@
-
+#include<linux/tcp.h>  // TCP_NODELAY
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -10,6 +10,11 @@
 #include<signal.h>
 #include<time.h>
 
+
+//p_jdzxsun@centos7:~/programming/socket_src/socket/mysocket/nagle_algorithm$ sudo find /usr/ -name "*.h" |xargs  grep "TCP_NODELAY"
+///usr/include/linux/tcp.h:#define TCP_NODELAY            1       /* Turn off Nagle's algorithm. */
+///usr/include/netinet/tcp.h:#define      TCP_NODELAY      1      /* Don't delay send to coalesce packets  */
+///usr/src/kernels/3.10.0-229.1.2.el7.x86_64/include/uapi/linux/tcp.h:#define TCP_NODELAY         1       /* Turn off Nagle's algorithm. */
 
 void handle_pipe(int sig);
 int main(int argc, char* argv[])
@@ -27,32 +32,34 @@ int main(int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
 
-    servaddr.sin_family = AF_INET;
-    servaddr.sin_port = htons(8888);
-    if (argv[1] == NULL)
+	int enable = 1;
+	setsockopt(sockconn, IPPROTO_TCP, TCP_NODELAY, (void*)&enable, sizeof(enable));
+	servaddr.sin_family = AF_INET;
+	servaddr.sin_port = htons(8888);
+	if (argv[1] == NULL)
 	{
 		argv[1] = "127.0.0.1";
 	}
-    if (inet_aton(argv[1], &servaddr.sin_addr) == 0)
-    {
-        perror("inet_aton error");
-        exit(EXIT_FAILURE);
-    }
+	if (inet_aton(argv[1], &servaddr.sin_addr) == 0)
+	{
+		perror("inet_aton error");
+		exit(EXIT_FAILURE);
+	}
 
-    if (connect(sockconn, (struct sockaddr*)&servaddr, sizeof(servaddr)) < 0)
-    {
-        perror("connnect error");
-        exit(EXIT_FAILURE);
-    }
-    char recvbuf[1024] = {0};
-    char sendbuf[1] = {0};
+	if (connect(sockconn, (struct sockaddr*)&servaddr, sizeof(servaddr)) < 0)
+	{
+		perror("connnect error");
+		exit(EXIT_FAILURE);
+	}
+	char recvbuf[1024] = {0};
+	char sendbuf[1] = {0};
 	char *str = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    
+
 	int i = 0;
 	for (i = 0; i < 5; i++)
 	{
-        memset(recvbuf, 0, sizeof(recvbuf));
-        memset(sendbuf, 0, sizeof(sendbuf));
+		memset(recvbuf, 0, sizeof(recvbuf));
+		memset(sendbuf, 0, sizeof(sendbuf));
 
 
 		srand((unsigned int)time((time_t *)NULL));//使用系统时间来初始化随机数发生器
