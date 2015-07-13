@@ -6,6 +6,7 @@
 #include <signal.h>
 #include <setjmp.h>
 #include <errno.h>
+#include <time.h>
 
 #define err_sys(msg) \
 	do { perror(msg); exit(EXIT_FAILURE); } while (0)
@@ -107,8 +108,12 @@ static void sig_usr1(int signo)
 	alarm(3);   // SIGARM in 3 seconds
 	starttime = time(NULL);
 	for (; ;)
-		if (time(NULL) > starttime + 10)
+	{
+		//printf("auto restart for loop");
+		// 被中断之后自动重启
+		if (time(NULL) > starttime + 20)
 			break;
+	}
 	pr_mask("finishing sig_usr1:");
 	// APUE中有解释，在一般的C代码中(不是信号处理程序)， 对于longjmp并不需要这种保护措施
 	// 但是，因为信号可能在任何时候发生，所以在信号处理程序中，需要这种保护措施
