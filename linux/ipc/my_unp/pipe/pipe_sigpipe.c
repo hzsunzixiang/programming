@@ -76,6 +76,19 @@ main(int argc, char *argv[])
 	printf("select returned%d\n", n);
 	if (FD_ISSET(pipefd[1], &wset))
 	{
+		// 第一次产生 sigpipe 信号
+		if (write(pipefd[1], "hello", 5) < 0)
+		{
+			printf("fd[1] writable\n");
+			perror("write error");
+		}
+		// If the calling process is    ignoring this signal, then write(2) fails with the error EPIPE. 
+		// 仍然产生sigpipe
+		// 不过错误信息依然是 write error: Broken pipe
+
+		// 对于网络编程，当一个进程向某个已收到RST的套接口执行写操作时，内核向该进程发送一个SIGPIPE信号
+		// 第一次引发RST，第二次写操作引发SIGPIPE信号。
+		// 写一个已接受了FIN的套接口不成问题，写一个已接受RST的套接口则是一个错误
 		if (write(pipefd[1], "hello", 5) < 0)
 		{
 			printf("fd[1] writable\n");
