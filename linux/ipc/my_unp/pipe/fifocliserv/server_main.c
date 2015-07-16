@@ -36,7 +36,13 @@ main(int argc, char *argv[])
 	readfifo = open(SERV_FIFO, O_RDONLY, 0);
 	printf("open  %s for read  return\n", SERV_FIFO);
 
-	writefifo = open(SERV_FIFO, O_WRONLY, 0);
+	// 打开该FIFO来写的原因是：从空管道或者空FIFO read会返回0 
+	// 表示是一个文件结束符，我们将不得不close该FIFO，并以O_RDONLY标志再次调用open
+
+	// 如果我们总是有一个该FIFO的描述符打开着用于写，那么当不再有客户存在时，府服务的read一定不会返回0
+    // 以指示督导一个文件结束符，相反，服务器指示阻塞在read调用中，等待下一个客户请求
+	// 
+	//dummyfd = open(SERV_FIFO, O_WRONLY, 0);
 	printf("open  %s for read and write \n", SERV_FIFO);
 	while(1){
 		n = readline(readfifo, buff, MAXLINE);
