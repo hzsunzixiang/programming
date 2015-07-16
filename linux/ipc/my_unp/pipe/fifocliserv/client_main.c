@@ -41,7 +41,9 @@ main(int argc, char *argv[])
 	// 服务器的open函数调用 open(SERV_FIFO, O_RDONLY, 0);
 	// 将阻塞到第一个客户只写打开服务器的FIFO为止
 	//getchar();
+	// 同样，服务器在打开FIFO读之前这里也阻塞
 	writefifo = open(SERV_FIFO, O_WRONLY, 0);
+	printf("open fifo :%s return\n",SERV_FIFO);
 	//getchar();
 
 	printf("buff sent to server:%s  data:%s\n",SERV_FIFO, buff);

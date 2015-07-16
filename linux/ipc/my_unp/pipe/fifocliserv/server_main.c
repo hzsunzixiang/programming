@@ -31,6 +31,8 @@ main(int argc, char *argv[])
 	}
 	// open server's well-known FIFO for reading and writing 
 
+	//getchar();
+	// 客户端的写： FIFO 阻塞直到 服务器读
 	readfifo = open(SERV_FIFO, O_RDONLY, 0);
 	printf("open  %s for read  return\n", SERV_FIFO);
 
