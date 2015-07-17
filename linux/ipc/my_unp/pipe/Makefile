@@ -1,7 +1,7 @@
 .PHONY:clean all
 CC=gcc
 CFLAGS=-Wall -g
-BIN= pipe_man  pipe_error pipe_sigpipe mainpipe
+BIN= pipe_man  pipe_error pipe_sigpipe mainpipe mainfifo
 all:$(BIN)
 %.o:%.c
 	$(CC) $(CFLAGS) -c $< -o $@

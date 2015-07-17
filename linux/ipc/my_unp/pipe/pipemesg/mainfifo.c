@@ -117,6 +117,7 @@ client(int readfd, int writefd)
 	/* 4read from IPC, write to standard output */
 	while ( (n = mesg_recv(readfd, &mesg)) > 0)
 		write(STDOUT_FILENO, mesg.mesg_data, n);
+	fprintf(stderr, "client while finish:\n");
 }
 
 
@@ -201,4 +202,17 @@ server(int readfd, int writefd)
 		fprintf(stderr, "msg_send error :\n");
 		exit(1);
 	}
+	// 也可以通过关闭IPC通道来通知对端已达到输入文件的结尾
+	// 不过我们通过发送回一个长度为0的消息来达到同样的目的，因为之后还会遇到没有文件结束符概念的其他类型的IPC
+	// 用sleep 可以模拟，如果不只是达到文件结尾 client 的while循环不会返回
+	
+	//close(writefd);
+
+	//sleep(10);
+	
+
+
+
+
+
 }
