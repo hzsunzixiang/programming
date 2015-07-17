@@ -17,7 +17,10 @@
  * */
 
 /*没有模拟出来SIGPIPE信号
+  要模拟这种情形，需要使用select
  *
+ 见习题4.9
+如果向一个没有为读打开着的管道或FIFO写入，那么内核将产生一个SIGPIPE信号
  * 收到如下错误 write pipe: Bad file descriptor
  *
  * */
@@ -38,12 +41,7 @@ main(int argc, char *argv[])
 
 	int pipefd[2];
 	pid_t cpid;
-	char buf;
-
-	if (argc != 2) {
-		fprintf(stderr, "Usage: %s <string>\n", argv[0]);
-		exit(EXIT_FAILURE);
-	}
+	fd_set wset;
 
 	if (pipe(pipefd) == -1) {
 		perror("pipe");
@@ -57,42 +55,51 @@ main(int argc, char *argv[])
 	}
 
 	if (cpid == 0) {    /* Child reads from pipe */
-		fprintf(stderr, "child......\n");
-		// 子进程关闭写的一端
-		close(pipefd[1]);          /* Close unused write end */
+		fprintf(stderr, "child closing pipe read descriptor......\n");
+		// 子进程关闭读的一端
+		close(pipefd[0]);          /* Close read end */
 
-		while (read(pipefd[0], &buf, 1) > 0)
-			write(STDOUT_FILENO, &buf, 1);
-
-		//fprintf(stderr, "child after write......\n");
-		write(STDOUT_FILENO, "\n", 1);
-		fprintf(stderr, "child will close pipefd[0]......\n");
-		close(pipefd[0]);
+		sleep(6);
 		_exit(EXIT_SUCCESS);
 
-	} else {            /* Parent writes argv[1] to pipe */
-		fprintf(stderr, "parent......\n");
-		// 父进程关闭读的一端
-		close(pipefd[0]);          /* Close unused read end */
-		write(pipefd[1], argv[1], strlen(argv[1]));
-		fprintf(stderr, "parent will close pipefd[1]......\n");
-		sleep(1);
-		close(pipefd[1]);          /* Reader will see EOF -----*/
-		if (write(pipefd[1], argv[1], strlen(argv[1])) < 0)
+	} 
+	/* Parent writes argv[1] to pipe */
+	fprintf(stderr, "parent......\n");
+	// 父进程关闭读的一端
+	close(pipefd[0]);          /* Close unused read end */
+	sleep(3);
+	FD_ZERO(&wset);
+	FD_SET(pipefd[1], &wset);
+		
+
+	int n = select(pipefd[1] + 1 , NULL, &wset, NULL, NULL);
+	printf("select returned%d\n", n);
+	if (FD_ISSET(pipefd[1], &wset))
+	{
+		// 第一次产生 sigpipe 信号
+		if (write(pipefd[1], "hello", 5) < 0)
 		{
+			printf("fd[1] writable\n");
 			perror("write error");
 		}
-		if (write(pipefd[1], argv[1], strlen(argv[1])) < 0)
+		// If the calling process is    ignoring this signal, then write(2) fails with the error EPIPE. 
+		// 仍然产生sigpipe
+		// 不过错误信息依然是 write error: Broken pipe
+
+		// 对于网络编程，当一个进程向某个已收到RST的套接口执行写操作时，内核向该进程发送一个SIGPIPE信号
+		// 第一次引发RST，第二次写操作引发SIGPIPE信号。
+		// 写一个已接受了FIN的套接口不成问题，写一个已接受RST的套接口则是一个错误
+		if (write(pipefd[1], "hello", 5) < 0)
 		{
+			printf("fd[1] writable\n");
 			perror("write error");
 		}
-		//sleep(10);
-		wait(NULL);                /* Wait for child */
-		exit(EXIT_SUCCESS);
 	}
+	wait(NULL);                /* Wait for child */
+	exit(EXIT_SUCCESS);
 }
 
 void handle_pipe(int sig)
 {
-    printf("receive pipe!\n");
+	printf("receive pipe signal...........!\n");
 }
