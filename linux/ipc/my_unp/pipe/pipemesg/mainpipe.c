@@ -131,14 +131,14 @@ mesg_recv(int fd, struct mymesg *mptr)
 		return(0);		/* end of file */
 	else if (n != MESGHDRSIZE)
 	{
-		perror("message header: error");
+		fprintf(stderr, "%s, message data: expect %ld, got %ld,\n", strerror(errno), MESGHDRSIZE, n);
 		exit(1);
 	}
 
 	if ( (len = mptr->mesg_len) > 0)
 		if ( (n = read(fd, mptr->mesg_data, len)) != len)
 		{
-			perror("message data: error");
+			fprintf(stderr, "%s, message data: expect %ld, got %ld,\n", strerror(errno), len, n);
 			return -1;
 		}
 	return(len);
