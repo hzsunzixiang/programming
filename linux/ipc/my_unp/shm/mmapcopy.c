@@ -17,10 +17,10 @@ void mmapcopy(int fd, int size)
 {
 	char *bufp; // pointer to memory mapped VM area
 	bufp = mmap(NULL, size, PROT_READ, MAP_PRIVATE, fd, 0);
-	if (addr == MAP_FAILED)
+	if (bufp == MAP_FAILED)
 		handle_error("mmap");
 
-	write(1, bufp, size);
+	int s = write(1, bufp, size);
 	if (s == -1)
 		handle_error("write");
 	return;
@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY, 0);
 	if (fd == -1)
 		handle_error("open");
-	if (fstat(fd, &sb) == -1)           /* To obtain file size */
+	if (fstat(fd, &statinfo) == -1)           /* To obtain file size */
 		handle_error("fstat");
 	mmapcopy(fd ,statinfo.st_size);
 	exit(0);
