@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include<signal.h>
 
 #include<sys/types.h>
 #include<sys/stat.h>
@@ -12,7 +13,25 @@
 
 
 
+typedef void Sigfunc(int);
+Sigfunc *
+signal(int signo, Sigfunc *func);
 
+void sig_chld(int signum)
+{
+	pid_t pid;
+	int stat;
+	
+	//pid = wait(&stat);
+	//printf("child %d terminated\n", pid);
+	
+	while ( (pid = waitpid(-1, &stat, WNOHANG)) > 0)
+	{
+		printf("child %d terminated\n", pid);
+	}
+	return;
+
+}
 
 //  里面的错误信息提示不完整
 #define MQ_KEY1 1234L
@@ -42,6 +61,8 @@ void server(int readfd, int writefd);
 main(int argc, char *argv[])
 {
 	int msqid; 
+    if (signal(SIGCHLD, sig_chld) == SIG_ERR)  // 忽略 在linux下起作用，但不可移植
+        perror("signal:");
 	//
 	msqid = msgget(MQ_KEY1, 0666 | IPC_CREAT);
 	if (msqid < 0)
@@ -107,6 +128,7 @@ server(int readid, int writeid)
 			continue;
 		}
 		mesg.mesg_data[n] = '\0';	/* null terminate pathname */
+		fprintf(stderr, "mesg.mesg_data: %s\n", mesg.mesg_data);
 		if ((ptr = strchr(mesg.mesg_data, ' ')) == NULL)
 		{
 			fprintf(stderr, "bogus request: %s", mesg.mesg_data);
@@ -115,10 +137,11 @@ server(int readid, int writeid)
 
 		*ptr++ = 0;
 		writeid = atoi(mesg.mesg_data);
+
 		if(fork() == 0){
 			if ( (fp = fopen(ptr, "r")) == NULL) {
 				/* 4error: must tell client */
-				snprintf(mesg.mesg_data + n, sizeof(mesg.mesg_data) - n,
+				fprintf(stderr, mesg.mesg_data + n, sizeof(mesg.mesg_data) - n,
 						": can't open, %s\n", strerror(errno));
 				mesg.mesg_len = strlen(ptr);
 				memmove(mesg.mesg_data, ptr, mesg.mesg_len);
@@ -137,6 +160,7 @@ server(int readid, int writeid)
 						exit(1);
 					}
 				}
+				fprintf(stderr, "send to client finish qid %d:\n", writeid);
 				fclose(fp);
 			}
 
@@ -147,8 +171,35 @@ server(int readid, int writeid)
 				fprintf(stderr, "msg_send error :%s\n", strerror(n));
 				exit(1);
 			}
+			exit(0); // child teminaes  这句必须，不然子进程不退出，捕捉不到信号
 		}
 
 		// parent just loops around
 	}
+}
+    Sigfunc *
+signal(int signo, Sigfunc *func)
+{
+    struct sigaction act, oact;
+
+    act.sa_handler = func;
+    sigemptyset(&act.sa_mask);
+    act.sa_flags = 0;
+    if (signo == SIGALRM)
+    {
+#ifdef SA_INTERRUPT
+        act.sa_flags |= SA_INTERRUPT;
+#endif
+    }
+    else
+    {
+#ifdef SA_RESTART
+        act.sa_flags |= SA_RESTART;
+#endif
+    }
+
+    if (sigaction(signo, &act, &oact) < 0)
+        return SIG_ERR;
+    return oact.sa_handler;
+
 }

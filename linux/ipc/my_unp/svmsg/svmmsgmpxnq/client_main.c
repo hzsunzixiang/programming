@@ -87,14 +87,16 @@ ssize_t
 mesg_recv(int id, struct mymesg *mptr)
 {
 	ssize_t	n;
+	fprintf(stderr, "mesg_recv start id = %d, qtype: %ld\n", id, mptr->mesg_type);
 	n = msgrcv(id, &(mptr->mesg_type), MAXMESGDATA, mptr->mesg_type, 0);
 	mptr->mesg_len = n;
 
+	fprintf(stderr, "mesg_recv finish id = %d,  qtype: %ld, n=%ld\n",id, mptr->mesg_type, n);
 	return(n);
 }
 /* end mesg_recv */
 
-void
+	void
 client(int readid, int writeid)
 {
 	size_t	len;
@@ -120,15 +122,17 @@ client(int readid, int writeid)
 	mesg.mesg_len = len;
 	mesg.mesg_type = 1;
 
+	fprintf(stderr, "mesg.mesg_data:%s\n", mesg.mesg_data);
 	/* 4write pathname to IPC channel */
 	if ( (n = mesg_send(writeid, &mesg)) != (MESGHDRSIZE + len))
 	{
 		fprintf(stderr, "msg_send error :");
 		exit(1);
 	}
-	mesg.mesg_type = readid;
 
 	/* 4read from IPC, write to standard output */
+	fprintf(stderr, "mesg.mesg_type:%ld\n", mesg.mesg_type);
+
 	while ( (n = mesg_recv(readid, &mesg)) > 0)
 		write(STDOUT_FILENO, mesg.mesg_data, n);
 	fprintf(stderr, "client while finish:\n");
