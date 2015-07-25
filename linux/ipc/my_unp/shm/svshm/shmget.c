@@ -20,7 +20,12 @@ main(int argc, char *argv[])
 	char *ptr;
 	off_t length;
 
-	flags = O_RDWR | O_CREAT;
+	flags = IPC_CREAT | 0666; // 
+	// 两个标志必须同时加，不然要么创建不成功，要么没权限shmat
+	//------ Shared Memory Segments --------
+	//key        shmid      owner      perms      bytes      nattch     status
+	//
+	// 0x0002d297 1835013    p_jdzxsun  0          1234       0
 	while ( (c = getopt(argc, argv, "e")) != -1) {
 		switch (c) {
 			case 'e':
@@ -36,22 +41,22 @@ main(int argc, char *argv[])
 
 	length = atoi(argv[optind + 1]);
 
-	int ftok_ret = ftok(argv[optind], 0x57);
+	int ftok_ret = ftok(argv[optind], 0x0);
 	if(ftok_ret < 0)
 	{
-		handle_error("ftok");
+		handle_error("ftok \n");
 	}
-	printf("ftok = %d", ftok_ret);
+	printf("file %s, ftok = %x \n", argv[optind], ftok_ret);
 	// open file , initialize to 0, map into memory
 	id = shmget(ftok_ret, length, flags);
 	if (id < 0)
 	{
-		handle_error("shm_open :");
+		handle_error("shm_get :");
 	}
 	ptr = shmat(id, NULL, 0);
 	if (ptr == (void *)-1)
 	{
-		handle_error("mmap:");
+		handle_error("shmat:");
 	}
 
 	close(id);

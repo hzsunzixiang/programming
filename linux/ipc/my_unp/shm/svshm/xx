@@ -1,0 +1,13 @@
+../../../../../socket_src/nonblock/
+../../../../../socket_src/socket/mysocket/persist_timer/
+../../../../../socket_src/socket/mysocket/pselect_server/
+../../../../../socket_src/socket/mysocket/socket_readline/echocli
+../../../../../socket_src/socket/mysocket/socket_readline/echosrv
+../../../../../socket_src/socket/mysocket/waitpid/echocli
+../../../../../socket_src/socket/mysocket/waitpid/echosrv
+../../../../../tcp_status/close_wait/.opener.c.swp
+../../../../../tcp_status/close_wait/a.out
+../../../../../tcp_status/close_wait/opener.c
+../../../../../tcp_status/close_wait/test.c
+../../../../../tcp_status/recycle/
+

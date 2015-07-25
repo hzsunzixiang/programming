@@ -5,6 +5,9 @@
 #include <sys/mman.h>
 #include <sys/stat.h>        /* For mode constants */
 #include <fcntl.h>           /* For O_* constants */
+#include <sys/ipc.h>
+#include <sys/shm.h>
+
 
 
 #define handle_error(msg) \
@@ -13,38 +16,43 @@
 	int
 main(int argc, char *argv[])
 {
-	int i, fd;
-	struct stat stat;
+	int i, id;
+	struct shmid_ds buff;
 	unsigned char *ptr;
 
 	if (argc != 2)
 	{
-		fprintf(stderr, "usage: %s <name> ", argv[0]);
+		fprintf(stderr, "usage: %s <pathname> ", argv[0]);
 		exit(1);
 	}
 
-	// open file , get szie , map 
-	fd = shm_open(argv[1], O_RDWR, 0666);
-	if (fd < 0)
+	int ftok_ret = ftok(argv[optind], 0x0);
+	if(ftok_ret < 0)
 	{
-		handle_error("shm_open :");
+		handle_error("ftok");
 	}
-	int ret = fstat(fd, &stat);
-	
-	if (ret < 0)
+	printf("ftok = %x\n", ftok_ret);
+	// open file , get szie , map 
+	id = shmget(ftok_ret, 0, 0666);
+	if (id < 0)
+	{
+		handle_error("shmget:");
+	}
+	ptr = shmat(id, NULL, 0);
+
+	if (ptr == (void*)-1)
 	{
 		handle_error("fstat:");
 	}
 
-	ptr = mmap(NULL, stat.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
-	if (ptr == MAP_FAILED)
+	int ret = shmctl(id, IPC_STAT, &buff);;
+	if (ret == -1)
 	{
-		handle_error("mmap:");
+		handle_error("shmctl:");
 	}
 
-	close(fd);
 
-	for(i = 0; i < stat.st_size; i++)
+	for(i = 0; i < buff.shm_segsz; i++)
 	{
 		*ptr++ = i % 256;
 
