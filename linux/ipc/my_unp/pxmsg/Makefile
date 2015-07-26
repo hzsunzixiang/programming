@@ -1,7 +1,7 @@
 .PHONY:clean all
 CC=gcc
 CFLAGS=-Wall -g
-BIN= semcreate sem_timedwait semunlink semgetvalue semwait sempost
+BIN= mqcreate mqunlink
 all:$(BIN)
 %:%.c
 	$(CC) $(CFLAGS)  $<  -lrt -o $@
