@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <errno.h>
+#include <string.h>
 #include <stdlib.h>
 #include <sys/stat.h>
 
@@ -71,7 +72,7 @@ int main()
         printf("child pid: %d.\n", getpid());
         getlock(fd2);
         sleep(10);
-        getlock(fd2);
+        getlock(fd2);  // 文件描述符的锁 fd1占着 不会成功，
     }
     else
     {
@@ -80,3 +81,10 @@ int main()
     }
     return 0;
 }
+//   p_jdzxsun@centos7:~/programming/linux/ipc/my_unp/lock/flock/various_lock_km$ ./flock_unlock_exit
+//   parent pid: 15919.
+//   [15919]get lock succ.
+//   child pid: 15920.
+//   [15920]file already locked by other process.
+//   p_jdzxsun@centos7:~/programming/linux/ipc/my_unp/lock/flock/various_lock_km$ [15920]file already locked by other process.
+

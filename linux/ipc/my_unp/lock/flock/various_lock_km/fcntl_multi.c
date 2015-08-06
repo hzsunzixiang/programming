@@ -1,6 +1,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
 #include <errno.h>
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -9,6 +10,7 @@
 #define LOCKMODE (S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)
 
 
+//同一进程对同一文件多次调用fcntl加锁，都视为只加一把锁。
 int setlock(int fd, int type)
 {
     struct flock fl;
@@ -74,7 +76,6 @@ void unlock(fd)
 int main()
 {
     int fd1, fd2;
-    pid_t pid;
 
     fd1 = open(LOCKFILE, O_RDWR | O_CREAT, LOCKMODE);
     if (fd1 < 0)
@@ -90,7 +91,7 @@ int main()
         exit(1);
     }
 
-    printf("parent pid: %d.\n", getpid());
+    printf("parent pid: %d. fd1:%d, fd2:%d\n", getpid(), fd1, fd2);
     getlock(fd1);
     getlock(fd2);
     getlock(fd1);

@@ -1,6 +1,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
 #include <errno.h>
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -29,14 +30,14 @@ void testlock(int fd)
 
     if (fcntl(fd, F_GETLK, &fl) < 0)
     {
-        printf("[%d]fcntl error.\n", getpid());
+        printf("[%d]fcntl error, fd: %d\n", getpid(), fd);
         exit(1);
     }
 
     if (fl.l_type == F_UNLCK)
-        printf("[%d]file unlocked.\n", getpid());
+        printf("[%d]file unlocked, fd:%d\n", getpid(), fd);
     else
-        printf("[%d]file locked by pid: %d.\n", getpid(), fl.l_pid);
+        printf("[%d]file locked by pid: %d, fd : %d\n", getpid(), fl.l_pid, fd);
 }
 
 void getlock(fd)
@@ -45,17 +46,17 @@ void getlock(fd)
     {
         if (errno == EACCES || errno == EAGAIN)
         {
-            printf("[%d]file already locked by other process.\n", getpid());
+            printf("[%d]file already locked by other process, fd :%d\n", getpid(), fd);
         }
         else
         {
-            printf("[%d]locked file error.\n", getpid());
+            printf("[%d]locked file error.fd: %d\n", getpid(), fd);
             exit(1);
         }
     }
     else
     {
-        printf("[%d]get lock succ.\n", getpid());
+        printf("[%d]get lock succ. fd: %d\n", getpid(), fd);
     }
 }
 
@@ -63,11 +64,11 @@ void unlock(fd)
 {
     if (setlock(fd, F_UNLCK) < 0)
     {
-        printf("[%d]unlock error: %s.\n", getpid(), strerror(errno));
+        printf("[%d]unlock error: %s, fd:%d\n", getpid(), strerror(errno), fd);
     }
     else
     {
-        printf("[%d]unlock succ.\n", getpid());
+        printf("[%d]unlock succ,  fd: %d\n", getpid(), fd);
     }
 }
 
@@ -83,7 +84,7 @@ int main()
         exit(1);
     }
 
-    printf("parent pid: %d.\n", getpid());
+    printf("parent pid: %d, fd: %d \n", getpid(), fd);
     getlock(fd);
     if ((pid = fork()) < 0)
     {
@@ -93,10 +94,10 @@ int main()
     else if (pid == 0)
     {
         printf("child pid: %d.\n", getpid());
-        testlock(fd);
-        getlock(fd);
+        testlock(fd); // 被其他进程占用着
+        getlock(fd);  // 获取失败
         sleep(10);
-        getlock(fd);
+        getlock(fd);  //  父进程退出，子进程成获取成功
     }
     else
     {
@@ -105,3 +106,17 @@ int main()
     }
     return 0;
 }
+
+
+
+
+
+
+//  p_jdzxsun@centos7:~/programming/linux/ipc/my_unp/lock/flock/various_lock_km$ ./fcntl_unlock_exit
+//  parent pid: 12539, fd: 3
+//  [12539]get lock succ. fd: 3
+//  child pid: 12540.
+//  [12540]file locked by pid: 12539, fd : 3
+//  [12540]file already locked by other process, fd :3
+//  p_jdzxsun@centos7:~/programming/linux/ipc/my_unp/lock/flock/various_lock_km$ [12540]get lock succ. fd: 3
+

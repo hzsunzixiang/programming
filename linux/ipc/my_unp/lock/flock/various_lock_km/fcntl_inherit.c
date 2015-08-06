@@ -1,6 +1,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
 #include <errno.h>
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -70,7 +71,7 @@ void unlock(fd)
         printf("[%d]unlock succ.\n", getpid());
     }
 }
-
+// fcntl锁的是文件（inode结点），不能被子进程继承。
 int main()
 {
     int fd;
@@ -103,3 +104,15 @@ int main()
     }
     return 0;
 }
+
+
+//   p_jdzxsun@centos7:~/programming/linux/ipc/my_unp/lock/flock/various_lock_km$ ./fcntl_inherit
+//   parent pid: 15601.
+//   [15601]get lock succ.
+//   child pid: 15602.
+//   [15602]file locked by pid: 15601.
+//   [15602]file already locked by other process.
+
+
+
+
