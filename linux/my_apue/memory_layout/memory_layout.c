@@ -1,7 +1,26 @@
+#include <sys/shm.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <semaphore.h>
+#include <sys/shm.h>
+#include <sys/stat.h>        /* For mode constants */
+#include <fcntl.h>           /* For O_* constants */
+#include <sys/types.h> // ftok
+#include <sys/ipc.h>  // ftok
 
-int global_init_a=1;
+
+#define	ARRAY_SIZE	40000
+#define	MALLOC_SIZE	100000
+#define	SHM_SIZE	100000
+#define	SHM_MODE	0600	/* user read/write */
+
+#define err_sys(msg) \
+	do { perror(msg); exit(EXIT_FAILURE); } while (0)
+
+char	array[ARRAY_SIZE];	/* uninitialized data = bss */
+
+int global_init_a = 1;
 int global_uninit_a;
 static int static_global_init_a=1;
 static int static_global_uninit_a;
@@ -12,9 +31,13 @@ int global_uninit_b;
 static int static_global_init_b=1;
 static int static_global_uninit_b;
 const int const_global_b=1;
-/*上面全部为全局变量，main函数中的为局部变量*/
-int main()
+
+	int
+main(void)
 {
+	int		shmid;
+	char	*ptr, *shmptr;
+
 	int local_init_a=1;
 	int local_uninit_a;
 	static int static_local_init_a=1;
@@ -29,7 +52,24 @@ int main()
 
 	int * malloc_p_a;
 	malloc_p_a=malloc(sizeof(int));
+#define ADDR(address) (void *)(address), (unsigned long)(address)/1024/1024, (unsigned long)(address)/1024/1024/1024
+	printf("globle uninitialized array[] from %p(%luM, %luG) to %p(%luM,%luG),\n", 
+			ADDR(&array[0]), ADDR(&array[ARRAY_SIZE]) );
+	// 比如用unsigned， 不然越界
+	printf("stack around %p(%luM,%luG) \n", ADDR(&shmid));
+	if ((ptr = malloc(MALLOC_SIZE)) == NULL)
+		err_sys("malloc error");
+	printf("malloced from %p(%luM, %luG) to %p(%luM, %luG)\n", ADDR(ptr), 
+			ADDR(((void *)ptr+MALLOC_SIZE)) );
+	if ((shmid = shmget(IPC_PRIVATE, SHM_SIZE, SHM_MODE)) < 0)
+		err_sys("shmget error");
+	if ((shmptr = shmat(shmid, 0, 0)) == (void *)-1)
+		err_sys("shmat error");
+	printf("shared memory attached from %p to %p\n", (void *)shmptr,
+			(void *)shmptr+SHM_SIZE);
 
+	if (shmctl(shmid, IPC_RMID, 0) < 0)
+		err_sys("shmctl error");
 	printf("\n         &global_init_a=%p \t          global_init_a=%d\n",&global_init_a,global_init_a);	
 
 	printf("       &global_uninit_a=%p \t        global_uninit_a=%d\n",&global_uninit_a,global_uninit_a);	
@@ -50,8 +90,6 @@ int main()
 	printf("&static_global_uninit_b=%p \t static_global_uninit_b=%d\n",&static_global_uninit_b,static_global_uninit_b);
 
 	printf("        &const_global_b=%p \t         const_global_b=%d\n",&const_global_b,const_global_b);
-
-
 
 	printf("\n          &local_init_a=%p \t          local_init_a=%d\n",&local_init_a,local_init_a);	
 
@@ -77,5 +115,5 @@ int main()
 
 	printf("             malloc_p_a=%p \t           *malloc_p_a=%d\n",malloc_p_a,*malloc_p_a);
 
-	return 0;
+	exit(0);
 }
