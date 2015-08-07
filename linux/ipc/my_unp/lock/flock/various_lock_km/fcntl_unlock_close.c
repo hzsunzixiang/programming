@@ -71,7 +71,7 @@ void unlock(fd)
         printf("[%d]unlock succ, fd :%d.\n", getpid(), fd);
     }
 }
-
+// 任何时候关闭一个文件描述符，则该进程通过这一文件描述符可以引用的文件上的任何一把锁都被释放。
 int main()
 {
     int fd1, fd2;

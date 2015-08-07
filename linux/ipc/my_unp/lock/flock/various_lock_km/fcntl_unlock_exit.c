@@ -72,6 +72,7 @@ void unlock(fd)
     }
 }
 
+// 当一个进程终止时，它所建立的锁全部释放。
 int main()
 {
     int fd;

@@ -1,8 +1,10 @@
 #include <fcntl.h>
+#include <sys/file.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/stat.h>
 
 #define LOCKFILE "./flock_test.lock"
@@ -29,14 +31,14 @@ void testlock(int fd)
 
     if (fcntl(fd, F_GETLK, &fl) < 0)
     {
-        printf("[%d]fcntl error.\n", getpid());
+        printf("[%d]fcntl error, fd: %d.\n", getpid(), fd);
         exit(1);
     }
 
     if (fl.l_type == F_UNLCK)
-        printf("[%d]file unlocked.\n", getpid());
+        printf("fcntl: [%d]file unlocked fd: %d. \n", getpid(), fd);
     else
-        printf("[%d]file locked by pid: %d.\n", getpid(), fl.l_pid);
+        printf("fcntl: [%d]file locked by pid: %d, fd:%d.\n", getpid(), fl.l_pid, fd);
 }
 
 void getlock(fd)
@@ -45,17 +47,17 @@ void getlock(fd)
     {
         if (errno == EACCES || errno == EAGAIN)
         {
-            printf("[%d]file already locked by other process.\n", getpid());
+            printf("fcntl :[%d]file already locked by other process, fd:%d.\n", getpid(), fd);
         }
         else
         {
-            printf("[%d]locked file error.\n", getpid());
+            printf("fcntl [%d]locked file error, fd:%d.\n", getpid(), fd);
             exit(1);
         }
     }
     else
     {
-        printf("[%d]get lock succ.\n", getpid());
+        printf("fcntl [%d]get lock succ %d.\n", getpid(), fd);
     }
 }
 
@@ -63,11 +65,11 @@ void unlock(fd)
 {
     if (setlock(fd, F_UNLCK) < 0)
     {
-        printf("[%d]unlock error: %s.\n", getpid(), strerror(errno));
+        printf("fcntl [%d]unlock error: %s, fd:%d.\n", getpid(), strerror(errno), fd);
     }
     else
     {
-        printf("[%d]unlock succ.\n", getpid());
+        printf("fcntl [%d]unlock succ. fd:%d\n", getpid(), fd);
     }
 }
 
@@ -77,17 +79,17 @@ void getlock2(fd)
     {
         if (errno == EWOULDBLOCK)
         {
-            printf("[%d]file already locked by other process.\n", getpid());
+            printf("flock [%d]file already locked by other process fd : %d.\n", getpid(), fd);
         }
         else
         {
-            printf("[%d]locked file error.\n", getpid());
+            printf("flock [%d]locked file error fd:%d.\n", getpid(), fd);
             exit(1);
         }
     }
     else
     {   
-        printf("[%d]get lock succ.\n", getpid());
+        printf("flock [%d]get lock succ fd: %d.\n", getpid(), fd);
     }   
 }
 
@@ -95,13 +97,20 @@ void unlock2(fd)
 {
     if (flock(fd, LOCK_UN | LOCK_NB) < 0)
     {   
-        printf("[%d]unlock error: %s.\n", getpid(), strerror(errno));
+        printf("flock [%d]unlock error: %s fd: %d.\n", getpid(), strerror(errno), fd);
     }   
     else
     {   
-        printf("[%d]unlock succ.\n", getpid());
+        printf("flock [%d]unlock succ.fd: %d\n", getpid(), fd);
     }   
 }
+// http://lxr.oss.org.cn/source/Documentation/filesystems/locks.txt
+// The solution I have chosen, after much experimentation and discussion,
+// is to make flock() and fcntl() locks oblivious to each other. Both can
+// exists, and neither will have any effect on the other.
+
+// flock的操作结果与fcntl独立，不能混合使用flock和fcntl。
+
 
 int main()
 {
@@ -144,3 +153,15 @@ int main()
 
     return 0;
 }
+
+
+
+//  p_jdzxsun@centos7:~/programming/linux/ipc/my_unp/lock/flock/various_lock_km$ ./fcntl_flock
+//  parent pid: 4299.
+//  [4299]get lock succ.
+//  [4299]get lock succ.
+//  child pid: 4300.
+//  [4300]file locked by pid: 4299.
+//  [4300]file already locked by other process.
+//  [4300]get lock succ.
+
