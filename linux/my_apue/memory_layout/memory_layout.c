@@ -65,55 +65,54 @@ main(void)
 		err_sys("shmget error");
 	if ((shmptr = shmat(shmid, 0, 0)) == (void *)-1)
 		err_sys("shmat error");
-	printf("shared memory attached from %p to %p\n", (void *)shmptr,
-			(void *)shmptr+SHM_SIZE);
+	printf("shared memory attached from %p(%luM, %luG) to %p(%luM, %luG)\n", ADDR(shmptr),
+			ADDR((void *)shmptr+SHM_SIZE));
 
 	if (shmctl(shmid, IPC_RMID, 0) < 0)
 		err_sys("shmctl error");
-	printf("\n         &global_init_a=%p \t          global_init_a=%d\n",&global_init_a,global_init_a);	
+	printf("\n         &global_init_a=%p(%luM, %luG) \t          global_init_a=%d\n", ADDR(&global_init_a), global_init_a);	
 
-	printf("       &global_uninit_a=%p \t        global_uninit_a=%d\n",&global_uninit_a,global_uninit_a);	
+	printf("       &global_uninit_a=%p(%luM, %luG) \t        global_uninit_a=%d\n", ADDR(&global_uninit_a), global_uninit_a);	
 
-	printf("  &static_global_init_a=%p \t   static_global_init_a=%d\n",&static_global_init_a,static_global_init_a);
+	printf("  &static_global_init_a=%p(%luM, %luG) \t   static_global_init_a=%d\n", ADDR(&static_global_init_a), static_global_init_a);
 
-	printf("&static_global_uninit_a=%p \t static_global_uninit_a=%d\n",&static_global_uninit_a,static_global_uninit_a);
+	printf("&static_global_uninit_a=%p(%luM, %luG) \t static_global_uninit_a=%d\n",ADDR(&static_global_uninit_a), static_global_uninit_a);
 
-	printf("        &const_global_a=%p \t         const_global_a=%d\n",&const_global_a,const_global_a);	
-
-
-	printf("\n         &global_init_b=%p \t          global_init_b=%d\n",&global_init_b,global_init_b);	
-
-	printf("       &global_uninit_b=%p \t        global_uninit_b=%d\n",&global_uninit_b,global_uninit_b);	
-
-	printf("  &static_global_init_b=%p \t   static_global_init_b=%d\n",&static_global_init_b,static_global_init_b);
-
-	printf("&static_global_uninit_b=%p \t static_global_uninit_b=%d\n",&static_global_uninit_b,static_global_uninit_b);
-
-	printf("        &const_global_b=%p \t         const_global_b=%d\n",&const_global_b,const_global_b);
-
-	printf("\n          &local_init_a=%p \t          local_init_a=%d\n",&local_init_a,local_init_a);	
-
-	printf("        &local_uninit_a=%p \t        local_uninit_a=%d\n",&local_uninit_a,local_uninit_a);
-
-	printf("   &static_local_init_a=%p \t   static_local_init_a=%d\n",&static_local_init_a,static_local_init_a);
-
-	printf(" &static_local_uninit_a=%p \t static_local_uninit_a=%d\n",&static_local_uninit_a,static_local_uninit_a);	
-
-	printf("         &const_local_a=%p \t         const_local_a=%d\n",&const_local_a,const_local_a);	
+	printf("        &const_global_a=%p(%luM, %luG) \t         const_global_a=%d\n", ADDR(&const_global_a),const_global_a);	
 
 
-	printf("\n          &local_init_b=%p \t          local_init_b=%d\n",&local_init_b,local_init_b);	
+	printf("\n         &global_init_b=%p(%luM, %luG) \t          global_init_b=%d\n", ADDR(&global_init_b),global_init_b);	
 
-	printf("        &local_uninit_b=%p \t        local_uninit_b=%d\n",&local_uninit_b,local_uninit_b);
+	printf("       &global_uninit_b=%p(%luM, %luG) \t        global_uninit_b=%d\n", ADDR(&global_uninit_b), global_uninit_b);	
 
-	printf("   &static_local_init_b=%p \t   static_local_init_b=%d\n",&static_local_init_b,static_local_init_b);
+	printf("  &static_global_init_b=%p(%luM, %luG) \t   static_global_init_b=%d\n", ADDR(&static_global_init_b), static_global_init_b);
 
-	printf(" &static_local_uninit_b=%p \t static_local_uninit_b=%d\n",&static_local_uninit_b,static_local_uninit_b);	
+	printf("&static_global_uninit_b=%p(%luM, %luG) \t static_global_uninit_b=%d\n", ADDR(&static_global_uninit_b), static_global_uninit_b);
 
-	printf("         &const_local_b=%p \t         const_local_b=%d\n",&const_local_b,const_local_b);
+	printf("        &const_global_b=%p(%luM, %luG) \t         const_global_b=%d\n", ADDR(&const_global_b), const_global_b);
+
+	printf("\n          &local_init_a=%p(%luM, %luG) \t          local_init_a=%d\n",ADDR(&local_init_a), local_init_a);	
+
+	printf("        &local_uninit_a=%p(%luM, %luG) \t        local_uninit_a=%d\n", ADDR(&local_uninit_a), local_uninit_a);
+
+	printf("   &static_local_init_a=%p(%luM, %luG) \t   static_local_init_a=%d\n", ADDR(&static_local_init_a), static_local_init_a);
+
+	printf(" &static_local_uninit_a=%p(%luM, %luG) \t static_local_uninit_a=%d\n", ADDR(&static_local_uninit_a), static_local_uninit_a);	
+
+	printf("         &const_local_a=%p(%luM, %luG) \t         const_local_a=%d\n", ADDR(&const_local_a), const_local_a);	
+
+	printf("\n          &local_init_b=%p(%luM, %luG) \t          local_init_b=%d\n", ADDR(&local_init_b), local_init_b);	
+
+	printf("        &local_uninit_b=%p(%luM, %luG) \t        local_uninit_b=%d\n", ADDR(&local_uninit_b), local_uninit_b);
+
+	printf("   &static_local_init_b=%p(%luM, %luG) \t   static_local_init_b=%d\n", ADDR(&static_local_init_b), static_local_init_b);
+
+	printf(" &static_local_uninit_b=%p(%luM, %luG) \t static_local_uninit_b=%d\n", ADDR(&static_local_uninit_b), static_local_uninit_b);	
+
+	printf("         &const_local_b=%p(%luM, %luG) \t         const_local_b=%d\n", ADDR(&const_local_b), const_local_b);
 
 
-	printf("             malloc_p_a=%p \t           *malloc_p_a=%d\n",malloc_p_a,*malloc_p_a);
+	printf("             malloc_p_a=%p(%luM, %luG) \t           *malloc_p_a=%d\n", ADDR(malloc_p_a), *malloc_p_a);
 
 	exit(0);
 }
