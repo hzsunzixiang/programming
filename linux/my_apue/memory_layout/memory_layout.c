@@ -18,19 +18,21 @@
 #define err_sys(msg) \
 	do { perror(msg); exit(EXIT_FAILURE); } while (0)
 
+#define ADDR(address) (void *)(address), (unsigned long)(address)/1024/1024, (unsigned long)(address)/1024/1024/1024
+
 char	array[ARRAY_SIZE];	/* uninitialized data = bss */
 
 int global_init_a = 1;
 int global_uninit_a;
-static int static_global_init_a=1;
+static int static_global_init_a = 1;
 static int static_global_uninit_a;
-const int const_global_a=1;
+const int const_global_a = 1;
 
-int global_init_b=1;
+int global_init_b = 1;
 int global_uninit_b;
-static int static_global_init_b=1;
+static int static_global_init_b = 1;
 static int static_global_uninit_b;
-const int const_global_b=1;
+const int const_global_b = 1;
 
 	int
 main(void)
@@ -38,21 +40,20 @@ main(void)
 	int		shmid;
 	char	*ptr, *shmptr;
 
-	int local_init_a=1;
+	int local_init_a = 1;
 	int local_uninit_a;
-	static int static_local_init_a=1;
+	static int static_local_init_a = 1;
 	static int static_local_uninit_a;
-	const int const_local_a=1;
+	const int const_local_a = 1;
 
-	int local_init_b=1;
+	int local_init_b = 1;
 	int local_uninit_b;
-	static int static_local_init_b=1;
+	static int static_local_init_b = 1;
 	static int static_local_uninit_b;
-	const int const_local_b=1;
+	const int const_local_b = 1;
 
 	int * malloc_p_a;
-	malloc_p_a=malloc(sizeof(int));
-#define ADDR(address) (void *)(address), (unsigned long)(address)/1024/1024, (unsigned long)(address)/1024/1024/1024
+	malloc_p_a = malloc(sizeof(int));
 	printf("globle uninitialized array[] from %p(%luM, %luG) to %p(%luM,%luG),\n", 
 			ADDR(&array[0]), ADDR(&array[ARRAY_SIZE]) );
 	// 比如用unsigned， 不然越界
@@ -70,6 +71,7 @@ main(void)
 
 	if (shmctl(shmid, IPC_RMID, 0) < 0)
 		err_sys("shmctl error");
+	printf("\nTop of heap 堆顶 is =%p(%luM, %luG) \n", ADDR(sbrk(0)));
 	printf("\n         &global_init_a=%p(%luM, %luG) \t          global_init_a=%d\n", ADDR(&global_init_a), global_init_a);	
 
 	printf("       &global_uninit_a=%p(%luM, %luG) \t        global_uninit_a=%d\n", ADDR(&global_uninit_a), global_uninit_a);	
