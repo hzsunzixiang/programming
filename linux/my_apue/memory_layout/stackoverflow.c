@@ -30,6 +30,18 @@
 // root@debian32-1:~/programming/linux/my_apue/memory_layout# make
 // gcc -g    stackoverflow.c   -o stackoverflow
 
+// 栈空间太小，同样会导致各种各样的问题
+
+//  root@debian32-1:~/programming/linux/my_apue/memory_layout# git commit -m "stackoverflow Segmentation fault"
+//  Segmentation fault
+//  
+//  root@debian32-1:~/programming/linux/my_apue/memory_layout# git pull
+//  fatal: Could not read from remote repository.
+//  
+//  Please make sure you have the correct access rights
+//  and the repository exists.
+
+
 
 	int
 main(void)
