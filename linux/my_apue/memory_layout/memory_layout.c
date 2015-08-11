@@ -8,6 +8,7 @@
 #include <fcntl.h>           /* For O_* constants */
 #include <sys/types.h> // ftok
 #include <sys/ipc.h>  // ftok
+#include <malloc.h>  // M_MMAP_THRESHOLD
 
 
 #define	ARRAY_SIZE	40000
@@ -53,7 +54,14 @@ main(void)
 	const int const_local_b = 1;
 
 	int * malloc_p_a;
+	int * malloc_from_mmap;
+
+	printf(" M_MMAP_THRESHOLD = %u\n",  M_MMAP_THRESHOLD);
 	malloc_p_a = malloc(sizeof(int));
+	//  没实验出来
+	// In Linux, if you request a large block of memory via malloc(), the C library will create such an anonymous mapping instead of using heap memory. ‘Large’ means larger than MMAP_THRESHOLD bytes, 128 kB by default and adjustable via mallopt().
+	//malloc_from_mmap = malloc(M_MMAP_THRESHOLD + 1024);
+	malloc_from_mmap = malloc(128 * 1024 + 1024);
 	printf("globle uninitialized array[] from %p(%luM, %luG) to %p(%luM,%luG),\n", 
 			ADDR(&array[0]), ADDR(&array[ARRAY_SIZE]) );
 	// 比如用unsigned， 不然越界
@@ -115,6 +123,7 @@ main(void)
 
 
 	printf("             malloc_p_a=%p(%luM, %luG) \t           *malloc_p_a=%d\n", ADDR(malloc_p_a), *malloc_p_a);
+	printf("             malloc_from_mmap=%p(%luM, %luG) \n", ADDR(malloc_from_mmap));
 
 	exit(0);
 }
