@@ -1,7 +1,8 @@
 .PHONY:clean all
 CC=gcc
-CFLAGS=-Wall -g
-BIN= memory_layout memory_segment_fault 
+#CFLAGS=-Wall -g
+CFLAGS= -g
+BIN= memory_layout memory_segment_fault  tshm stackoverflow
 all:$(BIN)
 %.o:%.c
 	$(CC) $(CFLAGS) -c $< -o $@
