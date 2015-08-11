@@ -35,8 +35,27 @@
 //  							 (since Linux 2.6.32) */
 //  }
 
+//    kernel.randomize_va_space 
+//    
+//    0 - don't use ASLR
+//    1 - randomize base address for mmap'd areas
+//    2 - ditto, and also randomize the "brk base address" (I assume that would refer to this? http://www.kernel.org/doc/man-pages/online/pages/man2/brk.2.html)
+//    
+//    
+//    
+//    According to an article How Effective is ASLR on Linux Systems?, you can configure ASLR in Linux using the /proc/sys/kernel/randomize_va_space interface.
+//    
+//        The following values are supported:
+//    
+//            0 – No randomization. Everything is static.
+//            1 – Conservative randomization. Shared libraries, stack, mmap(), VDSO and heap are randomized.
+//            2 – Full randomization. In addition to elements listed in the previous point, memory managed through brk() is also randomized.
+
+
 #define handle_error(msg) \
 	do { perror(msg); exit(EXIT_FAILURE); } while (0)
+
+#define ADDR(address) (void *)(address), (unsigned long)(address)/1024/1024, (unsigned long)(address)/1024/1024/1024
 
 char *buffer;
 
@@ -67,17 +86,37 @@ main(int argc, char *argv[])
 
 	/* Allocate a buffer aligned on a page boundary;
 	   initial protection is PROT_READ | PROT_WRITE */
-	// int * iptr  = (int *)(0xC0000000 - 0x100);
-	//int * iptr  = (int *)(0x40000000 - 0x100);
-	//int * iptr  = (int *)(0x40000000 - 0x100);
-	int * iptr  = malloc(sizeof(int));;
-	*iptr = 100;
-	printf("the address of iptr 0x%x\n", (unsigned )iptr);
-	//*iptr = 100;
-	//int * px = (int *)(0x8a24008);
+
+	// 0xc0000000  是内核空间分界线 
+	// 必须设置内核参数，不然程序无法运行
+	// ################
+	//  sysctl kernel.randomize_va_space=0
 
 	int si = 100;
-	printf("the address of si 0x%x\n", (unsigned )&si);
+	printf("the address of si 0x%X\n", (unsigned )&si);
+	//int *iptr = (int*) (0xBFFFE5EC);
+	int *iptr = (int*) (0xc0000000 - 4); // success
+	//int *iptr = (int*) (0xc0000000); // failure 
+	//int *iptr = (int*) (0xc0000000 - 2); // failure 
+	//int *iptr = (int*) (0xc0000000 - 8); // success
+	printf("%p(%luM, %luG)\n", ADDR(iptr));
+
+	*iptr = 700;
+	printf("the value of iptr %d\n", *iptr);
+
+
+	int *mi = malloc(sizeof(int));
+	printf("malloc %p(%luM, %luG)\n", ADDR(mi));
+
+	// 低地址空间，
+	//int *lptr = (int*) (0x08048000 + 4); // failure 
+	// int *lptr = (int*) (0x08055000); // success 
+	int *lptr = (int*) (0x08056000 + 8); // succesf
+	*lptr = 800;
+	printf("the value of lptr %d\n", *lptr);
+	printf("%p(%luM, %luG)\n", ADDR(lptr));
+
+
 
 	exit(EXIT_SUCCESS);
 }
