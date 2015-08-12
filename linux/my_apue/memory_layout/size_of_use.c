@@ -7,7 +7,7 @@ int global_i = 10; /* initialized global variable stored in DS*/
 int main(void)
 {
 	static int i; /* Uninitialized static variable stored in bss */
-	static int i_ = 100; /* Initialized static variable stored in DS*/
+	static int i_i = 100; /* Initialized static variable stored in DS*/
 	return 0;
 }
 
