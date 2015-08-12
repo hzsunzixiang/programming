@@ -2,7 +2,7 @@
 CC=gcc
 #CFLAGS=-Wall -g
 CFLAGS= -g
-BIN= memory_layout memory_segment_fault  tshm stackoverflow
+BIN=size_of_use mallopt  memory_layout memory_segment_fault  tshm stackoverflow
 all:$(BIN)
 %.o:%.c
 	$(CC) $(CFLAGS) -c $< -o $@
