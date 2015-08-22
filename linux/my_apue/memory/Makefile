@@ -1,6 +1,6 @@
 .PHONY:clean all
 CC=gcc
-CFLAGS=-Wall -g
+CFLAGS=-Wall -g -rdynamic
 BIN=backtrace  mprotect  mallopt elf_format
 all:$(BIN)
 %.o:%.c
