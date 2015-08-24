@@ -21,7 +21,18 @@ int main(int argc, char **argv)
 	bzero(buf, 100);
 
 	typedef void (*__sighandler_t) (int);
-	__sighandler_t handler = signal(SIGINT, sig_handler);
+	extern __sighandler_t sysv_signal (int __sig, __sighandler_t __handler);
+	// sysv_signal 和signal 表现不一致的地方，  默认是中断
+	__sighandler_t handler = sysv_signal(SIGINT, sig_handler);
+	//__sighandler_t handler = bsd_signal(SIGINT, sig_handler);
+	//bsd 行为和signal一直，和sysv_signal 不一样
+	// rt_sigaction(SIGINT, {0x8048564, [], SA_INTERRUPT|SA_NODEFER|SA_RESETHAND}, {SIG_DFL, [], 0}, 8) = 0
+	// sigreturn() (mask [])                   = -1 EINTR (Interrupted system call)
+	//
+	//
+	//__sighandler_t handler = signal(SIGINT, sig_handler);
+	// rt_sigaction(SIGINT, {0x8048544, [INT], SA_RESTART}, {SIG_DFL, [], 0}, 8) = 0
+	// 
 	if (handler == SIG_ERR)
 	{
 		err_sys("can't catch SIGUSR1");
