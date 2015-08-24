@@ -1,4 +1,4 @@
-# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
+# Makefile.in generated automatically by automake 1.4-p6 from Makefile.am
 
 # Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
@@ -58,7 +58,6 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 CC = @CC@
-LIBOBJS = @LIBOBJS@
 LN_S = @LN_S@
 MAKEINFO = @MAKEINFO@
 PACKAGE = @PACKAGE@
@@ -67,9 +66,11 @@ VERSION = @VERSION@
 
 AUTOMAKE_OPTIONS = foreign no-dependencies
 
-SUBDIRS = . sample
+CFLAGS =  -Wall -g -O2
+SUBDIRS = . sample test
 
-EXTRA_DIST = acconfig.h
+EXTRA_DIST = acconfig.h epoll.c err.c event.h kqueue.c select.c 	epoll_sub.c evsignal.h poll.c signal.c event.3 	sample/Makefile.am sample/Makefile.in sample/event-test.c 	sample/signal-test.c sample/time-test.c 	test/Makefile.am test/Makefile.in test/bench.c test/regress.c 	test/test-eof.c test/test-weof.c test/test-time.c 	compat/err.h compat/sys/queue.h compat/sys/tree.h compat/sys/_time.h
+
 
 lib_LIBRARIES = libevent.a
 
@@ -78,7 +79,7 @@ libevent_a_LIBADD = @LIBOBJS@
 
 include_HEADERS = event.h
 
-INCLUDES = -I/usr/include -Icompat
+INCLUDES = -Icompat
 
 man_MANS = event.3
 
@@ -97,7 +98,6 @@ LIBS = @LIBS@
 libevent_a_DEPENDENCIES =  @LIBOBJS@
 libevent_a_OBJECTS =  event.o
 AR = ar
-CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
@@ -108,8 +108,8 @@ NROFF = nroff
 HEADERS =  $(include_HEADERS)
 
 DIST_COMMON =  ./stamp-h.in Makefile.am Makefile.in acconfig.h \
-aclocal.m4 config.h.in configure configure.in err.c install-sh kqueue.c \
-missing mkinstalldirs select.c
+aclocal.m4 config.h.in configure configure.in err.c install-sh missing \
+mkinstalldirs
 
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
@@ -403,6 +403,8 @@ distdir: $(DISTFILES)
 	-rm -rf $(distdir)
 	mkdir $(distdir)
 	-chmod 777 $(distdir)
+	$(mkinstalldirs) $(distdir)/compat $(distdir)/compat/sys \
+	   $(distdir)/sample $(distdir)/test
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \

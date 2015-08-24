@@ -1,4 +1,4 @@
-# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
+# Makefile.in generated automatically by automake 1.4-p6 from Makefile.am
 
 # Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
@@ -58,7 +58,6 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 CC = @CC@
-LIBOBJS = @LIBOBJS@
 LN_S = @LN_S@
 MAKEINFO = @MAKEINFO@
 PACKAGE = @PACKAGE@
@@ -68,7 +67,8 @@ VERSION = @VERSION@
 AUTOMAKE_OPTIONS = foreign no-dependencies
 
 LDADD = -L.. -levent
-CPPFPLAGS = -I..
+CPPFPLAGS = -I.. 
+CFLAGS = -I../compat
 
 noinst_PROGRAMS = event-test time-test signal-test
 
@@ -102,7 +102,6 @@ signal_test_OBJECTS =  signal-test.o
 signal_test_LDADD = $(LDADD)
 signal_test_DEPENDENCIES = 
 signal_test_LDFLAGS = 
-CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
