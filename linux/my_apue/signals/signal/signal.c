@@ -21,6 +21,17 @@ static void sig_usr(int);
 
 int main(void)
 {
+	// can't catch SIGKILL: Invalid argument
+	//if (signal(SIGKILL, sig_usr) == SIG_ERR)
+	//{
+	//	err_sys("can't catch SIGKILL");
+	//}
+	////can't catch SIGSTOP: Invalid argument
+	//
+	//if (signal(SIGSTOP, sig_usr) == SIG_ERR)
+	//{
+	//	err_sys("can't catch SIGSTOP");
+	//}
 	if (signal(SIGUSR1, sig_usr) == SIG_ERR)
 	{
 		err_sys("can't catch SIGUSR1");
