@@ -1,7 +1,7 @@
 .PHONY:clean all
 CC=gcc
 CFLAGS=-Wall -g
-BIN= makecontext infinite_loop
+BIN= makecontext infinite_loop iterator
 all:$(BIN)
 %:%.c
 	$(CC) $(CFLAGS)  $< -o $@ 
