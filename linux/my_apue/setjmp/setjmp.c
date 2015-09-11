@@ -55,6 +55,9 @@ static void f1(int i, int j, int k, int l)
 }
 static void f2(void)
 {
+	//longjmp() cannot cause 0 to be returned.  If longjmp() is invoked with a second argument of 0,  1  will  be  returned
+	//instead.
 	longjmp(jmpbuffer,0);
+
 }
 
