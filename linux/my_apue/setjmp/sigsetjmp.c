@@ -45,6 +45,7 @@ static void  sig_usr1(int), sig_alrm(int);
 static jmp_buf jmpbuf;
 static volatile sig_atomic_t canjump;
 
+// sigsetjmp 的第二个参数为1 
 //   p_jdzxsun@centos7:~/programming/linux/my_apue/setjmp$ ./sigsetjmp &
 //   [3] 2305
 //   p_jdzxsun@centos7:~/programming/linux/my_apue/setjmp$ kill -10 2305
@@ -52,6 +53,17 @@ static volatile sig_atomic_t canjump;
 //   p_jdzxsun@centos7:~/programming/linux/my_apue/setjmp$ in sig_alrm SIGUSR1 SIGALRM
 //   finishing sig_usr1: SIGUSR1
 //   ending main:
+
+// sigsetjmp 的第二个参数为0 
+//p_jdzxsun@centos7:~/programming/linux/my_apue/setjmp$ ./sigsetjmp &
+//[3] 17629
+//p_jdzxsun@centos7:~/programming/linux/my_apue/setjmp$ kill -10 17629
+//starting sig_usr1 SIGUSR1
+//p_jdzxsun@centos7:~/programming/linux/my_apue/setjmp$ in sig_alrm SIGUSR1 SIGALRM
+//finishing sig_usr1: SIGUSR1
+//ending main: SIGUSR1
+//
+//[3]-  Done                    ./sigsetjmp
 
 
 
@@ -68,6 +80,7 @@ int main()
 	}
 
 	if (sigsetjmp(jmpbuf, 1))
+	//if (sigsetjmp(jmpbuf, 0))
 	{
 		pr_mask("ending main:");
 		exit(0);
@@ -100,6 +113,9 @@ static void sig_usr1(int signo)
 	// APUE中有解释，在一般的C代码中(不是信号处理程序)， 对于longjmp并不需要这种保护措施
 	// 但是，因为信号可能在任何时候发生，所以在信号处理程序中，需要这种保护措施
 	canjump = 0;  // 期间再有信号发生，直接返回 ,
+	//  79 /* Jump to the environment saved in ENV, making the
+	//  80 `setjmp' call there return VAL, or 1 if VAL is 0.  */
+	
 	siglongjmp(jmpbuf, 1);  // jump back to main do nt return
 }
 
