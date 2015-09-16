@@ -28,6 +28,8 @@ struct S2 {
 
 int main()
 {
+
+	fprintf(stderr, "sizeof(size_t):%lu \n", sizeof(size_t));
 	fprintf(stderr, "sizeof(struct S1):%lu, sizeof(struct S2):%lu\n",
 			sizeof(struct S1), sizeof(struct S2));
 	fprintf(stderr, "&s1.i:%ld, &s1.c:%ld, &s1.j:%ld\n",
