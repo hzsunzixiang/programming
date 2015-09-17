@@ -30,21 +30,19 @@
 #ifndef _EVENT_H_
 #define _EVENT_H_
 
-// 是否在队列中的标志 
 #define EVLIST_TIMEOUT	0x01
-#define EVLIST_READ	0x02
-#define EVLIST_WRITE	0x04
+#define EVLIST_INSERTED	0x02
 #define EVLIST_ADD	0x08
 #define EVLIST_INIT	0x80
 
-// 事件触发的类型
-#define EV_TIMEOUT	EVLIST_TIMEOUT
-#define EV_READ		EVLIST_READ
-#define EV_WRITE	EVLIST_WRITE
+/* EVLIST_X_ Private space: 0x1000-0xf000 */
+
+#define EV_TIMEOUT	0x01
+#define EV_READ		0x02
+#define EV_WRITE	0x04
 
 struct event {
-	TAILQ_ENTRY (event) ev_read_next;
-	TAILQ_ENTRY (event) ev_write_next;
+	TAILQ_ENTRY (event) ev_next;
 	TAILQ_ENTRY (event) ev_timeout_next;
 	TAILQ_ENTRY (event) ev_add_next;
 
@@ -58,6 +56,17 @@ struct event {
 
 	int ev_flags;
 };
+
+struct eventop {
+	char *name;
+	void *(*init)(void);
+	int (*add)(void *, struct event *);
+	int (*del)(void *, struct event *);
+	int (*recalc)(void *, int);
+	int (*dispatch)(void *, struct timeval *);
+};
+
+TAILQ_HEAD (event_list, event);
 
 #define TIMEOUT_DEFAULT	5
 
