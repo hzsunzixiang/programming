@@ -111,8 +111,12 @@ int main(int argc, char* argv[])
 			// 如果客户端连接之后马上夭折，此时
 			// 客户端夭折之后，服务器端的accept仍然会返回正常的描述符，此时select操作这个描述符的时候就会 报错  //select: Bad file descriptor
 			// 
-            perror("select");  // select: Bad file descriptor
             //exit(EXIT_FAILURE);  // 如果此时断开，则程序健壮性太差，应该打印日志，然后循环
+			if (errno != EINTR) {
+            	perror("select");  // select: Bad file descriptor
+				return (-1);
+			}
+			continue;
         }
 
         if (FD_ISSET(listenfd, &rset))
