@@ -45,6 +45,16 @@ extern "C" {
 #define EV_READ		0x02
 #define EV_WRITE	0x04
 
+/* Fix so that ppl dont have to run with <sys/queue.h> */
+#ifndef TAILQ_ENTRY
+#define _EVENT_DEFINED_TQENTRY
+#define TAILQ_ENTRY(type)						\
+struct {								\
+	struct type *tqe_next;	/* next element */			\
+	struct type **tqe_prev;	/* address of previous next element */	\
+}
+#endif /* !TAILQ_ENTRY */
+
 struct event {
 	TAILQ_ENTRY (event) ev_next;
 	TAILQ_ENTRY (event) ev_timeout_next;
@@ -59,7 +69,16 @@ struct event {
 	void *ev_arg;
 
 	int ev_flags;
+
+	void *ev_opaque;
 };
+
+#ifdef _EVENT_DEFINED_TQENTRY
+#undef TAILQ_ENTRY
+#undef _EVENT_DEFINED_TQENTRY
+#else
+TAILQ_HEAD (event_list, event);
+#endif /* _EVENT_DEFINED_TQENTRY */
 
 struct eventop {
 	char *name;
@@ -69,8 +88,6 @@ struct eventop {
 	int (*recalc)(void *, int);
 	int (*dispatch)(void *, struct timeval *);
 };
-
-TAILQ_HEAD (event_list, event);
 
 #define TIMEOUT_DEFAULT	5
 

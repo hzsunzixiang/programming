@@ -27,14 +27,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include "config.h"
+
 #include <sys/types.h>
 #include <sys/time.h>
 #include <sys/queue.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <string.h>
 
 #ifdef USE_LOG
 #include "log.h"
@@ -60,11 +62,11 @@ struct selectop {
 	fd_set *event_writeset;
 } sop;
 
-void *select_init	__P((void));
-int select_add		__P((void *, struct event *));
-int select_del		__P((void *, struct event *));
-int select_recalc	__P((void *, int));
-int select_dispatch	__P((void *, struct timeval *));
+void *select_init	(void);
+int select_add		(void *, struct event *);
+int select_del		(void *, struct event *);
+int select_recalc	(void *, int);
+int select_dispatch	(void *, struct timeval *);
 
 struct eventop selectops = {
 	"select",
@@ -75,10 +77,16 @@ struct eventop selectops = {
 	select_dispatch
 };
 
+/* Seperator */
+struct event select_sep;
+
 void *
 select_init(void)
 {
 	memset(&sop, 0, sizeof(sop));
+
+	memset(&select_sep, 0, sizeof(struct event));
+	select_sep.ev_fd = -1;
 
 	return (&sop);
 }
@@ -133,7 +141,7 @@ int
 select_dispatch(void *arg, struct timeval *tv)
 {
 	int maxfd, res;
-	struct event *ev, *old;
+	struct event *ev;
 	struct selectop *sop = arg;
 
 	memset(sop->event_readset, 0, sop->event_fdsz);
@@ -160,10 +168,14 @@ select_dispatch(void *arg, struct timeval *tv)
 	LOG_DBG((LOG_MISC, 80, __FUNCTION__": select reports %d",
 		 res));
 
-	maxfd = 0;
-	for (ev = TAILQ_FIRST(&eventqueue); ev;) {
-		old = TAILQ_NEXT(ev, ev_next);
+	/* Put the seperator into the right spot */
+	TAILQ_INSERT_TAIL(&eventqueue, &select_sep, ev_next);
 
+	maxfd = 0;
+	for (ev = TAILQ_FIRST(&eventqueue);
+	     ev != NULL && ev != &select_sep;
+	     ev = TAILQ_FIRST(&eventqueue)) {
+		
 		res = 0;
 		if (FD_ISSET(ev->ev_fd, sop->event_readset))
 			res |= EV_READ;
@@ -174,11 +186,17 @@ select_dispatch(void *arg, struct timeval *tv)
 		if (res) {
 			event_del(ev);
 			(*ev->ev_callback)(ev->ev_fd, res, ev->ev_arg);
-		} else if (ev->ev_fd > maxfd)
-			maxfd = ev->ev_fd;
+		} else { 
+			TAILQ_REMOVE(&eventqueue, ev, ev_next);
+			TAILQ_INSERT_TAIL(&eventqueue, ev, ev_next);
 
-		ev = old;
+			if (ev->ev_fd > maxfd)
+				maxfd = ev->ev_fd;
+		}
 	}
+
+	/* Remove the seperator */
+	TAILQ_REMOVE(&eventqueue, &select_sep, ev_next);
 
 	sop->event_fds = maxfd;
 

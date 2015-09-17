@@ -27,6 +27,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include "config.h"
+
+#include <sys/time.h>
 #include <sys/types.h>
 #include <sys/time.h>
 #include <sys/queue.h>
@@ -48,13 +51,13 @@
 #ifdef HAVE_SELECT
 extern struct eventop selectops;
 #endif
-#ifdef HAVE_KQUEUE
+#ifdef HAVE_WORKING_KQUEUE
 extern struct eventop kqops;
 #endif
 
 /* In order of preference */
 struct eventop *eventops[] = {
-#ifdef HAVE_KQUEUE
+#ifdef HAVE_WORKING_KQUEUE
 	&kqops,
 #endif
 #ifdef HAVE_SELECT
@@ -97,6 +100,18 @@ event_init(void)
 
 		evbase = evsel->init();
 	}
+
+#if defined(USE_LOG) && defined(USE_DEBUG)
+	log_to(stderr);
+	log_debug_cmd(LOG_MISC, 80);
+#endif
+}
+
+int
+event_haveevents(void)
+{
+	return (TAILQ_FIRST(&timequeue) || TAILQ_FIRST(&eventqueue) ||
+		TAILQ_FIRST(&addqueue));
 }
 
 int
@@ -122,6 +137,10 @@ event_dispatch(void)
 			}
 		}
 		timeout_next(&tv);
+		
+		/* If we have no events, we just exit */
+		if (!event_haveevents())
+			return (0);
 
 		event_inloop = 1;
 		res = evsel->dispatch(evbase, &tv);
@@ -326,6 +345,9 @@ timeout_process(void)
 
 		TAILQ_REMOVE(&timequeue, ev, ev_timeout_next);
 		ev->ev_flags &= ~EVLIST_TIMEOUT;
+
+		/* delete this event from the I/O queues */
+		event_del(ev);
 
 		LOG_DBG((LOG_MISC, 60, "timeout_process: call %p",
 			 ev->ev_callback));

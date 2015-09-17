@@ -27,6 +27,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+#include "config.h"
+
 #include <sys/types.h>
 #include <sys/time.h>
 #include <sys/queue.h>
@@ -61,11 +63,11 @@ struct kqop {
 	int kq;
 } kqop;
 
-void *kq_init	__P((void));
-int kq_add	__P((void *, struct event *));
-int kq_del	__P((void *, struct event *));
-int kq_recalc	__P((void *, int));
-int kq_dispatch	__P((void *, struct timeval *));
+void *kq_init	(void);
+int kq_add	(void *, struct event *);
+int kq_del	(void *, struct event *);
+int kq_recalc	(void *, int);
+int kq_dispatch	(void *, struct timeval *);
 
 struct eventop kqops = {
 	"kqueue",
@@ -149,6 +151,11 @@ kq_insert(struct kqop *kqop, struct kevent *kev)
 
 	memcpy(&kqop->changes[kqop->nchanges++], kev, sizeof(struct kevent));
 
+	LOG_DBG((LOG_MISC, 70, __FUNCTION__": fd %d %s%s",
+		 kev->ident, 
+		 kev->filter == EVFILT_READ ? "EVFILT_READ" : "EVFILT_WRITE",
+		 kev->flags == EV_DELETE ? " (del)" : ""));
+
 	return (0);
 }
 
@@ -178,6 +185,21 @@ kq_dispatch(void *arg, struct timeval *tv)
 
 	LOG_DBG((LOG_MISC, 80, __FUNCTION__": kevent reports %d", res));
 
+	/* At this moment, all the returns are valid, but event_del
+	 * from callbacks might screw us.
+	 */
+	for (i = 0; i < res; i++) {
+		if (events[i].flags & EV_ERROR)
+			continue;
+
+		ev = events[i].udata;
+
+		/* Store a back pointer that our del can use,
+		 * to make this vanish.
+		 */
+		ev->ev_opaque = &events[i];
+	}
+
 	for (i = 0; i < res; i++) {
 		int which = 0;
 
@@ -202,6 +224,7 @@ kq_dispatch(void *arg, struct timeval *tv)
 			which |= EV_WRITE;
 		}
 
+		ev->ev_opaque = NULL;
 		if (which) {
 			ev->ev_flags &= ~EVLIST_X_KQINKERNEL;
 			event_del(ev);
@@ -256,6 +279,14 @@ kq_del(void *arg, struct event *ev)
 
 	if (!(ev->ev_flags & EVLIST_X_KQINKERNEL))
 		return (0);
+
+	/* Are we removing an event that we are still processing? */
+	if (ev->ev_opaque) {
+		struct kevent *tmpkev = ev->ev_opaque;
+
+		tmpkev->flags |= EV_ERROR;
+		tmpkev->data = ENOENT;
+	}
 
 	if (ev->ev_events & EV_READ) {
  		memset(&kev, 0, sizeof(kev));
