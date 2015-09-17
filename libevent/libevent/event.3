@@ -51,9 +51,9 @@
 .Fn "event_dispatch"
 .Ft void
 .Fn "event_set" "struct event *ev" "int fd" "short event" "void (*fn)(int, short, void *)" "void *arg"
-.Ft void
+.Ft int
 .Fn "event_add" "struct event *ev" "struct timeval *tv"
-.Ft void
+.Ft int
 .Fn "event_del" "struct event *ev"
 .Ft int
 .Fn "event_pending" "struct event *ev" "short event" "struct timeval *tv"
@@ -69,6 +69,10 @@
 .Fn "timeout_pending" "struct event *ev" "struct timeval *tv"
 .Ft int
 .Fn "timeout_initialized" "struct event *ev"
+.Ft int
+.Fa (*event_sigcb)(void) ;
+.Ft int
+.Fa event_gotsig ;
 .Sh DESCRIPTION
 The
 .Nm event
@@ -85,6 +89,31 @@ In order to process events, an application needs to call
 .Fn event_dispatch .
 This functions only returns on error, and should replace the event core
 of the application program.
+.Pp
+In order to avoid races in signal handlers, the
+.Nm event
+API provides two variables:
+.Va event_sigcb
+and
+.Va event_gotsig .
+A signal handler
+sets
+.Va event_gotsig
+to indicate that a signal has been received.
+The application sets
+.Va event_sigcb
+to a callback function.  After the signal handler sets
+.Va event_gotsig ,
+.Nm event_dispatch
+will execute the callback function to process received signals.  The
+callback can return -1 to indicate an error to the
+.Nm event
+library, causing
+.Fn event_dispatch
+to terminate with
+.Va errno
+set to
+.Er EINTR.
 .Pp
 It is the responsibility of the caller to provide these functions with
 pre-allocated event structures.
@@ -197,6 +226,14 @@ are abbreviations for common situations where only a timeout is required.
 The file descriptor passed will be 0, and the event type will be
 .Va EV_TIMEOUT .
 .Pp
+.Sh RETURN VALUES
+Upon successful completion
+.Fn event_add
+and
+.Fn event_del
+return 0.
+Otherwise, -1 is returned and the global variable errno is
+set to indicate the error.
 .Sh SEE ALSO
 .Xr timeout 9 ,
 .Xr select 2 ,

@@ -30,6 +30,10 @@
 #ifndef _EVENT_H_
 #define _EVENT_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define EVLIST_TIMEOUT	0x01
 #define EVLIST_INSERTED	0x02
 #define EVLIST_ADD	0x08
@@ -80,14 +84,18 @@ void timeout_process(void);
 #define timeout_set(ev, cb, arg)	event_set(ev, -1, 0, cb, arg)
 #define timeout_del(ev)			event_del(ev)
 #define timeout_pending(ev, tv)		event_pending(ev, EV_TIMEOUT, tv)
-#define timeout_initalized(ev)		((ev)->ev_flags & EVLIST_INIT)
+#define timeout_initialized(ev)		((ev)->ev_flags & EVLIST_INIT)
 
 void event_set(struct event *, int, short, void (*)(int, short, void *), void *);
-void event_add(struct event *, struct timeval *);
-void event_del(struct event *);
+int event_add(struct event *, struct timeval *);
+int event_del(struct event *);
 
 int event_pending(struct event *, short, struct timeval *);
 
-#define event_initalized(ev)		((ev)->ev_flags & EVLIST_INIT)
+#define event_initialized(ev)		((ev)->ev_flags & EVLIST_INIT)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _EVENT_H_ */

@@ -3,7 +3,7 @@
 #
 # Dug Song <dugsong@monkey.org>
 #
-# $Id: Makefile.in,v 1.4 2000/11/18 17:52:15 provos Exp $
+# $Id: Makefile.in,v 1.5 2001/03/06 18:27:36 provos Exp $
 
 srcdir          = @srcdir@
 VPATH           = @srcdir@
@@ -22,6 +22,7 @@ LDFLAGS	= @LDFLAGS@
 
 INSTALL	= @INSTALL@
 INSTALL_DATA	= @INSTALL_DATA@
+LN_S = @LN_S@
 
 HDRS	= event.h
 SRCS	= event.c @EVSRCS@
@@ -44,6 +45,18 @@ install:
 	$(INSTALL_DATA) *.3 $(install_prefix)$(mandir)/man3
 	$(INSTALL) -d $(install_prefix)$(includedir)
 	$(INSTALL_DATA) *.h $(install_prefix)$(includedir)
+	(cd $(install_prefix)$(mandir)/man3 && $(LN_S) event.3 event_init.3)
+	(cd $(install_prefix)$(mandir)/man3 && $(LN_S) event.3 event_dispatch.3)
+	(cd $(install_prefix)$(mandir)/man3 && $(LN_S) event.3 event_set.3)
+	(cd $(install_prefix)$(mandir)/man3 && $(LN_S) event.3 event_add.3)
+	(cd $(install_prefix)$(mandir)/man3 && $(LN_S) event.3 event_del.3)
+	(cd $(install_prefix)$(mandir)/man3 && $(LN_S) event.3 event_pending.3)
+	(cd $(install_prefix)$(mandir)/man3 && $(LN_S) event.3 event_initalized.3)
+	(cd $(install_prefix)$(mandir)/man3 && $(LN_S) event.3 timeout_set.3)
+	(cd $(install_prefix)$(mandir)/man3 && $(LN_S) event.3 timeout_add.3)
+	(cd $(install_prefix)$(mandir)/man3 && $(LN_S) event.3 timeout_del.3)
+	(cd $(install_prefix)$(mandir)/man3 && $(LN_S) event.3 timeout_pending.3)
+	(cd $(install_prefix)$(mandir)/man3 && $(LN_S) event.3 timeout_initalized.3)
 
 clean:
 	rm -f *.o *~ libevent.a

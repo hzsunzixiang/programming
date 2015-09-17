@@ -1,3 +1,32 @@
+/*
+ * Copyright 2000-2001 Niels Provos <provos@citi.umich.edu>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. All advertising materials mentioning features or use of this software
+ *    must display the following acknowledgement:
+ *      This product includes software developed by Niels Provos.
+ * 4. The name of the author may not be used to endorse or promote products
+ *    derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 #include <sys/types.h>
 #include <sys/time.h>
 #include <sys/queue.h>
@@ -19,6 +48,8 @@
 extern struct event_list timequeue;
 extern struct event_list eventqueue;
 extern struct event_list addqueue;
+
+#define EVLIST_X_KQINKERNEL	0x1000
 
 #define NEVENT		64
 
@@ -137,8 +168,12 @@ kq_dispatch(void *arg, struct timeval *tv)
 		     events, kqop->nevents, &ts);
 	kqop->nchanges = 0;
 	if (res == -1) {
-		log_error("kevent");
-		return (-1);
+		if (errno != EINTR) {
+			log_error("kevent");
+			return (-1);
+		}
+
+		return (0);
 	}
 
 	LOG_DBG((LOG_MISC, 80, __FUNCTION__": kevent reports %d", res));
@@ -168,6 +203,7 @@ kq_dispatch(void *arg, struct timeval *tv)
 		}
 
 		if (which) {
+			ev->ev_flags &= ~EVLIST_X_KQINKERNEL;
 			event_del(ev);
 			(*ev->ev_callback)(ev->ev_fd, which, ev->ev_arg);
 		}
@@ -176,9 +212,6 @@ kq_dispatch(void *arg, struct timeval *tv)
 	return (0);
 }
 
-/*
- * Nothing to be done here.
- */
 
 int
 kq_add(void *arg, struct event *ev)
@@ -190,22 +223,26 @@ kq_add(void *arg, struct event *ev)
  		memset(&kev, 0, sizeof(kev));
 		kev.ident = ev->ev_fd;
 		kev.filter = EVFILT_READ;
-		kev.flags = EV_ADD;
+		kev.flags = EV_ADD | EV_ONESHOT;
 		kev.udata = ev;
 		
 		if (kq_insert(kqop, &kev) == -1)
 			return (-1);
+
+		ev->ev_flags |= EVLIST_X_KQINKERNEL;
 	}
 
 	if (ev->ev_events & EV_WRITE) {
  		memset(&kev, 0, sizeof(kev));
 		kev.ident = ev->ev_fd;
 		kev.filter = EVFILT_WRITE;
-		kev.flags = EV_ADD;
+		kev.flags = EV_ADD | EV_ONESHOT;
 		kev.udata = ev;
 		
 		if (kq_insert(kqop, &kev) == -1)
 			return (-1);
+
+		ev->ev_flags |= EVLIST_X_KQINKERNEL;
 	}
 
 	return (0);
@@ -217,6 +254,9 @@ kq_del(void *arg, struct event *ev)
 	struct kqop *kqop = arg;
 	struct kevent kev;
 
+	if (!(ev->ev_flags & EVLIST_X_KQINKERNEL))
+		return (0);
+
 	if (ev->ev_events & EV_READ) {
  		memset(&kev, 0, sizeof(kev));
 		kev.ident = ev->ev_fd;
@@ -225,6 +265,8 @@ kq_del(void *arg, struct event *ev)
 		
 		if (kq_insert(kqop, &kev) == -1)
 			return (-1);
+
+		ev->ev_flags &= ~EVLIST_X_KQINKERNEL;
 	}
 
 	if (ev->ev_events & EV_WRITE) {
@@ -235,6 +277,8 @@ kq_del(void *arg, struct event *ev)
 		
 		if (kq_insert(kqop, &kev) == -1)
 			return (-1);
+
+		ev->ev_flags &= ~EVLIST_X_KQINKERNEL;
 	}
 
 	return (0);

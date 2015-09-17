@@ -66,8 +66,12 @@ struct eventop *eventops[] = {
 struct eventop *evsel;
 void *evbase;
 
+/* Handle signals */
+int (*event_sigcb)(void);	/* Signal callback when gotsig is set */
+int event_gotsig;		/* Set in signal handler */
+
 /* Prototypes */
-void event_add_post(struct event *);
+int event_add_post(struct event *);
 
 struct event_list timequeue;
 struct event_list eventqueue;
@@ -79,6 +83,9 @@ void
 event_init(void)
 {
 	int i;
+
+	event_sigcb = NULL;
+	event_gotsig = 0;
 	
 	TAILQ_INIT(&timequeue);
 	TAILQ_INIT(&eventqueue);
@@ -104,15 +111,26 @@ event_dispatch(void)
 		return (-1);
 
 	while (1) {
+		while (event_gotsig) {
+			event_gotsig = 0;
+			if (event_sigcb) {
+				res = (*event_sigcb)();
+				if (res == -1) {
+					errno = EINTR;
+					return (-1);
+				}
+			}
+		}
 		timeout_next(&tv);
 
-		// 这里把select的等待也算进去了
 		event_inloop = 1;
 		res = evsel->dispatch(evbase, &tv);
 		event_inloop = 0;
 
 		if (res == -1)
 			return (-1);
+
+		timeout_process();
 
 		maxfd = 0;
 		for (ev = TAILQ_FIRST(&addqueue); ev; 
@@ -128,8 +146,6 @@ event_dispatch(void)
 
 		if (evsel->recalc(evbase, maxfd) == -1)
 			return (-1);
-
-		timeout_process();
 	}
 
 	return (0);
@@ -173,7 +189,7 @@ event_pending(struct event *ev, short event, struct timeval *tv)
 	return (flags & event);
 }
 
-void
+int
 event_add(struct event *ev, struct timeval *tv)
 {
 	LOG_DBG((LOG_MISC, 55,
@@ -216,15 +232,17 @@ event_add(struct event *ev, struct timeval *tv)
 		 * postpone the change until later.
 		 */
 		if (ev->ev_flags & EVLIST_ADD)
-			return;
+			return (0);
 
 		TAILQ_INSERT_TAIL(&addqueue, ev, ev_add_next);
 		ev->ev_flags |= EVLIST_ADD;
 	} else
-		event_add_post(ev);
+		return (event_add_post(ev));
+
+	return (0);
 }
 
-void
+int
 event_add_post(struct event *ev)
 {
 	if ((ev->ev_events & (EV_READ|EV_WRITE)) &&
@@ -233,11 +251,13 @@ event_add_post(struct event *ev)
 		
 		ev->ev_flags |= EVLIST_INSERTED;
 
-		evsel->add(evbase, ev);
+		return (evsel->add(evbase, ev));
 	}
+
+	return (0);
 }
 
-void
+int
 event_del(struct event *ev)
 {
 	LOG_DBG((LOG_MISC, 80, "event_del: %p, callback %p",
@@ -260,8 +280,10 @@ event_del(struct event *ev)
 
 		ev->ev_flags &= ~EVLIST_INSERTED;
 
-		evsel->del(evbase, ev);
+		return (evsel->del(evbase, ev));
 	}
+
+	return (0);
 }
 
 int

@@ -1,9 +1,38 @@
+/*
+ * Copyright 2000-2001 Niels Provos <provos@citi.umich.edu>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. All advertising materials mentioning features or use of this software
+ *    must display the following acknowledgement:
+ *      This product includes software developed by Niels Provos.
+ * 4. The name of the author may not be used to endorse or promote products
+ *    derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+ * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+ * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+ * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 #include <sys/types.h>
 #include <sys/time.h>
 #include <sys/queue.h>
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <errno.h>
 
@@ -138,8 +167,9 @@ select_dispatch(void *arg, struct timeval *tv)
 		res = 0;
 		if (FD_ISSET(ev->ev_fd, sop->event_readset))
 			res |= EV_READ;
-		else if (FD_ISSET(ev->ev_fd, sop->event_writeset))
+		if (FD_ISSET(ev->ev_fd, sop->event_writeset))
 			res |= EV_WRITE;
+		res &= ev->ev_events;
 
 		if (res) {
 			event_del(ev);
@@ -155,15 +185,24 @@ select_dispatch(void *arg, struct timeval *tv)
 	return (0);
 }
 
-/*
- * Nothing to be done here.
- */
-
 int
 select_add(void *arg, struct event *ev)
 {
+	struct selectop *sop = arg;
+
+	/* 
+	 * Keep track of the highest fd, so that we can calculate the size
+	 * of the fd_sets for select(2)
+	 */
+	if (sop->event_fds < ev->ev_fd)
+		sop->event_fds = ev->ev_fd;
+
 	return (0);
 }
+
+/*
+ * Nothing to be done here.
+ */
 
 int
 select_del(void *arg, struct event *ev)
