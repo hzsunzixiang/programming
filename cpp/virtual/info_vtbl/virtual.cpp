@@ -20,6 +20,7 @@ class ChildClass : public BaseClass
 		}
 	public:
 		int y;
+		int z;
 };
 
 typedef int UnusedType, UsedType;

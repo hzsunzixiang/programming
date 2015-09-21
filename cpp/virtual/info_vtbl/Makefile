@@ -1,7 +1,7 @@
 .PHONY:clean all
 CC=g++
 CPPFLAGS=-Wall -g
-BIN=virtual 
+BIN=virtual virtual_offset
 all:$(BIN)
 %:%.c
 	$(CC) $(CPPFLAGS)  $< -o $@ 
