@@ -1,0 +1,248 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+CIRCLEQ_EMPTY	./missing/sys/queue.h	403;"	d
+CIRCLEQ_END	./missing/sys/queue.h	400;"	d
+CIRCLEQ_ENTRY	./missing/sys/queue.h	389;"	d
+CIRCLEQ_FIRST	./missing/sys/queue.h	398;"	d
+CIRCLEQ_FOREACH	./missing/sys/queue.h	406;"	d
+CIRCLEQ_FOREACH_REVERSE	./missing/sys/queue.h	411;"	d
+CIRCLEQ_HEAD	./missing/sys/queue.h	380;"	d
+CIRCLEQ_HEAD_INITIALIZER	./missing/sys/queue.h	386;"	d
+CIRCLEQ_INIT	./missing/sys/queue.h	419;"	d
+CIRCLEQ_INSERT_AFTER	./missing/sys/queue.h	424;"	d
+CIRCLEQ_INSERT_BEFORE	./missing/sys/queue.h	434;"	d
+CIRCLEQ_INSERT_HEAD	./missing/sys/queue.h	444;"	d
+CIRCLEQ_INSERT_TAIL	./missing/sys/queue.h	454;"	d
+CIRCLEQ_LAST	./missing/sys/queue.h	399;"	d
+CIRCLEQ_NEXT	./missing/sys/queue.h	401;"	d
+CIRCLEQ_PREV	./missing/sys/queue.h	402;"	d
+CIRCLEQ_REMOVE	./missing/sys/queue.h	464;"	d
+CIRCLEQ_REPLACE	./missing/sys/queue.h	477;"	d
+CLOCK_PROF	./missing/sys/time.h	160;"	d
+CLOCK_REALTIME	./missing/sys/time.h	158;"	d
+CLOCK_VIRTUAL	./missing/sys/time.h	159;"	d
+DST_AUST	./missing/sys/time.h	76;"	d
+DST_CAN	./missing/sys/time.h	80;"	d
+DST_EET	./missing/sys/time.h	79;"	d
+DST_MET	./missing/sys/time.h	78;"	d
+DST_NONE	./missing/sys/time.h	74;"	d
+DST_USA	./missing/sys/time.h	75;"	d
+DST_WET	./missing/sys/time.h	77;"	d
+EVLIST_ADD	./event.h	39;"	d
+EVLIST_INIT	./event.h	40;"	d
+EVLIST_INSERTED	./event.h	38;"	d
+EVLIST_TIMEOUT	./event.h	37;"	d
+EVLIST_X_KQINKERNEL	./kqueue.c	54;"	d	file:
+EV_READ	./event.h	45;"	d
+EV_TIMEOUT	./event.h	44;"	d
+EV_WRITE	./event.h	46;"	d
+HAVE_GETTIMEOFDAY	./config.h	55;"	d
+HAVE_SELECT	./config.h	61;"	d
+HAVE_SYS_QUEUE_H	./config.h	67;"	d
+HAVE_SYS_TIME_H	./config.h	70;"	d
+HAVE_TAILQFOREACH	./acconfig.h	40;"	d
+HAVE_TAILQFOREACH	./config.h	37;"	d
+HAVE_TIMERADD	./acconfig.h	17;"	d
+HAVE_TIMERADD	./config.h	14;"	d
+HAVE_UNISTD_H	./config.h	73;"	d
+HAVE_WORKING_KQUEUE	./acconfig.h	2;"	d
+ITIMER_PROF	./missing/sys/time.h	140;"	d
+ITIMER_REAL	./missing/sys/time.h	138;"	d
+ITIMER_VIRTUAL	./missing/sys/time.h	139;"	d
+LIST_EMPTY	./missing/sys/queue.h	161;"	d
+LIST_END	./missing/sys/queue.h	160;"	d
+LIST_ENTRY	./missing/sys/queue.h	150;"	d
+LIST_FIRST	./missing/sys/queue.h	159;"	d
+LIST_FOREACH	./missing/sys/queue.h	164;"	d
+LIST_HEAD	./missing/sys/queue.h	142;"	d
+LIST_HEAD_INITIALIZER	./missing/sys/queue.h	147;"	d
+LIST_INIT	./missing/sys/queue.h	172;"	d
+LIST_INSERT_AFTER	./missing/sys/queue.h	176;"	d
+LIST_INSERT_BEFORE	./missing/sys/queue.h	184;"	d
+LIST_INSERT_HEAD	./missing/sys/queue.h	191;"	d
+LIST_NEXT	./missing/sys/queue.h	162;"	d
+LIST_REMOVE	./missing/sys/queue.h	198;"	d
+LIST_REPLACE	./missing/sys/queue.h	205;"	d
+LOG_DBG	./event.c	45;"	d	file:
+LOG_DBG	./kqueue.c	44;"	d	file:
+LOG_DBG	./select.c	44;"	d	file:
+NEVENT	./kqueue.c	56;"	d	file:
+SIMPLEQ_EMPTY	./missing/sys/queue.h	235;"	d
+SIMPLEQ_END	./missing/sys/queue.h	234;"	d
+SIMPLEQ_ENTRY	./missing/sys/queue.h	225;"	d
+SIMPLEQ_FIRST	./missing/sys/queue.h	233;"	d
+SIMPLEQ_FOREACH	./missing/sys/queue.h	238;"	d
+SIMPLEQ_HEAD	./missing/sys/queue.h	216;"	d
+SIMPLEQ_HEAD_INITIALIZER	./missing/sys/queue.h	222;"	d
+SIMPLEQ_INIT	./missing/sys/queue.h	246;"	d
+SIMPLEQ_INSERT_AFTER	./missing/sys/queue.h	263;"	d
+SIMPLEQ_INSERT_HEAD	./missing/sys/queue.h	251;"	d
+SIMPLEQ_INSERT_TAIL	./missing/sys/queue.h	257;"	d
+SIMPLEQ_NEXT	./missing/sys/queue.h	236;"	d
+SIMPLEQ_REMOVE_HEAD	./missing/sys/queue.h	269;"	d
+SLIST_EMPTY	./missing/sys/queue.h	110;"	d
+SLIST_END	./missing/sys/queue.h	109;"	d
+SLIST_ENTRY	./missing/sys/queue.h	100;"	d
+SLIST_FIRST	./missing/sys/queue.h	108;"	d
+SLIST_FOREACH	./missing/sys/queue.h	113;"	d
+SLIST_HEAD	./missing/sys/queue.h	92;"	d
+SLIST_HEAD_INITIALIZER	./missing/sys/queue.h	97;"	d
+SLIST_INIT	./missing/sys/queue.h	121;"	d
+SLIST_INSERT_AFTER	./missing/sys/queue.h	125;"	d
+SLIST_INSERT_HEAD	./missing/sys/queue.h	130;"	d
+SLIST_NEXT	./missing/sys/queue.h	111;"	d
+SLIST_REMOVE_HEAD	./missing/sys/queue.h	135;"	d
+STDC_HEADERS	./config.h	5;"	d
+TAILQ_EMPTY	./missing/sys/queue.h	303;"	d
+TAILQ_END	./acconfig.h	43;"	d
+TAILQ_END	./config.h	40;"	d
+TAILQ_END	./missing/sys/queue.h	296;"	d
+TAILQ_ENTRY	./event.h	51;"	d
+TAILQ_ENTRY	./event.h	77;"	d
+TAILQ_ENTRY	./missing/sys/queue.h	286;"	d
+TAILQ_FIRST	./acconfig.h	42;"	d
+TAILQ_FIRST	./config.h	39;"	d
+TAILQ_FIRST	./missing/sys/queue.h	295;"	d
+TAILQ_FOREACH	./acconfig.h	45;"	d
+TAILQ_FOREACH	./config.h	42;"	d
+TAILQ_FOREACH	./missing/sys/queue.h	306;"	d
+TAILQ_FOREACH_REVERSE	./missing/sys/queue.h	311;"	d
+TAILQ_HEAD	./missing/sys/queue.h	277;"	d
+TAILQ_HEAD_INITIALIZER	./missing/sys/queue.h	283;"	d
+TAILQ_INIT	./missing/sys/queue.h	319;"	d
+TAILQ_INSERT_AFTER	./missing/sys/queue.h	341;"	d
+TAILQ_INSERT_BEFORE	./acconfig.h	49;"	d
+TAILQ_INSERT_BEFORE	./config.h	46;"	d
+TAILQ_INSERT_BEFORE	./missing/sys/queue.h	351;"	d
+TAILQ_INSERT_HEAD	./missing/sys/queue.h	324;"	d
+TAILQ_INSERT_TAIL	./missing/sys/queue.h	334;"	d
+TAILQ_LAST	./missing/sys/queue.h	298;"	d
+TAILQ_NEXT	./acconfig.h	44;"	d
+TAILQ_NEXT	./config.h	41;"	d
+TAILQ_NEXT	./missing/sys/queue.h	297;"	d
+TAILQ_PREV	./missing/sys/queue.h	301;"	d
+TAILQ_REMOVE	./missing/sys/queue.h	358;"	d
+TAILQ_REPLACE	./missing/sys/queue.h	367;"	d
+TIMEOUT_DEFAULT	./event.h	92;"	d
+TIMER_ABSTIME	./missing/sys/time.h	163;"	d
+TIMER_RELTIME	./missing/sys/time.h	162;"	d
+TIMESPEC_TO_TIMEVAL	./missing/sys/time.h	65;"	d
+TIMEVAL_TO_TIMESPEC	./missing/sys/time.h	61;"	d
+TIME_WITH_SYS_TIME	./config.h	8;"	d
+_EVENT_DEFINED_TQENTRY	./event.h	50;"	d
+_EVENT_DEFINED_TQENTRY	./event.h	78;"	d
+_EVENT_H_	./event.h	31;"	d
+_SYS_QUEUE_H_	./missing/sys/queue.h	40;"	d
+_SYS_TIME_H_	./missing/sys/time.h	40;"	d
+add	./event.h	/^	int (*add)(void *, struct event *);$/;"	m	struct:eventop
+addqueue	./event.c	/^struct event_list addqueue;$/;"	v	typeref:struct:event_list
+changes	./kqueue.c	/^	struct kevent *changes;$/;"	m	struct:kqop	typeref:struct:kqop::kevent	file:
+clockinfo	./missing/sys/time.h	/^struct clockinfo {$/;"	s
+del	./event.h	/^	int (*del)(void *, struct event *);$/;"	m	struct:eventop
+dispatch	./event.h	/^	int (*dispatch)(void *, struct timeval *);$/;"	m	struct:eventop
+ev_add_next	./event.h	/^	TAILQ_ENTRY (event) ev_add_next;$/;"	m	struct:event
+ev_arg	./event.h	/^	void *ev_arg;$/;"	m	struct:event
+ev_callback	./event.h	/^	void (*ev_callback)(int, short, void *arg);$/;"	m	struct:event
+ev_events	./event.h	/^	short ev_events;$/;"	m	struct:event
+ev_fd	./event.h	/^	int ev_fd;$/;"	m	struct:event
+ev_flags	./event.h	/^	int ev_flags;$/;"	m	struct:event
+ev_next	./event.h	/^	TAILQ_ENTRY (event) ev_next;$/;"	m	struct:event
+ev_opaque	./event.h	/^	void *ev_opaque;$/;"	m	struct:event
+ev_timeout	./event.h	/^	struct timeval ev_timeout;$/;"	m	struct:event	typeref:struct:event::timeval
+ev_timeout_next	./event.h	/^	TAILQ_ENTRY (event) ev_timeout_next;$/;"	m	struct:event
+evbase	./event.c	/^void *evbase;$/;"	v
+event	./event.h	/^struct event {$/;"	s
+event_add	./event.c	/^event_add(struct event *ev, struct timeval *tv)$/;"	f
+event_add_post	./event.c	/^event_add_post(struct event *ev)$/;"	f
+event_del	./event.c	/^event_del(struct event *ev)$/;"	f
+event_dispatch	./event.c	/^event_dispatch(void)$/;"	f
+event_fds	./select.c	/^	int event_fds;		\/* Highest fd in fd set *\/$/;"	m	struct:selectop	file:
+event_fdsz	./select.c	/^	int event_fdsz;$/;"	m	struct:selectop	file:
+event_gotsig	./event.c	/^int event_gotsig;		\/* Set in signal handler *\/$/;"	v
+event_haveevents	./event.c	/^event_haveevents(void)$/;"	f
+event_init	./event.c	/^event_init(void)$/;"	f
+event_initialized	./event.h	112;"	d
+event_inloop	./event.c	/^int event_inloop = 0;$/;"	v
+event_pending	./event.c	/^event_pending(struct event *ev, short event, struct timeval *tv)$/;"	f
+event_readset	./select.c	/^	fd_set *event_readset;$/;"	m	struct:selectop	file:
+event_set	./event.c	/^event_set(struct event *ev, int fd, short events,$/;"	f
+event_sigcb	./event.c	/^int (*event_sigcb)(void);	\/* Signal callback when gotsig is set *\/$/;"	v
+event_writeset	./select.c	/^	fd_set *event_writeset;$/;"	m	struct:selectop	file:
+eventop	./event.h	/^struct eventop {$/;"	s
+eventops	./event.c	/^struct eventop *eventops[] = {$/;"	v	typeref:struct:eventop
+eventqueue	./event.c	/^struct event_list eventqueue;$/;"	v	typeref:struct:event_list
+events	./kqueue.c	/^	struct kevent *events;$/;"	m	struct:kqop	typeref:struct:kqop::kevent	file:
+evsel	./event.c	/^struct eventop *evsel;$/;"	v	typeref:struct:eventop
+fifo_read	./event-test.c	/^fifo_read(int fd, short event, void *arg)$/;"	f
+fifo_read	./sample/event-test.c	/^fifo_read(int fd, short event, void *arg)$/;"	f
+howmany	./select.c	55;"	d	file:
+hz	./missing/sys/time.h	/^	int	hz;		\/* clock frequency *\/$/;"	m	struct:clockinfo
+init	./event.h	/^	void *(*init)(void);$/;"	m	struct:eventop
+it_interval	./missing/sys/time.h	/^	struct	timeval it_interval;	\/* timer interval *\/$/;"	m	struct:itimerval	typeref:struct:itimerval::timeval
+it_value	./missing/sys/time.h	/^	struct	timeval it_value;	\/* current value *\/$/;"	m	struct:itimerval	typeref:struct:itimerval::timeval
+itimerval	./missing/sys/time.h	/^struct	itimerval {$/;"	s
+kq	./kqueue.c	/^	int kq;$/;"	m	struct:kqop	file:
+kq_add	./kqueue.c	/^kq_add(void *arg, struct event *ev)$/;"	f
+kq_del	./kqueue.c	/^kq_del(void *arg, struct event *ev)$/;"	f
+kq_dispatch	./kqueue.c	/^kq_dispatch(void *arg, struct timeval *tv)$/;"	f
+kq_init	./kqueue.c	/^kq_init(void)$/;"	f
+kq_insert	./kqueue.c	/^kq_insert(struct kqop *kqop, struct kevent *kev)$/;"	f
+kq_recalc	./kqueue.c	/^kq_recalc(void *arg, int max)$/;"	f
+kqop	./kqueue.c	/^struct kqop {$/;"	s	file:
+kqop	./kqueue.c	/^} kqop;$/;"	v	typeref:struct:kqop
+kqops	./kqueue.c	/^struct eventop kqops = {$/;"	v	typeref:struct:eventop
+log_error	./event.c	46;"	d	file:
+log_error	./kqueue.c	45;"	d	file:
+log_error	./select.c	45;"	d	file:
+main	./event-test.c	/^main (int argc, char **argv)$/;"	f
+main	./sample/event-test.c	/^main (int argc, char **argv)$/;"	f
+name	./event.h	/^	char *name;$/;"	m	struct:eventop
+nchanges	./kqueue.c	/^	int nchanges;$/;"	m	struct:kqop	file:
+nevents	./kqueue.c	/^	int nevents;$/;"	m	struct:kqop	file:
+profhz	./missing/sys/time.h	/^	int	profhz;		\/* profiling clock frequency *\/$/;"	m	struct:clockinfo
+recalc	./event.h	/^	int (*recalc)(void *, int);$/;"	m	struct:eventop
+select_add	./select.c	/^select_add(void *arg, struct event *ev)$/;"	f
+select_del	./select.c	/^select_del(void *arg, struct event *ev)$/;"	f
+select_dispatch	./select.c	/^select_dispatch(void *arg, struct timeval *tv)$/;"	f
+select_init	./select.c	/^select_init(void)$/;"	f
+select_recalc	./select.c	/^select_recalc(void *arg, int max)$/;"	f
+select_sep	./select.c	/^struct event select_sep;$/;"	v	typeref:struct:event
+selectop	./select.c	/^struct selectop {$/;"	s	file:
+selectops	./select.c	/^struct eventop selectops = {$/;"	v	typeref:struct:eventop
+sop	./select.c	/^} sop;$/;"	v	typeref:struct:selectop
+stathz	./missing/sys/time.h	/^	int	stathz;		\/* statistics clock frequency *\/$/;"	m	struct:clockinfo
+tick	./missing/sys/time.h	/^	int	tick;		\/* micro-seconds per hz tick *\/$/;"	m	struct:clockinfo
+tickadj	./missing/sys/time.h	/^	int	tickadj;	\/* clock skew rate for adjtime() *\/$/;"	m	struct:clockinfo
+timeout_add	./event.h	100;"	d
+timeout_del	./event.h	102;"	d
+timeout_initialized	./event.h	104;"	d
+timeout_next	./event.c	/^timeout_next(struct timeval *tv)$/;"	f
+timeout_pending	./event.h	103;"	d
+timeout_process	./event.c	/^timeout_process(void)$/;"	f
+timeout_set	./event.h	101;"	d
+timequeue	./event.c	/^struct event_list timequeue;$/;"	v	typeref:struct:event_list
+timeradd	./acconfig.h	19;"	d
+timeradd	./config.h	16;"	d
+timeradd	./missing/sys/time.h	89;"	d
+timerclear	./missing/sys/time.h	83;"	d
+timercmp	./missing/sys/time.h	85;"	d
+timerisset	./missing/sys/time.h	84;"	d
+timersub	./acconfig.h	28;"	d
+timersub	./config.h	25;"	d
+timersub	./missing/sys/time.h	98;"	d
+timespecadd	./missing/sys/time.h	115;"	d
+timespecclear	./missing/sys/time.h	109;"	d
+timespeccmp	./missing/sys/time.h	111;"	d
+timespecisset	./missing/sys/time.h	110;"	d
+timespecsub	./missing/sys/time.h	124;"	d
+timezone	./missing/sys/time.h	/^struct timezone {$/;"	s
+tz_dsttime	./missing/sys/time.h	/^	int	tz_dsttime;	\/* type of dst correction *\/$/;"	m	struct:timezone
+tz_minuteswest	./missing/sys/time.h	/^	int	tz_minuteswest;	\/* minutes west of Greenwich *\/$/;"	m	struct:timezone
+u_int16_t	./acconfig.h	11;"	d
+u_int32_t	./acconfig.h	8;"	d
+u_int64_t	./acconfig.h	5;"	d
+u_int8_t	./acconfig.h	14;"	d
