@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2001 Niels Provos <provos@citi.umich.edu>
+ * Copyright 2000-2002 Niels Provos <provos@citi.umich.edu>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,9 +34,9 @@
 #include <sys/queue.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <errno.h>
-#include <string.h>
 
 #ifdef USE_LOG
 #include "log.h"
@@ -77,16 +77,10 @@ struct eventop selectops = {
 	select_dispatch
 };
 
-/* Seperator */
-struct event select_sep;
-
 void *
 select_init(void)
 {
 	memset(&sop, 0, sizeof(sop));
-
-	memset(&select_sep, 0, sizeof(struct event));
-	select_sep.ev_fd = -1;
 
 	return (&sop);
 }
@@ -126,8 +120,10 @@ select_recalc(void *arg, int max)
 			return (-1);
 		}
 
-		memset(readset + sop->event_fdsz, 0, fdsz - sop->event_fdsz);
-		memset(writeset + sop->event_fdsz, 0, fdsz - sop->event_fdsz);
+		memset((char *)readset + sop->event_fdsz, 0,
+		    fdsz - sop->event_fdsz);
+		memset((char *)writeset + sop->event_fdsz, 0,
+		    fdsz - sop->event_fdsz);
 
 		sop->event_readset = readset;
 		sop->event_writeset = writeset;
@@ -141,7 +137,7 @@ int
 select_dispatch(void *arg, struct timeval *tv)
 {
 	int maxfd, res;
-	struct event *ev;
+	struct event *ev, *next;
 	struct selectop *sop = arg;
 
 	memset(sop->event_readset, 0, sop->event_fdsz);
@@ -156,26 +152,22 @@ select_dispatch(void *arg, struct timeval *tv)
 
 
 	if ((res = select(sop->event_fds + 1, sop->event_readset, 
-			  sop->event_writeset, NULL, tv)) == -1) {
+		 sop->event_writeset, NULL, tv)) == -1) {
 		if (errno != EINTR) {
 			log_error("select");
 			return (-1);
 		}
-
+		
 		return (0);
 	}
 
 	LOG_DBG((LOG_MISC, 80, __FUNCTION__": select reports %d",
 		 res));
 
-	/* Put the seperator into the right spot */
-	TAILQ_INSERT_TAIL(&eventqueue, &select_sep, ev_next);
-
 	maxfd = 0;
-	for (ev = TAILQ_FIRST(&eventqueue);
-	     ev != NULL && ev != &select_sep;
-	     ev = TAILQ_FIRST(&eventqueue)) {
-		
+	for (ev = TAILQ_FIRST(&eventqueue); ev != NULL; ev = next) {
+		next = TAILQ_NEXT(ev, ev_next);
+
 		res = 0;
 		if (FD_ISSET(ev->ev_fd, sop->event_readset))
 			res |= EV_READ;
@@ -185,18 +177,10 @@ select_dispatch(void *arg, struct timeval *tv)
 
 		if (res) {
 			event_del(ev);
-			(*ev->ev_callback)(ev->ev_fd, res, ev->ev_arg);
-		} else { 
-			TAILQ_REMOVE(&eventqueue, ev, ev_next);
-			TAILQ_INSERT_TAIL(&eventqueue, ev, ev_next);
-
-			if (ev->ev_fd > maxfd)
-				maxfd = ev->ev_fd;
-		}
+			event_active(ev, res);
+		} else if (ev->ev_fd > maxfd)
+			maxfd = ev->ev_fd;
 	}
-
-	/* Remove the seperator */
-	TAILQ_REMOVE(&eventqueue, &select_sep, ev_next);
 
 	sop->event_fds = maxfd;
 

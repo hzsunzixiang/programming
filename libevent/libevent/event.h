@@ -1,5 +1,5 @@
 /*
- * Copyright 2000 Niels Provos <provos@citi.umich.edu>
+ * Copyright 2000-2002 Niels Provos <provos@citi.umich.edu>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,10 +36,11 @@ extern "C" {
 
 #define EVLIST_TIMEOUT	0x01
 #define EVLIST_INSERTED	0x02
-#define EVLIST_ADD	0x08
+#define EVLIST_ACTIVE	0x08
 #define EVLIST_INIT	0x80
 
 /* EVLIST_X_ Private space: 0x1000-0xf000 */
+#define EVLIST_ALL	(0xf000 | 0x8f)
 
 #define EV_TIMEOUT	0x01
 #define EV_READ		0x02
@@ -54,11 +55,21 @@ struct {								\
 	struct type **tqe_prev;	/* address of previous next element */	\
 }
 #endif /* !TAILQ_ENTRY */
+#ifndef RB_ENTRY
+#define _EVENT_DEFINED_RBENTRY
+#define RB_ENTRY(type)							\
+struct {								\
+	struct type *rbe_left;		/* left element */		\
+	struct type *rbe_right;		/* right element */		\
+	struct type *rbe_parent;	/* parent element */		\
+	int rbe_color;			/* node color */		\
+}
+#endif /* !RB_ENTRY */
 
 struct event {
 	TAILQ_ENTRY (event) ev_next;
-	TAILQ_ENTRY (event) ev_timeout_next;
-	TAILQ_ENTRY (event) ev_add_next;
+	TAILQ_ENTRY (event) ev_active_next;
+	RB_ENTRY (event) ev_timeout_node;
 
 	int ev_fd;
 	short ev_events;
@@ -68,9 +79,8 @@ struct event {
 	void (*ev_callback)(int, short, void *arg);
 	void *ev_arg;
 
+	int ev_res;		/* result passed to event callback */
 	int ev_flags;
-
-	void *ev_opaque;
 };
 
 #ifdef _EVENT_DEFINED_TQENTRY
@@ -79,6 +89,10 @@ struct event {
 #else
 TAILQ_HEAD (event_list, event);
 #endif /* _EVENT_DEFINED_TQENTRY */
+#ifdef _EVENT_DEFINED_RBENTRY
+#undef RB_ENTRY
+#undef _EVENT_DEFINED_RBENTRY
+#endif /* _EVENT_DEFINED_RBENTRY */
 
 struct eventop {
 	char *name;
@@ -94,7 +108,12 @@ struct eventop {
 void event_init(void);
 int event_dispatch(void);
 
+#define EVLOOP_ONCE	0x01
+#define EVLOOP_NONBLOCK	0x02
+int event_loop(int);
+
 int timeout_next(struct timeval *);
+void timeout_correct(struct timeval *);
 void timeout_process(void);
 
 #define timeout_add(ev, tv)		event_add(ev, tv)
@@ -106,6 +125,7 @@ void timeout_process(void);
 void event_set(struct event *, int, short, void (*)(int, short, void *), void *);
 int event_add(struct event *, struct timeval *);
 int event_del(struct event *);
+	void event_active(struct event *, int);
 
 int event_pending(struct event *, short, struct timeval *);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2001 Niels Provos <provos@citi.umich.edu>
+ * Copyright 2000-2002 Niels Provos <provos@citi.umich.edu>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -82,6 +82,10 @@ void *
 kq_init(void)
 {
 	int kq;
+
+	/* Disable kqueue when this environment variable is set */
+	if (getenv("EVENT_NOKQUEUE"))
+		return (NULL);
 
 	memset(&kqop, 0, sizeof(kqop));
 
@@ -185,30 +189,19 @@ kq_dispatch(void *arg, struct timeval *tv)
 
 	LOG_DBG((LOG_MISC, 80, __FUNCTION__": kevent reports %d", res));
 
-	/* At this moment, all the returns are valid, but event_del
-	 * from callbacks might screw us.
-	 */
-	for (i = 0; i < res; i++) {
-		if (events[i].flags & EV_ERROR)
-			continue;
-
-		ev = events[i].udata;
-
-		/* Store a back pointer that our del can use,
-		 * to make this vanish.
-		 */
-		ev->ev_opaque = &events[i];
-	}
-
 	for (i = 0; i < res; i++) {
 		int which = 0;
 
 		if (events[i].flags & EV_ERROR) {
 			/* 
-			 * Error messages that can happen, when a delete
-			 * fails.  EBADF happens when the file discriptor
-			 * has been closed, ENOENT when the file discriptor
-			 * was closed and then reopened.
+			 * Error messages that can happen, when a delete fails.
+			 *   EBADF happens when the file discriptor has been
+			 *   closed,
+			 *   ENOENT when the file discriptor was closed and
+			 *   then reopened.
+			 * An error is also indicated when a callback deletes
+			 * an event we are still processing.  In that case
+			 * the data field is set to ENOENT.
 			 */
 			if (events[i].data == EBADF ||
 			    events[i].data == ENOENT)
@@ -224,11 +217,10 @@ kq_dispatch(void *arg, struct timeval *tv)
 			which |= EV_WRITE;
 		}
 
-		ev->ev_opaque = NULL;
 		if (which) {
 			ev->ev_flags &= ~EVLIST_X_KQINKERNEL;
 			event_del(ev);
-			(*ev->ev_callback)(ev->ev_fd, which, ev->ev_arg);
+			event_active(ev, which);
 		}
 	}
 
@@ -279,14 +271,6 @@ kq_del(void *arg, struct event *ev)
 
 	if (!(ev->ev_flags & EVLIST_X_KQINKERNEL))
 		return (0);
-
-	/* Are we removing an event that we are still processing? */
-	if (ev->ev_opaque) {
-		struct kevent *tmpkev = ev->ev_opaque;
-
-		tmpkev->flags |= EV_ERROR;
-		tmpkev->data = ENOENT;
-	}
 
 	if (ev->ev_events & EV_READ) {
  		memset(&kev, 0, sizeof(kev));
