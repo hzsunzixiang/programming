@@ -3,7 +3,7 @@
 #
 # Dug Song <dugsong@monkey.org>
 #
-# $Id: Makefile.in,v 1.1.1.1 2002/04/09 15:14:08 nprovos Exp $
+# $Id: Makefile.in,v 1.2 2002/07/26 14:45:51 nprovos Exp $
 
 srcdir          = @srcdir@
 VPATH           = @srcdir@
@@ -25,7 +25,7 @@ INSTALL	= @INSTALL@
 INSTALL_DATA	= @INSTALL_DATA@
 LN_S = @LN_S@
 
-TARGET	= test-eof test-weof
+TARGET	= test-eof test-weof test-time
 .c.o:
 	$(CC) $(CFLAGS) -c $(srcdir)/$*.c
 
@@ -45,12 +45,22 @@ test: $(TARGET)
 	else \
 		echo FAILED ; \
 	fi
+	@echo -n " test-time: "
+	@if ./test-time >/dev/null ; \
+	then \
+		echo OKAY ; \
+	else \
+		echo FAILED ; \
+	fi
 
 test-eof: test-eof.o
 	$(CC) $(CFLAGS)	$(INCS) -o $@ test-eof.o $(LDFLAGS)
 
 test-weof: test-weof.o
 	$(CC) $(CFLAGS)	$(INCS) -o $@ test-weof.o $(LDFLAGS)
+
+test-time: test-time.o
+	$(CC) $(CFLAGS)	$(INCS) -o $@ test-time.o $(LDFLAGS)
 
 install:
 
