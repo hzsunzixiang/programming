@@ -33,6 +33,7 @@
 #include <sys/time.h>
 #include <sys/queue.h>
 #include <sys/event.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -163,6 +164,12 @@ kq_insert(struct kqop *kqop, struct kevent *kev)
 	return (0);
 }
 
+static void
+kq_sighandler(int sig)
+{
+	/* Do nothing here */
+}
+
 int
 kq_dispatch(void *arg, struct timeval *tv)
 {
@@ -215,13 +222,39 @@ kq_dispatch(void *arg, struct timeval *tv)
 			which |= EV_READ;
 		} else if (events[i].filter == EVFILT_WRITE) {
 			which |= EV_WRITE;
-		}
+		} else if (events[i].filter == EVFILT_SIGNAL) {
+			which |= EV_SIGNAL;
+		} else
+			events[i].filter = 0;
 
-		if (which) {
-			ev->ev_flags &= ~EVLIST_X_KQINKERNEL;
-			event_del(ev);
-			event_active(ev, which);
+		if (!which)
+			continue;
+
+		event_active(ev, which,
+		    ev->ev_events & EV_SIGNAL ? events[i].data : 1);
+	}
+
+	for (i = 0; i < res; i++) {
+		/* XXX */
+		int ncalls, res;
+
+		if (events[i].flags & EV_ERROR || events[i].filter == NULL)
+			continue;
+
+		ev = events[i].udata;
+		if (ev->ev_events & EV_PERSIST)
+			continue;
+
+		ncalls = 0;
+		if (ev->ev_flags & EVLIST_ACTIVE) {
+			ncalls = ev->ev_ncalls;
+			res = ev->ev_res;
 		}
+		ev->ev_flags &= ~EVLIST_X_KQINKERNEL;
+		event_del(ev);
+
+		if (ncalls)
+			event_active(ev, res, ncalls);
 	}
 
 	return (0);
@@ -233,6 +266,27 @@ kq_add(void *arg, struct event *ev)
 {
 	struct kqop *kqop = arg;
 	struct kevent kev;
+
+	if (ev->ev_events & EV_SIGNAL) {
+		int nsignal = EVENT_SIGNAL(ev);
+
+ 		memset(&kev, 0, sizeof(kev));
+		kev.ident = nsignal;
+		kev.filter = EVFILT_SIGNAL;
+		kev.flags = EV_ADD;
+		if (!(ev->ev_events & EV_PERSIST))
+			kev.filter |= EV_ONESHOT;
+		kev.udata = ev;
+		
+		if (kq_insert(kqop, &kev) == -1)
+			return (-1);
+
+		if (signal(nsignal, kq_sighandler) == SIG_ERR)
+			return (-1);
+
+		ev->ev_flags |= EVLIST_X_KQINKERNEL;
+		return (0);
+	}
 
 	if (ev->ev_events & EV_READ) {
  		memset(&kev, 0, sizeof(kev));
@@ -271,6 +325,24 @@ kq_del(void *arg, struct event *ev)
 
 	if (!(ev->ev_flags & EVLIST_X_KQINKERNEL))
 		return (0);
+
+	if (ev->ev_events & EV_SIGNAL) {
+		int nsignal = EVENT_SIGNAL(ev);
+
+ 		memset(&kev, 0, sizeof(kev));
+		kev.ident = (int)signal;
+		kev.filter = EVFILT_SIGNAL;
+		kev.flags = EV_DELETE;
+		
+		if (kq_insert(kqop, &kev) == -1)
+			return (-1);
+
+		if (signal(nsignal, SIG_DFL) == SIG_ERR)
+			return (-1);
+
+		ev->ev_flags &= ~EVLIST_X_KQINKERNEL;
+		return (0);
+	}
 
 	if (ev->ev_events & EV_READ) {
  		memset(&kev, 0, sizeof(kev));
