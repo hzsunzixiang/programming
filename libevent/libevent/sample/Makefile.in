@@ -70,10 +70,11 @@ AUTOMAKE_OPTIONS = foreign no-dependencies
 LDADD = -L.. -levent
 CPPFPLAGS = -I..
 
-noinst_PROGRAMS = event-test time-test
+noinst_PROGRAMS = event-test time-test signal-test
 
 event_test_sources = event-test.c
 time_test_sources = time-test.c
+signal_test_sources = signal-test.c
 
 DISTCLEANFILES = *~
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
@@ -96,6 +97,11 @@ time_test_OBJECTS =  time-test.o
 time_test_LDADD = $(LDADD)
 time_test_DEPENDENCIES = 
 time_test_LDFLAGS = 
+signal_test_SOURCES = signal-test.c
+signal_test_OBJECTS =  signal-test.o
+signal_test_LDADD = $(LDADD)
+signal_test_DEPENDENCIES = 
+signal_test_LDFLAGS = 
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
@@ -107,8 +113,8 @@ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
 TAR = tar
 GZIP_ENV = --best
-SOURCES = event-test.c time-test.c
-OBJECTS = event-test.o time-test.o
+SOURCES = event-test.c time-test.c signal-test.c
+OBJECTS = event-test.o time-test.o signal-test.o
 
 all: all-redirect
 .SUFFIXES:
@@ -156,6 +162,10 @@ event-test: $(event_test_OBJECTS) $(event_test_DEPENDENCIES)
 time-test: $(time_test_OBJECTS) $(time_test_DEPENDENCIES)
 	@rm -f time-test
 	$(LINK) $(time_test_LDFLAGS) $(time_test_OBJECTS) $(time_test_LDADD) $(LIBS)
+
+signal-test: $(signal_test_OBJECTS) $(signal_test_DEPENDENCIES)
+	@rm -f signal-test
+	$(LINK) $(signal_test_LDFLAGS) $(signal_test_OBJECTS) $(signal_test_LDADD) $(LIBS)
 
 tags: TAGS
 
