@@ -2,7 +2,7 @@
 CC=gcc
 CFLAGS=-Wall -g
 #BIN=echosrv echocli
-BIN=echosrv 
+BIN=select_base pselect_base
 all:$(BIN)
 %.o:%.c
 	$(CC) $(CFLAGS) -c $< -o $@
