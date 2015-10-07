@@ -1,7 +1,7 @@
 .PHONY:clean all
 CC=gcc
-CFLAGS=-Wall -g -lpthread
-BIN=signal signal_bsd signal_sysv signal_threadid
+CFLAGS=-Wall -g -rdynamic
+BIN= rdynamic 
 all:$(BIN)
 %.o:%.c
 	$(CC) $(CFLAGS) -c $< -o $@
