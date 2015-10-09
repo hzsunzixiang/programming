@@ -26,6 +26,18 @@
 //   
 //      Program source
 //   
+//  root@debian32-1:~/programming/linux/my_apue/threads# strace -e process ./pthread_create_man   111 222 333
+//  execve("./pthread_create_man", ["./pthread_create_man", "111", "222", "333"], [/* 21 vars */]) = 0
+//  clone(child_stack=0xb7617424, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tidptr=0xb7617ba8, tls={entry_number:6, base_addr:0xb7617b40, limit:1048575, seg_32bit:1, contents:0, read_exec_only:0, limit_in_pages:1, seg_not_present:0, useable:1}, tls=0xbffe4bc0, child_tidptr=0xb7617ba8) = 20923
+//  clone(child_stack=0xb6e17424, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tidptr=0xb6e17ba8, tls={entry_number:6, base_addr:0xb6e17b40, limit:1048575, seg_32bit:1, contents:0, read_exec_only:0, limit_in_pages:1, seg_not_present:0, useable:1}, tls=0xbffe4bc0, child_tidptr=0xb6e17ba8) = 20924
+//  clone(child_stack=0xb6617424, flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, parent_tidptr=0xb6617ba8, tls={entry_number:6, base_addr:0xb6617b40, limit:1048575, seg_32bit:1, contents:0, read_exec_only:0, limit_in_pages:1, seg_not_present:0, useable:1}, tls=0xbffe4bc0, child_tidptr=0xb6617ba8) = 20925
+//  Thread 3: top of stack near 0xb6617344; argv_string=333
+//  Thread 2: top of stack near 0xb6e17344; argv_string=222
+//  Thread 1: top of stack near 0xb7617344; argv_string=111
+//  Joined with thread 1; returned value was 111
+//  Joined with thread 2; returned value was 222
+//  Joined with thread 3; returned value was 333
+
 #include <pthread.h>
 #include <string.h>
 #include <stdio.h>
