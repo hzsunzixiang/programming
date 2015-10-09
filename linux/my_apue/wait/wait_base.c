@@ -26,6 +26,12 @@
 // waitpid(20743, Child PID is 20743
 
 
+// root@debian32-1:~/programming/linux/my_apue/wait# ltrace ./wait_base
+// __libc_start_main(0x80485ab, 1, 0xbf92a764, 0x8048760 <unfinished ...>
+// fork()                                                                                                               = 21662
+// waitpid(21662, 0xbf92a680, 10Child PID is 21662
+
+
 #include <sys/wait.h>
 #include <stdlib.h>
 #include <unistd.h>

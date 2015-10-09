@@ -38,6 +38,37 @@
 //  Joined with thread 2; returned value was 222
 //  Joined with thread 3; returned value was 333
 
+
+// ltrace 能够看到调用的pthread_create
+// root@debian32-1:~/programming/linux/my_apue/threads# ltrace ./pthread_create_man  111 222 333
+// __libc_start_main(0x80488e9, 4, 0xbff03c84, 0x8048c10 <unfinished ...>
+// getopt(4, 0xbff03c84, "s:")                                                                                          = -1
+// pthread_attr_init(0xbff03b94, 0xbff03c84, 0x8048cfa, 0)                                                              = 0
+// calloc(3, 12)                                                                                                        = 0x977c008
+// pthread_create(0x977c008, 0xbff03b94, 0x804884b, 0x977c008)                                                          = 0
+// pthread_create(0x977c014, 0xbff03b94, 0x804884b, 0x977c014)                                                          = 0
+// pthread_create(0x977c020, 0xbff03b94, 0x804884b, 0x977c020)                                                          = 0
+// pthread_attr_destroy(0xbff03b94, 0xbff03b94, 0x804884b, 0x977c020)                                                   = 0
+// pthread_join(0xb7617b40, 0xbff03b90, 0x804884b, 0x977c020Thread 3: top of stack near 0xb6617344; argv_string=333
+// Thread 2: top of stack near 0xb6e17344; argv_string=222
+// Thread 1: top of stack near 0xb7617344; argv_string=111
+// )                                                           = 0
+// printf("Joined with thread %d; returned "..., 1, "111"Joined with thread 1; returned value was 111
+// )                                                              = 45
+// free(0xb5d00488)                                                                                                     = <void>
+// pthread_join(0xb6e17b40, 0xbff03b90, 0xb5d00488, 0x977c020)                                                          = 0
+// printf("Joined with thread %d; returned "..., 2, "222"Joined with thread 2; returned value was 222
+// )                                                              = 45
+// free(0xb5d00478)                                                                                                     = <void>
+// pthread_join(0xb6617b40, 0xbff03b90, 0xb5d00478, 0x977c020)                                                          = 0
+// printf("Joined with thread %d; returned "..., 3, "333"Joined with thread 3; returned value was 333
+// )                                                              = 45
+// free(0xb5d00468)                                                                                                     = <void>
+// free(0x977c008)                                                                                                      = <void>
+// exit(0 <no return ...>
+// +++ exited (status 0) +++
+
+
 #include <pthread.h>
 #include <string.h>
 #include <stdio.h>
