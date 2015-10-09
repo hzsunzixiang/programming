@@ -33,9 +33,12 @@ int main()
 				break;
 			// #define ORIG_EAX 11  reg.h  user.h
 			orig_eax = ptrace(PTRACE_PEEKUSER, child, 4 * ORIG_EAX, NULL);
+
+			//printf("orig_eax:%ld, SYS_write:%d\n", orig_eax, SYS_write);
 			// #define SYS_write __NR_write bits/syscall.h
 			// 跟踪write系统调用的地址
 			if(orig_eax == SYS_write) {   // 匹配，进入或者退出
+				printf("orig_eax:%ld, SYS_write:%d\n", orig_eax, SYS_write);
 				if(insyscall == 0) {
 					/* Syscall entry */
 					insyscall = 1;   // 第一次停止的时候是进入
