@@ -185,7 +185,7 @@ DESCRIPTION
               Restart  the  stopped  tracee  process.   If data is nonzero, it is interpreted as the number of a signal to be delivered to the tracee; otherwise, no signal is delivered.
               Thus, for example, the tracer can control whether a signal sent to the tracee is delivered or not.  (addr is ignored.)
 
-       PTRACE_SYSCALL, PTRACE_SINGLESTEP
+       PTRACE_SYSCALL, PTRACE_SINGLESTEP dummy1
               Restart the stopped tracee as for PTRACE_CONT, but arrange for the tracee to be stopped at the next entry to or exit from a system call, or after  execution  of  a  single
               instruction,  respectively.   (The  tracee  will  also, as usual, be stopped upon receipt of a signal.)  From the tracer's perspective, the tracee will appear to have been
               stopped by receipt of a SIGTRAP.  So, for PTRACE_SYSCALL, for example, the idea is to inspect the arguments to  the  system  call  at  the  first  stop,  then  do  another
