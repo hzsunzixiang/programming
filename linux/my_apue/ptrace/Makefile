@@ -2,7 +2,7 @@
 CC=gcc
 CFLAGS=-Wall -g
 BIN= ptrace_base ptrace_getregs ptrace_register ptrace_write_reverse ptrace_single_step dummy1 \
-	 dummy2 ptrace_attach ptrace_breakpoints hello ptrace_inject_code
+	 dummy2 ptrace_attach ptrace_breakpoints hello ptrace_inject_code ptrace_inject_code_freespace
 all:$(BIN)
 %.o:%.c
 	$(CC) $(CFLAGS) -c $< -o $@
