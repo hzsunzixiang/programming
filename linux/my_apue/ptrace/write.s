@@ -147,6 +147,7 @@ Disassembly of section .text:
  8048412:	e9 79 ff ff ff       	jmp    8048390 <register_tm_clones>
  8048417:	e9 74 ff ff ff       	jmp    8048390 <register_tm_clones>
 
+#write(2, "Hello", 5);
 0804841c <main>:
  804841c:	55                   	push   %ebp
  804841d:	89 e5                	mov    %esp,%ebp
