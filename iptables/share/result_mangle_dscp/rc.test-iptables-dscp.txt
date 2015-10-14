@@ -1,0 +1,15 @@
+
+root@debian-1:~# tcpdump  -nn -vvv -xxx  -nei eth0 port 1046
+tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
+02:48:46.459561 00:0c:29:60:a7:71 > 00:01:e8:d6:73:b9, ethertype IPv4 (0x0800), length 74: (tos 0xac, ttl 64, id 34679, offset 0, flags [DF], proto TCP (6), length 60)
+    10.240.156.16.39820 > 115.236.124.15.1046: Flags [S], cksum 0x972a (incorrect -> 0x47e9), seq 1473206998, win 14600, options [mss 1460,sackOK,TS val 3005857 ecr 0,nop,wscale 3], length 0
+        0x0000:  0001 e8d6 73b9 000c 2960 a771 0800 45ac
+        0x0010:  003c 8777 4000 4006 1b9d 0af0 9c10 73ec
+        0x0020:  7c0f 9b8c 0416 57cf 5ad6 0000 0000 a002
+        0x0030:  3908 972a 0000 0204 05b4 0402 080a 002d
+        0x0040:  dda1 0000 0000 0103 0303
+
+# 45ac
+# 10101100 = (ac)16
+# 101011   = (43)10
+# 

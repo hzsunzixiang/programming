@@ -1,0 +1,3 @@
+root@debian-1:~/iptables/share# ./cat_log.sh
+Apr  5 00:10:11 debian-1 kernel: [ 2554.492362] snat_allow  IN= OUT=eth0 PHYSIN=vethrlQZIH SRC=192.168.2.78 DST=115.236.124.15 LEN=84 TOS=0x00 PREC=0x00 TTL=63 ID=0 DF PROTO=ICMP TYPE=8 CODE=0 ID=9477 SEQ=0
+

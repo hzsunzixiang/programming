@@ -1,0 +1,11 @@
+root@example:~# ping 115.236.124.15
+PING 115.236.124.15 (115.236.124.15): 56 data bytes
+^C--- 115.236.124.15 ping statistics ---
+11 packets transmitted, 0 packets received, 100% packet loss
+root@example:~# telnet  115.236.124.15 8774
+Trying 115.236.124.15...
+Connected to 115.236.124.15.
+Escape character is '^]'.
+^Q^]
+telnet>
+

@@ -1,0 +1,25 @@
+root@debian-1:~/iptables/share# tcpdump  -ni br100 port 80 and src  10.240.155.80
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on br100, link-type EN10MB (Ethernet), capture size 65535 bytes
+02:20:04.896763 IP 10.240.155.80.36095 > 192.168.2.78.80: Flags [S], seq 1397953109, win 8192, options [mss 1460,nop,wscale 8,nop,nop,sackOK], length 0
+02:20:04.897322 IP 10.240.155.80.36095 > 192.168.2.78.80: Flags [.], ack 29708242, win 256, length 0
+02:20:04.897964 IP 10.240.155.80.36095 > 192.168.2.78.80: Flags [P.], seq 0:418, ack 1, win 256, length 418
+02:20:05.093586 IP 10.240.155.80.36095 > 192.168.2.78.80: Flags [.], ack 210, win 255, length 0
+02:20:09.902338 IP 10.240.155.80.36095 > 192.168.2.78.80: Flags [F.], seq 418, ack 210, win 255, length 0
+02:20:09.904659 IP 10.240.155.80.36095 > 192.168.2.78.80: Flags [.], ack 211, win 255, length 0
+^C
+6 packets captured
+6 packets received by filter
+0 packets dropped by kernel
+
+root@debian-1:~/iptables/share# tcpdump  -ni eth0  port 80 and src  10.240.155.80
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 65535 bytes
+02:20:52.273915 IP 10.240.155.80.1247 > 220.181.132.170.80: Flags [P.], seq 2724261123:2724261136, ack 1307079657, win 253, length 13
+02:20:54.037894 IP 10.240.155.80.36098 > 10.240.156.16.80: Flags [S], seq 327651301, win 8192, options [mss 1460,nop,wscale 8,nop,nop,sackOK], length 0
+02:20:54.038619 IP 10.240.155.80.36098 > 10.240.156.16.80: Flags [.], ack 3603701551, win 256, length 0
+02:20:54.043380 IP 10.240.155.80.36098 > 10.240.156.16.80: Flags [P.], seq 0:418, ack 1, win 256, length 418
+02:20:54.247031 IP 10.240.155.80.36098 > 10.240.156.16.80: Flags [.], ack 210, win 255, length 0
+02:20:59.051680 IP 10.240.155.80.36098 > 10.240.156.16.80: Flags [.], ack 211, win 255, length 0
+02:20:59.051712 IP 10.240.155.80.36098 > 10.240.156.16.80: Flags [F.], seq 418, ack 211, win 255, length 0
+
