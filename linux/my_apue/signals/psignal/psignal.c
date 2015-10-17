@@ -25,7 +25,7 @@ int main(void)
 		printf(" signal %d: %s\n", signal, sys_siglist[signal]);
 		psignal(signal, "Caught it!"); /*not a good idea, in general*/
 		printf(" signal %d: %s\n", signal, strsignal(signal));
-		memset(buf, 0, sizeof(buf));
+		//memset(buf, 0, sizeof(buf));
 		// linux 下没有sig2str
 		//  sig2str(signal, buf);
 		//  printf(" sig2str %d: %s\n", signal, buf);

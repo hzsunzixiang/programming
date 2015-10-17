@@ -13,6 +13,7 @@ main:
 	.cfi_offset 5, -8
 	movl	%esp, %ebp
 	.cfi_def_cfa_register 5
+#write(2, "Hello", 5);
 	andl	$-16, %esp
 	subl	$16, %esp
 	movl	$5, 8(%esp)

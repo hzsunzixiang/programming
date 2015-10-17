@@ -1,0 +1,31 @@
+root@example:~# telnet  10.240.156.16 80
+Trying 10.240.156.16...
+Connected to 10.240.156.16.
+Escape character is '^]'.
+^]
+telnet> q
+Connection closed.
+root@example:~# telnet  10.240.156.16 8080
+Trying 10.240.156.16...
+telnet: Unable to connect to remote host: Connection refused
+
+
+root@debian-1:~/iptables/share# tcpdump  -ni br100  port 80 or port 8080
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on br100, link-type EN10MB (Ethernet), capture size 65535 bytes
+03:32:26.493493 IP 192.168.2.78.46164 > 192.168.2.77.80: Flags [S], seq 1137458401, win 14600, options [mss 1460,sackOK,TS val 3660866 ecr 0,nop,wscale 3], length 0
+03:32:26.493574 IP 192.168.2.77.8080 > 192.168.2.78.46164: Flags [S.], seq 1342705270, ack 1137458402, win 14480, options [mss 1460,sackOK,TS val 3660866 ecr 3660866,nop,wscale 3], length 0
+03:32:26.493862 IP 192.168.2.78.46164 > 192.168.2.77.80: Flags [.], ack 1342705271, win 1825, options [nop,nop,TS val 3660866 ecr 3660866], length 0
+03:32:27.692215 IP 192.168.2.77.8080 > 192.168.2.78.46164: Flags [S.], seq 1342705270, ack 1137458402, win 14480, options [mss 1460,sackOK,TS val 3661166 ecr 3660866,nop,wscale 3], length 0
+03:32:27.692390 IP 192.168.2.78.46164 > 192.168.2.77.80: Flags [.], ack 1, win 1825, options [nop,nop,TS val 3661166 ecr 3660866], length 0
+
+本机产生的包
+root@debian-1:~# tcpdump   -ni lo
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on lo, link-type EN10MB (Ethernet), capture size 65535 bytes
+03:42:08.999143 IP 192.168.2.77.39813 > 127.0.0.1.80: Flags [S], seq 201161112, win 32792, options [mss 16396,sackOK,TS val 3806492 ecr 0,nop,wscale 3], length 0
+03:42:08.999178 IP 192.168.2.77.8080 > 192.168.2.77.39813: Flags [S.], seq 2379822486, ack 201161113, win 32768, options [mss 16396,sackOK,TS val 3806492 ecr 3806492,nop,wscale 3], length 0
+03:42:08.999199 IP 192.168.2.77.39813 > 127.0.0.1.80: Flags [.], ack 2379822487, win 4099, options [nop,nop,TS val 3806492 ecr 3806492], length 0
+03:42:09.996487 IP 192.168.2.77.8080 > 192.168.2.77.39813: Flags [S.], seq 2379822486, ack 201161113, win 32768, options [mss 16396,sackOK,TS val 3806742 ecr 3806492,nop,wscale 3], length 0
+03:42:09.996504 IP 192.168.2.77.39813 > 127.0.0.1.80: Flags [.], ack 1, win 4099, options [nop,nop,TS val 3806742 ecr 3806492], length 0
+
