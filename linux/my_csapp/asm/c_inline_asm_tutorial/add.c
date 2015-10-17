@@ -21,6 +21,7 @@ int main()
         "addl %2, %0"       // 1
         : "=g"(sum)           // 2  sum(0)  a(1) b(2)
         : "0"(a), "g"(b)    // 3  "0" here specifies the same constraint as the 0th output variable.
+        //: "g"(a), "0"(b)    // 3  "0" here specifies the same constraint as the 0th output variable.
         : "memory");        // 4
 	printf("现在sum是:%d, a: %d, b:%d\n", sum, a, b);
 

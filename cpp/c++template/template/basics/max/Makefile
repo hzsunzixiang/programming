@@ -1,11 +1,11 @@
 .PHONY:clean all
-CC=gcc
+CC=g++
 CFLAGS=-Wall -g
-BIN= helloworld  add copy_and_add examples
+BIN= max
 all:$(BIN)
-%:%.c
+%:%.cpp 
 	$(CC) $(CFLAGS)   $< -o $@
-	gcc -S $< -o $@.s
+	$(CC) -S $< -o $@.s
 	
 clean:
 	rm -f *.o $(BIN) *.s
