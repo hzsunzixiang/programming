@@ -71,4 +71,5 @@ static void sig_int(int signo)
 		printf("recived SIGUSR1\n");
 	else
 		fprintf(stderr, "received signal:%d\n", signo);
+	// raise(SIGINT);  // 无限循环
 }

@@ -52,17 +52,26 @@ int main(void)
 
 static void sig_int(int signo)
 {
-	__sighandler_t handler = bsd_signal(SIGINT, sig_int);
-	if (handler == SIG_ERR)
-	{
-		err_sys("can't catch SIGUSR1");
-	}
-	else 
-	{
-		fprintf(stderr, "in signal handler, old handler= %d\n", (int)handler);
-	}
+	//  __sighandler_t handler = bsd_signal(SIGINT, sig_int);
+	//  if (handler == SIG_ERR)
+	//  {
+	//  	err_sys("can't catch SIGUSR1");
+	//  }
+	//  else 
+	//  {
+	//  	fprintf(stderr, "in signal handler, old handler= %d\n", (int)handler);
+	//  }
 	if (signo == SIGINT)
 		printf("recived SIGUSR1\n");
 	else
 		fprintf(stderr, "received signal:%d\n", signo);
+       //. If the signal occurs as the result of calling the abort(),
+       //raise(),	  kill(), pthread_kill(), or sigqueue()	 function, the	signal
+       //handler shall not call the raise() function.
+	   // 再次引发会引起无限循环
+	// raise(SIGINT);
 }
+
+
+
+
