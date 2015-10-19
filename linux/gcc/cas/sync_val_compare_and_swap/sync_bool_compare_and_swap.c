@@ -31,6 +31,40 @@ void *func (void *x) {
 // The “bool” version returns true if the comparison is successful and newval was written. The “val” version returns the contents of *ptr before the operation. 
 //
 
+// 一个CAS操作的过程可以用以下c代码表示: [1]
+// 
+// int
+// cas(long *addr, long old, long new)
+// {
+// 	/* Executes atomically. */
+// 	if(*addr != old)
+// 		return 0;
+// 	*addr = new;
+// 	return 1;
+// }
+
+// 
+// int compare_and_swap(int* reg, int oldval, int newval)
+// {
+//   ATOMIC();
+//   int old_reg_val = *reg;
+//   if (old_reg_val == oldval)
+//      *reg = newval;
+//   END_ATOMIC();
+//   return old_reg_val;
+// }
+
+
+// bool compare_and_swap(int *accum, int *dest, int newval)
+// {
+//   if (*accum == *dest) {
+//       *dest = newval;
+//       return true;
+//   } else {
+//       *accum = *dest;
+//       return false;
+//   }
+// }
 
 int main (void) {
 	pthread_t t;

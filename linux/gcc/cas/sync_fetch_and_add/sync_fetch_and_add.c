@@ -5,8 +5,19 @@
 
 static volatile uint32_t var = 1;
 
-// 操作之后返回新值
-// 相加之后返回新值
+// 操作之后返回旧值
+// 相加之后返回旧值
+// The following is a C implementation for the GCC compiler, for both 32 and 64 bit x86 Intel platforms, based on extended asm syntax:
+//
+//  inline int fetch_and_add( int * variable, int value ) {
+//      asm volatile("lock; xaddl %%eax, %2;"
+//                   :"=a" (value)                  //Output
+//                   :"a" (value), "m" (*variable)  //Input
+//                   :"memory");
+//      return value;
+//  }
+
+
 void *func (void *x) {
 
 	//  uint32_t addVal = 19999;
