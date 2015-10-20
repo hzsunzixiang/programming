@@ -1,7 +1,8 @@
 .PHONY:clean all
 CC=gcc
 CFLAGS=-Wall -g -lpthread
-BIN= asm_volatile sync_synchronize sync_lock_release
+BIN= sync_lock_test_and_set
+
 all:$(BIN)
 %:%.c
 	$(CC) $(CFLAGS)   $< -o $@

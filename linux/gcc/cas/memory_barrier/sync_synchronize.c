@@ -10,7 +10,7 @@ static volatile uint32_t var = 0;
 //	lock cmpxchgl	%edx, var(%rip)
 
 void *func (void *x) {
-	//__sync_synchronize ();
+	__sync_synchronize ();
 	return x;
 }
 

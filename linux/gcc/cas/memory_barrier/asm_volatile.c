@@ -7,7 +7,7 @@
 static volatile uint32_t var = 0;
 
 void *func (void *x) {
-	//asm volatile("": : :"memory");
+	asm volatile("": : :"memory");
 	return x;
 }
 
