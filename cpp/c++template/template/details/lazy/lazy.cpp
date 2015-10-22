@@ -28,13 +28,17 @@ class Tricky {
 		void inclass() { 
 			Danger<N> no_boom_yet;
 		}
-		void error()   // 看汇编，不适用时不会实例化这个函数
+		//void error(T (*p)[N])   // 看汇编，不使用时不会实例化这个函数, 但是会 检查参数合法性 ,main中  定义 Tricky<int, 1> ok; 时报错 
+		void error()        // 看汇编，不适用时不会实例化这个函数
 		{
 			//Danger<1> boom;  // 
-			Danger<-1> boom;  //  这里不报错，只有使用的时候报错 使用的时候才实例化
+			Danger<-1> boom;  //  这里不报错，只有使用的时候报错 使用的时候才实例化 main中如果只定义Tricky<int, 1> ok; 而不调用error(), 则不报错 
 		}
 		//Danger<-1> boom;  // 声明 ，会报错，即使没有main函数
-		// void unsafe(T (*p)[N]);  // 声明，只有在main中使用时报错
+		//void unsafe(T (*p)[N]);  // 声明，只有在main中使用时报错
+		// void unsafe(T (*p)[N])  // 参数中需要实例化，不管是声明还是定义,在main中都会报错
+		// {
+		// }
 		T operator->();
 		// virtual Safe<T> suspect(); // 即使T参数合法，也编译不过，需要虚函数的地址，放在虚函数表中
 
@@ -53,6 +57,6 @@ class Tricky {
 int main()
 {
 	//Tricky<int, 1> ok;   // 参数合法虚函数也会报错，必须有定义
-	Tricky<int, -1> ok;
+	Tricky<int, 1> ok;
 	//ok.error();  // 只有使用的时候才会实例化， 才会引发 错误
 }
