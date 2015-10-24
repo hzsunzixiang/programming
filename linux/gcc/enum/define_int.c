@@ -1,7 +1,4 @@
-#include <stdio.h>
-
-
-
+#include <stdio.h> 
 
 // 一个整形能容纳得了的话，
 //
@@ -19,7 +16,7 @@
 #define	RESULT_DOUBLE  22222
 #define	RESULT_SHORT   33333
 
-int returnRes(int flag)  // c语言中必须加enum
+int returnRes(int flag)  
 {
 	switch (flag) {
 	case 1:
@@ -27,7 +24,7 @@ int returnRes(int flag)  // c语言中必须加enum
 	case 2:
 		return RESULT_DOUBLE;
 	case 3:
-		return RESULT_SHORT;   // 如果不用这个枚举，汇编中根本就不会出现，只有出现时才做替换
+		return RESULT_SHORT;   
 	default:
 		return RESULT_INT;
 	}
