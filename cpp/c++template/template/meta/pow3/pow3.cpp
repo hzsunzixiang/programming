@@ -13,6 +13,6 @@
 
 int main() 
 {
-    std::cout << "Pow3<17>::result = " << Pow3<7>::result
+    std::cout << "Pow3<7>::result = " << Pow3<7>::result
               << '\n';
 }
