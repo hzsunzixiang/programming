@@ -18,7 +18,7 @@
 // 	movl	$1, %edx
 
 enum result_l {
-	RESULT_LONG1 = 4294967296,
+	RESULT_LONG1 = 1,
 	RESULT_LONG2 = 4294967296 + 100,
 	RESULT_LONG3 = 4294967296 + 200,
 };
@@ -45,6 +45,7 @@ int main()
 	printf("returnRes(1):%lld\n", returnRes(1));
 	printf("returnRes(2):%lld\n", returnRes(2));
 	printf("en == returnRes(1):%d\n", en == returnRes(1));
+	printf("sizeof(enum result_t):%d\n", sizeof(en));
 	return 0;
 }
 

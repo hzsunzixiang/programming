@@ -39,6 +39,7 @@ int main()
 
 	enum result_t  en = RESULT_INT; // 直接用常量替换了  movl	$11111, 24(%esp)
 	enum result_t  *ep = &en;
+	printf("sizeof(enum result_t):%d\n", sizeof(en));
     // void *p =  &RESULT_INT;  // main.c:30: error: lvalue required as unary ‘&’ operand
 	printf("en == returnRes(1):%d\n", en == returnRes(1));
 	return 0;
