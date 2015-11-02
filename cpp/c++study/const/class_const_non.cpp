@@ -11,7 +11,7 @@ void ConstCaseFun(int const * data)
 class Static_const{
 	public:
 		int i; 
-		int result_non;  // class 中的static int const 不能取地址
+		int const result_non;  // class 中的static int const 不能取地址
 		// c++11 或gnu++11 支持不初始化 g++ -Wall -g   -std=c++11  class_const.cpp -o class_const
 		// class_const.cpp:8:26: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
 
