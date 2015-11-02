@@ -10,6 +10,8 @@ int main(void)
 	int x5 = 0;
 	int x6 = 0;
 
+	printf("sizeof(x1):%d\n", sizeof(x1));
+	// sizeof(x1):4 其大小不会发生变化
 
 	// movl	$0, -16(%rbp)
 	// movl	$0, -32(%rbp)
