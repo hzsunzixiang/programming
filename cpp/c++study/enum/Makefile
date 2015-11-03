@@ -1,9 +1,9 @@
 .PHONY:clean all
-CC=gcc
+CC=g++
 CFLAGS=-Wall -g
-BIN= attribute_pack  attribute_aligned pragma_pack
+BIN= enum 
 all:$(BIN)
-%:%.c 
+%:%.cpp 
 	$(CC) $(CFLAGS)   $< -o $@
 	$(CC) -S $< -o $@.s
 	

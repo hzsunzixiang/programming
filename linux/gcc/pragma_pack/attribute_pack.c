@@ -30,6 +30,37 @@ int main(void)
 	printf("p1 = %p\n", (void*)p1);
 	printf("*p0 = %d\n", *p0);
 	printf("*p1 = %d\n", *p1);
+
+
+	//struct __attribute__ ((__packed__)) my_unpacked_struct // 导致my_packed_struct 大小为10
+	struct my_unpacked_struct  // 导致my_packed_struct大小为13
+	{
+		char c;
+		int i;
+	};
+	
+	struct __attribute__ ((__packed__)) my_packed_struct
+	{
+		char c;
+		int  i;
+		struct my_unpacked_struct s;
+	};
+	printf("sizeof(struct my_packed_struct)      = %d\n", (int)sizeof(struct my_packed_struct));
+	printf("offsetof(struct my_packed_struct, c) = %d\n", (int)offsetof(struct my_packed_struct, c));
+	printf("offsetof(struct my_packed_struct, i) = %d\n", (int)offsetof(struct my_packed_struct, i));
+	printf("offsetof(struct my_packed_struct, s) = %d\n", (int)offsetof(struct my_packed_struct, s));
+
+	//sizeof(struct my_packed_struct)      = 13
+	//offsetof(struct my_packed_struct, c) = 0
+	//offsetof(struct my_packed_struct, i) = 1
+	//offsetof(struct my_packed_struct, s) = 5
+	//
+	//sizeof(struct my_packed_struct)      = 10
+	//offsetof(struct my_packed_struct, c) = 0
+	//offsetof(struct my_packed_struct, i) = 1
+	//offsetof(struct my_packed_struct, s) = 5
+	//
+
 	return 0;
 }
 
