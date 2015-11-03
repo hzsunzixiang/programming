@@ -26,7 +26,7 @@ void GetheadPoint(int *tz)
 	struct _test_ *p;
 	int temp = -1;
 
-	// 必须 是 ({ })  这种形式
+	// 必须 是 ({ })  这种形式 ,,  typeof 功能类似typedef， 具体看typeof.c文件中的例子
 	p = ({ 
 			const typeof( ((struct _test_ *)0)->z ) *__mptr = (tz);    // 声明一个指针 *__mptr 类型为typeof计算出来的结果 ， 其值为传过来的指针
 			(struct _test_ *)( (char *)__mptr - ((int)(&((struct _test_ *)0)->z)) );  //  __mptr 减去偏移量即为 结构体首地址
