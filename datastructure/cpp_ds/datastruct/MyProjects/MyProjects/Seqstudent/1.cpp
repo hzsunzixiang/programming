@@ -1,0 +1,238 @@
+#include <iostream.h>
+#include<stdlib.h>
+#include"student.h"
+template <class type>class seqlist
+{
+private:
+   type *data;              //顺序表的存放数组
+   int  maxsize;           //顺序表的最大可容纳项数
+   int  last;                  //当前已存表项的最后位置
+public:
+    seqlist(int maxsize);
+    ~seqlist(){delete[] data;}
+    int  length()const {return last+1;}   //计算表长
+    void  create(int i);
+    int find (type &x) const;                //定位函数：找x在表中的位置
+    int  isin (type &x);                        //判断X在表中，与find()有区别
+    int getlast(){return last;};
+    type getdata(int i){return i<0||i>last?NULL:data[i];}//取数据
+    int insert(type x,int i);                       //在表中第i个位置处插入X
+    int remove(type &x);               //删除X
+    int next(){return current<last?&data[++current]:NULL;} //找x的后继
+    int prior(){return current>0?&data[--current]:NULL;}  //找出x的前驱
+    int isempty(){return last = = -1;}  // 判空
+    int isfull(){return last==maxsize-1;}  // 判满
+};
+template<class type> seqlist<type>::seqlist(int sz)
+{
+    if (sz>0)
+       {  maxsize=sz;last=-1;
+           data=new type[maxsize];
+           if (data==NULL)
+              {cerr<<"内存溢出"<<endl;exit(1);}
+         }
+}
+template<class type>int seqlist<type>::find(type &x)const 
+{ 
+	int i=0;
+	while(i<=last&&data[i]!=x) i++;
+	if(i>last) return -1;
+	else return i;
+}
+template<class type>int  seqlist<type>::insert(type x,int i)
+{
+	if(i<0||i>last+1||last==maxsize-1) return 0;
+	else
+	{
+		last++;
+		for(int j=last;j>i;j--) data[j]=data[j-1];
+		data[i]=x;return 1;
+	}
+}
+template<class type>void seqlist<type>::create(int i)
+{
+	type x;
+	for(int j=0;j<i;j++)
+	{
+		cout<<"这是第"<<j+1<<"个"<<endl;
+		cin>>x;
+		data[j]=x;
+		last++;
+	}
+}
+template<class type >int  seqlist<type>::remove(type &x)
+{
+    int  i=find(x);
+    if(i>=0)
+	{
+	last--;
+      for(int j=i;j<=last;j++)data[j]=data[j+1];
+     return 1;
+      }
+   return   0;
+}
+template<class type >int seqlist<type>::isin(type &x){
+	int i=0,found=0;
+	while(i<=last&&!=found)
+		if(data[j]!=x) i++;
+		else found=1;
+	return found;
+}
+int main()
+{
+	seqlist <student> list(10);	  
+	Student s,s1("wuming ",0,0.0);         //定义student类
+    //string d;  float f;
+    cout<<"******************************"<<endl;   
+	cout<<"*请选择你所需要的服务        "<<endl;
+	cout<<"*建立表格请按‘1’键         "<<endl;
+	cout<<"*插入新成员请按‘2’键       "<<endl;
+	cout<<"*删除请按‘3’键             "<<endl;
+	cout<<"*查找信息请按‘4’键     "<<endl;
+	cout<<"*输出请按‘5’键             "<<endl;
+	cout<<"*退出请按‘0’键             "<<endl;
+	cout<<"******************************"<<endl;
+	/*int i;
+	while(i!=0)
+	{  
+
+		cout<<"请输入你的选择：";
+		//cout<<"1---> 建立、2----插入、3----删除、4--->更新、5--->输出、6-->查找、0-->退出"<<endl;
+		cin>>i;  
+	   switch(i)
+	   { 
+	      case 1:*/
+			   cout<<"请输入你要建立的表格元素的个数为：";
+			   int n,m;	    
+			   cin>>n; 
+ 			   for(m=0;m<n;m++)
+			   {
+				   s.Input();
+				   l.Insert(s,m);
+			   }
+	}
+		   /*case 2: 
+			   cout<<"请输入你要插入的位置和值:"; 
+			   int c;
+			   int v;
+			   cin>>c;
+			   cin>>v;
+			   if(list.insert(v,c)==0) cout<<"插入失败！"<<endl;
+			      else  cout<<"插入成功！"<<endl;
+			   break;
+		   case 3:
+			   cout<<"请输入要删除的数据：";
+			   int d;
+			   cin>>d;
+			   if(list.find(d)==-1) {
+				   cout<<"无学生档案 删除失败"<<endl;
+			       continue;
+			   } 
+			   if(list.remove(d)==1) cout<<"删除成功！"<<endl;
+			    break;
+		   case 4:
+			   cout<<"请输入你要查找的数据："<<endl;
+			   cin>>d;
+			   int search;
+			   search=list.find(d);
+			   if(search==-1) cout<<"无该学生档案！"<<endl;
+			   else  cout<<list.getdata(search)<<endl;
+			   break;
+		   case 5:
+			   //cout<<l.Length()<<endl;
+			   if(list.getlast()<0) {cout<<"         目前无学生档案！"<<endl;}
+			   for(i=0;i<=list.getlast();i++){
+	                cout<<list.getdata(i)<<endl;}
+		   	  
+	   }
+	}
+
+}
+	return 0; 
+}
+*/
+
+
+/*ListNode *search;
+    Student s,s1("wuming ",0,0.0);         //定义student类
+	List  l(s1);
+    string d;  float f;
+    cout<<"******************************"<<endl;   
+	cout<<"*请选择你所需要的服务        "<<endl;
+	cout<<"*建立表格请按‘1’键         "<<endl;
+	cout<<"*插入新成员请按‘2’键       "<<endl;
+	cout<<"*删除请按‘3’键             "<<endl;
+	cout<<"*更新请按‘4’键             "<<endl;
+	cout<<"*输出请按‘5’键             "<<endl;
+	cout<<"*查找个人信息请按‘6’键     "<<endl;
+	cout<<"*退出请按‘0’键             "<<endl;
+	cout<<"******************************"<<endl;
+	int i;
+	while(i!=0)
+	{  
+		cout<<"请输入你的选择：";
+		cout<<"1---> 建立、2----插入、3----删除、4--->更新、5--->输出、6-->查找、0-->退出"<<endl;
+		cin>>i;  
+	   switch(i)
+	   { 
+	      case 1:
+			   cout<<"请输入你要建立的表格元素的个数为：";
+			   int n,m;	    
+			   cin>>n; 
+			   for(m=0;m<n;m++)
+			   {
+				   s.Input();
+				   l.Insert(s,m);
+			   }
+			   break;
+		   case 2: 
+			   s.Input();
+			   cout<<"请输入你要插入的位置:"; 
+			   int c;
+			   cin>>c;
+			   //l.Insert(s,c-1);
+			   if(l.Insert(s,c-1)==0) cout<<"插入失败！"<<endl;
+			    else  cout<<"插入成功！"<<endl;
+			   break;
+		   case 3:
+			   cout<<"请输入你要删除的学生的姓名：";
+			   cin>>d;
+			   //l.Remove(d);
+			   if(l.Find(d)==NULL) {
+				   cout<<"无学生档案 删除失败"<<endl;
+			       continue;
+			   } 
+			   if(l.Remove(d)==1) cout<<"删除成功！"<<endl;
+			    break;
+		   case 4:
+			   cout<<"请输入你要更新的学生姓名："; 
+			   cin>>d;
+			   //ListNode *q;
+				 // q=l.Find(d);
+			   cout<<"请重新输入学生的成绩："<<endl;
+			   cin>>f;
+			    l.Find(d)->New(f);
+			   //q->link->Student.score=f;
+
+			   break;
+		   case 6:
+			   cout<<"请输入你要查找的学生姓名："<<endl;
+			   cin>>d;
+			   search=l.Find(d);
+			   if(search==NULL) cout<<"无该学生档案！"<<endl;
+			   else  search->print();
+			   break;
+		   case 5:
+			   //cout<<l.Length()<<endl;
+			   if(l.Length()==0) {cout<<"         目前无学生档案！"<<endl;}
+			   for(int a=0;a<l.Length();a++)
+			   {
+				   cout<<"学生 "<<l.Get(a)<<endl<<"    "<<"学号"<<l.Get1(a)<<endl<<"    "<<"成绩 "<<l.Get2(a)<<endl;
+			   }
+			   break;
+			    
+		   	  
+	   }
+	}
+	return 0; 
+}*/

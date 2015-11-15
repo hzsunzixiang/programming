@@ -8,7 +8,8 @@ using namespace std;
 int main()
 {
 	Stack<int> stack;	 
-    cout<<"******************************"<<endl;   
+
+	cout<<"******************************"<<endl;   
 	cout<<"*selet an item        "<<endl;
 	cout<<"*establish a stack,enter'1' "   <<endl;
 	cout<<"*push a new member,enter '2'  "<<endl;
@@ -18,54 +19,54 @@ int main()
 	int i;
 	do
 	{  
-		cout<<"请输入你的选择：";
-		cout<<"1---> establish、2----push、3----pop、4--->output、0--->quit、"<<endl;
-		cin>>i;  
-	   switch(i)
-	   { 
-	      case 1:
-			  	cout<<"create a stack"<<endl;
-	            cout<<"please enter the number of the stack"<<endl;
+		cout << "请输入你的选择：";
+		cout << "1---> establish、2----push、3----pop、4--->output、0--->quit、" << endl;
+		cin >> i;  
+		switch(i)
+		{ 
+			case 1:
+				cout << "create a stack" << endl;
+				cout << "please enter the number of the stack" << endl;
 				int j,s;
-				cin>>s;
-		        for(j=0;j<s;j++){
-				   cout<<"there is "<<s<<"numbers"<<endl;
-			       cout<<"this is the "<<j+1<<"th number"<<endl;
-			       int m;
-		           cin>>m;
-			       stack.Push(m);
+				cin >> s;
+				for(j=0; j<s; j++){
+					cout << "there is " << s << "numbers" << endl;
+					cout << "this is the " << j+1 << "th number" << endl;
+					int m;
+					cin >> m;
+					stack.Push(m);
 				}
-			break;
-		   case 2: 
-			   cout<<"push members into stack:"<<endl;
-			   int n,l;
-			   cout<<"How many  member you want to push:"<<endl;
-			   cin>>n;
-			   for(i=0;i<n;i++){
-               cout<<"please enter the "<<i+1 <<"th member you want to push:"<<endl;
-               cin>>l;
-			   stack.Push(l);
-			   }
-			   cout<<"OK"<<endl;
-			   break;
-		   case 3:
-			   cout<<"pop members";
-			   cout<<"please enter the number of you want to pop";
-				   int m;
-			   cin>>m;
-			   for(i=0;i<m;i++){
-				   stack.Pop();
-			   } 
-			   cout<<"OK"<<endl;
-			    break;
-		   case 4:
-               stack.Output();
-			   break;
-	   }
-		   
-	   }while(i!=0);
-			return 0;
-	
+				break;
+			case 2: 
+				cout << "push members into stack:" << endl;
+				int n,l;
+				cout << "How many  member you want to push:" << endl;
+				cin >> n;
+				for(i = 0; i<n; i++){
+					cout << "please enter the " << i + 1 << "th member you want to push:" << endl;
+					cin >> l;
+					stack.Push(l);
+				}
+				cout << "OK" << endl;
+				break;
+			case 3:
+				cout << "pop members";
+				cout << "please enter the number of you want to pop";
+				int m;
+				cin >> m;
+				for(i = 0; i < m; i++){
+					stack.Pop();
+				} 
+				cout << "OK" << endl;
+				break;
+			case 4:
+				stack.Output();
+				break;
+		}
+
+	}while(i!=0);
+	return 0;
+
 }
 
 

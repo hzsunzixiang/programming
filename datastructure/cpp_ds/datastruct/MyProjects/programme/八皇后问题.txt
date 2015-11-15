@@ -1,0 +1,95 @@
+八皇后问题  
+ 
+
+ 
+发表日期：2003年1月26日  出处：未知    已经有2103位读者读过此文 
+ 
+
+/************************************************************************/
+/* */
+/* 问题： 在8×8的国际象棋棋盘上放置8个皇后，要求任意两个皇后 */
+/* 不能在同一行、同一列或同一条对角线上。 */
+/* */
+/* 本程序使用递归－回溯法求解8皇后问题。Visual C++ 6.0 调试通过。 */
+/* 作者 晨星 2002年5月9日 */
+/* */
+/************************************************************************/ 
+
+#include <stdio.h >
+#include <conio.h >
+#include <math.h >
+
+#define QUEENS 8
+
+int iCount = 0;
+
+int Site[QUEENS];
+
+void Queen(int n);
+
+void Output();
+
+int IsValid(int n);
+
+/*----------------------------Main：主函数。----------------------------*/
+void main()
+{ 
+Queen(0);
+
+getch();
+}
+
+/*-----------------Queen：递归放置第n个皇后，程序的核心!----------------*/
+void Queen(int n)
+{
+int i;
+
+if(n == QUEENS)
+{
+Output();
+return;
+}
+
+for(i = 1 ; i <= QUEENS ; i++)
+{
+Site[n] = i;
+
+if(IsValid(n))
+Queen(n + 1);
+}
+}
+
+/*------IsValid：判断第n个皇后放上去之后，是否合法，即是否无冲突。------*/
+int IsValid(int n)
+{
+int i;
+
+for(i = 0 ; i < n ; i++)
+{
+if(Site[i] == Site[n])
+return 0;
+
+if(abs(Site[i] - Site[n]) == (n - i))
+return 0;
+}
+
+return 1;
+}
+
+/*------------Output：输出一个解，即一种没有冲突的放置方案。------------*/
+void Output()
+{
+int i;
+
+printf( "No.%-5d " , ++iCount);
+
+for(i = 0 ; i < QUEENS ; i++)
+printf( "%d " , Site[i]);
+
+printf( "\n ");
+}
+
+
+
+ 
+ 
