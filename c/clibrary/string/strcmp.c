@@ -1,36 +1,3 @@
-/*	$OpenBSD: strcmp.c,v 1.7 2005/08/08 08:05:37 espie Exp $	*/
-
-/*-
- * Copyright (c) 1990 The Regents of the University of California.
- * All rights reserved.
- *
- * This code is derived from software contributed to Berkeley by
- * Chris Torek.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of the University nor the names of its contributors
- *    may be used to endorse or promote products derived from this software
- *    without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
 
 #if !defined(_KERNEL) && !defined(_STANDALONE)
 #include <string.h>
@@ -39,13 +6,66 @@
 #endif
 
 /*
- * Compare strings.
+ * Compare strings.  这个不太好理解
  */
-int
+	int
 strcmp(const char *s1, const char *s2)
 {
 	while (*s1 == *s2++)
 		if (*s1++ == 0)
 			return (0);
 	return (*(unsigned char *)s1 - *(unsigned char *)--s2);
+}
+
+int strcmp(const char *str1,const char *str2)
+{
+	/*不可用while(*str1++==*str2++)来比较，当不相等时仍会执行一次++，
+	 *     return返回的比较值实际上是下一个字符。应将++放到循环体中进行。*/
+	while(*str1 == *str2)
+	{
+		if(*str1 == '\0')
+			return0;
+
+		str1++;
+		str2++;
+	}
+	return *str1 - *str2;
+}
+
+int(const char *pl,const char *p2)
+{
+	const unsignedchar *s1 = (const unsigned char*)p1;
+	const unsignedchar *s2 = (const unsigned char*)p2;
+	unsigned reg_charc1, c2;
+	do{
+		c1 = (unsigned char)*s1++;
+		c2 = (unsigned char)*s2++;
+		if(c1 == '\0')
+			return c1 - c2;
+	}while(c1 == c2);
+	return c1 - c2;
+} 
+// libc_hidden_builtin_def(strcmp)
+int(const char *sl,const char *s2)
+{
+	/*compare unsigned char sl[],s2[]*/
+	for(; *sl == *s2; ++sl, ++s2)
+		if(*sl == '\0')
+			return(0);
+	return((*(unsigned char*)sl < *(unsigned char*)s2) ? -1 : +1);
+}
+
+
+// strcmp另外的源代码如下：
+
+int __cdecl strcmp(const char *src,const char *dst)
+{
+	int ret=0;
+	while(!(ret = *(unsigned char *)src - *(unsigned char *)dst) && *dst)
+		++src,++dst;
+	if(ret < 0)
+		ret = -1;
+	else if(ret > 0)
+		ret = 1;
+	return(ret);
 }
