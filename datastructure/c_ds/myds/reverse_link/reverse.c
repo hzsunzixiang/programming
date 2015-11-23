@@ -13,6 +13,19 @@ void print_list(Node* root) {
 	printf("\n");
 }
 
+/* Function to reverse the linked list */
+void printReverse(struct Node* head)
+{
+	// Base case  
+	if (head == NULL)
+		return;
+
+	// print the list after head node
+	printReverse(head->next);
+
+	// After everything else is printed, print head
+	printf("%c  ", head->data);
+}
 Node* reverse(Node* root) {
 	Node* new_root = 0;
 	while (root) {
@@ -34,6 +47,8 @@ int main() {
 	print_list(root);
 	root = reverse(root);
 	print_list(root);
+	printReverse(root);
+	printf("\n");
 
 	return 0;
 }
