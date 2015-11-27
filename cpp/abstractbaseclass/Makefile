@@ -1,9 +1,9 @@
 .PHONY:clean all
-CC=gcc
-CFLAGS=-Wall -g
-BIN= classDepend 
+CPP=g++
+CPPFLAGS=-Wall -g  --save-temps
+BIN= classDepend  callDerivedFromBase
 all:$(BIN)
-%.o:%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+%:%.cpp
+	$(CPP) $(CPPFLAGS) $< -o $@
 clean:
-	rm -f *.o $(BIN)
+	rm -f *.o $(BIN) *.ii *.s
