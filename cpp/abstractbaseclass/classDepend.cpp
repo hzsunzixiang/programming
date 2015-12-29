@@ -20,7 +20,7 @@ class A {
 		void printA()
 		{
 			printf("in A\n");
-			b->printB();    //  如果只是前向声明，B达不到目的
+			b->printB();    //  如果只是前向声明B,达不到目的
 		}
 	public:
 		Bx * b;
