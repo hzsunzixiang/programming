@@ -1,3 +1,3 @@
 
 
-rsync -av /var/www ~/programming/web
+rsync -av --exclude="*.swp"  /var/www ~/programming/web
