@@ -1,0 +1,59 @@
+<VirtualHost *:80>
+	ServerAdmin webmaster@localhost
+	#ServerName www.test.com
+
+	DocumentRoot /var/www
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+	<Directory /var/www/>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride None
+		Order allow,deny
+		allow from all
+	</Directory>
+
+
+
+ #	<FilesMatch \.php$>
+ #       # 2.4.10+ can proxy to unix socket
+ #       # SetHandler "proxy:unix:/var/run/php5-fpm.sock|fcgi://localhost/"
+
+ #       # Else we can just use a tcp socket:
+ #       SetHandler "proxy:fcgi://127.0.0.1:9000"
+ #   </FilesMatch>
+
+	<IfModule mod_fastcgi.c>
+		AddHandler php5-fcgi .php
+		Action php5-fcgi /php5-fcgi
+		Alias /php5-fcgi /usr/lib/cgi-bin/php5-fcgi
+		#FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -socket /var/run/php5-fpm.sock -pass-header Authorization
+		FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -host 192.168.1.102:9000 -pass-header Authorization
+		#FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -host 127.0.0.1:9000 -pass-header Authorization
+	</IfModule>
+
+  	#<FilesMatch \.php$>
+    #    # 2.4.10+ can proxy to unix socket
+    #    # SetHandler "proxy:unix:/var/run/php5-fpm.sock|fcgi://localhost/"
+
+    #    # Else we can just use a tcp socket:
+    #    SetHandler "proxy:fcgi://127.0.0.1:9000"
+    #</FilesMatch>
+
+	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+	<Directory "/usr/lib/cgi-bin">
+		AllowOverride None
+		Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+		Order allow,deny
+		Allow from all
+	</Directory>
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
