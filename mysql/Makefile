@@ -1,7 +1,7 @@
 .PHONY:clean all
 CC=gcc
 CFLAGS=-Wall -g -std=c99
-BIN= mysql_version  createdb createtable select last_row_id headers multiple_statement
+BIN= mysql_version  createdb createtable select last_row_id headers multiple_statement store_image select_image
 all:$(BIN)
 %:%.c
 	$(CC) $(CFLAGS)   $< -o $@ `mysql_config --cflags --libs`
