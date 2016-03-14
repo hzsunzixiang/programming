@@ -26,9 +26,10 @@ endif
 
 all:$(BIN)
 %:%.cpp 
-	$(CC) -save-temps -g  -lpthread -ldl -lrt -I$(INCL) -L$(LIBS)  -o $@ $<  /usr/local/src/ACE_wrappers/lib/libACE.a 
+#$(CC) -save-temps -g  -lpthread -ldl -lrt -I$(INCL) -L$(LIBS)  -o $@ $<  /usr/local/src/ACE_wrappers/lib/libACE.a 
+	$(CC) -save-temps -g  -lpthread -ldl -lrt -I$(INCL) -L$(LIBS)  -o $@ $<  -lACE  
+#export LD_LIBRARY_PATH=$ACE_ROOT/lib:$LD_LIBRARY_PATH
 
-#  -lACE 不行
 #$(CC) -ldl -lrt -I$(INCL) -L$(LIBS)  -o HelloWorld $(FILES) /usr/local/src/ACE_wrappers/lib/libACE.a 
 
 clean:
