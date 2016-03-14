@@ -1,7 +1,7 @@
 .PHONY:clean all
 CC=gcc
 CFLAGS=-Wall -g
-BIN= main1 main2
+BIN= main1 main2 hostent
 all:$(BIN)
 %:%.c
 	$(CC) $(CFLAGS)  $< -o $@ 
