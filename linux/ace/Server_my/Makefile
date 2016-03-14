@@ -1,4 +1,4 @@
-BIN =  server client
+BIN =  server client server1
 
 
 #LIBS = /usr/local/src/ACE_wrappers/lib/libACE.a 
