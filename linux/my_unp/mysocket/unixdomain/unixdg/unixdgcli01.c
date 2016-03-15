@@ -22,17 +22,28 @@ main(int argc, char **argv)
 	int					sockfd;
 	struct sockaddr_un	cliaddr, servaddr;
 
-	sockfd = socket(AF_LOCAL, SOCK_DGRAM, 0);
+	if((sockfd = socket(AF_LOCAL, SOCK_STREAM, 0)) < 0)
+	{
+		perror("socket");
+		return -1;
+	}
 
 	bzero(&cliaddr, sizeof(cliaddr));		/* bind an address for us */
+	// struct sockaddr_un {
+	// 	__kernel_sa_family_t sun_family; /* AF_UNIX */
+	// 	char sun_path[UNIX_PATH_MAX];	/* pathname */
+	// };
 	cliaddr.sun_family = AF_LOCAL;
 
 	// receive from name = /tmp/fileX6drQq, returned len = 18
 	// Unlike our UDP client, when using the Unix domain datagram protocol, we must explicitly bind a pathname to our socket so that the server has a pathname to which it can send its reply. We call tmpnam to assign a unique pathname that we then bind to our socket. Recall from Section 15.4 that sending a datagram on an unbound Unix domain datagram socket does not implicitly bind a pathname to the socket. Therefore, if we omit this step, the server's call to recvfrom in the dg_echo function returns a null pathname, which then causes an error when the server calls sendto.
 	strcpy(cliaddr.sun_path, tmpnam(NULL));
 
-	bind(sockfd, (SA *) &cliaddr, sizeof(cliaddr));
-
+	if(bind(sockfd, (SA *) &cliaddr, sizeof(cliaddr)) < 0)
+	{
+		perror("bind");
+		return -1;
+	}
 	bzero(&servaddr, sizeof(servaddr));	/* fill in server's address */
 	servaddr.sun_family = AF_LOCAL;
 	strcpy(servaddr.sun_path, UNIXDG_PATH);
