@@ -1,7 +1,7 @@
 .PHONY:clean all
 CC=g++
 CFLAGS=-Wall -g --save-temps
-BIN= endian 
+BIN= endian  endian_bits
 all:$(BIN)
 %:%.cpp 
 	$(CC) $(CFLAGS)   $< -o $@
