@@ -19,7 +19,8 @@
 //  这个是handler操作
 
 // ****
-// * handler 操作主要是处理数据包的
+// 请求每次过来都会 创建一个handler
+// * handler 操作主要是处理数据包的 ,保存着server 的指针, 用以回调具体的操作  
 
 //  位于文件ICHAT_TCP_Handler.h
 class ICHAT_TCP_Server;
@@ -42,12 +43,13 @@ class ICHAT_TCP_Handler:public ACE_Svc_Handler<ACE_SOCK_STREAM, ACE_NULL_SYNCH>
 			strcpy(buf, "hello,Client\n");  
 			peer().send(buf, strlen(buf)); //向客户端发送信息。  
 			//ICHAT_TCP_Server * server(void)             {return m_pServer;}
+			// SocketServer *pServer = (SocketServer *)this->server();
+			// 可以再在ICHAT_TCP_Server的基础上继承一个类 专门用来处理这个数据包了 
 			// 有了获取server 的渠道之后 就可以 实现如下方式的回调
-			//   SocketServer *pServer = (SocketServer *)this->server();
-			// 第一个参数为数据包结构 ，第二个即是 ICHAT_TCP_Handler* 可以再继承一个类 专门用来处理这个数据包了 
 			// 从而实现回调的功能
-			//   return pServer->ProcessPacket(pPacket, this);
-			//  处理数据包的时候加上模板参数 可以进一步封装包结构， 从而把数据和 handler同时传递到 mainserver
+			//   return pServer->ProcessPacket(pPacket, this); // 第一个参数为数据包结构 ，第二个即是 ICHAT_TCP_Handler* 
+			//  处理数据包的时候加上模板参数 可以进一步封装包结构， 从而把数据和handler同时传递到 mainserver
+
 			// 再继承一层 用户接受和发送的时候 封装数据包
 			
 			return 0;  
@@ -73,6 +75,7 @@ class ICHAT_TCP_Handler:public ACE_Svc_Handler<ACE_SOCK_STREAM, ACE_NULL_SYNCH>
 	protected:  
 		char buf[100];  
 		ACE_SOCK_Stream sock_;  
+		// 这里保存server 的指针， 可以继承若干层次 实际可以是其子类 
 		ICHAT_TCP_Server *m_pServer;   // 保存 ICHAT_TCP_Server 注册 并可以获取
 
 };  
@@ -96,6 +99,8 @@ class ICHAT_TCP_Server:public ACE_Acceptor<ICHAT_TCP_Handler<>, ACE_SOCK_ACCEPTO
 			ICHAT_TCP_Handler<> *pNewHandler;   
 			//  相当于  SocketHandler  创建的正式 ICHAT_TCP_Handler类，这个类 包含了一个  ICHAT_TCP_Server *m_pServer; 
 			//  这样把两者结合起来了 
+			// 每次链接请求 过来 都要创建一个ICHAT_TCP_Handler
+			// 可以吧想这些 ICHAT_TCP_Handler 保存起来
 			ACE_NEW_RETURN(pNewHandler, ICHAT_TCP_Handler<>, 0);
 			return pNewHandler;
 		}
@@ -116,6 +121,8 @@ ICHAT_TCP_Server::~ICHAT_TCP_Server(void)
 // make_svc_handler  accept之后会自动调用这个函数来处理  
 // 必须要等待链接到来之后才会触发 , 客户端连接过来之后
 ////////////////////////////////////////////////////////////////////////////////
+//  这个函数中会设置 server 到  也就是 ICHAT_TCP_Server 
+// 
 int ICHAT_TCP_Server::make_svc_handler(ICHAT_TCP_Handler<> *&sh)
 {
 	sh = (ICHAT_TCP_Handler<>*)this->CreateHandler();
@@ -129,9 +136,10 @@ int ICHAT_TCP_Server::make_svc_handler(ICHAT_TCP_Handler<> *&sh)
 		return -1;
 	}
 
+	// 这里只能不求甚解了  重点了解整体继承结构
 	sh->reactor(this->reactor());  // 把server的reactor  传递到 handler的reactor中 
 	
-	sh->server(this);   //  在这里把server保存 传递给 handler
+	sh->server(this);   //  在这里把server指针 保存 传递给 handler  两者建立了联系
 	return 0;
 }
 
@@ -155,7 +163,7 @@ int main(int argc, char *argv[])
 
 	ACE_INET_Addr addr(7777, "127.0.0.1");  
 	ICHAT_TCP_Server test_server;
-	// 调用 ACE_Svc_Handler 的open函数 是其父类的函数
+	// 调用 ACE_Acceptor 的open函数 是其父类的函数
 	printf("11 ACE_Reactor::instance()=%x\n", ACE_Reactor::instance());
 	if(test_server.open(addr, ACE_Reactor::instance(), ACE_NONBLOCK) == -1)
 	{
