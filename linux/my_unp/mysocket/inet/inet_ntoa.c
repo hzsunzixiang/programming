@@ -7,26 +7,6 @@
 #include<arpa/inet.h>
 #include<string.h>
 
-// /* Address to accept any incoming messages.  */
-// #define	INADDR_ANY		((in_addr_t) 0x00000000)
-// /* Address to send to all hosts.  */
-// #define	INADDR_BROADCAST	((in_addr_t) 0xffffffff)
-// /* Address indicating an error return.  */
-// #define	INADDR_NONE		((in_addr_t) 0xffffffff)
-// 
-// /* Network number for local host loopback.  */
-// #define	IN_LOOPBACKNET		127
-// /* Address to loopback in software to local host.  */
-// #ifndef INADDR_LOOPBACK
-// # define INADDR_LOOPBACK	((in_addr_t) 0x7f000001) /* Inet 127.0.0.1.  */
-// #endif
-// 
-// /* Defines for Multicast INADDR.  */
-// #define INADDR_UNSPEC_GROUP	((in_addr_t) 0xe0000000) /* 224.0.0.0 */
-// #define INADDR_ALLHOSTS_GROUP	((in_addr_t) 0xe0000001) /* 224.0.0.1 */
-// #define INADDR_ALLRTRS_GROUP    ((in_addr_t) 0xe0000002) /* 224.0.0.2 */
-// #define INADDR_MAX_LOCAL_GROUP  ((in_addr_t) 0xe00000ff) /* 224.0.0.255 */
-
 // /* Internet address.  */
 // typedef uint32_t in_addr_t;
 // struct in_addr
@@ -95,7 +75,6 @@ int main(int argc, char* argv[])
 	{
 		//argv[1] = "0.0.0.0";
 		argv[1] = "127.0.0.1";
-		//argv[1] = "255.255.255.255";
 	}
 
 
@@ -119,36 +98,19 @@ int main(int argc, char* argv[])
 	   into binary data and store the result in the structure INP.  */
 	// extern int inet_aton (const char *__cp, struct in_addr *__inp) __THROW;
 
-	// The inet_addr() function converts the Internet host address cp from IPv4 numbers-and-dots notation into binary data in network byte order.  If the input is  invalid,  INADDR_NONE
-	// (usually  -1)  is  returned.  Use of this function is problematic because -1 is a valid address (255.255.255.255).  Avoid its use in favor of inet_aton(), inet_pton(3), or getad‐
-	// drinfo(3), which provide a cleaner way to indicate error return.
-
-	// in_addr_t inet_addr(const char *cp);
-
-	//if ( (servaddr.sin_addr.s_addr = inet_addr(argv[1])) < 0)
-	if ( (servaddr.sin_addr.s_addr = inet_addr(argv[1])) == INADDR_NONE)
+	if (inet_aton(argv[1], &servaddr.sin_addr) == 0)
 	{
-		//perror("inet_aton failure!\n");
-		//printf("address:%u\n", servaddr.sin_addr.s_addr);
-		printf("inet_addr failure\n");
+		perror("inet_aton failure!");
+		printf("address:%u\n", servaddr.sin_addr.s_addr);
 		exit(EXIT_FAILURE);
 	}
-	printf("success address:0x%x\n", servaddr.sin_addr.s_addr);
+	printf("success address:%u\n", servaddr.sin_addr.s_addr);
+	// char *inet_ntoa(struct in_addr in);
+	// The  inet_ntoa() function converts the Internet host address in, given in network byte order, to a string in IPv4 dotted-decimal notation.  The string is returned in a statically
+	// allocated buffer, which subsequent calls will overwrite.
+	// char *inet_ntoa(struct in_addr in);
 
-	// inet_aton, inet_addr, inet_network, inet_ntoa, inet_makeaddr, inet_lnaof, inet_netof - Internet address manipulation routines
-	// The inet_network() function converts cp, a string in IPv4 numbers-and-dots notation, into a number in host byte order suitable for use as an Internet network  address.   On  suc‐
-	// cess, the converted address is returned.  If the input is invalid, -1 is returned.
-
-	// 主机字节序
-	if ( (servaddr.sin_addr.s_addr = inet_network(argv[1])) == INADDR_NONE)
-	{
-		//perror("inet_aton failure!\n");
-		//printf("address:%u\n", servaddr.sin_addr.s_addr);
-		printf("inet_network failure\n");
-		exit(EXIT_FAILURE);
-	}
-	printf("success inet_network address:0x%x\n", servaddr.sin_addr.s_addr);
-
+	printf("success address:%s\n", inet_ntoa(servaddr.sin_addr));
 
 	return 0;
 }
