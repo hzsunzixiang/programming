@@ -1,4 +1,4 @@
-BIN = timer  timer_every_other timer_reactor
+BIN = timer  timer_every_other timer_reactor timer_multiple timer_mix
 
 
 #LIBS = /usr/local/src/ACE_wrappers/lib/libACE.a 
