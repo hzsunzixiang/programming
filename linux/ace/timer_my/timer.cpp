@@ -11,9 +11,9 @@ bool stop_event_loop = false;//是否需要终止计时器服务
 class My_Timer_Handler : public ACE_Event_Handler
 {
 	public:
-		My_Timer_Handler(const int delay,const int interval);
+		My_Timer_Handler(const int delay, const int interval);
 		~My_Timer_Handler();
-		int handle_timeout(const ACE_Time_Value& , const void *act /* = 0 */);//计时器到期后执行的回调函数
+		int handle_timeout(const ACE_Time_Value&, const void *act /* = 0 */);//计时器到期后执行的回调函数
 	private:
 		int n_;//循环计时的次数
 		long time_handle_;//在计时器队列中的ID
@@ -65,6 +65,9 @@ int main(int argc, char* argv[])
 		}
 		ACE_Reactor::instance()->handle_events();
 	}
+
+	// 这种方式无法处理 停止情况  handler中用 exit 不会调用析构函数
+	// ACE_Reactor::instance ()->run_reactor_event_loop();
 
 	return 0;
 }
