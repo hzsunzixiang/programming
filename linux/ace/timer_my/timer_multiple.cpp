@@ -39,6 +39,15 @@ int My_Timer_Handler::handle_timeout(const ACE_Time_Value& , const void *act /* 
 {
 	if (++this->n_>3)
 	{
+			// 这里有个重载 既可以根据timer_id 也可以根据ACE_Event_Handler 做参数
+			///usr/local/src/ACE_wrappers/ace/Reactor_Timer_Interface.h
+  			// virtual int cancel_timer (long timer_id,
+  			//                           const void **arg = 0,
+  			//                           int dont_call_handle_close = 1) = 0;
+
+  			// virtual int cancel_timer (ACE_Event_Handler *event_handler,
+  			//                           int dont_call_handle_close = 1) = 0;
+
 		ACE_Reactor::instance()->cancel_timer(this->time_handle_);
 		stop_event_loop = true;
 		std::cout<<"cancle_timer"<<std::endl;
