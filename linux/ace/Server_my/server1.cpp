@@ -152,9 +152,18 @@ int main(int argc, char *argv[])
 	printf("00 ACE_Reactor::instance()=%x\n", ACE_Reactor::instance());
 
 	// 如果不想用默认的 可以指定reactor
-	ACE_Reactor * pMyReacotr = new ACE_Reactor(new ACE_Dev_Poll_Reactor, 1);
+			// 用strace跟踪
+			//epoll_ctl(5, EPOLL_CTL_ADD, 8, {EPOLLIN|EPOLLONESHOT, {u32=8, u64=8}}) = 0
+			//write(1, "22 ACE_Reactor::instance()=d52ce"..., 3422 ACE_Reactor::instance()=d52ce0
+			//) = 34
+			//epoll_wait(5,
+
+	//ACE_Reactor * pMyReacotr = new ACE_Reactor(new ACE_Dev_Poll_Reactor, 1);
+
+			// 默认或者 指定select(6, [3 5], NULL, NULL, NULL
+ 
 	//ACE_Reactor * pMyReacotr = new ACE_Reactor(new ACE_Select_Reactor, 1);
-	//ACE_Reactor * pMyReacotr = new ACE_Reactor(new ACE_TP_Reactor, 1);
+	ACE_Reactor * pMyReacotr = new ACE_Reactor(new ACE_TP_Reactor, 1);
 
 	//pMyReacotr->restart(1);  // 这句可有可无吗
 	ACE_Reactor::instance(pMyReacotr);
