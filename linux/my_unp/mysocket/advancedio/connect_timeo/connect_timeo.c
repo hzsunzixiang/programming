@@ -14,10 +14,13 @@
 
 // 测试的时候让客户端无法连接服务器 
 // iptables -A INPUT -p tcp    --dport 8888 -j DROP
+#define err_msg(m)  do  {  perror(m); exit(EXIT_FAILURE);  } while(0)
+#define SA struct sockaddr
 typedef void Sigfunc(int);
 Sigfunc * signal(int signo, Sigfunc *func);
+int
+connect_timeo(int sockfd, const SA *saptr, socklen_t salen, int nsec);
 
-int connect_timeo(int sockfd, const struct sockaddr *saptr, socklen_t salen, int nsec);
 
 void handle_pipe(int sig);
 
@@ -34,18 +37,22 @@ int main(int argc, char* argv[])
 
     servaddr.sin_family = AF_INET;
     servaddr.sin_port = htons(8888);
+	if (argv[1] == NULL)
+	{
+		argv[1] = "127.0.0.1";
+	}
     if (inet_aton(argv[1], &servaddr.sin_addr) == 0)
     {
         perror("inet_aton error");
         exit(EXIT_FAILURE);
     }
 
-    if (connect_timeo(sockconn, (struct sockaddr*)&servaddr, sizeof(servaddr), 10) < 0)
-    {
-        perror("connnect error");
-        exit(EXIT_FAILURE);
-    }
-	printf("connect success!....\n");
+	if (connect_timeo(sockconn, (struct sockaddr*)&servaddr, sizeof(servaddr), 5) < 0)
+	{
+		perror("connnect timeout");
+		exit(EXIT_FAILURE);
+	}
+
     char recvbuf[1024] = {0};
     char sendbuf[1024] = {0};
     while(1){
@@ -97,37 +104,27 @@ void handle_pipe(int sig)
 static void	connect_alarm(int);
 
 int
-connect_timeo(int sockfd, const struct sockaddr *saptr, socklen_t salen, int nsec)
+connect_timeo(int sockfd, const SA *saptr, socklen_t salen, int nsec)
 {
 	Sigfunc	*sigfunc;
 	int		n;
 
 	sigfunc = signal(SIGALRM, connect_alarm);
-    // signal    act.sa_flags |= SA_INTERRUPT;
-	// 这里signal 必须设为 SA_INTERRUPT  不然connect还会重启
 	if (sigfunc == SIG_ERR)
         perror("signal:");
 
-	//if (alarm(nsec) != 0)
 	if (alarm(nsec) != 0)
-	{
-		perror("connect_timeo: alarm was already set");
-		return -1;
-	}
+		err_msg("connect_timeo: alarm was already set");
 
-	printf("alarm timer start\n");
 	if ( (n = connect(sockfd, saptr, salen)) < 0) {
-		printf("connect return error\n");
 		close(sockfd);
 		if (errno == EINTR)
 			errno = ETIMEDOUT;
 	}
-	printf("alarm timer over\n");
 	alarm(0);					/* turn off the alarm */
-	signal(SIGALRM, sigfunc);	/* restore previous signal handler */
+	sigfunc = signal(SIGALRM, sigfunc);	/* restore previous signal handler */
 	if (sigfunc == SIG_ERR)
         perror("signal:");
-	printf("connect over\n");
 
 	return(n);
 }
@@ -138,7 +135,6 @@ connect_alarm(int signo)
 	printf("connect_alarm\n");
 	//return;		/* just interrupt the connect() */
 }
-/* end connect_timeo */
 
 
     Sigfunc *

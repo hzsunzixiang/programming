@@ -2,7 +2,7 @@
 CC=gcc
 CFLAGS=-Wall -g
 #BIN=echosrv echocli
-BIN=echosrv  echocli
+BIN=dgclitimeo3  dgechosrv
 all:$(BIN)
 %.o:%.c
 	$(CC) $(CFLAGS) -c $< -o $@

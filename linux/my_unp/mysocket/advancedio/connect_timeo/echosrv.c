@@ -22,6 +22,10 @@ int main(int argc, char* argv[])
     memset(&servaddr, 0, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
     servaddr.sin_port = htons(8888);
+	if(argv[1] == NULL)
+	{
+		argv[1] = "0.0.0.0";
+	}
 
     if (inet_aton(argv[1], &servaddr.sin_addr) == 0)
     {
