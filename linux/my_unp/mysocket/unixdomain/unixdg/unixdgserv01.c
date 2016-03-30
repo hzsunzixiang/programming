@@ -21,14 +21,23 @@ main(int argc, char **argv)
 	int					sockfd;
 	struct sockaddr_un	servaddr, cliaddr;
 
-	sockfd = socket(AF_LOCAL, SOCK_DGRAM, 0);
+	if( (sockfd = socket(AF_LOCAL, SOCK_DGRAM, 0)) < 0)
+	{
+		perror("socket");
+		return -1;
+	}
+
 
 	unlink(UNIXDG_PATH);
 	bzero(&servaddr, sizeof(servaddr));
 	servaddr.sun_family = AF_LOCAL;
 	strcpy(servaddr.sun_path, UNIXDG_PATH);
 
-	bind(sockfd, (SA *) &servaddr, sizeof(servaddr));
+	if(bind(sockfd, (SA *) &servaddr, sizeof(servaddr)) < 0)
+	{
+		perror("bind");
+		return -1;
+	}
 
 	dg_echo(sockfd, (SA *) &cliaddr, sizeof(cliaddr));
 
