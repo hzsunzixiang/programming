@@ -7,56 +7,6 @@
 #include<arpa/inet.h>
 #include<string.h>
 
-// /* Internet address.  */
-// typedef uint32_t in_addr_t;
-// struct in_addr
-//   {
-//     in_addr_t s_addr;
-//   };
-
-//typedef uint16_t in_port_t;
-
-// /* Structure describing an Internet socket address.  */
-// struct sockaddr_in
-//   {
-//     __SOCKADDR_COMMON (sin_);
-//     in_port_t sin_port;			/* Port number.  */
-//     struct in_addr sin_addr;		/* Internet address.  */
-// 
-//     /* Pad to size of `struct sockaddr'.  */
-//     unsigned char sin_zero[sizeof (struct sockaddr) -
-// 			   __SOCKADDR_COMMON_SIZE -
-// 			   sizeof (in_port_t) -
-// 			   sizeof (struct in_addr)];
-//   };
-// 
-// 预编译之后的结果
-// struct sockaddr_in
-//   {
-//     sa_family_t sin_family;
-//     in_port_t sin_port;
-//     struct in_addr sin_addr;
-// 
-// 
-//     unsigned char sin_zero[sizeof (struct sockaddr) -
-//       (sizeof (unsigned short int)) -
-//       sizeof (in_port_t) -
-//       sizeof (struct in_addr)];
-//   };
-
-// struct sockaddr
-//   {
-//     sa_family_t sa_family;
-//     char sa_data[14];
-//   };
-// struct sockaddr_storage
-//   {
-//     sa_family_t ss_family;
-//     unsigned long int __ss_align;
-//     char __ss_padding[(128 - (2 * sizeof (unsigned long int)))];
-//   };
-
-
 int main(int argc, char* argv[])
 {
 	int sockfd;
@@ -78,11 +28,6 @@ int main(int argc, char* argv[])
 	}
 
 
-	// sizeof(struct sockaddr):16, sizeof(struct sockaddr_in):16, sizeof(struct sockaddr_storage):128
-	printf("sizeof(struct sockaddr):%ld, sizeof(struct sockaddr_in):%ld, sizeof(struct sockaddr_storage):%ld\n", 
-			sizeof(struct sockaddr),
-			sizeof(struct sockaddr_in),
-			sizeof(struct sockaddr_storage));
 
 	// typedef uint32_t in_addr_t;
 	// struct in_addr
@@ -90,27 +35,36 @@ int main(int argc, char* argv[])
 	//     in_addr_t s_addr;
 	//   };
 
-	// int inet_aton(const char *cp, struct in_addr *inp);
-	// 很特别 返回 0 表示错误
-	// inet_aton() returns 1 if the supplied string was successfully interpreted, or 0 if the string is invalid (errno is not set on error).
 
-	/* Convert Internet host address from numbers-and-dots notation in CP
-	   into binary data and store the result in the structure INP.  */
-	// extern int inet_aton (const char *__cp, struct in_addr *__inp) __THROW;
+   // int inet_pton(int af, const char *src, void *dst);
+   // RETURN VALUE
+   // inet_pton() returns 1 on success (network address was successfully converted).  0 is returned if src  does  not  contain  a
+   // character  string  representing  a  valid  network address in the specified address family.  If af does not contain a valid
+   // address family, -1 is returned and errno is set to EAFNOSUPPORT.
 
-	if (inet_aton(argv[1], &servaddr.sin_addr) == 0)
+	// void指针 以下两种都可以
+	//if (inet_pton(AF_INET, argv[1], &servaddr.sin_addr) <= 0)
+	if (inet_pton(AF_INET, argv[1], &servaddr.sin_addr.s_addr) <= 0)
+	{
+		perror("inet_pton failure!");
+		printf("address:%u\n", servaddr.sin_addr.s_addr);
+		exit(EXIT_FAILURE);
+	}
+	printf("success address:%u\n", servaddr.sin_addr.s_addr);
+
+    // const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
+	// RETURN VALUE
+    // On success, inet_ntop() returns a non-NULL pointer to dst.  NULL is returned if there was an error, with errno set to indi‐
+    //cate the error.
+	char str[128];
+	//if (inet_ntop(AF_INET, &servaddr.sin_addr, str, sizeof(str)) == NULL)
+	if (inet_ntop(AF_INET, &servaddr.sin_addr.s_addr, str, sizeof(str)) == NULL)
 	{
 		perror("inet_aton failure!");
 		printf("address:%u\n", servaddr.sin_addr.s_addr);
 		exit(EXIT_FAILURE);
 	}
-	printf("success address:%u\n", servaddr.sin_addr.s_addr);
-	// char *inet_ntoa(struct in_addr in);
-	// The  inet_ntoa() function converts the Internet host address in, given in network byte order, to a string in IPv4 dotted-decimal notation.  The string is returned in a statically
-	// allocated buffer, which subsequent calls will overwrite.
-	// char *inet_ntoa(struct in_addr in);
-
-	printf("success address:%s\n", inet_ntoa(servaddr.sin_addr));
+	printf("success address:%s\n", str);
 
 	return 0;
 }
