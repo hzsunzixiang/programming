@@ -28,6 +28,10 @@ int main(int argc, char* argv[])
 
     servaddr.sin_family = AF_INET;
     servaddr.sin_port = htons(8888);
+	if(argv[1] == NULL)
+	{
+		argv[1] = "127.0.0.1";
+	}
     if (inet_aton(argv[1], &servaddr.sin_addr) == 0)
     {
         perror("inet_aton error");
