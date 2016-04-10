@@ -9,7 +9,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <netdb.h>
-#include	<time.h>
+#include <time.h>
 
 // strace 跟踪
 
@@ -51,6 +51,11 @@ main(int argc, char **argv)
 			err_quit("accept");
 		}
 		printf("connection from %s\n", sock_ntop((SA *)&cliaddr, len));
+
+		// 另外一种打印方式
+		char host[NI_MAXHOST], serv[NI_MAXSERV];
+		if (getnameinfo((SA *)&cliaddr, len, host, NI_MAXHOST, serv, NI_MAXSERV, NI_NUMERICHOST | NI_NUMERICSERV) == 0)
+			printf("connect from %s.%s\n", host, serv);
 
 		ticks = time(NULL);
 		snprintf(buff, sizeof(buff), "%.24s\r\n", ctime(&ticks));

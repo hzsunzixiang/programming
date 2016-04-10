@@ -71,7 +71,6 @@ tcp_connect(const char *host, const char *serv)
 
 	if ( (n = getaddrinfo(host, serv, &hints, &res)) != 0)
 	{
-
 		char tmp[128];
 		sprintf(tmp, "tcp_connect error for %s, %s: %s", host, serv, gai_strerror(n) );
 		err_quit(tmp);
@@ -92,7 +91,6 @@ tcp_connect(const char *host, const char *serv)
 	if (res == NULL)	/* errno set from final connect() */
 	{
 		char tmp[128];
-
 		snprintf(tmp, sizeof(tmp),  "tcp_connect error for %s, %s", host, serv);
 		err_sys(tmp);
 	}
