@@ -12,6 +12,8 @@
 #include <errno.h>
 #include <sys/wait.h>
 
+// 迭代服务器 只能试到15000 再多就由于TIME_WAIT状态过多不再服务
+// 具体原因有待排查
 
 #define	MAXN	16384		/* max # bytes to request from server */
 #define	MAXLINE 1024 
@@ -46,16 +48,41 @@ main(int argc, char **argv)
 			err_quit("fork");
 		}
 		else if ( pid  == 0) {		/* child */
+			int i = 0;
 			for (j = 0; j < nloops; j++) {
+				if(i % 1000 == 0)
+				{
+					printf("i == %d\n", i);
+				}
 				fd = tcp_connect(argv[1], argv[2]);
 
 				if(write(fd, request, strlen(request)) < 0)
 					err_quit("write");
+				else
+				{
+					if(i % 1000 == 0)
+					{
+						printf("%d loops, write %d bytes\n", i, nbytes);
+					}
+				}
 
 				if ( (n = readn(fd, reply, nbytes)) != nbytes)
 					err_quit("server readn returned ");
+				else
+				{
+					if(i % 1000 == 0)
+					{
+						printf("%d loops, read %d bytes\n", i, nbytes);
+					}
+				}
 
 				close(fd);		/* TIME_WAIT on client, not server */
+				i++;
+				if(i % 1000 == 0)
+				{
+					sleep(1);
+				}
+
 			}
 			printf("child %d done\n", i);
 			exit(0);
