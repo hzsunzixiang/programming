@@ -78,10 +78,10 @@ main(int argc, char **argv)
 
 				close(fd);		/* TIME_WAIT on client, not server */
 				i++;
-				if(i % 1000 == 0)
-				{
-					sleep(1);
-				}
+				//if(i % 1000 == 0)
+				//{
+				//	sleep(0.1);
+				//}
 
 			}
 			printf("child %d done\n", i);
