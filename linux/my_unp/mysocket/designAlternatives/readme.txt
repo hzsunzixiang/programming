@@ -39,9 +39,22 @@ root@iZ25ox3a5vlZ:~/programming/linux/my_unp/mysocket/designAlternatives/server_
 user time = 0, sys time = 0.228
 
 
-accept加锁
+accept文件加锁
 
 root@iZ25ox3a5vlZ:~/programming/linux/my_unp/mysocket/designAlternatives/server_prefork_flock# ./server_prefork_flock 127.0.0.1 9999 10
 user time = 0.052, sys time = 0.404
+
+
+accept线程上锁
+root@iZ25ox3a5vlZ:~/programming/linux/my_unp/mysocket/designAlternatives/server_prefork_pthread# ./server_prefork_pthread 127.0.0.1 8888 10
+
+
+user time = 0.072, sys time = 0.36
+
+
+文件描述符传递
+root@iZ25ox3a5vlZ:~/programming/linux/my_unp/mysocket/designAlternatives/server_fd_transmit# ./server_prefork_fd 127.0.0.1 8888 10
+
+user time = 0.04, sys time = 0.404
 
 
