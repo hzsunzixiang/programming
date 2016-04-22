@@ -27,11 +27,17 @@ int tcp_listen(const char *host, const char *serv, socklen_t *addrlenp);
 int Tcp_listen(const char *host, const char *serv, socklen_t *addrlenp);
 long * meter(int nchildren);
 
+
 typedef struct {
   pthread_t		thread_tid;		/* thread ID */
   long			thread_count;	/* # connections handled */
 } Thread;
 Thread	*tptr;		/* array of Thread structures; calloc'ed */
+
+#define	MAXNCLI	32
+int					clifd[MAXNCLI], iget, iput;
+pthread_mutex_t		clifd_mutex;
+pthread_cond_t		clifd_cond;
 
 int				listenfd, nthreads;
 socklen_t		addrlen;
@@ -43,31 +49,56 @@ long			*cptr, *meter(int);	/* for counting #clients/child */
 
 pthread_mutex_t	mmlock;
 
+
+pthread_mutex_t		clifd_mutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_cond_t		clifd_cond = PTHREAD_COND_INITIALIZER;
+
 int
 main(int argc, char **argv)
 {
-	int		i;
-	void	sig_int(int), thread_make(int);
+	int			i, listenfd, connfd;
+	void		sig_int(int), thread_make(int);
+	socklen_t	addrlen, clilen;
+	struct sockaddr	*cliaddr;
 
 	if (argc == 3)
 		listenfd = Tcp_listen(NULL, argv[1], &addrlen);
 	else if (argc == 4)
 		listenfd = Tcp_listen(argv[1], argv[2], &addrlen);
 	else
-		err_quit("usage: serv07 [ <host> ] <port#> <#threads>");
+		err_quit("usage: serv08 [ <host> ] <port#> <#threads>");
+	cliaddr = malloc(addrlen);
+
 	nthreads = atoi(argv[argc-1]);
 	tptr = calloc(nthreads, sizeof(Thread));
+	iget = iput = 0;
 
+		/* 4create all the threads */
 	for (i = 0; i < nthreads; i++)
-		thread_make(i);			/* only main thread returns */
+		thread_make(i);		/* only main thread returns */
 
 	if (signal(SIGINT, sig_int) == SIG_ERR)
 		perror("signal SIGINT");
 
-	for ( ; ; )
-		pause();	/* everything done by threads */
+	for ( ; ; ) {
+		clilen = addrlen;
+		connfd = accept(listenfd, cliaddr, &clilen);
+		if(connfd < 0)
+		{
+			err_sys("accept");
+		}
+
+		pthread_mutex_lock(&clifd_mutex);
+		clifd[iput] = connfd;
+		if (++iput == MAXNCLI)
+			iput = 0;
+		if (iput == iget)
+			err_quit("iput = iget ");
+		pthread_cond_signal(&clifd_cond);
+		pthread_mutex_unlock(&clifd_mutex);
+	}
 }
-/* end serv07 */
+/* end serv08 */
 
 void
 sig_int(int signo)
@@ -82,7 +113,6 @@ sig_int(int signo)
 
 	exit(0);
 }
-
 
 /* include tcp_listen */
 
@@ -308,8 +338,6 @@ void pr_cpu_time(void)
 	printf("\nuser time = %g, sys time = %g\n", user, sys);
 }
 
-
-/* end my_lock_wait */
 void
 thread_make(int i)
 {
@@ -322,30 +350,23 @@ thread_make(int i)
 void *
 thread_main(void *arg)
 {
-	int				connfd;
-	void			web_child(int);
-	socklen_t		clilen;
-	struct sockaddr	*cliaddr;
-
-	cliaddr = malloc(addrlen);
-	if(cliaddr == NULL)
-	{
-		err_sys("malloc");
-	}
+	int		connfd;
+	void	web_child(int);
 
 	printf("thread %d starting\n", (int) arg);
 	for ( ; ; ) {
-		clilen = addrlen;
-    	pthread_mutex_lock(&mmlock);
-		connfd = accept(listenfd, cliaddr, &clilen);
-		if(connfd < 0)
-		{
-			err_sys("accept");
-		}
-		pthread_mutex_unlock(&mmlock);
+    	pthread_mutex_lock(&clifd_mutex);
+		while (iget == iput)
+			pthread_cond_wait(&clifd_cond, &clifd_mutex);
+		connfd = clifd[iget];	/* connected socket to service */
+		if (++iget == MAXNCLI)
+			iget = 0;
+		pthread_mutex_unlock(&clifd_mutex);
 		tptr[(int) arg].thread_count++;
 
 		web_child(connfd);		/* process request */
 		close(connfd);
 	}
 }
+
+
