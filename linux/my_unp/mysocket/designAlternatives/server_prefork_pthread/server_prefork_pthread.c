@@ -26,54 +26,62 @@
 int tcp_listen(const char *host, const char *serv, socklen_t *addrlenp);
 int Tcp_listen(const char *host, const char *serv, socklen_t *addrlenp);
 long * meter(int nchildren);
-pid_t child_make(int i, int listenfd, int addrlen);
 
+typedef struct {
+  pthread_t		thread_tid;		/* thread ID */
+  long			thread_count;	/* # connections handled */
+} Thread;
+Thread	*tptr;		/* array of Thread structures; calloc'ed */
+
+int				listenfd, nthreads;
+socklen_t		addrlen;
 
 void web_child(int sockfd);
 void pr_cpu_time(void);
-void sig_chld(int signo);
 
-static int nchildren;
-static pid_t *pids;
 long			*cptr, *meter(int);	/* for counting #clients/child */
 
-void my_lock_wait();
-void my_lock_init(char *pathname);
-void my_lock_release();
+pthread_mutex_t	mmlock;
 
-	int
+int
 main(int argc, char **argv)
 {
-	int			listenfd, i;
-	socklen_t	addrlen;
-	void		sig_int(int);
-	pid_t		child_make(int, int, int);
+	int		i;
+	void	sig_int(int), thread_make(int);
 
 	if (argc == 3)
 		listenfd = Tcp_listen(NULL, argv[1], &addrlen);
 	else if (argc == 4)
 		listenfd = Tcp_listen(argv[1], argv[2], &addrlen);
 	else
-		err_quit("usage: ./server_prefork_meter [ <host> ] <port#> <#children>");
-	nchildren = atoi(argv[argc-1]);
-	pids = calloc(nchildren, sizeof(pid_t));
-	cptr = meter(nchildren);
-	if(pids == NULL)
-	{
-		err_sys("calloc");
-	}
+		err_quit("usage: serv07 [ <host> ] <port#> <#threads>");
+	nthreads = atoi(argv[argc-1]);
+	tptr = calloc(nthreads, sizeof(Thread));
 
-	my_lock_init("/tmp/lock.XXXXXX");
-	for (i = 0; i < nchildren; i++)
-		pids[i] = child_make(i, listenfd, addrlen);	/* parent returns */
+	for (i = 0; i < nthreads; i++)
+		thread_make(i);			/* only main thread returns */
 
 	if (signal(SIGINT, sig_int) == SIG_ERR)
 		perror("signal SIGINT");
 
 	for ( ; ; )
-		pause();	/* everything done by children */
+		pause();	/* everything done by threads */
 }
-/* end serv01 */
+/* end serv07 */
+
+void
+sig_int(int signo)
+{
+	int		i;
+	void	pr_cpu_time(void);
+
+	pr_cpu_time();
+
+	for (i = 0; i < nthreads; i++)
+		printf("thread %d, %ld connections\n", i, tptr[i].thread_count);
+
+	exit(0);
+}
 
 
 /* include tcp_listen */
@@ -299,58 +307,20 @@ void pr_cpu_time(void)
 
 	printf("\nuser time = %g, sys time = %g\n", user, sys);
 }
-void sig_chld(int signo)
-{
-	pid_t   pid;
-	int     stat;
 
-	while ( (pid = waitpid(-1, &stat, WNOHANG)) > 0)
-		printf("child %d terminated\n", pid);
-	return;
+
+/* end my_lock_wait */
+void
+thread_make(int i)
+{
+	void	*thread_main(void *);
+
+	pthread_create(&tptr[i].thread_tid, NULL, &thread_main, (void *) i);
+	return;		/* main thread returns */
 }
 
-/* include sigint */
-	void
-sig_int(int signo)
-{
-	int		i;
-	void	pr_cpu_time(void);
-
-	/* terminate all children */
-	for (i = 0; i < nchildren; i++)
-		kill(pids[i], SIGTERM);
-	while (wait(NULL) > 0)		/* wait for all children */
-		;
-	if (errno != ECHILD)
-		err_sys("wait error");
-
-	pr_cpu_time();
-
-	for (i = 0; i < nchildren; i++)
-		printf("child %d, %ld connections\n", i, cptr[i]);
-
-	exit(0);
-}
-
-pid_t child_make(int i, int listenfd, int addrlen)
-{
-	pid_t	pid;
-	void	child_main(int, int, int);
-
-	pid = fork();
-	if(pid < 0)
-	{
-		err_sys("fork");
-	}
-	else if ( pid  > 0)
-		return(pid);		/* parent */
-
-	child_main(i, listenfd, addrlen);	/* never returns */
-}
-/* end child_make */
-
-/* include child_main */
-void child_main(int i, int listenfd, int addrlen)
+void *
+thread_main(void *arg)
 {
 	int				connfd;
 	void			web_child(int);
@@ -360,86 +330,22 @@ void child_main(int i, int listenfd, int addrlen)
 	cliaddr = malloc(addrlen);
 	if(cliaddr == NULL)
 	{
-		err_sys("malloc addrlen");
+		err_sys("malloc");
 	}
 
-	printf("child %ld starting\n", (long) getpid());
+	printf("thread %d starting\n", (int) arg);
 	for ( ; ; ) {
 		clilen = addrlen;
-		my_lock_wait();
-		if ( (connfd = accept(listenfd, cliaddr, &clilen)) < 0) {
-			if (errno == EINTR)
-				continue;		/* back to for() */
-			else
-				err_sys("accept error");
+    	pthread_mutex_lock(&mmlock);
+		connfd = accept(listenfd, cliaddr, &clilen);
+		if(connfd < 0)
+		{
+			err_sys("accept");
 		}
-		my_lock_release();
+		pthread_mutex_unlock(&mmlock);
+		tptr[(int) arg].thread_count++;
 
-		cptr[i]++;
-		web_child(connfd);		/* process the request */
+		web_child(connfd);		/* process request */
 		close(connfd);
 	}
 }
-/* end child_main */
-
-/*
- * Allocate an array of "nchildren" longs in shared memory that can
- * be used as a counter by each child of how many clients it services.
- * See pp. 467-470 of "Advanced Programming in the Unix Environment."
- */
-
-long * meter(int nchildren)
-{
-	int		fd;
-	long	*ptr;
-
-	// 这里没有处理函数调用错误时的情况
-#ifdef	MAP_ANON
-	ptr = mmap(0, nchildren*sizeof(long), PROT_READ | PROT_WRITE,
-			MAP_ANON | MAP_SHARED, -1, 0);
-#else
-	fd = open("/dev/zero", O_RDWR, 0);
-
-	ptr = mmap(0, nchildren*sizeof(long), PROT_READ | PROT_WRITE,
-			MAP_SHARED, fd, 0);
-	close(fd);
-#endif
-
-	return(ptr);
-}
-
-
-/* end my_lock_wait */
-static pthread_mutex_t	*mptr;	/* actual mutex will be in shared memory */
-
-void
-my_lock_init(char *pathname)
-{
-	int		fd;
-	pthread_mutexattr_t	mattr;
-
-	fd = open("/dev/zero", O_RDWR, 0);
-
-	mptr = mmap(0, sizeof(pthread_mutex_t), PROT_READ | PROT_WRITE,
-				MAP_SHARED, fd, 0);
-	close(fd);
-
-	pthread_mutexattr_init(&mattr);
-	pthread_mutexattr_setpshared(&mattr, PTHREAD_PROCESS_SHARED);
-	pthread_mutex_init(mptr, &mattr);
-}
-/* end my_lock_init */
-
-/* include my_lock_wait */
-void
-my_lock_wait()
-{
-	pthread_mutex_lock(mptr);
-}
-
-void
-my_lock_release()
-{
-	pthread_mutex_unlock(mptr);
-}
-/* end my_lock_wait */
