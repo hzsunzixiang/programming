@@ -58,3 +58,16 @@ root@iZ25ox3a5vlZ:~/programming/linux/my_unp/mysocket/designAlternatives/server_
 user time = 0.04, sys time = 0.404
 
 
+预先派生线程
+root@iZ25ox3a5vlZ:~/programming/linux/my_unp/mysocket/designAlternatives/server_prefork_pthread# ./server_prefork_pthread  127.0.0.1 8888 10
+
+
+user time = 0.048, sys time = 0.4
+
+
+// 主线程统一accept
+root@iZ25ox3a5vlZ:~/programming/linux/my_unp/mysocket/designAlternatives/server_prefork_pthread2# ./server_prefork_pthread  127.0.0.1
+8888 10
+
+user time = 0.036, sys time = 0.404
+
