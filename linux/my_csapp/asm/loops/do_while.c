@@ -8,3 +8,10 @@ int fact_do(int n)
 	} while (n > 1);
 	return result;
 }
+
+
+int main()
+{
+	fact_do(10);
+	return 0;
+}
