@@ -1,6 +1,6 @@
 CPPFLAGS=-g -Wall
 main:main.o ../libggg.so
-libggg.so:get.h
+../libggg.so:get.h
 	g++ get.cpp -shared -g -fPIC -DDEBUG -o ../libggg.so
 
 
