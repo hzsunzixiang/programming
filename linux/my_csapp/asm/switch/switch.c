@@ -1,4 +1,4 @@
-
+#include <stdio.h>
 
 int switch_eg(int x, int n)
 {
@@ -23,4 +23,10 @@ int switch_eg(int x, int n)
 			result = 0;
 	}
 	return result;
+}
+int main()
+{
+	int x = switch_eg(10, 100);
+	printf("x=%d\n", x);
+	return 0;
 }
