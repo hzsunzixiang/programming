@@ -59,6 +59,8 @@ int main()
 		fprintf(stderr, "test fprintf.");
 		fprintf(stderr, "-------test fprintf.");
 		fprintf(stderr, "=======test fprintf.");
+		// fprintf 调用了  fwrite 函数 而 puts 函数 并没有调用 fwrite函数
+		puts("++++===++ test fprintf.");
 		//fflush(fp);
 		write(fd, "test write.\n", sizeof("test write.\n"));
 		write(fd, "--------test write .\n", sizeof("--------test open.\n"));
