@@ -137,3 +137,14 @@ int main(int argc, char **argv)
 // DNS error: nodename nor servname provided, or not known
 // Closing
 
+
+
+// root@debian-1:~/programming/libevent/libevent2/libevent/sample/study-buffevent# ./bufferevent_socket_connect_hostname  localhost /
+// Connect okay.
+// readcb.......
+// <html><body><h1>It works, here!</h1>
+// <p>This is the default web page for this server.</p>
+// <p>The web server software is running but no content has been added, yet.</p>
+// </body></html>
+// Closing
+

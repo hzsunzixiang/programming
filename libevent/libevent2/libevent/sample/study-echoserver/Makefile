@@ -4,10 +4,10 @@ CFLAGS=-Wall -g -static --save-temps
 VPATH=../../include
 INCLUDE = -I../../include 
 
-LIB = -L../../.libs -levent  -lrt 
+LIB = -L../../.libs -levent  -lrt
 
 
-BIN=bufferevent_socket_new bufferevent_socket_connect_hostname hello-world bufferevent bufferevent-epollout
+BIN=echoserver
 all:$(BIN)
 %:%.c
 	$(CC) $(CFLAGS)  $<  $(LIB)  $(INCLUDE) -o $@

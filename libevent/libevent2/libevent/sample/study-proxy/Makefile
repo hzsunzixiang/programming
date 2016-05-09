@@ -7,7 +7,7 @@ INCLUDE = -I../../include
 LIB = -L../../.libs -levent -lrt
 
 
-BIN=event-listen  evconnlistener_new_bind evconnlistener_new
+BIN=proxy
 all:$(BIN)
 %:%.c
 	$(CC) $(CFLAGS)  $<  $(LIB)  $(INCLUDE) -o $@
