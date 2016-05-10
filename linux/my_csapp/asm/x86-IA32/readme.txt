@@ -69,3 +69,20 @@ rdi            0x7fffffffe590   140737488348560
 $3 = 0x111
 
 
+
+---------------------------------------------------------------------------------
+callq 指令讲一个64位返回地址存储在栈上
+(gdb) p/x *(long*)$rsp
+$3 = 0x4004c8    #  函数返回的下一个地址
+(gdb) disassemble  main
+Dump of assembler code for function main:
+   0x00000000004004ac <+0>:     sub    $0x10,%rsp
+   0x00000000004004b0 <+4>:     movq   $0x111,0x8(%rsp)
+   0x00000000004004b9 <+13>:    mov    $0x222,%esi
+   0x00000000004004be <+18>:    lea    0x8(%rsp),%rdi
+   0x00000000004004c3 <+23>:    callq  0x4004a2 <simple_l>
+   0x00000000004004c8 <+28>:    mov    $0x0,%eax
+   0x00000000004004cd <+33>:    add    $0x10,%rsp
+   0x00000000004004d1 <+37>:    retq
+End of assembler dump.
+
