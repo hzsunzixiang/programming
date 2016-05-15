@@ -1,3 +1,4 @@
+#include <stdio.h>
 int switch_eg_impl(int x, int n) {
 	/* Table of code pointers */
 	static void *jt[7] = {
@@ -40,4 +41,11 @@ loc_D: /* Cases 104, 106 */
 
 done:
 	return result;
+}
+
+int main()
+{
+	int x = switch_eg_impl(10, 100);
+	printf("x=%d\n", x);
+	return 0;
 }
