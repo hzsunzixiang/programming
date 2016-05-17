@@ -61,6 +61,9 @@ void dg_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen)
     while(1)
     {
 		len = clilen;
+		memset(mesg, 0, sizeof(mesg));
+		memset(buff, 0, sizeof(buff));
+
         n = recvfrom(sockfd, mesg, MAXLINE, 0, pcliaddr, &len); // 从客户端收取数据
 		printf("server recvfrom %s, port: %d\n", 
 				inet_ntop(AF_INET, &((struct sockaddr_in*)pcliaddr)->sin_addr, buff, sizeof(buff)), 
