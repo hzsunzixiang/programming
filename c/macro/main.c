@@ -20,8 +20,11 @@ int main()
 // __FUNCTION__.1803:
 // 	.string	"main"
 // 	.text
-// 
-// __FUNCTION__.1802:
-// 	.string	"print_fun"
-// 	.type	__func__.1803, @object
-// 	.size	__func__.1803, 10
+
+//__FUNCTION__.1802:
+//	.string	"print_fun"
+//	.type	__func__.1803, @object
+//	.size	__func__.1803, 10
+//__func__.1803:
+//	.string	"print_fun"
+//	.text
