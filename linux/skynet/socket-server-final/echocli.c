@@ -58,6 +58,7 @@ main() {
 		char *sendbuf = (char*)malloc(sizeof(buf) + 1);  // 注意必须发送动态内存 不然内存错误
 		memcpy(sendbuf, buf, strlen(buf)+1);  
 		socket_server_send(ss, conn_id, sendbuf, strlen(sendbuf));
+		//_poll(ss);  // 里面是个循环 不能直接调用 除非把标准输入也加入epoll
 	}
 	socket_server_exit(ss);  // 让处理socket的线程退出
 	pthread_join(pid, NULL);
