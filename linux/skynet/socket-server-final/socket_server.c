@@ -723,6 +723,7 @@ send_socket(struct socket_server *ss, struct request_send * request, struct sock
 				so.free_func(request->buffer);
 				return -1;
 			}
+			// 如果没有write 完毕, n < so.sz  后面接着send
 			append_sendbuffer(ss, s, request, n);	// add to high priority list, even priority == PRIORITY_LOW
 		} else {
 			// udp
@@ -952,7 +953,7 @@ ctrl_cmd(struct socket_server *ss, struct socket_message *result) {
 		return start_socket(ss,(struct request_start *)buffer, result);
 	case 'B':
 		return bind_socket(ss,(struct request_bind *)buffer, result);
-	case 'L':
+	case 'L': // 从ss中获取一个socket  并初始化它
 		return listen_socket(ss,(struct request_listen *)buffer, result);
 	case 'K':
 		return close_socket(ss,(struct request_close *)buffer, result);
@@ -964,7 +965,7 @@ ctrl_cmd(struct socket_server *ss, struct socket_message *result) {
 		result->ud = 0;
 		result->data = NULL;
 		return SOCKET_EXIT;
-	case 'D':
+	case 'D': // return -1
 		return send_socket(ss, (struct request_send *)buffer, result, PRIORITY_HIGH, NULL);
 	case 'P':
 		return send_socket(ss, (struct request_send *)buffer, result, PRIORITY_LOW, NULL);
@@ -1130,7 +1131,7 @@ report_accept(struct socket_server *ss, struct socket *s, struct socket_message 
 	if (client_fd < 0) {
 		return 0;
 	}
-	int id = reserve_id(ss);
+	int id = reserve_id(ss);  // 新的连接到来时 分配一个新的id
 	if (id < 0) {
 		close(client_fd);
 		return 0;
@@ -1181,8 +1182,12 @@ int
 socket_server_poll(struct socket_server *ss, struct socket_message * result, int * more) {
 	for (;;) {
 		if (ss->checkctrl) {
-			if (has_cmd(ss)) {
-				int type = ctrl_cmd(ss, result);
+			if (has_cmd(ss)) {  // 这里从管道中读出相应命令 
+				// 写数据的时候 在这里会加入到链表中 然后再下面转发
+				int type = ctrl_cmd(ss, result);  // 在这里把相应描述符加入到epoll中管理
+				// listen 的时候返回 -1  需要 continue
+				// 只要是写数据 就 continue
+				// continue 下一次循环时 取不到命令字 就会 往下走 继续发送剩余的缓存
 				if (type != -1) {
 					clear_closed_event(ss, result, type);
 					return type;
@@ -1193,7 +1198,7 @@ socket_server_poll(struct socket_server *ss, struct socket_message * result, int
 			}
 		}
 		if (ss->event_index == ss->event_n) {
-			ss->event_n = sp_wait(ss->event_fd, ss->ev, MAX_EVENT);
+			ss->event_n = sp_wait(ss->event_fd, ss->ev, MAX_EVENT);  // 在这里等待连接或数据到来 阻塞在这里
 			ss->checkctrl = 1;
 			if (more) {
 				*more = 0;
@@ -1221,7 +1226,7 @@ socket_server_poll(struct socket_server *ss, struct socket_message * result, int
 		case SOCKET_TYPE_INVALID:
 			fprintf(stderr, "socket-server: invalid socket\n");
 			break;
-		default:
+		default: // type 是 D 可能会走到这里 如果第一次发送不完 这里接着发送
 			if (e->read) {
 				int type;
 				if (s->protocol == PROTOCOL_TCP) {
