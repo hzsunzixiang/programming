@@ -33,6 +33,7 @@ int main(void)
 	// me = { name = "sunzixiang", age = 27}
 	//从Lua里面取得me这个table，并压入栈
 	lua_getglobal(L, "me");
+	stackDump(L);
 	if (!lua_istable(L, -1)) {
 		printf("error! me is not a table");
 	}
@@ -44,6 +45,7 @@ int main(void)
 	stackDump(L);
 	//取得-2位置的table，然后把栈顶元素弹出，取出table[name]的值并压入栈
 	lua_gettable(L, -2);
+	stackDump(L);
 	//输出栈顶的name
 	fprintf(stderr, "name = %s\n", lua_tostring(L, -1));
 	fprintf(stderr, "after get table----------------");
