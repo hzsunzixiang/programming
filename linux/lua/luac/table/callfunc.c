@@ -44,6 +44,9 @@ int main(void)
 	fprintf(stderr, "after push string----------------");
 	stackDump(L);
 	//取得-2位置的table，然后把栈顶元素弹出，取出table[name]的值并压入栈
+	// lua_gettable 比较特殊 做的一系列操作
+	// -2 存放着table  -1 存放着key  
+	// lua_gettable 时 把key弹出 把value放进去
 	lua_gettable(L, -2);
 	stackDump(L);
 	//输出栈顶的name
