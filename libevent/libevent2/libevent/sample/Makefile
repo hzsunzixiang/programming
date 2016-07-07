@@ -7,10 +7,10 @@ INCLUDE = -I../include
 LIB = -L../.libs -levent
 
 
-BIN=hello-world dns-example  event-read-fifo  hello-world http-connect  signal-test time-test
+BIN=hello-world dns-example  event-read-fifo  hello-world http-connect  signal-test time-test hello
 all:$(BIN)
 %:%.c
-	$(CC) $(CFLAGS)  $< ../.libs/libevent.a $(INCLUDE) -o $@
+	$(CC) $(CFLAGS)  $< $(LIB) $(INCLUDE) -o $@
 clean:
 	rm -f *.o $(BIN)
 
