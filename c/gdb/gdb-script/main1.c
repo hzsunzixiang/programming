@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 int global = 0;
 
@@ -16,6 +18,12 @@ int fun_a(void)
 
 int main(void)
 {
-	fun_a();
+	for (;;)
+	{
+		fun_1();
+		fun_a();
+		sleep(2);
+	}
 	return 0;
 }
+
