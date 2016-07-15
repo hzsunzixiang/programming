@@ -44,6 +44,17 @@ main(int argc, char **argv)
 
 	struct sockaddr_in sin;
 
+	// 可以强制用 select 或者poll
+	// struct event_config *cfg;
+	// cfg = event_config_new();
+	// /* I don't like select. */
+	// event_config_avoid_method(cfg, "epoll");
+	// event_config_avoid_method(cfg, "poll");
+
+	// event_config_require_features(cfg, EV_FEATURE_ET);
+
+	// base = event_base_new_with_config(cfg);
+
 	base = event_base_new();
 	if (!base) {
 		fprintf(stderr, "Could not initialize libevent!\n");
@@ -55,9 +66,9 @@ main(int argc, char **argv)
 	sin.sin_port = htons(PORT);
 
 	listener = evconnlistener_new_bind(base, listener_cb, (void *)base,
-	    LEV_OPT_REUSEABLE|LEV_OPT_CLOSE_ON_FREE, -1,
-	    (struct sockaddr*)&sin,
-	    sizeof(sin));
+			LEV_OPT_REUSEABLE|LEV_OPT_CLOSE_ON_FREE, -1,
+			(struct sockaddr*)&sin,
+			sizeof(sin));
 
 	if (!listener) {
 		fprintf(stderr, "Could not create a listener!\n");
@@ -85,9 +96,9 @@ main(int argc, char **argv)
 	return 0;
 }
 
-static void
+	static void
 listener_cb(struct evconnlistener *listener, evutil_socket_t fd,
-    struct sockaddr *sa, int socklen, void *user_data)
+		struct sockaddr *sa, int socklen, void *user_data)
 {
 	struct event_base *base = user_data;
 	struct bufferevent *bev;
@@ -104,7 +115,7 @@ listener_cb(struct evconnlistener *listener, evutil_socket_t fd,
 	}
 	// 这个程序的作用是  当有链接进来的时候 直接写一行 然后关闭连接
 	// 打开写操作 关闭读操作
-	
+
 	//bufferevent_setwatermark(bev, EV_WRITE, 128, 1024);
 	// void bufferevent_setcb(struct bufferevent *bufev,
 	//     bufferevent_data_cb readcb, bufferevent_data_cb writecb,
@@ -116,7 +127,7 @@ listener_cb(struct evconnlistener *listener, evutil_socket_t fd,
 
 	// 调用这个函数  把数据加入应用层缓冲区
 	// 写1M数据 缓冲区由bufferevent接管 
-	#define LENGTH 1024*1024
+#define LENGTH 1024*1024
 	char *MESSAGE =  (char*)malloc(LENGTH);
 	memset (MESSAGE, 'a', LENGTH);
 	bufferevent_write(bev, MESSAGE, LENGTH);
@@ -136,7 +147,7 @@ listener_cb(struct evconnlistener *listener, evutil_socket_t fd,
 
 }
 
-static void
+	static void
 conn_writecb(struct bufferevent *bev, void *user_data)
 {
 	// 调用 回调可以清理状态等
@@ -147,21 +158,21 @@ conn_writecb(struct bufferevent *bev, void *user_data)
 	}
 }
 
-static void
+	static void
 conn_eventcb(struct bufferevent *bev, short events, void *user_data)
 {
 	if (events & BEV_EVENT_EOF) {
 		printf("Connection closed.\n");
 	} else if (events & BEV_EVENT_ERROR) {
 		printf("Got an error on the connection: %s\n",
-		    strerror(errno));/*XXX win32*/
+				strerror(errno));/*XXX win32*/
 	}
 	/* None of the other events can happen here, since we haven't enabled
 	 * timeouts */
 	bufferevent_free(bev);
 }
 
-static void
+	static void
 signal_cb(evutil_socket_t sig, short events, void *user_data)
 {
 	struct event_base *base = user_data;
