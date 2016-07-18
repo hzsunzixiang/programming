@@ -102,6 +102,7 @@ do_read(evutil_socket_t fd, short events, void *arg)
 	}
 
 	if (result == 0) {
+		fprintf(stderr, "disconnect\n");
 		free_fd_state(state);
 	} else if (result < 0) {
 		if (errno == EAGAIN) // XXXX use evutil macro

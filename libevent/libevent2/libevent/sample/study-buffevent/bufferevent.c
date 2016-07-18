@@ -79,11 +79,33 @@ main(int argc, char **argv)
 		return 1;
 	}
 
+	// For help debugging your program (or debugging Libevent!) you might sometimes want a complete list of all events added in the event_base and their status. Calling event_base_dump_events() writes this list to the stdio file provided.
+	event_base_dump_events(base, stdout);
+	// 用strace看到信号加入要占用一个文件描述符
+	// Inserted events:
+	//   0xf38e58 [fd  4] Read Persist Internal
+	//   0xf392b8 [fd  6] Read Persist
+	//   0xf39470 [sig 2] Signal Persist
+	// Active events:
+
+
 	event_base_dispatch(base);
+	//event_base_loop(base, EVLOOP_ONCE);
+	//event_base_loop(base, 0);
+
+	if(event_base_got_exit(base))
+	{
+		fprintf(stderr, "event_base_got_exit\n");
+	}
+	if(event_base_got_break(base))
+	{
+		fprintf(stderr, "event_base_got_break\n");
+	}
 
 	evconnlistener_free(listener);
 	event_free(signal_event);
 	event_base_free(base);
+
 
 	printf("done\n");
 	return 0;
@@ -159,7 +181,7 @@ static void
 signal_cb(evutil_socket_t sig, short events, void *user_data)
 {
 	struct event_base *base = user_data;
-	struct timeval delay = { 2, 0 };
+	struct timeval delay = { 1, 0 };
 
 	printf("Caught an interrupt signal; exiting cleanly in two seconds.\n");
 
