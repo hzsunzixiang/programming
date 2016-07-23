@@ -62,7 +62,7 @@ int main( int argc, char *argv[] )
     {
         clilen = sizeof(cli_addr);
         fprintf(stderr, "accept begin\n");
-		sleep(20); // 等待客户端夭折该链接
+		sleep(5); // 等待客户端夭折该链接
         newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, &clilen);
         fprintf(stderr, "accept return newsockfd=%d\n", newsockfd);
         if (newsockfd < 0)
@@ -81,3 +81,21 @@ int main( int argc, char *argv[] )
 
     return 0;
 }
+
+
+// 在 linux 夭折该链接 仍然可以accpet到数据
+
+// 
+// root@iZ25ox3a5vlZ:~/programming/linux/my_unp/mysocket/abort_before_accept# ./accept_abort_s                      build socket sucess.
+// bind socket sucess!
+// accept begin
+// accept return newsockfd=4
+// being close fd
+// after close fd : close return
+
+
+// 11:04:39.350780 IP 127.0.0.1.51830 > 127.0.0.1.8888: Flags [S], seq 3678526877, win 2048, options [mss 65495,sackOK,TS val 144590784 ecr 0,nop,wscale 2], length 0
+// 11:04:39.350796 IP 127.0.0.1.8888 > 127.0.0.1.51830: Flags [S.], seq 3863207033, ack 3678526878, win 2048, options [mss 65495,sackOK,TS val 144590784 ecr 144590784,nop,wscale 2], length 0
+// 11:04:39.350809 IP 127.0.0.1.51830 > 127.0.0.1.8888: Flags [.], ack 1, win 512, options [nop,nop,TS val 144590784 ecr 144590784], length 0
+// 11:04:39.351042 IP 127.0.0.1.51830 > 127.0.0.1.8888: Flags [R.], seq 1, ack 1, win 512, options [nop,nop,TS val 144590784 ecr 144590784], length 0
+
