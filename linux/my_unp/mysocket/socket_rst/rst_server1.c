@@ -37,7 +37,7 @@ int main(int argc, char** argv)
             close(listen_fd);
             char pcContent[4096];
             //每次只是读socket的前4096个字节，然后就关闭掉连接。
-            // 这个跟服务器端同时write两次，而只read一次就关闭很类似，内核缓冲区中海油数据，
+            // 这个跟服务器端同时write两次，而只read一次就关闭很类似，内核缓冲区中还有数据，
             // 然而连接就关闭了，
             read(real_fd, pcContent, 4096);
             //sleep(20);
