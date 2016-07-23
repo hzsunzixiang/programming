@@ -132,14 +132,14 @@ eventcb(struct bufferevent *bev, short what, void *ctx)
 	static void
 eventcbin(struct bufferevent *bev, short what, void *ctx)
 {
-	fprintf(stderr, "evetcbin.......\n");
+	fprintf(stderr, "evetcbin from client .......\n");
 	eventcb(bev, what, ctx);
 
 }
 	static void
 eventcbout(struct bufferevent *bev, short what, void *ctx)
 {
-	fprintf(stderr, "eventcbout.......\n");
+	fprintf(stderr, "eventcbout from server.......\n");
 	eventcb(bev, what, ctx);
 }
 	static void
