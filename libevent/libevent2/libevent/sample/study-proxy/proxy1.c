@@ -32,8 +32,10 @@ static int connect_to_addrlen;
 
 static void drained_writecb(struct bufferevent *bev, void *ctx);
 static void eventcb(struct bufferevent *bev, short what, void *ctx);
+static void eventcbin(struct bufferevent *bev, short what, void *ctx);
+static void eventcbout(struct bufferevent *bev, short what, void *ctx);
 
-static void
+	static void
 readcb(struct bufferevent *bev, void *ctx)
 {
 	struct bufferevent *partner = ctx;
@@ -53,14 +55,14 @@ readcb(struct bufferevent *bev, void *ctx)
 		 * pass it on.  Stop reading here until we have drained the
 		 * other side to MAX_OUTPUT/2 bytes. */
 		bufferevent_setcb(partner, readcb, drained_writecb,
-		    eventcb, bev);
+				eventcb, bev);
 		bufferevent_setwatermark(partner, EV_WRITE, MAX_OUTPUT/2,
-		    MAX_OUTPUT);
+				MAX_OUTPUT);
 		bufferevent_disable(bev, EV_READ);
 	}
 }
 
-static void
+	static void
 drained_writecb(struct bufferevent *bev, void *ctx)
 {
 	struct bufferevent *partner = ctx;
@@ -73,7 +75,7 @@ drained_writecb(struct bufferevent *bev, void *ctx)
 		bufferevent_enable(partner, EV_READ);
 }
 
-static void
+	static void
 close_on_finished_writecb(struct bufferevent *bev, void *ctx)
 {
 	struct evbuffer *b = bufferevent_get_output(bev);
@@ -83,29 +85,38 @@ close_on_finished_writecb(struct bufferevent *bev, void *ctx)
 	}
 }
 
-static void
+	static void
 eventcb(struct bufferevent *bev, short what, void *ctx)
 {
 	struct bufferevent *partner = ctx;
 
-	if (what & (BEV_EVENT_EOF|BEV_EVENT_ERROR)) {
-		if (what & BEV_EVENT_ERROR) {
+	if (what & BEV_EVENT_CONNECTED) {
+		fprintf(stderr, "Connect okay.\n");
+	}
+	else if (what & (BEV_EVENT_EOF|BEV_EVENT_ERROR)) {
+
+		if (what &  BEV_EVENT_EOF) {
+			fprintf(stderr, "normal closing.......\n");
+		}
+		else if (what & BEV_EVENT_ERROR ) {
+			fprintf(stderr, "abnormal closing.......\n");
 			if (errno)
 				perror("connection error");
 		}
 
+		// 下面是先断开对端 然后在断开本端的
 		if (partner) {
 			/* Flush all pending data */
 			readcb(bev, ctx);
 
 			if (evbuffer_get_length(
-				    bufferevent_get_output(partner))) {
+						bufferevent_get_output(partner))) {
 				/* We still have to flush data from the other
 				 * side, but when that's done, close the other
 				 * side. */
 				bufferevent_setcb(partner,
-				    NULL, close_on_finished_writecb,
-				    eventcb, NULL);
+						NULL, close_on_finished_writecb,
+						eventcb, NULL);
 				bufferevent_disable(partner, EV_READ);
 			} else {
 				/* We have nothing left to say to the other
@@ -113,11 +124,25 @@ eventcb(struct bufferevent *bev, short what, void *ctx)
 				bufferevent_free(partner);
 			}
 		}
+		printf("Closing \n");
 		bufferevent_free(bev);
 	}
 }
 
-static void
+	static void
+eventcbin(struct bufferevent *bev, short what, void *ctx)
+{
+	fprintf(stderr, "evetcbin.......\n");
+	eventcb(bev, what, ctx);
+
+}
+	static void
+eventcbout(struct bufferevent *bev, short what, void *ctx)
+{
+	fprintf(stderr, "eventcbout.......\n");
+	eventcb(bev, what, ctx);
+}
+	static void
 syntax(void)
 {
 	fputs("Syntax:\n", stderr);
@@ -128,10 +153,40 @@ syntax(void)
 	exit(1);
 }
 
-static void
+	static void
 accept_cb(struct evconnlistener *listener, evutil_socket_t fd,
-    struct sockaddr *a, int slen, void *p)
+		struct sockaddr *a, int slen, void *p)
 {
+	/* Extract and display the address we're connect. */
+	struct sockaddr_storage ss;
+	ev_socklen_t socklen = sizeof(ss);
+	char addrbuf[128];
+	void *inaddr;
+	const char *addr;
+	int got_port = -1;
+	memset(&ss, 0, sizeof(ss));
+	if (getpeername(fd, (struct sockaddr *)&ss, &socklen)) {
+		perror("getpeerkname() failed");
+		return ;
+	}
+	if (ss.ss_family == AF_INET) {
+		got_port = ntohs(((struct sockaddr_in*)&ss)->sin_port);
+		inaddr = &((struct sockaddr_in*)&ss)->sin_addr;
+	} else if (ss.ss_family == AF_INET6) {
+		got_port = ntohs(((struct sockaddr_in6*)&ss)->sin6_port);
+		inaddr = &((struct sockaddr_in6*)&ss)->sin6_addr;
+	} else {
+		fprintf(stderr, "Weird address family %d\n",
+				ss.ss_family);
+		return;
+	}
+	addr = evutil_inet_ntop(ss.ss_family, inaddr, addrbuf, sizeof(addrbuf));
+	if (addr) {
+		printf("connection from address %s:%d\n", addr, got_port);
+	} else {
+		fprintf(stderr, "evutil_inet_ntop failed\n");
+		return ;
+	}
 	struct bufferevent *b_out, *b_in;
 	/* Create two linked bufferevent objects: one to connect, one for the
 	 * new connection */
@@ -152,9 +207,8 @@ accept_cb(struct evconnlistener *listener, evutil_socket_t fd,
 		return;
 	}
 
-
-	bufferevent_setcb(b_in, readcb, NULL, eventcb, b_out);
-	bufferevent_setcb(b_out, readcb, NULL, eventcb, b_in);
+	bufferevent_setcb(b_in, readcb, NULL, eventcbin, b_out);
+	bufferevent_setcb(b_out, readcb, NULL, eventcbout, b_in);
 
 	bufferevent_enable(b_in, EV_READ|EV_WRITE);
 	bufferevent_enable(b_out, EV_READ|EV_WRITE);
