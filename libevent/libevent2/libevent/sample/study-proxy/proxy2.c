@@ -62,11 +62,9 @@ readcbin(struct bufferevent *bev_in, void *ctx_out)
 		 * pass it on.  Stop reading here until we have drained the
 		 * other side to MAX_OUTPUT_P2S/2 bytes. */
 		fprintf(stderr, "adjust the wartermark of <proxy->server>\n");
-		bufferevent_setcb(partner_out, readcbout, drained_writecbout,
-				eventcbout, bev_in);
+		bufferevent_setcb(partner_out, readcbout, drained_writecbout, eventcbout, bev_in);
 		// 低于这个水位MAX_OUTPUT_P2S/2的时候 就调用 drained_writecbout
-		bufferevent_setwatermark(partner_out, EV_WRITE, MAX_OUTPUT_P2S/2,
-				MAX_OUTPUT_P2S);
+		bufferevent_setwatermark(partner_out, EV_WRITE, MAX_OUTPUT_P2S/2, MAX_OUTPUT_P2S);
 		bufferevent_disable(bev_in, EV_READ);
 	}
 }
@@ -80,6 +78,7 @@ readcbout(struct bufferevent *bev_out, void *ctx_in)
 	src = bufferevent_get_input(bev_out);
 	len = evbuffer_get_length(src);
 	if (!partner_in) {
+		fprintf(stderr, "partner_in == NULL");
 		evbuffer_drain(src, len);
 		return;
 	}
@@ -91,10 +90,8 @@ readcbout(struct bufferevent *bev_out, void *ctx_in)
 		 * pass it on.  Stop reading here until we have drained the
 		 * other side to MAX_OUTPUT_C2P/2 bytes. */
 		fprintf(stderr, "adjust the wartermark of <client-proxy>\n");
-		bufferevent_setcb(partner_in, readcbin, drained_writecbin,
-				eventcbin, bev_out);
-		bufferevent_setwatermark(partner_in, EV_WRITE, MAX_OUTPUT_C2P/2,
-				MAX_OUTPUT_C2P);
+		bufferevent_setcb(partner_in, readcbin, drained_writecbin, eventcbin, bev_out);
+		bufferevent_setwatermark(partner_in, EV_WRITE, MAX_OUTPUT_C2P/2, MAX_OUTPUT_C2P);
 		bufferevent_disable(bev_out, EV_READ);
 	}
 }
@@ -178,9 +175,7 @@ eventcbin(struct bufferevent *bev_in, short what, void *ctx_out)
 				/* We still have to flush data from the other
 				 * side, but when that's done, close the other
 				 * side. */
-				bufferevent_setcb(partner_out,
-						NULL, close_on_finished_writecbout,
-						eventcbout, NULL);
+				bufferevent_setcb(partner_out, NULL, close_on_finished_writecbout, eventcbout, NULL);
 				bufferevent_disable(partner_out, EV_READ);
 			} else {
 				/* We have nothing left to say to the other
@@ -223,9 +218,7 @@ eventcbout(struct bufferevent *bev_out, short what, void *ctx_in)
 				/* We still have to flush data from the other
 				 * side, but when that's done, close the other
 				 * side. */
-				bufferevent_setcb(partner_in,
-						NULL, close_on_finished_writecbin,
-						eventcbin, NULL);
+				bufferevent_setcb(partner_in, NULL, close_on_finished_writecbin, eventcbin, NULL);
 				bufferevent_disable(partner_in, EV_READ);
 			} else {
 				/* We have nothing left to say to the other
@@ -288,17 +281,15 @@ accept_cb(struct evconnlistener *listener, evutil_socket_t fd,
 	struct bufferevent *b_out, *b_in;
 	/* Create two linked bufferevent objects: one to connect, one for the
 	 * new connection */
-	b_in = bufferevent_socket_new(base, fd,
-			BEV_OPT_CLOSE_ON_FREE|BEV_OPT_DEFER_CALLBACKS);
+	b_in = bufferevent_socket_new(base, fd, BEV_OPT_CLOSE_ON_FREE|BEV_OPT_DEFER_CALLBACKS);
 
-	b_out = bufferevent_socket_new(base, -1,
-			BEV_OPT_CLOSE_ON_FREE|BEV_OPT_DEFER_CALLBACKS);
+	b_out = bufferevent_socket_new(base, -1, BEV_OPT_CLOSE_ON_FREE|BEV_OPT_DEFER_CALLBACKS);
 
 
 	assert(b_in && b_out);
 
-	if (bufferevent_socket_connect(b_out,
-				(struct sockaddr*)&connect_to_addr, connect_to_addrlen)<0) {
+	if (bufferevent_socket_connect(b_out, (struct sockaddr*)&connect_to_addr, connect_to_addrlen) < 0) 
+	{
 		perror("bufferevent_socket_connect");
 		bufferevent_free(b_out);
 		bufferevent_free(b_in);
@@ -323,8 +314,8 @@ main(int argc, char **argv)
 		syntax();
 	memset(&listen_on_addr, 0, sizeof(listen_on_addr));
 	socklen = sizeof(listen_on_addr);
-	if (evutil_parse_sockaddr_port(argv[1],
-				(struct sockaddr*)&listen_on_addr, &socklen)<0) {
+	if (evutil_parse_sockaddr_port(argv[1], (struct sockaddr*)&listen_on_addr, &socklen) < 0) 
+	{
 		int p = atoi(argv[1]);
 		struct sockaddr_in *sin = (struct sockaddr_in*)&listen_on_addr;
 		if (p < 1 || p > 65535)
@@ -337,8 +328,7 @@ main(int argc, char **argv)
 
 	memset(&connect_to_addr, 0, sizeof(connect_to_addr));
 	connect_to_addrlen = sizeof(connect_to_addr);
-	if (evutil_parse_sockaddr_port(argv[2],
-				(struct sockaddr*)&connect_to_addr, &connect_to_addrlen)<0)
+	if (evutil_parse_sockaddr_port(argv[2], (struct sockaddr*)&connect_to_addr, &connect_to_addrlen) < 0)
 		syntax();
 
 	base = event_base_new();
