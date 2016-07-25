@@ -7,7 +7,7 @@ INCLUDE = -I../../include
 LIB = -L../../.libs -levent -lrt
 
 
-BIN=proxy proxy1
+BIN=proxy proxy1 proxy2
 all:$(BIN)
 %:%.c
 	$(CC) $(CFLAGS)  $<  $(LIB)  $(INCLUDE) -o $@
