@@ -1,0 +1,15 @@
+define(macro,$1)dnl
+macro(
+
+      `  '... text `quoted text'
+
+      a
+, ...the second will not output)
+
+
+
+
+
+
+
+#Leading unquoted white space; spaces, tabs, line feeds, etc., are discarded, but everything else up to the comma is part of the argument.

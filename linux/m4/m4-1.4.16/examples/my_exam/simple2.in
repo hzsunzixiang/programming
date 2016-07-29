@@ -1,0 +1,3 @@
+changequote([ ,])dnl
+[Here's an (apparently) quoted line of text.]
+[ Here's a real quoted line of text.]

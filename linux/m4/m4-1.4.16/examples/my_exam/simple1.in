@@ -1,0 +1,7 @@
+changequote([,])dnl
+Some text that will pass through with no changes.
+[[Here's a quoted line of text.]]
+# Here's a comment
+
+
+#https://jcalcote.wordpress.com/2008/02/20/digging-deeper-into-autoconf-at2/

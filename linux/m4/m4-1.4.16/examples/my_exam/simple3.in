@@ -1,0 +1,4 @@
+changequote(`[' , `]')dnl
+`Unquoted text'
+[Unquoted text]
+[ Quoted text]
