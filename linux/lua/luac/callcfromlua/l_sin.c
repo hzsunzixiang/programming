@@ -2,6 +2,11 @@
 // typedef int (*lua_CFunction) (lua_State *L);
 // lua.h
 
+#include <lua.h>                               /* Always include this */
+#include <lauxlib.h>                           /* Always include this */
+#include <lualib.h>                            /* Always include this */
+#include <math.h>                            /* Always include this */
+
 
 static int l_sin (lua_State *L) {
 	double d = lua_tonumber(L, 1);  /* get argument */
@@ -16,7 +21,8 @@ static int l_sin1 (lua_State *L) {
 	return 1;  /* number of results */
 }
 
-int luaopen_power(lua_State *L){
+
+int luaopen_mysin(lua_State *L){
 	lua_register(
 			L,               /* Lua state variable */
 			"mysin",        /* func name as known in Lua */
