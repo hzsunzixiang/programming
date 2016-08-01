@@ -1,0 +1,2 @@
+wget -c -r -nd -np -k -L -p -A c,h  http://www.gc3.uzh.ch/blog/Autotools_tutorial/example/src/
+http://www.gc3.uzh.ch/blog/Autotools_tutorial/
