@@ -6,6 +6,7 @@
 #include <stdlib.h>                             /* For function exit() */
 #include <stdio.h>                              /* For input/output */
 
+// http://www.lua.org/manual/5.3/ 
 static void stackDump(lua_State* L);
 void bail(lua_State *L, char *msg){
 	fprintf(stderr, "\nFATAL ERROR:\n  %s: %s\n\n",
@@ -47,6 +48,10 @@ int main(void)
 	// lua_gettable 比较特殊 做的一系列操作
 	// -2 存放着table  -1 存放着key  
 	// lua_gettable 时 把key弹出 把value放进去
+	// int lua_gettable (lua_State *L, int index);
+	// Pushes onto the stack the value t[k], where t is the value at the given index and k is the value at the top of the stack.
+	// 	This function pops the key from the stack, pushing the resulting value in its place. As in Lua, this function may trigger a metamethod for the "index" event (see §2.4).
+	// 	Returns the type of the pushed value.
 	lua_gettable(L, -2);
 	stackDump(L);
 	//输出栈顶的name
@@ -84,7 +89,7 @@ static void stackDump(lua_State* L){
 				}break;
 			case LUA_TNUMBER:
 				{
-					printf("%g ", lua_tonumber(L, i));
+					printf("num:%g ", lua_tonumber(L, i));
 				}
 				break;
 			default:
