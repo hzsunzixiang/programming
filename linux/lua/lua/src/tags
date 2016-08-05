@@ -1,0 +1,806 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BASIC_CI_SIZE	./lstate.h	32;"	d
+BASIC_STACK_SIZE	./lstate.h	34;"	d
+BITRK	./lopcodes.h	119;"	d
+BLACKBIT	./lgc.h	56;"	d
+BinOpr	./lcode.h	/^typedef enum BinOpr {$/;"	g
+BinOpr	./lcode.h	/^} BinOpr;$/;"	t	typeref:enum:BinOpr
+CClosure	./lobject.h	/^typedef struct CClosure {$/;"	s
+CClosure	./lobject.h	/^} CClosure;$/;"	t	typeref:struct:CClosure
+CREATE_ABC	./lopcodes.h	104;"	d
+CREATE_ABx	./lopcodes.h	109;"	d
+CallInfo	./lstate.h	/^typedef struct CallInfo {$/;"	s
+CallInfo	./lstate.h	/^} CallInfo;$/;"	t	typeref:struct:CallInfo
+Closure	./lobject.h	/^typedef union Closure {$/;"	u
+Closure	./lobject.h	/^} Closure;$/;"	t	typeref:union:Closure
+ClosureHeader	./lobject.h	/^  ClosureHeader;$/;"	m	struct:CClosure
+ClosureHeader	./lobject.h	/^  ClosureHeader;$/;"	m	struct:LClosure
+ClosureHeader	./lobject.h	291;"	d
+CommonHeader	./lobject.h	/^    CommonHeader;$/;"	m	struct:TString::__anon6
+CommonHeader	./lobject.h	/^    CommonHeader;$/;"	m	struct:Udata::__anon7
+CommonHeader	./lobject.h	/^  CommonHeader;$/;"	m	struct:GCheader
+CommonHeader	./lobject.h	/^  CommonHeader;$/;"	m	struct:Proto
+CommonHeader	./lobject.h	/^  CommonHeader;$/;"	m	struct:Table
+CommonHeader	./lobject.h	/^  CommonHeader;$/;"	m	struct:UpVal
+CommonHeader	./lobject.h	43;"	d
+CommonHeader	./lstate.h	/^  CommonHeader;$/;"	m	struct:lua_State
+EOZ	./lzio.h	16;"	d
+EXTRA_STACK	./lstate.h	29;"	d
+FINALIZEDBIT	./lgc.h	57;"	d
+FIRST_RESERVED	./llex.h	14;"	d
+FIXEDBIT	./lgc.h	60;"	d
+FuncState	./lparser.h	/^typedef struct FuncState {$/;"	s
+FuncState	./lparser.h	/^} FuncState;$/;"	t	typeref:struct:FuncState
+G	./lstate.h	130;"	d
+GCObject	./lobject.h	/^typedef union GCObject GCObject;$/;"	t	typeref:union:GCObject
+GCObject	./lstate.h	/^union GCObject {$/;"	u
+GCSfinalize	./lgc.h	21;"	d
+GCSpause	./lgc.h	17;"	d
+GCSpropagate	./lgc.h	18;"	d
+GCSsweep	./lgc.h	20;"	d
+GCSsweepstring	./lgc.h	19;"	d
+GCheader	./lobject.h	/^typedef struct GCheader {$/;"	s
+GCheader	./lobject.h	/^} GCheader;$/;"	t	typeref:struct:GCheader
+GCthreshold	./lstate.h	/^  lu_mem GCthreshold;$/;"	m	struct:global_State
+GETARG_A	./lopcodes.h	84;"	d
+GETARG_B	./lopcodes.h	88;"	d
+GETARG_Bx	./lopcodes.h	96;"	d
+GETARG_C	./lopcodes.h	92;"	d
+GETARG_sBx	./lopcodes.h	100;"	d
+GET_OPCODE	./lopcodes.h	80;"	d
+INDEXK	./lopcodes.h	125;"	d
+ISK	./lopcodes.h	122;"	d
+Instruction	./llimits.h	/^typedef lu_int32 Instruction;$/;"	t
+IntPoint	./llimits.h	42;"	d
+KEYWEAKBIT	./lgc.h	58;"	d
+L	./lauxlib.h	/^  lua_State *L;$/;"	m	struct:luaL_Buffer
+L	./llex.h	/^  struct lua_State *L;$/;"	m	struct:LexState	typeref:struct:LexState::lua_State
+L	./lparser.h	/^  struct lua_State *L;  \/* copy of the Lua state *\/$/;"	m	struct:FuncState	typeref:struct:FuncState::lua_State
+L	./lzio.h	/^  lua_State *L;			\/* Lua state (for reader) *\/$/;"	m	struct:Zio
+LAST_TAG	./lobject.h	20;"	d
+LClosure	./lobject.h	/^typedef struct LClosure {$/;"	s
+LClosure	./lobject.h	/^} LClosure;$/;"	t	typeref:struct:LClosure
+LFIELDS_PER_FLUSH	./lopcodes.h	265;"	d
+LUAC_FORMAT	./lundump.h	31;"	d
+LUAC_HEADERSIZE	./lundump.h	34;"	d
+LUAC_VERSION	./lundump.h	28;"	d
+LUA_AUTHORS	./lua.h	23;"	d
+LUA_COLIBNAME	./lualib.h	18;"	d
+LUA_COPYRIGHT	./lua.h	22;"	d
+LUA_DBLIBNAME	./lualib.h	36;"	d
+LUA_ENVIRONINDEX	./lua.h	37;"	d
+LUA_ERRERR	./lua.h	47;"	d
+LUA_ERRFILE	./lauxlib.h	32;"	d
+LUA_ERRMEM	./lua.h	46;"	d
+LUA_ERRRUN	./lua.h	44;"	d
+LUA_ERRSYNTAX	./lua.h	45;"	d
+LUA_FILEHANDLE	./lualib.h	15;"	d
+LUA_GCCOLLECT	./lua.h	223;"	d
+LUA_GCCOUNT	./lua.h	224;"	d
+LUA_GCCOUNTB	./lua.h	225;"	d
+LUA_GCRESTART	./lua.h	222;"	d
+LUA_GCSETPAUSE	./lua.h	227;"	d
+LUA_GCSETSTEPMUL	./lua.h	228;"	d
+LUA_GCSTEP	./lua.h	226;"	d
+LUA_GCSTOP	./lua.h	221;"	d
+LUA_GLOBALSINDEX	./lua.h	38;"	d
+LUA_HOOKCALL	./lua.h	311;"	d
+LUA_HOOKCOUNT	./lua.h	314;"	d
+LUA_HOOKLINE	./lua.h	313;"	d
+LUA_HOOKRET	./lua.h	312;"	d
+LUA_HOOKTAILRET	./lua.h	315;"	d
+LUA_IOLIBNAME	./lualib.h	24;"	d
+LUA_LOADLIBNAME	./lualib.h	39;"	d
+LUA_MASKCALL	./lua.h	321;"	d
+LUA_MASKCOUNT	./lua.h	324;"	d
+LUA_MASKLINE	./lua.h	323;"	d
+LUA_MASKRET	./lua.h	322;"	d
+LUA_MATHLIBNAME	./lualib.h	33;"	d
+LUA_MINBUFFER	./llimits.h	105;"	d
+LUA_MINSTACK	./lua.h	87;"	d
+LUA_MULTRET	./lua.h	30;"	d
+LUA_NOREF	./lauxlib.h	159;"	d
+LUA_OSLIBNAME	./lualib.h	27;"	d
+LUA_REFNIL	./lauxlib.h	160;"	d
+LUA_REGISTRYINDEX	./lua.h	36;"	d
+LUA_RELEASE	./lua.h	20;"	d
+LUA_SIGNATURE	./lua.h	27;"	d
+LUA_STRLIBNAME	./lualib.h	30;"	d
+LUA_TABLIBNAME	./lualib.h	21;"	d
+LUA_TBOOLEAN	./lua.h	75;"	d
+LUA_TDEADKEY	./lobject.h	30;"	d
+LUA_TFUNCTION	./lua.h	80;"	d
+LUA_TLIGHTUSERDATA	./lua.h	76;"	d
+LUA_TNIL	./lua.h	74;"	d
+LUA_TNONE	./lua.h	72;"	d
+LUA_TNUMBER	./lua.h	77;"	d
+LUA_TPROTO	./lobject.h	28;"	d
+LUA_TSTRING	./lua.h	78;"	d
+LUA_TTABLE	./lua.h	79;"	d
+LUA_TTHREAD	./lua.h	82;"	d
+LUA_TUPVAL	./lobject.h	29;"	d
+LUA_TUSERDATA	./lua.h	81;"	d
+LUA_VERSION	./lua.h	19;"	d
+LUA_VERSION_NUM	./lua.h	21;"	d
+LUA_YIELD	./lua.h	43;"	d
+L_Umaxalign	./llimits.h	/^typedef LUAI_USER_ALIGNMENT_T L_Umaxalign;$/;"	t
+LexState	./llex.h	/^typedef struct LexState {$/;"	s
+LexState	./llex.h	/^} LexState;$/;"	t	typeref:struct:LexState
+LocVar	./lobject.h	/^typedef struct LocVar {$/;"	s
+LocVar	./lobject.h	/^} LocVar;$/;"	t	typeref:struct:LocVar
+MASK0	./lopcodes.h	74;"	d
+MASK1	./lopcodes.h	71;"	d
+MAXARG_A	./lopcodes.h	65;"	d
+MAXARG_B	./lopcodes.h	66;"	d
+MAXARG_Bx	./lopcodes.h	57;"	d
+MAXARG_Bx	./lopcodes.h	60;"	d
+MAXARG_C	./lopcodes.h	67;"	d
+MAXARG_sBx	./lopcodes.h	58;"	d
+MAXARG_sBx	./lopcodes.h	61;"	d
+MAXINDEXRK	./lopcodes.h	127;"	d
+MAXSTACK	./llimits.h	93;"	d
+MAX_INT	./llimits.h	35;"	d
+MAX_LUMEM	./llimits.h	32;"	d
+MAX_SIZET	./llimits.h	30;"	d
+MEMERRMSG	./lmem.h	16;"	d
+MINSTRTABSIZE	./llimits.h	99;"	d
+Mbuffer	./lzio.h	/^typedef struct Mbuffer {$/;"	s
+Mbuffer	./lzio.h	/^} Mbuffer;$/;"	t	typeref:struct:Mbuffer
+NO_JUMP	./lcode.h	20;"	d
+NO_REG	./lopcodes.h	136;"	d
+NUM_OPCODES	./lopcodes.h	211;"	d
+NUM_RESERVED	./llex.h	36;"	d
+NUM_TAGS	./lobject.h	22;"	d
+Node	./lobject.h	/^typedef struct Node {$/;"	s
+Node	./lobject.h	/^} Node;$/;"	t	typeref:struct:Node
+OPR_ADD	./lcode.h	/^  OPR_ADD, OPR_SUB, OPR_MUL, OPR_DIV, OPR_MOD, OPR_POW,$/;"	e	enum:BinOpr
+OPR_AND	./lcode.h	/^  OPR_AND, OPR_OR,$/;"	e	enum:BinOpr
+OPR_CONCAT	./lcode.h	/^  OPR_CONCAT,$/;"	e	enum:BinOpr
+OPR_DIV	./lcode.h	/^  OPR_ADD, OPR_SUB, OPR_MUL, OPR_DIV, OPR_MOD, OPR_POW,$/;"	e	enum:BinOpr
+OPR_EQ	./lcode.h	/^  OPR_NE, OPR_EQ,$/;"	e	enum:BinOpr
+OPR_GE	./lcode.h	/^  OPR_LT, OPR_LE, OPR_GT, OPR_GE,$/;"	e	enum:BinOpr
+OPR_GT	./lcode.h	/^  OPR_LT, OPR_LE, OPR_GT, OPR_GE,$/;"	e	enum:BinOpr
+OPR_LE	./lcode.h	/^  OPR_LT, OPR_LE, OPR_GT, OPR_GE,$/;"	e	enum:BinOpr
+OPR_LEN	./lcode.h	/^typedef enum UnOpr { OPR_MINUS, OPR_NOT, OPR_LEN, OPR_NOUNOPR } UnOpr;$/;"	e	enum:UnOpr
+OPR_LT	./lcode.h	/^  OPR_LT, OPR_LE, OPR_GT, OPR_GE,$/;"	e	enum:BinOpr
+OPR_MINUS	./lcode.h	/^typedef enum UnOpr { OPR_MINUS, OPR_NOT, OPR_LEN, OPR_NOUNOPR } UnOpr;$/;"	e	enum:UnOpr
+OPR_MOD	./lcode.h	/^  OPR_ADD, OPR_SUB, OPR_MUL, OPR_DIV, OPR_MOD, OPR_POW,$/;"	e	enum:BinOpr
+OPR_MUL	./lcode.h	/^  OPR_ADD, OPR_SUB, OPR_MUL, OPR_DIV, OPR_MOD, OPR_POW,$/;"	e	enum:BinOpr
+OPR_NE	./lcode.h	/^  OPR_NE, OPR_EQ,$/;"	e	enum:BinOpr
+OPR_NOBINOPR	./lcode.h	/^  OPR_NOBINOPR$/;"	e	enum:BinOpr
+OPR_NOT	./lcode.h	/^typedef enum UnOpr { OPR_MINUS, OPR_NOT, OPR_LEN, OPR_NOUNOPR } UnOpr;$/;"	e	enum:UnOpr
+OPR_NOUNOPR	./lcode.h	/^typedef enum UnOpr { OPR_MINUS, OPR_NOT, OPR_LEN, OPR_NOUNOPR } UnOpr;$/;"	e	enum:UnOpr
+OPR_OR	./lcode.h	/^  OPR_AND, OPR_OR,$/;"	e	enum:BinOpr
+OPR_POW	./lcode.h	/^  OPR_ADD, OPR_SUB, OPR_MUL, OPR_DIV, OPR_MOD, OPR_POW,$/;"	e	enum:BinOpr
+OPR_SUB	./lcode.h	/^  OPR_ADD, OPR_SUB, OPR_MUL, OPR_DIV, OPR_MOD, OPR_POW,$/;"	e	enum:BinOpr
+OP_ADD	./lopcodes.h	/^OP_ADD,\/*	A B C	R(A) := RK(B) + RK(C)				*\/$/;"	e	enum:__anon12
+OP_CALL	./lopcodes.h	/^OP_CALL,\/*	A B C	R(A), ... ,R(A+C-2) := R(A)(R(A+1), ... ,R(A+B-1)) *\/$/;"	e	enum:__anon12
+OP_CLOSE	./lopcodes.h	/^OP_CLOSE,\/*	A 	close all variables in the stack up to (>=) R(A)*\/$/;"	e	enum:__anon12
+OP_CLOSURE	./lopcodes.h	/^OP_CLOSURE,\/*	A Bx	R(A) := closure(KPROTO[Bx], R(A), ... ,R(A+n))	*\/$/;"	e	enum:__anon12
+OP_CONCAT	./lopcodes.h	/^OP_CONCAT,\/*	A B C	R(A) := R(B).. ... ..R(C)			*\/$/;"	e	enum:__anon12
+OP_DIV	./lopcodes.h	/^OP_DIV,\/*	A B C	R(A) := RK(B) \/ RK(C)				*\/$/;"	e	enum:__anon12
+OP_EQ	./lopcodes.h	/^OP_EQ,\/*	A B C	if ((RK(B) == RK(C)) ~= A) then pc++		*\/$/;"	e	enum:__anon12
+OP_FORLOOP	./lopcodes.h	/^OP_FORLOOP,\/*	A sBx	R(A)+=R(A+2);$/;"	e	enum:__anon12
+OP_FORPREP	./lopcodes.h	/^OP_FORPREP,\/*	A sBx	R(A)-=R(A+2); pc+=sBx				*\/$/;"	e	enum:__anon12
+OP_GETGLOBAL	./lopcodes.h	/^OP_GETGLOBAL,\/*	A Bx	R(A) := Gbl[Kst(Bx)]				*\/$/;"	e	enum:__anon12
+OP_GETTABLE	./lopcodes.h	/^OP_GETTABLE,\/*	A B C	R(A) := R(B)[RK(C)]				*\/$/;"	e	enum:__anon12
+OP_GETUPVAL	./lopcodes.h	/^OP_GETUPVAL,\/*	A B	R(A) := UpValue[B]				*\/$/;"	e	enum:__anon12
+OP_JMP	./lopcodes.h	/^OP_JMP,\/*	sBx	pc+=sBx					*\/$/;"	e	enum:__anon12
+OP_LE	./lopcodes.h	/^OP_LE,\/*	A B C	if ((RK(B) <= RK(C)) ~= A) then pc++  		*\/$/;"	e	enum:__anon12
+OP_LEN	./lopcodes.h	/^OP_LEN,\/*	A B	R(A) := length of R(B)				*\/$/;"	e	enum:__anon12
+OP_LOADBOOL	./lopcodes.h	/^OP_LOADBOOL,\/*	A B C	R(A) := (Bool)B; if (C) pc++			*\/$/;"	e	enum:__anon12
+OP_LOADK	./lopcodes.h	/^OP_LOADK,\/*	A Bx	R(A) := Kst(Bx)					*\/$/;"	e	enum:__anon12
+OP_LOADNIL	./lopcodes.h	/^OP_LOADNIL,\/*	A B	R(A) := ... := R(B) := nil			*\/$/;"	e	enum:__anon12
+OP_LT	./lopcodes.h	/^OP_LT,\/*	A B C	if ((RK(B) <  RK(C)) ~= A) then pc++  		*\/$/;"	e	enum:__anon12
+OP_MOD	./lopcodes.h	/^OP_MOD,\/*	A B C	R(A) := RK(B) % RK(C)				*\/$/;"	e	enum:__anon12
+OP_MOVE	./lopcodes.h	/^OP_MOVE,\/*	A B	R(A) := R(B)					*\/$/;"	e	enum:__anon12
+OP_MUL	./lopcodes.h	/^OP_MUL,\/*	A B C	R(A) := RK(B) * RK(C)				*\/$/;"	e	enum:__anon12
+OP_NEWTABLE	./lopcodes.h	/^OP_NEWTABLE,\/*	A B C	R(A) := {} (size = B,C)				*\/$/;"	e	enum:__anon12
+OP_NOT	./lopcodes.h	/^OP_NOT,\/*	A B	R(A) := not R(B)				*\/$/;"	e	enum:__anon12
+OP_POW	./lopcodes.h	/^OP_POW,\/*	A B C	R(A) := RK(B) ^ RK(C)				*\/$/;"	e	enum:__anon12
+OP_RETURN	./lopcodes.h	/^OP_RETURN,\/*	A B	return R(A), ... ,R(A+B-2)	(see note)	*\/$/;"	e	enum:__anon12
+OP_SELF	./lopcodes.h	/^OP_SELF,\/*	A B C	R(A+1) := R(B); R(A) := R(B)[RK(C)]		*\/$/;"	e	enum:__anon12
+OP_SETGLOBAL	./lopcodes.h	/^OP_SETGLOBAL,\/*	A Bx	Gbl[Kst(Bx)] := R(A)				*\/$/;"	e	enum:__anon12
+OP_SETLIST	./lopcodes.h	/^OP_SETLIST,\/*	A B C	R(A)[(C-1)*FPF+i] := R(A+i), 1 <= i <= B	*\/$/;"	e	enum:__anon12
+OP_SETTABLE	./lopcodes.h	/^OP_SETTABLE,\/*	A B C	R(A)[RK(B)] := RK(C)				*\/$/;"	e	enum:__anon12
+OP_SETUPVAL	./lopcodes.h	/^OP_SETUPVAL,\/*	A B	UpValue[B] := R(A)				*\/$/;"	e	enum:__anon12
+OP_SUB	./lopcodes.h	/^OP_SUB,\/*	A B C	R(A) := RK(B) - RK(C)				*\/$/;"	e	enum:__anon12
+OP_TAILCALL	./lopcodes.h	/^OP_TAILCALL,\/*	A B C	return R(A)(R(A+1), ... ,R(A+B-1))		*\/$/;"	e	enum:__anon12
+OP_TEST	./lopcodes.h	/^OP_TEST,\/*	A C	if not (R(A) <=> C) then pc++			*\/ $/;"	e	enum:__anon12
+OP_TESTSET	./lopcodes.h	/^OP_TESTSET,\/*	A B C	if (R(B) <=> C) then R(A) := R(B) else pc++	*\/ $/;"	e	enum:__anon12
+OP_TFORLOOP	./lopcodes.h	/^OP_TFORLOOP,\/*	A C	R(A+3), ... ,R(A+2+C) := R(A)(R(A+1), R(A+2)); $/;"	e	enum:__anon12
+OP_UNM	./lopcodes.h	/^OP_UNM,\/*	A B	R(A) := -R(B)					*\/$/;"	e	enum:__anon12
+OP_VARARG	./lopcodes.h	/^OP_VARARG\/*	A B	R(A), R(A+1), ..., R(A+B-1) = vararg		*\/$/;"	e	enum:__anon12
+OpArgK	./lopcodes.h	/^  OpArgK   \/* argument is a constant or register\/constant *\/$/;"	e	enum:OpArgMask
+OpArgMask	./lopcodes.h	/^enum OpArgMask {$/;"	g
+OpArgN	./lopcodes.h	/^  OpArgN,  \/* argument is not used *\/$/;"	e	enum:OpArgMask
+OpArgR	./lopcodes.h	/^  OpArgR,  \/* argument is a register or a jump offset *\/$/;"	e	enum:OpArgMask
+OpArgU	./lopcodes.h	/^  OpArgU,  \/* argument is used *\/$/;"	e	enum:OpArgMask
+OpCode	./lopcodes.h	/^} OpCode;$/;"	t	typeref:enum:__anon12
+OpMode	./lopcodes.h	/^enum OpMode {iABC, iABx, iAsBx};  \/* basic instruction format *\/$/;"	g
+PCRC	./ldo.h	33;"	d
+PCRLUA	./ldo.h	32;"	d
+PCRYIELD	./ldo.h	34;"	d
+POS_A	./lopcodes.h	45;"	d
+POS_B	./lopcodes.h	47;"	d
+POS_Bx	./lopcodes.h	48;"	d
+POS_C	./lopcodes.h	46;"	d
+POS_OP	./lopcodes.h	44;"	d
+Pfunc	./ldo.h	/^typedef void (*Pfunc) (lua_State *L, void *ud);$/;"	t
+Proto	./lobject.h	/^typedef struct Proto {$/;"	s
+Proto	./lobject.h	/^} Proto;$/;"	t	typeref:struct:Proto
+RESERVED	./llex.h	/^enum RESERVED {$/;"	g
+RKASK	./lopcodes.h	130;"	d
+SETARG_A	./lopcodes.h	85;"	d
+SETARG_B	./lopcodes.h	89;"	d
+SETARG_Bx	./lopcodes.h	97;"	d
+SETARG_C	./lopcodes.h	93;"	d
+SETARG_sBx	./lopcodes.h	101;"	d
+SET_OPCODE	./lopcodes.h	81;"	d
+SFIXEDBIT	./lgc.h	61;"	d
+SIZE_A	./lopcodes.h	40;"	d
+SIZE_B	./lopcodes.h	38;"	d
+SIZE_Bx	./lopcodes.h	39;"	d
+SIZE_C	./lopcodes.h	37;"	d
+SIZE_OP	./lopcodes.h	42;"	d
+SemInfo	./llex.h	/^} SemInfo;  \/* semantics information *\/$/;"	t	typeref:union:__anon1
+StkId	./lobject.h	/^typedef TValue *StkId;  \/* index to stack elements *\/$/;"	t
+TK_AND	./llex.h	/^  TK_AND = FIRST_RESERVED, TK_BREAK,$/;"	e	enum:RESERVED
+TK_BREAK	./llex.h	/^  TK_AND = FIRST_RESERVED, TK_BREAK,$/;"	e	enum:RESERVED
+TK_CONCAT	./llex.h	/^  TK_CONCAT, TK_DOTS, TK_EQ, TK_GE, TK_LE, TK_NE, TK_NUMBER,$/;"	e	enum:RESERVED
+TK_DO	./llex.h	/^  TK_DO, TK_ELSE, TK_ELSEIF, TK_END, TK_FALSE, TK_FOR, TK_FUNCTION,$/;"	e	enum:RESERVED
+TK_DOTS	./llex.h	/^  TK_CONCAT, TK_DOTS, TK_EQ, TK_GE, TK_LE, TK_NE, TK_NUMBER,$/;"	e	enum:RESERVED
+TK_ELSE	./llex.h	/^  TK_DO, TK_ELSE, TK_ELSEIF, TK_END, TK_FALSE, TK_FOR, TK_FUNCTION,$/;"	e	enum:RESERVED
+TK_ELSEIF	./llex.h	/^  TK_DO, TK_ELSE, TK_ELSEIF, TK_END, TK_FALSE, TK_FOR, TK_FUNCTION,$/;"	e	enum:RESERVED
+TK_END	./llex.h	/^  TK_DO, TK_ELSE, TK_ELSEIF, TK_END, TK_FALSE, TK_FOR, TK_FUNCTION,$/;"	e	enum:RESERVED
+TK_EOS	./llex.h	/^  TK_NAME, TK_STRING, TK_EOS$/;"	e	enum:RESERVED
+TK_EQ	./llex.h	/^  TK_CONCAT, TK_DOTS, TK_EQ, TK_GE, TK_LE, TK_NE, TK_NUMBER,$/;"	e	enum:RESERVED
+TK_FALSE	./llex.h	/^  TK_DO, TK_ELSE, TK_ELSEIF, TK_END, TK_FALSE, TK_FOR, TK_FUNCTION,$/;"	e	enum:RESERVED
+TK_FOR	./llex.h	/^  TK_DO, TK_ELSE, TK_ELSEIF, TK_END, TK_FALSE, TK_FOR, TK_FUNCTION,$/;"	e	enum:RESERVED
+TK_FUNCTION	./llex.h	/^  TK_DO, TK_ELSE, TK_ELSEIF, TK_END, TK_FALSE, TK_FOR, TK_FUNCTION,$/;"	e	enum:RESERVED
+TK_GE	./llex.h	/^  TK_CONCAT, TK_DOTS, TK_EQ, TK_GE, TK_LE, TK_NE, TK_NUMBER,$/;"	e	enum:RESERVED
+TK_IF	./llex.h	/^  TK_IF, TK_IN, TK_LOCAL, TK_NIL, TK_NOT, TK_OR, TK_REPEAT,$/;"	e	enum:RESERVED
+TK_IN	./llex.h	/^  TK_IF, TK_IN, TK_LOCAL, TK_NIL, TK_NOT, TK_OR, TK_REPEAT,$/;"	e	enum:RESERVED
+TK_LE	./llex.h	/^  TK_CONCAT, TK_DOTS, TK_EQ, TK_GE, TK_LE, TK_NE, TK_NUMBER,$/;"	e	enum:RESERVED
+TK_LOCAL	./llex.h	/^  TK_IF, TK_IN, TK_LOCAL, TK_NIL, TK_NOT, TK_OR, TK_REPEAT,$/;"	e	enum:RESERVED
+TK_NAME	./llex.h	/^  TK_NAME, TK_STRING, TK_EOS$/;"	e	enum:RESERVED
+TK_NE	./llex.h	/^  TK_CONCAT, TK_DOTS, TK_EQ, TK_GE, TK_LE, TK_NE, TK_NUMBER,$/;"	e	enum:RESERVED
+TK_NIL	./llex.h	/^  TK_IF, TK_IN, TK_LOCAL, TK_NIL, TK_NOT, TK_OR, TK_REPEAT,$/;"	e	enum:RESERVED
+TK_NOT	./llex.h	/^  TK_IF, TK_IN, TK_LOCAL, TK_NIL, TK_NOT, TK_OR, TK_REPEAT,$/;"	e	enum:RESERVED
+TK_NUMBER	./llex.h	/^  TK_CONCAT, TK_DOTS, TK_EQ, TK_GE, TK_LE, TK_NE, TK_NUMBER,$/;"	e	enum:RESERVED
+TK_OR	./llex.h	/^  TK_IF, TK_IN, TK_LOCAL, TK_NIL, TK_NOT, TK_OR, TK_REPEAT,$/;"	e	enum:RESERVED
+TK_REPEAT	./llex.h	/^  TK_IF, TK_IN, TK_LOCAL, TK_NIL, TK_NOT, TK_OR, TK_REPEAT,$/;"	e	enum:RESERVED
+TK_RETURN	./llex.h	/^  TK_RETURN, TK_THEN, TK_TRUE, TK_UNTIL, TK_WHILE,$/;"	e	enum:RESERVED
+TK_STRING	./llex.h	/^  TK_NAME, TK_STRING, TK_EOS$/;"	e	enum:RESERVED
+TK_THEN	./llex.h	/^  TK_RETURN, TK_THEN, TK_TRUE, TK_UNTIL, TK_WHILE,$/;"	e	enum:RESERVED
+TK_TRUE	./llex.h	/^  TK_RETURN, TK_THEN, TK_TRUE, TK_UNTIL, TK_WHILE,$/;"	e	enum:RESERVED
+TK_UNTIL	./llex.h	/^  TK_RETURN, TK_THEN, TK_TRUE, TK_UNTIL, TK_WHILE,$/;"	e	enum:RESERVED
+TK_WHILE	./llex.h	/^  TK_RETURN, TK_THEN, TK_TRUE, TK_UNTIL, TK_WHILE,$/;"	e	enum:RESERVED
+TKey	./lobject.h	/^typedef union TKey {$/;"	u
+TKey	./lobject.h	/^} TKey;$/;"	t	typeref:union:TKey
+TMS	./ltm.h	/^} TMS;$/;"	t	typeref:enum:__anon11
+TM_ADD	./ltm.h	/^  TM_ADD,$/;"	e	enum:__anon11
+TM_CALL	./ltm.h	/^  TM_CALL,$/;"	e	enum:__anon11
+TM_CONCAT	./ltm.h	/^  TM_CONCAT,$/;"	e	enum:__anon11
+TM_DIV	./ltm.h	/^  TM_DIV,$/;"	e	enum:__anon11
+TM_EQ	./ltm.h	/^  TM_EQ,  \/* last tag method with `fast' access *\/$/;"	e	enum:__anon11
+TM_GC	./ltm.h	/^  TM_GC,$/;"	e	enum:__anon11
+TM_INDEX	./ltm.h	/^  TM_INDEX,$/;"	e	enum:__anon11
+TM_LE	./ltm.h	/^  TM_LE,$/;"	e	enum:__anon11
+TM_LEN	./ltm.h	/^  TM_LEN,$/;"	e	enum:__anon11
+TM_LT	./ltm.h	/^  TM_LT,$/;"	e	enum:__anon11
+TM_MOD	./ltm.h	/^  TM_MOD,$/;"	e	enum:__anon11
+TM_MODE	./ltm.h	/^  TM_MODE,$/;"	e	enum:__anon11
+TM_MUL	./ltm.h	/^  TM_MUL,$/;"	e	enum:__anon11
+TM_N	./ltm.h	/^  TM_N		\/* number of elements in the enum *\/$/;"	e	enum:__anon11
+TM_NEWINDEX	./ltm.h	/^  TM_NEWINDEX,$/;"	e	enum:__anon11
+TM_POW	./ltm.h	/^  TM_POW,$/;"	e	enum:__anon11
+TM_SUB	./ltm.h	/^  TM_SUB,$/;"	e	enum:__anon11
+TM_UNM	./ltm.h	/^  TM_UNM,$/;"	e	enum:__anon11
+TOKEN_LEN	./llex.h	17;"	d
+TString	./lobject.h	/^typedef union TString {$/;"	u
+TString	./lobject.h	/^} TString;$/;"	t	typeref:union:TString
+TValue	./lobject.h	/^} TValue;$/;"	t	typeref:struct:lua_TValue
+TValuefields	./lobject.h	/^    TValuefields;$/;"	m	struct:TKey::__anon10
+TValuefields	./lobject.h	/^  TValuefields;$/;"	m	struct:lua_TValue
+TValuefields	./lobject.h	71;"	d
+Table	./lobject.h	/^typedef struct Table {$/;"	s
+Table	./lobject.h	/^} Table;$/;"	t	typeref:struct:Table
+Token	./llex.h	/^typedef struct Token {$/;"	s
+Token	./llex.h	/^} Token;$/;"	t	typeref:struct:Token
+UNUSED	./llimits.h	70;"	d
+Udata	./lobject.h	/^typedef union Udata {$/;"	u
+Udata	./lobject.h	/^} Udata;$/;"	t	typeref:union:Udata
+UnOpr	./lcode.h	/^typedef enum UnOpr { OPR_MINUS, OPR_NOT, OPR_LEN, OPR_NOUNOPR } UnOpr;$/;"	g
+UnOpr	./lcode.h	/^typedef enum UnOpr { OPR_MINUS, OPR_NOT, OPR_LEN, OPR_NOUNOPR } UnOpr;$/;"	t	typeref:enum:UnOpr
+UpVal	./lobject.h	/^typedef struct UpVal {$/;"	s
+UpVal	./lobject.h	/^} UpVal;$/;"	t	typeref:struct:UpVal
+VALUEWEAKBIT	./lgc.h	59;"	d
+VARARG_HASARG	./lobject.h	257;"	d
+VARARG_ISVARARG	./lobject.h	258;"	d
+VARARG_NEEDSARG	./lobject.h	259;"	d
+VCALL	./lparser.h	/^  VCALL,	\/* info = instruction pc *\/$/;"	e	enum:__anon2
+VFALSE	./lparser.h	/^  VFALSE,$/;"	e	enum:__anon2
+VGLOBAL	./lparser.h	/^  VGLOBAL,	\/* info = index of table; aux = index of global name in `k' *\/$/;"	e	enum:__anon2
+VINDEXED	./lparser.h	/^  VINDEXED,	\/* info = table register; aux = index register (or `k') *\/$/;"	e	enum:__anon2
+VJMP	./lparser.h	/^  VJMP,		\/* info = instruction pc *\/$/;"	e	enum:__anon2
+VK	./lparser.h	/^  VK,		\/* info = index of constant in `k' *\/$/;"	e	enum:__anon2
+VKNUM	./lparser.h	/^  VKNUM,	\/* nval = numerical value *\/$/;"	e	enum:__anon2
+VLOCAL	./lparser.h	/^  VLOCAL,	\/* info = local register *\/$/;"	e	enum:__anon2
+VNIL	./lparser.h	/^  VNIL,$/;"	e	enum:__anon2
+VNONRELOC	./lparser.h	/^  VNONRELOC,	\/* info = result register *\/$/;"	e	enum:__anon2
+VRELOCABLE	./lparser.h	/^  VRELOCABLE,	\/* info = instruction pc *\/$/;"	e	enum:__anon2
+VTRUE	./lparser.h	/^  VTRUE,$/;"	e	enum:__anon2
+VUPVAL	./lparser.h	/^  VUPVAL,       \/* info = index of upvalue in `upvalues' *\/$/;"	e	enum:__anon2
+VVARARG	./lparser.h	/^  VVARARG	\/* info = instruction pc *\/$/;"	e	enum:__anon2
+VVOID	./lparser.h	/^  VVOID,	\/* no value *\/$/;"	e	enum:__anon2
+Value	./lobject.h	/^} Value;$/;"	t	typeref:union:__anon5
+WHITE0BIT	./lgc.h	54;"	d
+WHITE1BIT	./lgc.h	55;"	d
+WHITEBITS	./lgc.h	62;"	d
+ZIO	./lzio.h	/^typedef struct Zio ZIO;$/;"	t	typeref:struct:Zio
+Zio	./lzio.h	/^struct Zio {$/;"	s
+actvar	./lparser.h	/^  unsigned short actvar[LUAI_MAXVARS];  \/* declared-variable stack *\/$/;"	m	struct:FuncState
+allowhook	./lstate.h	/^  lu_byte allowhook;$/;"	m	struct:lua_State
+api_check	./llimits.h	58;"	d
+api_check	./llimits.h	64;"	d
+array	./lobject.h	/^  TValue *array;  \/* array part *\/$/;"	m	struct:Table
+aux	./lparser.h	/^    struct { int info, aux; } s;$/;"	m	struct:expdesc::__anon3::__anon4
+b	./lobject.h	/^  int b;$/;"	m	union:__anon5
+base	./lstate.h	/^  StkId base;  \/* base for this function *\/$/;"	m	struct:CallInfo
+base	./lstate.h	/^  StkId base;  \/* base of current function *\/$/;"	m	struct:lua_State
+baseCcalls	./lstate.h	/^  unsigned short baseCcalls;  \/* nested C calls when resuming coroutine *\/$/;"	m	struct:lua_State
+base_ci	./lstate.h	/^  CallInfo *base_ci;  \/* array of CallInfo's *\/$/;"	m	struct:lua_State
+basehookcount	./lstate.h	/^  int basehookcount;$/;"	m	struct:lua_State
+bit2mask	./lgc.h	31;"	d
+bitmask	./lgc.h	30;"	d
+bl	./lparser.h	/^  struct BlockCnt *bl;  \/* chain of current blocks *\/$/;"	m	struct:FuncState	typeref:struct:FuncState::BlockCnt
+buff	./llex.h	/^  Mbuffer *buff;  \/* buffer for tokens *\/$/;"	m	struct:LexState
+buff	./lstate.h	/^  Mbuffer buff;  \/* temporary buffer for string concatentation *\/$/;"	m	struct:global_State
+buffer	./lauxlib.h	/^  char buffer[LUAL_BUFFERSIZE];$/;"	m	struct:luaL_Buffer
+buffer	./lzio.h	/^  char *buffer;$/;"	m	struct:Mbuffer
+buffsize	./lzio.h	/^  size_t buffsize;$/;"	m	struct:Mbuffer
+bvalue	./lobject.h	100;"	d
+c	./lobject.h	/^  CClosure c;$/;"	m	union:Closure
+cast	./llimits.h	75;"	d
+cast_byte	./llimits.h	78;"	d
+cast_int	./llimits.h	80;"	d
+cast_num	./llimits.h	79;"	d
+ceillog2	./lobject.h	367;"	d
+changewhite	./lgc.h	72;"	d
+char2int	./lzio.h	20;"	d
+check_exp	./llimits.h	57;"	d
+check_exp	./llimits.h	63;"	d
+checkconsistency	./lobject.h	108;"	d
+checkliveness	./lobject.h	111;"	d
+ci	./lstate.h	/^  CallInfo *ci;  \/* call info for current function *\/$/;"	m	struct:lua_State
+ci_func	./lstate.h	60;"	d
+cl	./lstate.h	/^  union Closure cl;$/;"	m	union:GCObject	typeref:union:GCObject::Closure
+clvalue	./lobject.h	98;"	d
+code	./lobject.h	/^  Instruction *code;$/;"	m	struct:Proto
+condhardstacktests	./llimits.h	123;"	d
+condhardstacktests	./llimits.h	125;"	d
+curr_func	./lstate.h	59;"	d
+current	./llex.h	/^  int current;  \/* current character (charint) *\/$/;"	m	struct:LexState
+currentline	./lua.h	/^  int currentline;	\/* (l) *\/$/;"	m	struct:lua_Debug
+currentwhite	./lstate.h	/^  lu_byte currentwhite;$/;"	m	struct:global_State
+data	./lzio.h	/^  void* data;			\/* additional data *\/$/;"	m	struct:Zio
+decpoint	./llex.h	/^  char decpoint;  \/* locale decimal point *\/$/;"	m	struct:LexState
+dummy	./lobject.h	/^  L_Umaxalign dummy;  \/* ensures maximum alignment for `local' udata *\/$/;"	m	union:Udata
+dummy	./lobject.h	/^  L_Umaxalign dummy;  \/* ensures maximum alignment for strings *\/$/;"	m	union:TString
+end_ci	./lstate.h	/^  CallInfo *end_ci;  \/* points after end of ci array*\/$/;"	m	struct:lua_State
+endpc	./lobject.h	/^  int endpc;    \/* first point where variable is dead *\/$/;"	m	struct:LocVar
+env	./lobject.h	/^    struct Table *env;$/;"	m	struct:Udata::__anon7	typeref:struct:Udata::__anon7::Table
+env	./lstate.h	/^  TValue env;  \/* temporary place for environments *\/$/;"	m	struct:lua_State
+equalobj	./lvm.h	21;"	d
+errfunc	./lstate.h	/^  ptrdiff_t errfunc;  \/* current error handling function (stack index) *\/$/;"	m	struct:lua_State
+errorJmp	./lstate.h	/^  struct lua_longjmp *errorJmp;  \/* current error recover point *\/$/;"	m	struct:lua_State	typeref:struct:lua_State::lua_longjmp
+estimate	./lstate.h	/^  lu_mem estimate;  \/* an estimate of number of bytes actually in use *\/$/;"	m	struct:global_State
+event	./lua.h	/^  int event;$/;"	m	struct:lua_Debug
+expdesc	./lparser.h	/^typedef struct expdesc {$/;"	s
+expdesc	./lparser.h	/^} expdesc;$/;"	t	typeref:struct:expdesc
+expkind	./lparser.h	/^} expkind;$/;"	t	typeref:enum:__anon2
+f	./lobject.h	/^  lua_CFunction f;$/;"	m	struct:CClosure
+f	./lparser.h	/^  Proto *f;  \/* current function header *\/$/;"	m	struct:FuncState
+f	./lparser.h	/^  int f;  \/* patch list of `exit when false' *\/$/;"	m	struct:expdesc
+f_isLua	./lstate.h	61;"	d
+fasttm	./ltm.h	44;"	d
+flags	./lobject.h	/^  lu_byte flags;  \/* 1<<p means tagmethod(p) is not present *\/ $/;"	m	struct:Table
+frealloc	./lstate.h	/^  lua_Alloc frealloc;  \/* function to reallocate memory *\/$/;"	m	struct:global_State
+freereg	./lparser.h	/^  int freereg;  \/* first free register *\/$/;"	m	struct:FuncState
+fs	./llex.h	/^  struct FuncState *fs;  \/* `FuncState' is private to the parser *\/$/;"	m	struct:LexState	typeref:struct:LexState::FuncState
+func	./lauxlib.h	/^  lua_CFunction func;$/;"	m	struct:luaL_Reg
+func	./lstate.h	/^  StkId func;  \/* function index in the stack *\/$/;"	m	struct:CallInfo
+gc	./lobject.h	/^  GCObject *gc;$/;"	m	union:__anon5
+gcdept	./lstate.h	/^  lu_mem gcdept;  \/* how much GC is `behind schedule' *\/$/;"	m	struct:global_State
+gch	./lstate.h	/^  GCheader gch;$/;"	m	union:GCObject
+gclist	./lobject.h	/^  GCObject *gclist;$/;"	m	struct:Proto
+gclist	./lobject.h	/^  GCObject *gclist;$/;"	m	struct:Table
+gclist	./lstate.h	/^  GCObject *gclist;$/;"	m	struct:lua_State
+gco2cl	./lstate.h	153;"	d
+gco2h	./lstate.h	154;"	d
+gco2p	./lstate.h	155;"	d
+gco2th	./lstate.h	159;"	d
+gco2ts	./lstate.h	150;"	d
+gco2u	./lstate.h	152;"	d
+gco2uv	./lstate.h	156;"	d
+gcpause	./lstate.h	/^  int gcpause;  \/* size of pause between successive GCs *\/$/;"	m	struct:global_State
+gcstate	./lstate.h	/^  lu_byte gcstate;  \/* state of garbage collector *\/$/;"	m	struct:global_State
+gcstepmul	./lstate.h	/^  int gcstepmul;  \/* GC `granularity' *\/$/;"	m	struct:global_State
+gcvalue	./lobject.h	91;"	d
+getBMode	./lopcodes.h	255;"	d
+getCMode	./lopcodes.h	256;"	d
+getOpMode	./lopcodes.h	254;"	d
+getcode	./lcode.h	39;"	d
+getline	./ldebug.h	16;"	d
+getstr	./lobject.h	210;"	d
+gfasttm	./ltm.h	41;"	d
+gkey	./ltable.h	14;"	d
+global_State	./lstate.h	/^typedef struct global_State {$/;"	s
+global_State	./lstate.h	/^} global_State;$/;"	t	typeref:struct:global_State
+gnext	./ltable.h	16;"	d
+gnode	./ltable.h	13;"	d
+gray	./lstate.h	/^  GCObject *gray;  \/* list of gray objects *\/$/;"	m	struct:global_State
+gray2black	./lgc.h	73;"	d
+grayagain	./lstate.h	/^  GCObject *grayagain;  \/* list of objects to be traversed atomically *\/$/;"	m	struct:global_State
+gt	./lstate.h	22;"	d
+gval	./ltable.h	15;"	d
+h	./lparser.h	/^  Table *h;  \/* table to find (and reuse) elements in `k' *\/$/;"	m	struct:FuncState
+h	./lstate.h	/^  struct Table h;$/;"	m	union:GCObject	typeref:struct:GCObject::Table
+hash	./lobject.h	/^    unsigned int hash;$/;"	m	struct:TString::__anon6
+hash	./lstate.h	/^  GCObject **hash;$/;"	m	struct:stringtable
+hook	./lstate.h	/^  lua_Hook hook;$/;"	m	struct:lua_State
+hookcount	./lstate.h	/^  int hookcount;$/;"	m	struct:lua_State
+hookmask	./lstate.h	/^  lu_byte hookmask;$/;"	m	struct:lua_State
+hvalue	./lobject.h	99;"	d
+iABC	./lopcodes.h	/^enum OpMode {iABC, iABx, iAsBx};  \/* basic instruction format *\/$/;"	e	enum:OpMode
+iABx	./lopcodes.h	/^enum OpMode {iABC, iABx, iAsBx};  \/* basic instruction format *\/$/;"	e	enum:OpMode
+iAsBx	./lopcodes.h	/^enum OpMode {iABC, iABx, iAsBx};  \/* basic instruction format *\/$/;"	e	enum:OpMode
+i_ci	./lua.h	/^  int i_ci;  \/* active function *\/$/;"	m	struct:lua_Debug
+i_key	./lobject.h	/^  TKey i_key;$/;"	m	struct:Node
+i_val	./lobject.h	/^  TValue i_val;$/;"	m	struct:Node
+incr_top	./ldo.h	22;"	d
+info	./lparser.h	/^    struct { int info, aux; } s;$/;"	m	struct:expdesc::__anon3::__anon4
+info	./lparser.h	/^  lu_byte info;$/;"	m	struct:upvaldesc
+isLfunction	./lobject.h	316;"	d
+isLua	./lstate.h	62;"	d
+is_vararg	./lobject.h	/^  lu_byte is_vararg;$/;"	m	struct:Proto
+isblack	./lgc.h	66;"	d
+iscfunction	./lobject.h	315;"	d
+iscollectable	./lobject.h	189;"	d
+isdead	./lgc.h	70;"	d
+isgray	./lgc.h	67;"	d
+iswhite	./lgc.h	65;"	d
+jpc	./lparser.h	/^  int jpc;  \/* list of pending jumps to `pc' *\/$/;"	m	struct:FuncState
+k	./lobject.h	/^  TValue *k;  \/* constants used by the function *\/$/;"	m	struct:Proto
+k	./lparser.h	/^  expkind k;$/;"	m	struct:expdesc
+k	./lparser.h	/^  lu_byte k;$/;"	m	struct:upvaldesc
+key2tval	./ltable.h	18;"	d
+l	./lobject.h	/^    } l;$/;"	m	union:UpVal::__anon8	typeref:struct:UpVal::__anon8::__anon9
+l	./lobject.h	/^  LClosure l;$/;"	m	union:Closure
+l_G	./lstate.h	/^  global_State *l_G;$/;"	m	struct:lua_State
+l_gt	./lstate.h	/^  TValue l_gt;  \/* table of globals *\/$/;"	m	struct:lua_State
+l_isfalse	./lobject.h	103;"	d
+l_mem	./llimits.h	/^typedef LUAI_MEM l_mem;$/;"	t
+l_registry	./lstate.h	/^  TValue l_registry;$/;"	m	struct:global_State
+l_setbit	./lgc.h	32;"	d
+l_uacNumber	./llimits.h	/^typedef LUAI_UACNUMBER l_uacNumber;$/;"	t
+lapi_h	./lapi.h	8;"	d
+lastfree	./lobject.h	/^  Node *lastfree;  \/* any free position is before this position *\/$/;"	m	struct:Table
+lastline	./llex.h	/^  int lastline;  \/* line of last token `consumed' *\/$/;"	m	struct:LexState
+lastlinedefined	./lobject.h	/^  int lastlinedefined;$/;"	m	struct:Proto
+lastlinedefined	./lua.h	/^  int lastlinedefined;	\/* (S) *\/$/;"	m	struct:lua_Debug
+lasttarget	./lparser.h	/^  int lasttarget;   \/* `pc' of last `jump target' *\/$/;"	m	struct:FuncState
+lauxlib_h	./lauxlib.h	9;"	d
+lcode_h	./lcode.h	8;"	d
+ldebug_h	./ldebug.h	8;"	d
+ldo_h	./ldo.h	8;"	d
+len	./lobject.h	/^    size_t len;$/;"	m	struct:TString::__anon6
+len	./lobject.h	/^    size_t len;$/;"	m	struct:Udata::__anon7
+lfunc_h	./lfunc.h	8;"	d
+lgc_h	./lgc.h	8;"	d
+linedefined	./lobject.h	/^  int linedefined;$/;"	m	struct:Proto
+linedefined	./lua.h	/^  int linedefined;	\/* (S) *\/$/;"	m	struct:lua_Debug
+lineinfo	./lobject.h	/^  int *lineinfo;  \/* map from opcodes to source lines *\/$/;"	m	struct:Proto
+linenumber	./llex.h	/^  int linenumber;  \/* input line counter *\/$/;"	m	struct:LexState
+llex_h	./llex.h	8;"	d
+llimits_h	./llimits.h	8;"	d
+lmem_h	./lmem.h	8;"	d
+lmod	./lobject.h	355;"	d
+lobject_h	./lobject.h	9;"	d
+locvars	./lobject.h	/^  struct LocVar *locvars;  \/* information about local variables *\/$/;"	m	struct:Proto	typeref:struct:Proto::LocVar
+lookahead	./llex.h	/^  Token lookahead;  \/* look ahead token *\/$/;"	m	struct:LexState
+lopcodes_h	./lopcodes.h	8;"	d
+lparser_h	./lparser.h	8;"	d
+ls	./lparser.h	/^  struct LexState *ls;  \/* lexical state *\/$/;"	m	struct:FuncState	typeref:struct:FuncState::LexState
+lsizenode	./lobject.h	/^  lu_byte lsizenode;  \/* log2 of size of `node' array *\/$/;"	m	struct:Table
+lstate_h	./lstate.h	8;"	d
+lstring_h	./lstring.h	8;"	d
+ltable_h	./ltable.h	8;"	d
+ltm_h	./ltm.h	8;"	d
+lu_byte	./llimits.h	/^typedef unsigned char lu_byte;$/;"	t
+lu_int32	./llimits.h	/^typedef LUAI_UINT32 lu_int32;$/;"	t
+lu_mem	./llimits.h	/^typedef LUAI_UMEM lu_mem;$/;"	t
+luaC_barrier	./lgc.h	86;"	d
+luaC_barriert	./lgc.h	89;"	d
+luaC_checkGC	./lgc.h	80;"	d
+luaC_objbarrier	./lgc.h	92;"	d
+luaC_objbarriert	./lgc.h	96;"	d
+luaC_white	./lgc.h	77;"	d
+luaD_checkstack	./ldo.h	16;"	d
+luaI_openlib	./lauxlib.h	27;"	d
+luaK_codeAsBx	./lcode.h	41;"	d
+luaK_setmultret	./lcode.h	43;"	d
+luaL_Buffer	./lauxlib.h	/^typedef struct luaL_Buffer {$/;"	s
+luaL_Buffer	./lauxlib.h	/^} luaL_Buffer;$/;"	t	typeref:struct:luaL_Buffer
+luaL_Reg	./lauxlib.h	/^typedef struct luaL_Reg {$/;"	s
+luaL_Reg	./lauxlib.h	/^} luaL_Reg;$/;"	t	typeref:struct:luaL_Reg
+luaL_addchar	./lauxlib.h	136;"	d
+luaL_addsize	./lauxlib.h	143;"	d
+luaL_argcheck	./lauxlib.h	100;"	d
+luaL_checkint	./lauxlib.h	104;"	d
+luaL_checklong	./lauxlib.h	106;"	d
+luaL_checkstring	./lauxlib.h	102;"	d
+luaL_dofile	./lauxlib.h	111;"	d
+luaL_dostring	./lauxlib.h	114;"	d
+luaL_getmetatable	./lauxlib.h	117;"	d
+luaL_getn	./lauxlib.h	22;"	d
+luaL_opt	./lauxlib.h	119;"	d
+luaL_optint	./lauxlib.h	105;"	d
+luaL_optlong	./lauxlib.h	107;"	d
+luaL_optstring	./lauxlib.h	103;"	d
+luaL_putchar	./lauxlib.h	141;"	d
+luaL_reg	./lauxlib.h	170;"	d
+luaL_setn	./lauxlib.h	23;"	d
+luaL_typename	./lauxlib.h	109;"	d
+luaM_free	./lmem.h	25;"	d
+luaM_freearray	./lmem.h	26;"	d
+luaM_freemem	./lmem.h	24;"	d
+luaM_growvector	./lmem.h	33;"	d
+luaM_malloc	./lmem.h	28;"	d
+luaM_new	./lmem.h	29;"	d
+luaM_newvector	./lmem.h	30;"	d
+luaM_reallocv	./lmem.h	19;"	d
+luaM_reallocvector	./lmem.h	37;"	d
+luaO_nilobject	./lobject.h	363;"	d
+luaO_nilobject_	./lobject.h	/^LUAI_DATA const TValue luaO_nilobject_;$/;"	v
+luaP_opmodes	./lopcodes.h	/^LUAI_DATA const lu_byte luaP_opmodes[NUM_OPCODES];$/;"	v
+luaP_opnames	./lopcodes.h	/^LUAI_DATA const char *const luaP_opnames[NUM_OPCODES+1];  \/* opcode names *\/$/;"	v
+luaS_fix	./lstring.h	24;"	d
+luaS_new	./lstring.h	20;"	d
+luaS_newliteral	./lstring.h	21;"	d
+luaT_typenames	./ltm.h	/^LUAI_DATA const char *const luaT_typenames[];$/;"	v
+luaX_tokens	./llex.h	/^LUAI_DATA const char *const luaX_tokens [];$/;"	v
+luaZ_buffer	./lzio.h	32;"	d
+luaZ_bufflen	./lzio.h	34;"	d
+luaZ_freebuffer	./lzio.h	43;"	d
+luaZ_initbuffer	./lzio.h	30;"	d
+luaZ_resetbuffer	./lzio.h	36;"	d
+luaZ_resizebuffer	./lzio.h	39;"	d
+luaZ_sizebuffer	./lzio.h	33;"	d
+lua_Alloc	./lua.h	/^typedef void * (*lua_Alloc) (void *ud, void *ptr, size_t osize, size_t nsize);$/;"	t
+lua_CFunction	./lua.h	/^typedef int (*lua_CFunction) (lua_State *L);$/;"	t
+lua_Chunkreader	./lua.h	293;"	d
+lua_Chunkwriter	./lua.h	294;"	d
+lua_Debug	./lua.h	/^struct lua_Debug {$/;"	s
+lua_Debug	./lua.h	/^typedef struct lua_Debug lua_Debug;  \/* activation record *\/$/;"	t	typeref:struct:lua_Debug
+lua_Hook	./lua.h	/^typedef void (*lua_Hook) (lua_State *L, lua_Debug *ar);$/;"	t
+lua_Integer	./lua.h	/^typedef LUA_INTEGER lua_Integer;$/;"	t
+lua_Number	./lua.h	/^typedef LUA_NUMBER lua_Number;$/;"	t
+lua_Reader	./lua.h	/^typedef const char * (*lua_Reader) (lua_State *L, void *ud, size_t *sz);$/;"	t
+lua_State	./lstate.h	/^struct lua_State {$/;"	s
+lua_State	./lua.h	/^typedef struct lua_State lua_State;$/;"	t	typeref:struct:lua_State
+lua_TValue	./lobject.h	/^typedef struct lua_TValue {$/;"	s
+lua_Writer	./lua.h	/^typedef int (*lua_Writer) (lua_State *L, const void* p, size_t sz, void* ud);$/;"	t
+lua_assert	./llimits.h	62;"	d
+lua_assert	./lualib.h	49;"	d
+lua_getgccount	./lua.h	291;"	d
+lua_getglobal	./lua.h	277;"	d
+lua_getref	./lauxlib.h	167;"	d
+lua_getregistry	./lua.h	289;"	d
+lua_h	./lua.h	10;"	d
+lua_isboolean	./lua.h	268;"	d
+lua_isfunction	./lua.h	264;"	d
+lua_islightuserdata	./lua.h	266;"	d
+lua_isnil	./lua.h	267;"	d
+lua_isnone	./lua.h	270;"	d
+lua_isnoneornil	./lua.h	271;"	d
+lua_istable	./lua.h	265;"	d
+lua_isthread	./lua.h	269;"	d
+lua_lock	./llimits.h	110;"	d
+lua_newtable	./lua.h	256;"	d
+lua_open	./lua.h	287;"	d
+lua_pop	./lua.h	254;"	d
+lua_pushcfunction	./lua.h	260;"	d
+lua_pushliteral	./lua.h	273;"	d
+lua_ref	./lauxlib.h	162;"	d
+lua_register	./lua.h	258;"	d
+lua_setglobal	./lua.h	276;"	d
+lua_strlen	./lua.h	262;"	d
+lua_tostring	./lua.h	279;"	d
+lua_unlock	./llimits.h	111;"	d
+lua_unref	./lauxlib.h	165;"	d
+lua_upvalueindex	./lua.h	39;"	d
+luai_threadyield	./llimits.h	115;"	d
+lualib_h	./lualib.h	9;"	d
+lundump_h	./lundump.h	8;"	d
+lvl	./lauxlib.h	/^  int lvl;  \/* number of strings in the stack (level) *\/$/;"	m	struct:luaL_Buffer
+lvm_h	./lvm.h	8;"	d
+lzio_h	./lzio.h	9;"	d
+mainthread	./lstate.h	/^  struct lua_State *mainthread;$/;"	m	struct:global_State	typeref:struct:global_State::lua_State
+maxstacksize	./lobject.h	/^  lu_byte maxstacksize;$/;"	m	struct:Proto
+metatable	./lobject.h	/^    struct Table *metatable;$/;"	m	struct:Udata::__anon7	typeref:struct:Udata::__anon7::Table
+metatable	./lobject.h	/^  struct Table *metatable;$/;"	m	struct:Table	typeref:struct:Table::Table
+mt	./lstate.h	/^  struct Table *mt[NUM_TAGS];  \/* metatables for basic types *\/$/;"	m	struct:global_State	typeref:struct:global_State::Table
+n	./lobject.h	/^  lua_Number n;$/;"	m	union:__anon5
+n	./lzio.h	/^  size_t n;			\/* bytes still unread *\/$/;"	m	struct:Zio
+n	./lzio.h	/^  size_t n;$/;"	m	struct:Mbuffer
+nCcalls	./lstate.h	/^  unsigned short nCcalls;  \/* number of nested C calls *\/$/;"	m	struct:lua_State
+nactvar	./lparser.h	/^  lu_byte nactvar;  \/* number of active local variables *\/$/;"	m	struct:FuncState
+name	./lauxlib.h	/^  const char *name;$/;"	m	struct:luaL_Reg
+name	./lua.h	/^  const char *name;	\/* (n) *\/$/;"	m	struct:lua_Debug
+namewhat	./lua.h	/^  const char *namewhat;	\/* (n) `global', `local', `field', `method' *\/$/;"	m	struct:lua_Debug
+next	./lobject.h	/^      struct UpVal *next;$/;"	m	struct:UpVal::__anon8::__anon9	typeref:struct:UpVal::__anon8::__anon9::UpVal
+next	./lobject.h	/^    struct Node *next;  \/* for chaining *\/$/;"	m	struct:TKey::__anon10	typeref:struct:TKey::__anon10::Node
+ngcotouv	./lstate.h	157;"	d
+nk	./lobject.h	/^  } nk;$/;"	m	union:TKey	typeref:struct:TKey::__anon10
+nk	./lparser.h	/^  int nk;  \/* number of elements in `k' *\/$/;"	m	struct:FuncState
+nlocvars	./lparser.h	/^  short nlocvars;  \/* number of elements in `locvars' *\/$/;"	m	struct:FuncState
+node	./lobject.h	/^  Node *node;$/;"	m	struct:Table
+np	./lparser.h	/^  int np;  \/* number of elements in `p' *\/$/;"	m	struct:FuncState
+nresults	./lstate.h	/^  int nresults;  \/* expected number of results from this function *\/$/;"	m	struct:CallInfo
+numparams	./lobject.h	/^  lu_byte numparams;$/;"	m	struct:Proto
+nups	./lobject.h	/^  lu_byte nups;  \/* number of upvalues *\/$/;"	m	struct:Proto
+nups	./lua.h	/^  int nups;		\/* (u) number of upvalues *\/$/;"	m	struct:lua_Debug
+nuse	./lstate.h	/^  lu_int32 nuse;  \/* number of elements *\/$/;"	m	struct:stringtable
+nval	./lparser.h	/^    lua_Number nval;$/;"	m	union:expdesc::__anon3
+nvalue	./lobject.h	93;"	d
+obj2gco	./lstate.h	162;"	d
+openupval	./lstate.h	/^  GCObject *openupval;  \/* list of open upvalues in this stack *\/$/;"	m	struct:lua_State
+otherwhite	./lgc.h	69;"	d
+p	./lauxlib.h	/^  char *p;			\/* current position in buffer *\/$/;"	m	struct:luaL_Buffer
+p	./lobject.h	/^  struct Proto **p;  \/* functions defined inside the function *\/$/;"	m	struct:Proto	typeref:struct:Proto::Proto
+p	./lobject.h	/^  struct Proto *p;$/;"	m	struct:LClosure	typeref:struct:LClosure::Proto
+p	./lobject.h	/^  void *p;$/;"	m	union:__anon5
+p	./lstate.h	/^  struct Proto p;$/;"	m	union:GCObject	typeref:struct:GCObject::Proto
+p	./lzio.h	/^  const char *p;		\/* current position in buffer *\/$/;"	m	struct:Zio
+panic	./lstate.h	/^  lua_CFunction panic;  \/* to be called in unprotected errors *\/$/;"	m	struct:global_State
+pc	./lparser.h	/^  int pc;  \/* next position to code (equivalent to `ncode') *\/$/;"	m	struct:FuncState
+pcRel	./ldebug.h	14;"	d
+prev	./lobject.h	/^      struct UpVal *prev;$/;"	m	struct:UpVal::__anon8::__anon9	typeref:struct:UpVal::__anon8::__anon9::UpVal
+prev	./lparser.h	/^  struct FuncState *prev;  \/* enclosing function *\/$/;"	m	struct:FuncState	typeref:struct:FuncState::FuncState
+pvalue	./lobject.h	92;"	d
+r	./llex.h	/^  lua_Number r;$/;"	m	union:__anon1
+rawgco2ts	./lstate.h	149;"	d
+rawgco2u	./lstate.h	151;"	d
+rawtsvalue	./lobject.h	94;"	d
+rawuvalue	./lobject.h	96;"	d
+reader	./lzio.h	/^  lua_Reader reader;$/;"	m	struct:Zio
+registry	./lstate.h	25;"	d
+reserved	./lobject.h	/^    lu_byte reserved;$/;"	m	struct:TString::__anon6
+reset2bits	./lgc.h	36;"	d
+resetbit	./lgc.h	33;"	d
+resetbits	./lgc.h	27;"	d
+resethookcount	./ldebug.h	18;"	d
+restoreci	./ldo.h	28;"	d
+restorestack	./ldo.h	25;"	d
+rootgc	./lstate.h	/^  GCObject *rootgc;  \/* list of all collectable objects *\/$/;"	m	struct:global_State
+s	./lparser.h	/^    struct { int info, aux; } s;$/;"	m	union:expdesc::__anon3	typeref:struct:expdesc::__anon3::__anon4
+saveci	./ldo.h	27;"	d
+savedpc	./lstate.h	/^  const Instruction *savedpc;  \/* `savedpc' of current function *\/$/;"	m	struct:lua_State
+savedpc	./lstate.h	/^  const Instruction *savedpc;$/;"	m	struct:CallInfo
+savestack	./ldo.h	24;"	d
+seminfo	./llex.h	/^  SemInfo seminfo;$/;"	m	struct:Token
+set2bits	./lgc.h	35;"	d
+setbits	./lgc.h	28;"	d
+setbvalue	./lobject.h	125;"	d
+setclvalue	./lobject.h	143;"	d
+sethvalue	./lobject.h	148;"	d
+sethvalue2s	./lobject.h	176;"	d
+setnilvalue	./lobject.h	117;"	d
+setnvalue	./lobject.h	119;"	d
+setobj	./lobject.h	161;"	d
+setobj2n	./lobject.h	183;"	d
+setobj2s	./lobject.h	174;"	d
+setobj2t	./lobject.h	181;"	d
+setobjs2s	./lobject.h	172;"	d
+setobjt2t	./lobject.h	179;"	d
+setptvalue	./lobject.h	153;"	d
+setptvalue2s	./lobject.h	177;"	d
+setpvalue	./lobject.h	122;"	d
+setsvalue	./lobject.h	128;"	d
+setsvalue2n	./lobject.h	184;"	d
+setsvalue2s	./lobject.h	175;"	d
+setthvalue	./lobject.h	138;"	d
+setttype	./lobject.h	186;"	d
+setuvalue	./lobject.h	133;"	d
+short_src	./lua.h	/^  char short_src[LUA_IDSIZE]; \/* (S) *\/$/;"	m	struct:lua_Debug
+size	./lstate.h	/^  int size;$/;"	m	struct:stringtable
+sizeCclosure	./lfunc.h	14;"	d
+sizeLclosure	./lfunc.h	17;"	d
+size_ci	./lstate.h	/^  int size_ci;  \/* size of array `base_ci' *\/$/;"	m	struct:lua_State
+sizearray	./lobject.h	/^  int sizearray;  \/* size of `array' array *\/$/;"	m	struct:Table
+sizecode	./lobject.h	/^  int sizecode;$/;"	m	struct:Proto
+sizek	./lobject.h	/^  int sizek;  \/* size of `k' *\/$/;"	m	struct:Proto
+sizelineinfo	./lobject.h	/^  int sizelineinfo;$/;"	m	struct:Proto
+sizelocvars	./lobject.h	/^  int sizelocvars;$/;"	m	struct:Proto
+sizenode	./lobject.h	360;"	d
+sizep	./lobject.h	/^  int sizep;  \/* size of `p' *\/$/;"	m	struct:Proto
+sizestring	./lstring.h	16;"	d
+sizeudata	./lstring.h	18;"	d
+sizeupvalues	./lobject.h	/^  int sizeupvalues;$/;"	m	struct:Proto
+source	./llex.h	/^  TString *source;  \/* current source name *\/$/;"	m	struct:LexState
+source	./lobject.h	/^  TString  *source;$/;"	m	struct:Proto
+source	./lua.h	/^  const char *source;	\/* (S) *\/$/;"	m	struct:lua_Debug
+stack	./lstate.h	/^  StkId stack;  \/* stack base *\/$/;"	m	struct:lua_State
+stack_last	./lstate.h	/^  StkId stack_last;  \/* last free slot in the stack *\/$/;"	m	struct:lua_State
+stacksize	./lstate.h	/^  int stacksize;$/;"	m	struct:lua_State
+startpc	./lobject.h	/^  int startpc;  \/* first point where variable is active *\/$/;"	m	struct:LocVar
+status	./lstate.h	/^  lu_byte status;$/;"	m	struct:lua_State
+stringtable	./lstate.h	/^typedef struct stringtable {$/;"	s
+stringtable	./lstate.h	/^} stringtable;$/;"	t	typeref:struct:stringtable
+strt	./lstate.h	/^  stringtable strt;  \/* hash table for strings *\/$/;"	m	struct:global_State
+svalue	./lobject.h	211;"	d
+sweepgc	./lstate.h	/^  GCObject **sweepgc;  \/* position of sweep in `rootgc' *\/$/;"	m	struct:global_State
+sweepstrgc	./lstate.h	/^  int sweepstrgc;  \/* position of sweep in `strt' *\/$/;"	m	struct:global_State
+t	./llex.h	/^  Token t;  \/* current token *\/$/;"	m	struct:LexState
+t	./lparser.h	/^  int t;  \/* patch list of `exit when true' *\/$/;"	m	struct:expdesc
+tailcalls	./lstate.h	/^  int tailcalls;  \/* number of tail calls lost under this entry *\/$/;"	m	struct:CallInfo
+test2bits	./lgc.h	37;"	d
+testAMode	./lopcodes.h	257;"	d
+testTMode	./lopcodes.h	258;"	d
+testbit	./lgc.h	34;"	d
+testbits	./lgc.h	29;"	d
+th	./lstate.h	/^  struct lua_State th;  \/* thread *\/$/;"	m	union:GCObject	typeref:struct:GCObject::lua_State
+thvalue	./lobject.h	101;"	d
+tmname	./lstate.h	/^  TString *tmname[TM_N];  \/* array with tag-method names *\/$/;"	m	struct:global_State
+tmudata	./lstate.h	/^  GCObject *tmudata;  \/* last element of list of userdata to be GC *\/$/;"	m	struct:global_State
+token	./llex.h	/^  int token;$/;"	m	struct:Token
+tonumber	./lvm.h	18;"	d
+top	./lstate.h	/^  StkId	top;  \/* top for this function *\/$/;"	m	struct:CallInfo
+top	./lstate.h	/^  StkId top;  \/* first free slot in the stack *\/$/;"	m	struct:lua_State
+tostring	./lvm.h	16;"	d
+totalbytes	./lstate.h	/^  lu_mem totalbytes;  \/* number of bytes currently allocated *\/$/;"	m	struct:global_State
+ts	./llex.h	/^  TString *ts;$/;"	m	union:__anon1
+ts	./lstate.h	/^  union TString ts;$/;"	m	union:GCObject	typeref:union:GCObject::TString
+tsv	./lobject.h	/^  } tsv;$/;"	m	union:TString	typeref:struct:TString::__anon6
+tsvalue	./lobject.h	95;"	d
+ttisboolean	./lobject.h	84;"	d
+ttisfunction	./lobject.h	83;"	d
+ttislightuserdata	./lobject.h	87;"	d
+ttisnil	./lobject.h	79;"	d
+ttisnumber	./lobject.h	80;"	d
+ttisstring	./lobject.h	81;"	d
+ttistable	./lobject.h	82;"	d
+ttisthread	./lobject.h	86;"	d
+ttisuserdata	./lobject.h	85;"	d
+ttype	./lobject.h	90;"	d
+tvk	./lobject.h	/^  TValue tvk;$/;"	m	union:TKey
+twoto	./lobject.h	359;"	d
+u	./lobject.h	/^  } u;$/;"	m	struct:UpVal	typeref:union:UpVal::__anon8
+u	./lparser.h	/^  } u;$/;"	m	struct:expdesc	typeref:union:expdesc::__anon3
+u	./lstate.h	/^  union Udata u;$/;"	m	union:GCObject	typeref:union:GCObject::Udata
+ud	./lstate.h	/^  void *ud;         \/* auxiliary data to `frealloc' *\/$/;"	m	struct:global_State
+upvaldesc	./lparser.h	/^typedef struct upvaldesc {$/;"	s
+upvaldesc	./lparser.h	/^} upvaldesc;$/;"	t	typeref:struct:upvaldesc
+upvals	./lobject.h	/^  UpVal *upvals[1];$/;"	m	struct:LClosure
+upvalue	./lobject.h	/^  TValue upvalue[1];$/;"	m	struct:CClosure
+upvalues	./lobject.h	/^  TString **upvalues;  \/* upvalue names *\/$/;"	m	struct:Proto
+upvalues	./lparser.h	/^  upvaldesc upvalues[LUAI_MAXUPVALUES];  \/* upvalues *\/$/;"	m	struct:FuncState
+uv	./lobject.h	/^  } uv;$/;"	m	union:Udata	typeref:struct:Udata::__anon7
+uv	./lstate.h	/^  struct UpVal uv;$/;"	m	union:GCObject	typeref:struct:GCObject::UpVal
+uvalue	./lobject.h	97;"	d
+uvhead	./lstate.h	/^  UpVal uvhead;  \/* head of double-linked list of all open upvalues *\/$/;"	m	struct:global_State
+v	./lobject.h	/^  TValue *v;  \/* points to stack or to its own value *\/$/;"	m	struct:UpVal
+valiswhite	./lgc.h	75;"	d
+value	./lobject.h	/^    TValue value;  \/* the value (when closed) *\/$/;"	m	union:UpVal::__anon8
+varname	./lobject.h	/^  TString *varname;$/;"	m	struct:LocVar
+weak	./lstate.h	/^  GCObject *weak;  \/* list of weak tables (to be cleared) *\/$/;"	m	struct:global_State
+what	./lua.h	/^  const char *what;	\/* (S) `Lua', `C', `main', `tail' *\/$/;"	m	struct:lua_Debug
+z	./llex.h	/^  ZIO *z;  \/* input stream *\/$/;"	m	struct:LexState
+zgetc	./lzio.h	22;"	d
