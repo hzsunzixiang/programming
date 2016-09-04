@@ -9,7 +9,14 @@ int main()
 
 	// movabsq	$1111111111111111, %rax
 	auto mmm = 1111111111111111;
+	auto nnn = 1111111111111111;
 
+	printf(", xxx:%p\n, yyy:%p\n, zzz:%p\n, mmm:%p\n, nnn:%p\n", &xxx, &yyy, &zzz, &mmm, &nnn);
+// , xxx:0x7ffd0c86120c
+// , yyy:0x7ffd0c861200
+// , zzz:0x7ffd0c8611f8
+// , mmm:0x7ffd0c8611f0
+// , nnn:0x7ffd0c8611e8
 //.LBB2:
 //	.loc 1 6 0
 //	movl	$11111111, -4(%rbp)
