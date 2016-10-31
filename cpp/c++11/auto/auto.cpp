@@ -7,6 +7,9 @@ int main()
 	auto yyy = 11111111L;
 	auto zzz = 11111111LL;
 
+	// movabsq	$1111111111111111, %rax
+	auto mmm = 1111111111111111;
+
 //.LBB2:
 //	.loc 1 6 0
 //	movl	$11111111, -4(%rbp)
