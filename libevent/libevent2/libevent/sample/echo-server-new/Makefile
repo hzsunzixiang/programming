@@ -7,7 +7,7 @@ INCLUDE = -I../../include
 LIB = -L../../.libs -levent
 
 
-BIN=client server
+BIN=client server echocli
 all:$(BIN)
 %:%.c
 	$(CC) $(CFLAGS)  $<  $(LIB)  $(INCLUDE) -o $@

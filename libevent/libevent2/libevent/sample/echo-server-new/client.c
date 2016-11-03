@@ -93,7 +93,7 @@ void socket_read_cb(int fd, short events, void *arg)
 	int len = read(fd, msg, sizeof(msg)-1);
 	if( len <= 0 )
 	{
-		perror("read fail ");
+		perror("socket read fail ");
 		exit(1);
 	}
 
