@@ -19,6 +19,7 @@ void eventcb(struct bufferevent *bev, short events, void *ctx)
 	struct evbuffer *input = bufferevent_get_input(bev);
 	int finished = 0;
 	if (events & BEV_EVENT_CONNECTED) {
+		// 调用其他函数
 		/* We're connected to 127.0.0.1:8080.   Ordinarily we'd do
 		   something here, like start reading or writing. */
 		fprintf(stderr, "Connect okay,-------------------------- .\n");
@@ -63,17 +64,33 @@ echo_read_cb(struct bufferevent *bev, void *ctx)
 	printf("echo_read_cb1 \n");
 	struct sockaddr_in servaddr;
 	memset(&servaddr, 0, sizeof(servaddr));
-	servaddr.sin_family = AF_INET;
-	//servaddr.sin_addr.s_addr = htonl(0x7f000001); /* 127.0.0.1 */
-	if (inet_aton("192.168.1.104", &servaddr.sin_addr) == 0)
+	//servaddr.sin_family = AF_INET;
+	////servaddr.sin_addr.s_addr = htonl(0x7f000001); /* 127.0.0.1 */
+	//if (inet_aton("192.168.1.104", &servaddr.sin_addr) == 0)
+	//{
+	//	perror("inet_aton failure!");
+	//	printf("address:%u\n", servaddr.sin_addr.s_addr);
+	//	exit(EXIT_FAILURE);
+	//}
+
+	//servaddr.sin_port = htons(5188); /* Port 9876*/
+
+	// TODO 错误判断
+	char buff[64];
+	evutil_snprintf(buff, sizeof(buff), "%s:%d", "192.168.1.104", 5188);
+	int servadd_len = sizeof(servaddr);
+	//int retx = evutil_parse_sockaddr_port("192.168.1.104:5188", (struct sockaddr*)&servaddr, &servadd_len);
+	int retx = evutil_parse_sockaddr_port(buff, (struct sockaddr*)&servaddr, &servadd_len);
+
+	printf("address:%s\n", buff);
+	if (retx < 0)
 	{
-		perror("inet_aton failure!");
-		printf("address:%u\n", servaddr.sin_addr.s_addr);
-		exit(EXIT_FAILURE);
+		printf("address:error\n");
 	}
-
-	servaddr.sin_port = htons(5188); /* Port 9876*/
-
+	else
+	{
+		printf("address:%u\n", servaddr.sin_addr.s_addr);
+	}
 	int sockconn;
 	errno = 0;
 	if ((sockconn = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
