@@ -2,7 +2,7 @@
 CC=gcc
 CFLAGS=-Wall -g
 #BIN=echosrv echocli
-BIN=echosrv  echocli
+BIN=echosrv  echocli echosrv_test
 all:$(BIN)
 %.o:%.c
 	$(CC) $(CFLAGS) -c $< -o $@
