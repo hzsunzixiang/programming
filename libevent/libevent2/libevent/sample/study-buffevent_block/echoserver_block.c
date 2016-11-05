@@ -12,37 +12,41 @@
 #include <errno.h>
 #include <unistd.h>
 
-void eventcb(struct bufferevent *bev, short events, void *ptr)
+void eventcb(struct bufferevent *bev, short events, void *ctx)
 {
+	fprintf(stderr, "eventcb,-------------------------- .\n");
+	struct evbuffer *input = bufferevent_get_input(bev);
+	int finished = 0;
 	if (events & BEV_EVENT_CONNECTED) {
 		/* We're connected to 127.0.0.1:8080.   Ordinarily we'd do
 		   something here, like start reading or writing. */
-		fprintf(stderr, "Connect okay,-------------------------- %s.\n", (char*)ptr);
-	} else if (events & BEV_EVENT_ERROR) {
+		fprintf(stderr, "Connect okay,-------------------------- .\n");
+	} 
+	if (events & BEV_EVENT_ERROR) {
 		/* An error occured while connecting. */
 		fprintf(stderr, "Connect error++++--------------------------.\n");
-		bufferevent_free(bev);
-	} else if (events & BEV_EVENT_EOF) {
+		printf("Got an error %s\n",
+				evutil_socket_error_to_string(EVUTIL_SOCKET_ERROR()));
+		finished = 1;
+	} 
+	if (events & BEV_EVENT_EOF) {
 		fprintf(stderr, "disConnect --------------------------.\n");
-		bufferevent_free(bev);
-	} else if (events & BEV_EVENT_TIMEOUT) {
+		size_t len = evbuffer_get_length(input);
+		printf("Got a close  left :%lu bytes.\n", (unsigned long)len);
+		finished = 1;
+	} 
+	if (events & BEV_EVENT_TIMEOUT) {
 		fprintf(stderr, "connect timeout--------------------------.\n");
+		finished = 1;
 	}
-	else {
-		fprintf(stderr, "other erroorrrrrrr--------------------------.\n");
-	}
-	// 可以在这里调用回调函数销毁
-}
-#include <fcntl.h>
 
-/** Returns true on success, or false if there was an error */
-int SetSocketBlockingEnabled(int fd, int blocking)
-{
-	int flags = fcntl(fd, F_GETFL, 0);
-	if (flags < 0) return 0;
-	flags = blocking ? (flags&~O_NONBLOCK) : (flags|O_NONBLOCK);
-	return (fcntl(fd, F_SETFL, flags) == 0) ? 1: 0;
+	// 可以在这里调用回调函数销毁
+	if (finished) {
+		bufferevent_free(bev);
+	}
+
 }
+
 
 	static void
 echo_read_cb(struct bufferevent *bev, void *ctx)
@@ -117,6 +121,7 @@ echo_read_cb(struct bufferevent *bev, void *ctx)
 	{
 		perror("self timeout.............");
 		bufferevent_free(bev1);
+		return;
 	}
 	else if (errno != 0)
 	{
@@ -127,7 +132,7 @@ echo_read_cb(struct bufferevent *bev, void *ctx)
 		// 除了自定义超时timeout不宜在这里销毁 在 回调函数中销毁 不然调用不到回调函数//
 
 		//bufferevent_free(bev1);
-		return 0;
+		return ;
 	}
 	else
 	{
