@@ -3,6 +3,7 @@
 #include <event2/buffer.h>
 
 #include <ctype.h>
+#include <time.h>
 
 #include <arpa/inet.h>
 
@@ -151,12 +152,37 @@ echo_read_cb(struct bufferevent *bev, void *ctx)
 	//{
 	//	printf("connect success\n");
 	//}
-	char recvbuf[1024] = {0};
-	memset(recvbuf, 0, sizeof(recvbuf));
-	//sleep(5);
-	read(sockconn, recvbuf, sizeof(recvbuf)); 
-	printf("----%s-----\n", recvbuf);
 
+	//char recvbuf[1024] = {0};
+	//memset(recvbuf, 0, sizeof(recvbuf));
+	//sleep(5);
+	//read(sockconn, recvbuf, sizeof(recvbuf)); 
+	//printf("----%s-----\n", recvbuf);
+
+//	struct evbuffer *input1 = bufferevent_get_input(bev1);
+//	printf("before read ---------\n");
+//	bufferevent_read_buffer(bev1, input1);
+//	size_t len =  evbuffer_get_length(input1);
+//	unsigned char * recvbuf = evbuffer_pullup(input1, len);
+//	printf("end read len:%ld---------\n", len);
+//	printf("----%s-----\n", recvbuf);
+
+	
+	//struct evbuffer * buffer =  evbuffer_new();
+	struct evbuffer *buffer = bufferevent_get_input(bev1);
+	evutil_socket_t fd =  bufferevent_getfd(bev1);
+
+	time_t rawtime;   
+	time ( &rawtime );
+	printf("before read ---------%ld\n", rawtime);
+	int  ret = evbuffer_read(buffer, fd, 1024);
+	size_t len =  evbuffer_get_length(buffer);
+	time ( &rawtime );
+	printf("end readlen  ---------%ld\n", len);
+	unsigned char * recvbuf = evbuffer_pullup(buffer, len);
+	printf("end read    ---------%ld\n", rawtime);
+	printf("----%s-----\n", recvbuf);
+	evbuffer_drain(buffer, len);
 
 	// 出现read 在connect 之前//
 	//root@debian:~/programming/libevent/libevent2/libevent/sample/study-buffevent_block# ./echoserver_block 
