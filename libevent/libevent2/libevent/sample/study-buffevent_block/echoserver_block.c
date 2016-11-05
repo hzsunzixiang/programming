@@ -25,6 +25,7 @@ void eventcb(struct bufferevent *bev, short events, void *ptr)
 		fprintf(stderr, "disConnect --------------------------.\n");
 	}
 	fprintf(stderr, "other erroorrrrrrr--------------------------.\n");
+	// 可以在这里调用回调函数销毁
 }
 #include <fcntl.h>
 
@@ -68,13 +69,13 @@ echo_read_cb(struct bufferevent *bev, void *ctx)
 		perror("socket failure");
 		exit(EXIT_FAILURE);
 	}
-//	evutil_make_socket_nonblocking(sockconn);
+	//evutil_make_socket_nonblocking(sockconn);
 
-	struct timeval	tv;
-	tv.tv_sec = 10;
-	tv.tv_usec = 0;
-	setsockopt(sockconn, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
-	setsockopt(sockconn, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv));
+	//struct timeval	tv;
+	//tv.tv_sec = 10;
+	//tv.tv_usec = 0;
+	//setsockopt(sockconn, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+	//setsockopt(sockconn, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv));
 	// bufferevent_socket_new 只是分配内存 没有系统调用
 	struct bufferevent *bev1 = bufferevent_socket_new(ctx, sockconn, BEV_OPT_CLOSE_ON_FREE);
 	//bufferevent_settimeout(bev1, 10, 10);
@@ -96,16 +97,21 @@ echo_read_cb(struct bufferevent *bev, void *ctx)
 		// 110错误码走到这里  11, 115错误码 不会走到这里
 	}
 	printf("bufferevent_socket_connect return errno:%d \n", errno);
-    //#define	EAGAIN		11	/* Try again */ 
-    //#define	ECONNREFUSED	111	/* Connection refused */
-    //#define	EINPROGRESS	115	/* Operation now in progress */ // connect 被超时打断11, 
+    ////#define	EAGAIN		11	/* Try again */ 
+    ////#define	ECONNREFUSED	111	/* Connection refused */
+    ////#define	EINPROGRESS	115	/* Operation now in progress */ // connect 被超时打断11, 
+	
+
+	//
 	if (errno != EAGAIN )
 	{
 		perror("00buffevent_connect");
 		printf("bufferevent_socket_connect error\n");
     	//如果 在过程中 超时会被 打断	EINPROGRESS	115	/* Operation now in progress */
-		bufferevent_free(bev1);
-		return 0;
+
+		// 不宜在这里销毁 在 回调函数中销毁 不然调用不到回调函数//
+		//bufferevent_free(bev1);
+		//return 0;
 	}
 	else
 	{
