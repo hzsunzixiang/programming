@@ -90,6 +90,9 @@ void do_service(int connfd)
 		perror("write error");
 		exit(EXIT_FAILURE);
 	}
+	memset(recvbuf, 0, sizeof(recvbuf));
+	ret = read(connfd, recvbuf, sizeof(recvbuf)); // 从客户端收取数据
+	fputs(recvbuf, stderr); // 把结果打印出来
 	return ;
 	while(1)
 	{
