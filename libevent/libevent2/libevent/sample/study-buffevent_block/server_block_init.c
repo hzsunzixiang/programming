@@ -3,7 +3,6 @@
 #include <event2/buffer.h>
 
 #include <ctype.h>
-#include <time.h>
 
 #include <arpa/inet.h>
 
@@ -13,41 +12,30 @@
 #include <errno.h>
 #include <unistd.h>
 
-void eventcb(struct bufferevent *bev, short events, void *ctx)
+void eventcb(struct bufferevent *bev, short events, void *ptr)
 {
-	fprintf(stderr, "eventcb,-------------------------- .\n");
-	struct evbuffer *input = bufferevent_get_input(bev);
-	int finished = 0;
 	if (events & BEV_EVENT_CONNECTED) {
 		/* We're connected to 127.0.0.1:8080.   Ordinarily we'd do
 		   something here, like start reading or writing. */
-		fprintf(stderr, "Connect okay,-------------------------- .\n");
-	} 
-	if (events & BEV_EVENT_ERROR) {
+		fprintf(stderr, "Connect okay,-------------------------- %s.\n", (char*)ptr);
+	} else if (events & BEV_EVENT_ERROR) {
 		/* An error occured while connecting. */
 		fprintf(stderr, "Connect error++++--------------------------.\n");
-		printf("Got an error %s\n",
-				evutil_socket_error_to_string(EVUTIL_SOCKET_ERROR()));
-		finished = 1;
-	} 
-	if (events & BEV_EVENT_EOF) {
+	} else if (events & BEV_EVENT_EOF) {
 		fprintf(stderr, "disConnect --------------------------.\n");
-		size_t len = evbuffer_get_length(input);
-		printf("Got a close  left :%lu bytes.\n", (unsigned long)len);
-		finished = 1;
-	} 
-	if (events & BEV_EVENT_TIMEOUT) {
-		fprintf(stderr, "connect timeout--------------------------.\n");
-		finished = 1;
 	}
-
-	// 可以在这里调用回调函数销毁
-	if (finished) {
-		bufferevent_free(bev);
-	}
-
+	fprintf(stderr, "other erroorrrrrrr--------------------------.\n");
 }
+#include <fcntl.h>
 
+/** Returns true on success, or false if there was an error */
+int SetSocketBlockingEnabled(int fd, int blocking)
+{
+	int flags = fcntl(fd, F_GETFL, 0);
+	if (flags < 0) return 0;
+	flags = blocking ? (flags&~O_NONBLOCK) : (flags|O_NONBLOCK);
+	return (fcntl(fd, F_SETFL, flags) == 0) ? 1: 0;
+}
 
 	static void
 echo_read_cb(struct bufferevent *bev, void *ctx)
@@ -75,7 +63,6 @@ echo_read_cb(struct bufferevent *bev, void *ctx)
 	servaddr.sin_port = htons(5188); /* Port 9876*/
 
 	int sockconn;
-	errno = 0;
 	if ((sockconn = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
 	{
 		perror("socket failure");
@@ -83,118 +70,75 @@ echo_read_cb(struct bufferevent *bev, void *ctx)
 	}
 	//evutil_make_socket_nonblocking(sockconn);
 
-	struct timeval	tv;
-	tv.tv_sec = 5;
-	tv.tv_usec = 0;
-	setsockopt(sockconn, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
-	setsockopt(sockconn, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv));
+	//struct timeval	tv;
+	//tv.tv_sec = 10;
+	//tv.tv_usec = 0;
+	//setsockopt(sockconn, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+	//setsockopt(sockconn, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv));
 	// bufferevent_socket_new 只是分配内存 没有系统调用
 	struct bufferevent *bev1 = bufferevent_socket_new(ctx, sockconn, BEV_OPT_CLOSE_ON_FREE);
+	//bufferevent_socket_connect(bev, NULL, 0);
 	//bufferevent_settimeout(bev1, 10, 10);
 	//bev1 = bufferevent_socket_new(ctx, -1, BEV_OPT_CLOSE_ON_FREE);
 	bufferevent_enable(bev1, EV_READ|EV_WRITE);
+	//bufferevent_socket_connect(bev, NULL, 0);
 	bufferevent_setcb(bev1, NULL, NULL, eventcb, "hello");
 	//SetSocketBlockingEnabled(sockconn, 1);
 
-	// 这里默认是阻塞的，会一直阻塞 直到连接成功 或超时 // // 
-	if (bufferevent_socket_connect(bev1,
-				(struct sockaddr *)&servaddr, sizeof(servaddr)) < 0) {
-		/* Error starting connection */
-		// 连接不能马上建立的时候 应该添加到写事件中
-		fprintf(stderr, "Connect failed.\n");
-		perror("connect...........");
-		//#define	ETIMEDOUT	110	/* Connection timed out */
-		// 无条件超时 非自定义超时  走这里//
-		//bufferevent_free(bev1);
-		// 此时错误码是 BEV_EVENT_ERROR 在那里销毁 BEV_EVENT_ERROR
-		//return -1;
-		// 110错误码走到这里  11, 115错误码 不会走到这里
-	}
+	bufferevent_socket_connect(bev, NULL, 0);
 	printf("bufferevent_socket_connect return errno:%d \n", errno);
-	////#define	EAGAIN		11	/* Try again */ 
-	////#define	ECONNREFUSED	111	/* Connection refused */
-	////#define	EINPROGRESS	115	/* Operation now in progress */ // connect 被超时打断11, 
 
+	//// 这里默认是阻塞的，会一直阻塞 直到连接成功 或超时 // // 
+	//if (bufferevent_socket_connect(bev1,
+	//			(struct sockaddr *)&servaddr, sizeof(servaddr)) < 0) {
+	//	/* Error starting connection */
+	//	// 连接不能马上建立的时候 应该添加到写事件中
+	//	fprintf(stderr, "Connect failed.\n");
+	//	perror("connect...........");
+	//	//#define	ETIMEDOUT	110	/* Connection timed out */
+	//	//bufferevent_free(bev1);
+	//	//return -1;
+	//	// 110错误码走到这里  11, 115错误码 不会走到这里
+	//}
 
-	//
+    ////#define	EAGAIN		11	/* Try again */ 
+    ////#define	ECONNREFUSED	111	/* Connection refused */
+    ////#define	EINPROGRESS	115	/* Operation now in progress */ // connect 被超时打断11, 
 	//if (errno != EAGAIN )
-	if (errno == EINPROGRESS) // 自定义 超时中断
-	{
-		perror("self timeout.............");
-		bufferevent_free(bev1);
-		return;
-	}
-	else if (errno != 0)
-	{
-		perror("00buffevent_connect");
-		printf("bufferevent_socket_connect error\n");
-		//如果 在过程中 超时会被 打断	EINPROGRESS	115	/* Operation now in progress */
-
-		// 除了自定义超时timeout不宜在这里销毁 在 回调函数中销毁 不然调用不到回调函数//
-
-		//bufferevent_free(bev1);
-		return ;
-	}
-	else
-	{
-		// 连接成功  
-		perror("11buffevent_connect");
-		printf("bufferevent_socket_connect success\n");
-	}
-
-
-	//if (connect(sockconn, (struct sockaddr*)&servaddr, sizeof(servaddr)) < 0)
 	//{
-	//	perror("connnect error");
-	//	exit(EXIT_FAILURE);
+	//	perror("00buffevent_connect");
+	//	printf("bufferevent_socket_connect error\n");
+    //	//如果 在过程中 超时会被 打断	EINPROGRESS	115	/* Operation now in progress */
+	//	bufferevent_free(bev1);
+	//	return 0;
 	//}
 	//else
 	//{
-	//	printf("connect success\n");
+	//	// 连接成功  忽略EAGAIN
+	//	perror("11buffevent_connect");
+	//	printf("bufferevent_socket_connect success\n");
 	//}
 
-	//char recvbuf[1024] = {0};
-	//memset(recvbuf, 0, sizeof(recvbuf));
+
+	if (connect(sockconn, (struct sockaddr*)&servaddr, sizeof(servaddr)) < -1)
+	{
+		perror("connnect error");
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		printf("connect success\n");
+		// 调用成功的时候  调用 onconnect函数//
+		// 断开连接的时候 会主动调用 eventcb
+	}
+	//bufferevent_socket_connect(bev, NULL, 0);
+	char recvbuf[1024] = {0};
+	memset(recvbuf, 0, sizeof(recvbuf));
 	//sleep(5);
-	//read(sockconn, recvbuf, sizeof(recvbuf)); 
-	//printf("----%s-----\n", recvbuf);
+	read(sockconn, recvbuf, sizeof(recvbuf)); 
+	printf("read..----[%s]-----\n", recvbuf);
 
-//	struct evbuffer *input1 = bufferevent_get_input(bev1);
-//	printf("before read ---------\n");
-//	bufferevent_read_buffer(bev1, input1);
-//	size_t len =  evbuffer_get_length(input1);
-//	unsigned char * recvbuf = evbuffer_pullup(input1, len);
-//	printf("end read len:%ld---------\n", len);
-//	printf("----%s-----\n", recvbuf);
 
-	
-	//struct evbuffer * buffer =  evbuffer_new();
-	struct evbuffer *buffer = bufferevent_get_input(bev1);
-	evutil_socket_t fd =  bufferevent_getfd(bev1);
-
-	time_t rawtime;   
-	time ( &rawtime );
-	printf("before read ---------%ld\n", rawtime);
-	int  ret = evbuffer_read(buffer, fd, 1024);
-	size_t len =  evbuffer_get_length(buffer);
-	time ( &rawtime );
-	printf("end readlen  ---------%ld\n", len);
-	unsigned char * recvbuf = evbuffer_pullup(buffer, len);
-	printf("end read    ---------%ld\n", rawtime);
-	printf("----%s-----\n", recvbuf);
-	evbuffer_drain(buffer, len);
-
-	// 出现read 在connect 之前//
-	//root@debian:~/programming/libevent/libevent2/libevent/sample/study-buffevent_block# ./echoserver_block 
-	//	create listener success, base:0xfdbc40
-	//	echo_read_cb ctx:0xfdbc40
-	//	echo_read_cb1 
-	//	bufferevent_socket_connect return errno:11 
-	//	11buffevent_connect: Resource temporarily unavailable
-	//	bufferevent_socket_connect success
-	//	----hello,world-----
-	//	Connect okay,-------------------------- hello.
-	//	disConnect --------------------------.
 
 }
 
