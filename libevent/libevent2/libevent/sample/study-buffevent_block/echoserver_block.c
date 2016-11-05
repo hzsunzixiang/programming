@@ -170,12 +170,15 @@ echo_read_cb(struct bufferevent *bev, void *ctx)
 	
 	//struct evbuffer * buffer =  evbuffer_new();
 	struct evbuffer *buffer = bufferevent_get_input(bev1);
+	struct evbuffer *buffero = bufferevent_get_output(bev1);
 	evutil_socket_t fd =  bufferevent_getfd(bev1);
 
 	time_t rawtime;   
 	time ( &rawtime );
 	printf("before read ---------%ld\n", rawtime);
 	int  ret = evbuffer_read(buffer, fd, 1024);
+	// not work
+	// bufferevent_read_buffer(bev1, buffer);
 	size_t len =  evbuffer_get_length(buffer);
 	time ( &rawtime );
 	printf("end readlen  ---------%ld\n", len);
@@ -183,6 +186,25 @@ echo_read_cb(struct bufferevent *bev, void *ctx)
 	printf("end read    ---------%ld\n", rawtime);
 	printf("----%s-----\n", recvbuf);
 	evbuffer_drain(buffer, len);
+	// int evbuffer_write(struct evbuffer *buffer, evutil_socket_t fd);
+	time ( &rawtime );
+	printf("before write---------%ld\n", rawtime);
+	sleep(10);
+	time ( &rawtime );
+	printf("before write1---------%ld\n", rawtime);
+	evbuffer_add(buffero, "hello,china", 12);
+	ret = evbuffer_write(buffero, fd);
+	// ret =write(fd, "hello,china", 12);
+	if (ret < 0)
+	{
+		if (errno != 0)
+		{
+			perror("write ");
+		}
+	}
+
+	time ( &rawtime );
+	printf("end write1   ---------%ld\n", rawtime);
 
 	// 出现read 在connect 之前//
 	//root@debian:~/programming/libevent/libevent2/libevent/sample/study-buffevent_block# ./echoserver_block 
