@@ -25,9 +25,10 @@ void eventcb(struct bufferevent *bev, short events, void *ptr)
 	} else if (events & BEV_EVENT_EOF) {
 		fprintf(stderr, "disConnect --------------------------.\n");
 		bufferevent_free(bev);
+	} else if (events & BEV_EVENT_TIMEOUT) {
+		fprintf(stderr, "connect timeout--------------------------.\n");
 	}
-	else
-	{
+	else {
 		fprintf(stderr, "other erroorrrrrrr--------------------------.\n");
 	}
 	// 可以在这里调用回调函数销毁
@@ -78,10 +79,10 @@ echo_read_cb(struct bufferevent *bev, void *ctx)
 	//evutil_make_socket_nonblocking(sockconn);
 
 	struct timeval	tv;
-	tv.tv_sec = 10;
+	tv.tv_sec = 5;
 	tv.tv_usec = 0;
-	//setsockopt(sockconn, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
-	//setsockopt(sockconn, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv));
+	setsockopt(sockconn, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
+	setsockopt(sockconn, SOL_SOCKET, SO_SNDTIMEO, &tv, sizeof(tv));
 	// bufferevent_socket_new 只是分配内存 没有系统调用
 	struct bufferevent *bev1 = bufferevent_socket_new(ctx, sockconn, BEV_OPT_CLOSE_ON_FREE);
 	//bufferevent_settimeout(bev1, 10, 10);
@@ -99,7 +100,8 @@ echo_read_cb(struct bufferevent *bev, void *ctx)
 		perror("connect...........");
 		//#define	ETIMEDOUT	110	/* Connection timed out */
 		// 无条件超时 非自定义超时  走这里//
-		bufferevent_free(bev1);
+		//bufferevent_free(bev1);
+		// 此时错误码是 BEV_EVENT_ERROR 在那里销毁 BEV_EVENT_ERROR
 		//return -1;
 		// 110错误码走到这里  11, 115错误码 不会走到这里
 	}
