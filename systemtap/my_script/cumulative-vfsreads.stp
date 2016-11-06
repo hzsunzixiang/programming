@@ -1,0 +1,31 @@
+global reads
+probe vfs.read
+{
+	reads[execname()] ++
+}
+#probe timer.s(3)
+#{
+#	foreach (count in reads)
+#		printf("%s : %d \n", count, reads[count])
+#}
+
+probe timer.s(3)
+{
+  foreach (count in reads- limit 10)
+    printf("%s : %d \n", count, reads[count])
+}
+
+
+#stap: Symbol `SSL_ImplementedCiphers' has different size in shared object, consider re-linking
+#stapio : 17
+#redis-server : 29
+#tmux : 30
+#top : 259
+#systemd-udevd : 4
+#stapio : 32
+#redis-server : 59
+#tmux : 56
+#top : 516
+#systemd-udevd : 4
+#sshd : 1
+

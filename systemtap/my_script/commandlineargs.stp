@@ -1,0 +1,27 @@
+#probe kernel.function(@1) { }
+#probe kernel.function(@1).return { }
+
+
+#使用方式 
+#sudo stap commandlineargs.stp  vfs_read
+
+probe kernel.function(@1) {
+	printf ("current files_stat max_files: %d\n",
+	@var("files_stat@fs/file_table.c")->max_files); exit(); }
+
+#probe kernel.function("vfs_read") {
+#	printf ("current files_stat max_files: %d\n",
+#	@var("files_stat@fs/file_table.c")->max_files); exit(); }
+
+
+
+#3.3.4. Command-Line Arguments
+#A SystemTap script can also accept simple command-line arguments using a $ or @ immediately followed by the number of the argument on the command line. Use $ if you are expecting the user to enter an integer as a command-line argument, and @ if you are expecting a string.
+#⁠
+#
+#Example 3.12. commandlineargs.stp
+#
+#probe kernel.function(@1) { }
+#probe kernel.function(@1).return { }
+#
+#Example 3.12, “commandlineargs.stp” is similar to Example 3.1, “wildcards.stp”, except that it allows you to pass the kernel function to be probed as a command-line argument (as in stap commandlineargs.stp kernel function). You can also specify the script to accept multiple command-line arguments, noting them as @1, @2, and so on, in the order they are entered by the user.

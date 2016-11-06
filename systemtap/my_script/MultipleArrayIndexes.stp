@@ -1,0 +1,29 @@
+global reads
+probe vfs.read
+{
+	#reads[execname(),pid()] <<< 1
+	reads[execname(),pid()] <<< $count
+}
+probe timer.s(3)
+{
+	printf("foreach start:\n");
+	foreach([var1,var2] in reads)
+	printf("the aggregate: %s (%d) : %d \n", var1, var2, @count(reads[var1,var2]))
+	printf("foreach end:\n");
+}
+
+
+#https://sourceware.org/systemtap/SystemTap_Beginners_Guide/arrayops-aggregates.html
+# the expression @count(reads[execname()]) will return how many values are stored in each unique key in array reads.
+
+# 每一个 execname() 的总和
+
+#foreach start:
+#the aggregate: sshd (19382) : 7
+#the aggregate: systemd-udevd (180) : 3
+#the aggregate: tmux (1729) : 108
+#the aggregate: stapio (20411) : 33
+#the aggregate: systemd-udevd (20412) : 1
+#the aggregate: redis-server (551) : 60
+#foreach end:
+
