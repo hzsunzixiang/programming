@@ -32,7 +32,7 @@ void perm (int v[], int i, int n) {
 	else
 	{
 		/* recursively explore the permutations starting
-		 * at index i going through index n-1
+		 * at index i going through index n
 		 */
 		for (j = i; j <= n; j++) {
 
@@ -51,11 +51,12 @@ void perm (int v[], int i, int n) {
 /* little driver function to print perms of first 5 integers */
 
 int main () {
-	int	v[10], i;
+    const int LEN = 10;
+	int	v[LEN], i;
 
-	for (i = 0; i < 10; i++) 
+	for (i = 0; i < LEN; i++) 
 		v[i] = i+1;
-	perm (v, 0, 9);
+	perm (v, 0, LEN - 1);
 	return 0;
 }
 
