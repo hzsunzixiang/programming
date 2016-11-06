@@ -14,14 +14,14 @@ tree *root = NULL;
 
 tree* newnode(int data) {
 
-	tree *new = NULL;
-	new = (tree *)malloc(sizeof(tree));
+	tree *newdata = NULL;
+	newdata = (tree *)malloc(sizeof(tree));
 
-	new->data = data;
-	new->left = NULL;
-	new->right = NULL;
+	newdata->data = data;
+	newdata->left = NULL;
+	newdata->right = NULL;
 
-	return(new);
+	return(newdata);
 }
 
 void preorder(tree *root) {

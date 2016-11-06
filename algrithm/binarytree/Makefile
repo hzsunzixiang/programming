@@ -1,8 +1,8 @@
 .PHONY:clean all
-CC=gcc
+CC=g++
 #CFLAGS=-Wall -save-temps -O1
 CFLAGS=-Wall -g -save-temps
-BIN= traversal 
+BIN= traversal  traversal_1
 all:$(BIN)
 %:%.c 
 	$(CC) $(CFLAGS)   $< -o $@
