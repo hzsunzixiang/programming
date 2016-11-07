@@ -21,8 +21,8 @@ Closure	./lobject.h	/^} Closure;$/;"	t	typeref:union:Closure
 ClosureHeader	./lobject.h	/^  ClosureHeader;$/;"	m	struct:CClosure
 ClosureHeader	./lobject.h	/^  ClosureHeader;$/;"	m	struct:LClosure
 ClosureHeader	./lobject.h	291;"	d
-CommonHeader	./lobject.h	/^    CommonHeader;$/;"	m	struct:TString::__anon6
-CommonHeader	./lobject.h	/^    CommonHeader;$/;"	m	struct:Udata::__anon7
+CommonHeader	./lobject.h	/^    CommonHeader;$/;"	m	struct:TString::__anon8
+CommonHeader	./lobject.h	/^    CommonHeader;$/;"	m	struct:Udata::__anon9
 CommonHeader	./lobject.h	/^  CommonHeader;$/;"	m	struct:GCheader
 CommonHeader	./lobject.h	/^  CommonHeader;$/;"	m	struct:Proto
 CommonHeader	./lobject.h	/^  CommonHeader;$/;"	m	struct:Table
@@ -178,50 +178,50 @@ OPR_NOUNOPR	./lcode.h	/^typedef enum UnOpr { OPR_MINUS, OPR_NOT, OPR_LEN, OPR_NO
 OPR_OR	./lcode.h	/^  OPR_AND, OPR_OR,$/;"	e	enum:BinOpr
 OPR_POW	./lcode.h	/^  OPR_ADD, OPR_SUB, OPR_MUL, OPR_DIV, OPR_MOD, OPR_POW,$/;"	e	enum:BinOpr
 OPR_SUB	./lcode.h	/^  OPR_ADD, OPR_SUB, OPR_MUL, OPR_DIV, OPR_MOD, OPR_POW,$/;"	e	enum:BinOpr
-OP_ADD	./lopcodes.h	/^OP_ADD,\/*	A B C	R(A) := RK(B) + RK(C)				*\/$/;"	e	enum:__anon12
-OP_CALL	./lopcodes.h	/^OP_CALL,\/*	A B C	R(A), ... ,R(A+C-2) := R(A)(R(A+1), ... ,R(A+B-1)) *\/$/;"	e	enum:__anon12
-OP_CLOSE	./lopcodes.h	/^OP_CLOSE,\/*	A 	close all variables in the stack up to (>=) R(A)*\/$/;"	e	enum:__anon12
-OP_CLOSURE	./lopcodes.h	/^OP_CLOSURE,\/*	A Bx	R(A) := closure(KPROTO[Bx], R(A), ... ,R(A+n))	*\/$/;"	e	enum:__anon12
-OP_CONCAT	./lopcodes.h	/^OP_CONCAT,\/*	A B C	R(A) := R(B).. ... ..R(C)			*\/$/;"	e	enum:__anon12
-OP_DIV	./lopcodes.h	/^OP_DIV,\/*	A B C	R(A) := RK(B) \/ RK(C)				*\/$/;"	e	enum:__anon12
-OP_EQ	./lopcodes.h	/^OP_EQ,\/*	A B C	if ((RK(B) == RK(C)) ~= A) then pc++		*\/$/;"	e	enum:__anon12
-OP_FORLOOP	./lopcodes.h	/^OP_FORLOOP,\/*	A sBx	R(A)+=R(A+2);$/;"	e	enum:__anon12
-OP_FORPREP	./lopcodes.h	/^OP_FORPREP,\/*	A sBx	R(A)-=R(A+2); pc+=sBx				*\/$/;"	e	enum:__anon12
-OP_GETGLOBAL	./lopcodes.h	/^OP_GETGLOBAL,\/*	A Bx	R(A) := Gbl[Kst(Bx)]				*\/$/;"	e	enum:__anon12
-OP_GETTABLE	./lopcodes.h	/^OP_GETTABLE,\/*	A B C	R(A) := R(B)[RK(C)]				*\/$/;"	e	enum:__anon12
-OP_GETUPVAL	./lopcodes.h	/^OP_GETUPVAL,\/*	A B	R(A) := UpValue[B]				*\/$/;"	e	enum:__anon12
-OP_JMP	./lopcodes.h	/^OP_JMP,\/*	sBx	pc+=sBx					*\/$/;"	e	enum:__anon12
-OP_LE	./lopcodes.h	/^OP_LE,\/*	A B C	if ((RK(B) <= RK(C)) ~= A) then pc++  		*\/$/;"	e	enum:__anon12
-OP_LEN	./lopcodes.h	/^OP_LEN,\/*	A B	R(A) := length of R(B)				*\/$/;"	e	enum:__anon12
-OP_LOADBOOL	./lopcodes.h	/^OP_LOADBOOL,\/*	A B C	R(A) := (Bool)B; if (C) pc++			*\/$/;"	e	enum:__anon12
-OP_LOADK	./lopcodes.h	/^OP_LOADK,\/*	A Bx	R(A) := Kst(Bx)					*\/$/;"	e	enum:__anon12
-OP_LOADNIL	./lopcodes.h	/^OP_LOADNIL,\/*	A B	R(A) := ... := R(B) := nil			*\/$/;"	e	enum:__anon12
-OP_LT	./lopcodes.h	/^OP_LT,\/*	A B C	if ((RK(B) <  RK(C)) ~= A) then pc++  		*\/$/;"	e	enum:__anon12
-OP_MOD	./lopcodes.h	/^OP_MOD,\/*	A B C	R(A) := RK(B) % RK(C)				*\/$/;"	e	enum:__anon12
-OP_MOVE	./lopcodes.h	/^OP_MOVE,\/*	A B	R(A) := R(B)					*\/$/;"	e	enum:__anon12
-OP_MUL	./lopcodes.h	/^OP_MUL,\/*	A B C	R(A) := RK(B) * RK(C)				*\/$/;"	e	enum:__anon12
-OP_NEWTABLE	./lopcodes.h	/^OP_NEWTABLE,\/*	A B C	R(A) := {} (size = B,C)				*\/$/;"	e	enum:__anon12
-OP_NOT	./lopcodes.h	/^OP_NOT,\/*	A B	R(A) := not R(B)				*\/$/;"	e	enum:__anon12
-OP_POW	./lopcodes.h	/^OP_POW,\/*	A B C	R(A) := RK(B) ^ RK(C)				*\/$/;"	e	enum:__anon12
-OP_RETURN	./lopcodes.h	/^OP_RETURN,\/*	A B	return R(A), ... ,R(A+B-2)	(see note)	*\/$/;"	e	enum:__anon12
-OP_SELF	./lopcodes.h	/^OP_SELF,\/*	A B C	R(A+1) := R(B); R(A) := R(B)[RK(C)]		*\/$/;"	e	enum:__anon12
-OP_SETGLOBAL	./lopcodes.h	/^OP_SETGLOBAL,\/*	A Bx	Gbl[Kst(Bx)] := R(A)				*\/$/;"	e	enum:__anon12
-OP_SETLIST	./lopcodes.h	/^OP_SETLIST,\/*	A B C	R(A)[(C-1)*FPF+i] := R(A+i), 1 <= i <= B	*\/$/;"	e	enum:__anon12
-OP_SETTABLE	./lopcodes.h	/^OP_SETTABLE,\/*	A B C	R(A)[RK(B)] := RK(C)				*\/$/;"	e	enum:__anon12
-OP_SETUPVAL	./lopcodes.h	/^OP_SETUPVAL,\/*	A B	UpValue[B] := R(A)				*\/$/;"	e	enum:__anon12
-OP_SUB	./lopcodes.h	/^OP_SUB,\/*	A B C	R(A) := RK(B) - RK(C)				*\/$/;"	e	enum:__anon12
-OP_TAILCALL	./lopcodes.h	/^OP_TAILCALL,\/*	A B C	return R(A)(R(A+1), ... ,R(A+B-1))		*\/$/;"	e	enum:__anon12
-OP_TEST	./lopcodes.h	/^OP_TEST,\/*	A C	if not (R(A) <=> C) then pc++			*\/ $/;"	e	enum:__anon12
-OP_TESTSET	./lopcodes.h	/^OP_TESTSET,\/*	A B C	if (R(B) <=> C) then R(A) := R(B) else pc++	*\/ $/;"	e	enum:__anon12
-OP_TFORLOOP	./lopcodes.h	/^OP_TFORLOOP,\/*	A C	R(A+3), ... ,R(A+2+C) := R(A)(R(A+1), R(A+2)); $/;"	e	enum:__anon12
-OP_UNM	./lopcodes.h	/^OP_UNM,\/*	A B	R(A) := -R(B)					*\/$/;"	e	enum:__anon12
-OP_VARARG	./lopcodes.h	/^OP_VARARG\/*	A B	R(A), R(A+1), ..., R(A+B-1) = vararg		*\/$/;"	e	enum:__anon12
+OP_ADD	./lopcodes.h	/^OP_ADD,\/*	A B C	R(A) := RK(B) + RK(C)				*\/$/;"	e	enum:__anon6
+OP_CALL	./lopcodes.h	/^OP_CALL,\/*	A B C	R(A), ... ,R(A+C-2) := R(A)(R(A+1), ... ,R(A+B-1)) *\/$/;"	e	enum:__anon6
+OP_CLOSE	./lopcodes.h	/^OP_CLOSE,\/*	A 	close all variables in the stack up to (>=) R(A)*\/$/;"	e	enum:__anon6
+OP_CLOSURE	./lopcodes.h	/^OP_CLOSURE,\/*	A Bx	R(A) := closure(KPROTO[Bx], R(A), ... ,R(A+n))	*\/$/;"	e	enum:__anon6
+OP_CONCAT	./lopcodes.h	/^OP_CONCAT,\/*	A B C	R(A) := R(B).. ... ..R(C)			*\/$/;"	e	enum:__anon6
+OP_DIV	./lopcodes.h	/^OP_DIV,\/*	A B C	R(A) := RK(B) \/ RK(C)				*\/$/;"	e	enum:__anon6
+OP_EQ	./lopcodes.h	/^OP_EQ,\/*	A B C	if ((RK(B) == RK(C)) ~= A) then pc++		*\/$/;"	e	enum:__anon6
+OP_FORLOOP	./lopcodes.h	/^OP_FORLOOP,\/*	A sBx	R(A)+=R(A+2);$/;"	e	enum:__anon6
+OP_FORPREP	./lopcodes.h	/^OP_FORPREP,\/*	A sBx	R(A)-=R(A+2); pc+=sBx				*\/$/;"	e	enum:__anon6
+OP_GETGLOBAL	./lopcodes.h	/^OP_GETGLOBAL,\/*	A Bx	R(A) := Gbl[Kst(Bx)]				*\/$/;"	e	enum:__anon6
+OP_GETTABLE	./lopcodes.h	/^OP_GETTABLE,\/*	A B C	R(A) := R(B)[RK(C)]				*\/$/;"	e	enum:__anon6
+OP_GETUPVAL	./lopcodes.h	/^OP_GETUPVAL,\/*	A B	R(A) := UpValue[B]				*\/$/;"	e	enum:__anon6
+OP_JMP	./lopcodes.h	/^OP_JMP,\/*	sBx	pc+=sBx					*\/$/;"	e	enum:__anon6
+OP_LE	./lopcodes.h	/^OP_LE,\/*	A B C	if ((RK(B) <= RK(C)) ~= A) then pc++  		*\/$/;"	e	enum:__anon6
+OP_LEN	./lopcodes.h	/^OP_LEN,\/*	A B	R(A) := length of R(B)				*\/$/;"	e	enum:__anon6
+OP_LOADBOOL	./lopcodes.h	/^OP_LOADBOOL,\/*	A B C	R(A) := (Bool)B; if (C) pc++			*\/$/;"	e	enum:__anon6
+OP_LOADK	./lopcodes.h	/^OP_LOADK,\/*	A Bx	R(A) := Kst(Bx)					*\/$/;"	e	enum:__anon6
+OP_LOADNIL	./lopcodes.h	/^OP_LOADNIL,\/*	A B	R(A) := ... := R(B) := nil			*\/$/;"	e	enum:__anon6
+OP_LT	./lopcodes.h	/^OP_LT,\/*	A B C	if ((RK(B) <  RK(C)) ~= A) then pc++  		*\/$/;"	e	enum:__anon6
+OP_MOD	./lopcodes.h	/^OP_MOD,\/*	A B C	R(A) := RK(B) % RK(C)				*\/$/;"	e	enum:__anon6
+OP_MOVE	./lopcodes.h	/^OP_MOVE,\/*	A B	R(A) := R(B)					*\/$/;"	e	enum:__anon6
+OP_MUL	./lopcodes.h	/^OP_MUL,\/*	A B C	R(A) := RK(B) * RK(C)				*\/$/;"	e	enum:__anon6
+OP_NEWTABLE	./lopcodes.h	/^OP_NEWTABLE,\/*	A B C	R(A) := {} (size = B,C)				*\/$/;"	e	enum:__anon6
+OP_NOT	./lopcodes.h	/^OP_NOT,\/*	A B	R(A) := not R(B)				*\/$/;"	e	enum:__anon6
+OP_POW	./lopcodes.h	/^OP_POW,\/*	A B C	R(A) := RK(B) ^ RK(C)				*\/$/;"	e	enum:__anon6
+OP_RETURN	./lopcodes.h	/^OP_RETURN,\/*	A B	return R(A), ... ,R(A+B-2)	(see note)	*\/$/;"	e	enum:__anon6
+OP_SELF	./lopcodes.h	/^OP_SELF,\/*	A B C	R(A+1) := R(B); R(A) := R(B)[RK(C)]		*\/$/;"	e	enum:__anon6
+OP_SETGLOBAL	./lopcodes.h	/^OP_SETGLOBAL,\/*	A Bx	Gbl[Kst(Bx)] := R(A)				*\/$/;"	e	enum:__anon6
+OP_SETLIST	./lopcodes.h	/^OP_SETLIST,\/*	A B C	R(A)[(C-1)*FPF+i] := R(A+i), 1 <= i <= B	*\/$/;"	e	enum:__anon6
+OP_SETTABLE	./lopcodes.h	/^OP_SETTABLE,\/*	A B C	R(A)[RK(B)] := RK(C)				*\/$/;"	e	enum:__anon6
+OP_SETUPVAL	./lopcodes.h	/^OP_SETUPVAL,\/*	A B	UpValue[B] := R(A)				*\/$/;"	e	enum:__anon6
+OP_SUB	./lopcodes.h	/^OP_SUB,\/*	A B C	R(A) := RK(B) - RK(C)				*\/$/;"	e	enum:__anon6
+OP_TAILCALL	./lopcodes.h	/^OP_TAILCALL,\/*	A B C	return R(A)(R(A+1), ... ,R(A+B-1))		*\/$/;"	e	enum:__anon6
+OP_TEST	./lopcodes.h	/^OP_TEST,\/*	A C	if not (R(A) <=> C) then pc++			*\/ $/;"	e	enum:__anon6
+OP_TESTSET	./lopcodes.h	/^OP_TESTSET,\/*	A B C	if (R(B) <=> C) then R(A) := R(B) else pc++	*\/ $/;"	e	enum:__anon6
+OP_TFORLOOP	./lopcodes.h	/^OP_TFORLOOP,\/*	A C	R(A+3), ... ,R(A+2+C) := R(A)(R(A+1), R(A+2)); $/;"	e	enum:__anon6
+OP_UNM	./lopcodes.h	/^OP_UNM,\/*	A B	R(A) := -R(B)					*\/$/;"	e	enum:__anon6
+OP_VARARG	./lopcodes.h	/^OP_VARARG\/*	A B	R(A), R(A+1), ..., R(A+B-1) = vararg		*\/$/;"	e	enum:__anon6
 OpArgK	./lopcodes.h	/^  OpArgK   \/* argument is a constant or register\/constant *\/$/;"	e	enum:OpArgMask
 OpArgMask	./lopcodes.h	/^enum OpArgMask {$/;"	g
 OpArgN	./lopcodes.h	/^  OpArgN,  \/* argument is not used *\/$/;"	e	enum:OpArgMask
 OpArgR	./lopcodes.h	/^  OpArgR,  \/* argument is a register or a jump offset *\/$/;"	e	enum:OpArgMask
 OpArgU	./lopcodes.h	/^  OpArgU,  \/* argument is used *\/$/;"	e	enum:OpArgMask
-OpCode	./lopcodes.h	/^} OpCode;$/;"	t	typeref:enum:__anon12
+OpCode	./lopcodes.h	/^} OpCode;$/;"	t	typeref:enum:__anon6
 OpMode	./lopcodes.h	/^enum OpMode {iABC, iABx, iAsBx};  \/* basic instruction format *\/$/;"	g
 PCRC	./ldo.h	33;"	d
 PCRLUA	./ldo.h	32;"	d
@@ -283,30 +283,30 @@ TK_UNTIL	./llex.h	/^  TK_RETURN, TK_THEN, TK_TRUE, TK_UNTIL, TK_WHILE,$/;"	e	enu
 TK_WHILE	./llex.h	/^  TK_RETURN, TK_THEN, TK_TRUE, TK_UNTIL, TK_WHILE,$/;"	e	enum:RESERVED
 TKey	./lobject.h	/^typedef union TKey {$/;"	u
 TKey	./lobject.h	/^} TKey;$/;"	t	typeref:union:TKey
-TMS	./ltm.h	/^} TMS;$/;"	t	typeref:enum:__anon11
-TM_ADD	./ltm.h	/^  TM_ADD,$/;"	e	enum:__anon11
-TM_CALL	./ltm.h	/^  TM_CALL,$/;"	e	enum:__anon11
-TM_CONCAT	./ltm.h	/^  TM_CONCAT,$/;"	e	enum:__anon11
-TM_DIV	./ltm.h	/^  TM_DIV,$/;"	e	enum:__anon11
-TM_EQ	./ltm.h	/^  TM_EQ,  \/* last tag method with `fast' access *\/$/;"	e	enum:__anon11
-TM_GC	./ltm.h	/^  TM_GC,$/;"	e	enum:__anon11
-TM_INDEX	./ltm.h	/^  TM_INDEX,$/;"	e	enum:__anon11
-TM_LE	./ltm.h	/^  TM_LE,$/;"	e	enum:__anon11
-TM_LEN	./ltm.h	/^  TM_LEN,$/;"	e	enum:__anon11
-TM_LT	./ltm.h	/^  TM_LT,$/;"	e	enum:__anon11
-TM_MOD	./ltm.h	/^  TM_MOD,$/;"	e	enum:__anon11
-TM_MODE	./ltm.h	/^  TM_MODE,$/;"	e	enum:__anon11
-TM_MUL	./ltm.h	/^  TM_MUL,$/;"	e	enum:__anon11
-TM_N	./ltm.h	/^  TM_N		\/* number of elements in the enum *\/$/;"	e	enum:__anon11
-TM_NEWINDEX	./ltm.h	/^  TM_NEWINDEX,$/;"	e	enum:__anon11
-TM_POW	./ltm.h	/^  TM_POW,$/;"	e	enum:__anon11
-TM_SUB	./ltm.h	/^  TM_SUB,$/;"	e	enum:__anon11
-TM_UNM	./ltm.h	/^  TM_UNM,$/;"	e	enum:__anon11
+TMS	./ltm.h	/^} TMS;$/;"	t	typeref:enum:__anon5
+TM_ADD	./ltm.h	/^  TM_ADD,$/;"	e	enum:__anon5
+TM_CALL	./ltm.h	/^  TM_CALL,$/;"	e	enum:__anon5
+TM_CONCAT	./ltm.h	/^  TM_CONCAT,$/;"	e	enum:__anon5
+TM_DIV	./ltm.h	/^  TM_DIV,$/;"	e	enum:__anon5
+TM_EQ	./ltm.h	/^  TM_EQ,  \/* last tag method with `fast' access *\/$/;"	e	enum:__anon5
+TM_GC	./ltm.h	/^  TM_GC,$/;"	e	enum:__anon5
+TM_INDEX	./ltm.h	/^  TM_INDEX,$/;"	e	enum:__anon5
+TM_LE	./ltm.h	/^  TM_LE,$/;"	e	enum:__anon5
+TM_LEN	./ltm.h	/^  TM_LEN,$/;"	e	enum:__anon5
+TM_LT	./ltm.h	/^  TM_LT,$/;"	e	enum:__anon5
+TM_MOD	./ltm.h	/^  TM_MOD,$/;"	e	enum:__anon5
+TM_MODE	./ltm.h	/^  TM_MODE,$/;"	e	enum:__anon5
+TM_MUL	./ltm.h	/^  TM_MUL,$/;"	e	enum:__anon5
+TM_N	./ltm.h	/^  TM_N		\/* number of elements in the enum *\/$/;"	e	enum:__anon5
+TM_NEWINDEX	./ltm.h	/^  TM_NEWINDEX,$/;"	e	enum:__anon5
+TM_POW	./ltm.h	/^  TM_POW,$/;"	e	enum:__anon5
+TM_SUB	./ltm.h	/^  TM_SUB,$/;"	e	enum:__anon5
+TM_UNM	./ltm.h	/^  TM_UNM,$/;"	e	enum:__anon5
 TOKEN_LEN	./llex.h	17;"	d
 TString	./lobject.h	/^typedef union TString {$/;"	u
 TString	./lobject.h	/^} TString;$/;"	t	typeref:union:TString
 TValue	./lobject.h	/^} TValue;$/;"	t	typeref:struct:lua_TValue
-TValuefields	./lobject.h	/^    TValuefields;$/;"	m	struct:TKey::__anon10
+TValuefields	./lobject.h	/^    TValuefields;$/;"	m	struct:TKey::__anon12
 TValuefields	./lobject.h	/^  TValuefields;$/;"	m	struct:lua_TValue
 TValuefields	./lobject.h	71;"	d
 Table	./lobject.h	/^typedef struct Table {$/;"	s
@@ -339,7 +339,7 @@ VTRUE	./lparser.h	/^  VTRUE,$/;"	e	enum:__anon2
 VUPVAL	./lparser.h	/^  VUPVAL,       \/* info = index of upvalue in `upvalues' *\/$/;"	e	enum:__anon2
 VVARARG	./lparser.h	/^  VVARARG	\/* info = instruction pc *\/$/;"	e	enum:__anon2
 VVOID	./lparser.h	/^  VVOID,	\/* no value *\/$/;"	e	enum:__anon2
-Value	./lobject.h	/^} Value;$/;"	t	typeref:union:__anon5
+Value	./lobject.h	/^} Value;$/;"	t	typeref:union:__anon7
 WHITE0BIT	./lgc.h	54;"	d
 WHITE1BIT	./lgc.h	55;"	d
 WHITEBITS	./lgc.h	62;"	d
@@ -351,7 +351,7 @@ api_check	./llimits.h	58;"	d
 api_check	./llimits.h	64;"	d
 array	./lobject.h	/^  TValue *array;  \/* array part *\/$/;"	m	struct:Table
 aux	./lparser.h	/^    struct { int info, aux; } s;$/;"	m	struct:expdesc::__anon3::__anon4
-b	./lobject.h	/^  int b;$/;"	m	union:__anon5
+b	./lobject.h	/^  int b;$/;"	m	union:__anon7
 base	./lstate.h	/^  StkId base;  \/* base for this function *\/$/;"	m	struct:CallInfo
 base	./lstate.h	/^  StkId base;  \/* base of current function *\/$/;"	m	struct:lua_State
 baseCcalls	./lstate.h	/^  unsigned short baseCcalls;  \/* nested C calls when resuming coroutine *\/$/;"	m	struct:lua_State
@@ -395,7 +395,7 @@ dummy	./lobject.h	/^  L_Umaxalign dummy;  \/* ensures maximum alignment for `loc
 dummy	./lobject.h	/^  L_Umaxalign dummy;  \/* ensures maximum alignment for strings *\/$/;"	m	union:TString
 end_ci	./lstate.h	/^  CallInfo *end_ci;  \/* points after end of ci array*\/$/;"	m	struct:lua_State
 endpc	./lobject.h	/^  int endpc;    \/* first point where variable is dead *\/$/;"	m	struct:LocVar
-env	./lobject.h	/^    struct Table *env;$/;"	m	struct:Udata::__anon7	typeref:struct:Udata::__anon7::Table
+env	./lobject.h	/^    struct Table *env;$/;"	m	struct:Udata::__anon9	typeref:struct:Udata::__anon9::Table
 env	./lstate.h	/^  TValue env;  \/* temporary place for environments *\/$/;"	m	struct:lua_State
 equalobj	./lvm.h	21;"	d
 errfunc	./lstate.h	/^  ptrdiff_t errfunc;  \/* current error handling function (stack index) *\/$/;"	m	struct:lua_State
@@ -416,7 +416,7 @@ freereg	./lparser.h	/^  int freereg;  \/* first free register *\/$/;"	m	struct:F
 fs	./llex.h	/^  struct FuncState *fs;  \/* `FuncState' is private to the parser *\/$/;"	m	struct:LexState	typeref:struct:LexState::FuncState
 func	./lauxlib.h	/^  lua_CFunction func;$/;"	m	struct:luaL_Reg
 func	./lstate.h	/^  StkId func;  \/* function index in the stack *\/$/;"	m	struct:CallInfo
-gc	./lobject.h	/^  GCObject *gc;$/;"	m	union:__anon5
+gc	./lobject.h	/^  GCObject *gc;$/;"	m	union:__anon7
 gcdept	./lstate.h	/^  lu_mem gcdept;  \/* how much GC is `behind schedule' *\/$/;"	m	struct:global_State
 gch	./lstate.h	/^  GCheader gch;$/;"	m	union:GCObject
 gclist	./lobject.h	/^  GCObject *gclist;$/;"	m	struct:Proto
@@ -452,7 +452,7 @@ gt	./lstate.h	22;"	d
 gval	./ltable.h	15;"	d
 h	./lparser.h	/^  Table *h;  \/* table to find (and reuse) elements in `k' *\/$/;"	m	struct:FuncState
 h	./lstate.h	/^  struct Table h;$/;"	m	union:GCObject	typeref:struct:GCObject::Table
-hash	./lobject.h	/^    unsigned int hash;$/;"	m	struct:TString::__anon6
+hash	./lobject.h	/^    unsigned int hash;$/;"	m	struct:TString::__anon8
 hash	./lstate.h	/^  GCObject **hash;$/;"	m	struct:stringtable
 hook	./lstate.h	/^  lua_Hook hook;$/;"	m	struct:lua_State
 hookcount	./lstate.h	/^  int hookcount;$/;"	m	struct:lua_State
@@ -481,7 +481,7 @@ k	./lobject.h	/^  TValue *k;  \/* constants used by the function *\/$/;"	m	struc
 k	./lparser.h	/^  expkind k;$/;"	m	struct:expdesc
 k	./lparser.h	/^  lu_byte k;$/;"	m	struct:upvaldesc
 key2tval	./ltable.h	18;"	d
-l	./lobject.h	/^    } l;$/;"	m	union:UpVal::__anon8	typeref:struct:UpVal::__anon8::__anon9
+l	./lobject.h	/^    } l;$/;"	m	union:UpVal::__anon10	typeref:struct:UpVal::__anon10::__anon11
 l	./lobject.h	/^  LClosure l;$/;"	m	union:Closure
 l_G	./lstate.h	/^  global_State *l_G;$/;"	m	struct:lua_State
 l_gt	./lstate.h	/^  TValue l_gt;  \/* table of globals *\/$/;"	m	struct:lua_State
@@ -500,8 +500,8 @@ lauxlib_h	./lauxlib.h	9;"	d
 lcode_h	./lcode.h	8;"	d
 ldebug_h	./ldebug.h	8;"	d
 ldo_h	./ldo.h	8;"	d
-len	./lobject.h	/^    size_t len;$/;"	m	struct:TString::__anon6
-len	./lobject.h	/^    size_t len;$/;"	m	struct:Udata::__anon7
+len	./lobject.h	/^    size_t len;$/;"	m	struct:TString::__anon8
+len	./lobject.h	/^    size_t len;$/;"	m	struct:Udata::__anon9
 lfunc_h	./lfunc.h	8;"	d
 lgc_h	./lgc.h	8;"	d
 linedefined	./lobject.h	/^  int linedefined;$/;"	m	struct:Proto
@@ -634,10 +634,10 @@ lvm_h	./lvm.h	8;"	d
 lzio_h	./lzio.h	9;"	d
 mainthread	./lstate.h	/^  struct lua_State *mainthread;$/;"	m	struct:global_State	typeref:struct:global_State::lua_State
 maxstacksize	./lobject.h	/^  lu_byte maxstacksize;$/;"	m	struct:Proto
-metatable	./lobject.h	/^    struct Table *metatable;$/;"	m	struct:Udata::__anon7	typeref:struct:Udata::__anon7::Table
+metatable	./lobject.h	/^    struct Table *metatable;$/;"	m	struct:Udata::__anon9	typeref:struct:Udata::__anon9::Table
 metatable	./lobject.h	/^  struct Table *metatable;$/;"	m	struct:Table	typeref:struct:Table::Table
 mt	./lstate.h	/^  struct Table *mt[NUM_TAGS];  \/* metatables for basic types *\/$/;"	m	struct:global_State	typeref:struct:global_State::Table
-n	./lobject.h	/^  lua_Number n;$/;"	m	union:__anon5
+n	./lobject.h	/^  lua_Number n;$/;"	m	union:__anon7
 n	./lzio.h	/^  size_t n;			\/* bytes still unread *\/$/;"	m	struct:Zio
 n	./lzio.h	/^  size_t n;$/;"	m	struct:Mbuffer
 nCcalls	./lstate.h	/^  unsigned short nCcalls;  \/* number of nested C calls *\/$/;"	m	struct:lua_State
@@ -645,10 +645,10 @@ nactvar	./lparser.h	/^  lu_byte nactvar;  \/* number of active local variables *
 name	./lauxlib.h	/^  const char *name;$/;"	m	struct:luaL_Reg
 name	./lua.h	/^  const char *name;	\/* (n) *\/$/;"	m	struct:lua_Debug
 namewhat	./lua.h	/^  const char *namewhat;	\/* (n) `global', `local', `field', `method' *\/$/;"	m	struct:lua_Debug
-next	./lobject.h	/^      struct UpVal *next;$/;"	m	struct:UpVal::__anon8::__anon9	typeref:struct:UpVal::__anon8::__anon9::UpVal
-next	./lobject.h	/^    struct Node *next;  \/* for chaining *\/$/;"	m	struct:TKey::__anon10	typeref:struct:TKey::__anon10::Node
+next	./lobject.h	/^      struct UpVal *next;$/;"	m	struct:UpVal::__anon10::__anon11	typeref:struct:UpVal::__anon10::__anon11::UpVal
+next	./lobject.h	/^    struct Node *next;  \/* for chaining *\/$/;"	m	struct:TKey::__anon12	typeref:struct:TKey::__anon12::Node
 ngcotouv	./lstate.h	157;"	d
-nk	./lobject.h	/^  } nk;$/;"	m	union:TKey	typeref:struct:TKey::__anon10
+nk	./lobject.h	/^  } nk;$/;"	m	union:TKey	typeref:struct:TKey::__anon12
 nk	./lparser.h	/^  int nk;  \/* number of elements in `k' *\/$/;"	m	struct:FuncState
 nlocvars	./lparser.h	/^  short nlocvars;  \/* number of elements in `locvars' *\/$/;"	m	struct:FuncState
 node	./lobject.h	/^  Node *node;$/;"	m	struct:Table
@@ -666,13 +666,13 @@ otherwhite	./lgc.h	69;"	d
 p	./lauxlib.h	/^  char *p;			\/* current position in buffer *\/$/;"	m	struct:luaL_Buffer
 p	./lobject.h	/^  struct Proto **p;  \/* functions defined inside the function *\/$/;"	m	struct:Proto	typeref:struct:Proto::Proto
 p	./lobject.h	/^  struct Proto *p;$/;"	m	struct:LClosure	typeref:struct:LClosure::Proto
-p	./lobject.h	/^  void *p;$/;"	m	union:__anon5
+p	./lobject.h	/^  void *p;$/;"	m	union:__anon7
 p	./lstate.h	/^  struct Proto p;$/;"	m	union:GCObject	typeref:struct:GCObject::Proto
 p	./lzio.h	/^  const char *p;		\/* current position in buffer *\/$/;"	m	struct:Zio
 panic	./lstate.h	/^  lua_CFunction panic;  \/* to be called in unprotected errors *\/$/;"	m	struct:global_State
 pc	./lparser.h	/^  int pc;  \/* next position to code (equivalent to `ncode') *\/$/;"	m	struct:FuncState
 pcRel	./ldebug.h	14;"	d
-prev	./lobject.h	/^      struct UpVal *prev;$/;"	m	struct:UpVal::__anon8::__anon9	typeref:struct:UpVal::__anon8::__anon9::UpVal
+prev	./lobject.h	/^      struct UpVal *prev;$/;"	m	struct:UpVal::__anon10::__anon11	typeref:struct:UpVal::__anon10::__anon11::UpVal
 prev	./lparser.h	/^  struct FuncState *prev;  \/* enclosing function *\/$/;"	m	struct:FuncState	typeref:struct:FuncState::FuncState
 pvalue	./lobject.h	92;"	d
 r	./llex.h	/^  lua_Number r;$/;"	m	union:__anon1
@@ -682,7 +682,7 @@ rawtsvalue	./lobject.h	94;"	d
 rawuvalue	./lobject.h	96;"	d
 reader	./lzio.h	/^  lua_Reader reader;$/;"	m	struct:Zio
 registry	./lstate.h	25;"	d
-reserved	./lobject.h	/^    lu_byte reserved;$/;"	m	struct:TString::__anon6
+reserved	./lobject.h	/^    lu_byte reserved;$/;"	m	struct:TString::__anon8
 reset2bits	./lgc.h	36;"	d
 resetbit	./lgc.h	33;"	d
 resetbits	./lgc.h	27;"	d
@@ -768,7 +768,7 @@ tostring	./lvm.h	16;"	d
 totalbytes	./lstate.h	/^  lu_mem totalbytes;  \/* number of bytes currently allocated *\/$/;"	m	struct:global_State
 ts	./llex.h	/^  TString *ts;$/;"	m	union:__anon1
 ts	./lstate.h	/^  union TString ts;$/;"	m	union:GCObject	typeref:union:GCObject::TString
-tsv	./lobject.h	/^  } tsv;$/;"	m	union:TString	typeref:struct:TString::__anon6
+tsv	./lobject.h	/^  } tsv;$/;"	m	union:TString	typeref:struct:TString::__anon8
 tsvalue	./lobject.h	95;"	d
 ttisboolean	./lobject.h	84;"	d
 ttisfunction	./lobject.h	83;"	d
@@ -782,7 +782,7 @@ ttisuserdata	./lobject.h	85;"	d
 ttype	./lobject.h	90;"	d
 tvk	./lobject.h	/^  TValue tvk;$/;"	m	union:TKey
 twoto	./lobject.h	359;"	d
-u	./lobject.h	/^  } u;$/;"	m	struct:UpVal	typeref:union:UpVal::__anon8
+u	./lobject.h	/^  } u;$/;"	m	struct:UpVal	typeref:union:UpVal::__anon10
 u	./lparser.h	/^  } u;$/;"	m	struct:expdesc	typeref:union:expdesc::__anon3
 u	./lstate.h	/^  union Udata u;$/;"	m	union:GCObject	typeref:union:GCObject::Udata
 ud	./lstate.h	/^  void *ud;         \/* auxiliary data to `frealloc' *\/$/;"	m	struct:global_State
@@ -792,13 +792,13 @@ upvals	./lobject.h	/^  UpVal *upvals[1];$/;"	m	struct:LClosure
 upvalue	./lobject.h	/^  TValue upvalue[1];$/;"	m	struct:CClosure
 upvalues	./lobject.h	/^  TString **upvalues;  \/* upvalue names *\/$/;"	m	struct:Proto
 upvalues	./lparser.h	/^  upvaldesc upvalues[LUAI_MAXUPVALUES];  \/* upvalues *\/$/;"	m	struct:FuncState
-uv	./lobject.h	/^  } uv;$/;"	m	union:Udata	typeref:struct:Udata::__anon7
+uv	./lobject.h	/^  } uv;$/;"	m	union:Udata	typeref:struct:Udata::__anon9
 uv	./lstate.h	/^  struct UpVal uv;$/;"	m	union:GCObject	typeref:struct:GCObject::UpVal
 uvalue	./lobject.h	97;"	d
 uvhead	./lstate.h	/^  UpVal uvhead;  \/* head of double-linked list of all open upvalues *\/$/;"	m	struct:global_State
 v	./lobject.h	/^  TValue *v;  \/* points to stack or to its own value *\/$/;"	m	struct:UpVal
 valiswhite	./lgc.h	75;"	d
-value	./lobject.h	/^    TValue value;  \/* the value (when closed) *\/$/;"	m	union:UpVal::__anon8
+value	./lobject.h	/^    TValue value;  \/* the value (when closed) *\/$/;"	m	union:UpVal::__anon10
 varname	./lobject.h	/^  TString *varname;$/;"	m	struct:LocVar
 weak	./lstate.h	/^  GCObject *weak;  \/* list of weak tables (to be cleared) *\/$/;"	m	struct:global_State
 what	./lua.h	/^  const char *what;	\/* (S) `Lua', `C', `main', `tail' *\/$/;"	m	struct:lua_Debug

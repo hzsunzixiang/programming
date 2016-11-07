@@ -17,7 +17,7 @@ void eventcb(struct bufferevent *bev, short events, void *ptr)
 		fprintf(stderr, "Connect okay, %s.\n", (char*)ptr);
 	} else if (events & BEV_EVENT_ERROR) {
 		/* An error occured while connecting. */
-		fprintf(stderr, "Connect error.\n");
+		fprintf(stderr, "Connect error------------.\n");
 	}
 }
 
@@ -33,7 +33,7 @@ int main(void)
 	memset(&sin, 0, sizeof(sin));
 	sin.sin_family = AF_INET;
 	sin.sin_addr.s_addr = htonl(0x7f000001); /* 127.0.0.1 */
-	sin.sin_port = htons(9876); /* Port 9876*/
+	sin.sin_port = htons(8876); /* Port 9876*/
 
 	// struct bufferevent *bufferevent_socket_new(
 	// 		struct event_base *base,

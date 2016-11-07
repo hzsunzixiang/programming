@@ -17,7 +17,7 @@ int main()
 {
 	int xxx = 111;
 	int yyy = 111;
-	char *bytes = (char*)alloca( 1024);
+	char *bytes = (char*)alloca( 1024000);
 	int zzz = 222;
 	char *bytes1 = (char*)malloc( 1024);
 	char *bytes2 = (char*)alloca( 1024);

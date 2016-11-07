@@ -1,7 +1,7 @@
 
 "silent cs add /home/StephenSun/workspace/LinuxGameServer/trunk/src/cscope_home.out
 "silent cs add /home/StephenSun/workspace/LinuxGameServer/trunk/src/TexasServer/cscope_home_texas.out
-silent cs add /home/stephensun/programming/libevent/libevent2/libevent/cscope_source.out
+silent cs add /root/programming/libevent/libevent2/libevent/cscope_source.out
 silent !find -name "*.cpp" -o -name "*.h" |xargs ctags -R
 
 

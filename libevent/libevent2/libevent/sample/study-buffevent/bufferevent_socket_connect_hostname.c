@@ -29,6 +29,7 @@ void eventcb(struct bufferevent *bev, short events, void *ptr)
 	} else if (events & (BEV_EVENT_ERROR|BEV_EVENT_EOF)) {
 		struct event_base *base = ptr;
 		if (events & BEV_EVENT_ERROR) {
+			printf("error BEV_EVENT_ERROR: %s\n");
 			int err = bufferevent_socket_get_dns_error(bev);
 			if (err)
 				printf("DNS error: %s\n", evutil_gai_strerror(err));
