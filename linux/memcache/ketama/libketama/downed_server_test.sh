@@ -2,8 +2,12 @@ echo "Downed server test, setting up.."
 # set up downed server
 head -n `wc -l ../ketama.servers | awk '{print $1-1}'` ../ketama.servers > ../ketama.servers.minus.one
 DOWNEDSERVER=`tail -n 1 ../ketama.servers | awk '{print $1}'`
+
+echo "DOWNEDSERVER", $DOWNEDSERVER
 # set up new server
 NEWSERVER=999.999.999:11211
+echo "NEWSERVER", $NEWSERVER
+
 cp ../ketama.servers ../ketama.servers.plus.one
 echo -e "${NEWSERVER}\t300" >> ../ketama.servers.plus.one
 
