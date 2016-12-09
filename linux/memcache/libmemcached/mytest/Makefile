@@ -9,7 +9,7 @@ INCLUDE = -I..
 LIB = -L../libmemcached/.libs -lmemcached
 
 
-BIN=memcached_create
+BIN=memcached_create memcached_server_add
 all:$(BIN)
 %:%.c
 	$(CC) $(CFLAGS)  $< $(LIB) $(INCLUDE) -o $@
