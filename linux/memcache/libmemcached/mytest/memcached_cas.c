@@ -60,6 +60,9 @@ int main()
 	}
 
 
+
+	// Support CAS operations. By default, this is disabled because it imposes a performance penalty.
+	// 如果注释掉这一行 后面获取到的 results->item_cas 为 0
 	memcached_behavior_set(local_memc, MEMCACHED_BEHAVIOR_SUPPORT_CAS, set);
 
 	rc= memcached_set(local_memc, key, strlen(key),
@@ -80,7 +83,8 @@ int main()
 	results= memcached_fetch_result(local_memc, &results_obj, &rc);
 	if (!results || rc != MEMCACHED_SUCCESS || !(results->item_cas))
 	{
-		printf("error, memcached_fetch_result\n");
+		char const *retVal = memcached_strerror(NULL, rc);
+		fprintf(stderr, "error memcached_fetch_result.%s, results->item_cas:%lu\n", retVal, results->item_cas);
 		goto ERROR;
 	}
 
@@ -94,7 +98,7 @@ int main()
 	printf("cas:%lu\n", cas);
 	memcached_result_free(&results_obj);
 
-	sleep(20);
+	//sleep(20);
 	// 此时在另一个客户端修改 key的 值 此时 这里会失败
 	//error memcached_cas:CONNECTION DATA EXISTS
 
