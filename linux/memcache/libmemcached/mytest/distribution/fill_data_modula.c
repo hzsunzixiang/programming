@@ -22,6 +22,10 @@ int main()
 	memcached_return rc;
 
 	local_memc = memcached_create(NULL);
+
+	unsigned int set= 1;
+	memcached_behavior_set(local_memc, MEMCACHED_DISTRIBUTION_MODULA, set);
+
 	rc = memcached_server_add(local_memc, "127.0.0.1", 11211);
 	if(rc != MEMCACHED_SUCCESS)
 	{
@@ -53,7 +57,6 @@ int main()
 	uint32_t num =  memcached_server_count(local_memc);
 	printf("num:%d\n", num);
 
-
 	rc= memcached_flush(local_memc, 0);
 	if (!(rc == MEMCACHED_SUCCESS || rc == MEMCACHED_BUFFERED))
 	{
@@ -65,9 +68,7 @@ int main()
 
 
 
-	unsigned int set= 1;
-	memcached_behavior_set(local_memc, MEMCACHED_DISTRIBUTION_MODULA, set);
-	//memcached_behavior_set(local_memc, MEMCACHED_DISTRIBUTION_CONSISTENT, set);
+
 
 	int i = 0;
 	for(i = 0; i < 100000; i++)
@@ -75,7 +76,7 @@ int main()
 		char key[64];
 		char value[64];
 		snprintf(key, sizeof(key), "tkey_%05d", i);
-		snprintf(key, sizeof(value), "tvalue_%05d", i);
+		snprintf(value, sizeof(value), "tvalue_%05d", i);
 		rc= memcached_set(local_memc, key, strlen(key), value, strlen(value), (time_t)0, (uint32_t)0);
 		if (!(rc == MEMCACHED_SUCCESS || rc == MEMCACHED_BUFFERED))
 		{

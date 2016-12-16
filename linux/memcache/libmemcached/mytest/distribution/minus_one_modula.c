@@ -22,6 +22,10 @@ int main()
 	memcached_return rc;
 
 	local_memc = memcached_create(NULL);
+
+	unsigned int set= 1;
+	memcached_behavior_set(local_memc, MEMCACHED_DISTRIBUTION_MODULA, set);
+
 	rc = memcached_server_add(local_memc, "127.0.0.1", 11211);
 	if(rc != MEMCACHED_SUCCESS)
 	{
@@ -34,27 +38,26 @@ int main()
 		fprintf(stderr, "memcached_server_add error.");
 	}
 
-	//rc = memcached_server_add(local_memc, "127.0.0.1", 11213);
-	//if(rc != MEMCACHED_SUCCESS)
-	//{
-	//	fprintf(stderr, "memcached_server_add error.");
-	//}
+	rc = memcached_server_add(local_memc, "127.0.0.1", 11213);
+	if(rc != MEMCACHED_SUCCESS)
+	{
+		fprintf(stderr, "memcached_server_add error.");
+	}
 
 	rc = memcached_server_add(local_memc, "127.0.0.1", 11214);
 	if(rc != MEMCACHED_SUCCESS)
 	{
 		fprintf(stderr, "memcached_server_add error.");
 	}
-	rc = memcached_server_add(local_memc, "127.0.0.1", 11215);
-	if(rc != MEMCACHED_SUCCESS)
-	{
-		fprintf(stderr, "memcached_server_add error.");
-	}
+	//rc = memcached_server_add(local_memc, "127.0.0.1", 11215);
+	//if(rc != MEMCACHED_SUCCESS)
+	//{
+	//	fprintf(stderr, "memcached_server_add error.");
+	//}
 	uint32_t num =  memcached_server_count(local_memc);
 	printf("num:%d\n", num);
 
-	unsigned int set= 1;
-	memcached_behavior_set(local_memc, MEMCACHED_DISTRIBUTION_MODULA, set);
+
 
 	int i = 0;
 
@@ -77,7 +80,7 @@ int main()
 			else
 			{
 				char const *retVal = memcached_strerror(NULL, rc);
-				fprintf(stderr, "error.%s, key:%s\n", retVal, key);
+				//fprintf(stderr, "error.%s, key:%s\n", retVal, key);
 				char value[64];
 				snprintf(key, sizeof(key), "tkey_%05d", i);
 				snprintf(value, sizeof(value), "tvalue_%05d", i);
