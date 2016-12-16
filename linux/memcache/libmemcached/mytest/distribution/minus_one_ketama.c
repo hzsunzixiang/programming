@@ -24,7 +24,8 @@ int main()
 	local_memc = memcached_create(NULL);
 
 	unsigned int set= 1;
-	memcached_behavior_set(local_memc, MEMCACHED_DISTRIBUTION_CONSISTENT, set);
+	//memcached_behavior_set(local_memc, MEMCACHED_DISTRIBUTION_CONSISTENT, set);
+	memcached_behavior_set(local_memc, MEMCACHED_BEHAVIOR_KETAMA_WEIGHTED, set);
 
 	rc = memcached_server_add(local_memc, "127.0.0.1", 11211);
 	if(rc != MEMCACHED_SUCCESS)
@@ -38,22 +39,22 @@ int main()
 		fprintf(stderr, "memcached_server_add error.");
 	}
 
-	//rc = memcached_server_add(local_memc, "127.0.0.1", 11213);
-	//if(rc != MEMCACHED_SUCCESS)
-	//{
-	//	fprintf(stderr, "memcached_server_add error.");
-	//}
+	rc = memcached_server_add(local_memc, "127.0.0.1", 11213);
+	if(rc != MEMCACHED_SUCCESS)
+	{
+		fprintf(stderr, "memcached_server_add error.");
+	}
 
 	rc = memcached_server_add(local_memc, "127.0.0.1", 11214);
 	if(rc != MEMCACHED_SUCCESS)
 	{
 		fprintf(stderr, "memcached_server_add error.");
 	}
-	rc = memcached_server_add(local_memc, "127.0.0.1", 11215);
-	if(rc != MEMCACHED_SUCCESS)
-	{
-		fprintf(stderr, "memcached_server_add error.");
-	}
+	//rc = memcached_server_add(local_memc, "127.0.0.1", 11215);
+	//if(rc != MEMCACHED_SUCCESS)
+	//{
+	//	fprintf(stderr, "memcached_server_add error.");
+	//}
 	uint32_t num =  memcached_server_count(local_memc);
 	printf("num:%d\n", num);
 
@@ -63,6 +64,7 @@ int main()
 
 	while(1)
 	{
+		//for(i = 0; i < 1; i++)
 		for(i = 0; i < 100000; i++)
 		{
 			uint32_t flags = 0;
@@ -80,7 +82,7 @@ int main()
 			else
 			{
 				char const *retVal = memcached_strerror(NULL, rc);
-				fprintf(stderr, "error.%s, key:%s\n", retVal, key);
+				//fprintf(stderr, "error.%s, key:%s\n", retVal, key);
 				char value[64];
 				snprintf(key, sizeof(key), "tkey_%05d", i);
 				snprintf(value, sizeof(value), "tvalue_%05d", i);
@@ -88,12 +90,14 @@ int main()
 				if (!(rc == MEMCACHED_SUCCESS || rc == MEMCACHED_BUFFERED))
 				{
 					char const *retVal = memcached_strerror(NULL, rc);
-					fprintf(stderr, "error memcached_set .%s\n", retVal);
-					goto ERROR;
+					//fprintf(stderr, "error memcached_set .%s\n", retVal);
+					//goto ERROR;
 				}
 			}
+			//sleep(1);
 		}
 		usleep(3000);
+		//sleep(1);
 	}
 	memcached_free(local_memc);
 
