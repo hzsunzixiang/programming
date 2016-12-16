@@ -24,8 +24,9 @@ int main()
 	local_memc = memcached_create(NULL);
 
 	unsigned int set= 1;
-	memcached_behavior_set(local_memc, MEMCACHED_DISTRIBUTION_CONSISTENT, set);
+	//memcached_behavior_set(local_memc, MEMCACHED_DISTRIBUTION_CONSISTENT, set);
 	//memcached_behavior_set(local_memc, MEMCACHED_BEHAVIOR_KETAMA_WEIGHTED, set);
+	memcached_behavior_set(local_memc, MEMCACHED_BEHAVIOR_KETAMA, set);
 
 	rc = memcached_server_add(local_memc, "127.0.0.1", 11211);
 	if(rc != MEMCACHED_SUCCESS)
