@@ -28,6 +28,14 @@ void printReverse(struct Node* head)
 }
 Node* reverse(Node* root) {
 	Node* new_root = 0;
+	/*
+	   思路:
+	   每次循环决出一个new_root 第一次循环 new_root = 0
+		   先保存next节点: Node* next = root->next;
+		   然后把 root和new_root 连接起来： root->next = new_root;
+		   再变换 new_root: new_root = root;
+		   然后进行下一次循环   root = next;
+	   */
 	while (root) {
 		Node* next = root->next;
 		root->next = new_root;
