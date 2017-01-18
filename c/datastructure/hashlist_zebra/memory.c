@@ -29,193 +29,193 @@ void alloc_inc (int);
 void alloc_dec (int);
 struct message mstr [] =
 {
-  { MTYPE_THREAD, "thread" },
-  { MTYPE_THREAD_MASTER, "thread_master" },
-  { MTYPE_VECTOR, "vector" },
-  { MTYPE_VECTOR_INDEX, "vector_index" },
-  { MTYPE_IF, "interface" },
-  { 0, NULL },
+	{ MTYPE_THREAD, "thread" },
+	{ MTYPE_THREAD_MASTER, "thread_master" },
+	{ MTYPE_VECTOR, "vector" },
+	{ MTYPE_VECTOR_INDEX, "vector_index" },
+	{ MTYPE_IF, "interface" },
+	{ 0, NULL },
 };
 
 /* Fatal memory allocation error occured. */
-static void
+	static void
 zerror (const char *fname, int type, size_t size)
 {
-  fprintf (stderr, "%s : can't allocate memory for `%s' size %d\n", 
-	   fname, lookup (mstr, type), (int) size);
-  exit (1);
+	fprintf (stderr, "%s : can't allocate memory for `%s' size %d\n", 
+			fname, lookup (mstr, type), (int) size);
+	exit (1);
 }
 
 /* Memory allocation. */
-void *
+	void *
 zmalloc (int type, size_t size)
 {
-  void *memory;
+	void *memory;
 
-  memory = malloc (size);
+	memory = malloc (size);
 
-  if (memory == NULL)
-    zerror ("malloc", type, size);
+	if (memory == NULL)
+		zerror ("malloc", type, size);
 
-  alloc_inc (type);
+	alloc_inc (type);
 
-  return memory;
+	return memory;
 }
 
 /* Memory allocation with num * size with cleared. */
-void *
+	void *
 zcalloc (int type, size_t size)
 {
-  void *memory;
+	void *memory;
 
-  memory = calloc (1, size);
+	memory = calloc (1, size);
 
-  if (memory == NULL)
-    zerror ("calloc", type, size);
+	if (memory == NULL)
+		zerror ("calloc", type, size);
 
-  alloc_inc (type);
+	alloc_inc (type);
 
-  return memory;
+	return memory;
 }
 
 /* Memory reallocation. */
-void *
+	void *
 zrealloc (int type, void *ptr, size_t size)
 {
-  void *memory;
+	void *memory;
 
-  memory = realloc (ptr, size);
-  if (memory == NULL)
-    zerror ("realloc", type, size);
-  return memory;
+	memory = realloc (ptr, size);
+	if (memory == NULL)
+		zerror ("realloc", type, size);
+	return memory;
 }
 
 /* Memory free. */
-void
+	void
 zfree (int type, void *ptr)
 {
-  alloc_dec (type);
-  free (ptr);
+	alloc_dec (type);
+	free (ptr);
 }
 
 /* String duplication. */
-char *
+	char *
 zstrdup (int type, char *str)
 {
-  void *dup;
+	void *dup;
 
-  dup = strdup (str);
-  if (dup == NULL)
-    zerror ("strdup", type, strlen (str));
-  alloc_inc (type);
-  return dup;
+	dup = strdup (str);
+	if (dup == NULL)
+		zerror ("strdup", type, strlen (str));
+	alloc_inc (type);
+	return dup;
 }
 
 #ifdef MEMORY_LOG
 struct 
 {
-  char *name;
-  unsigned long alloc;
-  unsigned long t_malloc;
-  unsigned long c_malloc;
-  unsigned long t_calloc;
-  unsigned long c_calloc;
-  unsigned long t_realloc;
-  unsigned long t_free;
-  unsigned long c_strdup;
+	char *name;
+	unsigned long alloc;
+	unsigned long t_malloc;
+	unsigned long c_malloc;
+	unsigned long t_calloc;
+	unsigned long c_calloc;
+	unsigned long t_realloc;
+	unsigned long t_free;
+	unsigned long c_strdup;
 } mstat [MTYPE_MAX];
 
-void
+	void
 mtype_log (char *func, void *memory, const char *file, int line, int type)
 {
-  zlog_info ("%s: %s %p %s %d", func, lookup (mstr, type), memory, file, line);
+	zlog_info ("%s: %s %p %s %d", func, lookup (mstr, type), memory, file, line);
 }
 
-void *
+	void *
 mtype_zmalloc (const char *file, int line, int type, size_t size)
 {
-  void *memory;
+	void *memory;
 
-  mstat[type].c_malloc++;
-  mstat[type].t_malloc++;
+	mstat[type].c_malloc++;
+	mstat[type].t_malloc++;
 
-  memory = zmalloc (type, size);
-  mtype_log ("zmalloc", memory, file, line, type);
+	memory = zmalloc (type, size);
+	mtype_log ("zmalloc", memory, file, line, type);
 
-  return memory;
+	return memory;
 }
 
-void *
+	void *
 mtype_zcalloc (const char *file, int line, int type, size_t size)
 {
-  void *memory;
+	void *memory;
 
-  mstat[type].c_calloc++;
-  mstat[type].t_calloc++;
+	mstat[type].c_calloc++;
+	mstat[type].t_calloc++;
 
-  memory = zcalloc (type, size);
-  mtype_log ("xcalloc", memory, file, line, type);
+	memory = zcalloc (type, size);
+	mtype_log ("xcalloc", memory, file, line, type);
 
-  return memory;
+	return memory;
 }
 
-void *
+	void *
 mtype_zrealloc (const char *file, int line, int type, void *ptr, size_t size)
 {
-  void *memory;
+	void *memory;
 
-  /* Realloc need before allocated pointer. */
-  mstat[type].t_realloc++;
+	/* Realloc need before allocated pointer. */
+	mstat[type].t_realloc++;
 
-  memory = zrealloc (type, ptr, size);
+	memory = zrealloc (type, ptr, size);
 
-  mtype_log ("xrealloc", memory, file, line, type);
+	mtype_log ("xrealloc", memory, file, line, type);
 
-  return memory;
+	return memory;
 }
 
 /* Important function. */
-void 
+	void 
 mtype_zfree (const char *file, int line, int type, void *ptr)
 {
-  mstat[type].t_free++;
+	mstat[type].t_free++;
 
-  mtype_log ("xfree", ptr, file, line, type);
+	mtype_log ("xfree", ptr, file, line, type);
 
-  zfree (type, ptr);
+	zfree (type, ptr);
 }
 
-char *
+	char *
 mtype_zstrdup (const char *file, int line, int type, char *str)
 {
-  char *memory;
+	char *memory;
 
-  mstat[type].c_strdup++;
+	mstat[type].c_strdup++;
 
-  memory = zstrdup (type, str);
-  
-  mtype_log ("xstrdup", memory, file, line, type);
+	memory = zstrdup (type, str);
 
-  return memory;
+	mtype_log ("xstrdup", memory, file, line, type);
+
+	return memory;
 }
 #else
 struct 
 {
-  char *name;
-  unsigned long alloc;
+	char *name;
+	unsigned long alloc;
 } mstat [MTYPE_MAX];
 #endif /* MTPYE_LOG */
 
 /* Increment allocation counter. */
-void
+	void
 alloc_inc (int type)
 {
-  mstat[type].alloc++;
+	mstat[type].alloc++;
 }
 
 /* Decrement allocation counter. */
-void
+	void
 alloc_dec (int type)
 {
-  mstat[type].alloc--;
+	mstat[type].alloc--;
 }

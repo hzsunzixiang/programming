@@ -1,22 +1,22 @@
 /* Zebra common header.
    Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Kunihiro Ishiguro
 
-This file is part of GNU Zebra.
+   This file is part of GNU Zebra.
 
-GNU Zebra is free software; you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation; either version 2, or (at your option) any
-later version.
+   GNU Zebra is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License as published by the
+   Free Software Foundation; either version 2, or (at your option) any
+   later version.
 
-GNU Zebra is distributed in the hope that it will be useful, but
-WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-General Public License for more details.
+   GNU Zebra is distributed in the hope that it will be useful, but
+   WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with GNU Zebra; see the file COPYING.  If not, write to the Free
-Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
-02111-1307, USA.  */
+   You should have received a copy of the GNU General Public License
+   along with GNU Zebra; see the file COPYING.  If not, write to the Free
+   Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+   02111-1307, USA.  */
 
 #ifndef _ZEBRA_H
 #define _ZEBRA_H
@@ -192,13 +192,13 @@ typedef unsigned short u_int8_t;
 #endif /* BSDI_NRL */
 
 /*  The definition of struct in_pktinfo is missing in old version of
-    GLIBC 2.1 (Redhat 6.1).  */
+	GLIBC 2.1 (Redhat 6.1).  */
 #if defined (GNU_LINUX) && ! defined (HAVE_INPKTINFO)
 struct in_pktinfo
 {
-  int ipi_ifindex;
-  struct in_addr ipi_spec_dst;
-  struct in_addr ipi_addr;
+	int ipi_ifindex;
+	struct in_addr ipi_spec_dst;
+	struct in_addr ipi_addr;
 };
 #endif
 
@@ -326,40 +326,40 @@ typedef u_int8_t zebra_command_t;
 /* FIFO -- first in first out structure and macros.  */
 struct fifo
 {
-  struct fifo *next;
-  struct fifo *prev;
+	struct fifo *next;
+	struct fifo *prev;
 };
 
 #define FIFO_INIT(F)                                  \
-  do {                                                \
-    struct fifo *Xfifo = (struct fifo *)(F);          \
-    Xfifo->next = Xfifo->prev = Xfifo;                \
-  } while (0)
+	do {                                                \
+		struct fifo *Xfifo = (struct fifo *)(F);          \
+		Xfifo->next = Xfifo->prev = Xfifo;                \
+	} while (0)
 
 #define FIFO_ADD(F,N)                                 \
-  do {                                                \
-    struct fifo *Xfifo = (struct fifo *)(F);          \
-    struct fifo *Xnode = (struct fifo *)(N);          \
-    Xnode->next = Xfifo;                              \
-    Xnode->prev = Xfifo->prev;                        \
-    Xfifo->prev = Xfifo->prev->next = Xnode;          \
-  } while (0)
+	do {                                                \
+		struct fifo *Xfifo = (struct fifo *)(F);          \
+		struct fifo *Xnode = (struct fifo *)(N);          \
+		Xnode->next = Xfifo;                              \
+		Xnode->prev = Xfifo->prev;                        \
+		Xfifo->prev = Xfifo->prev->next = Xnode;          \
+	} while (0)
 
 #define FIFO_DEL(N)                                   \
-  do {                                                \
-    struct fifo *Xnode = (struct fifo *)(N);          \
-    Xnode->prev->next = Xnode->next;                  \
-    Xnode->next->prev = Xnode->prev;                  \
-  } while (0)
+	do {                                                \
+		struct fifo *Xnode = (struct fifo *)(N);          \
+		Xnode->prev->next = Xnode->next;                  \
+		Xnode->next->prev = Xnode->prev;                  \
+	} while (0)
 
 #define FIFO_HEAD(F)                                  \
-  ((((struct fifo *)(F))->next == (struct fifo *)(F)) \
-  ? NULL : (F)->next)
+	((((struct fifo *)(F))->next == (struct fifo *)(F)) \
+	 ? NULL : (F)->next)
 
 #define FIFO_EMPTY(F)                                 \
-  (((struct fifo *)(F))->next == (struct fifo *)(F))
+	(((struct fifo *)(F))->next == (struct fifo *)(F))
 
 #define FIFO_TOP(F)                                   \
-  (FIFO_EMPTY(F) ? NULL : ((struct fifo *)(F))->next)
+	(FIFO_EMPTY(F) ? NULL : ((struct fifo *)(F))->next)
 
 #endif /* _ZEBRA_H */
