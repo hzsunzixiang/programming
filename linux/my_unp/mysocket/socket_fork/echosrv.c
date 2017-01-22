@@ -20,6 +20,11 @@ int main(int argc, char* argv[])
 		exit(EXIT_FAILURE);
 	}
 
+	if(argv[1] == NULL)
+	{
+		argv[1] = "127.0.0.1";
+	}
+
 	memset(&servaddr, 0, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
 	servaddr.sin_port = htons(5188);
