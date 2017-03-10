@@ -1,0 +1,195 @@
+程序性能优化（二）
+
+基于处理器分支预测优化：
+　　现代处理器由指令控制单元（ICU）和执行单元（EU）组成，ICU负责取指、译码，EU负责指令执行，为了并行处理ICU会预取指令，所以EU执行的指令通常ICU在前期就取出译码，对于含有分支的代码就包含多条取指路径，ICU在分支路径采用了分支预测技术，既预先选择一条分支取指译码，如果后期发现预测失败则需要重新取指，这意味着浪费了几个时钟周期。分支预测算法通常基于以前运行的结果来作为下次预测的依据。
+
+     1.  优化分支预测：
+
+　　由于预测算法通常基于以前的结果，如果我们的代码分支条件的判断是有规律的，则有助于分支预测的准确性，如下例所示：
+
+
+复制代码
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
+
+#define arraySize 10000000
+int array[arraySize] = {0};
+
+int searchInArray(int value)
+{
+    int sum = 0;
+    for(int i=0; i<arraySize;i++)
+    {
+        if(value > array[i])
+        {
+            sum+=array[i];
+        }
+    }
+    return sum;
+}
+int main()
+{
+    clock_t start;
+    clock_t end;
+    int sum = 0;
+    //有序数组查找
+    for(int i=0; i<arraySize; i++)
+    {
+        array[i] = i;
+    }
+    start = clock();
+    sum += searchInArray(500);
+    end = clock();
+    printf("Time Expense is %d\n",end-start);
+    printf("sum is %d\n",sum);
+
+    //无序数组查找
+    for(int i=0; i<arraySize; i++)
+    {
+        array[i] = rand()%1000;
+    }
+    start = clock();
+    sum += searchInArray(500);
+    end = clock();
+    printf("Time Expense is %d\n",end-start);
+    printf("sum is %d\n",sum);
+    return 0;
+}
+复制代码
+在这个例子中我们对数组中大于指定值的元素求和，分别对有序数组和无序数组进行测试，无序数组的时间消耗基本是有序数组的三倍左右，这里是由于if(value > array[i])分支预测中，如果数组已经有序，基于以前的预测结果后续分支预测基本都会成功，如果是无序数组则后续的预测没有依据。这里要注意对于编译期可以确定值的无序数组，通常编译器会进行优化。在linux中我们通常可以使用likely、unlikely来优化指令的预测，likely表示极可能发生， unlikely表示不怎么发生，同样也是基于分支预测的原理。例如在入参指针判断上可以使用if(unlilely(NULL == ptr))来优化。
+
+    2.  避免分支预测：
+
+    在代码层面实现同样的功能，也可以通过使用不同的代码编写方式来避免一些分支预测，一个例子就是双重for循环的问题，入下例所示：
+
+
+复制代码
+int main()
+{
+    clock_t start;
+    clock_t end;
+    int i = 0;
+    int j = 0;
+    start = clock();
+    for(i=0; i<100000000; i++)
+    {
+        for(j=0; j<1; j++);
+    }
+    end = clock();
+    printf("Time Expense is %d\n",end-start);
+
+    start = clock();
+    for(i=0; i<1; i++)
+    {
+        for(j=0; j<100000000; j++);
+    }
+    end = clock();
+    printf("Time Expense is %d\n",end-start);
+    return 0;
+}
+复制代码
+对于上面的例子的双重循环，当外层循环次数大于内层循环时，耗时基本是后者的两倍，这是由于对于for(i=0; i<m; i++)这种分支预测，存在预测失败的可能，我们假设一个for循环分支预测失败x次，那么如果外层循环m次内层循环n次，整个双重循环的预测失败次数是x*m+x次。可以看到外层循环次数越多其分支预测的失败次数也越多。
+
+基于数据访问位置的优化
+　　程序运行期间的数据来自存储器，现代计算的存储器采用分层设计，越上层靠近CPU的存储设备存取速度越快，上层作为下层数据的缓存是其的一个子集，从上层到下层通常可能是寄存器->cache->主存->磁盘。这使得我们在编写代码的时候可以通过考虑数据存放的位置来优化数据的存取性能。入下例所示：
+
+
+复制代码
+void Summation1(int* pSum, int size)
+{
+    for(int i=0; i<size-1; i++)
+    {
+        pSum[i+1] += pSum[i];
+    }
+    return;
+}
+
+void Summation2(int* pSum, int size)
+{
+    int temp;
+    temp = 0;
+    for(int i=0; i<size-1; i++)
+    {
+        temp += pSum[i];
+    }
+    pSum[size-1] = temp;
+    return;
+}
+int sum1[5000000] = {1,2,3,4,5,6,7,8,9,0};
+int sum2[5000000] = {1,2,3,4,5,6,7,8,9,0};
+int main()
+{
+    clock_t start;
+    clock_t end;
+    int i = 0;
+
+    start = clock();
+    Summation1(sum1,5000000);
+    end = clock();
+    printf("Time Expense is %d\n",end-start);
+
+    start = clock();
+    Summation2(sum2,5000000);
+    end = clock();
+    printf("Time Expense is %d\n",end-start);
+    return 0;
+}
+复制代码
+　　对于同样的求和功能实现，Summation2比Summation1性能优化三倍左右，这是由于Summation1中我们是直接对指针操作，也就是直接对cache进行读写，每次循环要进行两次读一次写cache，而在Summation2中我们把通过使用局部变量把对cache的读写转换为寄存器的读写，每次循环只有一次cache读和一次寄存器的读写。
+
+ 基于存储局部化原理的优化：
+　　由于计算机存储的分层设计，程序在访问数据的时候先在上层的较快的存储设备中查找，没有命中再依次到下层存储设备中查找，下层命中的数据将传递给上层，不同层之间以块大小进行传输，块的大小由层间约定。如下图所示：
+
+
+
+　　程序在查找地址1的数据时上层存储设备没有缓存没有命中，然后在下层存储中找到该数据，下层存储将地址1所在块（假设大小为4）的数据全部传送给上层缓存。上层缓存一次缓存一整块数据。基于这个原理就可以引入了程序设计中局部性原理，我们在设计程序的时候应该访问最近引用数据相邻的数据（空间局部性）和引用最近引用过的数据（时间局部性）。上图中我们如果引用2、3、4都会直接在上层命中，同样如果我们一直引用1也会一直在上层命中。一个常见的例子就是二维数组的访问问题，入下例所示：
+
+
+复制代码
+int array1[50000][1000];
+int array2[50000][1000];
+
+int main()
+{
+    clock_t start;
+    clock_t end;
+    int i = 0;
+    int j = 0;
+    int sum = 0;
+
+    start = clock();
+    for(i=0; i< 50000; i++)
+    {
+        for(j=0; j<1000; j++)
+        {
+            sum+=array1[i][j];
+        }
+    }
+    end = clock();
+    printf("Time Expense is %d\n",end-start);
+    printf("sum is %d\n",sum);
+
+    start = clock();
+    for(i=0; i< 1000; i++)
+    {
+        for(j=0; j<50000; j++)
+        {
+            sum+=array2[j][i];
+        }
+    }
+    end = clock();
+    printf("Time Expense is %d\n",end-start);
+    printf("sum is %d\n",sum);
+    return 0;
+}
+复制代码
+　　例子中的两种循环访问方式都是对二维数组进行循环求和，但前者的效率要比后者高出二十倍左右，前者对数组的访问方式如下左图，后者对数组的访问方式如下右图，根据程序的局部性访问原理我们可以很容易的看到后者的访问方式会导致上层缓存经常不命中。
+
+
+
+这里可以看到前面的循环虽然分支预测失败的次数可能更多，但效率还是要好很多，说明存储器的访问速度是制约程序性能的主要瓶颈。
+
+以上代码的都是在笔者的机器上测试，不同的环境可能存在差异。
+
+转载请注明原始出处：http://www.cnblogs.com/chencheng/p/34002
