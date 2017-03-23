@@ -21,6 +21,7 @@ int main()
 
 
 
+/*
 //                             F(5)
 //                            /    \
 //                           /      \
@@ -40,6 +41,7 @@ int main()
 //          F(1) F(0)   
 //				
 					 
+*/
 //	deal with n:5                                                                      
 //	deal with n:4                                                                         
 //	deal with n:3                                                                         
