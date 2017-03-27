@@ -1,0 +1,1 @@
+stap --ldd -d permutation/permutation --all-modules -D MAXMAPENTRIES=2560 -D MAXACTION=20000 -D MAXSKIPPED=10000000 -D MAXTRACE=100 -D MAXSTRINGLEN=4096 -D STP_NO_OVERLOAD -D MAXBACKTRACE=100 -x  `ps aux|grep ./permutation  |grep -v grep |grep -v stap |awk '{print $2}'` fire.stp --vp 0001 > fire.out
