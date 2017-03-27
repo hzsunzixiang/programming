@@ -1,0 +1,20 @@
+
+#Note, however, that by default variables are only local to the probe they are used in. This means that variables are initialized, used and disposed at each probe handler invocation. To share a variable between probes, declare the variable name using global outside of the probes. Consider the following example:
+
+
+
+global count_jiffies, count_ms
+probe timer.jiffies(100) { count_jiffies ++ }
+probe timer.ms(100) { count_ms ++ }
+probe timer.ms(12345)
+{
+  hz=(1000*count_jiffies) / count_ms
+  printf ("jiffies:ms ratio %d:%d => CONFIG_HZ=%d\n",
+    count_jiffies, count_ms, hz)
+  exit ()
+}
+
+
+#The ++ notation in Example 3.8, “timer-jiffies.stp” (that is, count_jiffies ++ and count_ms ++) 
+#is used to increment the value of a variable by 1. 
+#In the following probe, count_jiffies is incremented by 1 every 100 jiffies:
