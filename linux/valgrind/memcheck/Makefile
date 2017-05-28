@@ -1,9 +1,9 @@
 .PHONY:clean all
-CC=g++
-CFLAGS=-Wall -g  
-BIN= simple
+CC=gcc
+CFLAGS=-Wall -g  -std=c99
+BIN= simple badloop badacc
 all:$(BIN)
-%:%.cpp
+%:%.c
 	$(CC) $(CFLAGS) $< -o $@
 	  #$(CC) $(CFLAGS) -D USE_INLINE $< -o  $@
 	  #$(CC) $(CFLAGS) -finline-functions $< -o $@_non 
