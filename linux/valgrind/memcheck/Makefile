@@ -1,7 +1,7 @@
 .PHONY:clean all
 CC=gcc
 CFLAGS=-Wall -g  -std=c99
-BIN= simple badloop badacc
+BIN= simple badloop badacc badlap
 all:$(BIN)
 %:%.c
 	$(CC) $(CFLAGS) $< -o $@
