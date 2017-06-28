@@ -35,7 +35,6 @@ int searchInArray(int value)
 }
 int main()
 {
-	sleep(10);
 	clock_t start;
 	clock_t end;
 	int sum = 0;
