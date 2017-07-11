@@ -1,9 +1,11 @@
 yum
+	rpm -qf $(which free)	
 	sudo yumdownloader  --source sysstat.x86_64
 	rpm2cpio procps-3.2.8-14.el6.src.rpm |cpio -id
 	tar zxvf procps-3.2.8.tar.gz
 
 debian
+	dpkg -S $(which free)
 	apt-get source sysstat.x86_64
 
 后记：
