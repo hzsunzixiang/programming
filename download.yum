@@ -1,5 +1,6 @@
 yum
 	rpm -qf $(which free)	
+	yum provides $(which free)	
 	sudo yumdownloader  --source sysstat.x86_64
 	rpm2cpio procps-3.2.8-14.el6.src.rpm |cpio -id
 	tar zxvf procps-3.2.8.tar.gz
@@ -18,4 +19,52 @@ baseurl=ftp://ftp.redhat.com/redhat/linux/enterprise/$releasever/en/os/SRPMS/
 enabled=0
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+
+
+
+
+=============== yum provides =======
+sudo yum provides  /usr/bin/vmstat
+	Loaded plugins: fastestmirror, security
+	Loading mirror speeds from cached hostfile
+	 * base: mirrors.cn99.com
+	 * epel: mirrors.ustc.edu.cn
+	 * epel-debuginfo: mirrors.ustc.edu.cn
+	 * epel-source: mirrors.ustc.edu.cn
+	 * extras: mirrors.zju.edu.cn
+	 * updates: mirrors.cn99.com
+	procps-3.2.8-45.el6.x86_64 : System and process monitoring utilities
+	Repo        : base
+	Matched from:
+	Filename    : /usr/bin/vmstat
+	
+	
+	
+	procps-3.2.8-45.el6.i686 : System and process monitoring utilities
+	Repo        : base
+	Matched from:
+	Filename    : /usr/bin/vmstat
+	
+	
+	
+	procps-3.2.8-45.el6_9.1.i686 : System and process monitoring utilities
+	Repo        : updates
+	Matched from:
+	Filename    : /usr/bin/vmstat
+	
+	
+	
+	procps-3.2.8-45.el6_9.1.x86_64 : System and process monitoring utilities
+	Repo        : updates
+	Matched from:
+	Filename    : /usr/bin/vmstat
+	
+	
+	
+	procps-3.2.8-45.el6.x86_64 : System and process monitoring utilities
+	Repo        : installed
+	Matched from:
+	Other       : Provides-match: /usr/bin/vmstat
+
+
  
