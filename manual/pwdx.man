@@ -1,0 +1,37 @@
+PWDX(1)			      Linux User’s Manual		       PWDX(1)
+
+
+
+NAME
+       pwdx - report current working directory of a process
+
+
+SYNOPSIS
+       pwdx pids...
+       pwdx -V
+
+
+DESCRIPTION
+       The  pwdx command reports the current working directory of a process or
+       processes.
+
+
+GENERAL OPTIONS
+       -V   show version   Displays version of program.
+
+
+SEE ALSO
+       ps(1) pgrep(1)
+
+
+STANDARDS
+       No standards apply, but pwdx looks an awful lot like a SunOS command.
+
+
+AUTHOR
+       Nicholas Miell <nmiell@gmail.com> wrote pwdx in 2004. Please  send  bug
+       reports to <procps-feedback@lists.sf.net>.
+
+
+
+Linux			       September 8, 2004		       PWDX(1)

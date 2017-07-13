@@ -1,0 +1,45 @@
+TLOAD(1)		      Linux User’s Manual		      TLOAD(1)
+
+
+
+NAME
+       tload - graphic representation of system load average
+
+SYNOPSIS
+       tload [-V] [-s scale] [ -d delay ] [tty]
+
+DESCRIPTION
+       tload  prints  a graph of the current system load average to the speci-
+       fied tty (or the tty of the tload process if none is specified).
+
+   Options
+       The -s scale option allows a vertical scale to  be  specified  for  the
+       display (in characters between graph ticks); thus, a smaller value rep-
+       resents a larger scale, and vice versa.
+
+       The -d delay sets the delay between graph updates in seconds.
+
+
+FILES
+       /proc/loadavg load average information
+
+
+SEE ALSO
+       ps(1), top(1), uptime(1), w(1)
+
+
+BUGS
+       The -d delay option sets the time argument for an alarm(2); if -d 0  is
+       specified, the alarm is set to 0, which will never send the SIGALRM and
+       update the display.
+
+
+AUTHORS
+       Branko Lankester, David Engel <david@ods.com>, and Michael  K.  Johnson
+       <johnsonm@redhat.com>.
+
+       Please send bug reports to <albert@users.sf.net>
+
+
+
+Cohesive Systems		 20 Mar 1993			      TLOAD(1)
