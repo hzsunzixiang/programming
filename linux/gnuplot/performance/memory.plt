@@ -7,12 +7,12 @@
 #set output "`date +%F`.2.png"
 
 
-#set terminal pdf linewidth 1
-#set output "memory.pdf"
+set terminal pdf linewidth 1
+set output "memory.pdf"
 
 
-set terminal png 
-set output "memory.png"
+#set terminal png 
+#set output "memory.png"
 
 set multiplot layout 2,2
 
