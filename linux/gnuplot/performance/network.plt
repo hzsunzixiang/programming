@@ -1,10 +1,14 @@
 #! /usr/bin/gnuplot
 #set terminal pngcairo dashed enhanced
-set term png 
-set output "network.png"
+
+set terminal pdf linewidth 1
+
+set output "network.pdf"
 #set output "`date +%F`.2.png"
 set multiplot layout 2,1
 
+
+set xtics rotate by -50
 
 set xdata time
 set timefmt "%H:%M:%S"
