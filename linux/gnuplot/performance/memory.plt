@@ -34,7 +34,7 @@ plot "memory.txt" using 1:8 title "rss/kbytes" with lines
 #09:18:57 PM     0       446      0.00      0.00   55184   5488   0.18  sshd
 
 set ylabel "KBytes" 
-plot "memory.txt"  using 1:7 title "vsz/kbtes" with lines
+plot "memory.txt"  using 1:7 title "vsz/kbytes" with lines
 
 set ylabel "minflt/s" 
 plot "memory.txt" using 1:5 title "minflt" with lines
