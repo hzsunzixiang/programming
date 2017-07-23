@@ -1,0 +1,12 @@
+syntax = "proto2";
+package msgtype;
+
+
+
+message SearchRequest {
+	required string query = 1;
+	optional int32 page_number = 2;
+	optional int32 result_per_page = 3;
+	optional bytes reserved = 4;//May contain any arbitrary sequence of bytes.
+	optional int32 result_default = 5 [default = 0x100];
+}

@@ -1,0 +1,17 @@
+syntax = "proto3";
+package msgtype.nested;
+
+
+message SearchResponse {
+	message Result {
+		string url = 1;
+		string title = 2;
+		repeated string snippets = 3;
+	}
+	repeated Result result = 1;
+}
+//If you want to reuse this message type outside its parent message type, you refer to it as Parent.Type:
+
+message SomeOtherMessage {
+	SearchResponse.Result result = 1;
+}
