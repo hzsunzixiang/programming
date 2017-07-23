@@ -2,7 +2,7 @@
 CC=g++
 #CFLAGS=-Wall -save-temps -O1
 CFLAGS=-Wall -g #-save-temps 
-BIN= write_msg 
+BIN= write_msg  write_msg_file
 all:$(BIN)
 %:%.cc 
 	$(CC) $(CFLAGS)  addressbook.pb.cc  $< -o $@ -lprotobuf
