@@ -40,7 +40,20 @@ AM_PROG_AR
 #/usr/share/automake-1.14/am/ltlibrary.am: archiver requires 'AM_PROG_AR' in 'configure.ac'
 #Makefile.am:2:   while processing Libtool library 'libcompress.la'
 
-AC_PROG_LIBTOOL
+
+# https://www.gnu.org/software/libtool/manual/libtool.html#LT_005fINIT
+#Macro: LT_INIT (options)
+#Macro: AC_PROG_LIBTOOL
+#Macro: AM_PROG_LIBTOOL
+#Add support for the --enable-shared, --disable-shared, --enable-static, --disable-static, --with-pic, and --without-pic configure flags.6 AC_PROG_LIBTOOL and AM_PROG_LIBTOOL are deprecated names for older versions of this macro; autoupdate will upgrade your configure.ac files.
+#
+#By default, this macro turns on shared libraries if they are available, and also enables static libraries if they don’t conflict with the shared libraries. You can modify these defaults by passing either disable-shared or disable-static in the option list to LT_INIT, or using AC_DISABLE_SHARED or AC_DISABLE_STATIC.
+#
+
+#LT_INIT([disable-shared])
+
+LT_INIT
+#AC_PROG_LIBTOOL
 
 # Checks for libraries.
 
