@@ -3,7 +3,7 @@
 #include <iostream>
 using std::cout;
 
-enum Language { English, French, German, Italian, Spanish };
+enum Language { English, French, German, Italian, Spanish, Chinese };
 
 int main() {
 
