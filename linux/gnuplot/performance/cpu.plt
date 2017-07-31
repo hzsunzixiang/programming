@@ -17,6 +17,9 @@ set ylabel "user"
 #set xtics rotate 90
 set xtics rotate by -50
 #set xtics rotate by 50 offset -4.5,-3.00
+
+
+
 plot "cpu_data.txt" using 1:5 title "%user" with lines
 
 #10:41:56 PM   UID       PID    %usr %system  %guest    %CPU   CPU  Command
@@ -27,7 +30,7 @@ set ylabel "system"
 plot "cpu_data.txt"  using 1:6 title "%system" with lines
 
 set ylabel "CPU" 
-plot "cpu_data.txt" using 1:8 title "%CPU" with lines
+plot "cpu_data.txt" using 1:7 title "%CPU" with lines
 
 
 #gnuplot -e "datafile='${top_data_file}'; outputname='${mem_output_file}'; tiltle_des="-memory-"; lno=3" top_memory.gnuplot 

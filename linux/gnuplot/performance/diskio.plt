@@ -22,13 +22,13 @@ set ylabel "KBytes"
 #set xtics rotate 90
 set xtics rotate by -50
 #set xtics rotate by 50 offset -4.5,-3.00
-plot "diskio_data.txt" using 1:5 title "kB_rd/s" with lines
+plot "diskio_data.txt" using 1:4 title "kB_rd/s" with lines
 
 #12:39:31 AM   UID       PID   kB_rd/s   kB_wr/s kB_ccwr/s iodelay  Command
 #12:39:32 AM     0       446     -1.00     -1.00     -1.00       0  sshd
 
 set ylabel "KBytes" 
-plot "diskio_data.txt"  using 1:6 title "kB_wr/s" with lines
+plot "diskio_data.txt"  using 1:5 title "kB_wr/s" with lines
 
 #gnuplot -e "datafile='${top_data_file.out}'; outputname='${output_file}'" top.gnuplot 
 #gnuplot -e "datafile='${top_data_file}'; outputname='${mem_output_file}'; tiltle_des="-memory-"; lno=3" top_memory.gnuplot 

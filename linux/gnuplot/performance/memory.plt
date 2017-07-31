@@ -1,4 +1,4 @@
-#! /usr/bin/gnuplot
+#! /usr/bin/gnuplot 
 #set terminal pngcairo dashed enhanced
 #set term png 
 #set term postscript eps size 1024, 720 color blacktext "Helvetica" 24
@@ -7,6 +7,7 @@
 #set output "`date +%F`.2.png"
 
 
+#set terminal pdf linewidth 1
 set terminal pdf linewidth 1
 set output "memory.pdf"
 
@@ -28,23 +29,20 @@ set ylabel "KBytes"
 #set xtics rotate 90
 set xtics rotate by -50
 #set xtics rotate by 50 offset -4.5,-3.00
-plot "memory.txt" using 1:8 title "rss/kbytes" with lines
+plot "memory_data.txt" using 1:8 title "rss/kbytes" with lines
 
 #09:18:56 PM   UID       PID  minflt/s  majflt/s     VSZ    RSS   %MEM  Command
 #09:18:57 PM     0       446      0.00      0.00   55184   5488   0.18  sshd
 
 set ylabel "KBytes" 
-plot "memory.txt"  using 1:7 title "vsz/kbytes" with lines
+plot "memory_data.txt"  using 1:7 title "vsz/kbytes" with lines
 
 set ylabel "minflt/s" 
-plot "memory.txt" using 1:5 title "minflt" with lines
+plot "memory_data.txt" using 1:5 title "minflt" with lines
 
 
 set ylabel "majflt/s" 
-plot "memory.txt" using 1:6 title "majflt" with lines
-
-
-
+plot "memory_data.txt" using 1:6 title "majflt" with lines
 
 
 #gnuplot -e "datafile='${top_data_file.out}'; outputname='${output_file}'" top.gnuplot 

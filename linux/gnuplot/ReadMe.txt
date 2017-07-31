@@ -14,6 +14,20 @@
 
 3. 多个纵坐标
 	https://stackoverflow.com/questions/27390317/how-to-plot-multiple-y-axes
+4.  unknown or ambiguous terminal type; type just 'set terminal' for a list
+	https://ubuntuforums.org/showthread.php?t=1595603
+ 	a quick note for anyone trying to get gnuplot to give you a pdf and seeing
+ 	Code:
+ 	gnuplot> set terminal pdf
+                       ^
+	line 0: unknown or ambiguous terminal type; type just 'set terminal' for a list
+	this is because gnuplot before version 4.4 (lucid/10.04 has 4.2) used pdflib to make pdfs, which is not free software. since version 4.4 it uses cairo to draw pdfs, which is free.
+
+
+	解决办法
+	sudo yum install gnuplot44.x86_64
+
+
 
 
 

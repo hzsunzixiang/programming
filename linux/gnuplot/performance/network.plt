@@ -10,12 +10,12 @@ set xdata time
 set timefmt "%H:%M:%S"
 set grid
 set ylabel "packet/s" 
-plot "data.txt" using 1:2 title "packet" with lines
+plot "network_data.txt" using 1:2 title "packet" with lines
 
 
 
 set ylabel "KBytes/s" 
-plot "data.txt" using 1:3 title "traffic" with lines
+plot "network_data.txt" using 1:3 title "traffic" with lines
 
 
 

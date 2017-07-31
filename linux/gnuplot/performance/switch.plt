@@ -20,15 +20,23 @@ set grid
 #12:59:38 AM   UID       PID   cswch/s nvcswch/s  Command
 #12:59:39 AM     0       446      0.00      0.00  sshd
 #FILE="switch_data.txt"
+
 set ylabel "cswch" 
-#set xtics rotate 90
 set xtics rotate by -50
 #set xtics rotate by 50 offset -4.5,-3.00
-plot "switch_data.txt" using 1:5 title "cswch/s" with lines
+plot "switch_data.txt" using 1:4 title "cswch/s" with lines
 
 
 set ylabel "nvcswch" 
-plot "switch_data.txt"  using 1:6 title "nvcswch/s" with lines
+set xtics rotate by -50
+plot "switch_data.txt"  using 1:5 title "nvcswch/s" with lines
+
+
+
+
+
+
+
 
 #gnuplot -e "datafile='${top_data_file.out}'; outputname='${output_file}'" top.gnuplot 
 #gnuplot -e "datafile='${top_data_file}'; outputname='${mem_output_file}'; tiltle_des="-memory-"; lno=3" top_memory.gnuplot 

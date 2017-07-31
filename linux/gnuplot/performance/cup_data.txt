@@ -1,4 +1,0 @@
-Linux 3.16.0-4-amd64 (debian-1) 	07/19/2017 	_x86_64_	(1 CPU)
-
-11:08:59 PM   UID       PID   kB_rd/s   kB_wr/s kB_ccwr/s iodelay  Command
-11:08:59 PM     0         1     -1.00     -1.00     -1.00      16  systemd
