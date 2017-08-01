@@ -92,17 +92,39 @@ gnuplot -e "datafile='${MEMORY_FILE}'; outputname='${MEMORY_OUTPUT_FILE}'" memor
 gnuplot -e "datafile='${NETWORK_FILE}'; outputname='${NETWORK_OUTPUT_FILE}'" network.plt 
 gnuplot -e "datafile='${SWITCH_FILE}'; outputname='${SWITCH_OUTPUT_FILE}'" switch.plt 
 
-#gnuplot -e "datafile='${data_file}'; outputname='${mem_output_file}'; title_des='-memory-'; ylabel_des='memory(M)'; lno=3"  ${SCRIPT}
-#cpu.plt  diskio.plt  memory.plt  network.plt  switch.plt
-#gnuplot -e "datafile='${data_file}'; outputname='${mem_output_file}'; title_des='-memory-'; ylabel_des='memory(M)'; lno=3"  ${SCRIPT}
-
-#gnuplot -e "datafile='${CPU_FILE}'; outputname='${cpu_output_file}'; title_des='-cpu-'; ylabel_des='cpu(%)'; lno=2"  ${SCRIPT}
-#gnuplot -e "datafile='${data_file}'; outputname='${mem_output_file}'; title_des='-memory-'; ylabel_des='memory(M)'; lno=3"  ${SCRIPT}
-#
 
 ##统计 cpu内存平均值
 #
-#awk '{ sum += $2; n++ } END { if (n > 0) printf("the average cpu:%f\n", sum / n); }'  ${DATA_FILE}
+#05:51:49 PM       PID    %usr %system  %guest    %CPU   CPU  Command
+#05:51:50 PM      4773    0.00    0.00    0.00    0.00     0  wget
+
+awk '{ sum += $4; n++ } END { if (n > 0) printf("cpu the average user cpu:%f\n", sum / n); }'  ${CPU_FILE}
+awk '{ sum += $5; n++ } END { if (n > 0) printf("cpu the average system cpu:%f\n", sum / n); }'  ${CPU_FILE}
+awk '{ sum += $7; n++ } END { if (n > 0) printf("cpu the average total cpu:%f\n", sum / n); }'  ${CPU_FILE}
+
+# 内存
+#05:51:49 PM       PID  minflt/s  majflt/s     VSZ    RSS   %MEM  Command
+#05:51:50 PM      4773     85.86      0.00  141760   3952   0.19  wget
+
+awk '{ sum += $6; n++ } END { if (n > 0) printf("memory the average VSZ:%f\n", sum / n); }'  ${MEMORY_FILE}
+awk '{ sum += $7; n++ } END { if (n > 0) printf("memory the average RSS:%f\n", sum / n); }'  ${MEMORY_FILE}
+
+#网络
+# 17:51:55       17     5230 
+#  17:51:56       89    68958 
+#  17:51:57      117   107360 
+
+awk '{ sum += $2; n++ } END { if (n > 0) printf("network the average packets/s:%f\n", sum / n); }'  ${NETWORK_FILE}
+awk '{ sum += $3; n++ } END { if (n > 0) printf("network the average Kbytes/s:%f\n", sum / n / 1024.0); }'  ${NETWORK_FILE}
+
+#磁盘
+
+
+#05:51:49 PM       PID   kB_rd/s   kB_wr/s kB_ccwr/s  Command
+#05:51:51 PM      4773      0.00      0.00      0.00  wget
+awk '{ sum += $4; n++ } END { if (n > 0) printf("diskio the average kB_rd/s:%f\n", sum / n); }'  ${DISKIO_FILE}
+awk '{ sum += $5; n++ } END { if (n > 0) printf("diskio the average kB_wr/s:%f\n", sum / n / 1024.0); }'  ${DISKIO_FILE}
+
 #awk '{ sum += $3; n++ } END { if (n > 0) printf("the average memory:%fM\n", sum / n); }'  ${DATA_FILE}
 ##http://maravelias.info/2010/06/mean-standard-deviation-column-awk/
 ##awk '{sum+=$2; sumsq+=$2*$2} END {printf("the standard deviation:%f\n", sqrt(sumsq/NR - (sum/NR)^2))}'  ${DATA_FILE}
