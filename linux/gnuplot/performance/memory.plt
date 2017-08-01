@@ -29,20 +29,25 @@ set ylabel "KBytes"
 #set xtics rotate 90
 set xtics rotate by -50
 #set xtics rotate by 50 offset -4.5,-3.00
-plot "memory_data.txt" using 1:8 title "rss/kbytes" with lines
 
+plot "memory_data.txt" using 1:7 title "rss/kbytes" with lines
+
+# 某些版本有UID
 #09:18:56 PM   UID       PID  minflt/s  majflt/s     VSZ    RSS   %MEM  Command
 #09:18:57 PM     0       446      0.00      0.00   55184   5488   0.18  sshd
 
+#05:51:49 PM       PID  minflt/s  majflt/s     VSZ    RSS   %MEM  Command
+#05:51:50 PM      4773     85.86      0.00  141760   3952   0.19  wget
+
 set ylabel "KBytes" 
-plot "memory_data.txt"  using 1:7 title "vsz/kbytes" with lines
+plot "memory_data.txt"  using 1:6 title "vsz/kbytes" with lines
 
 set ylabel "minflt/s" 
-plot "memory_data.txt" using 1:5 title "minflt" with lines
+plot "memory_data.txt" using 1:4 title "minflt" with lines
 
 
 set ylabel "majflt/s" 
-plot "memory_data.txt" using 1:6 title "majflt" with lines
+plot "memory_data.txt" using 1:5 title "majflt" with lines
 
 
 #gnuplot -e "datafile='${top_data_file.out}'; outputname='${output_file}'" top.gnuplot 

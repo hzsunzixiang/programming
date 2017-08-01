@@ -13,7 +13,7 @@ set xtics rotate by -50
 set xdata time
 set timefmt "%H:%M:%S"
 set grid
-set ylabel "packet/s" 
+set ylabel "packets/s" 
 plot "network_data.txt" using 1:2 title "packet" with lines
 
 
