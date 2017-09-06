@@ -35,5 +35,8 @@ AC_CHECK_FUNCS([gethostbyname strerror])
 
 AC_CONFIG_FILES([Makefile
 				module/Makefile
+				urandom/Makefile
+				mersenne/Makefile
+				boost/Makefile
 				])
 AC_OUTPUT
