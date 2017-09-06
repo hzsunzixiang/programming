@@ -38,5 +38,6 @@ AC_CONFIG_FILES([Makefile
 				urandom/Makefile
 				mersenne/Makefile
 				boost/Makefile
+				fisher-yates/Makefile
 				])
 AC_OUTPUT

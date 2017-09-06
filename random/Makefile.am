@@ -1,1 +1,1 @@
-SUBDIRS = module urandom mersenne boost
+SUBDIRS = module urandom mersenne boost fisher-yates
