@@ -117,6 +117,10 @@ class Random
 		}
 		double get_double()
 		{
+			// 把这里改成固定的 并且种子数设置成不变值
+			// 则每次生成的序列是一样的
+
+			//int idx = 1; 
 			int idx = _rand() % POOL_LEN;
 			LOCK(mutex);
 			double ret = pool[idx];
@@ -150,6 +154,9 @@ static uint32_t get_uint32_from_time()
 uint32_t get_rand_uint32()
 {
 	uint32_t ret;
+	// 把这里改成固定的 且 get_double 中的idx也设置成不变值 
+	// 则每次生成的序列是一样的
+	//static Random theRandom(1);
 	static Random theRandom(get_uint32_from_time());
 	ret = theRandom.get_uint32();
 	return ret;
@@ -166,9 +173,13 @@ uint32_t get_good_seed()
 int main()
 {
 
-	for(int i=0; i<100; i++ )
+	//for(int i=0; i<100; i++ )
+	//{
+	//	printf("random:%u\n", get_good_seed());
+	//}
+	for(int i=0; i<10; i++ )
 	{
-		printf("random:%u\n", get_good_seed());
+		printf("random:%u\n", get_rand_uint32());
 	}
 	return 0;
 }
