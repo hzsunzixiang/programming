@@ -292,6 +292,7 @@ main(int argc, char **argv)
 		return 1;
 	}
 
+	// 浏览器请求 服务器会打印各种信息
 	/* The /dump URI will dump all requests to stdout and say 200 ok. */
 	evhttp_set_cb(http, "/dump", dump_request_cb, NULL);
 
