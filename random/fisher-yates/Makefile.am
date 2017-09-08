@@ -1,8 +1,10 @@
-bin_PROGRAMS = main 
+bin_PROGRAMS = main  mainboost
 
 AM_CPPFLAGS = -g -Wall -fpermissive -std=c++11 -O0 -I$(srcdir) 
 main_SOURCES = main.cpp
 				 
+mainboost_SOURCES = mainboost.cpp
+
 main_LDFLAGS = 
 
 main_LDADD =
