@@ -2,6 +2,17 @@ objects = foo.o bar.o
 
 all: $(objects)
 
+
+#Here ‘$<’ is the automatic variable that holds the name of the prerequisite and ‘$@’ is the automatic variable that holds the name of the target; see Automatic Variables.
+
+#Here is the syntax of a static pattern rule:
+#
+#targets …: target-pattern: prereq-patterns …
+#        recipe
+#		        …
+
+
+#foo.o bar.o: %.o: %.c
 $(objects): %.o: %.c
 	$(CC) -c $(CFLAGS) $< -o $@
 
