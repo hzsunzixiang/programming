@@ -18,9 +18,9 @@ files = foo.o bar.o lose.o
 
 
 all: $(files)
-#echo $(SUFFIXES)
+	@echo $(SUFFIXES)
 
-
+#The variable SUFFIXES is defined to the default list of suffixes before make reads any makefiles. You can change the list of suffixes with a rule for the special target .SUFFIXES, but that does not alter this variable.
 .PHONEY:clean
 clean:
 	rm  -f *.x *.o *.so foo
@@ -67,3 +67,13 @@ clean:
 #The ‘-r’ or ‘--no-builtin-rules’ flag causes the default list of suffixes to be empty.
 #
 #The variable SUFFIXES is defined to the default list of suffixes before make reads any makefiles. You can change the list of suffixes with a rule for the special target .SUFFIXES, but that does not alter this variable.
+
+#16.1 General Conventions for Makefiles
+
+#	Different make programs have incompatible suffix lists and implicit rules, and this sometimes creates confusion or misbehavior. So it is a good idea to set the suffix list explicitly using only the suffixes you need in the particular Makefile, like this:
+#
+#	.SUFFIXES:
+#	.SUFFIXES: .c .o
+#	The first line clears out the suffix list, the second introduces all suffixes which may be subject to implicit rules in this Makefile.
+
+
