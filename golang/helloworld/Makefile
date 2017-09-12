@@ -1,17 +1,21 @@
 all:helloworld helloworld1
 
-helloworld:helloworld.go
-	go build  -o helloworld helloworld.go 
-
-helloworld1:helloworld1.go
-	go build  -o helloworld1 $< 
+%:%.go
+	go build  -o $@ $< 
 
 .PHONY: clean
 clean:
-	rm helloworld helloworld1
+	-rm helloworld helloworld1 -rf
 
 
+#helloworld:helloworld.go
+#	go build  -o $@ $< 
+#
+#helloworld1:helloworld1.go
+#	go build  -o $@ $< 
 
+
+#go build  -o helloworld helloworld.go 
 
 #$@
 #
