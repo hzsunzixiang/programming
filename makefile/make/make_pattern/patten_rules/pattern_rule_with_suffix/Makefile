@@ -28,8 +28,14 @@ clean:
 #cc -E -c -Wall -g  bar.cpp -o bar.o
 #cc -fPIC -c -Wall -g  lib/zoo.c -o lib/zoo.o
 
-
-
+#10.5 Defining and Redefining Pattern Rules
+#
+#You define an implicit rule by writing a pattern rule. A pattern rule looks like an ordinary rule, except that its target contains the character ‘%’ (exactly one of them). The target is considered a pattern for matching file names; the ‘%’ can match any nonempty substring, while other characters match only themselves. The prerequisites likewise use ‘%’ to show how their names relate to the target name.
+#
+#Thus, a pattern rule ‘%.o : %.c’ says how to make any file stem.o from another file stem.c.
+#
+#Note that expansion using ‘%’ in pattern rules occurs after any variable or function expansions, which take place when the makefile is read. See How to Use Variables, and Functions for Transforming Text.
+#
 #http://gnu.april.org/software/make/manual/html_node/Pattern-Match.html#Pattern-Match
 #
 #10.5.4 How Patterns Match
