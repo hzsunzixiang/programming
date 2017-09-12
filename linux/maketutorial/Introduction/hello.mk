@@ -29,3 +29,11 @@ main2:
 #	hello.mk  recipe.mk
 
 
+
+
+# StephenSun@debian:~/programming/linux/maketutorial/Introduction$ make  -f hello.mk  main2
+# main2 .....
+# 
+# ls
+# hello.mk  recipe.mk
+
