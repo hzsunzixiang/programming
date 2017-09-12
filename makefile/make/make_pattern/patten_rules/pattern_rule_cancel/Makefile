@@ -3,12 +3,15 @@ objects = foo.o bar.o lib/zoo.o
 
 #CFLAGS=-Wall -g
 
-# 这里只有一个百分号，默认是生成可执行文件的,即linux下的可执行文件一般没有后缀
+
+#覆盖默认规则  
 %.o : %.c
 	$(CC)  $(CFLAGS) $(CPPFLAGS) $< -o $@
-# 如果注释掉上面这行就会报错 
-# root@debian:~/programming/makefile/make/make_pattern/patten_rules/pattern_rule_cancel# make
-# make: *** No rule to make target `foo.o', needed by `all'.  Stop.
+# 如果注释掉上面这一行就会报错 表示取消默认规则 
+
+#StephenSun@debian-1:~/programming/makefile/make/make_pattern/patten_rules/pattern_rule_cancel$ make 
+#make: *** No rule to make target `foo.o', needed by `all'.  Stop.
+
 
 all: $(objects)
 
