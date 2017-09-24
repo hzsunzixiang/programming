@@ -2,7 +2,7 @@
 CC=gcc
 #CFLAGS=-Wall -save-temps -O1
 CFLAGS=-Wall -g -save-temps -std=c99
-BIN= combination  combination_all
+BIN= combination  combination_all combination_2
 all:$(BIN)
 %:%.c 
 	$(CC) $(CFLAGS)   $< -o $@

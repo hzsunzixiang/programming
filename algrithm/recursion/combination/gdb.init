@@ -1,0 +1,13 @@
+#set logging on
+#set logging file  helloworld.txt
+#set logging overwrite on
+
+break combinationUtil
+commands
+	bt
+    continue
+end
+
+# 这行放最后面 不然 程序退不出来
+#set logging redirect on
+
