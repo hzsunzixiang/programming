@@ -25,4 +25,5 @@ EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL README TODO
 
 ## Proceed to subdirs
 
-SUBDIRS = lib src
+#SUBDIRS = lib src
+SUBDIRS = src
