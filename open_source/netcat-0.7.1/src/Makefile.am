@@ -34,7 +34,7 @@ netcat_SOURCES = \
 	telnet.c \
 	udphelper.c
 
-netcat_LDADD = @CONTRIBLIBS@ @INTLLIBS@
+netcat_LDADD = @CONTRIBLIBS@ 
 
 EXTRA_DIST = *.h
 
