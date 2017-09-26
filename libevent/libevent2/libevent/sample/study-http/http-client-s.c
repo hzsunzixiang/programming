@@ -145,7 +145,6 @@ main(int argc, char **argv)
 		goto error;
 	}
 
-
 	// For simplicity, we let DNS resolution block. Everything else should be
 	// asynchronous though.
 	evcon = evhttp_connection_base_bufferevent_new(base, NULL, bev,
