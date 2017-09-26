@@ -2,12 +2,12 @@
 CC=gcc
 CFLAGS=-Wall -g -static
 VPATH=../../include
-INCLUDE = -I../../include 
+INCLUDE = -I../../include  -I..
 
 LIB = -L../../.libs -levent -lrt
 
-
-BIN=http-server myserver evhttp_new
+VPATH=../
+BIN=http-server myserver evhttp_new http-connect myconnect https-client
 all:$(BIN)
 %:%.c
 	$(CC) $(CFLAGS)  $<  $(LIB)  $(INCLUDE) -o $@

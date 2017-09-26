@@ -95,6 +95,7 @@ http_request_done(struct evhttp_request *req, void *ctx)
 static void
 syntax(void)
 {
+	//./https-client  -url http://127.0.0.1:80
 	fputs("Syntax:\n", stderr);
 	fputs("   https-client -url <https-url> [-data data-file.bin] [-ignore-cert] [-retries num] [-timeout sec] [-crt crt]\n", stderr);
 	fputs("Example:\n", stderr);
