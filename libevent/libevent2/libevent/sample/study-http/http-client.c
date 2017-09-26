@@ -7,7 +7,11 @@
   Loosely based on le-proxy.c.
  */
 
-// ./http-client  http://127.0.0.1:80
+// ./http-client  -url http://127.0.0.1:80
+
+// Get rid of OSX 10.7 and greater deprecation warnings.
+
+// 有时间实践 带body的请求
 
 #include <stdio.h>
 #include <assert.h>
@@ -58,11 +62,11 @@ http_request_done(struct evhttp_request *req, void *ctx)
 static void
 syntax(void)
 {
-	//./https-client  http://127.0.0.1:80
+	//./https-client  -url http://127.0.0.1:80
 	fputs("Syntax:\n", stderr);
-	fputs("   https-client <http-url> \n", stderr);
+	fputs("   https-client -url <https-url> [-data data-file.bin] [-ignore-cert] [-retries num] [-timeout sec] \n", stderr);
 	fputs("Example:\n", stderr);
-	fputs("   http-client http://127.0.0.1:80/\n", stderr);
+	fputs("   https-client -url https://ip.appspot.com/\n", stderr);
 }
 
 static void
@@ -79,31 +83,73 @@ main(int argc, char **argv)
 	int r;
 
 	struct evhttp_uri *http_uri = NULL;
-	const char *url = NULL;
-	const char *host, *path, *query;
+	const char *url = NULL, *data_file = NULL;
+	const char *scheme, *host, *path, *query;
 	char uri[256];
 	int port;
+	int retries = 0;
+	int timeout = -1;
 
 	struct bufferevent *bev;
 	struct evhttp_connection *evcon = NULL;
 	struct evhttp_request *req;
 	struct evkeyvalq *output_headers;
+	struct evbuffer *output_buffer;
 
 	int i;
 	int ret = 0;
 
 	for (i = 1; i < argc; i++) {
-		url = argv[1];
-	} 
+		if (!strcmp("-url", argv[i])) {
+			if (i < argc - 1) {
+				url = argv[i + 1];
+			} else {
+				syntax();
+				goto error;
+			}
+		} else if (!strcmp("-data", argv[i])) {
+			if (i < argc - 1) {
+				data_file = argv[i + 1];
+			} else {
+				syntax();
+				goto error;
+			}
+		} else if (!strcmp("-retries", argv[i])) {
+			if (i < argc - 1) {
+				retries = atoi(argv[i + 1]);
+			} else {
+				syntax();
+				goto error;
+			}
+		} else if (!strcmp("-timeout", argv[i])) {
+			if (i < argc - 1) {
+				timeout = atoi(argv[i + 1]);
+			} else {
+				syntax();
+				goto error;
+			}
+		} else if (!strcmp("-help", argv[i])) {
+			syntax();
+			goto error;
+		}
+	}
 
 	if (!url) {
 		syntax();
 		goto error;
 	}
 
+
 	http_uri = evhttp_uri_parse(url);
 	if (http_uri == NULL) {
 		err("malformed url");
+		goto error;
+	}
+
+	scheme = evhttp_uri_get_scheme(http_uri);
+	if (scheme == NULL || (strcasecmp(scheme, "https") != 0 &&
+	                       strcasecmp(scheme, "http") != 0)) {
+		err("url must be http or https");
 		goto error;
 	}
 
@@ -115,7 +161,7 @@ main(int argc, char **argv)
 
 	port = evhttp_uri_get_port(http_uri);
 	if (port == -1) {
-		port = 80;
+		port = (strcasecmp(scheme, "http") == 0) ? 80 : 443;
 	}
 
 	path = evhttp_uri_get_path(http_uri);
@@ -138,30 +184,31 @@ main(int argc, char **argv)
 		goto error;
 	}
 
-	bev = bufferevent_socket_new(base, -1, BEV_OPT_CLOSE_ON_FREE);
+	if (strcasecmp(scheme, "http") == 0) {
+		bev = bufferevent_socket_new(base, -1, BEV_OPT_CLOSE_ON_FREE);
+	} 
 
 	if (bev == NULL) {
 		fprintf(stderr, "bufferevent_openssl_socket_new() failed\n");
 		goto error;
 	}
 
+
 	// For simplicity, we let DNS resolution block. Everything else should be
 	// asynchronous though.
-
-	// struct evhttp_connection *
-	// evhttp_connection_base_new(struct event_base *base, struct evdns_base *dnsbase,
-	//     const char *address, unsigned short port)
-	// {
-	// 	return evhttp_connection_base_bufferevent_new(base, dnsbase, NULL, address, port);
-	// }
-
 	evcon = evhttp_connection_base_bufferevent_new(base, NULL, bev,
-			host, port);
+		host, port);
 	if (evcon == NULL) {
 		fprintf(stderr, "evhttp_connection_base_bufferevent_new() failed\n");
 		goto error;
 	}
 
+	if (retries > 0) {
+		evhttp_connection_set_retries(evcon, retries);
+	}
+	if (timeout >= 0) {
+		evhttp_connection_set_timeout(evcon, timeout);
+	}
 
 	// Fire off the request
 	req = evhttp_request_new(http_request_done, bev);
@@ -174,7 +221,31 @@ main(int argc, char **argv)
 	evhttp_add_header(output_headers, "Host", host);
 	evhttp_add_header(output_headers, "Connection", "close");
 
-	r = evhttp_make_request(evcon, req, EVHTTP_REQ_GET, uri);
+	if (data_file) {
+		/* NOTE: In production code, you'd probably want to use
+		 * evbuffer_add_file() or evbuffer_add_file_segment(), to
+		 * avoid needless copying. */
+		FILE * f = fopen(data_file, "rb");
+		char buf[1024];
+		size_t s;
+		size_t bytes = 0;
+
+		if (!f) {
+			syntax();
+			goto error;
+		}
+
+		output_buffer = evhttp_request_get_output_buffer(req);
+		while ((s = fread(buf, 1, sizeof(buf), f)) > 0) {
+			evbuffer_add(output_buffer, buf, s);
+			bytes += s;
+		}
+		evutil_snprintf(buf, sizeof(buf)-1, "%lu", (unsigned long)bytes);
+		evhttp_add_header(output_headers, "Content-Length", buf);
+		fclose(f);
+	}
+
+	r = evhttp_make_request(evcon, req, data_file ? EVHTTP_REQ_POST : EVHTTP_REQ_GET, uri);
 	if (r != 0) {
 		fprintf(stderr, "evhttp_make_request() failed\n");
 		goto error;
@@ -190,10 +261,6 @@ cleanup:
 		evhttp_connection_free(evcon);
 	if (http_uri)
 		evhttp_uri_free(http_uri);
-	if(base)
-	{
-		event_base_free(base);
-	}
-
+	event_base_free(base);
 	return ret;
 }

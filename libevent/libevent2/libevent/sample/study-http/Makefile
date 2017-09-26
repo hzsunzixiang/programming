@@ -7,7 +7,7 @@ INCLUDE = -I../../include  -I..
 LIB = -L../../.libs -lrt ../../.libs/libevent.a 
 LIBHTTPS = -L../../.libs ../../.libs/libevent.a ../../.libs/libevent_openssl.a -lssl -lcrypto  ../libcurl.a 
 
-BIN=http-server myserver evhttp_new http-connect myconnect  http-client http-client-s
+BIN=http-server myserver evhttp_new myconnect  http-client http-client-s
 
 BINHTTPS=https-client 
 
