@@ -18,7 +18,7 @@ all:$(BIN) $(BINHTTPS)
 $(BIN):%:%.c 
 	$(CC) $(CFLAGS)  $^ $(LIB) $(INCLUDE) -o $@
 
-$(BINHTTPS):%:%.c ../sample/openssl_hostname_validation.c
+$(BINHTTPS):%:%.c ./openssl_hostname_validation.c
 	$(CC) $(CFLAGS)  $^ $(LIBHTTPS) $(INCLUDE) -o $@
 clean:
 	rm -f *.o $(BIN) $(BINHTTPS)
