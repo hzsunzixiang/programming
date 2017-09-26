@@ -11,7 +11,7 @@ LIBHTTPS = -L../.libs ../.libs/libevent.a ../.libs/libevent_openssl.a -lssl -lcr
 #sudo aptitude search libssl-dev
 
 BIN=hello-world dns-example  event-read-fifo  http-connect  signal-test time-test 
-BINHTTPS=https-client
+BINHTTPS=https-client http-client
 
 all:$(BIN) $(BINHTTPS)
 

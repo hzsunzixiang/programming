@@ -4,12 +4,12 @@ CFLAGS=-Wall -g
 VPATH=../../include
 INCLUDE = -I../../include  -I..
 
-LIB = -L../../.libs -levent -lrt
+LIB = -L../../.libs -lrt ../../.libs/libevent.a 
 LIBHTTPS = -L../../.libs ../../.libs/libevent.a ../../.libs/libevent_openssl.a -lssl -lcrypto  ../libcurl.a 
 
-BIN=http-server myserver evhttp_new http-connect myconnect 
+BIN=http-server myserver evhttp_new http-connect myconnect  http-client http-client-s
 
-BINHTTPS=https-client
+BINHTTPS=https-client 
 
 all:$(BIN) $(BINHTTPS)
 
