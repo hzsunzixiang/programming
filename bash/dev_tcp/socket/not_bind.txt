@@ -1,0 +1,7 @@
+https://unix.stackexchange.com/questions/49936/dev-tcp-listen-instead-of-nc-listen
+
+Unfortunately it's impossible to do with just bash. /dev/tcp/<ip>/<port> virtual files are implemented in the way that bash tries to connect to the specified <ip>:<port> using connect(2) function. In order to create listening socket, it would have to call bind(2) function.
+
+You can check this by downloading bash sources and looking at it. It is implemented in lib/sh/netopen.c file in _netopen4 function (or _netopen6, which also supports IPv6). This function is used by wrapper function netopen from the same file, which in turns is directly used in file redir.c (redir_special_open function) to implement this virtual redirection.
+
+You have to find some other application that can create listening socket on your machine.
