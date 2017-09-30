@@ -1,0 +1,574 @@
+
+Starting program: /home/StephenSun/programming/algrithm/recursion/combination/combination_2
+
+Temporary breakpoint 2, main () at combination_2.c:63
+63          int arr[] = {1, 2, 3, 4, 5};
+(gdb) c
+Continuing.
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:36
+#1  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#2  0x000000000040075a in main () at combination_2.c:66
+index:0, i: 0
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#2  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#3  0x000000000040075a in main () at combination_2.c:66
+index:1, i: 1
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=2) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=2) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#3  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#4  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 2
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#4  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#5  0x000000000040075a in main () at combination_2.c:66
+index:3, i: 3
+1 2 3
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#4  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#5  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 3
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:52
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#4  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#5  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#6  0x000000000040075a in main () at combination_2.c:66
+index:3, i: 4
+1 2 4
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#4  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#5  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#6  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 4
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:52
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#4  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#5  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:3, i: 5
+1 2 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:56
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#4  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#5  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#3  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#4  0x000000000040075a in main () at combination_2.c:66
+index:1, i: 2
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#4  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#5  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 3
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:52
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#4  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#5  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#6  0x000000000040075a in main () at combination_2.c:66
+index:3, i: 4
+1 3 4
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#4  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#5  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#6  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 4
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:52
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#5  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:3, i: 5
+1 3 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:56
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#5  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#4  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#5  0x000000000040075a in main () at combination_2.c:66
+index:1, i: 3
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:52
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#4  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#5  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#6  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 4
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:52
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:52
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#5  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:3, i: 5
+1 4 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:56
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:52
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#5  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#4  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#5  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#6  0x000000000040075a in main () at combination_2.c:66
+index:1, i: 4
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:52
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#5  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:56
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#5  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:52
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:1, i: 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#2  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#3  0x000000000040075a in main () at combination_2.c:66
+index:0, i: 1
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#3  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#4  0x000000000040075a in main () at combination_2.c:66
+index:1, i: 2
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#4  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#5  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 3
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:52
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#5  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#6  0x000000000040075a in main () at combination_2.c:66
+index:3, i: 4
+2 3 4
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#5  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#6  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 4
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:52
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#4  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#5  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:3, i: 5
+2 3 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:56
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#4  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#5  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#4  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#5  0x000000000040075a in main () at combination_2.c:66
+index:1, i: 3
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:52
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#5  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#6  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 4
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:52
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:52
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#4  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#5  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:3, i: 5
+2 4 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:56
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:52
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#4  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#5  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#5  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#6  0x000000000040075a in main () at combination_2.c:66
+index:1, i: 4
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:52
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#4  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#5  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:56
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#4  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:52
+#5  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:1, i: 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#3  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#4  0x000000000040075a in main () at combination_2.c:66
+index:0, i: 2
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#4  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#5  0x000000000040075a in main () at combination_2.c:66
+index:1, i: 3
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:52
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#5  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#6  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 4
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=3, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:52
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:52
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#5  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:3, i: 5
+3 4 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=4) at combination_2.c:56
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:52
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#5  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#5  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#6  0x000000000040075a in main () at combination_2.c:66
+index:1, i: 4
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:52
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#5  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:56
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#3  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:52
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#5  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:1, i: 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=3) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#4  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#5  0x000000000040075a in main () at combination_2.c:66
+index:0, i: 3
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=3) at combination_2.c:52
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#5  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#6  0x000000000040075a in main () at combination_2.c:66
+index:1, i: 4
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=2, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:52
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=3) at combination_2.c:52
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#5  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:2, i: 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=4) at combination_2.c:56
+#2  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=3) at combination_2.c:52
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#5  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:1, i: 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=4) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#5  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#6  0x000000000040075a in main () at combination_2.c:66
+index:0, i: 4
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=1, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x00000000004006e5 in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=4) at combination_2.c:52
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#5  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+index:1, i: 5
+
+Breakpoint 1, combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+36              printf("index:%d, i: %d\n", index, i);
+#0  combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=5) at combination_2.c:36
+#1  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=4) at combination_2.c:56
+#2  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=3) at combination_2.c:56
+#3  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=2) at combination_2.c:56
+#4  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=1) at combination_2.c:56
+#5  0x000000000040070b in combinationUtil (arr=0x7fffffffe310, n=5, r=3, index=0, data=0x7fffffffe2c0, i=0) at combination_2.c:56
+#6  0x00000000004005f6 in printCombination (arr=0x7fffffffe310, n=5, r=3) at combination_2.c:25
+#7  0x000000000040075a in main () at combination_2.c:66
+

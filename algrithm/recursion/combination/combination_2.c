@@ -33,6 +33,7 @@ void printCombination(int arr[], int n, int r)
    i      ---> index of current element in arr[]     */
 void combinationUtil(int arr[], int n, int r, int index, int data[], int i)
 {
+	printf("index:%d, i: %d\n", index, i);
     // Current cobination is ready, print it
     if (index == r)
     {
@@ -54,6 +55,7 @@ void combinationUtil(int arr[], int n, int r, int index, int data[], int i)
     // i+1 is passed, but index is not changed)
     combinationUtil(arr, n, r, index, data, i+1);
 }
+
  
 // Driver program to test above functions
 int main()
