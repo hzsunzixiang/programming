@@ -1,0 +1,29 @@
+foo
+bar
+baz
+space    pts/0        Mar 19 09:44 (172.31.133.66)
+space    pts/6        Mar 19 09:44 (172.31.133.66)
+hzhoubenwen pts/7        Mar 19 09:47 (172.31.133.250)
+space    pts/8        Mar 19 10:01 (172.31.133.66)
+space    pts/13       Mar 19 11:49 (172.31.133.66)
+bletch
+1.txt
+2.txt
+close_file
+close_pipe
+execute
+foo.input
+getline.awk
+getline_commond.sh
+getline_example.sh
+getline_file.sh
+getline_null.sh
+getline_null2.sh
+getline_var.sh
+getlinevar_file.sh
+include
+line
+line1
+line2
+next.sh
+word

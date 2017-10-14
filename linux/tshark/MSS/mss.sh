@@ -66,8 +66,8 @@ OVERHEAD=76
 #printf("network the average packets/s:%.1f\n", sum / n); 
 cat data.txt  |awk -F'|' '{print $3,$4}' |awk '
 	BEGIN{sumFrames = 0; sumBytes =0; sumPayLoad=0} 
-	{sumFrames += $1; sumBytes += $2; sumPayLoad=$2 - '"$OVERHEAD"'*$1}
-	END {printf("sumFrames:%.1f, \nsumBytes:%.1f, \nsumPayLoad:%.1f,\nloadratio:%.1f\n", sumFrames, sumBytes, sumPayLoad, sumPayLoad/sumBytes)}
+	{sumFrames += $1; sumBytes += $2; sumPayLoad+=$2 - '"$OVERHEAD"'*$1}
+	END {printf("sumFrames:%.1f, \nsumBytes:%.1f, \nsumPayLoad:%.1f,\nloadratio:%.4f\n", sumFrames, sumBytes, sumPayLoad, sumPayLoad/sumBytes)}
 '
 
 

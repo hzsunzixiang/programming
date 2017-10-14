@@ -1,0 +1,7 @@
+
+
+BEGIN { print "hello, world" }
+
+
+
+
