@@ -16,6 +16,11 @@ test -x /usr/sbin/logrotate || exit 0
 /usr/sbin/logrotate /etc/logrotate.d/test.conf
 
 
+http://xmodulo.com/logrotate-manage-log-files-linux.html
+How to use logrotate to manage log files in Linux
+http://blog.csdn.net/zhoubangding/article/details/54287168
+https://www.cyberciti.biz/faq/how-do-i-rotate-log-files/
+
 
 sudo anacron -f cron.weekly
 
