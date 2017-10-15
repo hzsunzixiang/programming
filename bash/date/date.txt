@@ -1,0 +1,8 @@
+
+
+set time
+	sudo date --set "2017-06-29 23:59:50"
+	sudo date -s "2017-06-28 23:59:00"
+
+updatetime:
+	sudo ntpdate ntp.api.bz
