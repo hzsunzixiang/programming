@@ -137,7 +137,7 @@ listener_cb(struct evconnlistener *listener, evutil_socket_t fd,
 
 	//getchar();
 	// 调用这个函数  把数据加入应用层缓冲区
-	// epoll_wait 返回的时候就会把 改写的数据写到套接口
+	// epoll_wait 返回的时候就会把 要写的数据写到套接口
 	// 这个是同定义的回调
 	// 1580            (evcb_callback)(evcb_fd, evcb_res, evcb_arg);
 	// (gdb) p evcb_callback
@@ -209,3 +209,17 @@ signal_cb(evutil_socket_t sig, short events, void *user_data)
 // mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f70bcc74000
 // write(1, "flushed answer\n", 15flushed answer  )        = 15
 
+
+
+
+
+// Inserted events:
+//   0x1af6c68 [fd  4] Read Persist Internal
+//   0x1af70e8 [fd  6] Read Persist
+//   0x1af72a0 [sig 2] Signal Persist
+// Active events:
+// write data to socket
+// flushed answer
+// ^CCaught an interrupt signal; exiting cleanly in two seconds.
+// event_base_got_exit
+// done
