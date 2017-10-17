@@ -36,3 +36,26 @@ http://linux.vbird.org/linux_basic/0430cron.php#anacron_1
 
 
 也就是說，如果你每個週日的需要執行的動作是放置於 /etc/crontab 的話，那麼該動作只要過期了就過期了，並不會被抓回來重新執行。但如果是放置在 /etc/cron.weekly/ 目錄下，那麼該工作就會定期，幾乎一定會在一週內執行一次～如果你關機超過一週，那麼一開機後的數個小時內，該工作就會主動的被執行喔！ 真的嗎？對啦！因為 /etc/anacrontab 的定義啦！
+
+
+copytruncate 这个选项会导致文件拷贝
+
+copytruncate instruct logrotate to creates the copy of the original file (i.e rotate the original log file) and truncates the original file to zero byte size. This helps the respective service that belongs to that log file can write to the proper file.
+
+
+copytruncate
+         Truncate  the  original  log  file  to  zero size in place after
+         creating a  copy,  instead  of  moving  the  old  log  file  and
+         optionally creating a new one.  It can be used when some program
+         cannot be told to close its  logfile  and  thus  might  continue
+         writing (appending) to the previous log file forever.  Note that
+         there is a very small time slice between copying  the  file  and
+         truncating  it,  so  some logging data might be lost.  When this
+         option is used, the create option will have no  effect,  as  the
+         old log file stays in place.
+
+
+
+
+
+
