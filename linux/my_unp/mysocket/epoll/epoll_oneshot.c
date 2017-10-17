@@ -160,3 +160,18 @@ make_socket_non_blocking (int sfd)
 
 	return 0;
 }
+
+
+// 如果是 
+//
+//StephenSun@debian-1:~/programming/linux/my_unp/mysocket/epoll$ ./epoll_oneshot                                                                           hello,world
+//hello,world
+//hello,world
+//hello,world
+//
+//StephenSun@debian-1:~/programming/linux/my_unp/mysocket/epoll$ echo "hello,world" > event.fifo 
+//StephenSun@debian-1:~/programming/linux/my_unp/mysocket/epoll$ echo "hello,world" > event.fifo 
+//StephenSun@debian-1:~/programming/linux/my_unp/mysocket/epoll$ 
+
+//	//event.events = EPOLLIN | EPOLLET;
+//	event.events = EPOLLIN | EPOLLET | EPOLLONESHOT;
