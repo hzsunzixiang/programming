@@ -4,6 +4,15 @@
 #include "addressbook.pb.h"
 using namespace std;
 
+
+// http://www.cnblogs.com/fullsail/p/4220293.html
+// 编码和解码函数SerializeToArray，ParseFromArray，得到编码size要调用函数ByteSize。
+// 如果要逃避required的IsInitialized()检查检查，可以用SerializePartialToArray， ParsePartialFromArray一类函数。当然后果自负。
+
+// proto的解码就是找到key，根据key找到tag（代码里面叫fieldnumber），然后根据tag进行解码，因为编码是KV的，编码本身有一定的防错性。
+
+// 比较有意思的是google在代码里面会有预测下一个tag解码处理。应该是为了加速处理（不进入for循环）。 
+
 // Iterates though all people in the AddressBook and prints info about them.
 void ListPeople(const tutorial::AddressBook& address_book) {
 	for (int i = 0; i < address_book.people_size(); i++) {
@@ -82,7 +91,7 @@ int main(int argc, char* argv[]) {
 		::tutorial::Person* person = address_book.add_people();
 
 		int id = 678901534;
-		// required 字段缺少
+		// required 字段如果缺少(也就是不set)
 		// 而且使用SerializeToArray  而不是SerializePartialToArray
 		// 此时会报错 抛出异常
 		//person->set_id(id);
@@ -106,6 +115,7 @@ int main(int argc, char* argv[]) {
 
 	char msgAddress[64*1024] = {0};
 	assert(address_book.SerializeToArray(msgAddress, sizeof(msgAddress))); 
+	//assert(address_book.SerializePartialToArray(msgAddress, sizeof(msgAddress))); 
 	unsigned int msgAddrsize = address_book.ByteSize();
 	cout<<"msgAddrsize:\t"<<msgAddrsize<<endl;
 
