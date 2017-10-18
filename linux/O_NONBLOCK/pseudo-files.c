@@ -27,8 +27,10 @@ int main(int argc, char *argv[])
 {
 	char buf[1024] = {0};
 	int ret;
+	//clr_flag(0, O_NONBLOCK);
+#ifndef BLOCK
 	set_flag(0, O_NONBLOCK);
-	clr_flag(0, O_NONBLOCK);
+#endif
 	ret = read(0, buf, 1024);
 	if (ret == -1)
 		ERR_EXIT("read error");
@@ -58,3 +60,14 @@ void clr_flag(int fd, int flags)
 	if (fcntl(fd, F_SETFL, val) < 0)
 		ERR_EXIT("fcntl set flag error");
 }
+
+// 非阻塞
+// StephenSun@debian:~/programming/linux/O_NONBLOCK$ ./pseudo-files
+// read error: Resource temporarily unavailable
+// 
+
+
+// 阻塞
+// StephenSun@debian:~/programming/linux/O_NONBLOCK$ ./pseudo-files
+
+

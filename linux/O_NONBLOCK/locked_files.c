@@ -7,6 +7,8 @@
 #include <string.h>
 #include <sys/stat.h>
 
+//gcc -o test test.cpp -DBLOCK=1
+
 #define LOCKFILE "./flock_test.lock"
 #define LOCKMODE (S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)
 
@@ -15,8 +17,11 @@
 
 void getlock2(fd)
 {
-    //if (flock(fd, LOCK_EX | LOCK_NB) < 0)
-    if (flock(fd, LOCK_EX) < 0)
+#ifdef BLOCK
+	if (flock(fd, LOCK_EX) < 0)
+#else
+	if (flock(fd, LOCK_EX | LOCK_NB) < 0)
+#endif
     {
         if (errno == EWOULDBLOCK)
         {
@@ -37,7 +42,11 @@ void getlock2(fd)
 
 void unlock2(fd)
 {
+#ifdef BLOCK
     if (flock(fd, LOCK_UN) < 0)
+#else
+    if (flock(fd, LOCK_EX | LOCK_NB) < 0)
+#endif
     {   
         printf("flock [%d]unlock error: %s fd: %d.\n", getpid(), strerror(errno), fd);
     }   
@@ -73,4 +82,33 @@ int main()
 
 	return 0;
 }
+
+
+// 非阻塞
+
+// StephenSun@debian:~/programming/linux/O_NONBLOCK$ ./locked_files
+// parent pid: 22160.
+// flock [22160]get lock succ fd: 3.
+// lock success
+// press any key to unlock
+// 
+// StephenSun@debian:~/programming/linux/O_NONBLOCK$ ./locked_files
+// parent pid: 22161.
+// flock [22161]file already locked by other process fd : 3.
+
+
+// 阻塞模式
+// StephenSun@debian:~/programming/linux/O_NONBLOCK$ ./locked_files
+// parent pid: 22135.
+// flock [22135]get lock succ fd: 3.
+// lock success
+// press any key to unlock
+// 
+// 
+// // 原地等待 阻塞
+// StephenSun@debian:~/programming/linux/O_NONBLOCK$ ./locked_files
+// parent pid: 22142.
+
+
+
 

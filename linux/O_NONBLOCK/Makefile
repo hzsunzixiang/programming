@@ -1,6 +1,9 @@
 .PHONY:clean all
 CC=gcc
-CFLAGS=-Wall -g
+# 演示 阻塞模式
+CFLAGS=-Wall -g -DBLOCK
+# 演示非阻塞模式
+#CFLAGS=-Wall -g
 BIN=locked_files pseudo-files
 all:$(BIN)
 %.o:%.c
