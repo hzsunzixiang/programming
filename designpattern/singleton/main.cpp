@@ -21,6 +21,7 @@ public:
 
 int main()
 {
-	AccessInterTaskParser::getInstance();
+	int i = 0;
+	AccessInterTaskParser::getInstance();  // 只有这一行才会触发实例化 在main运行前 实例化
 	return 0;
 }
