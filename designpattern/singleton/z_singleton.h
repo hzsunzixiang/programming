@@ -5,6 +5,9 @@
 #include "z_memcheck.h"
 #include "z_noncopyable.h"
 
+#include <iostream>
+using namespace std;
+
 template <typename T, bool INIT = true>
 class ZSingleton : private ZNonCopyable {
 };
@@ -12,8 +15,14 @@ class ZSingleton : private ZNonCopyable {
 template <typename T>
 class ZSingleton<T,true> : private ZNonCopyable {
 protected:
-	ZSingleton() {}
-	~ZSingleton() {}
+	ZSingleton() 
+	{
+		cout << "ZSingleton init" << endl;
+	}
+	~ZSingleton() 
+	{
+		cout << "ZSingleton destroy" << endl;
+	}
 
 public:
 	static T& getInstance() {
