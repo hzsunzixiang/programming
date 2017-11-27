@@ -69,7 +69,15 @@ int main()
 	fp();
 	return 0;
 }
-
+//(gdb) p dc
+//$5 = (dev_class) {
+//  <base_class1> = {
+//    _vptr.base_class1 = 0x400fd0 <vtable for dev_class+16>
+//  }, 
+//  <base_class2> = {
+//    _vptr.base_class2 = 0x400ff0 <vtable for dev_class+48>
+//  }, <No data fields>}
+//
 
 // This is base_class1's v_func1()
 // This is dc_func1's dc_func1()  对于多重继承，子类跟第一个父类放在一起

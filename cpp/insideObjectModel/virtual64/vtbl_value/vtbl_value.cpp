@@ -54,7 +54,7 @@ int main()
 	
 	pdc->v_func4();
 	cout << "-------------base_class------------------------" << endl;
-	cout << "bc._vptr\t" << bc._vptr << endl;  // 直接就是第一个函数首地址
+	cout << "bc._vptr\t" << bc._vptr <<"\t&bc._vptr\t" << &bc._vptr  << "\t&bc\t" << &bc<< endl;  // 直接就是第一个函数首地址
 	// bc._vptr为第一个函数指针， * 可以取出这个函数 
 	((func_pointer)*(bc._vptr + 0))();
 	((func_pointer)*(bc._vptr + 1))();
@@ -120,3 +120,18 @@ int main()
 //   x = 4196352,
 //   y = 0
 // }
+//ptype obj/class/struct
+//查看obj/class/struct的成员，但是会把基类指针指向的派生类识别为基类
+//
+//set print object on
+//这个选项可以看到派生对象的真实类名，虽然ptype也可以打印出对象
+//
+//set print pretty on
+//以树形打印对象的成员，可以清晰展示继承关系，设置为off时对象较大时会显示“一坨”
+//
+//set print vtbl on
+//用比较规整的格式来显示虚函数表
+//
+//推荐设置这两个：
+//set print object on
+//set print pretty on
