@@ -1,0 +1,57 @@
+
+(gdb) disassemble 
+Dump of assembler code for function Point::Point(double, double):
+   0x0000000000400b6e <+0>:     push   %rbp
+   0x0000000000400b6f <+1>:     mov    %rsp,%rbp
+........
+.=> 0x0000000000400b84 <+22>:    mov    -0x8(%rbp),%rax
+   0x0000000000400b88 <+26>:    movq   $0x4013d0,(%rax)
+
+
+
+
+z = 0.0):Point(x, y), _z(z) 
+(gdb) disassemble 
+Dump of assembler code for function Point3d::Point3d(double, double, double):
+   0x0000000000400c36 <+0>:     push   %rbp
+   0x0000000000400c37 <+1>:     mov    %rsp,%rbp
+   0x0000000000400c3a <+4>:     sub    $0x30,%rsp
+   0x0000000000400c3e <+8>:     mov    %rdi,-0x8(%rbp)
+.......
+   0x0000000000400c8e <+88>:    mov    %rax,0x8(%rdx)
+   0x0000000000400c92 <+92>:    mov    $0x40115c,%esi  //  一个vptr 一个虚基类指针
+   0x0000000000400c97 <+97>:    mov    $0x601d40,%edi
+
+
+Dump of assembler code for function Vertex::Vertex(double, double, double):
+   0x0000000000400cd6 <+0>:     push   %rbp
+   0x0000000000400d2a <+84>:    mov    -0x28(%rbp),%rax
+.......
+   0x0000000000400d2e <+88>:    mov    %rax,0x8(%rdx)
+   0x0000000000400d32 <+92>:    mov    $0x401176,%esi //  一个vptr 一个虚基类指针
+   0x0000000000400d37 <+97>:    mov    $0x601d40,%edi
+
+
+
+Dump of assembler code for function Vertex3d::Vertex3d(double, double, double):
+   0x0000000000400e5a <+0>:     push   %rbp
+....
+   0x0000000000400e86 <+44>:    mov    %rax,%rdi
+   0x0000000000400e89 <+47>:    callq  0x400b6e <Point::Point(double, double)>
+....
+   0x0000000000400ec1 <+103>:   mov    %rax,%rdi
+   0x0000000000400ec4 <+106>:   callq  0x400c36 <Point3d::Point3d(double, double, double)>
+   0x0000000000400ec9 <+111>:   mov    $0x401278,%edi
+....
+   0x0000000000400f00 <+166>:   mov    %rdx,%rdi
+   0x0000000000400f03 <+169>:   callq  0x400cd6 <Vertex::Vertex(double, double, double)>
+   0x0000000000400f08 <+174>:   mov    $0x4011d8,%edx
+....
+   0x0000000000400f1d <+195>:   add    %rdx,%rax
+   0x0000000000400f20 <+198>:   mov    $0x401240,%edx
+   0x0000000000400f25 <+203>:   mov    %rdx,(%rax)
+   0x0000000000400f28 <+206>:   mov    $0x401208,%edx
+   0x0000000000400f2d <+211>:   mov    -0x18(%rbp),%rax
+   0x0000000000400f31 <+215>:   mov    %rdx,0x10(%rax)
+   0x0000000000400f35 <+219>:   mov    $0x40118f,%esi
+   0x0000000000400f3a <+224>:   mov    $0x601d40,%edi
