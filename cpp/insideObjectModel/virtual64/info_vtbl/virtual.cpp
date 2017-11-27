@@ -37,6 +37,9 @@ class ChildClass : public BaseClass
 			int b = 2;
 			y = a + b;
 		}
+		virtual void Test1()
+		{
+		}
 	public:
 		int y;
 		int z;
@@ -60,6 +63,10 @@ int main(int argc, char **argv)
 	BaseClass *pObject1 = new ChildClass();
 	pObject0->Test();
 	pObject->Test();
+
+	//pObject1->Test1(); // 基类没有定义的函数 此时以基类指针是无法获取 派生类函数的
+	//virtual.cpp:67:12: error: ‘class BaseClass’ has no member named ‘Test1’
+    //		  pObject1->Test1();
 
 	//asm("int3");
 	// 为了当用一个基类的指针删除一个派生类的对象时，派生类的析构函数会被调用。 
