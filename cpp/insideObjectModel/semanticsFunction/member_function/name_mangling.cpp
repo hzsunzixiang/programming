@@ -40,15 +40,35 @@ int main()
 {
 
 	Bar bar;
+	// call	_ZN3Bar7bar_funEv
 	bar.bar_fun();
+	// call	_ZN3Bar7bar_funEi
 	bar.bar_fun(10);
+	// call	_ZN3Bar7bar_funEd
 	bar.bar_fun(10.0);
 	Bar const bar_const(bar);
+
+	// 如果不定义 常量函数  则报错
+	// name_mangling.cpp:52:20: error: passing ‘const Bar’ as ‘this’ argument of ‘int Bar::bar_fun()’ discards qualifiers [-fpermissive]
+  //bar_const.bar_fun();
+	// call	_ZNK3Bar7bar_funEv
 	bar_const.bar_fun();
+
+
+	// call	_ZN3Bar7bar_funEd
 	Bar::bar_fun(100.0);  // call	_ZN3Bar7bar_funEd
 
+	//call	_ZN3Bar7bar_funEv
+	//call	_ZN3Bar7bar_funEi
+	//call	_ZN3Bar7bar_funEd
+	//call	_ZNK3Bar7bar_funEv
+	//call	_ZN3Bar7bar_funEd
+	//call	_ZN3Foo7bar_funEv
+
 	Foo foo;
+	// call	_ZN3Foo7bar_funEv
 	foo.bar_fun();
+	
 	return 0;
 }
 

@@ -6,9 +6,8 @@ class Point3d
 	
 	public:
 		double magnitude() const;
-		Point3d normalize() const;
+		//Point3d normalize() const;
 		Point3d normalize() ;
-		//_ZN7Point3d3funEv:
 		int fun(){ return 10;}
 		
 	private:
@@ -52,9 +51,6 @@ int main()
 	// 编译通过，但是对于虚函数会崩溃
 	// 对于非虚函数，如果不引用成员变量 这里不会崩溃
 	nullPtr->fun();
-	// 引用成员变量  运行时崩溃
-	//nullPtr->normalize();
-
 
 	return 0;
 }

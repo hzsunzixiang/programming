@@ -12,6 +12,22 @@ class Point3d
 		//取地址，
 		static int fun(int i){ return 10 + i;}
 		int bar(int i){ return 10 + i;}
+		// 静态成员不可能做到
+	    // 1. const 修饰 2. 访问 nostatic
+		// 1. 这里不合法
+		//static int constFun()const{ return 10;}
+		// Point3d_static.cpp:17:24: error: static member function ‘static int Point3d::constFun()’ cannot have cv-qualifier
+		// static int constFun()const{ return 10;}
+		// 
+		// 2. 这里不合法
+		//static int accessMemData(){ return _x;}
+
+		// Point3d_static.cpp: In static member function ‘static int Point3d::accessMemData()’:
+		// Point3d_static.cpp:26:10: error: invalid use of member ‘Point3d::_x’ in static member function
+		//    double _x;
+		//           ^
+		// Point3d_static.cpp:23:38: error: from this location
+		//    static int accessMemData(){ return _x;}
 		
 	private:
 		double _x;
@@ -19,6 +35,7 @@ class Point3d
 		double _z;
 };
 
+// virtual double magnitude() const;
 // _ZNK7Point3d9magnitudeEv:
 double Point3d::magnitude() const
 {
@@ -26,6 +43,7 @@ double Point3d::magnitude() const
 }
 
 
+// virtual Point3d normalize() ;
 Point3d Point3d::normalize()
 {
 	double mag = magnitude();
@@ -44,11 +62,17 @@ int main()
 	Point3d *nullPtr = 0;
 
 	// 通过对象 
+	// call	_ZN7Point3d9normalizeEv
 	obj.normalize();
 
 	// 通过指针 
+	// call	*%rax
+	// ptr的位置 在编译时已经决定了 要访问的 虚函数表的位置(slot), 
 	ptr->normalize();
 
+	// 都是静态调用  无虚函数 调用方式一样
+	
+	//call	_ZN7Point3d3funEi
 	ptr->fun(1);
 	nullPtr->fun(1);
 	Point3d::fun(1);
