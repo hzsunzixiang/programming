@@ -4,7 +4,7 @@
 
 // 这里可以构造一个无限循环
 //
-// 必须声明一个虚基类才能达到目的，不然在A中不可以直接调用 b->printB()
+// 必须声明一个带虚函数的基类才能达到目的，不然在A中不可以直接调用 b->printB()
 
 // 一直到coredump为止
 class B;
@@ -20,7 +20,7 @@ class A {
 		void printA()
 		{
 			printf("in A\n");
-			b->printB();    //  如果只是前向声明B,达不到目的
+			b->printB();    //  如果只是前向声明B,达不到目的  因为到这里 还看不到B的定义
 		}
 	public:
 		Bx * b;
@@ -32,7 +32,7 @@ class B:public Bx {
 		void printB()
 		{
 			printf("in B\n");
-			a->printA();
+			a->printA();  // 对 B也一样 需要看到A的定义
 		}
 	public:
 		A* a;
