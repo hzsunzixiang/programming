@@ -1,5 +1,6 @@
 
-
+#include <iostream>
+using namespace std;
 
 class BaseClass
 {
@@ -10,9 +11,19 @@ class BaseClass
 	public:
 		int x;
 	public:
-		virtual ~BaseClass(){}
+		BaseClass()
+		{
+			cout << "constructor BaseClass" << endl;
+		}
+		//virtual ~BaseClass()
+		virtual ~BaseClass()
+		{
+			cout << "~BaseClass" << endl;
+		}
 		//如果没有虚析构函数 32位下面没有报错
 		//warning: deleting object of polymorphic class type ‘ChildClass’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+		// 为了当用一个基类的指针删除一个派生类的对象时，派生类的析构函数会被调用。
+		// 这里必须设为 虚析构函数
 		 
 };
 
@@ -30,7 +41,14 @@ class ChildClass : public BaseClass
 		int y;
 		int z;
 	public:
-		~ChildClass(){}
+		ChildClass()
+		{
+			cout << "constructor ChildClass" << endl;
+		}
+		~ChildClass()
+		{
+			cout << "~ChildClass" << endl;
+		}
 };
 
 typedef int UnusedType, UsedType;
@@ -39,10 +57,12 @@ int main(int argc, char **argv)
 {
 	BaseClass *pObject0 = new BaseClass();
 	ChildClass *pObject = new ChildClass();
+	BaseClass *pObject1 = new ChildClass();
 	pObject0->Test();
 	pObject->Test();
 
 	//asm("int3");
-	delete pObject;
+	// 为了当用一个基类的指针删除一个派生类的对象时，派生类的析构函数会被调用。 
+	delete pObject1;
 	return 0;
 }

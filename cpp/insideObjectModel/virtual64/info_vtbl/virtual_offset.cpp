@@ -2,6 +2,13 @@
 
 
 
+// 用gdb 来探查 
+// 汇编的角度 查看
+// (*ptr->vptr[1]) (ptr);
+// (*ptr->vptr[2]) (ptr);
+// (*ptr->vptr[3]) (ptr);
+// (*ptr->vptr[4]) (ptr);
+// 探查有虚函数的时候 第一个成员变量 在_vptr 之后
 
 // invalid access to non-static data member ‘BaseClass::x’  of NULL object [-Winvalid-offsetof]
 
@@ -60,7 +67,7 @@ int main(int argc, char **argv)
 	// 在32位下实验
 	// BaseClass 中没有virtual关键字时
 	// sizeof(ChildClass):12, offsetof(ChildClass, x):0, offsetof(ChildClass, y):4, offsetof(ChildClass, z):8
-	// BaseClass 中有virtual关键字时
+	// BaseClass 中有virtual关键字时  
 	// sizeof(ChildClass):16, offsetof(ChildClass, x):4, offsetof(ChildClass, y):8, offsetof(ChildClass, z):12
 
 
@@ -71,6 +78,8 @@ int main(int argc, char **argv)
 	//
 
 	calc3(ChildClass, x, y, z);
+ //fprintf(stderr, "sizeof(""ChildClass""):%lu, offsetof(""ChildClass"", x):%ld, offsetof(""ChildClass"", y):%ld, offsetof(""ChildClass"", z):%ld\n", sizeof(ChildClass), ((size_t) &((ChildClass *)0)->x), ((size_t) &((ChildClass *)0)->y), ((size_t) &((ChildClass *)0)->z));;
+
 
 	pObject->Test();
 
