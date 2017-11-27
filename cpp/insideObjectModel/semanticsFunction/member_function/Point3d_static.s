@@ -92,7 +92,7 @@ _ZN7Point3d3barEi:
 	.type	_ZNK7Point3d9magnitudeEv, @function
 _ZNK7Point3d9magnitudeEv:
 .LFB107:
-	.loc 2 41 0
+	.loc 2 47 0
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -101,7 +101,7 @@ _ZNK7Point3d9magnitudeEv:
 	.cfi_def_cfa_register 6
 	subq	$16, %rsp
 	movq	%rdi, -8(%rbp)
-	.loc 2 42 0
+	.loc 2 48 0
 	movq	-8(%rbp), %rax
 	movsd	8(%rax), %xmm1
 	movq	-8(%rbp), %rax
@@ -123,7 +123,7 @@ _ZNK7Point3d9magnitudeEv:
 	movq	%xmm0, %rax
 	movq	%rax, -16(%rbp)
 	movsd	-16(%rbp), %xmm0
-	.loc 2 43 0
+	.loc 2 49 0
 	leave
 	.cfi_def_cfa 7, 8
 	ret
@@ -163,7 +163,7 @@ _ZN7Point3dC2Ev:
 	.type	_ZN7Point3d9normalizeEv, @function
 _ZN7Point3d9normalizeEv:
 .LFB108:
-	.loc 2 48 0
+	.loc 2 54 0
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -174,7 +174,7 @@ _ZN7Point3d9normalizeEv:
 	movq	%rdi, -24(%rbp)
 	movq	%rsi, -32(%rbp)
 .LBB3:
-	.loc 2 49 0
+	.loc 2 55 0
 	movq	-32(%rbp), %rax
 	movq	(%rax), %rax
 	movq	(%rax), %rax
@@ -183,35 +183,35 @@ _ZN7Point3d9normalizeEv:
 	call	*%rax
 	movq	%xmm0, %rax
 	movq	%rax, -8(%rbp)
-	.loc 2 50 0
+	.loc 2 56 0
 	movq	-24(%rbp), %rax
 	movq	%rax, %rdi
 	call	_ZN7Point3dC1Ev
-	.loc 2 51 0
+	.loc 2 57 0
 	movq	-32(%rbp), %rax
 	movsd	8(%rax), %xmm0
 	divsd	-8(%rbp), %xmm0
 	movq	%xmm0, %rax
 	movq	-24(%rbp), %rdx
 	movq	%rax, 8(%rdx)
-	.loc 2 52 0
+	.loc 2 58 0
 	movq	-32(%rbp), %rax
 	movsd	16(%rax), %xmm0
 	divsd	-8(%rbp), %xmm0
 	movq	%xmm0, %rax
 	movq	-24(%rbp), %rdx
 	movq	%rax, 16(%rdx)
-	.loc 2 53 0
+	.loc 2 59 0
 	movq	-32(%rbp), %rax
 	movsd	24(%rax), %xmm0
 	divsd	-8(%rbp), %xmm0
 	movq	%xmm0, %rax
 	movq	-24(%rbp), %rdx
 	movq	%rax, 24(%rdx)
-	.loc 2 54 0
+	.loc 2 60 0
 	nop
 .LBE3:
-	.loc 2 55 0
+	.loc 2 61 0
 	movq	-24(%rbp), %rax
 	leave
 	.cfi_def_cfa 7, 8
@@ -231,7 +231,7 @@ _ZN7Point3d9normalizeEv:
 	.type	main, @function
 main:
 .LFB115:
-	.loc 2 59 0
+	.loc 2 65 0
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -246,22 +246,22 @@ main:
 	.cfi_offset 12, -32
 	.cfi_offset 3, -40
 .LBB4:
-	.loc 2 60 0
+	.loc 2 66 0
 	leaq	-80(%rbp), %rax
 	movq	%rax, %rdi
 	call	_ZN7Point3dC1Ev
-	.loc 2 61 0
+	.loc 2 67 0
 	leaq	-80(%rbp), %rax
 	movq	%rax, -40(%rbp)
-	.loc 2 62 0
+	.loc 2 68 0
 	movq	$0, -48(%rbp)
-	.loc 2 66 0
+	.loc 2 72 0
 	leaq	-112(%rbp), %rax
 	leaq	-80(%rbp), %rdx
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	_ZN7Point3d9normalizeEv
-	.loc 2 71 0
+	.loc 2 77 0
 	movq	-40(%rbp), %rax
 	movq	(%rax), %rax
 	addq	$8, %rax
@@ -271,21 +271,21 @@ main:
 	movq	%rcx, %rsi
 	movq	%rdx, %rdi
 	call	*%rax
-	.loc 2 76 0
+	.loc 2 82 0
 	movl	$1, %edi
 	call	_ZN7Point3d3funEi
-	.loc 2 77 0
+	.loc 2 83 0
 	movl	$1, %edi
 	call	_ZN7Point3d3funEi
-	.loc 2 78 0
+	.loc 2 84 0
 	movl	$1, %edi
 	call	_ZN7Point3d3funEi
-	.loc 2 80 0
+	.loc 2 86 0
 	movl	$_ZN7Point3d3funEi, %esi
 	movl	$.LC0, %edi
 	movl	$0, %eax
 	call	printf
-	.loc 2 81 0
+	.loc 2 87 0
 	movl	$_ZN7Point3d3barEi, %r12d
 	movl	$0, %r13d
 	movq	%r12, %rcx
@@ -298,17 +298,17 @@ main:
 	movl	$.LC1, %edi
 	movl	$0, %eax
 	call	printf
-	.loc 2 82 0
+	.loc 2 88 0
 	movl	$_ZTIFiiE, %edi
 	call	_ZNKSt9type_info4nameEv
 	movq	%rax, %rsi
 	movl	$.LC2, %edi
 	movl	$0, %eax
 	call	printf
-	.loc 2 85 0
+	.loc 2 91 0
 	movl	$0, %eax
 .LBE4:
-	.loc 2 86 0
+	.loc 2 92 0
 	addq	$88, %rsp
 	popq	%rbx
 	popq	%r12
@@ -1203,19 +1203,19 @@ _ZTS7Point3d:
 	.uleb128 0x1f
 	.string	"_x"
 	.byte	0x2
-	.byte	0x21
+	.byte	0x27
 	.long	0x6ca
 	.byte	0x8
 	.uleb128 0x1f
 	.string	"_y"
 	.byte	0x2
-	.byte	0x22
+	.byte	0x28
 	.long	0x6ca
 	.byte	0x10
 	.uleb128 0x1f
 	.string	"_z"
 	.byte	0x2
-	.byte	0x23
+	.byte	0x29
 	.long	0x6ca
 	.byte	0x18
 	.uleb128 0x20
@@ -1239,7 +1239,7 @@ _ZTS7Point3d:
 	.uleb128 0x21
 	.long	.LASF91
 	.byte	0x2
-	.byte	0x28
+	.byte	0x2e
 	.long	.LASF93
 	.long	0x6ca
 	.byte	0x1
@@ -1256,7 +1256,7 @@ _ZTS7Point3d:
 	.uleb128 0x21
 	.long	.LASF92
 	.byte	0x2
-	.byte	0x2f
+	.byte	0x35
 	.long	.LASF94
 	.long	0x6d8
 	.byte	0x1
@@ -1442,7 +1442,7 @@ _ZTS7Point3d:
 	.uleb128 0x32
 	.string	"mag"
 	.byte	0x2
-	.byte	0x31
+	.byte	0x37
 	.long	0x6ca
 	.uleb128 0x2
 	.byte	0x91
@@ -1450,7 +1450,7 @@ _ZTS7Point3d:
 	.uleb128 0x33
 	.long	.LASF99
 	.byte	0x2
-	.byte	0x32
+	.byte	0x38
 	.long	0x6d8
 	.uleb128 0x3
 	.byte	0x91
@@ -1461,7 +1461,7 @@ _ZTS7Point3d:
 	.uleb128 0x34
 	.long	.LASF100
 	.byte	0x2
-	.byte	0x3a
+	.byte	0x40
 	.long	0x5e
 	.quad	.LFB115
 	.quad	.LFE115-.LFB115
@@ -1473,7 +1473,7 @@ _ZTS7Point3d:
 	.uleb128 0x32
 	.string	"obj"
 	.byte	0x2
-	.byte	0x3c
+	.byte	0x42
 	.long	0x6d8
 	.uleb128 0x3
 	.byte	0x91
@@ -1481,7 +1481,7 @@ _ZTS7Point3d:
 	.uleb128 0x32
 	.string	"ptr"
 	.byte	0x2
-	.byte	0x3d
+	.byte	0x43
 	.long	0x7e2
 	.uleb128 0x2
 	.byte	0x91
@@ -1489,7 +1489,7 @@ _ZTS7Point3d:
 	.uleb128 0x33
 	.long	.LASF101
 	.byte	0x2
-	.byte	0x3e
+	.byte	0x44
 	.long	0x7e2
 	.uleb128 0x2
 	.byte	0x91

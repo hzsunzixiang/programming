@@ -5,15 +5,15 @@
 	.comm	_ZStL8__ioinit,1,1
 	.section	.rodata
 .LC0:
-	.string	" const"
-	.section	.text._ZNK3Bar7bar_funEv,"axG",@progbits,_ZNK3Bar7bar_funEv,comdat
+	.string	" non const"
+	.section	.text._ZN3Bar7bar_funEv,"axG",@progbits,_ZN3Bar7bar_funEv,comdat
 	.align 2
-	.weak	_ZNK3Bar7bar_funEv
-	.type	_ZNK3Bar7bar_funEv, @function
-_ZNK3Bar7bar_funEv:
+	.weak	_ZN3Bar7bar_funEv
+	.type	_ZN3Bar7bar_funEv, @function
+_ZN3Bar7bar_funEv:
 .LFB1020:
 	.file 1 "const_fun.cpp"
-	.loc 1 15 0
+	.loc 1 12 0
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -22,29 +22,64 @@ _ZNK3Bar7bar_funEv:
 	.cfi_def_cfa_register 6
 	subq	$16, %rsp
 	movq	%rdi, -8(%rbp)
-	.loc 1 16 0
+	.loc 1 13 0
 	movl	$.LC0, %esi
 	movl	$_ZSt4cout, %edi
 	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
 	movl	$_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, %esi
 	movq	%rax, %rdi
 	call	_ZNSolsEPFRSoS_E
-	.loc 1 17 0
+	.loc 1 14 0
 	movq	-8(%rbp), %rax
 	movl	(%rax), %eax
-	.loc 1 18 0
+	.loc 1 15 0
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE1020:
+	.size	_ZN3Bar7bar_funEv, .-_ZN3Bar7bar_funEv
+	.section	.rodata
+.LC1:
+	.string	" const"
+	.section	.text._ZNK3Bar7bar_funEv,"axG",@progbits,_ZNK3Bar7bar_funEv,comdat
+	.align 2
+	.weak	_ZNK3Bar7bar_funEv
+	.type	_ZNK3Bar7bar_funEv, @function
+_ZNK3Bar7bar_funEv:
+.LFB1021:
+	.loc 1 16 0
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+	movq	%rdi, -8(%rbp)
+	.loc 1 17 0
+	movl	$.LC1, %esi
+	movl	$_ZSt4cout, %edi
+	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+	movl	$_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, %esi
+	movq	%rax, %rdi
+	call	_ZNSolsEPFRSoS_E
+	.loc 1 18 0
+	movq	-8(%rbp), %rax
+	movl	(%rax), %eax
+	.loc 1 19 0
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1021:
 	.size	_ZNK3Bar7bar_funEv, .-_ZNK3Bar7bar_funEv
 	.text
 	.globl	main
 	.type	main, @function
 main:
-.LFB1021:
-	.loc 1 23 0
+.LFB1022:
+	.loc 1 24 0
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -53,35 +88,35 @@ main:
 	.cfi_def_cfa_register 6
 	subq	$32, %rsp
 .LBB2:
-	.loc 1 26 0
+	.loc 1 27 0
 	leaq	-16(%rbp), %rax
 	movq	%rax, %rdi
-	call	_ZNK3Bar7bar_funEv
-	.loc 1 31 0
+	call	_ZN3Bar7bar_funEv
+	.loc 1 32 0
 	movl	-16(%rbp), %eax
 	movl	%eax, -32(%rbp)
-	.loc 1 32 0
+	.loc 1 33 0
 	leaq	-32(%rbp), %rax
 	movq	%rax, %rdi
 	call	_ZNK3Bar7bar_funEv
-	.loc 1 35 0
+	.loc 1 36 0
 	leaq	-16(%rbp), %rax
 	movq	%rax, %rdi
-	call	_ZNK3Bar7bar_funEv
-	.loc 1 37 0
+	call	_ZN3Bar7bar_funEv
+	.loc 1 38 0
 	movl	$0, %eax
 .LBE2:
-	.loc 1 38 0
+	.loc 1 39 0
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE1021:
+.LFE1022:
 	.size	main, .-main
 	.type	_Z41__static_initialization_and_destruction_0ii, @function
 _Z41__static_initialization_and_destruction_0ii:
-.LFB1030:
-	.loc 1 38 0
+.LFB1031:
+	.loc 1 39 0
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -91,12 +126,12 @@ _Z41__static_initialization_and_destruction_0ii:
 	subq	$16, %rsp
 	movl	%edi, -4(%rbp)
 	movl	%esi, -8(%rbp)
-	.loc 1 38 0
+	.loc 1 39 0
 	cmpl	$1, -4(%rbp)
-	jne	.L5
-	.loc 1 38 0 is_stmt 0 discriminator 1
+	jne	.L7
+	.loc 1 39 0 is_stmt 0 discriminator 1
 	cmpl	$65535, -8(%rbp)
-	jne	.L5
+	jne	.L7
 	.file 2 "/usr/include/c++/4.9/iostream"
 	.loc 2 74 0 is_stmt 1
 	movl	$_ZStL8__ioinit, %edi
@@ -105,25 +140,25 @@ _Z41__static_initialization_and_destruction_0ii:
 	movl	$_ZStL8__ioinit, %esi
 	movl	$_ZNSt8ios_base4InitD1Ev, %edi
 	call	__cxa_atexit
-.L5:
-	.loc 1 38 0
+.L7:
+	.loc 1 39 0
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE1030:
+.LFE1031:
 	.size	_Z41__static_initialization_and_destruction_0ii, .-_Z41__static_initialization_and_destruction_0ii
 	.type	_GLOBAL__sub_I_main, @function
 _GLOBAL__sub_I_main:
-.LFB1031:
-	.loc 1 38 0
+.LFB1032:
+	.loc 1 39 0
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	.loc 1 38 0
+	.loc 1 39 0
 	movl	$65535, %esi
 	movl	$1, %edi
 	call	_Z41__static_initialization_and_destruction_0ii
@@ -131,7 +166,7 @@ _GLOBAL__sub_I_main:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE1031:
+.LFE1032:
 	.size	_GLOBAL__sub_I_main, .-_GLOBAL__sub_I_main
 	.section	.init_array,"aw"
 	.align 8
@@ -160,20 +195,20 @@ _GLOBAL__sub_I_main:
 	.file 22 "/usr/include/wctype.h"
 	.section	.debug_info,"",@progbits
 .Ldebug_info0:
-	.long	0x15f5
+	.long	0x164a
 	.value	0x4
 	.long	.Ldebug_abbrev0
 	.byte	0x8
 	.uleb128 0x1
-	.long	.LASF259
+	.long	.LASF262
 	.byte	0x4
-	.long	.LASF260
-	.long	.LASF261
+	.long	.LASF263
+	.long	.LASF264
 	.long	.Ldebug_ranges0+0
 	.quad	0
 	.long	.Ldebug_line0
 	.uleb128 0x2
-	.long	.LASF262
+	.long	.LASF265
 	.uleb128 0x3
 	.long	.LASF6
 	.byte	0x4
@@ -238,7 +273,7 @@ _GLOBAL__sub_I_main:
 	.byte	0x8
 	.byte	0x6
 	.byte	0x53
-	.long	.LASF263
+	.long	.LASF266
 	.long	0xe8
 	.uleb128 0xa
 	.byte	0x4
@@ -578,7 +613,7 @@ _GLOBAL__sub_I_main:
 	.long	.LASF34
 	.byte	0x8
 	.byte	0xf2
-	.long	.LASF264
+	.long	.LASF267
 	.long	0x32f
 	.uleb128 0x16
 	.long	0x1234
@@ -729,13 +764,13 @@ _GLOBAL__sub_I_main:
 	.string	"eof"
 	.byte	0x8
 	.value	0x128
-	.long	.LASF265
+	.long	.LASF268
 	.long	0x30a
 	.uleb128 0x1a
 	.long	.LASF42
 	.byte	0x8
 	.value	0x12c
-	.long	.LASF266
+	.long	.LASF269
 	.long	0x30a
 	.uleb128 0x16
 	.long	0x1253
@@ -1223,7 +1258,7 @@ _GLOBAL__sub_I_main:
 	.long	.LASF193
 	.long	0xf8
 	.uleb128 0x29
-	.long	.LASF267
+	.long	.LASF270
 	.long	0x2f3
 	.byte	0
 	.uleb128 0x3
@@ -1232,13 +1267,13 @@ _GLOBAL__sub_I_main:
 	.byte	0x88
 	.long	0x893
 	.uleb128 0x2a
-	.long	.LASF268
+	.long	.LASF271
 	.byte	0x2
 	.byte	0x3d
-	.long	.LASF269
+	.long	.LASF272
 	.long	0x8af
 	.uleb128 0x2b
-	.long	.LASF246
+	.long	.LASF249
 	.byte	0x2
 	.byte	0x4a
 	.long	0x60b
@@ -2182,7 +2217,7 @@ _GLOBAL__sub_I_main:
 	.long	0x121a
 	.byte	0
 	.uleb128 0x34
-	.long	.LASF270
+	.long	.LASF273
 	.byte	0x1
 	.byte	0x12
 	.byte	0x37
@@ -2556,7 +2591,7 @@ _GLOBAL__sub_I_main:
 	.byte	0x4
 	.byte	0x1
 	.byte	0x6
-	.long	0x149b
+	.long	0x14b9
 	.uleb128 0x39
 	.long	.LASF245
 	.byte	0x1
@@ -2565,139 +2600,171 @@ _GLOBAL__sub_I_main:
 	.byte	0
 	.byte	0x2
 	.uleb128 0x3a
-	.long	.LASF271
+	.long	.LASF247
 	.byte	0x1
-	.byte	0xf
-	.long	.LASF272
+	.byte	0xc
+	.long	.LASF274
 	.long	0xff
 	.byte	0x1
-	.long	0x1494
+	.long	0x1498
+	.long	0x149e
 	.uleb128 0x21
-	.long	0x149b
+	.long	0x14b9
+	.byte	0
+	.uleb128 0x3b
+	.long	.LASF247
+	.byte	0x1
+	.byte	0x10
+	.long	.LASF275
+	.long	0xff
+	.byte	0x1
+	.long	0x14b2
+	.uleb128 0x21
+	.long	0x14bf
 	.byte	0
 	.byte	0
 	.uleb128 0x10
 	.byte	0x8
-	.long	0x14a1
+	.long	0x1467
+	.uleb128 0x10
+	.byte	0x8
+	.long	0x14c5
 	.uleb128 0xf
 	.long	0x1467
-	.uleb128 0x3b
+	.uleb128 0x3c
 	.long	0x1480
 	.quad	.LFB1020
 	.quad	.LFE1020-.LFB1020
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x14c5
-	.long	0x14d2
-	.uleb128 0x3c
-	.long	.LASF273
-	.long	0x14d2
+	.long	0x14e9
+	.long	0x14f6
+	.uleb128 0x3d
+	.long	.LASF246
+	.long	0x14f6
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -24
 	.byte	0
 	.uleb128 0xf
-	.long	0x149b
-	.uleb128 0x3d
-	.long	.LASF274
-	.byte	0x1
-	.byte	0x16
-	.long	0xff
+	.long	0x14b9
+	.uleb128 0x3c
+	.long	0x149e
 	.quad	.LFB1021
 	.quad	.LFE1021-.LFB1021
 	.uleb128 0x1
 	.byte	0x9c
+	.long	0x151a
 	.long	0x1527
+	.uleb128 0x3d
+	.long	.LASF246
+	.long	0x1527
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -24
+	.byte	0
+	.uleb128 0xf
+	.long	0x14bf
 	.uleb128 0x3e
+	.long	.LASF248
+	.byte	0x1
+	.byte	0x17
+	.long	0xff
+	.quad	.LFB1022
+	.quad	.LFE1022-.LFB1022
+	.uleb128 0x1
+	.byte	0x9c
+	.long	0x157c
+	.uleb128 0x3f
 	.quad	.LBB2
 	.quad	.LBE2-.LBB2
-	.uleb128 0x3f
+	.uleb128 0x40
 	.string	"bar"
 	.byte	0x1
-	.byte	0x19
+	.byte	0x1a
 	.long	0x1467
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -32
-	.uleb128 0x40
-	.long	.LASF247
+	.uleb128 0x41
+	.long	.LASF250
 	.byte	0x1
-	.byte	0x1f
-	.long	0x14a1
+	.byte	0x20
+	.long	0x14c5
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -48
 	.byte	0
 	.byte	0
-	.uleb128 0x41
-	.long	.LASF275
-	.quad	.LFB1030
-	.quad	.LFE1030-.LFB1030
-	.uleb128 0x1
-	.byte	0x9c
-	.long	0x155f
 	.uleb128 0x42
-	.long	.LASF248
-	.byte	0x1
-	.byte	0x26
-	.long	0xff
-	.uleb128 0x2
-	.byte	0x91
-	.sleb128 -20
-	.uleb128 0x42
-	.long	.LASF249
-	.byte	0x1
-	.byte	0x26
-	.long	0xff
-	.uleb128 0x2
-	.byte	0x91
-	.sleb128 -24
-	.byte	0
-	.uleb128 0x43
 	.long	.LASF276
 	.quad	.LFB1031
 	.quad	.LFE1031-.LFB1031
 	.uleb128 0x1
 	.byte	0x9c
+	.long	0x15b4
+	.uleb128 0x43
+	.long	.LASF251
+	.byte	0x1
+	.byte	0x27
+	.long	0xff
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -20
+	.uleb128 0x43
+	.long	.LASF252
+	.byte	0x1
+	.byte	0x27
+	.long	0xff
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -24
+	.byte	0
 	.uleb128 0x44
-	.long	.LASF250
-	.long	0x84
+	.long	.LASF277
+	.quad	.LFB1032
+	.quad	.LFE1032-.LFB1032
+	.uleb128 0x1
+	.byte	0x9c
 	.uleb128 0x45
+	.long	.LASF253
+	.long	0x84
+	.uleb128 0x46
 	.long	0x8c9
 	.uleb128 0x9
 	.byte	0x3
 	.quad	_ZStL8__ioinit
-	.uleb128 0x46
-	.long	0x1061
-	.long	.LASF251
-	.sleb128 -2147483648
 	.uleb128 0x47
-	.long	0x106c
-	.long	.LASF252
-	.long	0x7fffffff
-	.uleb128 0x48
-	.long	0x10c4
-	.long	.LASF253
-	.byte	0x40
-	.uleb128 0x48
-	.long	0x10f0
+	.long	0x1061
 	.long	.LASF254
-	.byte	0x7f
-	.uleb128 0x46
-	.long	0x1127
+	.sleb128 -2147483648
+	.uleb128 0x48
+	.long	0x106c
 	.long	.LASF255
-	.sleb128 -32768
+	.long	0x7fffffff
 	.uleb128 0x49
-	.long	0x1132
+	.long	0x10c4
 	.long	.LASF256
-	.value	0x7fff
-	.uleb128 0x46
-	.long	0x1165
+	.byte	0x40
+	.uleb128 0x49
+	.long	0x10f0
 	.long	.LASF257
-	.sleb128 -9223372036854775808
-	.uleb128 0x4a
-	.long	0x1170
+	.byte	0x7f
+	.uleb128 0x47
+	.long	0x1127
 	.long	.LASF258
+	.sleb128 -32768
+	.uleb128 0x4a
+	.long	0x1132
+	.long	.LASF259
+	.value	0x7fff
+	.uleb128 0x47
+	.long	0x1165
+	.long	.LASF260
+	.sleb128 -9223372036854775808
+	.uleb128 0x4b
+	.long	0x1170
+	.long	.LASF261
 	.quad	0x7fffffffffffffff
 	.byte	0
 	.section	.debug_abbrev,"",@progbits
@@ -3536,9 +3603,34 @@ _GLOBAL__sub_I_main:
 	.uleb128 0x19
 	.uleb128 0x64
 	.uleb128 0x13
+	.uleb128 0x1
+	.uleb128 0x13
 	.byte	0
 	.byte	0
 	.uleb128 0x3b
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x6e
+	.uleb128 0xe
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x32
+	.uleb128 0xb
+	.uleb128 0x3c
+	.uleb128 0x19
+	.uleb128 0x64
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x3c
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x47
@@ -3557,7 +3649,7 @@ _GLOBAL__sub_I_main:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x3c
+	.uleb128 0x3d
 	.uleb128 0x5
 	.byte	0
 	.uleb128 0x3
@@ -3570,7 +3662,7 @@ _GLOBAL__sub_I_main:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x3d
+	.uleb128 0x3e
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -3595,7 +3687,7 @@ _GLOBAL__sub_I_main:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x3e
+	.uleb128 0x3f
 	.uleb128 0xb
 	.byte	0x1
 	.uleb128 0x11
@@ -3604,7 +3696,7 @@ _GLOBAL__sub_I_main:
 	.uleb128 0x7
 	.byte	0
 	.byte	0
-	.uleb128 0x3f
+	.uleb128 0x40
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
@@ -3619,7 +3711,7 @@ _GLOBAL__sub_I_main:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x40
+	.uleb128 0x41
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
@@ -3634,7 +3726,7 @@ _GLOBAL__sub_I_main:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x41
+	.uleb128 0x42
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3
@@ -3653,7 +3745,7 @@ _GLOBAL__sub_I_main:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x42
+	.uleb128 0x43
 	.uleb128 0x5
 	.byte	0
 	.uleb128 0x3
@@ -3668,7 +3760,7 @@ _GLOBAL__sub_I_main:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x43
+	.uleb128 0x44
 	.uleb128 0x2e
 	.byte	0
 	.uleb128 0x3
@@ -3685,7 +3777,7 @@ _GLOBAL__sub_I_main:
 	.uleb128 0x19
 	.byte	0
 	.byte	0
-	.uleb128 0x44
+	.uleb128 0x45
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
@@ -3700,7 +3792,7 @@ _GLOBAL__sub_I_main:
 	.uleb128 0x19
 	.byte	0
 	.byte	0
-	.uleb128 0x45
+	.uleb128 0x46
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x47
@@ -3709,7 +3801,7 @@ _GLOBAL__sub_I_main:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x46
+	.uleb128 0x47
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x47
@@ -3720,7 +3812,7 @@ _GLOBAL__sub_I_main:
 	.uleb128 0xd
 	.byte	0
 	.byte	0
-	.uleb128 0x47
+	.uleb128 0x48
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x47
@@ -3731,7 +3823,7 @@ _GLOBAL__sub_I_main:
 	.uleb128 0x6
 	.byte	0
 	.byte	0
-	.uleb128 0x48
+	.uleb128 0x49
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x47
@@ -3742,7 +3834,7 @@ _GLOBAL__sub_I_main:
 	.uleb128 0xb
 	.byte	0
 	.byte	0
-	.uleb128 0x49
+	.uleb128 0x4a
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x47
@@ -3753,7 +3845,7 @@ _GLOBAL__sub_I_main:
 	.uleb128 0x5
 	.byte	0
 	.byte	0
-	.uleb128 0x4a
+	.uleb128 0x4b
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x47
@@ -3766,7 +3858,7 @@ _GLOBAL__sub_I_main:
 	.byte	0
 	.byte	0
 	.section	.debug_aranges,"",@progbits
-	.long	0x3c
+	.long	0x4c
 	.value	0x2
 	.long	.Ldebug_info0
 	.byte	0x8
@@ -3777,6 +3869,8 @@ _GLOBAL__sub_I_main:
 	.quad	.Letext0-.Ltext0
 	.quad	.LFB1020
 	.quad	.LFE1020-.LFB1020
+	.quad	.LFB1021
+	.quad	.LFE1021-.LFB1021
 	.quad	0
 	.quad	0
 	.section	.debug_ranges,"",@progbits
@@ -3785,12 +3879,14 @@ _GLOBAL__sub_I_main:
 	.quad	.Letext0
 	.quad	.LFB1020
 	.quad	.LFE1020
+	.quad	.LFB1021
+	.quad	.LFE1021
 	.quad	0
 	.quad	0
 	.section	.debug_line,"",@progbits
 .Ldebug_line0:
 	.section	.debug_str,"MS",@progbits,1
-.LASF276:
+.LASF277:
 	.string	"_GLOBAL__sub_I_main"
 .LASF81:
 	.string	"_S_end"
@@ -3804,7 +3900,7 @@ _GLOBAL__sub_I_main:
 	.string	"__value"
 .LASF188:
 	.string	"__numeric_traits_integer<int>"
-.LASF252:
+.LASF255:
 	.string	"_ZN9__gnu_cxx24__numeric_traits_integerIiE5__maxE"
 .LASF87:
 	.string	"boolalpha"
@@ -3842,7 +3938,7 @@ _GLOBAL__sub_I_main:
 	.string	"_S_beg"
 .LASF143:
 	.string	"wcscoll"
-.LASF272:
+.LASF275:
 	.string	"_ZNK3Bar7bar_funEv"
 .LASF245:
 	.string	"ival"
@@ -3854,7 +3950,7 @@ _GLOBAL__sub_I_main:
 	.string	"_ZNSt11char_traitsIcE4moveEPcPKcm"
 .LASF98:
 	.string	"uppercase"
-.LASF271:
+.LASF247:
 	.string	"bar_fun"
 .LASF60:
 	.string	"_S_basefield"
@@ -3872,7 +3968,7 @@ _GLOBAL__sub_I_main:
 	.string	"_Ios_Openmode"
 .LASF21:
 	.string	"int_type"
-.LASF274:
+.LASF248:
 	.string	"main"
 .LASF230:
 	.string	"int_n_cs_precedes"
@@ -3882,7 +3978,7 @@ _GLOBAL__sub_I_main:
 	.string	"copy"
 .LASF16:
 	.string	"mbstate_t"
-.LASF246:
+.LASF249:
 	.string	"__ioinit"
 .LASF84:
 	.string	"_S_synced_with_stdio"
@@ -3894,7 +3990,7 @@ _GLOBAL__sub_I_main:
 	.string	"tm_yday"
 .LASF205:
 	.string	"signed char"
-.LASF262:
+.LASF265:
 	.string	"_IO_FILE"
 .LASF113:
 	.string	"basic_ostream<char, std::char_traits<char> >"
@@ -3918,7 +4014,7 @@ _GLOBAL__sub_I_main:
 	.string	"wmemchr"
 .LASF73:
 	.string	"_S_goodbit"
-.LASF256:
+.LASF259:
 	.string	"_ZN9__gnu_cxx24__numeric_traits_integerIsE5__maxE"
 .LASF67:
 	.string	"_S_bin"
@@ -3928,11 +4024,11 @@ _GLOBAL__sub_I_main:
 	.string	"not_eof"
 .LASF131:
 	.string	"swprintf"
-.LASF259:
+.LASF262:
 	.string	"GNU C++ 4.9.2 -fpreprocessed -mtune=generic -march=x86-64 -g"
 .LASF181:
 	.string	"wcspbrk"
-.LASF258:
+.LASF261:
 	.string	"_ZN9__gnu_cxx24__numeric_traits_integerIlE5__maxE"
 .LASF191:
 	.string	"__is_signed"
@@ -3948,7 +4044,7 @@ _GLOBAL__sub_I_main:
 	.string	"openmode"
 .LASF160:
 	.string	"wcsncmp"
-.LASF260:
+.LASF263:
 	.string	"const_fun.cpp"
 .LASF233:
 	.string	"int_n_sign_posn"
@@ -3970,7 +4066,7 @@ _GLOBAL__sub_I_main:
 	.string	"fp_offset"
 .LASF43:
 	.string	"ptrdiff_t"
-.LASF251:
+.LASF254:
 	.string	"_ZN9__gnu_cxx24__numeric_traits_integerIiE5__minE"
 .LASF240:
 	.string	"wctrans_t"
@@ -3984,7 +4080,7 @@ _GLOBAL__sub_I_main:
 	.string	"int_p_cs_precedes"
 .LASF122:
 	.string	"fwprintf"
-.LASF268:
+.LASF271:
 	.string	"cout"
 .LASF202:
 	.string	"wcstoull"
@@ -4034,7 +4130,7 @@ _GLOBAL__sub_I_main:
 	.string	"_S_fixed"
 .LASF231:
 	.string	"int_n_sep_by_space"
-.LASF249:
+.LASF252:
 	.string	"__priority"
 .LASF30:
 	.string	"move"
@@ -4048,7 +4144,7 @@ _GLOBAL__sub_I_main:
 	.string	"__gnu_debug"
 .LASF134:
 	.string	"vfwprintf"
-.LASF273:
+.LASF246:
 	.string	"this"
 .LASF137:
 	.string	"vswscanf"
@@ -4062,7 +4158,7 @@ _GLOBAL__sub_I_main:
 	.string	"_ZNSt11char_traitsIcE12to_char_typeERKi"
 .LASF70:
 	.string	"_S_trunc"
-.LASF248:
+.LASF251:
 	.string	"__initialize_p"
 .LASF91:
 	.string	"right"
@@ -4072,7 +4168,7 @@ _GLOBAL__sub_I_main:
 	.string	"__mbstate_t"
 .LASF175:
 	.string	"wmemcpy"
-.LASF247:
+.LASF250:
 	.string	"bar_const"
 .LASF151:
 	.string	"tm_mon"
@@ -4084,7 +4180,7 @@ _GLOBAL__sub_I_main:
 	.string	"double"
 .LASF29:
 	.string	"_ZNSt11char_traitsIcE4findEPKcmRS1_"
-.LASF255:
+.LASF258:
 	.string	"_ZN9__gnu_cxx24__numeric_traits_integerIsE5__minE"
 .LASF173:
 	.string	"wctob"
@@ -4096,13 +4192,13 @@ _GLOBAL__sub_I_main:
 	.string	"gp_offset"
 .LASF59:
 	.string	"_S_adjustfield"
-.LASF253:
+.LASF256:
 	.string	"_ZN9__gnu_cxx24__numeric_traits_integerImE8__digitsE"
 .LASF167:
 	.string	"float"
 .LASF89:
 	.string	"internal"
-.LASF269:
+.LASF272:
 	.string	"_ZSt4cout"
 .LASF148:
 	.string	"tm_min"
@@ -4110,7 +4206,7 @@ _GLOBAL__sub_I_main:
 	.string	"_S_left"
 .LASF5:
 	.string	"unsigned int"
-.LASF257:
+.LASF260:
 	.string	"_ZN9__gnu_cxx24__numeric_traits_integerIlE5__minE"
 .LASF19:
 	.string	"char_traits<char>"
@@ -4136,6 +4232,8 @@ _GLOBAL__sub_I_main:
 	.string	"_S_ios_fmtflags_end"
 .LASF85:
 	.string	"Init"
+.LASF274:
+	.string	"_ZN3Bar7bar_funEv"
 .LASF114:
 	.string	"ostream"
 .LASF210:
@@ -4152,7 +4250,7 @@ _GLOBAL__sub_I_main:
 	.string	"long double"
 .LASF129:
 	.string	"putwc"
-.LASF270:
+.LASF273:
 	.string	"__numeric_traits_integer<long int>"
 .LASF95:
 	.string	"showpos"
@@ -4164,7 +4262,7 @@ _GLOBAL__sub_I_main:
 	.string	"__wchb"
 .LASF109:
 	.string	"binary"
-.LASF275:
+.LASF276:
 	.string	"__static_initialization_and_destruction_0"
 .LASF26:
 	.string	"_ZNSt11char_traitsIcE7compareEPKcS2_m"
@@ -4186,7 +4284,7 @@ _GLOBAL__sub_I_main:
 	.string	"wcsstr"
 .LASF72:
 	.string	"_Ios_Iostate"
-.LASF254:
+.LASF257:
 	.string	"_ZN9__gnu_cxx24__numeric_traits_integerIcE5__maxE"
 .LASF162:
 	.string	"wcsrtombs"
@@ -4260,11 +4358,11 @@ _GLOBAL__sub_I_main:
 	.string	"mon_grouping"
 .LASF80:
 	.string	"_S_cur"
-.LASF264:
+.LASF267:
 	.string	"_ZNSt11char_traitsIcE6assignERcRKc"
 .LASF141:
 	.string	"wcscat"
-.LASF263:
+.LASF266:
 	.string	"11__mbstate_t"
 .LASF232:
 	.string	"int_p_sign_posn"
@@ -4280,13 +4378,13 @@ _GLOBAL__sub_I_main:
 	.string	"lconv"
 .LASF97:
 	.string	"unitbuf"
-.LASF265:
+.LASF268:
 	.string	"_ZNSt11char_traitsIcE3eofEv"
 .LASF159:
 	.string	"wcsncat"
 .LASF197:
 	.string	"__numeric_traits_integer<short int>"
-.LASF250:
+.LASF253:
 	.string	"__dso_handle"
 .LASF201:
 	.string	"long long int"
@@ -4308,7 +4406,7 @@ _GLOBAL__sub_I_main:
 	.string	"tm_year"
 .LASF17:
 	.string	"short unsigned int"
-.LASF267:
+.LASF270:
 	.string	"_Traits"
 .LASF187:
 	.string	"__ops"
@@ -4332,11 +4430,11 @@ _GLOBAL__sub_I_main:
 	.string	"grouping"
 .LASF178:
 	.string	"wprintf"
-.LASF266:
+.LASF269:
 	.string	"_ZNSt11char_traitsIcE7not_eofERKi"
 .LASF52:
 	.string	"_S_scientific"
-.LASF261:
+.LASF264:
 	.string	"/home/StephenSun/programming/cpp/insideObjectModel/semanticsFunction/member_function"
 .LASF118:
 	.string	"wchar_t"

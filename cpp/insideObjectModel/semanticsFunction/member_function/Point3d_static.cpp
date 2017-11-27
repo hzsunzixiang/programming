@@ -12,8 +12,9 @@ class Point3d
 		//取地址，
 		static int fun(int i){ return 10 + i;}
 		int bar(int i){ return 10 + i;}
+		// 静态成员函数 不需要经由 class object才被调用
 		// 静态成员不可能做到
-	    // 1. const 修饰 2. 访问 nostatic
+	    // 1. const volatile virtual  修饰 2. 访问 nostatic
 		// 1. 这里不合法
 		//static int constFun()const{ return 10;}
 		// Point3d_static.cpp:17:24: error: static member function ‘static int Point3d::constFun()’ cannot have cv-qualifier
@@ -21,13 +22,18 @@ class Point3d
 		// 
 		// 2. 这里不合法
 		//static int accessMemData(){ return _x;}
-
 		// Point3d_static.cpp: In static member function ‘static int Point3d::accessMemData()’:
 		// Point3d_static.cpp:26:10: error: invalid use of member ‘Point3d::_x’ in static member function
 		//    double _x;
 		//           ^
 		// Point3d_static.cpp:23:38: error: from this location
 		//    static int accessMemData(){ return _x;}
+		// 
+		// 3. 这里不合法
+		// virtual static int accessMemData(){ return 10;}
+		// Point3d_static.cpp:33:36: error: member ‘accessMemData’ cannot be declared both virtual and static
+		//virtual static int accessMemData(){ return 10;}
+
 		
 	private:
 		double _x;

@@ -32,7 +32,10 @@ Point3d Point3d::normalize()
 	return normal;
 }
 
-
+// (gdb) info locals 
+// obj = {_vptr.Point3d = 0x4008b0 <vtable for Point3d+16>, _x = 0, _y = 2.0732654560068732e-317, _z = 2.0729492539935348e-317}
+// ptr = 0x7fffffffe370
+// nullPtr = 0x0
 int main()
 {
 	Point3d obj;
@@ -44,6 +47,17 @@ int main()
 
 	// 通过指针 
 	ptr->normalize();
+	//	.loc 1 40 0
+	//	movq	-8(%rbp), %rax  // 获取虚函数指针
+	//	movq	(%rax), %rax    // 获取虚函数表
+	//	addq	$8, %rax        // 知道对应的虚函数位置 64位下 +8
+	//	movq	(%rax), %rax    // 取出相应的虚函数 
+	//	leaq	-80(%rbp), %rdx
+	//	movq	-8(%rbp), %rcx
+	//	movq	%rcx, %rsi
+	//	movq	%rdx, %rdi
+	//	call	*%rax           // 调用对应的虚函数
+	//
 
 	// 编译通过，但是会崩溃
 	// 对于非虚函数，如果不引用成员变量 就不会崩溃

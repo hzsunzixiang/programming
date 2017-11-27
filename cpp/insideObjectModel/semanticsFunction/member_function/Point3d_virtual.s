@@ -195,10 +195,10 @@ main:
 	movq	%rcx, %rsi
 	movq	%rdx, %rdi
 	call	*%rax
-	.loc 1 52 0
+	.loc 1 63 0
 	movl	$0, %eax
 .LBE4:
-	.loc 1 53 0
+	.loc 1 64 0
 	leave
 	.cfi_def_cfa 7, 8
 	ret
