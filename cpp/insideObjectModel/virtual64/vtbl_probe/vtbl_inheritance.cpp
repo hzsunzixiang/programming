@@ -45,7 +45,7 @@ int main()
 	base_class bc;
 
 	cout << "-------------base_class------------------------" << endl;
-	cout << "base_class 的虚函数表首地址为：" << (intptr_t*)&bc << endl;
+	cout << "base_class 的虚函数表首地址(对象本身的地址)为：" << (intptr_t*)&bc << endl;
 	cout << "base_class 的 第一个函数首地址：" << (intptr_t*)*(intptr_t*)&bc+0 << endl;
 	cout << "base_class 的 第二个函数首地址：" << (intptr_t*)*(intptr_t*)&bc+1 << endl;
 	cout << "base_class 的 第三个函数首地址：" << (intptr_t*)*(intptr_t*)&bc+2 << endl;
