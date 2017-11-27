@@ -1,0 +1,6 @@
+
+
+
+
+导出类的层次结构
+CPPFLAGS=-Wall -g --save-temps -fdump-class-hierarchy
