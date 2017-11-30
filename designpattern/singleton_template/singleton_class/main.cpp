@@ -3,6 +3,7 @@
 #include <iostream>
 using namespace std;
 
+// https://stackoverflow.com/questions/41328038/singleton-template-as-base-class-in-c
 class AccessInterTaskParser : public ZSingleton<AccessInterTaskParser> {
 private:
 	friend class ZSingleton<AccessInterTaskParser>;
