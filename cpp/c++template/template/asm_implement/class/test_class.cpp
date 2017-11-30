@@ -25,3 +25,7 @@ int main()
 	double_calc_class.add(2.0, 3.0);
 
 }
+// 某个类的 某个函数
+// i integer ; d double
+//	call	_ZN4calcIiE3addEii
+//	call	_ZN4calcIdE3addEdd

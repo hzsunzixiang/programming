@@ -18,3 +18,8 @@ int main()
 	hello(b);
 	hello(c);
 }
+
+// 为每个 函数 生成一个函数模板
+//	call	_Z5helloIiET_S0_
+//	call	_Z5helloIsET_S0_
+//	call	_Z5helloIhET_S0_
