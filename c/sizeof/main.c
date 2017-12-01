@@ -34,6 +34,8 @@ int main(void)
 	printf("sizeof(m1):%ld \t sizeof(m2):%ld\n", sizeof(struct m1), sizeof(struct m2));
 	printf("sizeof(m3):%ld \t sizeof(m4):%ld\n", sizeof(struct m3), sizeof(struct m4));
 
+	printf("sizeof(\"abc\"):%ld\n", sizeof("abc"));
+
 	return 0;
 }
 
