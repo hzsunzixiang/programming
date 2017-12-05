@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <ext/pool_allocator.h>
 
-//#include "z_type.h"
+#include "z_type.h"
 
 template <class T>
 class ZUniqueID {
@@ -79,4 +79,4 @@ private:
 	T m_cur_max_id;
 };
 
-typedef ZUniqueID<uint64_t> UniqueDWORDID;
+typedef ZUniqueID<uint64> UniqueDWORDID;

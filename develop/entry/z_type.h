@@ -18,7 +18,7 @@
 #include <string>
 #include <deque>
 
-#include "External/clog/log.h"
+//#include "External/clog/log.h"
 
 
 typedef char int8;
