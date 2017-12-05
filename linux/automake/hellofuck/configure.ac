@@ -3,7 +3,8 @@
 
 #AC_PREREQ(2.57)
 AC_INIT(hellofuck, 1.0, mij@bitchx.it)
-AM_INIT_AUTOMAKE(hellofuck, 1.0)
+#AM_INIT_AUTOMAKE(hellofuck, 1.0)
+AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/fuck.c])
 
 # Checks for programs.
