@@ -25,9 +25,19 @@ protected:
 class AccessTask : public ZTask {
 
 public:
-	AccessTask(const int32 nfd) {}
+	AccessTask(const int32 nfd): m_loginid(0){}
 	~AccessTask(){}
 	const char* getClassName() {return "AccessTask";}
+	uint64 loginid() {
+		return m_loginid;
+	}
+
+	void setLoginid() {
+		m_loginid = m_id;
+	}
+
+private:
+	uint64 m_loginid;
 };
 
 
@@ -66,8 +76,18 @@ int main()
         ZERROR("add to VerifyManager error :%p,%llu,%d\n", at,at->id(), 10);
         ZDEL(at);
     }
-	printf("at->id:%llu\n", at->id());
+
+	at->setLoginid();
+	printf("at->id:%llu, id:%lld\n", at->id(), at->loginid());
+	AccessTask *newtask = AccessTaskVerifyManager::getInstance().getTaskById(at->id());
+
+	// 此时唯一性的id已经改变 loginid不变
+	printf("getTaskById:id:%llu, AccessTask:%p, loginid:%llu\n", at->id(), newtask, at->loginid());
+
+
 	
+	// 登录成功之后
+	newtask->setId(123456);
     ZDEBUG("create connection success:%p,%llu,%d\n",at,at->id(),sfd);
 	// 已经插入 再次插入失败
     if(!AccessTaskVerifyManager::getInstance().addTask(at)) {
