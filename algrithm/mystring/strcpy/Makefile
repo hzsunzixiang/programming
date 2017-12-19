@@ -1,8 +1,9 @@
 .PHONY:clean all
-CC=gcc
+CC=g++
 #CFLAGS=-Wall -save-temps -O1
-CFLAGS=-Wall -g -save-temps -std=c99
-BIN= main   main1 main2
+#CFLAGS=-Wall -g -save-temps -std=c99
+CFLAGS=-Wall -g -save-temps 
+BIN= main   main1 main2 main3
 all:$(BIN)
 %:%.c 
 	$(CC) $(CFLAGS)   $< -o $@
