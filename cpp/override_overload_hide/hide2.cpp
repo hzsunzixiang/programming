@@ -51,6 +51,13 @@ class Derived : public Base
 		{
 			cout << "Derived::k(int,int) " << x << endl; 
 		}  
+		// hide2.cpp:56:7: error: no matching function for call to ‘Derived::k(int)’
+		//  k(1);
+		void test()
+		{
+			//k(1);
+			k(1,2);
+		}
 };  
 int main(void)  
 {  
@@ -78,6 +85,7 @@ int main(void)
 	// pd->j(100);   // error
 	// 必须明确告知 才不会报错
 	//pd->j((int*)100);
+	pd->test();
 
 	return 0;
 } 
