@@ -1,0 +1,513 @@
+begin:    22    34     3    32    82    55    89    50    37     5    64    35     9    70	end:
+++begin sort
+**begin sort
+begin:    22    34     3    32    82    55    89    50    37     5    64    35     9    70	end:
+**end sort
+begin:    22    34     3    32    82    55    89    50    37     5    64    35     9    70	end:
+
+==begin sort
+begin:    22    34     3    32    82    55    89    50    37     5    64    35     9    70	end:
+
+==end sort
+
+==begin sort
+begin:    22     3    34    32    82    55    89    50    37     5    64    35     9    70	end:
+
+==end sort
+
+==begin sort
+begin:    22     3    32    34    82    55    89    50    37     5    64    35     9    70	end:
+
+==end sort
+
+==begin sort
+begin:    22     3    32    34    82    55    89    50    37     5    64    35     9    70	end:
+
+==end sort
+
+==begin sort
+begin:    22     3    32    34    55    82    89    50    37     5    64    35     9    70	end:
+
+==end sort
+
+==begin sort
+begin:    22     3    32    34    55    82    89    50    37     5    64    35     9    70	end:
+
+==end sort
+
+==begin sort
+begin:    22     3    32    34    55    82    50    89    37     5    64    35     9    70	end:
+
+==end sort
+
+==begin sort
+begin:    22     3    32    34    55    82    50    37    89     5    64    35     9    70	end:
+
+==end sort
+
+==begin sort
+begin:    22     3    32    34    55    82    50    37     5    89    64    35     9    70	end:
+
+==end sort
+
+==begin sort
+begin:    22     3    32    34    55    82    50    37     5    64    89    35     9    70	end:
+
+==end sort
+
+==begin sort
+begin:    22     3    32    34    55    82    50    37     5    64    35    89     9    70	end:
+
+==end sort
+
+==begin sort
+begin:    22     3    32    34    55    82    50    37     5    64    35     9    89    70	end:
+
+==end sort
+
+==begin sort
+begin:    22     3    32    34    55    82    50    37     5    64    35     9    70    89	end:
+
+==end sort
+**begin sort
+begin:    22     3    32    34    55    82    50    37     5    64    35     9    70    89	end:
+**end sort
+begin:    22     3    32    34    55    82    50    37     5    64    35     9    70    89	end:
+
+==begin sort
+begin:     3    22    32    34    55    82    50    37     5    64    35     9    70    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    55    82    50    37     5    64    35     9    70    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    55    82    50    37     5    64    35     9    70    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    55    82    50    37     5    64    35     9    70    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    55    82    50    37     5    64    35     9    70    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    55    50    82    37     5    64    35     9    70    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    55    50    37    82     5    64    35     9    70    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    55    50    37     5    82    64    35     9    70    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    55    50    37     5    64    82    35     9    70    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    55    50    37     5    64    35    82     9    70    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    55    50    37     5    64    35     9    82    70    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    55    50    37     5    64    35     9    70    82    89	end:
+
+==end sort
+**begin sort
+begin:     3    22    32    34    55    50    37     5    64    35     9    70    82    89	end:
+**end sort
+begin:     3    22    32    34    55    50    37     5    64    35     9    70    82    89	end:
+
+==begin sort
+begin:     3    22    32    34    55    50    37     5    64    35     9    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    55    50    37     5    64    35     9    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    55    50    37     5    64    35     9    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    55    50    37     5    64    35     9    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    50    55    37     5    64    35     9    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    50    37    55     5    64    35     9    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    50    37     5    55    64    35     9    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    50    37     5    55    64    35     9    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    50    37     5    55    35    64     9    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    50    37     5    55    35     9    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    50    37     5    55    35     9    64    70    82    89	end:
+
+==end sort
+**begin sort
+begin:     3    22    32    34    50    37     5    55    35     9    64    70    82    89	end:
+**end sort
+begin:     3    22    32    34    50    37     5    55    35     9    64    70    82    89	end:
+
+==begin sort
+begin:     3    22    32    34    50    37     5    55    35     9    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    50    37     5    55    35     9    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    50    37     5    55    35     9    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    50    37     5    55    35     9    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    37    50     5    55    35     9    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    37     5    50    55    35     9    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    37     5    50    55    35     9    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    37     5    50    35    55     9    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    37     5    50    35     9    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    37     5    50    35     9    55    64    70    82    89	end:
+
+==end sort
+**begin sort
+begin:     3    22    32    34    37     5    50    35     9    55    64    70    82    89	end:
+**end sort
+begin:     3    22    32    34    37     5    50    35     9    55    64    70    82    89	end:
+
+==begin sort
+begin:     3    22    32    34    37     5    50    35     9    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    37     5    50    35     9    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    37     5    50    35     9    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34    37     5    50    35     9    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34     5    37    50    35     9    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34     5    37    50    35     9    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34     5    37    35    50     9    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34     5    37    35     9    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34     5    37    35     9    50    55    64    70    82    89	end:
+
+==end sort
+**begin sort
+begin:     3    22    32    34     5    37    35     9    50    55    64    70    82    89	end:
+**end sort
+begin:     3    22    32    34     5    37    35     9    50    55    64    70    82    89	end:
+
+==begin sort
+begin:     3    22    32    34     5    37    35     9    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34     5    37    35     9    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32    34     5    37    35     9    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32     5    34    37    35     9    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32     5    34    37    35     9    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32     5    34    35    37     9    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32     5    34    35     9    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32     5    34    35     9    37    50    55    64    70    82    89	end:
+
+==end sort
+**begin sort
+begin:     3    22    32     5    34    35     9    37    50    55    64    70    82    89	end:
+**end sort
+begin:     3    22    32     5    34    35     9    37    50    55    64    70    82    89	end:
+
+==begin sort
+begin:     3    22    32     5    34    35     9    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22    32     5    34    35     9    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22     5    32    34    35     9    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22     5    32    34    35     9    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22     5    32    34    35     9    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22     5    32    34     9    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3    22     5    32    34     9    35    37    50    55    64    70    82    89	end:
+
+==end sort
+**begin sort
+begin:     3    22     5    32    34     9    35    37    50    55    64    70    82    89	end:
+**end sort
+begin:     3    22     5    32    34     9    35    37    50    55    64    70    82    89	end:
+
+==begin sort
+begin:     3    22     5    32    34     9    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3     5    22    32    34     9    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3     5    22    32    34     9    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3     5    22    32    34     9    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3     5    22    32     9    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3     5    22    32     9    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+**begin sort
+begin:     3     5    22    32     9    34    35    37    50    55    64    70    82    89	end:
+**end sort
+begin:     3     5    22    32     9    34    35    37    50    55    64    70    82    89	end:
+
+==begin sort
+begin:     3     5    22    32     9    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3     5    22    32     9    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3     5    22    32     9    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3     5    22     9    32    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3     5    22     9    32    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+**begin sort
+begin:     3     5    22     9    32    34    35    37    50    55    64    70    82    89	end:
+**end sort
+begin:     3     5    22     9    32    34    35    37    50    55    64    70    82    89	end:
+
+==begin sort
+begin:     3     5    22     9    32    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3     5    22     9    32    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+**begin sort
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
+**end sort
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
+
+==begin sort
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+**begin sort
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
+**end sort
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
+
+==begin sort
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+==begin sort
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+**begin sort
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
+**end sort
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
+
+==begin sort
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
+
+==end sort
+
+++end sort
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
+begin:     3     5     9    22    32    34    35    37    50    55    64    70    82    89	end:
