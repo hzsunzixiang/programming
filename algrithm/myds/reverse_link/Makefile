@@ -1,7 +1,7 @@
 .PHONY:clean all
 CC=gcc
 CFLAGS=-Wall -g
-BIN= reverse 
+BIN= reverse  reverse1
 all:$(BIN)
 %:%.cpp 
 	$(CC) $(CFLAGS)   $< -o $@
