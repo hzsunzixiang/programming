@@ -1,0 +1,967 @@
+
+https://github.com/julycoding/The-Art-Of-Programming-By-July
+1，递归的运用
+
+int RunFun(int n)
+{
+          assert(n>=1);
+           if ( n ==2 || n == 1 )
+          {
+                    return 1;
+          }
+常用算法
+           else
+          {
+                    return RunFun(n-1)+RunFun(n-2);
+          }
+}
+
+long long int RunFun2( int n)
+{
+           long long int a[2]={1,1};
+           if( n == 2 || n== 1)
+          {
+                    return 1;
+          }
+           else
+          {
+                    int i=3;
+                    for ( ; i<n+1 ;i++)
+                   {
+                              if ( i%2==1)
+                             {
+                                      a[0]=a[0]+a[1];
+                                       //cout<<"a[0] "<<a[0]<<endl;
+                             }
+                              else
+                             {
+                                      a[1]=a[0]+a[1];
+                                       //cout<<"a[1] "<<a[1]<<endl;
+                             }
+                   } //end for
+                   
+          }
+           return n%2==1? a[0]:a[1];
+
+}
+
+2，STL删除元素
+
+4.1 关联容器(set,map)。正确的循环删除操作如下代码：
+    map<key,value>::iterator iter=m.begin();
+    for (;iter!=m.end();)//for循环的第三部分是空的，
+    {
+       if (iter->first==another_key)
+           m.erase(iter++); 
+//把当前iter传给erase。在删除之前，iter自增，指向下一个元素。
+       else
+           iter++;   
+    }
+
+
+//对于序列容器
+
+ void find_and_del(vector<Student> & m,string name)
+{
+    vector<Student>::iterator iter=m.begin();
+    for (;iter!=m.end();)//for循环的第三部分为空
+    {
+       if (*iter==name)
+       {
+           iter=m.erase(iter);
+//erase的返回值，指向被删除元素的下一个值
+       }
+       else
+           iter++;
+    }
+}
+
+1
+利用算法remove以及函数erase
+copystr.erase (remove( copystr.begin (),copystr. end(),' '),copystr. end());
+
+bool Is_4(int x)
+{
+           return x==4;
+}
+struct Is_5
+{
+           bool operator ()(int x)
+          {
+                    return x==5;
+          }
+};
+无构造函数的函数对象
+remove_if(vec.begin(),vec.end(),Is_5());
+remove_if(vec.begin(),vec.end(),Is_4);
+
+注意的函数对象下面是有构造函数
+struct Is_5
+{
+           int val;
+          Is_5( int x):val(x)
+          {};
+           bool operator ()(int x)
+          {
+                    return x==val;
+          }
+};
+remove_if(vec.begin(),vec.end(),Is_5(3));
+
+
+
+或者其他
+void Find_del(vector<int > vec,int x)
+{
+          vector< int>::iterator iter=find(vec.begin(),vec.end(),x);
+           if ( iter != vec.end())
+          {
+                   vec.erase(iter);
+                   Find_del(vec,x);
+          }
+
+}
+
+
+
+
+冒泡排序1
+/**
+*a,指?向??的??数?y据Y
+*n,数?y组???元a素?个?数?y
+*/
+void swap(int &x,int &y)
+{
+           int c=x;
+          x=y;
+          y=c;
+}
+
+void Sort_Bubble(int *a,int n)
+           int i=0;
+           for ( ; i != n ; i++ )
+          {
+                    for ( int j =0; j != n-i-1; j++ )
+                   {
+                              if ( a[j] > a[j+1])
+                                      swap(a[j],a[j+1]);
+                   }
+          }
+}
+  
+
+冒泡排序改良版2
+
+void Sort_Bubble2(int *a,int n)
+{
+           int flag;
+           int k=0;
+          flag=n;
+           while( flag >0 )
+          {
+                   k=flag;
+                   flag=0;
+                    for (int j =0 ; j != k-1; j++ )
+                   {
+                              if( a[j] > a[j+1])
+                             {
+                                      swap(a[j],a[j+1]);
+                                      flag=j+1;
+                             }
+                   }
+
+          }
+
+
+冒泡排序改良版3.  利用函数指针，可以对比类成员
+
+bool cmp_int(const int& x, const int & y)
+{
+           return x<y;
+}
+
+void Sort_Bubble3(int *a,int n, bool (*fun)(const int&, const int &) )
+{
+           int flag;
+           int k=0;
+          flag=n;
+           while( flag >0 )
+          {
+                   k=flag;
+                   flag=0;
+                    for (int j =0 ; j != k-1; j++ )
+                   {
+                              if( fun(a[j],a[j+1]) )
+                             {
+                                      swap(a[j],a[j+1]);
+                                      flag=j+1;
+                             }
+                   }
+
+          }
+
+}
+  
+
+插入排序
+void Sort_Insert(int *a,int n)
+{
+           int i,j,k;
+           for ( i=1 ; i!= n; i++)
+          {        
+                    //1.5.7.6.4.8
+                    for ( j=i-1; j>=0 ;j--)
+                   {
+                              if ( a[i]>a[j])
+                                       break;
+
+                   } //end for,查??找??合?适???的??位?置?
+                    int tmp=a[i];
+                    int k=i ;
+                    for (; k!=j+1;k--)
+                   {
+                             swap(a[k],a[k-1]);
+                   }
+                   a[k]=tmp;
+
+          }
+
+}
+  
+
+精简版的插入排序
+void Sort_Insert2(int *a,int n)
+{
+           int i ,j ;
+           for ( i = 1 ; i != n ; i++)
+          {
+                    for( j=i ; j>=1&&a[j]<a[j-1]; j--)
+                   {
+                             swap(a[j],a[j-1]);
+                   }
+          }
+
+}
+
+
+选择排序
+一次选中后面的最小的元素，和前面的元素交换位置
+void Sort_Select(int *a,int n)
+{
+           int i, j;
+           int minindex;
+           for ( i = 0 ; i != n ; i++ )
+          {
+                   minindex=i;
+                    for ( j = i ; j != n ; j++ )
+                   {
+                              if ( a[j] < a[minindex] )
+                                      minindex=j;
+                   }
+                   swap(a[i],a[minindex]);
+                   
+          }
+}
+
+
+
+快速排序
+//快速排序，根据基准元素调整，
+int Adjust_Array(int *a, int first, int last)
+{
+           int i=first , j=last;
+           int tmp=a[i];
+
+           while( i< j)
+          {
+                    while (i<j&&a[j]>=tmp)
+                             j--;
+                    if ( i<j )
+                   {
+                             a[i]=a[j];
+                             i++;
+                   }
+                    while( i<j && a[i]<=tmp )
+                             i++;
+
+                    if ( i < j )
+                   {
+                             a[j]=a[i];
+                             j--;
+                   }
+
+          }
+
+          a[i]=tmp;
+           return i;
+
+}
+
+void qsort(int *a ,int fisrt , int last)
+{
+           if (fisrt >= last)
+                    return;
+           int middle=Adjust_Array(a,fisrt,last);
+          qsort(a,fisrt,middle-1);
+          qsort(a,middle+1,last);
+}
+
+void Sort_Quick(int *a, int n)
+{
+          qsort(a,0,n-1);
+}
+  
+
+时间复杂度nlog(n),不稳定
+
+
+
+字符串
+
+/**
+**从???src中D获?取??need子???串??
+*
+*/
+char *Strstr(const char* src, const char * need)
+{
+          assert(src!=NULL&&need!=NULL);
+           const char * p1,*p2;
+          p1=src,p2=need;
+           while ( *src!='\0' &&*need!= '\0')
+          {
+                    if ( *src++!=*need++)
+                   {
+                             need=p2;
+                             src=++p1;
+                   }
+          }
+           if (*need=='\0' )
+                    return (char *)p1;
+           return NULL;
+
+}
+
+
+
+
+
+堆排序
+
+//堆排序
+/**
+**从0开始计算，第i节点的子节点是2*i+1,2*i+2
+**从i节点开始向下沉，一共n个节点
+*/
+void MinHeapFixdown(int *a,int i,int n)
+{
+     int tmp=a[i];
+     int j=2*i+1;//左子节点
+     while(j<n)
+     {
+          if( j+1 <n && a[j+1] < a[j])//寻找较小的孩子
+               j++;
+          if ( a[j]>tmp )
+               break;
+          a[i]=a[j];
+          i=j;
+          j=2*i+1;
+     }
+     a[i]=tmp;
+}
+
+void MakeMinHeap(int *a,int n)
+{
+     for ( int i=n/2-1; i>=0 ; i-- )
+          MinHeapFixdown(a,i,n);
+}
+
+void Sort_Heap(int *a ,int n)
+{
+     MakeMinHeap(a,n);//先建堆
+
+     //然后排序
+     for(int i=n-1; i>=1; i--)
+     {
+          swap(a[0], a[i]);
+          MinHeapFixdown(a,0,i);
+     }
+}
+
+
+时间复杂度nlog(n),不稳定
+
+
+struct LinkNode
+{
+     int val;
+     LinkNode* next;
+};
+
+/*
+*反转一个带有头部节点的链表。
+*/
+LinkNode* Reverse(LinkNode* head)
+{
+     //只有一个节点或没有节点，就不用反转了
+     if( head==NULL||NULL == head->next||head->next->next==NULL)
+          return head;
+     LinkNode* p1=head->next;
+     head->next=NULL;
+     LinkNode* p2;
+     while(NULL!=p1)
+     {
+          p2=p1->next;
+          p1->next=head->next;
+          head->next=p1;
+          p1=p2;    
+         
+     }
+     return head;
+}
+
+
+
+/**
+*
+*定义树节点的结构
+*/
+struct TreeNode
+{
+     int value;
+     TreeNode* lchild;
+     TreeNode* rchild;
+};
+
+
+
+/*
+*
+*求二叉树中相差距离最远的两个节点间的距离
+*/
+
+//本问题可以转化为二叉树每个节点的左右子树高度和的最大值
+
+int tree_height(const TreeNode* root,int& max_distance)
+{
+     const int left_height=root->lchild? tree_height(root->lchild,max_distance)+1:0;
+     const int right_height=root->rchild? tree_height(root->rchild,max_distance)+1:0;
+     const int distance=left_height+right_height;
+     if ( distance > max_distance )
+          max_distance=distance;
+     return (left_height > right_height ? left_height: right_height);
+}
+
+//树的高度的另一种递归算法
+
+int tree_high(const TreeNode* root)
+{
+     int lefthigh=0,righthigh=0;
+     if(root->lchild!=NULL)
+          lefthigh=tree_high(root->lchild)+1;
+     if ( root ->rchild !=NULL)
+          righthigh=tree_high(root->rchild)+1;
+     return (lefthigh > righthigh ? lefthigh: righthigh);
+}
+
+
+
+/**
+*判断二叉树是否为平衡二叉树，引用了求树的高度函数tree_high
+*
+*/
+
+bool Is_balance_tree(const TreeNode* root)
+{
+     if ( root==NULL)
+          return true;
+     int left=root->lchild?tree_high(root->lchild)+1:0;
+     int right=root->rchild?tree_high(root->rchild)+1:0;
+     if( left-right>1||right-left>1)
+          return false;
+     return Is_balance_tree(root->rchild)&&Is_balance_tree(root->lchild);
+}
+
+
+
+/*
+*指定二叉树，给定两节点求其共同的父节点
+*遍历二叉树，只有先访问给定节点A,B，才可能确定其最近共同父节点C。因而采用后续遍历
+*/
+//情况1，允许节点是其自身的父节点（若B是A的孩子，A,B的最近共同父节点为A）
+
+int GetParent(const TreeNode* root,const TreeNode* a,const TreeNode* b,TreeNode*& result)
+{
+     int left=root->lchild?GetParent(root->lchild,a,b,result):0;
+     if (!result)
+          return 0;
+     int right=root->rchild?GetParent(root->rchild,a,b,result):0;
+     if (!result)
+          return 0;
+
+     //由于a可能等于b,不要写成int mid=(root==a)|(root==b)
+     int mid=(root==a)+(root==b);
+     int ret=left+right+mid;
+     if(ret==2)
+          result=const_cast<TreeNode*>(root);
+     return ret?1:0;
+
+}
+
+TreeNode* lca(const TreeNode* root,const TreeNode* a,const TreeNode* b)
+{
+     TreeNode* result=NULL;
+     if(root!=NULL)
+          GetParent(root,a,b,result);
+     return result;
+}
+
+
+//情况2，节点不能是自身的父节点（若B是A的孩子，A,B的最近共同父节点为A的父节点）
+
+int GetParent(TreeNode* root,const TreeNode* a,const TreeNode* b,TreeNode* parent,TreeNode*& result)
+{
+     int left=0;
+     if(root->lchild!=NULL)
+     {
+          left=GetParent(root->lchild,a,b,root,result);
+    
+     }
+     if (result==NULL)
+          return 0;
+     int right=0;
+
+     if(root->rchild!=NULL)
+          right=GetParent(root->rchild,a,b,root,result);
+     if (result==NULL)
+          return 0;
+
+     int mid=(root==a)+(root==b);
+     int ret=left+right+mid;
+     if(ret==2)
+          result=(mid==0?root:parent);
+     return ret?1:0;
+}
+
+TreeNode* lca2(TreeNode* root,const TreeNode* a,const TreeNode* b)
+{
+     TreeNode* result=NULL;
+     if(root!=NULL)
+          GetParent(root,a,b,NULL,result);
+     return result;
+}
+
+
+/**
+*
+*二叉树的广度遍历，即层次遍历
+*/
+void bfs(TreeNode* root)
+{
+     if( root == NULL )
+          return;
+     deque<TreeNode*> dq;
+     dq.push_back(root);
+
+     while(!dq.empty())
+     {
+          root=dq.front();
+          dq.pop_front();
+          cout<<root->value<<"\t";
+          if (root->lchild!=NULL)
+               dq.push_back(root->lchild);
+          if (root->rchild!=NULL)
+               dq.push_back(root->rchild);
+     }
+}
+
+
+//逐层打印
+void bfs_level(TreeNode* root)
+{
+     if(NULL==root)
+          return;
+     deque<TreeNode*>dq;
+     dq.push_back(root);
+     //增加一个标，指向本层的最后一个元素
+     TreeNode* end=root;
+
+     while (!dq.empty())
+     {
+          root=dq.front();
+          dq.pop_front();
+          cout<<root->value;
+          if (root->lchild!=NULL)
+               dq.push_back(root->lchild);
+          if (root->rchild!=NULL)
+               dq.push_back(root->rchild);
+          if(end!=root)
+               cout<<"\t";
+          else if(end==root)
+          {
+               cout<<"\n";
+               end=dq.back();
+          }
+          else
+          {
+               cout<<"erro"<<endl;
+               break;    
+          }
+     }
+}
+
+
+
+
+
+
+//只打印某层,根节点是第0层
+
+void PrintAtLevel(TreeNode* root,int level)
+{
+     if(root==NULL)
+          return;
+     deque<TreeNode*> dq;
+     dq.push_back(root);
+     //增加一个标，指向本层的最后一个元素
+     TreeNode* end=root;
+    
+     while(!dq.empty())
+     {
+          root=dq.front();
+          dq.pop_front();
+          if (root->lchild!=NULL)
+               dq.push_back(root->lchild);
+          if (root->rchild!=NULL)
+               dq.push_back(root->rchild);
+
+          if(level==0)
+               cout<<root->value;
+          if(root!=end&&level==0)
+               cout<<"\t";
+          else if( root==end)
+          {
+               level--;
+               if(level<0||dq.empty())
+                    return;
+               end=dq.back();
+          }
+     }
+}
+
+
+
+//递归只打印某层节点，根节点是第0层
+
+void PrintAtLevel2(TreeNode* root,int level)
+{
+     if (root==NULL||level<0)
+          return ;
+     if ( level==0 )
+     {    
+          cout<<root->value;
+          return;
+     }
+     PrintAtLevel2(root->lchild,level-1);
+     PrintAtLevel2(root->rchild,level-1);
+}
+
+
+//二叉树中找出和（叶子节点到根节点路径上的所有节点的数据和）为指定值的所有路径
+void node_path(TreeNode* root,const int& value, int sum,deque<int >& dq)
+{
+          sum+=root->value;
+           if(root->lchild==NULL&&root->rchild==NULL)
+          {
+                    if(value!=sum)
+                              return;
+                   copy(dq.begin(),dq.end(),ostream_iterator< int>(cout,"\t" ));
+                   cout<<root->value<< "\n";
+                    return;
+          }
+          dq.push_back(root->value);
+           if (root->lchild!=NULL)
+                   node_path(root->lchild,value,sum,dq);
+           if ( root->rchild!=NULL)
+                   node_path(root->rchild,value,sum,dq);
+          dq.pop_back();
+}
+
+
+//打印所有根节点到叶子节点的路径
+void all_node_path(TreeNode* root,deque<int>& dq)
+{
+          assert(root!=NULL);
+           if(root->lchild==NULL&&root->rchild==NULL)
+          {
+                   copy(dq.begin(),dq.end(),ostream_iterator< int>(cout,"\t" ));
+                   cout<<root->value<< "\n";
+                    return;
+          }
+          dq.push_back(root->value);
+           if (root->lchild!=NULL)
+                   all_node_path(root->lchild,dq);
+           if ( root->rchild!=NULL)
+                   all_node_path(root->rchild,dq);
+          dq.pop_back();
+}
+  
+//求二叉树的镜像
+
+void mirror(TreeNode* root)
+{
+           if ( root==NULL)
+                    return;
+          deque<TreeNode*> dq;
+          dq.push_back(root);
+
+           while(!dq.empty())
+          {
+                   root=dq.front();
+                   dq.pop_front();
+
+                   TreeNode* left=root->lchild;
+                   TreeNode* right=root->rchild;
+
+                   root->lchild=right;
+                   root->rchild=left;
+
+                    if(left!=NULL)
+                             dq.push_back(left);
+
+                    if(right!=NULL)
+                             dq.push_back(right);
+          }
+
+}
+
+
+//树的前序遍历，非递归实现
+
+void preoder(TreeNode* root)
+{
+           if ( root ==NULL)
+                    return;
+          deque<TreeNode*> dq;
+
+           while ( !dq.empty()||root!=NULL)
+          {
+                    while(root!=NULL)
+                   {
+                             cout<<root->value<< "\t";
+                             dq.push_back(root);
+                             root=root->lchild;
+                   }
+                    if (dq.empty())
+                              break;
+                   root=dq.back();
+                   dq.pop_back();
+                   root=root->rchild;
+
+          }
+}
+
+
+
+//中序遍历
+void InOrder(TreeNode* root)
+{
+           if (root==NULL)
+                    return;
+          deque<TreeNode*> dq;
+           while ( !dq.empty()||root!=NULL)
+          {
+                    while(root!=NULL)
+                   {
+                             dq.push_back(root);
+                             root=root->lchild;
+                   }
+                    if (dq.empty())
+                              break;
+                   root=dq.back();
+                   dq.pop_back();
+                   cout<<root->value<< "\t";
+                   root=root->rchild;
+
+          }
+}
+  
+
+
+//后序遍历
+typedef struct
+{
+          TreeNode* link;
+           int flag;
+}StackNode;
+
+void PostOrder(TreeNode* root)
+{
+           if(root==NULL)
+                    return;
+          deque<StackNode * > dq;
+
+           while(!dq.empty()||root!=NULL)
+          {
+                    while(root!=NULL)
+                   {
+                             StackNode *sp= new StackNode;
+                             sp->flag=1;
+                             sp->link=root;
+                             dq.push_back(sp);
+                             root=root->lchild;
+
+                   }
+                    if(dq.empty())
+                              break;
+                   root=dq.back()->link;
+                    int k=dq.back()->flag;
+                   dq.pop_back();
+                    if(k==1)
+                   {
+                             StackNode *sp= new StackNode;
+                             sp->flag=2;
+                             sp->link=root;
+                             dq.push_back(sp);
+                             root=root->rchild;
+                   }
+                    else if (k==2)
+                   {
+                             cout<<root->value<< "\t";
+                             root=NULL;
+                   }
+                    else
+                   {
+                             cout<< "erro"<<endl;
+                              return;
+                   }
+
+          }
+}
+
+ 
+如何用 C++ 在 10 行内写出八皇后？
+
+http://www.zhihu.com/question/28543312/answer/41204895?from=timeline&isappinstalled=0
+
+#include <iostream>#include <algorithm>#include <bitset>#include <numeric>#include <utility>int main() {
+  for (int queens[] = {0,1,2,3,4,5,6,7}; ::std::next_permutation(queens,queens+8); )
+    if ((::std::bitset<15>(::std::accumulate(queens,queens+8, ::std::make_pair(0, 0), [](::std::pair<int, int> a, int b){return ::std::make_pair((1<<(b+a.second))|a.first,a.second+1);}).first).count() == 8) && (::std::bitset<15>(::std::accumulate(queens, queens+8, ::std::make_pair(0, 0), [](::std::pair<int, int> a, int b){return ::std::make_pair((1<<(7+b-a.second))|a.first, a.second+1);}).first).count() == 8))
+      ::std::cout << queens[0] << queens[1] << queens[2] << queens[3] << queens[4] << queens[5] << queens[6] << queens[7] << ::std::endl;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+计算数组
+1，以下数组   a1,a2,a3...an
+以步长为x，1<x<n。 b1 = a1+a2+a1+x
+b2 = a2+a3+ ..a2+x；
+计算数组bn
+
+
+int fun(int *a, int n, int x, int *b)
+{
+     if(n < x)
+     {
+          return -1;
+     }
+
+    if( n == x)
+    {
+       for ( int i = 0; i != n; i++)
+      {
+         b[0] = b[0] + a[i];
+      }
+       return 0;
+    }
+
+     int tmp = 0;
+     for ( int i = 0; i != n-x)
+     {
+        if( i == 0)
+        {
+
+           for ( int i = 0; i != x; i++)
+           {
+              b[0] = b[0] + a[i];
+
+           }
+           tmp = b[0]
+        }
+        else
+        {
+            b[i] = tmp - a[i-1] + a[i+x-1];
+            tmp = b[i];
+        }
+
+      }
+
+
+}
+
+
+
+
+/*
+*反转一个带有头部节点的链表。
+*/
+LinkNode* Reverse(LinkNode* head)
+{
+     //只有一个节点或没有节点，就不用反转了
+     if( head==NULL||NULL == head->next||head->next->next==NULL)
+          return head;
+     LinkNode* p1=head->next;
+     head->next=NULL;
+     LinkNode* p2;
+     while(NULL!=p1)
+     {
+          p2=p1->next;
+          p1->next=head->next;
+          head->next=p1;
+          p1=p2;    
+         
+     }
+     return head;
+}
+罗伟 2017/12/26 16:31:38
+/*
+*
+*求二叉树中相差距离最远的两个节点间的距离
+*/
+
+//本问题可以转化为二叉树每个节点的左右子树高度和的最大值
+
+int tree_height(const TreeNode* root,int& max_distance)
+{
+     const int left_height=root->lchild? tree_height(root->lchild,max_distance)+1:0;
+     const int right_height=root->rchild? tree_height(root->rchild,max_distance)+1:0;
+     const int distance=left_height+right_height;
+     if ( distance > max_distance )
+          max_distance=distance;
+     return (left_height > right_height ? left_height: right_height);
+}
+罗伟 2017/12/26 16:31:45
+//树的高度的另一种递归算法
+
+int tree_high(const TreeNode* root)
+{
+     int lefthigh=0,righthigh=0;
+     if(root->lchild!=NULL)
+          lefthigh=tree_high(root->lchild)+1;
+     if ( root ->rchild !=NULL)
+          righthigh=tree_high(root->rchild)+1;
+     return (lefthigh > righthigh ? lefthigh: righthigh);
+}
+
+
+
+
