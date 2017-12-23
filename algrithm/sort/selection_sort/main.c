@@ -40,7 +40,10 @@ void selection_sort(int arr[], int len)
 				temp = j;
 			}
 		}
-		swap(arr, i, temp);   // 这里交换的时候可能造成不稳定
+		if (temp != i)  // 优化一下  https://en.wikipedia.org/wiki/Selection_sort
+		{
+			swap(arr, i, temp);   // 这里交换的时候可能造成不稳定
+		}
 	}
 }
 // 
