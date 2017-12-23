@@ -1,11 +1,18 @@
 .PHONY:clean all
-CC=gcc
+CC=g++
+
 #CFLAGS=-Wall -save-temps -O1
-CFLAGS=-Wall -g -save-temps -std=c11
-BIN= main  main_opt
+CFLAGS=-Wall -g -save-temps -std=c++11
+BIN= main  main_opt main_cpp
 all:$(BIN)
 %:%.c 
 	$(CC) $(CFLAGS)   $< -o $@
 	
 clean:
-	rm -f *.o $(BIN) *.s *.i
+	rm -f *.o $(BIN) *.s *.i *.ii
+
+
+
+
+
+
