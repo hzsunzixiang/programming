@@ -2,7 +2,7 @@
 CC=gcc
 #CFLAGS=-Wall -save-temps -O1
 CFLAGS=-Wall -g -save-temps -std=c11
-BIN= main 
+BIN= main  main_opt
 all:$(BIN)
 %:%.c 
 	$(CC) $(CFLAGS)   $< -o $@
