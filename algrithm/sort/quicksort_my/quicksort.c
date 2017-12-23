@@ -28,6 +28,11 @@ void printArray(int arr[], int len)
 }
 
 //  
+/* This function takes last element as pivot, places
+   the pivot element at its correct position in sorted
+    array, and places all smaller (smaller than pivot)
+   to left of pivot and all greater elements to right
+   of pivot */
 int partition2(int arr[], int low, int high)  
 {
 	printf("partition, low:%d, high:%d\n", low, high);
@@ -111,6 +116,7 @@ void quick_sort(int arr[], int low, int high)
 	}
 }
 
+//Quicksort	最好和平局情况 O(nlogn) 最坏 O(n^{2}) 就地排序 不稳定 Partitioning	Quicksort, 需要空间  O(log n) ; is usually done in-place with O(log n) stack space.
 
 	int
 main(int argc, char **argv)
