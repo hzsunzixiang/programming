@@ -3,7 +3,7 @@ CC=g++
 #CFLAGS=-Wall -save-temps -O1
 CPPFLAGS=-Wall -g -save-temps
 CFLAGS=-Wall -g -save-temps
-BIN= traversal  traversal_1 traversal_my
+BIN= traversal  traversal_1 traversal_my height
 all:$(BIN)
 %:%.c 
 	$(CC) $(CFLAGS)   $< -o $@
