@@ -77,6 +77,8 @@ void heap_sort(int arr[], int len)
 		heap_create(arr, len-1-i);
 	}
 }
+// 最好 最坏 和平均时间  均为 O(nlogn)
+// 不稳定 
 
 int main() 
 {
