@@ -1,11 +1,15 @@
 void fun() {}
 void bar()  {}
 
+// chicken:
+// egg:
+// 保持C的连接方式 防止c++ 进行名字mangle 对比 hello
 extern "C" {
 	void chicken() {}
 	void egg(){}
 }
 
+// _Z5hellov:
 /* Prevent g and eg from being optimized away. */
 void hello() { fun(); egg(); }
 
