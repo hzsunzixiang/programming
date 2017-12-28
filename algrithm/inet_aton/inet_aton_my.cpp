@@ -70,11 +70,23 @@ int inet_aton_my(const char *cp, uint32_t *ap)
 	return 1;
 }
 
+// int snprintf(char *str, size_t size, const char *format, ...);
+
+static __thread char buffer[18];
+// 按网络字节序 来算 网络字节序和 字符串天然匹配
+char * inet_ntoa_my (uint32_t in)
+{
+	unsigned char *bytes = (unsigned char *) &in;
+	snprintf (buffer, sizeof (buffer), "%d.%d.%d.%d",
+			bytes[0], bytes[1], bytes[2], bytes[3]);
+	return buffer;
+}
+
 int main()
 {
 	//const char *ip1 = "192.168.1.1";
 	//const char *ip1 = "192.168.1.";
-	const char *ip1 = "192.168.1";   // 跟标准的有些不一致
+	const char *ip1 = "192.168.1.9";   // 跟标准的有些不一致
 	uint32_t res = 0;
 
 	struct in_addr addr;
@@ -86,6 +98,7 @@ int main()
 	{
 		addr.s_addr = res;
  		printf("res:%u, %s\n", res, inet_ntoa(addr));
+ 		printf("res:%u, %s\n", res, inet_ntoa_my(res));
 	}
 	//inet_aton(ip1, &addr);   // 由于里面调用了htonl 所以很难 比较
 	struct in_addr addr1;
