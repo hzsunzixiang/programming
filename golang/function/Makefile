@@ -1,4 +1,4 @@
-BIN= helloworld helloworld1 helloworld2
+BIN=  fun1
 
 all:$(BIN)
 

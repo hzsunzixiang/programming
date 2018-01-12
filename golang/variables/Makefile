@@ -1,4 +1,4 @@
-BIN= helloworld helloworld1 helloworld2
+BIN=  variables variables1 variables2 constants loops1
 
 all:$(BIN)
 
