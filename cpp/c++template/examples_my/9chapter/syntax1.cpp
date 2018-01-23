@@ -19,6 +19,7 @@ void g()
 	// template argument list. This would make the code invalid because the compiler would read it to be equivalent to
 	// ((B<1>))0>::result
 	bool test1 = Invert<(1>0)>::result;
+	(void)test1;
 }
 int main()
 {

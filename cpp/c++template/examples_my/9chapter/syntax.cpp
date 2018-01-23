@@ -24,9 +24,14 @@ int main()
 	//characters combine into a right shift token >>, and hence are never treated as two separate tokens. This is a
 	//consequence of the so-called maximum munch tokenization principle: A C++ implementation must collect as many
 	//consecutive characters as possible into a token.
-	//  这种情况在老版本做了修复 4.4编译器上会报错
-	//vector <list<int>> m;
+	//  这种情况在 4.4 4.9 编译器上均报错
+	// syntax.cpp:28:18: error: ‘>>’ should be ‘> >’ within a nested template argument list
+	//vector <list<int>> n;
 	vector <list<int> > m;
+	(void)k;
+	(void)x;
+	(void)y;
+	(void)m;
 	return 0;
 }
 

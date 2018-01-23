@@ -2,7 +2,7 @@
 .PHONY:clean all
 CC=g++
 CFLAGS=-Wall -g -ansi -W -Wall -pedantic
-BIN= syntax syntax1
+BIN= syntax syntax1 typename template
 all:$(BIN)
 %:%.cpp
 	$(CC) $(CFLAGS)   $< -o $@
