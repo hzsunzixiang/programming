@@ -38,15 +38,22 @@ class Weird
 	public:
 		 void case1()
 		 {
+			// 这样错误
+		    //typename Shell<T>::In<N>::Deep<N> p;
+
 		    typename Shell<T>::template In<N>::template Deep<N> p;
 		 	// 这样报错
 		 	// template.cpp:31:23: error: expected ‘;’ before ‘::’ token
 		 	// p->template Deep<N>::f();
 		 	//p->template Deep<N>::f();
 
+
+			cout << " in case1 " << endl;
 		 	p.template f();   // 这样可以
 
 		 	p.f();   // 这样也可以
+			p.Shell<int>::In<100>::Deep<100>::f();  // // inhibit virtual call 禁止虚拟函数调用
+			cout << " in case1 " << endl << endl;
 		 }
 
 		 void case2()
@@ -59,7 +66,9 @@ class Weird
 		 	// p->template Deep<N>::f();
 		 	//p->template Deep<N>::f();
 
+			cout << " in case2 " << endl;
 		 	p->template f();   // 这样可以
+		 	p->f();   // 这样可以
 			// 下面错误
 			// template.cpp: In instantiation of ‘void Weird<T, N>::case2() [with T = int; int N = 100]’:
 			// template.cpp:74:14:   required from here
@@ -68,22 +77,27 @@ class Weird
 		 	//p->Deep<100>::f();  // 这样 错误
 
 			// 这样可以
-			p->Shell<int>::In<100>::Deep<100>::f();
+			p->Shell<int>::In<100>::Deep<100>::f();  // // inhibit virtual call 禁止虚拟函数调用
+			cout << " in case2 " << endl << endl;
 		 }
 
 		 void case3(typename Shell<T>::template In<N>::template Deep<N> &p)
 		 {
+			cout << " in case3 " << endl << endl;
 		 	p.template f();   // 这样可以
-			p.Shell<int>::In<100>::Deep<100>::f();
+			p.Shell<int>::In<100>::Deep<100>::f();  // inhibit virtual call 禁止虚拟函数调用
 		 	p.f();   // 这样也可以
 		 	// p.Deep<100>::f();  // 这样 错误
+			cout << " in case3 " << endl << endl;
 		 }
 		 void case4(typename Shell<T>::template In<N>::template Deep<N> *p)
 		 {
+			cout << " in case4 " << endl << endl;
 		 	p->template f();   // 这样可以
-			p->Shell<int>::In<100>::Deep<100>::f();
+			p->Shell<int>::In<100>::Deep<100>::f();   // // inhibit virtual call 禁止虚拟函数调用
 		 	p->f();   // 这样也可以
-		 	// p.Deep<100>::f();  // 这样 错误
+		 	// p.Deep<100>::f(3);  // 这样 错误
+			cout << " in case4 " << endl << endl;
 		 }
 };
 
