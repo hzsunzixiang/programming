@@ -12,7 +12,10 @@ echo  "Content-type: text/html"
 #
 #
 #echo "POST_DATA:$POST_DATA"
+# 后面必须跟两个换行符  否则 会报服务器错误
 
+echo 
+echo
 
 
 echo "hello,world!"

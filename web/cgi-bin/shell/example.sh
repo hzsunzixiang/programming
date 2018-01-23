@@ -22,3 +22,9 @@ echo "<html><head><title>What You Said</title></head>"
 echo "<body>Here's what you said:"
 echo "You entered \"$USERNAME\" for username and wanted the action to be \"$WHATTODO\", the button is $SUBBTN"
 echo "</body></html>" 
+
+# 请求 及结果
+# http://192.168.56.101:8080/cgi-bin/shell/example.sh?username=szx&whatToDo=play
+
+#Here's what you said: You entered szx for username and wanted the action to be play 
+#QUERY_STRING, username=szx&whatToDo=play 
