@@ -12,6 +12,7 @@ echo "<body>Here's what you said:"
 echo "You entered $USERNAME for username and wanted the action to be $WHATTODO"
 echo "<br>" 
 echo "QUERY_STRING", $QUERY_STRING
+echo "pid: " $$
 echo "</br>" 
 echo "</body></html>" 
 
