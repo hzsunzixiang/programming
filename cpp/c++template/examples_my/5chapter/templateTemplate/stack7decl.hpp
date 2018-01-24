@@ -8,6 +8,19 @@
  * This software is provided "as is" without express or implied
  * warranty, and with no claim as to its suitability for any purpose.
  */
+
+// Template Template Argument Matching
+// If you try to use the new version of Stack, you get an error message saying that the default valuset d::deque is not
+// compatible with the template template parameter CONT. The problem is that a template template argument must be
+// a template with parameters that exactly match the parameters of the template template parameter it substitutes.
+// Default template arguments of template template arguments are not considered, so that a match cannot be achieved
+// by leaving out arguments that have default values.
+// The problem in this example is that the std::deque template of the standard library has more than one parameter:
+// The second parameter (which describes a so-called allocator) has a default value, but this is not considered when
+// matching std::deque to the CONT parameter.
+
+// deque 有两个模板参数  和声明不匹配 所以缺省参数不能 编译通过
+
 template <typename T,
           template <typename ELEM> class CONT = std::deque >
 class Stack {
