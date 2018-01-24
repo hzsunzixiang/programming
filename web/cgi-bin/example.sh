@@ -12,6 +12,7 @@ echo "<body>Here's what you said:"
 echo "You entered $USERNAME for username and wanted the action to be $WHATTODO"
 echo "<br>" 
 echo "QUERY_STRING", $QUERY_STRING
+echo "<br>" 
 echo "pid: " $$
 echo "</br>" 
 
@@ -50,6 +51,15 @@ echo "<br>"
 echo "SERVER_SOFTWARE " $SERVER_SOFTWARE
 echo "<br>" 
 echo "</body></html>" 
+
+#sleep 60
+
+#通过sleep 60s 看到了庐山真面目 所执行的shell脚本
+# stephensun@centos-1:~/programming/web/cgi-bin$ ps aux|grep 26262
+# apache   26262  0.0  0.1  11340  1228 ?        S    15:38   0:00 /bin/bash /home/stephensun/programming/web/cgi-bin/example.sh
+
+
+
 
 # 请求 及结果
 # http://192.168.56.101:8080/cgi-bin/example.sh?username=szx&whatToDo=play

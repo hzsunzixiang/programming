@@ -1,9 +1,25 @@
 #include <stdio.h>
+#include <unistd.h>
 int main(void) {
 	printf("Content-Type: text/plain;charset=us-ascii\n\n");
 	printf("Hello world\n\n");
+	printf("the pid: %d\n\n", getpid());
+	//sleep(60);
 	return 0;
 }
+
+
+
+// 通过 sleep(60) 看到庐山真面目
+// 不停的运行 就能看到 每个都是一个进程在执行
+// apache   26314  0.0  0.0   3920   428 ?        S    15:41   0:00 /home/stephensun/programming/web/cgi-bin/helloworld
+// apache   26315  0.0  0.0   3920   432 ?        S    15:41   0:00 /home/stephensun/programming/web/cgi-bin/helloworld
+// apache   26324  0.0  0.0   3920   432 ?        S    15:41   0:00 /home/stephensun/programming/web/cgi-bin/helloworld
+// apache   26325  0.0  0.0   3920   428 ?        S    15:41   0:00 /home/stephensun/programming/web/cgi-bin/helloworld
+// apache   26328  0.0  0.0   3920   432 ?        S    15:41   0:00 /home/stephensun/programming/web/cgi-bin/helloworld
+// apache   26353  0.0  0.0   3920   432 ?        S    15:41   0:00 /home/stephensun/programming/web/cgi-bin/helloworld
+// apache   26355  0.0  0.0   3920   432 ?        S    15:41   0:00 /home/stephensun/programming/web/cgi-bin/helloworld
+//
 
 
 
