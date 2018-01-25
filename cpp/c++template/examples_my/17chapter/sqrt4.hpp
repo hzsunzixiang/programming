@@ -25,11 +25,7 @@ template <int N, int I=1>
 class Sqrt {
   public:
     // instantiate next step or result type as branch
-    typedef typename IfThenElse<(I*I<N),
-                                Sqrt<N,I+1>,
-                                Value<I>
-                               >::ResultT
-            SubT;
+    typedef typename IfThenElse<(I*I<N), Sqrt<N,I+1>, Value<I> >::ResultT SubT;
 
     // use the result of branch type
     enum { result = SubT::result };

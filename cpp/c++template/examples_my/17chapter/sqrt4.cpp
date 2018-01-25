@@ -17,4 +17,5 @@ int main()
     std::cout << "Sqrt<25>::result = " << Sqrt<25>::result << std::endl;
     std::cout << "Sqrt<42>::result = " << Sqrt<42>::result << std::endl;
     std::cout << "Sqrt<1>::result =  " << Sqrt<1>::result << std::endl;
+    std::cout << "Sqrt<1>::result =  " << Sqrt<4096>::result << std::endl;
 }

@@ -1,8 +1,8 @@
 #
 .PHONY:clean all
 CC=g++
-CFLAGS=-Wall -g -ansi -W -Wall -pedantic
-BIN= pow3 pow3b sqrt1
+CFLAGS=-Wall -g -std=c++11 -W -Wall -pedantic -Wno-enum-compare 
+BIN= pow3 pow3b sqrt1 enum_warning sqrt2 condition sqrt3 sqrt4 loop1 loop2
 all:$(BIN)
 %:%.cpp
 	$(CC) $(CFLAGS)   $< -o $@
