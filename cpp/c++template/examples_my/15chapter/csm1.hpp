@@ -17,6 +17,7 @@
 template<typename T, bool Bitwise>
 class BitOrClassCSM;
 
+// 对象拷贝 而非 bitwise , 对象可能有虚函数 不能直接bit拷贝
 // partial specialization for safe copying of objects
 template<typename T>
 class BitOrClassCSM<T, false> {

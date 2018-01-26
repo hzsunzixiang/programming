@@ -11,11 +11,14 @@
 #include "rparam.hpp"
 #include "rparamcls.hpp"
 
+// 重点是参数传递 函数实现可以忽略
 // function that allows parameter passing by value or by reference
 template <typename T1, typename T2>
 void foo_core (typename RParam<T1>::Type p1,
                typename RParam<T2>::Type p2)
 {
+	(void)p1;
+	(void)p2;
     //...
 }
 

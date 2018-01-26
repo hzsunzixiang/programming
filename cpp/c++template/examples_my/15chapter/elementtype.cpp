@@ -41,10 +41,14 @@ void print_element_type (T const & c)
     std::cout << "Container of "
               << typeid(typename ElementT<T>::Type).name()
               << " elements.\n";
+	(void)c;
 }
 
 int main()
 {
     std::stack<bool> s;
+    std::stack<int> i;
+	(void)s;
     print_element_type(s);
+    print_element_type(i);
 }

@@ -29,9 +29,17 @@ class MyClass2 {
     }
 };
 
+// 下面上一个特化
 // pass MyClass2 objects with RParam<> by value
+// 对于RParam<> 的MyClass2参数 已传值的方式进行传递
 template<>
 class RParam<MyClass2> {
   public:
     typedef MyClass2 Type;
 };
+
+// template<typename T>
+// class RParam {
+//   public:
+//     typedef typename IfThenElse<IsClassT<T>::No, T, T const&>::ResultT Type;
+// };

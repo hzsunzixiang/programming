@@ -17,9 +17,7 @@
 template<typename T>
 class RParam {
   public:
-    typedef typename IfThenElse<IsClassT<T>::No,
-                                T,
-                                T const&>::ResultT Type;
+    typedef typename IfThenElse<IsClassT<T>::No, T, T const&>::ResultT Type;
 };
 
 #endif // RPARAM_HPP

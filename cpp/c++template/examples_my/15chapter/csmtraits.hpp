@@ -8,6 +8,7 @@
  * This software is provided "as is" without express or implied
  * warranty, and with no claim as to its suitability for any purpose.
  */
+// CSMtraits 的实现完全委托给了BitOrClassCSM<>的特化
 template <typename T>
 class CSMtraits : public BitOrClassCSM<T, IsClassT<T>::No > {
 };

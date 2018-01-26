@@ -13,11 +13,5 @@ template<typename T1, typename T2>
 class Promotion {
   public:
     typedef typename 
-            IfThenElse<(sizeof(T1)>sizeof(T2)),
-                       T1,
-                       typename IfThenElse<(sizeof(T1)<sizeof(T2)),
-                                           T2,
-                                           void
-                                          >::ResultT
-                      >::ResultT ResultT;
+            IfThenElse<(sizeof(T1)>sizeof(T2)), T1, typename IfThenElse<(sizeof(T1)<sizeof(T2)), T2, void >::ResultT >::ResultT ResultT;
 };

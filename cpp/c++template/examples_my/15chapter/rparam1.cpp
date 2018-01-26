@@ -17,6 +17,8 @@ void foo (typename RParam<T1>::Type p1,
           typename RParam<T2>::Type p2)
 {
     //...
+	(void)p1;
+	(void)p2;
 }
 
 int main()
