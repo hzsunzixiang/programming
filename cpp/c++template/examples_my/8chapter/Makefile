@@ -2,7 +2,7 @@
 .PHONY:clean all
 CC=g++
 CFLAGS=-Wall -g -std=c++11 -W -Wall -pedantic
-BIN= max  implicit ambiguous isclasst SFINAE SFINAE_error SFINAE_right type_arguments notype_arguments notype_arguments_error template_template_arguments
+BIN= max  implicit ambiguous isclasst SFINAE SFINAE_error SFINAE_right type_arguments notype_arguments notype_arguments_error template_template_arguments parameterized parameterized1 virtual linkage
 all:$(BIN)
 %:%.cpp
 	$(CC) $(CFLAGS)   $< -o $@
