@@ -1,7 +1,7 @@
 .PHONY:clean all
 CC=g++
-CFLAGS=-Wall -g -lm
-BIN= mod_multi_inverse  rsa_experiment
+CFLAGS=-Wall -g -lgmp
+BIN= mod_multi_inverse  rsa_experiment invert_gmp rsa_gmp
 all:$(BIN)
 %:%.cpp 
 	$(CC) $(CFLAGS)   $< -o $@
