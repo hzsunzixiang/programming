@@ -21,7 +21,11 @@ int main()
 	mpz_t P; // 明文
 	mpz_t Q; // 还原出的明文
 
-	mpz_inits (p, q ,n ,phai_p ,phai_q ,phai_n ,const_1 ,pub ,pri ,P ,Q ,secret);
+	//mpz_inits (p, q ,n ,phai_p ,phai_q ,phai_n ,const_1 ,pub ,pri ,P ,Q ,secret);
+	//void mpz_inits ( mpz t x , ...)
+	//	Initialize a NULL-terminated list of mpz_t variables, and set their values to 0.
+	// 必须以NULL结尾 否则 段错误
+	mpz_inits (p, q ,n ,phai_p ,phai_q ,phai_n ,const_1 ,pub ,pri ,P ,Q ,secret, NULL);
 
 	mpz_set_str (P, "1520", 0); // 明文
 	mpz_set_str (p, "43", 0);
@@ -62,12 +66,12 @@ int main()
 	}
 	// 对数据加密
 	printf("the plain text:");
-	mpz_out_str(stdout, 10, secret);
+	mpz_out_str(stdout, 10, P);
 	printf("\n");
 
 	// 密文
 	mpz_powm(secret, P, pub, n);
-	printf("the secret:");
+	printf("the secret text:");
 	mpz_out_str(stdout, 10, secret);
 	printf("\n");
 
