@@ -22,6 +22,7 @@ int main()
 	//void mpz_ui_pow_ui ( mpz t rop , unsigned long int base , unsigned long int exp)
 	mpz_ui_pow_ui(rop, base, exp);
 	mpz_out_str(stdout, 10, rop);
+	return 0;
 
 
 }
