@@ -73,6 +73,25 @@ for i in range(2,19):
     (x2,y2)=(x3,y3)
 
 
+# verify 6p + 12p = 18p
+n=(16,13) # 6p
+m=(0,11) # 12p
+print "6p + 12p = 18p(5,16)"
+def nPlusm(n,m):
+    x1=n[0]
+    y1=n[1]
+    x2=m[0]
+    y2=m[1]
+    s = 0
+    if (x1==x2):
+        s=((3*(x1**2)+a)*modInverse(2*y1,p))%p
+    else:
+        s=((y2-y1)*modInverse(x2-x1,p))%p
+    x3=(s**2-x1-x2)%p
+    y3=(s*(x1-x3)-y1)%p
+    print str(i)+"p:\t", (x3,y3)
+
+nPlusm(n,m)
 # until x3 = x1 and y3 != y1
 
 
