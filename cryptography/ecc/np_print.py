@@ -27,6 +27,7 @@ for num in range(0,p):
 
 
 # 打印所有的 满足曲线 y^2 = x^3 + x + 10(mod 23)
+# 总共18对(x,y) 加上0元素，构成一个阶为q=19的有限循环群
 import itertools
 intersect = []
 for item in xlable.keys():
