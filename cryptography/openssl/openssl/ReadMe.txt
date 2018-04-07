@@ -11,8 +11,9 @@ version
 enc         
 dh                dhparam gendh     # 这三个命令等价 gendh只能用来生成参数
 prime             
+rand
 # 将要学习的
-rand              req               
+req               
 s_client          s_server          
 x509              
 # 未学习的
