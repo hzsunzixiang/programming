@@ -30,3 +30,30 @@ openssl  rsa -in genrsa.txt -out genrsa_nopasswd.txt
 #Enter passphrase:
 #ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC81XfHlCsDetpsJlAUWXkTLmkjUo10xuRMLrEzjSNrWnS8Rt6jVlhT98bRWayle9RM9lEceCn8TstuWRKjISN2rbzUEpEifz7VRcJWklhi80xm91/BOuLnFm/G7jjZQzAWoWWdZVxyyJk6tI8lc+AMiyFsdfHpwfvE1+dSHm5P93P/cUfuPSQKc8Hdb5Si4J7FCLLF/W99FEnleA91I1qnY7AG4tdwT2RtD0dfRtPw79VjxNQ7vnC1xUscTzshUUtlOHNcefgcXVdl8fI3U1qqDvG1jDQ2YbQL1aLDGd3V0vXxVYtGDTa3mETf6A0z8fC37Mf0amDcS92HFPRv3mrL
 #
+
+
+#       To remove the pass phrase on an RSA private key:
+#
+#        openssl rsa -in key.pem -out keyout.pem
+#
+#       To encrypt a private key using triple DES:
+#
+#        openssl rsa -in key.pem -des3 -out keyout.pem
+#
+#       To convert a private key from PEM to DER format:
+#
+#        openssl rsa -in key.pem -outform DER -out keyout.der
+#
+#       To print out the components of a private key to standard output:
+#
+#        openssl rsa -in key.pem -text -noout
+#
+#       To just output the public part of a private key:
+#
+#        openssl rsa -in key.pem -pubout -out pubkey.pem
+#
+#       Output the public part of a private key in RSAPublicKey format:
+#
+#        openssl rsa -in key.pem -RSAPublicKey_out -out pubkey.pem
+
+
