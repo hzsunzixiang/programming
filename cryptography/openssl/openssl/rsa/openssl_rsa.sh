@@ -24,13 +24,16 @@ openssl genrsa -aes128 -passout pass:123456 512 | openssl rsa -text -passin pass
 openssl  rsa -in genrsa.txt -out genrsa_nopasswd.txt
 
 
-
+# 两种命令导出的格式不一样  还没高清楚
 #  导出公钥
 #ericksun@debian:~/programming/cryptography/openssl/openssl/rsa$ ssh-keygen  -y -f fd.key
 #Enter passphrase:
 #ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC81XfHlCsDetpsJlAUWXkTLmkjUo10xuRMLrEzjSNrWnS8Rt6jVlhT98bRWayle9RM9lEceCn8TstuWRKjISN2rbzUEpEifz7VRcJWklhi80xm91/BOuLnFm/G7jjZQzAWoWWdZVxyyJk6tI8lc+AMiyFsdfHpwfvE1+dSHm5P93P/cUfuPSQKc8Hdb5Si4J7FCLLF/W99FEnleA91I1qnY7AG4tdwT2RtD0dfRtPw79VjxNQ7vnC1xUscTzshUUtlOHNcefgcXVdl8fI3U1qqDvG1jDQ2YbQL1aLDGd3V0vXxVYtGDTa3mETf6A0z8fC37Mf0amDcS92HFPRv3mrL
 #
 
+#       To just output the public part of a private key:
+#
+openssl rsa -in fd.key -pubout -out pubkey.pem
 
 #       To remove the pass phrase on an RSA private key:
 #
