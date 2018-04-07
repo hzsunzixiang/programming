@@ -16,11 +16,24 @@ openssl genrsa -out pri_key.pem
 #申请者需要将自己的信息及其公钥放入证书请求中。但在实际操作过程中，所需要提供的是私钥而非公钥，因为它会自动从私钥中提取公钥。另外，还需要将提供的数据进行数字签名(使用单向加密)，保证该证书请求文件的完整性和一致性，防止他人盗取后进行篡改， 
 
 # 所以这个证书请求文件中有用户的公钥信息   但不会有私钥信息
+# -text
+#    prints out the certificate request in text form.
+
 openssl req -new -key pri_key.pem -out req1.csr
 
 
-# 可以查看
+#可以使用openssl req命令查看。其中"-in"选项指定的是证书请求文件。
+
+#-in filename
+#This specifies the input filename to read a request from or standard input if this option is not specified. A request is only read if the creation options (-new and -newkey) are not specified.
+openssl req -in req1.csr
+
+# 可以查看  具体信息 包括 Subject, Public Key,
 openssl  req -text -in req1.csr 
+
+# 其中   Signature Algorithm: sha256WithRSAEncryption 部分为签名
+# 把Data部分用私钥签名 
+
 #Certificate Request:
 #    Data:
 #        Version: 1 (0x0)
@@ -84,3 +97,26 @@ openssl  req -text -in req1.csr
 #43WahP3NBrOTSMMLQ+iXeRb5KjY/v0Iy9Rn9AdafcRcf5ky9UBvtxaDPXOVSf+Wi
 #JrWDxWMB4+mk+DQQvemiTv8WpwZW
 #-----END CERTIFICATE REQUEST-----
+
+
+
+
+# 验证
+#       -verify
+#           verifies the signature on the request.
+# 注意 这里是用csr内含的公钥进行验证, 因为是用私钥进行签名的
+# 也就是验证的时候不用私钥
+# 如果有人把csr文件的信息篡改掉  则验证不会通过
+openssl req -verify -in req2.csr
+
+
+# req1_error 是个错误的文件
+openssl  req -in req1_error.csr  -tex
+# 情况1: 无法解密: unable to load X509 request
+# 情况2：信息验证错误
+
+
+
+
+
+
