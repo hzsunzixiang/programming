@@ -1,0 +1,5 @@
+StephenSun@debian-1:~/programming/cryptography/openssl/openssl/dhparam$ openssl prime 
+No prime specified
+options are
+-hex           hex
+-checks <n>    number of checks

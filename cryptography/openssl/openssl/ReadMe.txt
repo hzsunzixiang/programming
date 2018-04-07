@@ -10,8 +10,9 @@ gendsa            genrsa
 version
 enc         
 dh                dhparam gendh     # 这三个命令等价 gendh只能用来生成参数
+prime             
 # 将要学习的
-prime             rand              req               
+rand              req               
 s_client          s_server          
 x509              
 # 未学习的
