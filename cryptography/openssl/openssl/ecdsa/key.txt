@@ -1,0 +1,17 @@
+Private-Key: (256 bit)
+priv:
+    47:47:7e:69:0f:b3:2d:20:b4:2b:3f:4b:ae:65:9b:
+    c8:e1:77:9e:b1:b4:71:64:ea:7f:a0:99:54:3f:56:
+    6a:90
+pub: 
+    04:bf:99:2a:5c:85:75:a6:aa:ef:7d:1f:a8:1f:a6:
+    b4:a8:80:e2:08:b5:58:91:ca:40:17:af:76:7b:6d:
+    19:e4:fa:a3:0f:99:49:8a:e9:e9:6e:3d:c1:76:55:
+    f0:c1:e4:d3:61:ee:15:12:6a:b9:17:6f:64:83:93:
+    2e:06:5d:8b:5e
+ASN1 OID: prime256v1
+-----BEGIN EC PRIVATE KEY-----
+MHcCAQEEIEdHfmkPsy0gtCs/S65lm8jhd56xtHFk6n+gmVQ/VmqQoAoGCCqGSM49
+AwEHoUQDQgAEv5kqXIV1pqrvfR+oH6a0qIDiCLVYkcpAF692e20Z5PqjD5lJiunp
+bj3BdlXwweTTYe4VEmq5F29kg5MuBl2LXg==
+-----END EC PRIVATE KEY-----
