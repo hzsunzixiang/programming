@@ -3,6 +3,13 @@
 
 https://linuxctl.com/2017/02/x509-certificate-manual-signature-verification/#what-does-signing-a-certificate-mean       
 
+其实这篇文章的思想实在 rsautl 的man中有体现
+
+另外ca命令中 有 self sign的概念 
+
+How to create a self-signed certificate with openssl?
+
+https://stackoverflow.com/questions/10175812/how-to-create-a-self-signed-certificate-with-openssl
 
 
 从中学到
