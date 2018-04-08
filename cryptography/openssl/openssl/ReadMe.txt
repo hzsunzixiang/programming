@@ -13,12 +13,13 @@ dh                dhparam gendh     # 这三个命令等价 gendh只能用来生
 # dh 和 gendh 在1.1版本已经去除
 prime             rand dgst
 rsautl
-# 将要学习的
 req x509              
-ca 
 asn1parse         
+# 将要学习的
+ciphers 
+ca 
 s_client          s_server    
-ciphers errstr  passwd 
+errstr  passwd 
 
 # 未学习的
 
