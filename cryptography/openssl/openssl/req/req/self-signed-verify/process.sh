@@ -69,7 +69,7 @@ openssl  req -in req_self_sign.csr  -text -noout
 
 
 # 用同样的这个密钥来签署证书请求文件
-openssl req -x509 -key private.key-in req_self_sign.csr -out req_self_sign.crt -days 365
+openssl req -x509 -key private.key -in req_self_sign.csr -out req_self_sign.crt -days 365
 
 
 # 证书生成之后可以查看

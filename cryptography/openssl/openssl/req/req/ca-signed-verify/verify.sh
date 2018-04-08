@@ -26,21 +26,20 @@ openssl  rsa -in private_crt.key -pubout  -out public_crt.key
 # 提取签名信息
 
 
-# TODO 进行到这里了
 # The signature (along with algorithm) can be viewed from the signed certificate using openssl
 
-openssl x509 -in req_self_sign.crt  -noout -text
+openssl x509 -in req_ca_sign.crt  -noout -text
 
 #Certificate:
 #    Data:
 #        Version: 3 (0x2)
 #        Serial Number:
-#            b6:d8:3b:b3:86:3f:24:fd
+#            ba:2f:47:19:63:68:f8:8b
 #    Signature Algorithm: sha256WithRSAEncryption
 #        Issuer: C = CN, ST = ShenZhen, L = ShenZhen, O = TC, OU = CDG, CN = www.example.com, emailAddress = 17842379@qq.com
 #        Validity
-#            Not Before: Apr 18 22:31:24 2018 GMT
-#            Not After : Apr 18 22:31:24 2019 GMT
+#            Not Before: Apr 19 04:31:04 2018 GMT
+#            Not After : Apr 19 04:31:04 2019 GMT
 #        Subject: C = CN, ST = ShenZhen, L = ShenZhen, O = TC, OU = CDG, CN = www.example.com, emailAddress = 17842379@qq.com
 #        Subject Public Key Info:
 #            Public Key Algorithm: rsaEncryption
@@ -74,21 +73,21 @@ openssl x509 -in req_self_sign.crt  -noout -text
 #            X509v3 Basic Constraints: critical
 #                CA:TRUE
 #    Signature Algorithm: sha256WithRSAEncryption
-#         30:2c:96:2c:79:87:bd:7d:93:a7:30:b7:53:96:62:49:28:cf:
-#         33:73:43:0e:72:d7:4c:0e:dd:37:d4:91:e8:be:73:47:11:d8:
-#         f3:f5:ca:fe:c5:13:7c:3e:90:db:b4:36:3e:c3:09:bb:9e:ea:
-#         89:5a:a3:9d:1f:1d:da:7f:9f:62:59:b2:0f:79:3a:a9:d0:24:
-#         0d:72:3c:5d:06:0e:d7:57:9c:39:e1:d3:03:69:df:e5:c6:33:
-#         cd:54:ee:b9:48:89:ab:e8:9a:27:a8:76:dd:89:7d:13:33:64:
-#         83:d0:73:16:c5:0d:fe:43:87:c2:c4:8e:b2:8c:a6:2e:2a:3d:
-#         b6:9a:fe:fb:b0:87:39:0d:a4:ef:d1:72:04:36:17:50:5f:2e:
-#         91:61:01:d1:47:4a:34:55:ff:6d:1e:12:49:d1:57:f6:4e:74:
-#         72:dd:6a:44:9c:9b:59:d1:71:29:41:0f:f0:c0:f3:1b:95:25:
-#         3f:86:40:7b:1d:1d:27:2c:ab:ab:35:04:7a:4b:90:da:9a:f1:
-#         0d:37:e3:fb:81:cf:44:14:bd:b2:da:09:47:1f:e4:22:f4:2f:
-#         8e:0f:71:1a:86:37:7c:44:36:d0:e9:77:23:c9:45:5c:fa:24:
-#         94:76:b1:66:40:05:30:7b:8f:8a:45:b8:6c:94:3f:42:ff:34:
-#         2f:61:73:12
+#         77:89:b5:10:de:0b:e1:85:d6:c6:b5:8f:30:5f:af:36:fc:07:
+#         c9:8f:41:f2:d0:b5:90:33:5e:cd:66:fa:2c:2f:fe:57:bc:23:
+#         bd:33:1a:07:72:69:35:2b:1e:40:68:58:dd:48:da:e5:62:ba:
+#         22:37:5f:32:07:c0:6e:e0:54:f5:63:32:6b:0c:be:8e:2e:be:
+#         92:68:62:3e:d2:3f:6b:c9:ef:b0:fe:7a:d8:cb:83:1b:0c:4a:
+#         f5:e9:9a:a3:6a:84:b5:33:c5:c6:80:aa:62:6b:9a:c5:7e:46:
+#         81:3c:d5:2e:63:51:3b:8e:82:4d:4d:ca:e5:35:9f:52:4f:17:
+#         4a:31:89:d6:c9:6d:49:14:bd:33:79:12:f8:13:4f:08:a5:0e:
+#         fb:22:af:c7:31:d7:df:4d:68:e2:4c:94:55:b6:32:a8:47:6d:
+#         19:99:b2:32:26:8a:66:06:1a:29:bf:4d:45:f3:4c:e9:3f:89:
+#         b8:6e:34:bf:1b:ed:80:92:ce:d1:e1:16:5a:c2:86:46:a2:48:
+#         a1:aa:dc:f7:9b:2b:6e:37:cf:c8:54:a4:27:60:58:86:89:80:
+#         71:16:6f:80:db:8c:44:d5:15:78:34:f2:04:27:72:61:7b:c6:
+#         d1:df:1a:32:8d:42:62:ac:18:eb:bf:6c:da:93:35:c6:98:28:
+#         96:9b:95:5e
 
 
 # 从而得到签名 和  签名算法 sha256WithRSAEncryption
@@ -98,7 +97,7 @@ openssl x509 -in req_self_sign.crt  -noout -text
 # 把签名 保存为二进制
 # extract hex of signature
 
-SIGNATURE_HEX=$(openssl x509 -in req_self_sign.crt -text -noout -certopt ca_default -certopt no_validity -certopt no_serial -certopt no_subject -certopt no_extensions -certopt no_signame | grep -v 'Signature Algorithm' | tr -d '[:space:]:')
+SIGNATURE_HEX=$(openssl x509 -in req_ca_sign.crt -text -noout -certopt ca_default -certopt no_validity -certopt no_serial -certopt no_subject -certopt no_extensions -certopt no_signame | grep -v 'Signature Algorithm' | tr -d '[:space:]:')
 
 #获取到
 #302c962c7987bd7d93a730b75396624928cf3373430e72d74c0edd37d491e8be734711d8f3f5cafec5137c3e90dbb4363ec309bb9eea895aa39d1f1dda7f9f6259b20f793aa9d0240d723c5d060ed7579c39e1d30369dfe5c633cd54eeb94889abe89a27a876dd897d13336483d07316c50dfe4387c2c48eb28ca62e2a3db69afefbb087390da4efd172043617505f2e916101d1474a3455ff6d1e1249d157f64e7472dd6a449c9b59d17129410ff0c0f31b95253f86407b1d1d272cabab35047a4b90da9af10d37e3fb81cf4414bdb2da09471fe422f42f8e0f711a86377c4436d0e97723c9455cfa249476b1664005307b8f8a45b86c943f42ff342f617312
@@ -121,33 +120,34 @@ echo ${SIGNATURE_HEX} | xxd -r -p > signature_crt.bin
 # 利用已经拿到的公钥和签名，得到原始hash字符串
 
 # -pubin 意思输入时公钥 ，默认是私钥
-# 这个输出是二进制
-openssl rsautl -verify -inkey public.key -in signature_crt.bin -pubin  -out signature_crt_decrypted.bin
+# 这个输出是二进制  找到这个二进制还有另一种方式 参看verify_1.sh
+openssl rsautl -verify -inkey public_crt.key -in signature_crt.bin -pubin  -out signature_crt_decrypted.bin
 
 
 # 这个输出 是 文字形式
 # 这个相当于  两步合成一步了 rsautl asn1parse 
 # openssl rsautl ... openssl asn1parse ...
-#openssl rsautl -verify -inkey public.key -in signature_crt.bin -asn1parse -pubin  -out signature_crt_decrypted.bin
 #```
-#    0:d=0  hl=2 l=  49 cons: SEQUENCE
-#    2:d=1  hl=2 l=  13 cons:  SEQUENCE
+#openssl rsautl -verify -inkey public_crt.key -in signature_crt.bin -asn1parse -pubin
+#    0:d=0  hl=2 l=  49 cons: SEQUENCE          
+#    2:d=1  hl=2 l=  13 cons:  SEQUENCE          
 #    4:d=2  hl=2 l=   9 prim:   OBJECT            :sha256
-#   15:d=2  hl=2 l=   0 prim:   NULL
-#   17:d=1  hl=2 l=  32 prim:  OCTET STRING
-#      0000 - c4 d5 8d 4c 46 ef a5 55-64 bf 28 76 0b 82 05 c0   ...LF..Ud.(v....
-#      0010 - 15 08 4c 3c 16 2d 10 6c-ae b0 a1 1b 08 46 ff 03   ..L<.-.l.....F..
+#   15:d=2  hl=2 l=   0 prim:   NULL              
+#   17:d=1  hl=2 l=  32 prim:  OCTET STRING      
+#      0000 - 1d b9 c0 af 90 95 66 4f-49 f6 68 f9 81 56 20 e1   ......fOI.h..V .
+#      0010 - 82 f7 fe 90 53 b9 0c 30-0f 39 c1 1c 4c ff 53 99   ....S..0.9..L.S.
 #```
 
 # 对这段字符串进行解密之后 得到了der格式的二进制， 用 asn1parse 命令查看
-# 这样就拿到了原始的hash字符串  C4D58D4C46EFA55564BF28760B8205C015084C3C162D106CAEB0A11B0846FF03
+# 这样就拿到了原始的hash字符串  1DB9C0AF9095664F49F668F9815620E182F7FE9053B90C300F39C11C4CFF5399
 
 openssl asn1parse -inform der -in signature_crt_decrypted.bin
-#    0:d=0  hl=2 l=  49 cons: SEQUENCE
-#    2:d=1  hl=2 l=  13 cons: SEQUENCE
+
+#    0:d=0  hl=2 l=  49 cons: SEQUENCE          
+#    2:d=1  hl=2 l=  13 cons: SEQUENCE          
 #    4:d=2  hl=2 l=   9 prim: OBJECT            :sha256
-#   15:d=2  hl=2 l=   0 prim: NULL
-#   17:d=1  hl=2 l=  32 prim: OCTET STRING      [HEX DUMP]:C4D58D4C46EFA55564BF28760B8205C015084C3C162D106CAEB0A11B0846FF03
+#   15:d=2  hl=2 l=   0 prim: NULL              
+#   17:d=1  hl=2 l=  32 prim: OCTET STRING      [HEX DUMP]:1DB9C0AF9095664F49F668F9815620E182F7FE9053B90C300F39C11C4CFF5399
 
 # 所以可以反推
 # 1. 先对hash字符串按der格式存放，包括其他信息
@@ -168,12 +168,13 @@ openssl asn1parse -inform der -in signature_crt_decrypted.bin
 
 
 
-openssl asn1parse -i -in  req_self_sign.crt
+openssl asn1parse -i -in  req_ca_sign.crt
+#
 #    0:d=0  hl=4 l=1000 cons: SEQUENCE          
 #    4:d=1  hl=4 l= 720 cons:  SEQUENCE          
 #    8:d=2  hl=2 l=   3 cons:   cont [ 0 ]        
 #   10:d=3  hl=2 l=   1 prim:    INTEGER           :02
-#   13:d=2  hl=2 l=   9 prim:   INTEGER           :B6D83BB3863F24FD
+#   13:d=2  hl=2 l=   9 prim:   INTEGER           :BA2F47196368F88B
 #   24:d=2  hl=2 l=  13 cons:   SEQUENCE          
 #   26:d=3  hl=2 l=   9 prim:    OBJECT            :sha256WithRSAEncryption
 #   37:d=3  hl=2 l=   0 prim:    NULL              
@@ -207,8 +208,8 @@ openssl asn1parse -i -in  req_self_sign.crt
 #  150:d=5  hl=2 l=   9 prim:      OBJECT            :emailAddress
 #  161:d=5  hl=2 l=  15 prim:      IA5STRING         :17842379@qq.com
 #  178:d=2  hl=2 l=  30 cons:   SEQUENCE          
-#  180:d=3  hl=2 l=  13 prim:    UTCTIME           :180418223124Z
-#  195:d=3  hl=2 l=  13 prim:    UTCTIME           :190418223124Z
+#  180:d=3  hl=2 l=  13 prim:    UTCTIME           :180419043104Z
+#  195:d=3  hl=2 l=  13 prim:    UTCTIME           :190419043104Z
 #  210:d=2  hl=3 l= 136 cons:   SEQUENCE          
 #  213:d=3  hl=2 l=  11 cons:    SET               
 #  215:d=4  hl=2 l=   9 cons:     SEQUENCE          
@@ -266,23 +267,24 @@ openssl asn1parse -i -in  req_self_sign.crt
 # 提取数据 存储
 # 这里面是crt里面的主题数据
 # 从这个思路出发 可以知道 crt是如何签名的
+#  man rsautl:      The actual part of the certificate that was signed can be extracted with:
 
-openssl asn1parse -in req_self_sign.crt -strparse 4 -out req_self_sign_body.bin -noout
+openssl asn1parse -in req_ca_sign.crt -strparse 4 -out req_ca_sign_body.bin -noout
 
 
 #Finally, we can run this through the same hashing function to determine the digest
 
-openssl dgst -sha256 req_self_sign_body.bin
+openssl dgst -sha256 req_ca_sign_body.bin
 
 
-# SHA256(req_self_sign_body.bin)= c4d58d4c46efa55564bf28760b8205c015084c3c162d106caeb0a11b0846ff03
+#SHA256(req_ca_sign_body.bin)= 1db9c0af9095664f49f668f9815620e182f7fe9053b90c300f39c11c4cff5399
 
 #As you can see, both hashes match, so we can now confirm that:
 
 # 可以看出两者是匹配的
 
-#private.key   did sign  req_self_sign.crt
-# private.key 这个私钥 确实签名了  req_self_sign.crt
+#private_crt.key   did sign  req_ca_sign.crt
+# private_crt.key 这个私钥 确实签名了  req_ca_sign.crt
 
 
 
