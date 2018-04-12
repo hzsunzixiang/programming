@@ -13,12 +13,15 @@ openssl rsa -text -in fd.key  >rsa_alg.txt
 
 
 openssl genrsa -out genrsa.txt -aes128 -passout pass:123456 512
-openssl rsa -text -in genrsa.txt  -passout pass:123456
+openssl rsa -text -in genrsa.txt  -passin pass:123456
 
 
 # 一条命令
 openssl genrsa -aes128 -passout pass:123456 512 | openssl rsa -text -passin pass:123456
 
+
+# 去除密码
+openssl  rsa -in genrsa.txt -out genrsa_nopasswd.txt
 
 
 
