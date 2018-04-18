@@ -7,6 +7,10 @@
 openssl genrsa -aes128 -out fd.key 2048
 openssl rsa -text -in fd.key  >rsa_alg.txt
 
+#-check
+#    this option checks the consistency of an RSA private key.
+openssl rsa -in fd.key -check
+
 
 
 #加密私钥文件，加密的密码需要输出 或者  -passout pass:123456 指定
