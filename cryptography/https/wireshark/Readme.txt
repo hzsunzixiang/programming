@@ -8,3 +8,8 @@ https-firefox-certificate-after-exception.pcapng
 3. 再次请求
 无发送证书和交换密钥的过程
 https-firefox-certificate-next-request.pcapng
+
+
+
+# 用curl发送http请求
+curl -k https://www.example.com:443
