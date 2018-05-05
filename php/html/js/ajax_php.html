@@ -4,23 +4,29 @@
 
 <h2>The XMLHttpRequest Object</h2>
 
-<p id="demo">Let AJAX change this text.</p>
+<h3>Start typing a name in the input field below:</h3>
 
-<button type="button" onclick="loadDoc()">Change Content</button>
+<form action=""> 
+First name: <input type="text" id="txt1" onkeyup="showHint(this.value)">
+</form>
+
+<p>Suggestions: <span id="txtHint"></span></p> 
 
 <script>
-function loadDoc() {
-	var xhttp = new XMLHttpRequest();
-	//window.alert(xhttp)
-	//document.write(xhttp);
+function showHint(str) {
+	var xhttp;
+	if (str.length == 0) { 
+		document.getElementById("txtHint").innerHTML = "";
+		return;
+	}
+	xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById("demo").innerHTML = this.responseText+"</br>"+this.statusText+ "</br>"+this.readyState+"</br>"+this.status;
+			document.getElementById("txtHint").innerHTML = this.responseText;
 		}
 	};
-	//xhttp.open("GET", "ajax_info.txt", true);
-	xhttp.open("GET", "http://192.168.209.130/get_test.php", true);
-	xhttp.send();
+	xhttp.open("GET", "gethint.php?q="+str, true);
+	xhttp.send();   
 }
 </script>
 
