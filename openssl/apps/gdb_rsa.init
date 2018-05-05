@@ -1,0 +1,16 @@
+set args genrsa 512
+break do_cmd
+#break lh_FUNCTION_retrieve
+break genrsa_main
+break RSA_new
+break BN_mod_inverse
+
+break int_bn_mod_inverse
+break rsa_builtin_keygen
+
+
+
+#(gdb) p *fp
+#$8 = {type = FT_general, name = 0x47f9ed "genrsa", func = 0x430213 <genrsa_main>, help = 0x47d600 <genrsa_options>}
+#(gdb)
+
