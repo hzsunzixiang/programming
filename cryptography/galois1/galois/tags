@@ -1,0 +1,69 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BUFSIZE	gf_basic_tester.c	34;"	d	file:
+BUFSIZE	gf_xor_tester.c	34;"	d	file:
+DEFAULT	gf_basic_tester.c	36;"	d	file:
+DEFAULT	gf_xor_tester.c	36;"	d	file:
+LOG	gf_basic_tester.c	38;"	d	file:
+LOG	gf_xor_tester.c	38;"	d	file:
+LOGS	galois.c	39;"	d	file:
+MULT	gf_basic_tester.c	37;"	d	file:
+MULT	gf_xor_tester.c	37;"	d	file:
+NONE	galois.c	36;"	d	file:
+SHIFT	galois.c	38;"	d	file:
+SHIFT	gf_basic_tester.c	39;"	d	file:
+SHIFT	gf_xor_tester.c	39;"	d	file:
+SPLITW8	galois.c	40;"	d	file:
+SPLITW8	gf_basic_tester.c	40;"	d	file:
+S_BUFSIZE	gf_basic_tester.c	35;"	d	file:
+S_BUFSIZE	gf_xor_tester.c	35;"	d	file:
+TABLE	galois.c	37;"	d	file:
+galois_create_log_tables	galois.c	/^int galois_create_log_tables(int w)$/;"	f
+galois_create_mult_tables	galois.c	/^int galois_create_mult_tables(int w)$/;"	f
+galois_create_split_w8_tables	galois.c	/^int galois_create_split_w8_tables()$/;"	f
+galois_div_tables	galois.c	/^static int *galois_div_tables[33] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL,$/;"	v	file:
+galois_get_div_table	galois.c	/^int *galois_get_div_table(int w) $/;"	f
+galois_get_ilog_table	galois.c	/^int *galois_get_ilog_table(int w)$/;"	f
+galois_get_log_table	galois.c	/^int *galois_get_log_table(int w)$/;"	f
+galois_get_mult_table	galois.c	/^int *galois_get_mult_table(int w)$/;"	f
+galois_ilog	galois.c	/^int galois_ilog(int value, int w)$/;"	f
+galois_ilog_tables	galois.c	/^static int *galois_ilog_tables[33] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL,$/;"	v	file:
+galois_inverse	galois.c	/^int galois_inverse(int y, int w)$/;"	f
+galois_invert_binary_matrix	galois.c	/^void galois_invert_binary_matrix(int *mat, int *inv, int rows)$/;"	f
+galois_log	galois.c	/^int galois_log(int value, int w)$/;"	f
+galois_log_tables	galois.c	/^static int *galois_log_tables[33] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL,$/;"	v	file:
+galois_logtable_divide	galois.c	/^int galois_logtable_divide(int x, int y, int w)$/;"	f
+galois_logtable_multiply	galois.c	/^int galois_logtable_multiply(int x, int y, int w)$/;"	f
+galois_mult_tables	galois.c	/^static int *galois_mult_tables[33] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL,$/;"	v	file:
+galois_multtable_divide	galois.c	/^int galois_multtable_divide(int x, int y, int w)$/;"	f
+galois_multtable_multiply	galois.c	/^int galois_multtable_multiply(int x, int y, int w)$/;"	f
+galois_region_xor	galois.c	/^void galois_region_xor(           char *r1,         \/* Region 1 *\/$/;"	f
+galois_shift_divide	galois.c	/^int galois_shift_divide(int a, int b, int w)$/;"	f
+galois_shift_inverse	galois.c	/^int galois_shift_inverse(int y, int w)$/;"	f
+galois_shift_multiply	galois.c	/^int galois_shift_multiply(int x, int y, int w)$/;"	f
+galois_single_divide	galois.c	/^int galois_single_divide(int a, int b, int w)$/;"	f
+galois_single_multiply	galois.c	/^int galois_single_multiply(int x, int y, int w)$/;"	f
+galois_split_w8	galois.c	/^static int *galois_split_w8[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };$/;"	v	file:
+galois_split_w8_multiply	galois.c	/^int galois_split_w8_multiply(int x, int y)$/;"	f
+galois_w08_region_multiply	galois.c	/^void galois_w08_region_multiply(char *region,      \/* Region to multiply *\/$/;"	f
+galois_w16_region_multiply	galois.c	/^void galois_w16_region_multiply(char *region,      \/* Region to multiply *\/$/;"	f
+galois_w32_region_multiply	galois.c	/^void galois_w32_region_multiply(char *region,      \/* Region to multiply *\/$/;"	f
+main	gf_basic_tester.c	/^main(int argc, char **argv)$/;"	f
+main	gf_div.c	/^main(int argc, char **argv)$/;"	f
+main	gf_ilog.c	/^main(int argc, char **argv)$/;"	f
+main	gf_inverse.c	/^main(int argc, char **argv)$/;"	f
+main	gf_log.c	/^main(int argc, char **argv)$/;"	f
+main	gf_mult.c	/^main(int argc, char **argv)$/;"	f
+main	gf_xor.c	/^main( int argc, char **argv) $/;"	f
+main	gf_xor_tester.c	/^main(int argc, char **argv)$/;"	f
+mult_type	galois.c	/^static int mult_type[33] = $/;"	v	file:
+nw	galois.c	/^static int nw[33] = { 0, (1 << 1), (1 << 2), (1 << 3), (1 << 4), $/;"	v	file:
+nwm1	galois.c	/^static int nwm1[33] = { 0, (1 << 1)-1, (1 << 2)-1, (1 << 3)-1, (1 << 4)-1, $/;"	v	file:
+prim_poly	galois.c	/^static int prim_poly[33] = $/;"	v	file:
+printer	gf_basic_tester.c	/^int printer;$/;"	v
+usage	gf_basic_tester.c	/^void usage(char *s)$/;"	f
+usage	gf_xor_tester.c	/^void usage(char *s)$/;"	f
