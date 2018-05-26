@@ -1,5 +1,8 @@
 # des
 
+http://page.math.tu-berlin.de/~kant/teaching/hess/krypto-ws2006/des.htm
+https://github.com/aimxhaisse/des
+
 ## Description
 Yet another C implementation of DES.
 
