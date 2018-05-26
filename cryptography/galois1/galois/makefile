@@ -24,7 +24,7 @@
 CC = gcc  
 CFLAGS = -O3 -I$(HOME)/include
 
-ALL =	gf_mult gf_div gf_xor gf_log gf_ilog gf_basic_tester gf_inverse gf_xor_tester
+ALL =	gf_mult gf_div gf_xor gf_log gf_ilog gf_basic_tester gf_inverse gf_xor_tester ecc ecc_point ecc_2p
 
 all: $(ALL)
 
@@ -65,6 +65,15 @@ gf_mult: gf_mult.o galois.o
 gf_div.o: galois.h galois.o
 gf_div: gf_div.o galois.o
 	$(CC) $(CFLAGS) -o gf_div gf_div.o galois.o
+
+ecc: ecc.o galois.o
+	$(CC) $(CFLAGS) -o ecc ecc.o galois.o
+
+ecc_2p: ecc_2p.o galois.o
+	$(CC) $(CFLAGS) -o ecc_2p ecc_2p.o galois.o
+
+ecc_point: ecc_point.o galois.o
+	$(CC) $(CFLAGS) -o ecc_point ecc_point.o galois.o
 
 gf_xor: gf_xor.o galois.o
 	$(CC) $(CFLAGS) -o gf_xor gf_xor.o
