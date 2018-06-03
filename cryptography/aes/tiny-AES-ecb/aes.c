@@ -154,6 +154,7 @@ static void KeyExpansion(uint8_t* RoundKey, const uint8_t* Key)
   uint8_t tempa[4]; // Used for the column/row operations
   
   // The first round key is the key itself.
+  // 输入密钥直接被复制到扩展密钥数组的前4个字，也就是前16个byte
   for (i = 0; i < Nk; ++i)
   {
     RoundKey[(i * 4) + 0] = Key[(i * 4) + 0];
@@ -162,9 +163,18 @@ static void KeyExpansion(uint8_t* RoundKey, const uint8_t* Key)
     RoundKey[(i * 4) + 3] = Key[(i * 4) + 3];
   }
 
+  // 然后每次用这4个字(16byte)填充扩展密钥数组余下的部分
   // All other round keys are found from the previous round keys.
+  // #define Nb 4
+  // #define Nk 4        // The number of 32 bit words in a key.
+  // #define Nr 10       // The number of rounds in AES Cipher.
+  // 按word 一个字一个字，也就是每4字节为单位处理
+  // 范围[4,44) 从第4个字 到第 44个字为止 也就是[4, 43]
   for (i = Nk; i < Nb * (Nr + 1); ++i)
   {
+	// 在扩展密钥数组中，每一个新增的字w[i]的值依赖于w[i-1]和w[i-4]
+	// 每次循环一个字 复制其前面的4个字节(1个字word)
+    // 对i=4 来说， 从第4个字开始算起, 先获取 第3个字
     {
       k = (i - 1) * 4;
       tempa[0]=RoundKey[k + 0];
@@ -174,11 +184,15 @@ static void KeyExpansion(uint8_t* RoundKey, const uint8_t* Key)
 
     }
 
+	// 在四种情形中 三个使用了异或
+	// 对w数组中下表为4的倍数的元素采用了更复杂的函数g来计算
     if (i % Nk == 0)
     {
       // This function shifts the 4 bytes in a word to the left once.
       // [a0,a1,a2,a3] becomes [a1,a2,a3,a0]
 
+	  //(1) 字循环的功能是使一个字中的四个字节循环左移一个字节
+      //    [a0,a1,a2,a3] becomes [a1,a2,a3,a0]
       // Function RotWord()
       {
         k = tempa[0];
@@ -191,6 +205,7 @@ static void KeyExpansion(uint8_t* RoundKey, const uint8_t* Key)
       // SubWord() is a function that takes a four-byte input word and 
       // applies the S-box to each of the four bytes to produce an output word.
 
+	  //(2) 字代替利用S盒对输入字中的每个字节进行字节代替
       // Function Subword()
       {
         tempa[0] = getSBoxValue(tempa[0]);
@@ -199,6 +214,7 @@ static void KeyExpansion(uint8_t* RoundKey, const uint8_t* Key)
         tempa[3] = getSBoxValue(tempa[3]);
       }
 
+	  // 再与轮常量Rcon[j]相异或
       tempa[0] = tempa[0] ^ Rcon[i/Nk];
     }
 #if defined(AES256) && (AES256 == 1)
@@ -213,6 +229,7 @@ static void KeyExpansion(uint8_t* RoundKey, const uint8_t* Key)
       }
     }
 #endif
+	// j = 4*i; k=4*(i-4) = 4i - 16
     j = i * 4; k=(i - Nk) * 4;
     RoundKey[j + 0] = RoundKey[k + 0] ^ tempa[0];
     RoundKey[j + 1] = RoundKey[k + 1] ^ tempa[1];
