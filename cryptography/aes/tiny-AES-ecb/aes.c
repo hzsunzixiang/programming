@@ -252,6 +252,7 @@ static void AddRoundKey(uint8_t round,state_t* state,uint8_t* RoundKey)
   {
     for (j = 0; j < 4; ++j)
     {
+		// RoundKey[16*round + 4*i + j]
       (*state)[i][j] ^= RoundKey[(round * Nb * 4) + (i * Nb) + j];
     }
   }
@@ -274,10 +275,14 @@ static void SubBytes(state_t* state)
 // The ShiftRows() function shifts the rows in the state to the left.
 // Each row is shifted with different offset.
 // Offset = Row number. So the first row is not shifted.
+// 注意矩阵中的字节是按照列进行排序的
+// 所以加密算法的128位明文分组输入的前四个字节被顺序放在了in矩阵的第一列
+// 接着的四个字节放在了第二列
 static void ShiftRows(state_t* state)
 {
   uint8_t temp;
 
+  // 按列存放，搜易行移位才成了按列来
   // Rotate first row 1 columns to left  
   temp           = (*state)[0][1];
   (*state)[0][1] = (*state)[1][1];
@@ -308,10 +313,18 @@ static uint8_t xtime(uint8_t x)
 }
 
 // MixColumns function mixes the columns of the state matrix
+// 注意还是按列来的
+//  00 01 02 03 
+//  10 11 12 13 
+//  20 21 22 23 
+//  30 31 32 33 
+
+// 数组的存放和实际存放正好行列互换
 static void MixColumns(state_t* state)
 {
   uint8_t i;
   uint8_t Tmp, Tm, t;
+  // 列混淆 正好是 数组的一行
   for (i = 0; i < 4; ++i)
   {  
     t   = (*state)[i][0];
@@ -472,6 +485,7 @@ static void InvCipher(state_t* state,uint8_t* RoundKey)
 void AES_ECB_encrypt(struct AES_ctx *ctx, uint8_t* buf)
 {
   // The next function call encrypts the PlainText with the Key using AES algorithm.
+  // 一维数组 buf 强制转换为二维数组state_t
   Cipher((state_t*)buf, ctx->RoundKey);
 }
 
