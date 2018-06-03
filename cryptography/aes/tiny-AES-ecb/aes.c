@@ -307,6 +307,9 @@ static void ShiftRows(state_t* state)
   (*state)[1][3] = temp;
 }
 
+// 意思是说 x>>7 最高位是否是1 
+// 如果是1 则 异或 0x1b
+// 如果是0 则异或 0  , 也就是它本身
 static uint8_t xtime(uint8_t x)
 {
   return ((x<<1) ^ (((x>>7) & 1) * 0x1b));
@@ -320,6 +323,11 @@ static uint8_t xtime(uint8_t x)
 //  30 31 32 33 
 
 // 数组的存放和实际存放正好行列互换
+// 算法描述在这里
+// http://www.wseas.us/e-library/conferences/2009/moscow/AIC/AIC44.pdf
+// 这里利用了一个算法  上面网址中有例子  书上也有这个算法密码编码学瑜网络安全 130页
+// 参看其推导过程  用 *  表示乘法 + 表示加法即异或
+
 static void MixColumns(state_t* state)
 {
   uint8_t i;
@@ -362,6 +370,8 @@ static uint8_t Multiply(uint8_t x, uint8_t y)
 // MixColumns function mixes the columns of the state matrix.
 // The method used to multiply may be difficult to understand for the inexperienced.
 // Please use the references to gain more information.
+// 正向变换采用这里这里的技巧 http://www.wseas.us/e-library/conferences/2009/moscow/AIC/AIC44.pdf
+// 而逆变换没有  直接用矩阵计算来算
 static void InvMixColumns(state_t* state)
 {
   int i;
