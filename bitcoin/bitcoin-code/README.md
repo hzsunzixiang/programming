@@ -11,6 +11,9 @@ and should not be used for real purposes.
 # 签名已经搞明白
 
 # 还要搞明白
-	交易的hash值是怎么算出来的
-    Merkle Root 具体过程
+	交易的hash值是怎么算出来的 已经清楚
+    Merkle Root 具体过程 已经清楚
 
+# 构造区块hash的过程 
+	https://en.bitcoin.it/wiki/Block_hashing_algorithm
+	WIF
