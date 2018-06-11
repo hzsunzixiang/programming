@@ -3,7 +3,6 @@ import codecs
 import hashlib 
 
 
-
 #https://www.blockchain.com/en/btc/block/0000000027f421e4a286d0503bb01190d85548c81df54323db696588770415c6
 # 以这个block为例 Block #45200
 

@@ -1,4 +1,9 @@
 
+
+
+# 对应公钥所在位置
+#~/programming/bitcoin/wallet_address/another_add.sh 
+
 # https://www.blockchain.com/en/btc/tx/3f285f083de7c0acabd9f106a43ec42687ab0bebe2e6f0d529db696794540fea
 
 . bitcoin-bash-tools/bitcoin.sh
@@ -43,9 +48,10 @@ TMP=800CAECF01D74102A28AED6A64DCF1CF7B0E41C4DD6C62F70F46FEBDC32514F0BD
 #
 #3 - Perform SHA-256 hash on the shortened string
 #
-printf $TMP|xxd -r -p |sha256sum -b|xxd -r -p |sha256sum -b
+printf $TMP|xxd -r -p |sha256sum -b
 #
 #4 - Perform SHA-256 hash on result of SHA-256 hash
+printf $TMP|xxd -r -p |sha256sum -b|xxd -r -p |sha256sum -b
 #
 #    AB318784DA92DDABC6A29950CE5DD6F88630B896AC47C625101C42837513CBB3
 #
