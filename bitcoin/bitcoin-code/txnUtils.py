@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # https://pypi.python.org/pypi/ecdsa/0.10
 
 import ecdsa
@@ -11,6 +12,13 @@ import keyUtils
 # Makes a transaction from the inputs
 # outputs is a list of [redemptionSatoshis, outputScript]
 def makeRawTransaction(outputTransactionHash, sourceIndex, scriptSig, outputs):
+    print "int makeRawTransaction----------------------"
+    print "outputTransactionHash", outputTransactionHash
+    print "sourceIndex", sourceIndex 
+    print "scriptSig", scriptSig 
+    print "outputs",  outputs
+    
+    print "int makeRawTransaction----------------------"
     def makeOutput(data):
         redemptionSatoshis, outputScript = data
         return (struct.pack("<Q", redemptionSatoshis).encode('hex') +
@@ -47,30 +55,65 @@ def parseTxn(txn):
 def getSignableTxn(parsed):
     first, sig, pub, rest = parsed
     inputAddr = utils.base58CheckDecode(keyUtils.pubKeyToAddr(pub))
+    # 组合输入的前半段 加上 "1976a914"  加上输入的钱包hash(不是钱包地址，是钱包的hash值)
+    # 加上 输入部分 再加 "01000000" hash type
+    # 以此组合出签名字符串
     return first + "1976a914" + inputAddr.encode('hex') + "88ac" + rest + "01000000"
 
 # Verifies that a transaction is properly signed, assuming the generated scriptPubKey matches
 # the one in the previous transaction's output
 def verifyTxnSignature(txn):                    
     parsed = parseTxn(txn)      
+
+    # 这里拿到签名字符串 有个还原的过程，所以 才得以一致
     signableTxn = getSignableTxn(parsed)
+    print "signableTxn:", signableTxn
     hashToSign = hashlib.sha256(hashlib.sha256(signableTxn.decode('hex')).digest()).digest().encode('hex')
+    print "parsed,", parsed
+    print "hashToSign,",hashToSign 
     assert(parsed[1][-2:] == '01') # hashtype
+    # 验证这个签名是否是对 hashToSign 做的签名
     sig = keyUtils.derSigToHexSig(parsed[1][:-2])
+    print "sig", sig, hashToSign
+    
+    # 用公钥验证
     public_key = parsed[2]
     vk = ecdsa.VerifyingKey.from_string(public_key[2:].decode('hex'), curve=ecdsa.SECP256k1)
+    print "result:", (vk.verify_digest(sig.decode('hex'), hashToSign.decode('hex')))
     assert(vk.verify_digest(sig.decode('hex'), hashToSign.decode('hex')))
 
 def makeSignedTransaction(privateKey, outputTransactionHash, sourceIndex, scriptPubKey, outputs):
     myTxn_forSig = (makeRawTransaction(outputTransactionHash, sourceIndex, scriptPubKey, outputs)
          + "01000000") # hash code
+    print "myTxn_forSig:", myTxn_forSig
+    
+    # 这里转换成二进制形式
+    #print "myTxn_forSig.decode:", myTxn_forSig.decode("hex")
+    # myTxn_forSig 就是交易的原始数据
 
+    # 先转换成二进制形式，再做哈希， 再做hash
     s256 = hashlib.sha256(hashlib.sha256(myTxn_forSig.decode('hex')).digest()).digest()
+    # 对原始交易数据进行两次hash
+    print "s256:", s256.encode("hex")
+
+    # We then create a public/private key pair out of the provided private key. We sign the hash from step 14 with the private key, which yields the following DER-encoded signature (this signature will be different in your case): 
     sk = ecdsa.SigningKey.from_string(privateKey.decode('hex'), curve=ecdsa.SECP256k1)
-    sig = sk.sign_digest(s256, sigencode=ecdsa.util.sigencode_der) + '\01' # 01 is hashtype
+    #sig = sk.sign_digest(s256, sigencode=ecdsa.util.sigencode_der) + '\01' # 01 is hashtype
+    sig = "304402202cb265bf10707bf49346c3515dd3d16fc454618c58ec0a0ff448a676c54ff71302206c6624d762a1fcef4618284ead8f08678ac05b13c84235f1654e6ad168233e8201".decode('hex')
+    # 这里的签名是真正的签名， 由于签名中有个随机数K，所以每次的签名都不一样
+    # TODO 等下照抄比特币网站上的签名
+    print "sig of the hash,", sig.encode('hex')
+    
+    # 公钥
     pubKey = keyUtils.privateKeyToPublicKey(privateKey)
+    print "pubKey:", pubKey
+
+    # 把scriptSig 组装起来
     scriptSig = utils.varstr(sig).encode('hex') + utils.varstr(pubKey.decode('hex')).encode('hex')
+    print "scriptSig", scriptSig
+
     signed_txn = makeRawTransaction(outputTransactionHash, sourceIndex, scriptSig, outputs)
+    #print "signed_txn", signed_txn
     verifyTxnSignature(signed_txn)
     return signed_txn
     
