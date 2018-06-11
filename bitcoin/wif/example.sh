@@ -2,7 +2,11 @@
 
 
 # 对应公钥所在位置
-#~/programming/bitcoin/wallet_address/another_add.sh 
+#~/programming/bitcoin/wallet_address/address.sh
+
+#这个私钥对应的钱包地址
+#keyUtils.addrHashToScriptPubKey("1MMMMSUb1piy2ufrSguNUdFmAcvqrQF8M5"),
+# 也就是这个私钥可以使用这个钱包的bitcoin
 
 # https://www.blockchain.com/en/btc/tx/3f285f083de7c0acabd9f106a43ec42687ab0bebe2e6f0d529db696794540fea
 
