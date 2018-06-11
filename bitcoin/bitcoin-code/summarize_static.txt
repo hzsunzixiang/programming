@@ -2,6 +2,7 @@
 
 # 公钥和私钥
 privateKey in: 0caecf01d74102a28aed6a64dcf1cf7b0e41c4dd6c62f70f46febdc32514f0bd
+ 这里是加了指令的脚本， 内含公钥的hash
 pubkeyhash in: 76a914df3bd30160e6c6145baaf2c88a8844c13a00d1d588ac
 pubkeyhash out: 76a914c8e90996c7c6080ee06284600c684ed904d14c5c88ac
 #  原始交易数据
@@ -30,6 +31,8 @@ ffffffff
 00000000
 01000000
 
+总结一下就是 签名字符串中存放的是输入和输出的 脚本(76a914 + pubhash + 88ac)
+
 # 上面交易数据二进制的hash值
 s256: 5fda68729a6312e17e641e9a49fac2a4a6a680126610af573caab270d232f850
 
@@ -45,11 +48,14 @@ pubKey: 0414e301b2328f17442c0b8310d787bf3d8a404cfbd0704f135b6ad4b2d3ee751310f981
 # 最组合的scriptSig
 scriptSig 47304402202cb265bf10707bf49346c3515dd3d16fc454618c58ec0a0ff448a676c54ff71302206c6624d762a1fcef4618284ead8f08678ac05b13c84235f1654e6ad168233e8201410414e301b2328f17442c0b8310d787bf3d8a404cfbd0704f135b6ad4b2d3ee751310f981926e53a6e8c39bd7d3fefd576c543cce493cbac06388f2651d1aacbfcd
 
+# http://www.righto.com/2014/02/bitcoins-hard-way-using-raw-bitcoin.html
 拆开 
 47
 304402202cb265bf10707bf49346c3515dd3d16fc454618c58ec0a0ff448a676c54ff71302206c6624d762a1fcef4618284ead8f08678ac05b13c84235f1654e6ad168233e8201
 41
 0414e301b2328f17442c0b8310d787bf3d8a404cfbd0704f135b6ad4b2d3ee751310f981926e53a6e8c39bd7d3fefd576c543cce493cbac06388f2651d1aacbfcd
+
+这样scriptSig中含有签名和公钥 由公钥就可以导出公钥的hash 进而可以反推出签名字符串
 
 int makeRawTransaction----------------------
 outputTransactionHash 81b4c832d70cb56ff957589752eb4125a4cab78a25a8fc52d6a09e5bd4404d48
@@ -61,6 +67,7 @@ int makeRawTransaction----------------------
 # 开始验证过程
 
 # 这里重新构造出签名字符串
+   
 signableTxn: 0100000001484d40d45b9ea0d652fca8258ab7caa42541eb52975857f96fb50cd732c8b481000000001976a914df3bd30160e6c6145baaf2c88a8844c13a00d1d588acffffffff0162640100000000001976a914c8e90996c7c6080ee06284600c684ed904d14c5c88ac0000000001000000
 
 # Substitutes the scriptPubKey into the transaction, appends SIGN_ALL to make the version
@@ -132,8 +139,5 @@ ea0f54946769db29d5f0e6e2eb0bab8726c43ea406f1d9abacc0e73d085f283f *-
 https://www.blockchain.com/en/btc/tx/3f285f083de7c0acabd9f106a43ec42687ab0bebe2e6f0d529db696794540fea
 
 3f285f083de7c0acabd9f106a43ec42687ab0bebe2e6f0d529db696794540fea
-
-
-
 
 

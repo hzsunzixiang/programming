@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # https://pypi.python.org/pypi/ecdsa/0.10
 import ecdsa
 import ecdsa.der
@@ -49,6 +50,13 @@ def addrHashToScriptPubKey(b58str):
     # 76     A9      14 (20 bytes)                                 88             AC
     return '76a914' + utils.base58CheckDecode(b58str).encode('hex') + '88ac'
 
+# 注意这里magic的意义
+#OP_DUP	76
+#OP_HASH160	a9
+#PUSHDATA 14	14
+#public key hash	c8 e9 09 96 c7 c6 08 0e e0 62 84 60 0c 68 4e d9 04 d1 4c 5c
+#OP_EQUALVERIFY	88
+#OP_CHECKSIG	ac
     
 class TestKey(unittest.TestCase):
 

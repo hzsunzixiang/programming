@@ -73,6 +73,7 @@ def verifyTxnSignature(txn):
     print "hashToSign,",hashToSign 
     assert(parsed[1][-2:] == '01') # hashtype
     # 验证这个签名是否是对 hashToSign 做的签名
+    # TODO 这里没搞明白 为啥签名方式和前面构造的时候不一样
     sig = keyUtils.derSigToHexSig(parsed[1][:-2])
     print "sig", sig, hashToSign
     
@@ -99,9 +100,10 @@ def makeSignedTransaction(privateKey, outputTransactionHash, sourceIndex, script
     # We then create a public/private key pair out of the provided private key. We sign the hash from step 14 with the private key, which yields the following DER-encoded signature (this signature will be different in your case): 
     sk = ecdsa.SigningKey.from_string(privateKey.decode('hex'), curve=ecdsa.SECP256k1)
     #sig = sk.sign_digest(s256, sigencode=ecdsa.util.sigencode_der) + '\01' # 01 is hashtype
+    # 照抄比特币网站上的签名
     sig = "304402202cb265bf10707bf49346c3515dd3d16fc454618c58ec0a0ff448a676c54ff71302206c6624d762a1fcef4618284ead8f08678ac05b13c84235f1654e6ad168233e8201".decode('hex')
     # 这里的签名是真正的签名， 由于签名中有个随机数K，所以每次的签名都不一样
-    # TODO 等下照抄比特币网站上的签名
+#Debugging the signature was made more difficult because the ECDSA algorithm uses a random number.[18] Thus, the signature is different every time you compute it, so it can't be compared with a known-good signature.
     print "sig of the hash,", sig.encode('hex')
     
     # 公钥
@@ -113,6 +115,7 @@ def makeSignedTransaction(privateKey, outputTransactionHash, sourceIndex, script
     print "scriptSig", scriptSig
 
     signed_txn = makeRawTransaction(outputTransactionHash, sourceIndex, scriptSig, outputs)
+    # 然后用 signed_txn中的 pubKey 来还原签名字符串 验证一下
     #print "signed_txn", signed_txn
     verifyTxnSignature(signed_txn)
     return signed_txn
