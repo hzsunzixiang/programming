@@ -2,17 +2,26 @@
 import hashlib
 import struct
 import time
+import datetime
 
 
 # block #279068 
 #https://blockexplorer.com/block/0000000000000001a27b1d6eb8c405410398ece796e742da3b3e35363c2219ee
-# 这个更清晰 
+# 这个更清晰  但是时间戳不准
 #https://www.blockchain.com/en/btc/block-index/341440
+
+# 这个的时间戳是准的
+#https://blockexplorer.com/block/0000000000000001a27b1d6eb8c405410398ece796e742da3b3e35363c2219ee
 
 ver = 2
 prev_block = "000000000000000027d4d014f6245170390ea904cec17d1761021d28049c20b9"
 mrkl_root = "57ebfd5b7fed40fc07120b1b03550ea1069d74b2dfc8cf81dc25bb48cee4221f"
-time_ = 1389075720 # Mon Jan 06 22:22:00 2014
+
+#print( datetime.datetime.fromtimestamp( int("1389075720")).strftime('%Y-%m-%d %H:%M:%S'))
+# https://stackoverflow.com/questions/9637838/convert-string-date-to-timestamp-in-python
+myDate = "2014-01-07 14:22:00"
+time_ = int(time.mktime(datetime.datetime.strptime(myDate, "%Y-%m-%d %H:%M:%S").timetuple()))
+#time_ = 1389075720 # Mon Jan 06 22:22:00 2014
 bits = 419628831
 p = ''
 
