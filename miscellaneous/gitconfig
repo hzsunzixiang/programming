@@ -1,0 +1,9 @@
+
+[https "https://github.com/hzsunzixiang/"]
+        proxy = https://dev-proxy.oa.com:8080
+
+[http "http://github.com/hzsunzixiang/"]
+        proxy = dev-proxy.oa.com:8080
+[user]
+	email = haichengsun123@163.com
+	name = sunzixiang
