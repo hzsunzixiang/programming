@@ -141,3 +141,27 @@ https://www.blockchain.com/en/btc/tx/3f285f083de7c0acabd9f106a43ec42687ab0bebe2e
 3f285f083de7c0acabd9f106a43ec42687ab0bebe2e6f0d529db696794540fea
 
 
+########重要  Transaction malleability  ###############
+上面有两个hash，意义截然不同
+
+# 第一个hashid是用来签名的
+s256: 5fda68729a6312e17e641e9a49fac2a4a6a680126610af573caab270d232f850
+
+# 第二个hash是 交易id txid
+
+ea0f54946769db29d5f0e6e2eb0bab8726c43ea406f1d9abacc0e73d085f283f *-
+
+
+第一个hashid无法篡改，因为有签名作保障，
+而第二个hashid， 由于根据一个签名可以构造出另外一个有效签名
+所以第二个hashid也就是txid可以被改变
+
+这就是著名的 Transaction malleability
+
+https://en.bitcoin.it/wiki/Transaction_Malleability
+https://en.bitcoinwiki.org/wiki/Transaction_Malleability
+https://en.wikipedia.org/wiki/Malleability_%28cryptography%29
+
+也就是
+For a given signature, (R,S), the signature (R, N-S) is also valid.
+https://wiki.ripple.com/Transaction_Malleability
