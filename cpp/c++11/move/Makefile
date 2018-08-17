@@ -2,7 +2,7 @@
 CC=g++ 
 
 CFLAGS = -std=c++11 -g --save-temps
-BIN= move 
+BIN= move  string
 all:$(BIN)
 %:%.cpp 
 	$(CC) $(CFLAGS)   $< -o $@
