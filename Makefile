@@ -1,6 +1,6 @@
 .PHONY:clean all
 CC=g++
-CFLAGS=-Wall -g
+CFLAGS=-Wall -std=c++11 -g --save-temps
 BIN= XXX 
 all:$(BIN)
 %:%.cpp 
