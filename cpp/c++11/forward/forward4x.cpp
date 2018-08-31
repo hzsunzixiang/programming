@@ -169,11 +169,11 @@ class Foo
 
 int main()
 {
-	//unique_ptr<Point> test(new Point3d());
-	//Foo  f(test);
+	unique_ptr<Point> test(new Point3d());
+	Foo  f(test);
 
 	// 如果有移动构造函数 只调用一次移动构造
-	Foo f(unique_ptr<Point>(new Point3d()));
+	//Foo f(unique_ptr<Point>(new Point3d()));
 	return 0;
 }
 
