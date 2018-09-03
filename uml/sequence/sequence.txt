@@ -1,0 +1,149 @@
+
+title 红包转账存在问题的方案1
+participant myw_wcerp_rprec_req_c as A
+participant ia_kps_x2x_transfer_service  as B
+
+par 
+par 
+A->+B: 调用转账API接口
+B-->-A: 返回转账结果
+alt 成功则继续 
+else 失败,抛出异常,报错返回
+end
+end
+
+A->+A: Begin
+A->A: lockRpDetail
+A->A: lockActDetail
+A->A:lockActruledtl
+
+A->A:updateRpdtl
+A->A:updateActDtl
+A->A:accActruleAmt
+A->A: Commit/Rollback
+end
+
+
+
+-------------------------------------------
+
+title 红包转账存在问题的方案2
+participant myw_wcerp_rprec_req_c as A
+participant ia_kps_x2x_transfer_service  as B
+
+par 
+
+
+A->+A: Begin
+A->A: lockRpDetail
+A->A: lockActDetail
+A->A:lockActruledtl
+
+A->A:updateRpdtl
+A->A:updateActDtl
+A->A:accActruleAmt
+A->A: Commit/Rollback
+
+    par 
+        A->+B: 调用转账API接口
+        B-->-A: 返回转账结果
+        alt 成功则继续 
+            else 失败,抛出异常,报错返回
+        end
+    end
+end
+
+
+
+-----------------------------------------------
+
+title 红包转账可实施优化方案2
+participant myw_wcerp_rprec_req_c as A
+participant ia_kps_x2x_transfer_service  as B
+participant 缓存队列  as C
+participant 常驻daemon  as D
+participant 数据库  as E
+participant 批跑  as F
+
+par 
+
+
+A->+A: Begin
+A->A: 锁定红包详情
+A->A: 锁定活动详情
+A->A: 锁定随机红包规则详情
+
+A->A:更新红包详情到状态7
+A->A:更新活动详情
+A->A:更新随机红包规则详情
+A-->-A: Commit/Rollback
+
+    par 
+        A->+B: 调用转账API接口
+        B-->-A: 返回转账结果
+        alt 成功
+        A->+A: Begin
+        A->A: 锁定红包详情
+        A->A: 更新红包详情到状态4
+        A-->-A: Commit/Rollback
+             
+        else 失败
+            A->+C: 放入队列缓存,同时写日志.
+        	C-->-A: 返回值,失败重试1一次
+        	par 
+        	D->C: daemon从队列中获取数据，\n调用转账接口、扭转红包状态\n失败则重试1次
+			F->E: 批跑扫库表，\n把状态为7的订单重新调用转账接口，\n如果成功(或已经成功)则红包状态扭转为4，
+        	end
+        	
+        end
+    end
+end
+
+
+-----------------------------------------------
+title 红包转账优化方案
+participant myw_wcerp_rprec_req_c        as A
+participant ia_kps_x2x_transfer_service  as B
+participant 数据库                       as C
+participant 批跑                         as D
+
+par 
+    A->+A: 事务前检查及准备工作
+    note right of A 
+    1. 状态为3和7的红包\n  抛出相应异常(独立错误码)、\n  以配合前端给用户相应提示
+    2. 用户是否已注册等等
+    end note
+    A-->-A: 检查结束
+    
+    
+    A->+A: Begin
+    A->A: 锁定红包详情
+        note right of A 
+        1. 红包不存在，抛出异常
+        2. 状态为3和7的红包\n  抛出相应异常(独立错误码)、\n  以配合前端给用户相应提示
+        end note
+    A->A: 锁定活动详情
+        note right of A 
+        1. 活动不存在，抛出异常
+        end note
+    A->A: 锁定随机红包规则详情
+    A->A:更新红包详情到状态7
+    A->A:更新活动详情
+    A->A:更新随机红包规则详情
+    A-->-A: Commit/Rollback
+    
+        par 
+            A->+B: 调用转账API接口
+            B-->-A: 返回转账结果
+            alt 成功
+            A->A: 确定要更新的红包状态为7,\n更新红包详情到状态4
+            else 失败,抛出异常，返回给前端相应信息
+            	par 
+            	D->C: 批跑扫库表，把状态为7的订单重新调用转账接口，\n如果成功(或已经成功)则红包状态扭转为4，
+            	end
+            	
+            end
+        end
+end
+
+
