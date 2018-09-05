@@ -29,7 +29,8 @@ int main()
 {
 	// store a free function
 	std::function<void(int)> f_display = print_num;
-	HTTPRequestHandler p = print_num_s;
+	const HTTPRequestHandler &p = print_num_s;
+	//HTTPRequestHandler p = print_num_s;
 
 	p(-9, "hello");
 
