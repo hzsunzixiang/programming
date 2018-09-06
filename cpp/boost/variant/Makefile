@@ -2,7 +2,7 @@
 CC=g++ 
 
 CFLAGS = -std=c++11 -g --save-temps
-BIN= variant  get out_stream apply_visitor apply_visitor1
+BIN= variant  get out_stream apply_visitor apply_visitor1 object_varaint
 all:$(BIN)
 %:%.cpp 
 	$(CC) $(CFLAGS)   $< -o $@
