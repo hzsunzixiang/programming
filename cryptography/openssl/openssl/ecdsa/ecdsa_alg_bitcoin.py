@@ -127,7 +127,9 @@ def signature(priv, hashx):
     # 对hashx进行签名
     # 选择一个整数作为临时随机密钥为kE = 0xabcdef123456 
     #R=kE* A
-    kE = 0xabcdef123456 
+    #kE = 0xabcdef123456 
+    # 这里的kE 是有 s 反推出来的
+    kE = 0xfd51bb5218d4f02fcbc18d3376ea3e38462c641968e8e69476cdd7d6d700d384L
     (xR, yR) = ecc_cal(xa,ya,kE)
 
     print (hex(xR),hex(yR))
@@ -141,6 +143,7 @@ def signature(priv, hashx):
 
 (r,s) = signature(priv, hashx)
 print (hex(r), hex(s))
+
 
 
 def verify_sign(r, s, hashx):
@@ -219,4 +222,9 @@ else:
 
 
 
+# 反推出 kE
+s_reverse=modinv(s, q)
+
+kE=((hashx+priv*r)*s_reverse)%q
+print "kE", hex(kE)
 
