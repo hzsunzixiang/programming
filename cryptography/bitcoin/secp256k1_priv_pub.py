@@ -139,27 +139,24 @@ def ecc_add(x1,y1,x2,y2):
 #print ecc_add(x1,y1,x2,y2)
 #print str(bin(priv)).replace("0b","")
 
-(x3,y3)=(0,0)
-(x_tmp,y_tmp)=(x1,y1)
-init=0  #初始化设置
-for b in str(bin(priv)[2:]):
-    #print b
-    if (b=='1') and (init==0):
-       init=1
-    elif (b=='1') and (init==1):
-       (x3,y3)=ecc_double(x_tmp,y_tmp)
-       (x3,y3)=ecc_add(x1,y1,x3,y3)
-       (x_tmp, y_tmp) = (x3,y3)
-    else:
-       (x3,y3)=ecc_double(x_tmp,y_tmp)
-       (x_tmp, y_tmp) = (x3,y3)
-print "result:",(hex(x3),hex(y3)) 
-print " known:",(hex(x2),hex(y2)) 
+def ecc_cal(x1,y1,priv):
+    (x3,y3)=(0,0)
+    (x_tmp,y_tmp)=(x1,y1)
+    init=0  #初始化设置
+    for b in str(bin(priv)[2:]):
+        #print b
+        if (b=='1') and (init==0):
+           init=1
+        elif (b=='1') and (init==1):
+           (x3,y3)=ecc_double(x_tmp,y_tmp)
+           (x3,y3)=ecc_add(x1,y1,x3,y3)
+           (x_tmp, y_tmp) = (x3,y3)
+        else:
+           (x3,y3)=ecc_double(x_tmp,y_tmp)
+           (x_tmp, y_tmp) = (x3,y3)
+    return (x3, y3)
+
+(x3, y3)=ecc_cal(x1, y1, priv)
+print "result---:",(hex(x3),hex(y3)) 
+print "known---:",(hex(x2),hex(y2)) 
 print (x3,y3)==(x2,y2)
-
-
-
-# 中间碰到的几个问题
-# 1. ecc_double 的时候 里面的参数只有x1 y1
-
-
