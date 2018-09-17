@@ -46,9 +46,9 @@ http_request_done(struct evhttp_request *req, void *ctx)
 		return;
 	}
 
-	fprintf(stderr, "Response line: %d %s\n",
-	    evhttp_request_get_response_code(req),
-	    evhttp_request_get_response_code_line(req));
+	//fprintf(stderr, "Response line: %d %s\n",
+	//    evhttp_request_get_response_code(req),
+	//    evhttp_request_get_response_code_line(req));
 
 	while ((nread = evbuffer_remove(evhttp_request_get_input_buffer(req),
 		    buffer, sizeof(buffer)))

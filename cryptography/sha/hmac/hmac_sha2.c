@@ -407,6 +407,7 @@ void test(const char *vector, unsigned char *digest,
 
 int main(void)
 {
+	printf("test.....\n");
     static const char *vectors[] =
     {
         /* HMAC-SHA-224 */

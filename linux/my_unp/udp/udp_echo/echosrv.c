@@ -34,11 +34,11 @@ int main(int argc, char* argv[])
         printf("address:%u\n", servaddr.sin_addr.s_addr);
         exit(EXIT_FAILURE);
     }
-    if (bind(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr)) != 0)
-    {
-        perror("bind error!");
-        exit(EXIT_FAILURE);
-    }
+    //if (bind(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr)) != 0)
+    //{
+    //    perror("bind error!");
+    //    exit(EXIT_FAILURE);
+    //}
 
     struct sockaddr_in cliaddr;
 
