@@ -222,7 +222,8 @@ else:
 
 
 
-# 反推出 kE
+# 反推出 kE    s = (hashx + priv * r ) * (kE)^(-1) (mod q)
+# kE = (hashx + priv * r ) * (s)^(-1) (mod q)
 s_reverse=modinv(s, q)
 
 kE=((hashx+priv*r)*s_reverse)%q
