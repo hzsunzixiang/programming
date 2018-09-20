@@ -4,3 +4,5 @@
 
 bin_PROGRAMS = hello
 hello_SOURCES = main.c
+
+TEST_SUBST_INSUBDIR=@PERCENT_SIGN@

@@ -8,3 +8,47 @@ https://www.gnu.org/software/autoconf/manual/autoconf-2.68/html_node/Makefile-Su
 
 # Setting Output Variables 
 https://www.gnu.org/software/autoconf/manual/autoconf-2.68/html_node/Setting-Output-Variables.html#Setting-Output-Variables
+
+
+# 以变量 TEST_SUBST 为例
+
+* configure.ac 中定义
+    AC_SUBST([PERCENT_SIGN],[%])
+
+
+* 在生成的configure中有变量定义 这一步是autoconf生成
+    ./configure:PERCENT_SIGN=%
+* 在Makfile.am中引用
+    TEST_SUBST=@PERCENT_SIGN@
+
+* 在Makefile.in中的形式如下 这一步是automake生成
+    TEST_SUBST = @PERCENT_SIGN@
+
+* 最后在Make中生成的变量为:  这一步是./configure 生成
+    TEST_SUBST = %
+
+
+
+# 附录 find -type f |xargs grep PERCENT_SIGN
+./Makefile:PERCENT_SIGN = %
+./src/Makefile:PERCENT_SIGN = %
+./src/Makefile.in:PERCENT_SIGN = @PERCENT_SIGN@
+./src/Makefile.in:TEST_SUBST_INSUBDIR = @PERCENT_SIGN@
+Binary file ./src/.Makefile.swp matches
+./src/Makefile.am:TEST_SUBST_INSUBDIR=@PERCENT_SIGN@
+./configure:PERCENT_SIGN
+./configure:PERCENT_SIGN=%
+./autom4te.cache/output.0:PERCENT_SIGN
+./autom4te.cache/output.0:PERCENT_SIGN=%
+./autom4te.cache/output.1:PERCENT_SIGN
+./autom4te.cache/output.1:PERCENT_SIGN=%
+./autom4te.cache/traces.0:m4trace:configure.ac:11: -1- m4_pattern_allow([^PERCENT_SIGN$])
+./autom4te.cache/traces.1:m4trace:configure.ac:11: -1- AC_SUBST([PERCENT_SIGN], [%])
+./autom4te.cache/traces.1:m4trace:configure.ac:11: -1- AC_SUBST_TRACE([PERCENT_SIGN])
+./autom4te.cache/traces.1:m4trace:configure.ac:11: -1- m4_pattern_allow([^PERCENT_SIGN$])
+./configure.ac:AC_SUBST([PERCENT_SIGN],[%])
+./Makefile.in:PERCENT_SIGN = @PERCENT_SIGN@
+./Makefile.in:TEST_SUBST = @PERCENT_SIGN@
+./config.log:PERCENT_SIGN='%'
+./Makefile.am:TEST_SUBST=@PERCENT_SIGN@
+

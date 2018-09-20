@@ -4,3 +4,6 @@
 
 SUBDIRS = src
 dist_doc_DATA = README
+
+
+TEST_SUBST=@PERCENT_SIGN@
