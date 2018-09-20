@@ -1,0 +1,10 @@
+This is a demonstration package for GNU Automake.
+Type `info Automake' to read the Automake manual.
+
+
+
+# Substitutions in Makefiles
+https://www.gnu.org/software/autoconf/manual/autoconf-2.68/html_node/Makefile-Substitutions.html
+
+# Setting Output Variables 
+https://www.gnu.org/software/autoconf/manual/autoconf-2.68/html_node/Setting-Output-Variables.html#Setting-Output-Variables
