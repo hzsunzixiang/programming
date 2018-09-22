@@ -1,5 +1,8 @@
 
 
+
+# 搞清楚 HAVE_CONFIG_H 相关
+
 AC_CONFIG_HEADERS([src/config/bitcoin-config.h])
 
 # 如果有这一行指令
