@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>JavaScript</h2>
+
+<p>JavaScript does not create a new scope for each code block.</p>
+
+<p>This code will display the value of i (10), even OUTSIDE the for loop block:</p>
+
+<p id="demo"></p>
+
+<script>
+for (var i = 0; i < 10; i++) {
+	    // some code
+}
+document.getElementById("demo").innerHTML = i;
+</script>
+
+</body>
+</html>
+

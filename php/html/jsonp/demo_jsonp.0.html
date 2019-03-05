@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+<h2>Request JSON using the script tag</h2>
+<p>The PHP file returns a call to a function that will handle the JSON data.</p>
+
+<p id="demo"></p>
+
+<script>
+function myFunc(myObj) {
+	document.getElementById("demo").innerHTML = myObj.name;
+}
+</script>
+
+<!--下面三种效果一样 都是得到了函数的调用-->
+<!--<script src="demo_jsonp.php"></script>-->
+<!--<script src="demo_jsonp.0.txt"></script>-->
+<script src="demo_jsonp.0.js"></script>
+
+<!--这种得到了结果但是不是可执行的,所以得不到想要的结果 ({ "name":"John", "age":30, "city":"New York" }); -->
+<!--<script src="demo_jsonp.0.php"></script>-->
+
+</body>
+</html>
+

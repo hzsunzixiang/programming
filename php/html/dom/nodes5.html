@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="div1">
+<p id="p1">This is a paragraph.</p>
+<p id="p2">This is another paragraph.</p>
+</div>
+
+<h1 onclick="changeText(this)">Click on this text!</h1>
+
+<script>
+function changeText()
+{
+	var para = document.createElement("p");
+	var node = document.createTextNode("This is new.");
+	para.appendChild(node);
+	var element = document.getElementById("div1");
+	element.appendChild(para);
+}
+</script>
+
+
+
+</body>
+</html>
+

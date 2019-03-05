@@ -1,0 +1,39 @@
+
+
+2018
+https://www.blockchain.com/en/btc/blocks/1528532116268
+
+
+2011
+https://www.blockchain.com/en/btc/blocks/1300502116268
+
+
+2009 年  都很小
+https://www.blockchain.com/en/btc/blocks/1238002116268
+
+
+https://bitcoin.stackexchange.com/questions/34089/how-often-does-a-block-have-only-one-transaction
+
+https://bitcoinchain.com/block_explorer
+
+按时间戳查找所有区块
+https://www.blockchain.com/en/btc/blocks/1530179324540
+
+
+# 只有一个交易
+https://www.blockchain.com/en/btc/block-index/512049/00000000000000000429a0c4fbe735b2d8b493daedf0207728543f748c262437
+
+  merkle root 和唯一的交易id相等
+
+# 两个交易
+
+Block #45200
+https://www.blockchain.com/en/btc/block/0000000027f421e4a286d0503bb01190d85548c81df54323db696588770415c6
+
+# 4个交易
+https://blockexplorer.com/block/00000000000000001e8d6829a8a21adc5d38d0a473b144b6765798e61f98bd1d
+
+
+3d07878f4dfd1c1a29c000dea54e3172fd5949a2f775801dc5dadc88d0b3d48e
+
+printf "3d07878f4dfd1c1a29c000dea54e3172fd5949a2f775801dc5dadc88d0b3d48e5f94ff0a3498c2e403ff895d03b8cb73844bf5833b2fe5ffacfb6c974df7ac27" |xxd -r -p |sha256sum -b |xxd -r -p |sha256 -b
