@@ -1,4 +1,5 @@
 https://segmentfault.com/a/1190000009249039
+https://www.kernel.org/doc/Documentation/networking/tuntap.txt
 #--------------------------第一个shell窗口----------------------
 #将上面的程序保存成tun.c，然后编译
 dev@debian:~$ gcc tun.c -o tun

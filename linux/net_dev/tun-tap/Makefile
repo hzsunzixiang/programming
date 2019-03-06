@@ -1,7 +1,7 @@
 .PHONY:clean all
 CC=gcc
 CFLAGS=-Wall -g
-BIN= tun 
+BIN= tun  tap
 all:$(BIN)
 %:%.c
 	$(CC) $(CFLAGS)  $< -o $@ 
