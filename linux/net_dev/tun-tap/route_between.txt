@@ -1,0 +1,97 @@
+
+
+
+在debian-2 和 debian-3上分别创建一个tap并添加ip
+并且使得他们互通
+
+
+之后添加路由
+
+
+#debian-2
+
+##  ip地址: inet 192.168.247.134/24 brd 192.168.247.255 scope global ens33
+
+sudo  ip link set tap0 up
+sudo ip address add 192.168.1.102/24 dev tap0
+sudo ip r add 192.168.1.103 via 192.168.247.136 dev ens33
+
+ericksun@debian-2:~/programming/linux/net_dev/tun-tap$ ip r
+default via 192.168.247.2 dev ens33
+172.16.0.0/24 dev br1 proto kernel scope link src 172.16.0.2
+172.16.1.0/24 via 172.16.0.2 dev br1
+192.168.1.0/24 dev tap0 proto kernel scope link src 192.168.1.102
+192.168.1.103 via 192.168.247.136 dev ens33
+192.168.247.0/24 dev ens33 proto kernel scope link src 192.168.247.134
+
+
+
+
+debian-3
+##  ip地址: inet 192.168.247.136/24 brd 192.168.247.255 scope global ens33
+sudo ip link set tap0 up
+sudo ip address add 192.168.1.103/24 dev tap0
+ericksun@debian-3:~/programming/linux/net_dev/tun-tap$ sudo ip r add  192.168.1.102 via 192.168.247.134 dev ens33
+
+
+ericksun@debian-3:~/programming/linux/net_dev/tun-tap$ ip r
+default via 192.168.247.2 dev ens33
+172.16.0.0/24 dev br1 proto kernel scope link src 172.16.0.3
+192.168.1.0/24 dev tap0 proto kernel scope link src 192.168.1.103
+192.168.1.102 via 192.168.247.134 dev ens33
+192.168.247.0/24 dev ens33 proto kernel scope link src 192.168.247.136
+
+
+
+现在就通了
+
+# ping 的时候指定接口
+ericksun@debian-3:~/programming/linux/net_dev/tun-tap$ ping 192.168.1.102  -I 192.168.1.103 -c 2
+PING 192.168.1.102 (192.168.1.102) from 192.168.1.103 : 56(84) bytes of data.
+64 bytes from 192.168.1.102: icmp_seq=1 ttl=64 time=0.181 ms
+64 bytes from 192.168.1.102: icmp_seq=2 ttl=64 time=0.242 ms
+
+--- 192.168.1.102 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1003ms
+rtt min/avg/max/mdev = 0.181/0.211/0.242/0.033 ms
+
+
+# 抓包可见
+ericksun@debian-2:~/programming/linux/net_dev/tun-tap$ sudo tcpdump -pnni any icmp
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on any, link-type LINUX_SLL (Linux cooked), capture size 262144 bytes
+10:27:05.214411 IP 192.168.1.103 > 192.168.1.102: ICMP echo request, id 8087, seq 1, length 64
+10:27:05.214443 IP 192.168.1.102 > 192.168.1.103: ICMP echo reply, id 8087, seq 1, length 64
+10:27:06.218267 IP 192.168.1.103 > 192.168.1.102: ICMP echo request, id 8087, seq 2, length 64
+10:27:06.218294 IP 192.168.1.102 > 192.168.1.103: ICMP echo reply, id 8087, seq 2, length 64
+
+
+
+
+
+ericksun@debian-2:~/programming/linux/net_dev/tun-tap$ sudo arp -n
+Address                  HWtype  HWaddress           Flags Mask            Iface
+192.168.247.2            ether   00:50:56:f7:84:9b   C                     ens33
+172.16.0.3               ether   b6:b1:a7:43:13:4f   C                     br1
+192.168.247.1            ether   00:50:56:c0:00:08   C                     ens33
+172.16.1.3               ether   b6:b1:a7:43:13:4f   C                     br1
+192.168.247.135          ether   00:0c:29:94:fd:dc   C                     ens33
+192.168.247.137          ether   00:0c:29:2b:24:ba   C                     ens33
+192.168.1.103                    (incomplete)                              tap0     这一条
+192.168.247.136          ether   00:0c:29:4c:3a:a2   C                     ens33
+172.16.0.4               ether   06:fa:4f:34:e1:41   C                     br1
+192.168.247.254          ether   00:50:56:f8:99:43   C                     ens33
+
+
+ericksun@debian-3:~/programming/linux/net_dev/tun-tap$ sudo arp -n
+Address                  HWtype  HWaddress           Flags Mask            Iface
+192.168.247.254          ether   00:50:56:f8:99:43   C                     ens33
+192.168.247.134          ether   00:0c:29:7a:ce:d7   C                     ens33
+192.168.247.2            ether   00:50:56:f7:84:9b   C                     ens33
+172.16.0.4               ether   06:fa:4f:34:e1:41   C                     br1
+192.168.247.137          ether   00:0c:29:2b:24:ba   C                     ens33
+192.168.247.135          ether   00:0c:29:94:fd:dc   C                     ens33
+172.16.0.2               ether   62:00:13:30:78:4d   C                     br1
+192.168.1.102                    (incomplete)                              tap0   这一条
+192.168.247.1            ether   00:50:56:c0:00:08   C                     ens33
+
