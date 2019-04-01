@@ -3,7 +3,7 @@ CC=g++
 #CFLAGS=-Wall -save-temps -O1
 CPPFLAGS=-Wall -g -save-temps
 CFLAGS=-Wall -g -save-temps
-BIN= main
+BIN= main main_note
 all:$(BIN)
 %:%.c 
 	$(CC) $(CFLAGS)   $< -o $@
