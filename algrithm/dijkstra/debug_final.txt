@@ -1,0 +1,134 @@
+debug: sptSet: 0,0,0,0,0,0,0,0,0,
+debug:  dist:  0,M,M,M,M,M,M,M,M,
+start minDistance:(if (sptSet[v] == false && dist[v] <= min))(v:0 min:0, min_index:0),min_index:0 end minDistance
+debug: u:0, vertex:0
+!sptSet[0] && graph[0][0] && dist[0] != INT_MAX && dist[0]+graph[0][0] < dist[0]
+!sptSet[1] && graph[0][1] && dist[0] != INT_MAX && dist[0]+graph[0][1] < dist[1]
+change dist[1]=4
+!sptSet[2] && graph[0][2] && dist[0] != INT_MAX && dist[0]+graph[0][2] < dist[2]
+!sptSet[3] && graph[0][3] && dist[0] != INT_MAX && dist[0]+graph[0][3] < dist[3]
+!sptSet[4] && graph[0][4] && dist[0] != INT_MAX && dist[0]+graph[0][4] < dist[4]
+!sptSet[5] && graph[0][5] && dist[0] != INT_MAX && dist[0]+graph[0][5] < dist[5]
+!sptSet[6] && graph[0][6] && dist[0] != INT_MAX && dist[0]+graph[0][6] < dist[6]
+!sptSet[7] && graph[0][7] && dist[0] != INT_MAX && dist[0]+graph[0][7] < dist[7]
+change dist[7]=8
+!sptSet[8] && graph[0][8] && dist[0] != INT_MAX && dist[0]+graph[0][8] < dist[8]
+
+debug: sptSet: 1,0,0,0,0,0,0,0,0,
+debug:  dist:  0,4,M,M,M,M,M,8,M,
+start minDistance:(if (sptSet[v] == false && dist[v] <= min))(v:1 min:4, min_index:1),min_index:1 end minDistance
+debug: u:1, vertex:1
+!sptSet[0] && graph[1][0] && dist[1] != INT_MAX && dist[1]+graph[1][0] < dist[0]
+!sptSet[1] && graph[1][1] && dist[1] != INT_MAX && dist[1]+graph[1][1] < dist[1]
+!sptSet[2] && graph[1][2] && dist[1] != INT_MAX && dist[1]+graph[1][2] < dist[2]
+change dist[2]=12
+!sptSet[3] && graph[1][3] && dist[1] != INT_MAX && dist[1]+graph[1][3] < dist[3]
+!sptSet[4] && graph[1][4] && dist[1] != INT_MAX && dist[1]+graph[1][4] < dist[4]
+!sptSet[5] && graph[1][5] && dist[1] != INT_MAX && dist[1]+graph[1][5] < dist[5]
+!sptSet[6] && graph[1][6] && dist[1] != INT_MAX && dist[1]+graph[1][6] < dist[6]
+!sptSet[7] && graph[1][7] && dist[1] != INT_MAX && dist[1]+graph[1][7] < dist[7]
+!sptSet[8] && graph[1][8] && dist[1] != INT_MAX && dist[1]+graph[1][8] < dist[8]
+
+debug: sptSet: 1,1,0,0,0,0,0,0,0,
+debug:  dist:  0,4,12,M,M,M,M,8,M,
+start minDistance:(if (sptSet[v] == false && dist[v] <= min))(v:2 min:12, min_index:2),(v:7 min:8, min_index:7),min_index:7 end minDistance
+debug: u:7, vertex:2
+!sptSet[0] && graph[7][0] && dist[7] != INT_MAX && dist[7]+graph[7][0] < dist[0]
+!sptSet[1] && graph[7][1] && dist[7] != INT_MAX && dist[7]+graph[7][1] < dist[1]
+!sptSet[2] && graph[7][2] && dist[7] != INT_MAX && dist[7]+graph[7][2] < dist[2]
+!sptSet[3] && graph[7][3] && dist[7] != INT_MAX && dist[7]+graph[7][3] < dist[3]
+!sptSet[4] && graph[7][4] && dist[7] != INT_MAX && dist[7]+graph[7][4] < dist[4]
+!sptSet[5] && graph[7][5] && dist[7] != INT_MAX && dist[7]+graph[7][5] < dist[5]
+!sptSet[6] && graph[7][6] && dist[7] != INT_MAX && dist[7]+graph[7][6] < dist[6]
+change dist[6]=9
+!sptSet[7] && graph[7][7] && dist[7] != INT_MAX && dist[7]+graph[7][7] < dist[7]
+!sptSet[8] && graph[7][8] && dist[7] != INT_MAX && dist[7]+graph[7][8] < dist[8]
+change dist[8]=15
+
+debug: sptSet: 1,1,0,0,0,0,0,1,0,
+debug:  dist:  0,4,12,M,M,M,9,8,15,
+start minDistance:(if (sptSet[v] == false && dist[v] <= min))(v:2 min:12, min_index:2),(v:6 min:9, min_index:6),min_index:6 end minDistance
+debug: u:6, vertex:3
+!sptSet[0] && graph[6][0] && dist[6] != INT_MAX && dist[6]+graph[6][0] < dist[0]
+!sptSet[1] && graph[6][1] && dist[6] != INT_MAX && dist[6]+graph[6][1] < dist[1]
+!sptSet[2] && graph[6][2] && dist[6] != INT_MAX && dist[6]+graph[6][2] < dist[2]
+!sptSet[3] && graph[6][3] && dist[6] != INT_MAX && dist[6]+graph[6][3] < dist[3]
+!sptSet[4] && graph[6][4] && dist[6] != INT_MAX && dist[6]+graph[6][4] < dist[4]
+!sptSet[5] && graph[6][5] && dist[6] != INT_MAX && dist[6]+graph[6][5] < dist[5]
+change dist[5]=11
+!sptSet[6] && graph[6][6] && dist[6] != INT_MAX && dist[6]+graph[6][6] < dist[6]
+!sptSet[7] && graph[6][7] && dist[6] != INT_MAX && dist[6]+graph[6][7] < dist[7]
+!sptSet[8] && graph[6][8] && dist[6] != INT_MAX && dist[6]+graph[6][8] < dist[8]
+
+debug: sptSet: 1,1,0,0,0,0,1,1,0,
+debug:  dist:  0,4,12,M,M,11,9,8,15,
+start minDistance:(if (sptSet[v] == false && dist[v] <= min))(v:2 min:12, min_index:2),(v:5 min:11, min_index:5),min_index:5 end minDistance
+debug: u:5, vertex:4
+!sptSet[0] && graph[5][0] && dist[5] != INT_MAX && dist[5]+graph[5][0] < dist[0]
+!sptSet[1] && graph[5][1] && dist[5] != INT_MAX && dist[5]+graph[5][1] < dist[1]
+!sptSet[2] && graph[5][2] && dist[5] != INT_MAX && dist[5]+graph[5][2] < dist[2]
+!sptSet[3] && graph[5][3] && dist[5] != INT_MAX && dist[5]+graph[5][3] < dist[3]
+change dist[3]=25
+!sptSet[4] && graph[5][4] && dist[5] != INT_MAX && dist[5]+graph[5][4] < dist[4]
+change dist[4]=21
+!sptSet[5] && graph[5][5] && dist[5] != INT_MAX && dist[5]+graph[5][5] < dist[5]
+!sptSet[6] && graph[5][6] && dist[5] != INT_MAX && dist[5]+graph[5][6] < dist[6]
+!sptSet[7] && graph[5][7] && dist[5] != INT_MAX && dist[5]+graph[5][7] < dist[7]
+!sptSet[8] && graph[5][8] && dist[5] != INT_MAX && dist[5]+graph[5][8] < dist[8]
+
+debug: sptSet: 1,1,0,0,0,1,1,1,0,
+debug:  dist:  0,4,12,25,21,11,9,8,15,
+start minDistance:(if (sptSet[v] == false && dist[v] <= min))(v:2 min:12, min_index:2),min_index:2 end minDistance
+debug: u:2, vertex:5
+!sptSet[0] && graph[2][0] && dist[2] != INT_MAX && dist[2]+graph[2][0] < dist[0]
+!sptSet[1] && graph[2][1] && dist[2] != INT_MAX && dist[2]+graph[2][1] < dist[1]
+!sptSet[2] && graph[2][2] && dist[2] != INT_MAX && dist[2]+graph[2][2] < dist[2]
+!sptSet[3] && graph[2][3] && dist[2] != INT_MAX && dist[2]+graph[2][3] < dist[3]
+change dist[3]=19
+!sptSet[4] && graph[2][4] && dist[2] != INT_MAX && dist[2]+graph[2][4] < dist[4]
+!sptSet[5] && graph[2][5] && dist[2] != INT_MAX && dist[2]+graph[2][5] < dist[5]
+!sptSet[6] && graph[2][6] && dist[2] != INT_MAX && dist[2]+graph[2][6] < dist[6]
+!sptSet[7] && graph[2][7] && dist[2] != INT_MAX && dist[2]+graph[2][7] < dist[7]
+!sptSet[8] && graph[2][8] && dist[2] != INT_MAX && dist[2]+graph[2][8] < dist[8]
+change dist[8]=14
+
+debug: sptSet: 1,1,1,0,0,1,1,1,0,
+debug:  dist:  0,4,12,19,21,11,9,8,14,
+start minDistance:(if (sptSet[v] == false && dist[v] <= min))(v:3 min:19, min_index:3),(v:8 min:14, min_index:8),min_index:8 end minDistance
+debug: u:8, vertex:6
+!sptSet[0] && graph[8][0] && dist[8] != INT_MAX && dist[8]+graph[8][0] < dist[0]
+!sptSet[1] && graph[8][1] && dist[8] != INT_MAX && dist[8]+graph[8][1] < dist[1]
+!sptSet[2] && graph[8][2] && dist[8] != INT_MAX && dist[8]+graph[8][2] < dist[2]
+!sptSet[3] && graph[8][3] && dist[8] != INT_MAX && dist[8]+graph[8][3] < dist[3]
+!sptSet[4] && graph[8][4] && dist[8] != INT_MAX && dist[8]+graph[8][4] < dist[4]
+!sptSet[5] && graph[8][5] && dist[8] != INT_MAX && dist[8]+graph[8][5] < dist[5]
+!sptSet[6] && graph[8][6] && dist[8] != INT_MAX && dist[8]+graph[8][6] < dist[6]
+!sptSet[7] && graph[8][7] && dist[8] != INT_MAX && dist[8]+graph[8][7] < dist[7]
+!sptSet[8] && graph[8][8] && dist[8] != INT_MAX && dist[8]+graph[8][8] < dist[8]
+
+debug: sptSet: 1,1,1,0,0,1,1,1,1,
+debug:  dist:  0,4,12,19,21,11,9,8,14,
+start minDistance:(if (sptSet[v] == false && dist[v] <= min))(v:3 min:19, min_index:3),min_index:3 end minDistance
+debug: u:3, vertex:7
+!sptSet[0] && graph[3][0] && dist[3] != INT_MAX && dist[3]+graph[3][0] < dist[0]
+!sptSet[1] && graph[3][1] && dist[3] != INT_MAX && dist[3]+graph[3][1] < dist[1]
+!sptSet[2] && graph[3][2] && dist[3] != INT_MAX && dist[3]+graph[3][2] < dist[2]
+!sptSet[3] && graph[3][3] && dist[3] != INT_MAX && dist[3]+graph[3][3] < dist[3]
+!sptSet[4] && graph[3][4] && dist[3] != INT_MAX && dist[3]+graph[3][4] < dist[4]
+!sptSet[5] && graph[3][5] && dist[3] != INT_MAX && dist[3]+graph[3][5] < dist[5]
+!sptSet[6] && graph[3][6] && dist[3] != INT_MAX && dist[3]+graph[3][6] < dist[6]
+!sptSet[7] && graph[3][7] && dist[3] != INT_MAX && dist[3]+graph[3][7] < dist[7]
+!sptSet[8] && graph[3][8] && dist[3] != INT_MAX && dist[3]+graph[3][8] < dist[8]
+
+
+
+Vertex   Distance from Source
+0 tt 0
+1 tt 4
+2 tt 12
+3 tt 19
+4 tt 21
+5 tt 11
+6 tt 9
+7 tt 8
+8 tt 14

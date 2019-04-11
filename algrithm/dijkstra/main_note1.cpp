@@ -14,26 +14,35 @@
 // the set of vertices not yet included in shortest path tree 
 int minDistance(int dist[], bool sptSet[]) 
 { 
-	printf("start minDistance:(if (sptSet[v] == false && dist[v] <= min))");
+	printf("start minDistance\n");
    // Initialize min value 
    int min = INT_MAX, min_index; 
    
    for (int v = 0; v < V; v++) 
    {
+	   if (dist[v] == INT_MAX)
+	   {
+		   printf("v:%d sptSet[v]:%d, dist[v]:%s\n", v, sptSet[v], "INT_MAX");
+	   }
+	   else
+	   {
+		   printf("v:%d sptSet[v]:%d, dist[v]:%d\n", v, sptSet[v], dist[v]);
+	   }
+
 	   if (sptSet[v] == false && dist[v] <= min) 
 	   {
 		   min = dist[v], min_index = v; 
 		   if (min==INT_MAX)
 		   {
-		       printf("(v:%d min:%s, min_index:%d),", v, "INT_MAX", min_index);
+		       printf("v:%d min:%s, min_index:%d\n", v, "INT_MAX", min_index);
 		   }
 		   else
 		   {
-		       printf("(v:%d min:%d, min_index:%d),", v, min, min_index);
+		       printf("v:%d min:%d, min_index:%d\n", v, min, min_index);
 		   }
 	   }
    }
-	printf("min_index:%d end minDistance\n", min_index);
+	printf("end minDistance\n\n\n");
    
    return min_index; 
 } 
@@ -73,55 +82,25 @@ void dijkstra(int graph[V][V], int src)
      // Find shortest path for all vertices 
      for (int count = 0; count < V-1; count++) 
      { 
-	   printf("debug: sptSet: ");
-	   for (int i = 0 ; i < V; i++)
-	   {
-	       printf("%d,", sptSet[i]);
-	   }
-	   printf("\n");
-
-	   printf("debug:  dist:  ");
-	   for (int i = 0 ; i < V; i++)
-	   {
-		   if (dist[i] == INT_MAX)
-		   {
-			   printf("%s,", "M");
-		   }
-		   else
-		   {
-			   printf("%d,", dist[i]);
-		   }
-	   }
-	   printf("\n");
        // Pick the minimum distance vertex from the set of vertices not 
        // yet processed. u is always equal to src in the first iteration. 
        int u = minDistance(dist, sptSet); 
-	   printf("debug: u:%d, vertex:%d\n", u, count);
-	   //printf("\n");
-
-
+	   printf("u:%d\n", u);
    
        // Mark the picked vertex as processed 
        sptSet[u] = true; 
    
        // Update dist value of the adjacent vertices of the picked vertex. 
        for (int v = 0; v < V; v++) 
-	   {
    
-		   // Update dist[v] only if is not in sptSet, there is an edge from  
-		   // u to v, and total weight of path from src to  v through u is  
-		   // smaller than current value of dist[v] 
-		   printf("!sptSet[%d] && graph[%d][%d] && dist[%d] != INT_MAX && dist[%d]+graph[%d][%d] < dist[%d]\n",v, u, v, u, u, u, v, v);
-		   if (!sptSet[v] && graph[u][v] && dist[u] != INT_MAX  && dist[u]+graph[u][v] < dist[v]) 
-		   {
-			   dist[v] = dist[u] + graph[u][v]; 
-			   printf("change dist[%d]=%d\n",v, dist[v]);
-		   }
-	   }
-	   printf("\n");
-	 } 
+         // Update dist[v] only if is not in sptSet, there is an edge from  
+         // u to v, and total weight of path from src to  v through u is  
+         // smaller than current value of dist[v] 
+         if (!sptSet[v] && graph[u][v] && dist[u] != INT_MAX  
+                                       && dist[u]+graph[u][v] < dist[v]) 
+            dist[v] = dist[u] + graph[u][v]; 
+     } 
    
-	 printf("\n\n");
      // print the constructed distance array 
      printSolution(dist, V); 
 } 
