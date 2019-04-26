@@ -17,3 +17,7 @@ nginx conf
         uwsgi_pass unix:///tmp/uwsgi.sock;
     }
 
+
+
+注意权限，uwsgi.sock 的权限，可以修改nginx的启动用户
+user ericksun;
