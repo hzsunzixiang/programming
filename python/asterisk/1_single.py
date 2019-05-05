@@ -5,9 +5,13 @@
 def foo(x, y, z):
     print("First is ", x, " then ", y, " lastly ", z)
  
+def bar(*args):
+    print(args)
+
 if __name__ == '__main__':
 
     a = [1, 50, 99]
+    bar(*a)
      
     # foo(a)
     # TypeError: foo() takes exactly 3 arguments (1 given)
@@ -28,3 +32,4 @@ if __name__ == '__main__':
 
     b = (1, 50, 99)
     foo(*b)
+    bar(*b)
