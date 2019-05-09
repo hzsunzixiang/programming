@@ -23,7 +23,6 @@ print(fun_dict[args['InstanceChargeType']])
 fun_dict[args['InstanceChargeType']]("h")
 
 
-
 {'PREPAID': run_instance_prepaid, 'POSTPAID_BY_HOUR': run_instance_postpaid_by_hour, 'CDHPAID': run_instance_cdhpaid}[args['InstanceChargeType']]("h")
 
 #args['InstanceChargeType']("h")
@@ -36,5 +35,6 @@ def fun(**args):
     }[args['InstanceChargeType']](args)
 
 
+fun(**args)
 
 

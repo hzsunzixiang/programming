@@ -7,7 +7,7 @@
 #
 #    return _
 #
-#class schema(object):
+class schema(object):
 #
 #    @staticmethod
 #    def request(**args):
@@ -114,32 +114,34 @@
 #
 #        return _
 #
-#    @staticmethod
-#    def flow(dct=None):
-#        def _(func):
-#
-#            func.flow_dct = dct if dct else {}
-#            return func
-#
-#        return _
-#
-#    @staticmethod
-#    def response(**args):
-#        def _(func):
-#
-#            def wrap_func(**input_args):
-#                result = func(**input_args)
-#                return result
-#
-#            wrap_func.__doc__ = func.__doc__
-#            wrap_func.raw_func = func
-#            wrap_func.__name__ = func.__name__
-#            wrap_func.send = args
-#            wrap_func.flow_dct = {}
-#            return wrap_func
-#        return _
-#
-#
+    @staticmethod
+    def flow(dct=None):
+        def _(func):
+
+            func.flow_dct = dct if dct else {}
+            return func
+
+        return _
+
+    @staticmethod
+    def response(**args):
+        print("in staticmethod response")
+        def _(func):
+            print("in inner function _")
+
+            def wrap_func(**input_args):
+                result = func(**input_args)
+                return result
+
+            wrap_func.__doc__ = func.__doc__
+            wrap_func.raw_func = func
+            wrap_func.__name__ = func.__name__
+            wrap_func.send = args
+            wrap_func.flow_dct = {}
+            return wrap_func
+        return _
+
+
 #@action(desc='用于创建一台或多台指定配置的实例', inquiryable=True, switchable=True)
 #@schema.request(
 #    Uin=datatype.String(required=True, validator=instance.validate_account),
@@ -222,17 +224,21 @@
 args={ 'InstanceChargeType': 'PREPAID'}
 def run_instance_prepaid(args):
     print("run_instance_prepaid")
-    return 
+    return  "hello,world!"
 
 def run_instance_postpaid_by_hour(args):
     print("run_instance_postpaid_by_hour")
-    return
+    return  "hello,world!"
 
 def run_instance_cdhpaid(args):
     print("run_instance_cdhpaid")
-    return
+    return  "hello,world!"
 
-def fun(**args):
+@schema.response(
+    InstanceIdSet=["test"],
+    Price=100,
+    RequestId="RequestId")
+def entry(**args):
     return {
         'PREPAID': run_instance_prepaid,
         'POSTPAID_BY_HOUR': run_instance_postpaid_by_hour,
@@ -240,9 +246,4 @@ def fun(**args):
     }[args['InstanceChargeType']](args)
 
 
-fun(**args)
-
-
-
-
-
+print(entry(**args))
