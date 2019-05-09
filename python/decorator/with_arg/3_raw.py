@@ -9,12 +9,16 @@ def pass_thru(func_to_decorate):
     return new_func
 
 
-# Notice nothing here now
-def print_args(*args, **kargs):
+@pass_thru
+def print_args(*args):
+    for arg in args:
+        print arg
+
+@pass_thru
+def print_args1(*args, **kargs):
     for arg in args:
         print arg
     print(kargs)
 
-# Notice the change here
-pass_thru(print_args)(1, 2, 3, a="y")
-pass_thru(print_args)(4, 5, 6)
+print_args(1, 2, 3)
+print_args1(1, 2, 3, a='y')
