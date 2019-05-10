@@ -1,11 +1,25 @@
 #!/usr/bin/env python3
+
+from functools import wraps
 class schema(object):
+
+    @staticmethod
+    def flow(dct=None):
+        def _(func):
+
+            func.flow_dct = dct if dct else {}
+            return func
+
+        return _
+
+    #print(schema.response( InstanceIdSet=["test"], Price=100, RequestId="RequestId")(entry).__name__)
     @staticmethod
     def response(**args):
         print("in staticmethod response")
-        def _(func):
+        def decorator(func):
             print("in inner function _ func.__name__: %s "%func.__name__)
 
+            @wraps(func)
             def wrap_func(**input_args):
                 print("in wrap_func ")
                 result = func(**input_args)
@@ -19,11 +33,11 @@ class schema(object):
             wrap_func.flow_dct = {}
             return wrap_func
         print("in staticmethod response return")
-        return _
+        return decorator
+
 
 # 定义入口函数中的最终调用
 #---------------------------------------
-entry_args={ 'InstanceChargeType': 'PREPAID'}
 def run_instance_prepaid(args):
     print("run_instance_prepaid")
     return  "hello,world!"
@@ -38,11 +52,11 @@ def run_instance_cdhpaid(args):
 
 # 定义装饰函数
 #---------------------------------------
-@schema.response(
-    InstanceIdSet=["test"],
-    Price=100,
-    RequestId="RequestId")
-
+#@schema.response(
+#    InstanceIdSet=["test"],
+#    Price=100,
+#    RequestId="RequestId")
+#
 def entry(**args):
     print("in real entry")
     return {
@@ -52,14 +66,29 @@ def entry(**args):
     }[args['InstanceChargeType']](args)
 
 
-# 下面可以打印出函数的名字，已经被装饰过了
-#print(entry.__name__)
-# 所以此时可以打印出所传递的参数
-# 这些参数就是 在函数加载时运行 schema.response 时的参数
-#print(entry.send)
+#schema.response( InstanceIdSet=["test"], Price=100, RequestId="RequestId")
+#print(schema.response( InstanceIdSet=["test"], Price=100, RequestId="RequestId").__name__)
 
-print(entry(**entry_args))
-print(entry.send)
+# 这里返回内部的 wrap_func 
+#schema.response( InstanceIdSet=["test"], Price=100, RequestId="RequestId")(entry)
+
+# 这里打印 内部 wrap_func  的名字
+# print(schema.response( InstanceIdSet=["test"], Price=100, RequestId="RequestId")(entry).__name__)
+
+#print(schema.response( InstanceIdSet=["test"], Price=100, RequestId="RequestId")(entry).__name__)
+## 打印出来相关参数
+#print(schema.response( InstanceIdSet=["test"], Price=100, RequestId="RequestId")(entry).send)
+
+# 调用 wrap_func
+xx=schema.response( InstanceIdSet=["test"], Price=100, RequestId="RequestId")(entry)
+entry_args={ 'InstanceChargeType': 'PREPAID'}
+#print(xx.__name__)
+print(xx(**entry_args))
+
+
+
+
+
 
 
 
