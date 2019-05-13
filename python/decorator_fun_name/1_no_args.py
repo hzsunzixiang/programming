@@ -33,23 +33,14 @@ def div_decorate(func):
     print("return func_wrapper_div")
     return func_wrapper_div
 
+
+
+@div_decorate
+@p_decorate
+@strong_decorate
 def get_text(name):
-   print("in get_text, name:%s"%name)
-   tmp = "lorem ipsum, {0} dolor sit amet".format(name)
-   print("tmp_text:%s"%tmp)
-   return tmp
+   return "lorem ipsum, {0} dolor sit amet".format(name)
 
+print(get_text("John"))
 
-#get_text1 = strong_decorate(get_text)
-#get_text2 = p_decorate(get_text1)
-#get_text = div_decorate(get_text2)
-#get_text = div_decorate(p_decorate(strong_decorate(get_text)))
-
-#print(get_text("John"))
-xxx = div_decorate(p_decorate(strong_decorate(get_text)))
-print(xxx("John"))
-#print (div_decorate(p_decorate(strong_decorate(get_text)))("John"))
-
-
-
-
+# Outputs <div><p><strong>lorem ipsum, John dolor sit amet</strong></p></div>
