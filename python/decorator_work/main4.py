@@ -16,7 +16,7 @@ class schema(object):
     def request(**args):
         print("in staticmethod request")
         def _(func):
-            print("in staticmethod request decorator")
+            print("in staticmethod request decorator, name:%s"% func.__name__)
             def wrap_func(**input_args):
                 print("in staticmethod request wrap_func run.....")
                 _args={ 'InstanceChargeType': 'PREPAID'}
@@ -39,7 +39,7 @@ class schema(object):
     def flow(dct=None):
         print("in staticmethod flow")
         def _(func):
-            print("in staticmethod flow decorator")
+            print("in staticmethod flow decorator, name:%s"% func.__name__)
             func.flow_dct = dct if dct else {}
             print("in staticmethod flow decorator return ")
             return func
@@ -51,8 +51,7 @@ class schema(object):
     def response(**args):
         print("in staticmethod response")
         def _(func):
-            print("in inner function _ func.__name__: %s "%func.__name__)
-
+            print("in staticmethod response decorator name: %s "%func.__name__)
             def wrap_func(**input_args):
                 print("in staticmethod response wrap_func run .....")
                 result = func(**input_args)
