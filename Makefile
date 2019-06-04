@@ -8,4 +8,4 @@ all:$(BIN)
 	$(CC) -S $< -o $@.s
 	
 clean:
-	rm -f *.o $(BIN) *.s
+	rm -f *.o $(BIN) *.s *.i *.ii
