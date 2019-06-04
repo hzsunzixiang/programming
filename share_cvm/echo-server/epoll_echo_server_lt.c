@@ -140,6 +140,13 @@ int main()
 
 		listenfd = socket(AF_INET, SOCK_STREAM, 0);  
 
+	    const int		on = 1;
+		if(setsockopt(listenfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on)))
+		{
+			printf("setsockopt\n");
+			exit(1);
+		}
+
 		setnonblocking(listenfd); //¿¿¿¿¿¿socket¿¿¿¿¿¿¿¿  
 
 		ev.data.fd=listenfd; //¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿  
