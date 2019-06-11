@@ -3,10 +3,10 @@ CC=gcc
 #gcc -rdynamic -o main main.c -ldl
 
 CFLAGS=-Wall -rdynamic -ldl -g --save-temps
-BIN= main 
+BIN= main  main1
 all:$(BIN)
 %:%.c 
-	gcc $(CFLAGS) -o main main.c 
+	$(CC) $(CFLAGS)   $< -o $@
 	
 clean:
-	rm -f *.o $(BIN) *.s
+	rm -f *.o $(BIN) *.s *.i
