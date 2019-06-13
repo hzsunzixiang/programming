@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding:UTF-8
+# coding:utf-8
 # 多个协程并发请求。用于多个请求无依赖关系的场景，耗时依赖其中最长的耗时请求
 import gevent
 import threading
