@@ -18,32 +18,15 @@ from framework.static import init_context
 from framework.static import clear_context
 from framework.static import get_current_request_id
 from framework.concurrency import concurrent_execute
+from framework.static import global_context
 
 
 if __name__ == '__main__':
-   init_context() 
-   print(tid_requestid_map)
-   print(gevent.threading.get_ident())
-   def test1():
-       print(gevent.threading.get_ident())
-       print('test1')
-       gevent.sleep(2)
-       return 'test1'
+    init_context() 
 
-   def test2():
-       print(gevent.threading.get_ident())
-       print('test2')
-       gevent.sleep(1)
-       #raise Exception('test2')
-       return 'test2'
-
-   def test3(a, b):
-       print(gevent.threading.get_ident())
-       print('test3 %d %d' % (a, b))
-       gevent.sleep(3)
-       return 'test3'
-
-   tasks = [(test1,), (test2, ), (test3, 1, 2)]
-   results = concurrent_execute(tasks)
+    context.ResultFilters={}
+    context.ResultFilters['statusList'] = "hello"
+    print(context.keys())
+    print(global_context)
 
 

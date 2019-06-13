@@ -58,7 +58,7 @@ def init_context(request_id=None):  # 初始化上下文
     import context
     tid = _tid()
 
-    # 如果没有如果没有 requestId，那么指定一个requestId
+    # 如果没有 requestId，那么指定一个requestId
     if tid not in tid_requestid_map:
         tid_requestid_map[tid] = request_id if request_id else str(uuid.uuid4())
 

@@ -74,12 +74,17 @@ class Context(object):
     def __getattr__(self, name):
         if name == '__wrapped__':
             return
+        print("in __getitem__ ", _tid()) 
+        print("in __getitem__ ", tid_requestid_map[_tid()]) 
         return _get_current_context(tid_requestid_map[_tid()])[name]
 
     def __setitem__(self, name, val):
+        print("in __setitem__", tid_requestid_map[_tid()]) 
         _get_current_context(tid_requestid_map[_tid()])[name] = val
 
     def __setattr__(self, name, val):
+        print("in __setattr__%s, %s, %s"%( _tid(), name, val)) 
+        print("in __setattr__", tid_requestid_map[_tid()]) 
         _get_current_context(tid_requestid_map[_tid()])[name] = val
 
     def keys(self):
