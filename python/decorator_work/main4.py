@@ -55,7 +55,7 @@ class schema(object):
             def wrap_func(**input_args):
                 print("in staticmethod response wrap_func run .....")
                 result = func(**input_args)
-                print("in staticmethod wrap_func return")
+                print("in staticmethod response wrap_func return")
                 return result
 
             wrap_func.__doc__ = func.__doc__
@@ -106,7 +106,7 @@ def entry(**args):
         'CDHPAID': run_instance_cdhpaid
     }[args['InstanceChargeType']](args)
 
-#print(entry(**args))
+print(entry(**args))
 
 # 下面可以打印出函数的名字，已经被装饰过了
 #print(entry.__name__)
