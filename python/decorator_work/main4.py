@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 def action(url='http://api.qcloud.com/v2', inquiryable=False, switchable=False, inquiryresourceable=False, **args):
-    print("in staticmethod action")
+    print("in staticmethod action %s"%args)
     def _(func):
         assert func.__name__ == 'entry', "API 入口必须以 entry 作为函数名，而不能是 %s。" % func.__name__
         print('识别到 %s 入口点并挂载...' % func.__name__)
@@ -14,9 +14,9 @@ class schema(object):
 #
 #    @staticmethod
     def request(**args):
-        print("in staticmethod request")
+        print("in staticmethod request:%s"%args)
         def _(func):
-            print("in staticmethod request decorator, name:%s"% func.__name__)
+            print("in staticmethod request ##decorator##, name:%s"% func.__name__)
             def wrap_func(**input_args):
                 print("in staticmethod request wrap_func run.....")
                 _args={ 'InstanceChargeType': 'PREPAID'}
@@ -29,7 +29,7 @@ class schema(object):
             wrap_func.raw_func = func.raw_func
             wrap_func.recv = args
             wrap_func.send = func.send
-            print("in staticmethod request decorator return")
+            print("in staticmethod request ##decorator##, name:%s return"% func.__name__)
             return wrap_func
 
         print("in staticmethod request return ")
@@ -37,11 +37,11 @@ class schema(object):
 
     @staticmethod
     def flow(dct=None):
-        print("in staticmethod flow")
+        print("in staticmethod flow :%s"%dct)
         def _(func):
-            print("in staticmethod flow decorator, name:%s"% func.__name__)
+            print("in staticmethod flow ##decorator##, name:%s"% func.__name__)
             func.flow_dct = dct if dct else {}
-            print("in staticmethod flow decorator return ")
+            print("in staticmethod flow ##decorator##, name:%s return"% func.__name__)
             return func
 
         print("in staticmethod flow return")
@@ -49,9 +49,9 @@ class schema(object):
 
     @staticmethod
     def response(**args):
-        print("in staticmethod response")
+        print("in staticmethod response :%s"%(args)) 
         def _(func):
-            print("in staticmethod response decorator name: %s "%func.__name__)
+            print("in staticmethod response ###decorator### name: %s "%func.__name__)
             def wrap_func(**input_args):
                 print("in staticmethod response wrap_func run .....")
                 result = func(**input_args)
@@ -63,6 +63,7 @@ class schema(object):
             wrap_func.__name__ = func.__name__
             wrap_func.send = args
             wrap_func.flow_dct = {}
+            print("in staticmethod response ###decorator### name: %s return"%func.__name__)
             return wrap_func
         print("in staticmethod response return")
         return _
