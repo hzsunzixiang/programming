@@ -119,25 +119,31 @@ def test_compose():
         2: ['e'],
         3: ['a', 'j', 'l']
     }
+a ={'.DataDisks', '.DesAction', '.DisasterRecoverGroupIds', '.InternetAccessible', '.DryRun', '.InstanceChargePrepaid', '.InstanceType', '.SystemDisk.DiskSize', '.InternetAccessible.InternetMaxBandwidthOut', '.VirtualPrivateCloud', '.LoginSettings.KeyIds.0', '.InstanceName', '.Placement.Zone', '.Uin', '.HostName', '.SystemDisk', '.SecurityGroupIds.0', '.ZoneId', '.LoginSettings.Password', '.InstanceChargePrepaid.TimeUnit', '.DataDisks.0.DiskSize', '.Placement.ProjectId', '.AvailableZone', '.Placement', '.ClientToken', '.AppId', '.ActionTimer', '.ImageId', '.EnhancedService.BasicService.Enabled', '.EnhancedService.MonitorService.Enabled', '.SystemDisk.DiskType', '.InstanceCount', '.UserData', '.LoginSettings.KeepImageLogin', '.EnhancedService.SecurityService.Enabled', '.DataDisks.0.DiskType', '.InstanceChargePrepaid.Period', '.LoginSettings.EncryptedWord', '.InstanceChargeType', '.InternetAccessible.PublicIpAssigned'}
+req = {'.InstanceChargePrepaid.Period': ['.InstanceChargePrepaid.TimeUnit'], '.InstanceChargeType': ['.Uin', '.Placement', '.InstanceChargePrepaid'], '.SystemDisk.DiskSize': ['.ImageId', '.InstanceType', '.SystemDisk.DiskType'], '.DataDisks.0.DiskType': ['.SystemDisk'], '.DataDisks.0.DiskSize': ['.DataDisks.0.DiskType', '.InternetAccessible'], '.InternetAccessible': ['.InstanceType', '.InstanceChargeType'], '.InternetAccessible.PublicIpAssigned': ['.InternetAccessible.InternetMaxBandwidthOut', '.InstanceType'], '.InstanceCount': ['.InstanceChargeType', '.ClientToken', '.InstanceType'], '.LoginSettings.Password': ['.ImageId'], '.LoginSettings.EncryptedWord': ['.LoginSettings.Password'], '.LoginSettings.KeyIds.0': ['.ImageId'], '.LoginSettings.KeepImageLogin': ['.ImageId'], '.HostName': ['.ImageId', '.InstanceCount'], '.VirtualPrivateCloud': ['.InstanceCount'], '.UserData': ['.AppId'], '.AvailableZone': ['.AppId', '.ZoneId', '.InstanceChargeType'], '.DisasterRecoverGroupIds': ['.AppId', '.InstanceCount'], '.EnhancedService.SecurityService.Enabled': ['.ImageId'], '.EnhancedService.MonitorService.Enabled': ['.ImageId'], '.ActionTimer': ['.InstanceChargeType']}
 
-def test_compose1():
-    a = ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'l', 'k')
-    req = {'l': ('a', 'c', 'k'), 'f': ('a', 'j', 'l'), 'e': ('k'), 'j': ('e')}
-    return compose(a, req) 
-def test_compose2():
-    a = ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'l', 'k')
-    req = {'l': ('a', 'c', 'k'), 'f': ('a', 'j', 'l'), 'e': ('k'), 'j': ('e')}
-    return compose_join_table(a, req)
+print(compose(a, req))
+print("--------")
+print(compose_join_table(a, req))
 
-#import doctest
-#doctest.testmod()
-#print ('MASTER Pandora loaded.')
-
-
-print(test_compose1())
-print(test_compose2())
-print(tuple(test_compose2()))
-#{0: set(['a', 'c', 'b', 'd', 'g', 'i', 'h', 'k']), 1: set(['e', 'l']), 2: set(['j']), 3: set(['f'])}
-#{0: [], 1: ['k', 'a', 'c', 'k'], 2: ['e'], 3: ['a', 'j', 'l']}
-
-
+#def test_compose1():
+#    a = ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'l', 'k')
+#    req = {'l': ('a', 'c', 'k'), 'f': ('a', 'j', 'l'), 'e': ('k'), 'j': ('e')}
+#    return compose(a, req) 
+#def test_compose2():
+#    a = ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'l', 'k')
+#    req = {'l': ('a', 'c', 'k'), 'f': ('a', 'j', 'l'), 'e': ('k'), 'j': ('e')}
+#    return compose_join_table(a, req)
+#
+##import doctest
+##doctest.testmod()
+##print ('MASTER Pandora loaded.')
+#
+#
+#print(test_compose1())
+#print(test_compose2())
+#print(tuple(test_compose2()))
+##{0: set(['a', 'c', 'b', 'd', 'g', 'i', 'h', 'k']), 1: set(['e', 'l']), 2: set(['j']), 3: set(['f'])}
+##{0: [], 1: ['k', 'a', 'c', 'k'], 2: ['e'], 3: ['a', 'j', 'l']}
+#
+#
