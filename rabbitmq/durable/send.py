@@ -4,39 +4,31 @@
 import pika
 import time
 
+exchange = 'vstation'
+vhost = 'vstation'
+user =  'vstation'
+password = 'vstation'
+queue_name =  'FLOW'
 
-credentials = pika.PlainCredentials('ericksun', 'ericksun')
+credentials = pika.PlainCredentials(user, password)
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
 			               host='localhost',
-                           virtual_host="/vstation",
+                           virtual_host=vhost,
 						   credentials=credentials))
 
 channel = connection.channel()
 
-
-# 持久化这里起作用 重启也有效果
-#result = channel.queue_declare(queue='hello')  
-result = channel.queue_declare("hello2", durable=True)
+result = channel.queue_declare(queue=queue_name, durable=True)  
 
 queue_name = result.method.queue
 print 'queue_name:' + queue_name
 
+channel.exchange_declare(exchange=exchange, exchange_type='direct', durable=True)
 
-exchange_name="logs_direct6"
-
-channel.exchange_declare(exchange=exchange_name, exchange_type='direct', durable=True)
-#channel.exchange_declare(exchange=exchange_name, exchange_type='direct', durable=False)
-#channel.exchange_declare(exchange=exchange_name, exchange_type='direct')
-
-#                     properties=pika.BasicProperties(delivery_mode=2,)
-# 必须加上这句才能真正的持久化
-# https://www.cnblogs.com/Keep-Ambition/p/8044752.html 
-channel.basic_publish(exchange=exchange_name,
+channel.basic_publish(exchange=exchange,
                       routing_key=queue_name,
-                      body='Hello World!',
-                      properties=pika.BasicProperties(delivery_mode=2,)
-					  )
+                      body='Hello World!')
 print " [x] Sent 'Hello World!'"
 connection.close()  
 
