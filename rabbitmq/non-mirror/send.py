@@ -28,8 +28,7 @@ print 'queue_name:' + queue_name
 channel.exchange_declare(exchange=exchange, exchange_type='direct', durable=True)
 
 # 加上这个属性才能做到真正的持久化
-properties = pika.BasicProperties(delivery_mode=2,
-                                  expiration='100000')
+properties = pika.BasicProperties(delivery_mode=2)
 channel.basic_publish(exchange=exchange, routing_key=queue_name,
                            body="Hello World!", properties=properties)
 
