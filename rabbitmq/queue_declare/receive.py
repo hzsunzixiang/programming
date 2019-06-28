@@ -3,29 +3,31 @@
 
 import pika
 
-credentials = pika.PlainCredentials('ericksun', 'ericksun')
+exchange = 'vstation'
+vhost = 'vstation'
+user =  'vstation'
+password = 'vstation'
+queue_name =  'hello'
+
+credentials = pika.PlainCredentials(user, password)
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
 			               host='localhost',
-                           virtual_host="/vstation",
+                           virtual_host=vhost,
 						   credentials=credentials))
+
 channel = connection.channel()
 
-result = channel.queue_declare("hello")
+result = channel.queue_declare(queue=queue_name)  
 
 queue_name = result.method.queue
 print 'queue_name:' + queue_name
 
-
 # 指定exchange
-#channel.exchange_declare(exchange='vstation1', exchange_type='direct')
-
-
-channel.exchange_declare(exchange='logs_direct', exchange_type='direct')
-
+channel.exchange_declare(exchange=exchange, exchange_type='direct')
 
 # 这一句很重要，否则不生效 
-channel.queue_bind(exchange='logs_direct', queue=queue_name)
+channel.queue_bind(exchange=exchange, queue=queue_name)
 
 
 print ' [*] Waiting for messages. To exit press CTRL+C'

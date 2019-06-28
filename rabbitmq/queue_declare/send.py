@@ -4,24 +4,29 @@
 import pika
 import time
 
+exchange = 'vstation'
+vhost = 'vstation'
+user =  'vstation'
+password = 'vstation'
+queue_name =  'hello'
 
-credentials = pika.PlainCredentials('ericksun', 'ericksun')
+credentials = pika.PlainCredentials(user, password)
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
 			               host='localhost',
-                           virtual_host="/vstation",
+                           virtual_host=vhost,
 						   credentials=credentials))
 
 channel = connection.channel()
 
-result = channel.queue_declare(queue='hello')  
+result = channel.queue_declare(queue=queue_name)  
 
 queue_name = result.method.queue
 print 'queue_name:' + queue_name
 
-channel.exchange_declare(exchange='logs_direct', exchange_type='direct')
+channel.exchange_declare(exchange=exchange, exchange_type='direct')
 
-channel.basic_publish(exchange='logs_direct',
+channel.basic_publish(exchange=exchange,
                       routing_key=queue_name,
                       body='Hello World!')
 print " [x] Sent 'Hello World!'"
