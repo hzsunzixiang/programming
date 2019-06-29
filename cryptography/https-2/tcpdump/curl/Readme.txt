@@ -35,3 +35,6 @@ curl -kv  --key  /home/ericksun/programming/cryptography/https-2/cert/ericksun_p
 
 # 用curl发送http请求
 curl -k https://www.example.com:443
+
+
+
