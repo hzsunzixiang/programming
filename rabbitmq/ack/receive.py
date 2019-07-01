@@ -33,7 +33,7 @@ channel.queue_bind(exchange=exchange, queue=queue_name)
 print ' [*] Waiting for messages. To exit press CTRL+C'
 
 def callback(ch, method, properties, body):
-    print " [x] Received %r" % (body,)
+    print " [x] Received %r, ch:%s method:%s, properties:%s" % (body, ch, method, properties)
     ch.basic_ack(delivery_tag = method.delivery_tag)
 
 channel.basic_consume(queue_name,
@@ -47,3 +47,8 @@ channel.start_consuming()
 
 
 
+#ericksun@debian-3:~/programming/rabbitmq/ack$ python receive.py
+#queue_name:FLOW
+# [*] Waiting for messages. To exit press CTRL+C
+#  [x] Received 'Hello World!', ch:<BlockingChannel impl=<Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x7f09f3d02c10> params=<ConnectionParameters host=localhost port=5672 virtual_host=vstation ssl=False>>>> method:<Basic.Deliver(['consumer_tag=ctag1.66bad7623e634b8883a62fb512fd048e', 'delivery_tag=1', 'exchange=vstation', 'redelivered=False', 'routing_key=FLOW'])>, properties:<BasicProperties(['delivery_mode=2'])>
+#
