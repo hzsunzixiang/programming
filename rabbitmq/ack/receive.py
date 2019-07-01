@@ -34,11 +34,15 @@ print ' [*] Waiting for messages. To exit press CTRL+C'
 
 def callback(ch, method, properties, body):
     print " [x] Received %r" % (body,)
+    ch.basic_ack(delivery_tag = method.delivery_tag)
 
 channel.basic_consume(queue_name,
 	       	          callback,
-                      auto_ack=True)
+                      auto_ack=False)
 
+#channel.basic_consume(queue_name,
+#	       	          callback,
+#                      auto_ack=True)
 channel.start_consuming()
 
 
