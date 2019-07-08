@@ -1,7 +1,11 @@
 
-删除队列
 
-sudo rabbitmqadmin -u vstation -p vstation -V vstation  delete queue name=TEST
+https://www.rabbitmq.com/tutorials/amqp-concepts.html
+
+Default Exchange
+The default exchange is a direct exchange with no name (empty string) pre-declared by the broker. It has one special property that makes it very useful for simple applications: every queue that is created is automatically bound to it with a routing key which is the same as the queue name.
+
+For example, when you declare a queue with the name of "search-indexing-online", the AMQP 0-9-1 broker will bind it to the default exchange using "search-indexing-online" as the routing key (in this context sometimes referred to as the binding key). Therefore, a message published to the default exchange with the routing key "search-indexing-online" will be routed to the queue "search-indexing-online". In other words, the default exchange makes it seem like it is possible to deliver messages directly to queues, even though that is not technically what is happening.
 
 
 
