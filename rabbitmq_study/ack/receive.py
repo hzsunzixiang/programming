@@ -36,20 +36,21 @@ def callback(ch, method, properties, body):
     #print " [x] Received %r, ch:%s method:%s, properties:%s" % (body, ch, method, properties)
     print " [x] Received %r" % (body, )
     ch.basic_ack(delivery_tag = method.delivery_tag)
+    #ch.basic_ack(delivery_tag = method.delivery_tag, multiple=True)
+    #ch.basic_ack(delivery_tag = 0, multiple=True)
+    #pika.exceptions.ChannelClosedByBroker: (406, 'PRECONDITION_FAILED - unknown delivery tag 1')
+    ch.basic_ack(delivery_tag = 1, multiple=True)
 
 channel.basic_consume(queue_name,
 	       	          callback,
                       auto_ack=False)
 
-#channel.basic_consume(queue_name,
-#	       	          callback,
-#                      auto_ack=True)
 channel.start_consuming()
 
 
-
-#ericksun@debian-3:~/programming/rabbitmq/ack$ python receive.py
-#queue_name:FLOW
-# [*] Waiting for messages. To exit press CTRL+C
-#  [x] Received 'Hello World!', ch:<BlockingChannel impl=<Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x7f09f3d02c10> params=<ConnectionParameters host=localhost port=5672 virtual_host=vstation ssl=False>>>> method:<Basic.Deliver(['consumer_tag=ctag1.66bad7623e634b8883a62fb512fd048e', 'delivery_tag=1', 'exchange=vstation', 'redelivered=False', 'routing_key=FLOW'])>, properties:<BasicProperties(['delivery_mode=2'])>
+#basic_ack(delivery_tag=0, multiple=False)[source]
+#Acknowledge one or more messages. When sent by the client, this method acknowledges one or more messages delivered via the Deliver or Get-Ok methods. When sent by server, this method acknowledges one or more messages published with the Publish method on a channel in confirm mode. The acknowledgement can be for a single message or a set of messages up to and including a specific message.
 #
+#Parameters:	
+#delivery_tag (integer) – int/long The server-assigned delivery tag
+#multiple (bool) – If set to True, the delivery tag is treated as “up to and including”, so that multiple messages can be acknowledged with a single method. If set to False, the delivery tag refers to a single message. If the multiple field is 1, and the delivery tag is zero, this indicates acknowledgement of all outstanding messages.
