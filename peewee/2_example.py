@@ -62,27 +62,27 @@ class Teacher(Model):
 #T.save()
 
 
-###################### 查 
-T_list=Teacher.select()
-for T in T_list:
-	print T.name,T.age,T.birthday
-
+####################### 查 
+#T_list=Teacher.select()
+#for T in T_list:
+#	print T.name,T.age,T.birthday
 #
-######################   查多条
-T_list=Teacher.select().where(Teacher.age==32)
-for T in T_list:
-	print T.name,T.age,T.birthday
-
-######################   查单条 如果不存在会报异常
-T_list=Teacher.select().where(Teacher.name=='wangwu')  #返回是list
-for T in T_list:
-	print T.name,T.age,T.birthday
-#或
-T=Teacher.select().where(Teacher.name=='maliu').get() #返回时单个
-print T.name,T.age,T.birthday
-#或
-T=Teacher.get(Teacher.name=='maliu')
-print T.name, T.age, T.birthday
+##
+#######################   查多条
+#T_list=Teacher.select().where(Teacher.age==32)
+#for T in T_list:
+#	print T.name,T.age,T.birthday
+#
+#######################   查单条 如果不存在会报异常
+#T_list=Teacher.select().where(Teacher.name=='wangwu')  #返回是list
+#for T in T_list:
+#	print T.name,T.age,T.birthday
+##或
+#T=Teacher.select().where(Teacher.name=='maliu').get() #返回时单个
+#print T.name,T.age,T.birthday
+##或
+#T=Teacher.get(Teacher.name=='maliu')
+#print T.name, T.age, T.birthday
 
 
 
@@ -90,24 +90,34 @@ print T.name, T.age, T.birthday
 
 ######################  升序 
 T_list=Teacher.select().order_by(Teacher.age)
+
+## 打印原始SQL
+sql, param = T_list.sql()
+print sql.replace("?","{}").format(*param)
+
 for T in T_list:
 	print T.name,T.age,T.birthday
+
+
+#query = News.select().where(News.url == 'test')
+#sql, param = query.sql()
+#print sql.replace("?","{}").format(*param)
 
 #######################  降序 
 #
-print("desc \n")
-T_list=Teacher.select().order_by(Teacher.age.desc())
-for T in T_list:
-	print T.name,T.age,T.birthday
+#print("desc \n")
+#T_list=Teacher.select().order_by(Teacher.age.desc())
+#for T in T_list:
+#	print T.name,T.age,T.birthday
 
 
 
 
 
 
-print("raw \n")
-
-sql = "select * from teacher where name = 'maliu' and age = 32"
-T_list=Teacher.raw(sql)
-for T in T_list:
-	print T.name,T.age,T.birthday
+#print("raw \n")
+#
+#sql = "select * from teacher where name = 'maliu' and age = 32"
+#T_list=Teacher.raw(sql)
+#for T in T_list:
+#	print T.name,T.age,T.birthday
