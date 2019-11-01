@@ -1,0 +1,31 @@
+
+# 现在来解析 一个公钥 pubkey_16.pem 
+
+base64 解密 并打印二进制
+ericksun@192.168.56.101:~/programming/cryptography/openssl/rsa_format$ cat pubkey_16.pem  |grep -v "\-\-\-" | base64 --decode |hexdump -C
+00000000  30 1e 30 0d 06 09 2a 86  48 86 f7 0d 01 01 01 05  |0.0...*.H.......|
+00000010  00 03 0d 00 30 0a 02 03  00 da a5 02 03 01 00 01  |....0...........|
+00000020
+
+ericksun@192.168.56.101:~/programming/cryptography/openssl/rsa_format$ cat pubkey_16.pem  |grep -v "\-\-\-" | base64 --decode |xxd -p
+301e300d06092a864886f70d0101010500030d00300a020300daa5020301
+0001
+
+
+对照这个输出检查其格式
+ericksun@192.168.56.101:~/programming/cryptography/openssl/rsa_format$ openssl  rsa  -in pubkey_16.pem   -pubin -text
+Public-Key: (16 bit)
+Modulus: 55973 (0xdaa5)
+Exponent: 65537 (0x10001)
+writing RSA key
+-----BEGIN PUBLIC KEY-----
+MB4wDQYJKoZIhvcNAQEBBQADDQAwCgIDANqlAgMBAAE=
+-----END PUBLIC KEY-----
+
+
+现在来解析这个格式
+00000000  30 1e 30 0d 06 09 2a 86  48 86 f7 0d 01 01 01 05  |0.0...*.H.......|
+00000010  00 03 0d 00 30 0a 02 03  00 da a5 02 03 01 00 01  |....0...........|
+也就是
+301e300d06092a864886f70d0101010500030d00300a020300daa5020301
+0001

@@ -1,0 +1,100 @@
+
+# 现在来解析 一个公钥 pubkey_16.pem 
+
+base64 解密 并打印二进制
+ericksun@192.168.56.101:~/programming/cryptography/openssl/rsa_format$ cat private_1024.perm  |grep -v "\-\-\-" | base64 --decode |xxd -p
+3082025e02010002818100a303b2d1097a29b63c8bf84a1033d8f8552203
+6423d063a7b4312d61bdca346b5ba3d948c74ce793ae21b00804094fd1f2
+798c0f14e9d2e1a7f6035972ef919fc967ba5ed68a2e925fff335c50a415
+416f8de70bf7c6aedc46a199e0ec6a92a236272def5bea13dd9b55b74eba
+69c5874d4956c4652ffdf2a45e7244e7d2d0c302030100010281800f5e92
+e67891470b828be3ddffc713a6de47f5afe45c8a78ce5970a0ed86fa0841
+3ca288e519901ff16405b7cbc1a0fff76f944ffbb5cc073091d66101a02a
+c79264b0566382ca294570e2687debde7f46227c304228e9210a9e57470d
+ea0f56a16d8dcb0bd49fbc37f7303a818ca70a3400a6c540d4dc3eca6dc3
+8af3fae091024100d4f6960cbbcaac0b2552e31dfdf53781df45b4d91067
+88d1ee1f72fd50df0112a90c10de65630f26bedbbb09173e1ad0e56ed9ce
+f54042d12ec09a77215ae179024100c3f511777095c2e8b0c912943c8b4d
+263e7769e46b721208093c587717bfe2920bf57c3fc0f8a3a6181eaa0b7a
+5ad4fa4f0ae3764d95f294519721e4bf64111b0241009698693347f8e200
+5fbc656ee80f67d927121bf90368b390005baced052b2d8f0c8bc3c200e0
+33eeaa38a7e29dd5051183ad07c91a14ff2afd6ca5ce687fe3c10241008f
+ac7870fd5020c7210f5c1ae9c52cfcb4623376b1bcc231b82bd1a507f9bd
+b25d28514021496c1b54a5ef0159658db0351203b272b255589ff5d278f8
+46f32f024100c863bbdebca911b1b6970540dbf33fa6fffe1ec3b1583d9d
+35b54c9a13b08ca45aae5c914b2faaf19c79aa652eb873ecd315ec4a8d5c
+82e91271e080aaa95d47
+
+
+对照这个输出检查其格式
+ericksun@192.168.56.101:~/programming/cryptography/openssl/rsa_format$  openssl  rsa  -in private_1024.perm -text 
+Private-Key: (1024 bit)
+modulus:
+    00:a3:03:b2:d1:09:7a:29:b6:3c:8b:f8:4a:10:33:
+    d8:f8:55:22:03:64:23:d0:63:a7:b4:31:2d:61:bd:
+    ca:34:6b:5b:a3:d9:48:c7:4c:e7:93:ae:21:b0:08:
+    04:09:4f:d1:f2:79:8c:0f:14:e9:d2:e1:a7:f6:03:
+    59:72:ef:91:9f:c9:67:ba:5e:d6:8a:2e:92:5f:ff:
+    33:5c:50:a4:15:41:6f:8d:e7:0b:f7:c6:ae:dc:46:
+    a1:99:e0:ec:6a:92:a2:36:27:2d:ef:5b:ea:13:dd:
+    9b:55:b7:4e:ba:69:c5:87:4d:49:56:c4:65:2f:fd:
+    f2:a4:5e:72:44:e7:d2:d0:c3
+publicExponent: 65537 (0x10001)
+privateExponent:
+    0f:5e:92:e6:78:91:47:0b:82:8b:e3:dd:ff:c7:13:
+    a6:de:47:f5:af:e4:5c:8a:78:ce:59:70:a0:ed:86:
+    fa:08:41:3c:a2:88:e5:19:90:1f:f1:64:05:b7:cb:
+    c1:a0:ff:f7:6f:94:4f:fb:b5:cc:07:30:91:d6:61:
+    01:a0:2a:c7:92:64:b0:56:63:82:ca:29:45:70:e2:
+    68:7d:eb:de:7f:46:22:7c:30:42:28:e9:21:0a:9e:
+    57:47:0d:ea:0f:56:a1:6d:8d:cb:0b:d4:9f:bc:37:
+    f7:30:3a:81:8c:a7:0a:34:00:a6:c5:40:d4:dc:3e:
+    ca:6d:c3:8a:f3:fa:e0:91
+prime1:
+    00:d4:f6:96:0c:bb:ca:ac:0b:25:52:e3:1d:fd:f5:
+    37:81:df:45:b4:d9:10:67:88:d1:ee:1f:72:fd:50:
+    df:01:12:a9:0c:10:de:65:63:0f:26:be:db:bb:09:
+    17:3e:1a:d0:e5:6e:d9:ce:f5:40:42:d1:2e:c0:9a:
+    77:21:5a:e1:79
+prime2:
+    00:c3:f5:11:77:70:95:c2:e8:b0:c9:12:94:3c:8b:
+    4d:26:3e:77:69:e4:6b:72:12:08:09:3c:58:77:17:
+    bf:e2:92:0b:f5:7c:3f:c0:f8:a3:a6:18:1e:aa:0b:
+    7a:5a:d4:fa:4f:0a:e3:76:4d:95:f2:94:51:97:21:
+    e4:bf:64:11:1b
+exponent1:
+    00:96:98:69:33:47:f8:e2:00:5f:bc:65:6e:e8:0f:
+    67:d9:27:12:1b:f9:03:68:b3:90:00:5b:ac:ed:05:
+    2b:2d:8f:0c:8b:c3:c2:00:e0:33:ee:aa:38:a7:e2:
+    9d:d5:05:11:83:ad:07:c9:1a:14:ff:2a:fd:6c:a5:
+    ce:68:7f:e3:c1
+exponent2:
+    00:8f:ac:78:70:fd:50:20:c7:21:0f:5c:1a:e9:c5:
+    2c:fc:b4:62:33:76:b1:bc:c2:31:b8:2b:d1:a5:07:
+    f9:bd:b2:5d:28:51:40:21:49:6c:1b:54:a5:ef:01:
+    59:65:8d:b0:35:12:03:b2:72:b2:55:58:9f:f5:d2:
+    78:f8:46:f3:2f
+coefficient:
+    00:c8:63:bb:de:bc:a9:11:b1:b6:97:05:40:db:f3:
+    3f:a6:ff:fe:1e:c3:b1:58:3d:9d:35:b5:4c:9a:13:
+    b0:8c:a4:5a:ae:5c:91:4b:2f:aa:f1:9c:79:aa:65:
+    2e:b8:73:ec:d3:15:ec:4a:8d:5c:82:e9:12:71:e0:
+    80:aa:a9:5d:47
+-----BEGIN RSA PRIVATE KEY-----
+MIICXgIBAAKBgQCjA7LRCXoptjyL+EoQM9j4VSIDZCPQY6e0MS1hvco0a1uj2UjH
+TOeTriGwCAQJT9HyeYwPFOnS4af2A1ly75GfyWe6XtaKLpJf/zNcUKQVQW+N5wv3
+xq7cRqGZ4OxqkqI2Jy3vW+oT3ZtVt066acWHTUlWxGUv/fKkXnJE59LQwwIDAQAB
+AoGAD16S5niRRwuCi+Pd/8cTpt5H9a/kXIp4zllwoO2G+ghBPKKI5RmQH/FkBbfL
+waD/92+UT/u1zAcwkdZhAaAqx5JksFZjgsopRXDiaH3r3n9GInwwQijpIQqeV0cN
+6g9WoW2NywvUn7w39zA6gYynCjQApsVA1Nw+ym3DivP64JECQQDU9pYMu8qsCyVS
+4x399TeB30W02RBniNHuH3L9UN8BEqkMEN5lYw8mvtu7CRc+GtDlbtnO9UBC0S7A
+mnchWuF5AkEAw/URd3CVwuiwyRKUPItNJj53aeRrchIICTxYdxe/4pIL9Xw/wPij
+phgeqgt6WtT6Twrjdk2V8pRRlyHkv2QRGwJBAJaYaTNH+OIAX7xlbugPZ9knEhv5
+A2izkABbrO0FKy2PDIvDwgDgM+6qOKfindUFEYOtB8kaFP8q/Wylzmh/48ECQQCP
+rHhw/VAgxyEPXBrpxSz8tGIzdrG8wjG4K9GlB/m9sl0oUUAhSWwbVKXvAVlljbA1
+EgOycrJVWJ/10nj4RvMvAkEAyGO73rypEbG2lwVA2/M/pv/+HsOxWD2dNbVMmhOw
+jKRarlyRSy+q8Zx5qmUuuHPs0xXsSo1cgukSceCAqqldRw==
+-----END RSA PRIVATE KEY-----
+
+
+
