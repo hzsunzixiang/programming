@@ -27,3 +27,36 @@ Heartbeats can be disabled by setting the timeout interval to 0 on the client si
 short heartbeat
 
 The delay, in seconds, of the connection heartbeat that the client wants. Zero means the client does not want a heartbeat.
+
+
+
+
+# rabbitmqctl  list_connections timeout
+
+没有心跳
+ericksun@192.168.56.101:~/programming/rabbitmq_study/heartbeat_para (master)$ sudo rabbitmqctl  list_connections timeout
+Listing connections ...
+0
+
+60s
+ericksun@192.168.56.101:~/programming/rabbitmq_study/heartbeat_para (master)$ sudo rabbitmqctl  list_connections timeout
+Listing connections ...
+60
+
+
+ericksun@192.168.56.101:~/programming/rabbitmq_study/heartbeat_para (master)$ sudo rabbitmqctl  list_connections timeout
+Listing connections ...
+30
+
+# 设为一个很大的值 1000000
+ericksun@192.168.56.101:~/programming/rabbitmq_study/heartbeat_para (master)$ sudo rabbitmqctl  list_connections timeout
+Listing connections ...
+38528
+
+虽然这里显示的是 1000000  但是实际的效果是 38528
+ericksun@192.168.56.101:~/programming/rabbitmq_study/heartbeat_para (master)$ sudo rabbitmqctl  environment |grep heart
+      {heartbeat,10000000},
+
+
+
+

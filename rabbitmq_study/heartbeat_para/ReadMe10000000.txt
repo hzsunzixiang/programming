@@ -1,0 +1,39 @@
+
+
+
+# 服务端向客户端发送 
+  服务端设置的 1000000 实际生效的时间为  38528
+
+Frame 17: 76 bytes on wire (608 bits), 76 bytes captured (608 bits)
+Linux cooked capture
+Internet Protocol Version 4, Src: 10.21.0.30, Dst: 10.120.0.44
+Transmission Control Protocol, Src Port: 5672, Dst Port: 42554, Seq: 467, Ack: 313, Len: 20
+Advanced Message Queueing Protocol
+    Type: Method (1)
+    Channel: 0
+    Length: 12
+    Class: Connection (10)
+    Method: Tune (30)
+    Arguments
+        Channel-Max: 0
+        Frame-Max: 131072
+        Heartbeat: 38528
+
+
+# 客户端向服务端 协商的最后值为 38528
+
+Frame 19: 76 bytes on wire (608 bits), 76 bytes captured (608 bits)
+Linux cooked capture
+Internet Protocol Version 4, Src: 10.120.0.44, Dst: 10.21.0.30
+Transmission Control Protocol, Src Port: 42554, Dst Port: 5672, Seq: 313, Ack: 487, Len: 20
+Advanced Message Queueing Protocol
+    Type: Method (1)
+    Channel: 0
+    Length: 12
+    Class: Connection (10)
+    Method: Tune-Ok (31)
+    Arguments
+        Channel-Max: 0
+        Frame-Max: 131072
+        Heartbeat: 38528
+
