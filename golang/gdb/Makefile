@@ -4,6 +4,7 @@ all:$(BIN)
 
 %:%.go
 	go build -gcflags '-N'  -o $@ $< 
+	#go build -compiler gccgo -gcflags '-N'  -o $@.gcc $< 
 
 .PHONY: clean
 clean:
