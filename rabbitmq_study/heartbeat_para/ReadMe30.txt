@@ -18,7 +18,7 @@ Advanced Message Queueing Protocol
         Frame-Max: 131072
         Heartbeat: 80
 
-# 服务端向客户端发送 这里的 Heartbeat 为间隔时间
+# 客户端向服务端发送 这里的 Heartbeat 为间隔时间
   80/2 和 30 取最小值 30
 Frame 10: 88 bytes on wire (704 bits), 88 bytes captured (704 bits)
 Linux cooked capture

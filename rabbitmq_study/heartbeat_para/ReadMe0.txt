@@ -22,7 +22,7 @@ Advanced Message Queueing Protocol
 
 
 
-# 服务端向客户端发送 这里的 Heartbeat 为间隔时间
+# 客户端向服务端发送 这里的 Heartbeat 为间隔时间
 
 Frame 10: 88 bytes on wire (704 bits), 88 bytes captured (704 bits)
 Linux cooked capture
