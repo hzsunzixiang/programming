@@ -1,0 +1,150 @@
+
+
+
+
+networkDfw 中的几个链接
+
+
+
+实际没有一个能够恢复，只是有一些能够工作而已
+
+
+可以看到有些链接正常了   
+37050 39744  37398   这个已经干掉了
+仍然保留着 32790  32924
+
+先研究  37050
+
+53959	19:25:45.130533	10.21.0.29	192.168.255.166	AMQP	104	Connection.Close reply=CONNECTION_FORCED - Test_MQ_1 
+
+Frame 53959: 104 bytes on wire (832 bits), 104 bytes captured (832 bits)
+Linux cooked capture
+Internet Protocol Version 4, Src: 10.21.0.29, Dst: 192.168.255.166
+Transmission Control Protocol, Src Port: 5672, Dst Port: 37050, Seq: 634, Ack: 592, Len: 48
+Advanced Message Queueing Protocol
+    Type: Method (1)
+    Channel: 0
+    Length: 40
+    Class: Connection (10)
+    Method: Close (50)
+    Arguments
+        Reply-Code: 320
+            [Expert Info (Warning/Response): Connection error]
+                [Connection error]
+                [Severity level: Warning]
+                [Group: Response]
+        Reply-Text: CONNECTION_FORCED - Test_MQ_1
+        Class-Id: 0
+        Method-Id: 0
+
+可以发现，19:25:45. 这个时间点，在MQ1上抓不到任何 端口为 37050 的包
+
+		
+69181	19:30:41.394476	10.21.0.29	192.168.255.166	AMQP	104	Connection.Close reply=CONNECTION_FORCED - Test_MQ_2 
+Frame 69181: 104 bytes on wire (832 bits), 104 bytes captured (832 bits)
+Linux cooked capture
+Internet Protocol Version 4, Src: 10.21.0.29, Dst: 192.168.255.166
+Transmission Control Protocol, Src Port: 5672, Dst Port: 37050, Seq: 638, Ack: 608, Len: 48
+Advanced Message Queueing Protocol
+    Type: Method (1)
+    Channel: 0
+    Length: 40
+    Class: Connection (10)
+    Method: Close (50)
+    Arguments
+        Reply-Code: 320
+            [Expert Info (Warning/Response): Connection error]
+                [Connection error]
+                [Severity level: Warning]
+                [Group: Response]
+        Reply-Text: CONNECTION_FORCED - Test_MQ_2
+        Class-Id: 0
+        Method-Id: 0
+
+		
+		
+		
+在MQ2上抓到了MQ1 和 MQ2的包  , 吻合
+
+MQ2上抓到的  但是这个包并没有在MQ1上抓到，确实发送的MQ1的标记，
+说明虽然是在MQ1上执行的，但实际发送报文的是MQ2
+
+
+45611	19:25:45.130201	10.21.0.29	10.21.0.7	AMQP	104	Connection.Close reply=CONNECTION_FORCED - Test_MQ_1 
+Frame 45611: 104 bytes on wire (832 bits), 104 bytes captured (832 bits)
+Linux cooked capture
+Internet Protocol Version 4, Src: 10.21.0.29, Dst: 10.21.0.7
+Transmission Control Protocol, Src Port: 5672, Dst Port: 37050, Seq: 634, Ack: 592, Len: 48
+Advanced Message Queueing Protocol
+    Type: Method (1)
+    Channel: 0
+    Length: 40
+    Class: Connection (10)
+    Method: Close (50)
+    Arguments
+        Reply-Code: 320
+            [Expert Info (Warning/Response): Connection error]
+                [Connection error]
+                [Severity level: Warning]
+                [Group: Response]
+        Reply-Text: CONNECTION_FORCED - Test_MQ_1
+        Class-Id: 0
+        Method-Id: 0
+
+MQ2上抓到的
+54395	19:30:41.396228	10.21.0.29	10.21.0.7	AMQP	104	Connection.Close reply=CONNECTION_FORCED - Test_MQ_2 		
+Frame 54395: 104 bytes on wire (832 bits), 104 bytes captured (832 bits)
+Linux cooked capture
+Internet Protocol Version 4, Src: 10.21.0.29, Dst: 10.21.0.7
+Transmission Control Protocol, Src Port: 5672, Dst Port: 37050, Seq: 638, Ack: 608, Len: 48
+Advanced Message Queueing Protocol
+    Type: Method (1)
+    Channel: 0
+    Length: 40
+    Class: Connection (10)
+    Method: Close (50)
+    Arguments
+        Reply-Code: 320
+            [Expert Info (Warning/Response): Connection error]
+                [Connection error]
+                [Severity level: Warning]
+                [Group: Response]
+        Reply-Text: CONNECTION_FORCED - Test_MQ_2
+        Class-Id: 0
+        Method-Id: 0
+
+		
+		
+		
+再看node上的表现
+
+
+因为有防火墙存在，所以FIN包或者RST包无法发送出去, 所以看不到 FIN包或者 RST包
+
+
+
+159778	19:25:45.130528	10.21.0.29	192.168.255.166	AMQP	104	Connection.Close reply=CONNECTION_FORCED - Test_MQ_1 
+Frame 159778: 104 bytes on wire (832 bits), 104 bytes captured (832 bits)
+Linux cooked capture
+Internet Protocol Version 4, Src: 10.21.0.29, Dst: 192.168.255.166
+Transmission Control Protocol, Src Port: 5672, Dst Port: 37050, Seq: 634, Ack: 592, Len: 48
+Advanced Message Queueing Protocol
+    Type: Method (1)
+    Channel: 0
+    Length: 40
+    Class: Connection (10)
+    Method: Close (50)
+    Arguments
+        Reply-Code: 320
+            [Expert Info (Warning/Response): Connection error]
+                [Connection error]
+                [Severity level: Warning]
+                [Group: Response]
+        Reply-Text: CONNECTION_FORCED - Test_MQ_1
+        Class-Id: 0
+        Method-Id: 0
+
+
+
+
+

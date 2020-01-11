@@ -1,0 +1,21 @@
+
+
+
+
+
+
+
+[root@tcloud-cvm-vstation-5d6d95d6f4-9qqsm /usr/local/services/vstation_frame_for_private_cloud-1.0]# ps aux|grep FLOW
+root     463688  1.4  0.0 206168 15668 ?        S    18:48   0:00 python ./executor.py FLOW FLOW
+root     463691  1.5  0.0 205832 15492 ?        S    18:48   0:00 python ./executor.py FLOW FLOW
+root     463697  1.6  0.0 206468 15988 ?        S    18:48   0:00 python ./executor.py FLOW FLOW
+root     463701  1.5  0.0 206136 15736 ?        S    18:48   0:00 python ./executor.py FLOW FLOW
+root     463706  1.6  0.0 206216 15776 ?        S    18:48   0:00 python ./executor.py FLOW FLOW
+root     463711  1.5  0.0 206164 15664 ?        S    18:48   0:00 python ./executor.py FLOW FLOW
+root     463715  1.4  0.0 206268 15928 ?        S    18:48   0:00 python ./executor.py FLOW FLOW
+
+ 
+
+for i in `ps aux|grep FLOW |awk '{print $2}'`; do netstat -anpt |grep -w $i|grep -w 5672; done
+
+

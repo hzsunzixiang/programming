@@ -1,0 +1,20 @@
+
+
+
+
+
+≥ı º ¡¨Ω”
+
+[root@tcloud-cvm-vstation-5d6d95d6f4-9qqsm /usr/local/services/vstation_frame_for_private_cloud-1.0]#  for i in `ps aux|grep  networkDfw |awk '{print $2}'`; do netstat -anpt |grep -w $i|grep -w 5672; done
+tcp        0      0 192.168.255.166:38312       10.21.0.28:5672             ESTABLISHED 465993/python
+tcp        0      0 192.168.255.166:38272       10.21.0.28:5672             ESTABLISHED 465996/python
+tcp        0      0 192.168.255.166:46668       10.21.0.30:5672             ESTABLISHED 466025/python
+tcp        0      0 192.168.255.166:43926       10.21.0.29:5672             ESTABLISHED 466034/python
+tcp        0      0 192.168.255.166:38202       10.21.0.28:5672             ESTABLISHED 466043/python
+tcp        0      0 192.168.255.166:38344       10.21.0.28:5672             ESTABLISHED 466049/python
+tcp        0      0 192.168.255.166:43982       10.21.0.29:5672             ESTABLISHED 466059/python
+
+
+
+
+

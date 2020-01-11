@@ -1,0 +1,108 @@
+
+
+
+制造无法工作的场景
+
+
+
+[root@tcloud-cvm-vstation-5d6d95d6f4-9qqsm /usr/local/services/vstation_frame_for_private_cloud-1.0]# for i in `ps aux|grep FLOW |awk '{print $2}'`; do netstat -anpt |grep -w $i|grep -w 5672; done
+tcp        0      0 192.168.255.166:47298       10.21.0.28:5672             ESTABLISHED 523461/python
+tcp        0      0 192.168.255.166:52936       10.21.0.29:5672             ESTABLISHED 523463/python
+tcp        0      0 192.168.255.166:48308       10.21.0.28:5672             ESTABLISHED 523465/python
+tcp        0      0 192.168.255.166:48708       10.21.0.28:5672             ESTABLISHED 523469/python
+tcp        0      0 192.168.255.166:56418       10.21.0.30:5672             ESTABLISHED 523474/python
+tcp        0      0 192.168.255.166:46518       10.21.0.28:5672             ESTABLISHED 523478/python
+tcp        0      0 192.168.255.166:50530       10.21.0.28:5672             ESTABLISHED 523480/python
+
+
+
+关闭 28
+
+
+[root@mq1 ~/tcpdump]# date;kill -9 436738
+Sat Jan 11 20:33:11 CST 2020
+
+
+
+查看连接 
+
+[root@tcloud-cvm-vstation-5d6d95d6f4-9qqsm /usr/local/services/vstation_frame_for_private_cloud-1.0]# for i in `ps aux|grep FLOW |awk '{print $2}'`; do netstat -anpt |grep -w $i|grep -w 5672; done
+tcp        0      0 192.168.255.166:45504       10.21.0.29:5672             ESTABLISHED 523461/python
+tcp        0      0 192.168.255.166:52936       10.21.0.29:5672             ESTABLISHED 523463/python
+tcp        0      0 192.168.255.166:46728       10.21.0.29:5672             ESTABLISHED 523465/python
+tcp        0      0 192.168.255.166:46672       10.21.0.29:5672             ESTABLISHED 523469/python
+tcp        0      0 192.168.255.166:56418       10.21.0.30:5672             ESTABLISHED 523474/python
+tcp        0      0 192.168.255.166:45450       10.21.0.29:5672             ESTABLISHED 523478/python
+tcp        0      0 192.168.255.166:48322       10.21.0.30:5672             ESTABLISHED 523480/python
+
+
+启动 MQ1 
+Sat Jan 11 20:34:26 CST 2020
+
+
+保持不变
+
+
+
+此时断电MQ2，  MQ3
+也就是添加iptables, 然后杀死进程
+
+[root@mq2 /usr/local/services/rabbitmq_server3-1.0/sbin]# kill -9 302172;date
+Sat Jan 11 20:36:12 CST 2020
+
+
+
+
+
+重新启动
+
+
+Sat Jan 11 20:37:03 CST 2020
+
+
+端口不变
+
+
+仍然保持不变，无法提供服务
+[root@tcloud-cvm-vstation-5d6d95d6f4-9qqsm /usr/local/services/vstation_frame_for_private_cloud-1.0]# for i in `ps aux|grep FLOW |awk '{print $2}'`; do netstat -anpt |grep -w $i|grep -w 5672; done
+tcp        0      0 192.168.255.166:45504       10.21.0.29:5672             ESTABLISHED 523461/python
+tcp        0      0 192.168.255.166:52936       10.21.0.29:5672             ESTABLISHED 523463/python
+tcp        0      0 192.168.255.166:46728       10.21.0.29:5672             ESTABLISHED 523465/python
+tcp        0      0 192.168.255.166:46672       10.21.0.29:5672             ESTABLISHED 523469/python
+tcp        0      0 192.168.255.166:56418       10.21.0.30:5672             ESTABLISHED 523474/python
+tcp        0      0 192.168.255.166:45450       10.21.0.29:5672             ESTABLISHED 523478/python
+tcp        0      0 192.168.255.166:48322       10.21.0.30:5672             ESTABLISHED 523480/python
+
+
+
+此时消息积压，出现问题
+
+[root@mq1 ~/tcpdump]# /usr/local/services/rabbitmq_server3-1.0/sbin/rabbitmqctl list_queues  -p vstation name  messages_ready messages_unacknowledged
+Listing queues ...
+ERROR   0       0
+FLOW    79      0
+ccdb    0       0
+compute 0       0
+computeLong     0       0
+dispatcher      0       0
+eip     0       0
+image_access    1       0
+keypair 0       0
+loadbalance     0       0
+network 0       0
+networkDfw      0       0
+networkIp       0       0
+networkOss      0       0
+tgw     0       0
+vnc_auth        0       0
+vpc     0       0
+vsScheduler     0       0
+vsresource      4       0
+vsresourceCmdb  0       0
+vsresourceCmdbVital     0       0
+vsresourceIp    0       0
+vsresourceVolume        0       0
+
+
+
+10.21.0.24 是什么ip ，为什么会连接MQ呢
