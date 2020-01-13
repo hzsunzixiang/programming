@@ -28,7 +28,7 @@ credentials = pika.PlainCredentials(user, password)
 connection = pika.BlockingConnection(pika.ConnectionParameters(
 			               host='192.168.56.101',
                            virtual_host=vhost,
-                           heartbeat=60,
+                           #heartbeat=30,
 						   credentials=credentials))
 
 channel = connection.channel()
