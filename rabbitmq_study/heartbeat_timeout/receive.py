@@ -2,6 +2,9 @@
 # -*- coding:UTF-8
 
 import pika
+import time
+from pika.exceptions import AMQPError, AMQPConnectionError, AMQPHeartbeatTimeout
+
 
 exchange = 'vstation'
 vhost = 'vstation'
@@ -36,13 +39,21 @@ print ' [*] Waiting for messages. To exit press CTRL+C'
 
 def callback(ch, method, properties, body):
     print " [x] Received %r, ch:%s method:%s, properties:%s" % (body, ch, method, properties)
-    ch.basic_ack(delivery_tag = method.delivery_tag)
+    #time.sleep(240)
+    try:
+        ch.basic_ack(delivery_tag = method.delivery_tag)
+    except Exception, e:
+        import traceback
+        print(traceback.format_exc())
+        print('create mq except... %s' % e)
 
 try:
     channel.basic_consume(queue_name,
     	       	          callback,
-
+                      auto_ack=False)
     channel.start_consuming()
+except AMQPHeartbeatTimeout, inst:
+    print('Error: AMQPHeartbeatTimeout: %s' % (inst))
 except AMQPConnectionError, inst:
     print('Error: AMQPConnectionError: %s' % (inst))
 except AMQPError, inst:
@@ -53,10 +64,13 @@ except Exception, e:
     print('create mq except %s' % e)
 
 
+#class AMQPHeartbeatTimeout(AMQPConnectionError):
+#	    """Connection was dropped as result of heartbeat timeout."""
+
+# Error: AMQPHeartbeatTimeout: No activity or too many missed heartbeats in the last 60 seconds
+#Error: AMQPConnectionError: No activity or too many missed heartbeats in the last 60 seconds
 
 
-#ericksun@debian-3:~/programming/rabbitmq/ack$ python receive.py
-#queue_name:FLOW
-# [*] Waiting for messages. To exit press CTRL+C
-#  [x] Received 'Hello World!', ch:<BlockingChannel impl=<Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x7f09f3d02c10> params=<ConnectionParameters host=localhost port=5672 virtual_host=vstation ssl=False>>>> method:<Basic.Deliver(['consumer_tag=ctag1.66bad7623e634b8883a62fb512fd048e', 'delivery_tag=1', 'exchange=vstation', 'redelivered=False', 'routing_key=FLOW'])>, properties:<BasicProperties(['delivery_mode=2'])>
-#
+
+
+
