@@ -1,5 +1,34 @@
 
 
+# 如果服务端不加配置 ，查看默认值
+https://github.com/pika/pika/blob/0.13.1/examples/heartbeat_and_blocked_timeouts.py
+
+Starting with RabbitMQ 3.5.5, the broker's default hearbeat timeout decreased
+from 580 seconds to 60 seconds. As a result, applications that perform lengthy
+processing in the same thread that also runs their Pika connection may
+experience unexpected dropped connections due to heartbeat timeout. Here, we
+specify an explicit lower bound for heartbeat timeout.
+
+
+3.6.6 版本，默认确实是60秒
+Frame 9: 88 bytes on wire (704 bits), 88 bytes captured (704 bits)
+Linux cooked capture
+Internet Protocol Version 4, Src: 192.168.56.101, Dst: 192.168.56.103
+Transmission Control Protocol, Src Port: 5672, Dst Port: 38618, Seq: 488, Ack: 313, Len: 20
+Advanced Message Queueing Protocol
+    Type: Method (1)
+    Channel: 0
+    Length: 12
+    Class: Connection (10)
+    Method: Tune (30)
+    Arguments
+        Channel-Max: 0
+        Frame-Max: 131072
+        Heartbeat: 60
+
+
+
+
 # 服务端向客户端发送 Tune 包
     Method: Tune (30)
 
