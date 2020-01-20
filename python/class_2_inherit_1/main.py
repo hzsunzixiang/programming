@@ -88,3 +88,21 @@ if __name__ == '__main__':
 # in CBaseOp process
 # in CHttpOp do_process module_name:cbs_cgw, interface_name:qcloud.cbs.AttachCbsForCvm
 
+#python -m pdb main.py  追踪调用栈
+#(Pdb) bt
+#  /usr/lib/python2.7/bdb.py(400)run()
+#-> exec cmd in globals, locals
+#  <string>(1)<module>()
+#  /home/ericksun/programming/python/class_2_inherit_1/main.py(82)<module>()
+#-> op.process()
+#  /home/ericksun/programming/python/class_2_inherit_1/main.py(21)process()
+#-> self.do_process()
+#  /home/ericksun/programming/python/class_2_inherit_1/main.py(42)do_process()
+#-> ret = self.do_op_cbs(item)
+#  /home/ericksun/programming/python/class_2_inherit_1/main.py(37)do_op_cbs()
+#-> reply = op.process()
+#  /home/ericksun/programming/python/class_2_inherit_1/main.py(21)process()
+#-> self.do_process()
+#> /home/ericksun/programming/python/class_2_inherit_1/main.py(54)do_process()->None
+#-> print("in CHttpOp do_process module_name:%s, interface_name:%s"%(self.get_module_name(), self.get_interface_name()))
+#
