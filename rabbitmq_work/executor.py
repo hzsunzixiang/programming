@@ -100,9 +100,10 @@ def main():
     '''插件进程入口
     @return: None'''
     sys.path.append('./modules')
-    #module = __import__("FLOW")
-    from FLOW import flow
-    callback = flow.handler
+    #from FLOW import flow
+    #callback = flow.handler
+    module = __import__("FLOW")
+    callback = module.handler
     key = 'FLOW'
     run_executor(key, callback, overhear=False)
     #if module_name == 'DEBUG':
