@@ -1,0 +1,15 @@
+
+#OBJ = json_reader.o json_value.o json_writer.o
+SOURCES := $(wildcard *.cpp)
+OBJECTS := $(patsubst %.cpp,%.o,$(SOURCES))
+all : libjsoncpp.a
+
+INCLUDE= -I. -I../
+%.o:%.cpp
+	g++ -c -g -fPIC -Wall $(INCLUDE) $< -o $@
+libjsoncpp.a:$(OBJECTS)
+	ar rcs $@ $^
+
+clean:
+	-@rm *~ *.o *.a  -rf                >/dev/null 2>/dev/null
+	@echo "Clean OK."
