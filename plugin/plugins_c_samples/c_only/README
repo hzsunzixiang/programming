@@ -1,0 +1,41 @@
+Code to accompany the "Plugins in C" article in my blog. Comes with a
+Makefile for Linux (tested with gcc 4.6 on Ubuntu 12.04), though it should
+be easy to adapt to other Unix and Linux systems.
+
+After building with "make", run "htmlize_main < sampletext.txt"
+
+This code is in the public domain - http://unlicense.org/
+
+Eli Bendersky (eliben@gmail.com)
+http://eli.thegreenplace.net
+
+
+ericksun@192.168.56.101:~/programming/plugin/plugins_c_samples/c_only (master)$ readelf --dyn-syms plugins/narcissist.so
+
+Symbol table '.dynsym' contains 24 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND
+     1: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_deregisterTMCloneTab
+     2: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND dstring_len
+     3: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND dstring_new_len
+     4: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND strchr@GLIBC_2.2.5 (2)
+     5: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND dstring_concat
+     6: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND dstring_concat_cstr
+     7: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND dstring_free
+     8: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND Post_get_author
+     9: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND __gmon_start__
+    10: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND dstring_cstr
+    11: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND PluginManager_register_co
+    12: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND dstring_dup
+    13: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _Jv_RegisterClasses
+    14: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND dstring_format
+    15: 0000000000000000     0 NOTYPE  WEAK   DEFAULT  UND _ITM_registerTMCloneTable
+    16: 0000000000000000     0 FUNC    WEAK   DEFAULT  UND __cxa_finalize@GLIBC_2.2.5 (2)
+    17: 0000000000000000     0 FUNC    GLOBAL DEFAULT  UND __ctype_b_loc@GLIBC_2.3 (3)
+    18: 0000000000201080     0 NOTYPE  GLOBAL DEFAULT   23 _edata
+    19: 0000000000201088     0 NOTYPE  GLOBAL DEFAULT   24 _end
+    20: 0000000000000c19    38 FUNC    GLOBAL DEFAULT   12 init_narcissist
+    21: 0000000000201080     0 NOTYPE  GLOBAL DEFAULT   24 __bss_start
+    22: 0000000000000830     0 FUNC    GLOBAL DEFAULT    9 _init
+    23: 0000000000000c40     0 FUNC    GLOBAL DEFAULT   13 _fini
+

@@ -1,0 +1,26 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ARRAY_SIZE	./clib/cutils.h	23;"	d
+BOOL	./clib/cutils.h	/^typedef int BOOL;$/;"	t
+CUTILS_H	./clib/cutils.h	8;"	d
+DB	./db.h	/^typedef struct DB_t DB;$/;"	t	typeref:struct:DB_t
+DB_H	./db.h	9;"	d
+DIE_H	./clib/die.h	8;"	d
+DSTRING_H	./clib/dstring.h	8;"	d
+FALSE	./clib/cutils.h	14;"	d
+HTMLIZE_H	./htmlize.h	8;"	d
+MAX	./clib/cutils.h	20;"	d
+MEM_H	./clib/mem.h	8;"	d
+MIN	./clib/cutils.h	21;"	d
+PLUGIN_DISCOVERY_H	./plugin_discovery.h	8;"	d
+PLUGIN_MANAGER_H	./plugin_manager.h	12;"	d
+PluginContentsHook	./plugin_manager.h	/^typedef dstring (*PluginContentsHook)(dstring, DB*, Post*);$/;"	t
+PluginManager	./plugin_manager.h	/^typedef struct PluginManager_t PluginManager;$/;"	t	typeref:struct:PluginManager_t
+PluginRoleHook	./plugin_manager.h	/^typedef dstring (*PluginRoleHook)(dstring, DB*, Post*);$/;"	t
+Post	./db.h	/^typedef struct Post_t Post;$/;"	t	typeref:struct:Post_t
+TRUE	./clib/cutils.h	13;"	d
+dstring	./clib/dstring.h	/^typedef struct DString_t* dstring;$/;"	t	typeref:struct:DString_t
