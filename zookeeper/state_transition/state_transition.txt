@@ -1,0 +1,125 @@
+
+
+KazooState.SUSPENDED
+KazooState.LOST
+KazooState.CONNECTED
+
+
+
+KazooState.SUSPENDED
+KazooState.CONNECTED
+ 
+
+
+
+KazooState.SUSPENDED
+KazooState.CONNECTED
+
+
+
+# CONNECT -> SUSPENDED -> LOST -> CONNECTED
+
+抓包文件 state_transition.pcap
+
+直接关掉 客户端所连接的服务器节点，且时间较久
+
+## 第一次连接和响应
+00:00:00:2d:00:00:00:00:00:00:00:00:00:00:00:00:00:00:27:10:00:00:00:00:00:00:00:00:00:00:00:10:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00
+00:00:00:25:00:00:00:00:00:00:27:10:03:00:08:de:31:48:00:01:00:00:00:10:dd:76:6a:5a:2f:80:94:c2:ad:e9:9b:9c:c4:1d:8b:25:00
+
+
+12:13:31:769732 ConnectRequest(ver=0, zxid=0, timeout=10000, session=0x0, readonly=False, client=192.168.1.110:52757)
+————►12:13:31:777924 ConnectReply(ver=0, timeout=10000, session=0x30008de31480001, readonly=False, server=192.168.1.130:2181)
+可以看出 session 的timeout为 10S   session=0x30008de31480001
+
+服务端断开连接之后 客户端状态为 SUSPENDED
+
+## 重连(ReConnectRequest)这个session
+0000002d00000000000000000000000000002710030008de3148000100000010dd766a5a2f8094c2ade99b9cc41d8b2500
+
+响应过期了 	服务器主动发送FIN报文断开了     这时候的状态为 LOST
+0000002500000000000000000000000000000000000000100000000000000000000000000000000000
+
+12:13:47:128676 ReConnectRequest(ver=0, zxid=0, timeout=10000, session=0x30008de31480001, readonly=False, client=192.168.1.110:52764)
+————►12:13:47:138921 SessionExpiration(ver=0, timeout=0, session=0x0, readonly=False, server=192.168.1.130:2181)
+
+## 再次连接  之后状态为 CONNECTED
+0000002d000000000000000000000000000027100000000000000000000000100000000000000000000000000000000000
+
+12:13:48:142927 ConnectRequest(ver=0, zxid=0, timeout=10000, session=0x0, readonly=False, client=192.168.1.110:52765)
+
+响应
+000000250000000000002710030008df5c4500000000001011ba1546cab0ac6ed78d951423d7f2ea00
+————►12:13:48:151529 ConnectReply(ver=0, timeout=10000, session=0x30008df5c450000, readonly=False, server=192.168.1.130:2181)
+
+
+# CONNECT -> SUSPENDED ->  CONNECTED
+
+情况1 
+直接关掉服务器端，迅速启动
+
+抓包文件 state_transition2.pcap
+
+## 第一次连接和响应
+0000002d000000000000000000000000000027100000000000000000000000100000000000000000000000000000000000
+000000250000000000002710030008df5c4500010000001024db0f466afc8bb3ccd0fc3ff75f07b800
+
+12:50:25:199407 ConnectRequest(ver=0, zxid=0, timeout=10000, session=0x0, readonly=False, client=192.168.1.110:52770)
+————►12:50:25:206218 ConnectReply(ver=0, timeout=10000, session=0x30008df5c450001, readonly=False, server=192.168.1.130:2181)
+
+可以看出 session 的timeout为 10S   session=0x30008df5c450001
+
+服务端断开连接之后 客户端状态为 SUSPENDED
+
+## 重连(ReConnectRequest)这个session
+
+0000002d00000000000000000000000000002710030008df5c4500010000001024db0f466afc8bb3ccd0fc3ff75f07b800
+
+12:50:38:312573 ReConnectRequest(ver=0, zxid=0, timeout=10000, session=0x30008df5c450001, readonly=False, client=192.168.1.110:52776)
+————►12:50:38:325793 ConnectReply(ver=0, timeout=10000, session=0x30008df5c450001, readonly=False, server=192.168.1.130:2181)
+12:13:48:142927 ConnectRequest(ver=0, zxid=0, timeout=10000, session=0x0, readonly=False, client=192.168.1.110:52765)
+
+响应
+000000250000000000002710030008df5c4500010000001024db0f466afc8bb3ccd0fc3ff75f07b800
+
+
+情况2
+
+直接连接的服务器是正常的，其他节点断掉，导致分区，无法提供服务
+
+
+## 第一次连接和响应
+0000002d000000000000000000000000000027100000000000000000000000100000000000000000000000000000000000
+0000002500000000000027100300090122cb000000000010b77caba278b559cceddfdc9d818e583200
+13:03:14:916059 ConnectRequest(ver=0, zxid=0, timeout=10000, session=0x0, readonly=False, client=192.168.1.110:52779)
+————►13:03:14:921252 ConnectReply(ver=0, timeout=10000, session=0x300090122cb0000, readonly=False, server=192.168.1.130:2181)
+
+
+## 重连(ReConnectRequest)这个session
+在这期间 client一直发送重连请求
+0000002d000000000000000000000000000027100300090122cb000000000010b77caba278b559cceddfdc9d818e583200
+0000002d000000000000000000000000000027100300090122cb000000000010b77caba278b559cceddfdc9d818e583200
+0000002d000000000000000000000000000027100300090122cb000000000010b77caba278b559cceddfdc9d818e583200
+........
+均不能成功
+
+
+
+
+## 重连(ReConnectRequest)这个session 成功
+
+这个session一直被保存 并未过期
+直到集群恢复正常，满足节点中的大多数
+0000002d000000000000000000000000000027100300090122cb000000000010b77caba278b559cceddfdc9d818e583200
+响应
+0000002500000000000027100300090122cb000000000010b77caba278b559cceddfdc9d818e583200
+
+
+13:03:45:404957 ReConnectRequest(ver=0, zxid=0, timeout=10000, session=0x300090122cb0000, readonly=False, client=192.168.1.110:52793)
+————►13:03:45:409979 ConnectReply(ver=0, timeout=10000, session=0x300090122cb0000, readonly=False, server=192.168.1.130:2181)
+
+
+
+
+
+

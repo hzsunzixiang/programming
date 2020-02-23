@@ -1,3 +1,7 @@
+
+
+tshark  -V -pnni any port 2181 and host 192.168.1.130 
+ 
 ericksun@debian-1:~$ sudo zk-dump  --iface eth0
 21:42:21:629486 ConnectRequest(ver=0, zxid=0, timeout=30000, session=0x0, readonly=False, client=192.168.1.110:52453)
 ————►21:42:21:634161 ConnectReply(ver=0, timeout=30000, session=0x300077893e3000f, readonly=False, server=192.168.1.130:2181)
