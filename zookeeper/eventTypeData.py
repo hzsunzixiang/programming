@@ -17,12 +17,16 @@ zk = KazooClient(hosts='192.168.1.130:2181')
 
 # Above function is called immediately and prints
 
+# Event is WatchedEvent(type='CHANGED', state='CONNECTED', path=u'/ericksun')
+# Data is sunzixiang
+# Version is 6
+
 # Or if you want the event object
 @zk.DataWatch('/ericksun')
 def my_func(data, stat, event):
+    print("Event is %s" % (event, ))  # python2 一定要以这种方式打印, 是个tuple，否则打印有问题
     print("Data is %s" % data)
     print("Version is %s" % stat.version)
-    print("Event is %s" % event)
 
 
 #@zk.ChildrenWatch('/path/to/watch')
@@ -35,6 +39,22 @@ def my_func(data, stat, event):
 zk.start()
 
 time.sleep(10000)
+
+
+#classkazoo.recipe.watchers.DataWatch(client, path, func=None, *args, **kwargs)[source]
+#Watches a node for data updates and calls the specified function each time it changes
+#
+#The function will also be called the very first time its registered to get the data.
+#
+#Returning False from the registered function will disable future data change calls. If the client connection is closed (using the close command), the DataWatch will no longer get updates.
+#  注意这一句 上面已验证
+#If the function supplied takes three arguments, then the third one will be a WatchedEvent. It will only be set if the change to the data occurs as a result of the server notifying the watch that there has been a change. Events like reconnection or the first call will not include an event.
+#
+#If the node does not exist, then the function will be called with None for all values.
+#
+#Tip
+#
+#Because DataWatch can watch nodes that don’t exist, it can be used alternatively as a higher-level Exists watcher that survives reconnections and session loss.
 
 #class EventType(object):
 #    """Zookeeper Event

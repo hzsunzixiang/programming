@@ -4,7 +4,7 @@ from kazoo.client import KazooClient
 from kazoo.client import KazooState
 
 import time
-
+# https://kazoo.readthedocs.io/en/latest/_modules/kazoo/protocol/states.html#KazooState
 def my_listener(state):
     if state == KazooState.LOST:
         # Register somewhere that the session was lost
@@ -29,15 +29,15 @@ def watch_for_ro(state):
         else:
             print("Read/Write mode!")
 
-    if zk.client_state == KeeperState.CONNECTING:
-        print("CONNECTING!")
-    else:
-        print("not CONNECTING!")
+    #if zk.client_state == KeeperState.CONNECTING:
+    #    print("CONNECTING!")
+    #else:
+    #    print("not CONNECTING!")
 
-    if zk.client_state == KeeperState.CLOSED:
-        print("CLOSED!")
-    else:
-        print("not CLOSED!")
+    #if zk.client_state == KeeperState.CLOSED:
+    #    print("CLOSED!")
+    #else:
+    #    print("not CLOSED!")
 
 #    AUTH_FAILED = 'AUTH_FAILED'
 #    CONNECTED = 'CONNECTED'
