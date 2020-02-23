@@ -43,7 +43,14 @@ print (x1**3+a*x1+b)%p == (y1**2)%p
 #print (x2**3+a*x2+b)%p == (y2**2)%p
 
 # 验证公式为 (x2,y2) = priv(x1,y1)
-priv = 0x0FC100A343C8A4D1B63E01A5E2CC8E6EA6587DD7CDCEBB69B8B6B5069962CAF9
+#priv = 0x0FC100A343C8A4D1B63E01A5E2CC8E6EA6587DD7CDCEBB69B8B6B5069962CAF9
+priv = 0xea628ae24b0a6852fc55f8a40bf07fa9a9e3be78d76359671f2c4aa2e695ca20
+
+# 符合
+#result: ('0xb9c7077daaa55acf00048bca3c5d04d053a5a4e48c32c88e6776ccc275c94dafL', '0x473a9dbea3fb3ebcb43797a9583c634fd205c7d87469b0e4f2a5d3f6a794f424L')
+
+#"pubkey": "02b9c7077daaa55acf00048bca3c5d04d053a5a4e48c32c88e6776ccc275c94daf",
+# 对应私钥这个需要解密的 ea628ae24b0a6852fc55f8a40bf07fa9a9e3be78d76359671f2c4aa2e695ca20
 
 
 # https://stackoverflow.com/questions/37377982/remove-the-0b-in-binary
