@@ -25,9 +25,9 @@ def my_func(data, stat, event):
     print("Event is %s" % event)
 
 
-@zk.ChildrenWatch('/ericksun')
-def my_func(children):
-    print "Children are %s" % children
+#@zk.ChildrenWatch('/path/to/watch')
+#def my_func(children):
+#    print "Children are %s" % children
 
 # Above function is called immediately and prints children
 
