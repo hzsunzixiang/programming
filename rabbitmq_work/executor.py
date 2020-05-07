@@ -105,7 +105,7 @@ def main():
     module = __import__("FLOW")
     callback = module.handler
     key = 'FLOW'
-    run_executor(key, callback, overhear=False)
+    run_executor(key, callback, overhear=True)
     #if module_name == 'DEBUG':
     #    key = 'DEBUG'
     #    run_executor(key, callback, overhear=True)

@@ -1,4 +1,5 @@
-
+#!/usr/bin/python
+# -*- coding=UTF-8 -*-
 
 # split url
 #'{"act_listid=320001130120180703020000000030&is_reissue=0&openid=o5PXlsqwUgWKfNXpvnpEUOhklrUM&send_type=4&spid=3200011301&spidpay_listid=320001130120180703114506000003o5PXlsqwUgWKfNXpvnpEUOhklrUM&sign=a95c3bc0877262563d8fd88da0f3a833bb2f284f}'
