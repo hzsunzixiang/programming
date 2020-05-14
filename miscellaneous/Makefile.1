@@ -1,0 +1,28 @@
+CC=gcc
+CXX=g++
+CFLAGS= -Wall -O2 -D_GNU_SOURCE -DSUS_LINUX -fPIC
+CLIBFLAGS=-shared
+INCLUDE= -I. -I./spp_incl -I/usr/include/c++/4.1.2 -I./include
+DEBUG= -g #-D_DEBUG_
+LIBDIR	= -L. -L./lib
+RPATH = -Wl,-rpath=../lib:.   -Wl,--hash-style=sysv
+LIB= -ldl -lxmlParser -ljsoncpp -lmysqlclient -lcrypto -lssl -ldcapi_cpp-64 -lmemcpy
+SRC=$(wildcard *.cpp)
+OBJS=$(patsubst %.cpp, %.o,$(SRC))
+
+SERV_SO=spp_key_manage_srv.so
+
+so: $(SERV_SO)
+#libxml: $(XML_LIB)
+
+$(SERV_SO): $(OBJS)
+	$(CXX) $(CFLAGS) $(CLIBFLAGS) $(DEBUG) -o $@ $^ $(LIB) $(LIBDIR) $(RPATH)
+
+%.o: %.cpp
+	$(CXX) -c $(CFLAGS) $(INCLUDE) $(DEBUG) -o $@ $<
+    
+clean:
+	rm -rf $(SERV_SO) *.o *.log core.*
+
+cleanall:
+	rm -rf $(SERV_SO) *.o *.log core.* *.cpp *.h

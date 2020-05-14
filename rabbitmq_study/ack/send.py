@@ -37,6 +37,11 @@ properties = pika.BasicProperties(delivery_mode=2)
 channel.basic_publish(exchange=exchange, routing_key=queue_name,
                            body="Hello World!", properties=properties)
 
+time.sleep(1000)
+
+channel.basic_publish(exchange=exchange, routing_key=queue_name,
+                           body="Hello World!", properties=properties)
+
 print " [x] Sent 'Hello World!'"
 connection.close()  
 
