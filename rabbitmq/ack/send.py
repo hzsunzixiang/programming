@@ -8,7 +8,8 @@ exchange = 'vstation'
 vhost = 'vstation'
 user =  'vstation'
 password = 'vstation'
-queue_name =  'FLOW'
+#queue_name =  'FLOW'
+queue_name =  'ericksun_test'
 
 credentials = pika.PlainCredentials(user, password)
 
@@ -25,6 +26,9 @@ queue_name = result.method.queue
 print 'queue_name:' + queue_name
 
 channel.exchange_declare(exchange=exchange, exchange_type='direct', durable=True)
+
+# 这一句很重要，否则不生效 
+channel.queue_bind(exchange=exchange, queue=queue_name)
 
 # 加上这个属性才能做到真正的持久化
 #properties = pika.BasicProperties(delivery_mode=2,
