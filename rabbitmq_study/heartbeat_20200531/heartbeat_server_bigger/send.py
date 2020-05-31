@@ -13,8 +13,10 @@ queue_name =  'FLOW'
 credentials = pika.PlainCredentials(user, password)
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-			               host='localhost',
+			               host='192.168.142.137',
+			               #host='127.0.0.1',
                            virtual_host=vhost,
+                           heartbeat=100,
 						   credentials=credentials))
 
 channel = connection.channel()
@@ -30,11 +32,9 @@ channel.exchange_declare(exchange=exchange, exchange_type='direct', durable=True
 channel.queue_bind(exchange=exchange, queue=queue_name)
 
 # 加上这个属性才能做到真正的持久化
-#properties = pika.BasicProperties(delivery_mode=2)
-
-#
-properties = pika.BasicProperties(delivery_mode=2,
-                                  expiration='60')
+properties = pika.BasicProperties(delivery_mode=2)
+#properties = pika.BasicProperties(delivery_mode=2,
+#                                  expiration='60')
 channel.basic_publish(exchange=exchange, routing_key=queue_name,
                            body="Hello World!", properties=properties)
 
