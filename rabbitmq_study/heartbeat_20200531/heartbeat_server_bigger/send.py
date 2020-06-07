@@ -9,14 +9,15 @@ vhost = 'vstation'
 user =  'vstation'
 password = 'vstation'
 queue_name =  'FLOW'
+host = '192.168.56.103'
+heartbeat = 40
 
 credentials = pika.PlainCredentials(user, password)
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-			               host='192.168.142.137',
-			               #host='127.0.0.1',
+			               host=host,
                            virtual_host=vhost,
-                           heartbeat=100,
+                           heartbeat=heartbeat,
 						   credentials=credentials))
 
 channel = connection.channel()
@@ -24,7 +25,7 @@ channel = connection.channel()
 result = channel.queue_declare(queue=queue_name, durable=True)  
 
 queue_name = result.method.queue
-print 'queue_name:' + queue_name
+print('queue_name:' + queue_name)
 
 channel.exchange_declare(exchange=exchange, exchange_type='direct', durable=True)
 
@@ -33,12 +34,10 @@ channel.queue_bind(exchange=exchange, queue=queue_name)
 
 # 加上这个属性才能做到真正的持久化
 properties = pika.BasicProperties(delivery_mode=2)
-#properties = pika.BasicProperties(delivery_mode=2,
-#                                  expiration='60')
 channel.basic_publish(exchange=exchange, routing_key=queue_name,
                            body="Hello World!", properties=properties)
 
-print " [x] Sent 'Hello World!'"
+print(" [x] Sent 'Hello World!'")
 connection.close()  
 
 

@@ -22,13 +22,15 @@ vhost = 'vstation'
 user =  'vstation'
 password = 'vstation'
 queue_name =  'FLOW'
+host = '192.168.56.103'
+heartbeat = 40
 
 credentials = pika.PlainCredentials(user, password)
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-			               host='192.168.142.137',
+			               host=host,
                            virtual_host=vhost,
-                           heartbeat=60,
+                           heartbeat=heartbeat,
 						   credentials=credentials))
 
 channel = connection.channel()
@@ -36,7 +38,7 @@ channel = connection.channel()
 result = channel.queue_declare(queue=queue_name, durable=True)  
 
 queue_name = result.method.queue
-print 'queue_name:' + queue_name
+print('queue_name:' + queue_name)
 
 # 指定exchange
 channel.exchange_declare(exchange=exchange, exchange_type='direct', durable=True)
@@ -45,10 +47,10 @@ channel.exchange_declare(exchange=exchange, exchange_type='direct', durable=True
 channel.queue_bind(exchange=exchange, queue=queue_name)
 
 
-print ' [*] Waiting for messages. To exit press CTRL+C'
+print(' [*] Waiting for messages. To exit press CTRL+C')
 
 def callback(ch, method, properties, body):
-    print " [x] Received %r, ch:%s method:%s, properties:%s" % (body, ch, method, properties)
+    print(" [x] Received %r, ch:%s method:%s, properties:%s" % (body, ch, method, properties))
     ch.basic_ack(delivery_tag = method.delivery_tag)
 
 channel.basic_consume(queue_name,
