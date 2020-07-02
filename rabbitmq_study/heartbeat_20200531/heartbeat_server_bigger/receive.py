@@ -23,7 +23,7 @@ user =  'vstation'
 password = 'vstation'
 queue_name =  'FLOW'
 host = '192.168.56.103'
-heartbeat = 40
+heartbeat = 400
 
 credentials = pika.PlainCredentials(user, password)
 

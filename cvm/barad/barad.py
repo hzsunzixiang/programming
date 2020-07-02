@@ -7,17 +7,20 @@ def get_cpu(region,uuids):
     #a=timedelta(minutes=-399)
     #b = datetime.datetime.now()-datetime.timedelta(days=1)
     #b = datetime.datetime.now()-datetime.timedelta(seconds=300)
-    b = datetime.datetime.now()-datetime.timedelta(seconds=60)
-    a = datetime.datetime.now()
+    b = datetime.datetime.now()-datetime.timedelta(seconds=1200)
+    a = datetime.datetime.now()-datetime.timedelta(seconds=1200)
 
 
     a,b = (a.isoformat(' '),b.isoformat(' '))
     a,b =a[:19],b[:19]
     #name1="qemu_vcpu_usage"
     name1="logic_cpu_usage"
-    host_ip = "10.22.1.144"
-    #data = {"seqId":"2fa59ef2-828c-4935-2604-4ce26b626e37","caller":"test", "namespace":"qce/host","viewName":"host_cpu","metricName":name1,"statistics":"max","period": 60,"startTime":b, "endTime":a,"dimensions":[{"lanip": host_ip, 'cpu_name': 'cpu'}]}
-    data = {"seqId":"2fa59ef2-828c-4935-2604-4ce26b626e37","caller":"test", "namespace":"qce/host","viewName":"host_cpu","metricName":name1,"statistics":"avg","period": 300,"startTime":b, "endTime":a,"dimensions":[{"lanip": host_ip, 'cpu_name': 'cpu'}]}
+    host_ips = ["10.22.1.144"]
+    host_ips = ["10.22.1.5", "10.22.1.7", "10.22.1.9", "10.22.1.144"]
+    #host_ips = ["10.22.0.153" ,"10.22.0.155" ,"10.22.0.157" ,"10.22.1.144" ,"10.22.1.145" ,"10.22.1.146" ,"10.22.1.147" ,"10.22.1.148" ,"10.22.1.149" ,"10.22.1.150" ,"10.22.1.5"  ,"10.22.1.7"  ,"10.22.1.9"  ,"10.22.2.11" ,"10.22.2.14" ,"10.22.2.31"]
+    #data = {"seqId":"2fa59ef2-828c-4935-2604-4ce26b626e37","caller":"test", "namespace":"qce/host","viewName":"host_cpu","metricName":name1,"statistics":"max","period": 60,"startTime":b, "endTime":a,"dimensions": [{"lanip": host_ip, 'cpu_name': 'cpu'}  for host_ip in host_ips]}
+    data = {"seqId":"2fa59ef2-828c-4935-2604-4ce26b626e37","caller":"test", "namespace":"qce/host","viewName":"host_cpu","metricName":name1,"statistics":"max","period": 60,"startTime":b, "endTime":a,"dimensions": [{"lanip": host_ip, 'cpu_name': 'cpu'}  for host_ip in host_ips]}
+    #data = {"seqId":"2fa59ef2-828c-4935-2604-4ce26b626e37","caller":"test", "namespace":"qce/host","viewName":"host_cpu","metricName":name1,"statistics":"avg","period": 300,"startTime":b, "endTime":a,"dimensions":[{"lanip": host_ip, 'cpu_name': 'cpu'}]}
 
 #detail:={'send_data': '{"viewName": "host_cpu", "period": 300, "startTime": "2019-07-02 00:00:00", "eventId": 1592388247, "statistics": "max", "dimensions": [{"lanip": "9.29.196.81", "cpu_name": "cpu"}], "caller": "verify", "namespace": "qce/host", "seqId": 1592388247, "endTime": "2019-07-02 21:00:00", "metricName": "logic_cpu_usage"}', 'url': 'metric/statisticsbatch', 'f_decode': <function decode at 0x7f84382e0578>, 'method': 'POST', 'retry': 3}
 
@@ -35,6 +38,7 @@ def get_cpu(region,uuids):
 
     import requests
     import json
+    print(json.dumps(data))
     a = requests.post("http://baradApi.tcloud-barad-api.chongqing.hw.tce-arm.fsphere.cn/metric/statisticsbatch",json.dumps(data)).json()
     print (json.dumps(a))
     #return ([average(filter(lambda x:x,i)) for i in a["data"]["points"]])

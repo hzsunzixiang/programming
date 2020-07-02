@@ -12,5 +12,6 @@ def import_public_image():
         print("var:%s"%(var,)) 
         #raise e
 
+print __name__
 if __name__ == '__main__':
     import_public_image()
