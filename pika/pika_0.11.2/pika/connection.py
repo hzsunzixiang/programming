@@ -68,7 +68,7 @@ class Parameters(object):  # pylint: disable=R0902
     :param bool ssl: `DEFAULT_SSL`
     :param dict ssl_options: `DEFAULT_SSL_OPTIONS`
     :param str virtual_host: `DEFAULT_VIRTUAL_HOST`
-
+    :param int tcp_options: `DEFAULT_TCP_OPTIONS`
     """
 
     # Declare slots to protect against accidental assignment of an invalid
@@ -89,7 +89,8 @@ class Parameters(object):  # pylint: disable=R0902
         '_socket_timeout',
         '_ssl',
         '_ssl_options',
-        '_virtual_host'
+        '_virtual_host',
+        '_tcp_options'
     )
 
     DEFAULT_USERNAME = 'guest'
@@ -113,6 +114,7 @@ class Parameters(object):  # pylint: disable=R0902
     DEFAULT_SSL_OPTIONS = None
     DEFAULT_SSL_PORT = 5671
     DEFAULT_VIRTUAL_HOST = '/'
+    DEFAULT_TCP_OPTIONS = None
 
     DEFAULT_HEARTBEAT_INTERVAL = DEFAULT_HEARTBEAT_TIMEOUT # DEPRECATED
 
@@ -169,6 +171,9 @@ class Parameters(object):  # pylint: disable=R0902
 
         self._virtual_host = None
         self.virtual_host = self.DEFAULT_VIRTUAL_HOST
+
+        self._tcp_options = None
+        self.tcp_options = self.DEFAULT_TCP_OPTIONS
 
     def __repr__(self):
         """Represent the info about the instance.
@@ -428,9 +433,10 @@ class Parameters(object):  # pylint: disable=R0902
         :param int value: port number of broker's listening socket
 
         """
-        if not isinstance(value, numbers.Integral):
+        try:
+            self._port = int(value)
+        except (TypeError, ValueError):
             raise TypeError('port must be an int, but got %r' % (value,))
-        self._port = value
 
     @property
     def retry_delay(self):
@@ -539,6 +545,25 @@ class Parameters(object):  # pylint: disable=R0902
             raise TypeError('virtual_host must be a str, but got %r' % (value,))
         self._virtual_host = value
 
+    @property
+    def tcp_options(self):
+        """
+        :returns: None or a dict of options to pass to the underlying socket
+        """
+        return self._tcp_options
+
+    @tcp_options.setter
+    def tcp_options(self, value):
+        """
+        :param bool value: None or a dict of options to pass to the underlying
+            socket. Currently supported are TCP_KEEPIDLE, TCP_KEEPINTVL, TCP_KEEPCNT
+            and TCP_USER_TIMEOUT. Availability of these may depend on your platform.
+        """
+        if not isinstance(value, (dict, type(None))):
+            raise TypeError('tcp_options must be a dict or None, but got %r' %
+                            (value,))
+        self._tcp_options = value
+
 
 class ConnectionParameters(Parameters):
     """Connection parameters object that is passed into the connection adapter
@@ -570,6 +595,7 @@ class ConnectionParameters(Parameters):
                  backpressure_detection=_DEFAULT,
                  blocked_connection_timeout=_DEFAULT,
                  client_properties=_DEFAULT,
+                 tcp_options=_DEFAULT,
                  **kwargs):
         """Create a new ConnectionParameters instance. See `Parameters` for
         default values.
@@ -607,7 +633,7 @@ class ConnectionParameters(Parameters):
             RabbitMQ via `Connection.StartOk` method.
         :param heartbeat_interval: DEPRECATED; use `heartbeat` instead, and
             don't pass both
-
+        :param tcp_options: None or a dict of TCP options to set for socket
         """
         super(ConnectionParameters, self).__init__()
 
@@ -675,6 +701,9 @@ class ConnectionParameters(Parameters):
         if virtual_host is not self._DEFAULT:
             self.virtual_host = virtual_host
 
+        if tcp_options is not self._DEFAULT:
+            self.tcp_options = tcp_options
+
         if kwargs:
             raise TypeError('Unexpected kwargs: %r' % (kwargs,))
 
@@ -724,6 +753,8 @@ class URLParameters(Parameters):
             (triggered by Connection.Blocked from broker); if the timeout
             expires before connection becomes unblocked, the connection will be
             torn down, triggering the connection's on_close_callback
+        - tcp_options:
+            Set the tcp options for the underlying socket.
 
     :param str url: The AMQP URL to connect to
 
@@ -903,6 +934,10 @@ class URLParameters(Parameters):
     def _set_url_ssl_options(self, value):
         """Deserialize and apply the corresponding query string arg"""
         self.ssl_options = ast.literal_eval(value)
+
+    def _set_url_tcp_options(self, value):
+        """Deserialize and apply the corresponding query string arg"""
+        self.tcp_options = ast.literal_eval(value)
 
 
 class Connection(object):
@@ -1386,17 +1421,6 @@ class Connection(object):
             if not (chan.is_closing or chan.is_closed):
                 chan.close(reply_code, reply_text)
 
-    def _combine(self, val1, val2):
-        """Pass in two values, if a is 0, return b otherwise if b is 0,
-        return a. If neither case matches return the smallest value.
-
-        :param int val1: The first value
-        :param int val2: The second value
-        :rtype: int
-
-        """
-        return min(val1, val2) or (val1 or val2)
-
     def _connect(self):
         """Attempt to connect to RabbitMQ
 
@@ -1814,6 +1838,31 @@ class Connection(object):
             self._set_connection_state(self.CONNECTION_CLOSED)
 
     @staticmethod
+    def _negotiate_integer_value(client_value, server_value):
+        """Negotiates two values. If either of them is 0 or None,
+        returns the other one. If both are positive integers, returns the
+        smallest one.
+
+        :param int client_value: The client value
+        :param int server_value: The server value
+        :rtype: int
+
+        """
+        if client_value == None:
+            client_value = 0
+        if server_value == None:
+            server_value = 0
+
+        # this is consistent with how Java client and Bunny
+        # perform negotiation, see pika/pika#874
+        if client_value == 0 or server_value == 0:
+            val = max(client_value, server_value)
+        else:
+            val = min(client_value, server_value)
+
+        return val
+
+    @staticmethod
     def _tune_heartbeat_timeout(client_value, server_value):
         """ Determine heartbeat timeout per AMQP 0-9-1 rules
 
@@ -1823,19 +1872,6 @@ class Connection(object):
         > - The server MUST tell the client what limits it proposes.
         > - The client responds and **MAY reduce those limits** for its
             connection
-
-        When negotiating heartbeat timeout, the reasoning needs to be reversed.
-        The way I think it makes sense to interpret this rule for heartbeats is
-        that the consumable resource is the frequency of heartbeats, which is
-        the inverse of the timeout. The more frequent heartbeats consume more
-        resources than less frequent heartbeats. So, when both heartbeat
-        timeouts are non-zero, we should pick the max heartbeat timeout rather
-        than the min. The heartbeat timeout value 0 (zero) has a special
-        meaning - it's supposed to disable the timeout. This makes zero a
-        setting for the least frequent heartbeats (i.e., never); therefore, if
-        any (or both) of the two is zero, then the above rules would suggest
-        that negotiation should yield 0 value for heartbeat, effectively turning
-        it off.
 
         :param client_value: None to accept server_value; otherwise, an integral
             number in seconds; 0 (zero) to disable heartbeat.
@@ -1847,14 +1883,8 @@ class Connection(object):
         if client_value is None:
             # Accept server's limit
             timeout = server_value
-        elif client_value == 0 or server_value == 0:
-            # 0 has a special meaning "disable heartbeats", which makes it the
-            # least frequent heartbeat value there is
-            timeout = 0
         else:
-            # Pick the one with the bigger heartbeat timeout (i.e., the less
-            # frequent one)
-            timeout = max(client_value, server_value)
+            timeout = Connection._negotiate_integer_value(client_value, server_value)
 
         return timeout
 
@@ -1870,10 +1900,10 @@ class Connection(object):
         self._set_connection_state(self.CONNECTION_TUNE)
 
         # Get our max channels, frames and heartbeat interval
-        self.params.channel_max = self._combine(self.params.channel_max,
-                                                method_frame.method.channel_max)
-        self.params.frame_max = self._combine(self.params.frame_max,
-                                              method_frame.method.frame_max)
+        self.params.channel_max = Connection._negotiate_integer_value(self.params.channel_max,
+                                                                      method_frame.method.channel_max)
+        self.params.frame_max = Connection._negotiate_integer_value(self.params.frame_max,
+                                                                    method_frame.method.frame_max)
 
         # Negotiate heatbeat timeout
         self.params.heartbeat = self._tune_heartbeat_timeout(
