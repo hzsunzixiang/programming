@@ -86,6 +86,7 @@ class HeartbeatChecker(object):
         :rtype int
 
         """
+        LOGGER.debug("self._connection.bytes_received:%s" % (self._connection.bytes_received,))
         return self._connection.bytes_received
 
     @property
@@ -94,6 +95,7 @@ class HeartbeatChecker(object):
         to trip the max idle threshold.
 
         """
+        LOGGER.debug("ericksun debug _idle_byte_intervals:%s" % (self._idle_byte_intervals,))
         return self._idle_byte_intervals > 0
 
     def received(self):

@@ -1,6 +1,7 @@
 # -*- encoding:utf-8 -*-
 import logging
 import sys
+
 sys.path.append("..")
 # create logger
 LOGGER = logging.getLogger("pika")
@@ -16,4 +17,3 @@ formatter = logging.Formatter(fmt, datefmt)
 # add handler and formatter to logger
 fh.setFormatter(formatter)
 LOGGER.addHandler(fh)
-

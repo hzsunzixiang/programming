@@ -1,9 +1,11 @@
 # -*- encoding:utf-8 -*-
 import logging
 import sys
+
 sys.path.append("..")
 import pika
 from pika import callback
+
 # create logger
 LOGGER = logging.getLogger("pika")
 LOGGER.setLevel(logging.DEBUG)

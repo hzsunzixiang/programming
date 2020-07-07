@@ -67,6 +67,7 @@ class HeartbeatChecker(object):
         to trip the max idle threshold.
 
         """
+        LOGGER.debug("self._idle_byte_intervals : %s self._max_idle_count : %s"%(self._idle_byte_intervals, self._max_idle_count))
         return self._idle_byte_intervals >= self._max_idle_count
 
     def received(self):
@@ -80,17 +81,21 @@ class HeartbeatChecker(object):
         been idle too long.
 
         """
-        LOGGER.debug('Received %i heartbeat frames, sent %i',
+        LOGGER.debug('Received %i heartbeat frames, sent %i, _idle_byte_intervals：%s',
                      self._heartbeat_frames_received,
-                     self._heartbeat_frames_sent)
+                     self._heartbeat_frames_sent,
+                     self._idle_byte_intervals)
 
         if self.connection_is_idle:
             return self._close_connection()
 
         # Connection has not received any data, increment the counter
         if not self._has_received_data:
+            LOGGER.debug("begin not self._has_received_data _idle_byte_intervals:%s"%(self._idle_byte_intervals,))
             self._idle_byte_intervals += 1
+            LOGGER.debug("finish not self._has_received_data _idle_byte_intervals:%s"%(self._idle_byte_intervals,))
         else:
+            LOGGER.debug("else begin not self._has_received_data _idle_byte_intervals:")
             self._idle_byte_intervals = 0
 
         # Update the counters of bytes sent/received and the frames received
