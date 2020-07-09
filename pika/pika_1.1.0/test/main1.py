@@ -35,3 +35,8 @@ LOGGER.debug('debug message in main ')
 # LOGGER.error('error message')
 # LOGGER.critical('critical message')
 callback.test_ericskun()
+print("xxx")
+with open('somefile', 'wt') as f:
+    f.write("xxx")
+import io
+s=io.StringIO()
