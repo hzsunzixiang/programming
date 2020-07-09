@@ -1,0 +1,25 @@
+
+
+
+
+# 1. This is what you asked:
+
+```
+How to declare such 2048 bit values in C. As i know that the data types like int , long ,long long int even are less than 64 bits. Please suggest.
+```
+
+# 2. You can use the [The GNU MP Bignum Library](https://gmplib.org/).     
+[This is the manual](https://gmplib.org/manual/).
+
+# 3 This is how to declare such 2048 bit values in C using `The GNU MP Bignum Library` .
+
+```
+// this is the big number p  
+mpz_t p;       
+
+// initialize  the big number p
+mpz_inits (p, NULL);
+
+// declaration or assignment of p 
+mpz_set_str (p, "0x00ed6aead4012490897cc99074d534488d8cd85ecd0839fb6b1e12bd7a6a7849431a5aef1938e97b3cdeedfbd1166fa044c2785a1838bf1e71d88ff3009d1aac5f74756d1b3742e2931249e42b60f993d934df85d5bbd64e2dcb726e80a692b628f544549a15a4c85655c27a26ca144db403a27137fde1a9cdb8f46e8f677d1ecd", 0);
+	
