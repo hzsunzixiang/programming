@@ -2,6 +2,7 @@
 # -*- coding:UTF-8
 
 import pika
+import signal
 
 from test.logger import LOGGER
 
@@ -26,7 +27,7 @@ password = 'vstation'
 queue_name = 'FLOW'
 host = '192.168.56.103'
 #heartbeat = 87600
-
+signal.signal(signal.SIGPIPE, signal.SIG_IGN)
 credentials = pika.PlainCredentials(user, password)
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
