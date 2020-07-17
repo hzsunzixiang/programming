@@ -9,7 +9,7 @@ vhost = 'vstation'
 user = 'vstation'
 password = 'vstation'
 queue_name = 'FLOW'
-host = '192.168.56.101'
+host = '192.168.56.103'
 heartbeat = 40
 
 LOGGER.debug('debug message in main..................... ')

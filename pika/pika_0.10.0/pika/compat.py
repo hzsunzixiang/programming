@@ -1,13 +1,17 @@
+import os
 import sys as _sys
-
+import platform
+import re
 
 PY2 = _sys.version_info < (3,)
 PY3 = not PY2
+RE_NUM = re.compile(r'(\d+).+')
 
 
 if not PY2:
     # these were moved around for Python 3
-    from urllib.parse import unquote as url_unquote, urlencode
+    from urllib.parse import (quote as url_quote, unquote as url_unquote,
+                              urlencode)
 
     # Python 3 does not have basestring anymore; we include
     # *only* the str here as this is used for textual data.
@@ -21,7 +25,6 @@ if not PY2:
 
     # the unicode type is str
     unicode_type = str
-
 
     def dictkeys(dct):
         """
@@ -45,6 +48,24 @@ if not PY2:
         it is modified).
         """
         return list(dct.values())
+
+    def dict_iteritems(dct):
+        """
+        Returns an iterator of items (key/value pairs) of a dictionary
+
+        dict.items returns a view that works like .items in Python 2
+        *except* any modifications in the dictionary will be visible
+        (and will cause errors if the view is being iterated over while
+        it is modified).
+        """
+        return dct.items()
+
+    def dict_itervalues(dct):
+        """
+        :param dict dct:
+        :returns: an iterator of the values of a dictionary
+        """
+        return dct.values()
 
     def byte(*args):
         """
@@ -73,8 +94,10 @@ if not PY2:
 
         return str(value)
 
+    def is_integer(value):
+        return isinstance(value, int)
 else:
-    from urllib import unquote as url_unquote, urlencode
+    from urllib import quote as url_quote, unquote as url_unquote, urlencode
 
     basestring = basestring
     str_or_bytes = basestring
@@ -82,6 +105,8 @@ else:
     unicode_type = unicode
     dictkeys = dict.keys
     dictvalues = dict.values
+    dict_iteritems = dict.iteritems
+    dict_itervalues = dict.itervalues
     byte = chr
     long = long
 
@@ -97,9 +122,32 @@ else:
         except UnicodeEncodeError:
             return str(value.encode('utf-8'))
 
+    def is_integer(value):
+        return isinstance(value, (int, long))
+
 
 def as_bytes(value):
     if not isinstance(value, bytes):
         return value.encode('UTF-8')
     return value
 
+
+def to_digit(value):
+    if value.isdigit():
+        return int(value)
+    match = RE_NUM.match(value)
+    return int(match.groups()[0]) if match else 0
+
+
+def get_linux_version(release_str):
+    ver_str = release_str.split('-')[0]
+    return tuple(map(to_digit, ver_str.split('.')[:3]))
+
+
+HAVE_SIGNAL = os.name == 'posix'
+
+EINTR_IS_EXPOSED = _sys.version_info[:2] <= (3, 4)
+
+LINUX_VERSION = None
+if platform.system() == 'Linux':
+    LINUX_VERSION = get_linux_version(platform.release())

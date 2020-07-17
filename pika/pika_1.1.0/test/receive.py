@@ -4,6 +4,7 @@
 import pika
 
 from test.logger import LOGGER
+import time
 
 # https://www.rabbitmq.com/amqp-0-9-1-reference.html#connection.tune-ok
 # https://pika.readthedocs.io/en/stable/modules/parameters.html
@@ -25,14 +26,14 @@ user = 'vstation'
 password = 'vstation'
 queue_name = 'FLOW'
 host = '192.168.56.103'
-# heartbeat = 40
+heartbeat = 40
 
 credentials = pika.PlainCredentials(user, password)
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
     host=host,
     virtual_host=vhost,
-    # heartbeat=heartbeat,
+    heartbeat=heartbeat,
     credentials=credentials))
 
 channel = connection.channel()
@@ -53,6 +54,7 @@ print(' [*] Waiting for messages. To exit press CTRL+C')
 def callback(ch, method, properties, body):
     print(" [x] Received %r, ch:%s method:%s, properties:%s" % (body, ch, method, properties))
     ch.basic_ack(delivery_tag=method.delivery_tag)
+    time.sleep(100000)
 
 
 channel.basic_consume(queue_name,
@@ -60,3 +62,6 @@ channel.basic_consume(queue_name,
                       auto_ack=False)
 
 channel.start_consuming()
+
+
+

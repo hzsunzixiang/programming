@@ -67,6 +67,7 @@ class HeartbeatChecker(object):
         to trip the max idle threshold.
 
         """
+        LOGGER.debug("self._idle_byte_intervals : %s self._max_idle_count : %s"%(self._idle_byte_intervals, self._max_idle_count))
         return self._idle_byte_intervals >= self._max_idle_count
 
     def received(self):
@@ -80,17 +81,21 @@ class HeartbeatChecker(object):
         been idle too long.
 
         """
-        LOGGER.debug('Received %i heartbeat frames, sent %i',
+        LOGGER.debug('Received %i heartbeat frames, sent %i, _idle_byte_intervals：%s',
                      self._heartbeat_frames_received,
-                     self._heartbeat_frames_sent)
+                     self._heartbeat_frames_sent,
+                     self._idle_byte_intervals)
 
         if self.connection_is_idle:
             return self._close_connection()
 
         # Connection has not received any data, increment the counter
         if not self._has_received_data:
+            LOGGER.debug("begin not self._has_received_data _idle_byte_intervals:%s"%(self._idle_byte_intervals,))
             self._idle_byte_intervals += 1
+            LOGGER.debug("finish not self._has_received_data _idle_byte_intervals:%s"%(self._idle_byte_intervals,))
         else:
+            LOGGER.debug("else begin not self._has_received_data _idle_byte_intervals:")
             self._idle_byte_intervals = 0
 
         # Update the counters of bytes sent/received and the frames received
@@ -115,10 +120,14 @@ class HeartbeatChecker(object):
                     self._idle_byte_intervals)
         duration = self._max_idle_count * self._interval
         text = HeartbeatChecker._STALE_CONNECTION % duration
+
+        # NOTE: this won't achieve the perceived effect of sending
+        # Connection.Close to broker, because the frame will only get buffered
+        # in memory before the next statement terminates the connection.
         self._connection.close(HeartbeatChecker._CONNECTION_FORCED, text)
-        self._connection._adapter_disconnect()
-        self._connection._on_disconnect(HeartbeatChecker._CONNECTION_FORCED,
-                                        text)
+
+        self._connection._on_terminate(HeartbeatChecker._CONNECTION_FORCED,
+                                       text)
 
     @property
     def _has_received_data(self):
@@ -129,7 +138,8 @@ class HeartbeatChecker(object):
         """
         return not self._bytes_received == self.bytes_received_on_connection
 
-    def _new_heartbeat_frame(self):
+    @staticmethod
+    def _new_heartbeat_frame():
         """Return a new heartbeat frame.
 
         :rtype pika.frame.Heartbeat

@@ -1,0 +1,234 @@
+
+
+[TOC]
+
+
+TCE-CVM中的RabbitMQ高可用方案
+
+本文主要结合当前TCE-CVM中的业务现状，分别从`问题分析`，`解决方案`，`结论`等若干方面阐述RabbitMQ的高可用解决方案。
+
+## 0. 几点说明：
+### 0.1  RabbitMQ Server的实验版本为 3.6.6.
+### 0.2 不讨论`Exclusive queues`即`排他性队列`
+  CVM中不使用这种队列，所以不讨论.
+### 0.3 本文暂不讨论Quorum Queues
+  目前高可用队列分为两种实现方式：
+  * 经典的镜像队列，本文只讨论这种类型的高可用队列
+   [Classic Mirrored Queues](https://www.rabbitmq.com/ha.html)
+  * Quorum Queues
+  [Quorum Queues](https://www.rabbitmq.com/quorum-queues.html)是高可用队列的另外一种实现方式，使用raft共识算法。
+  但是只有 RabbitMQ 3.8.0版本才开始提供。
+  ```
+  The quorum queue is a queue type for RabbitMQ implementing a durable, replicated FIFO queue based on the Raft consensus algorithm. It is available as of RabbitMQ 3.8.0.
+  ```
+
+
+## 1. 问题分析
+先给出集群队列master的概念，然后探讨`非镜像队列`和`镜像队列`,并给出问题所在.
+
+###1.1 RabbitMQ集群队列的master
+
+[集群队列master的位置官方文档](https://www.rabbitmq.com/ha.html#queue-master-location)中有详细描述:
+* 集群队列master是以队列为维度的
+  并非所有队列都在某个特定master上.
+* `非镜像队列`和`镜像队列`都有master
+  只是非镜像队列只有master，没有slave
+* master node所在的位置的配置方式
+  总共有三种,策略/队列声明/配置文件
+* master node所在的位置的配置策略
+  总共有三种 min-masters/client-local/random, 默认为client-local
+
+
+###1.2 非镜像(Non-mirrored)集群队列的行为
+      Non-mirrored Queue Behavior in a Cluster:
+
+* Non-mirrored集群的行为也是队列维度的，每个队列的master节点都可能不一样。
+   集群只会在master节点而不是所有节点上创建队列进程并包含完整的队列信息（元数据、状态、内容）
+* 所有节点都会备份所有的`元数据信息`，但并不备份`消息`（不同于镜像队列）
+[如官方文档描述](https://www.rabbitmq.com/ha.html#non-mirrored-queue-behavior-on-node-failure)
+```
+By default, contents of a queue within a RabbitMQ cluster are located on a single node (the node on which the queue was declared). This is in contrast to exchanges and bindings, which can always be considered to be on all nodes.
+```
+
+* Non-mirrored集群中所有节点是对等的
+[Nodes are Equal Peers](https://www.rabbitmq.com/clustering.html)
+```
+Some distributed systems have leader and follower nodes. This is generally not true for RabbitMQ. All nodes in a RabbitMQ cluster are equal peers: there are no special nodes in RabbitMQ core. This topic becomes more nuanced when queue mirroring and plugins are taken into consideration but for most intents and purposes, all cluster nodes should be considered equal
+```
+当集群节点（队列所在的master节点）崩溃时,持久化队列和非持久化队列行为有差异。
+
+#### 1.2.1  持久化队列
+   * 队列的master节点在此队列的整个生命周期保持不变
+   * 如果master节点可用，则集群中的其他任何节点都可以访问此队列,且数据只存放在master节点上
+   * 一旦master节点挂掉，则整个队列不可用(无法从任何节点访问)，直到节点恢复正常。
+   
+官方文档在这里描述[Non-mirrored Queue Behavior in a Cluster](https://www.rabbitmq.com/ha.html#non-mirrored-queue-behavior-on-node-failure)
+````
+If master node of a queue (the node running queue master) is available, all queue operations (e.g. declaration, binding and consumer management, message routing to the queue) can be performed on any node. Cluster nodes will route operations to the master node transparently to the clients.
+
+If master node of a queue becomes unavailable, the behaviour of a non-mirrored queue depends on its durability. A durable queue will become unavailable until the node comes back. All operations on a durable queue with unavailable master node will fail with a message in server logs that looks like this:
+
+operation queue.declare caused a channel exception not_found: home node 'rabbit@hostname' of durable queue 'queue-name' in vhost '/' is down or inaccessible
+```
+
+#### 1.2.2. 非持久化队列
+   * 队列的master节点在此队列的整个(临时)生命周期保持不变
+     队列的master节点是临时的。
+   * 如果master节点可用，则集群中的其他任何节点都可以访问到此队列,且数据只存放在master节点上.
+   * master节点挂掉，则此队列随之删除，数据亦完全丢失。
+   * master节点挂掉且没有恢复之前，其他节点连接时，根据不同的规则(min-masters/client-local/random)重新选择master
+   
+
+官方文档在这里描述[Non-mirrored Queue Behavior in a Cluster](https://www.rabbitmq.com/ha.html#non-mirrored-queue-behavior-on-node-failure)
+```
+A non-durable one will be deleted.
+```
+#### 1.2.3 Non-mirrored集群在CVM中的应用。
+综上所述，即使是持久化队列，Non-mirrored集群也无法满足CVM应用的需求，这里先描述Non-mirrored集群的目的是为了阐述 mirrored集群.
+
+###1.3 经典的镜像队列(Classic Mirrored Queues)集群的行为
+
+根据CVM场景，这里只讨论持久化(durable)队列.
+
+####1.3.1  镜像队列(Mirrored Queues)描述
+
+* 镜像队列的维度是队列
+* 每个镜像队列都1个master及1个或者多个镜像(mirrors)
+* 队列所在的宿主(host)节点称之为master节点
+* 每个队列都有自己的master节点
+* 客户端可以连接队列的master或者mirror
+* 对队列的所有操作都需要先经过master
+
+[官方文档](https://www.rabbitmq.com/ha.html#non-mirrored-queue-behavior-on-node-failure)描述
+```
+Each mirrored queue consists of one master and one or more mirrors. The master is hosted on one node commonly referred as the master node. Each queue has its own master node. All operations for a given queue are first applied on the queue's master node and then propagated to mirrors. This involves enqueueing publishes, delivering messages to consumers, tracking acknowledgements from consumers and so on.
+```
+
+
+
+####1.3.2  镜像队列(Mirrored Queues)设置
+
+通过policy进行设置，可在任意时刻更改，将non-mirrored queue改为mirrored queue，或者反之。需注意的是non-mirrored queue与没有slave的mirrore的queue行为并不相同，前者无需额外mirroring架构,运行的更快。
+
+**可用的policy列表为: **本文重点描述前两种。
+ 
+|ha-mode   |     ha-params |     行为 |  
+|----      |----          |----           |
+|all                |空          |queue被mirror到cluster中所有节点。<br>cluster中新添加节点，queue也会被mirror到该节点<br>mirror到所有节点比较保守，会对集群节点(网络I/O，磁盘I/O, 磁盘空间)造成更多压力|
+|exactly                |count            |queue被mirror到指定数目的节点。<br>count大于cluster中节点数则queue被mirror到所有节点。<br>若count小于cluster中节点数，在包含mirror的某节点down后，是否在其他节点创建新的mirror有一定规则,单独讨论| 
+|nodes                |node names             | queue被mirror到指定名字的节点。<br>若任一名称在cluster中不存在并不会引发错误。<br> 若指定的任何节点在queue声明时都不在线则queue在被连接到的节点创建。    | 
+ 
+
+####1.3.3  镜像队列(Mirrored Queues)设置实例
+ 
+```
+rabbitmqctl set_policy ha-all "queue_name" '{"ha-mode":"all"}'
+```
+  当然也可以以通配符的方式来设置
+```
+rabbitmqctl set_policy -p vstation vstation '.*' '{"ha-mode": "all"}'
+rabbitmqctl set_policy -p vstation vstation '.*' '{"ha-mode":"exactly","ha-params":2,"ha-sync-mode":"automatic"}'
+```
+
+####1.3.4  查看镜像队列的信息
+* 命令行列出slave节点和已经同步的slave节点
+root@debian-3:~# sudo rabbitmqctl list_queues    name slave_pids synchronised_slave_pids -p vstation
+Listing queues ...
+FLOW    [<rabbit@debian-3.1.766.0>, <rabbit@debian-5.1.800.0>]  [<rabbit@debian-3.1.766.0>, <rabbit@debian-5.1.800.0>]
+* 页面查看
+![enter image description here](/tfl/pictures/202007/tapd_10127391_1594644775_66.png)
+点开 FLOW 队列
+![enter image description here](/tfl/pictures/202007/tapd_10127391_1594644260_10.png)
+
+###1.3 RabbitMQ网络分区
+
+* 两个节点的情况下，一个节点宕掉，根据分区策略
+另外一个节点依然工作(ignore, autoheal)，或不能正常工作(pause-minority)
+
+* 两个节点的情况下，如果出现网络分区.
+根据分区策略要么都不能正常工作(pause-minority)，要么都能正常工作但数据不能保证一致性(ignore ,autoheal)。
+
+
+## 2. 问题阐述及解决方案
+
+### 2.1 目前的两个节点不能处理网络分区容灾.
+#### 2.1.1	问题阐述
+
+综上所述可以得出下述结论 
+* 网络分区策略采用ignore，则
+网络分区时，两个节点还能正常工作，不能保证数据一致性。
+网络恢复之后，集群无法自动恢复，需要人工介入，分区时不能保证数据一致性。
+* 网络分区策略采用autoheal，则
+网络分区时，两个节点还能正常工作，不能保证数据一致性。
+网络恢复之后，集群可以自动恢复。
+* 网络分区策略采用pause-minority，则
+网络分区时，两个节点都不能正常工作（虽然数据能保证一致性）。
+网络恢复之后，集群可以自动恢复。
+总之，两个节点的集群不论采用何种分区策略，在网络分区时都不能满足业务需求。
+
+#### 2.1.2	解决方案
+
+在Vstation中，首先要保证数据一致性，所以分区策略只能采用pause-minority，而要使此策略生效，至少需要3个节点，此时允许一个节点挂掉而不影响集群正常工作。所以解决方案为
+* MQ集群由2个节点升级为3个节点
+* 队列的高可用策略采用mirror方式
+* 网络分区策略采用pause-minority
+   只要能保证一个分区至少有两个节点，MQ集群就能正常工作。
+
+### 2.2	 某个节点挂掉之后新增的请求任务会失败
+#### 2.2.1	问题阐述
+* VStation-api投递信息时随机选择MQ节点
+* 没有探测当前选择的MQ节点是否正常
+* 投递失败时没有重试机制
+以上问题存在时，VStation-api恰好选中了异常的MQ节点时，就会出现与MQ建立连接失败或者投递消息失败的情况，从而导致整个任务请求失败.
+
+#### 2.2.2	解决方案
+ 
+增加请求投递MQ的重试机制。请求在投递MQ失败的时候自动选择另外的MQ重试。 
+ 
+### 2.3	挂掉的MQ恢复之后，需要重启Vstation-frame服务
+#### 2.3.1	问题阐述
+* 假设MQa挂掉，VStation-frame下连接到MQa的各模块的workers会自动重连到MQb上(有重连)
+* MQa恢复，重新加入集群
+* 原先连接到MQa的worker此时仍然连接到MQb上，不会重新连接到MQa
+* 如果需要workers均衡的连接到各MQ节点上，需要重启VStation
+
+#### 2.3.2	解决方案
+ 
+待问题2.1解决之后，此问题不再成为关键问题。即其中一个节点挂掉之后，节点会平均分配到另外两个节点上，此时是可以接受的。
+
+## 3. 结论
+
+上面所描述的问题，只需要解决2.1和2.2两个问题即可。
+
+* MQ集群由2个节点升级为3个节点
+队列的高可用策略采用mirror方式
+rabbitmqctl set_policy ha-all "queue_name" '{"ha-mode":"all"}'
+网络分区策略采用pause-minority
+{cluster_partition_handling, pause_minority}
+* vstaion-api增加请求投递MQ的重试机制.
+三个节点的情况下重试两次，间隔时间为1秒.
+
+
+## 4. 进一步优化
+
+## 4.1  镜像队列的副本个数多少是最优的
+
+[Replication Factor: How Many Mirrors are Optimal?](https://www.rabbitmq.com/ha.html#replication-factor)
+
+N个节点的集群中，副本个数设置为 N/2 + 1,
+
+在具有3个节点的RabbitMQ集群中， 镜像副本为2.
+如此，镜像队列的策略可以进一步优化，提高性能。
+
+```
+rabbitmqctl set_policy -p vstation vstation '.*' '{"ha-mode":"exactly","ha-params":2,"ha-sync-mode":"automatic"}'
+```
+ 
+## 4.2 Quorum Queues 
+优势和局限性
+[Quorum Queues and Flow Control – The Concept](https://www.rabbitmq.com/blog/2020/05/04/quorum-queues-and-flow-control-the-concepts/)
+[Flow Control](https://www.rabbitmq.com/ha.html#flow-control)
+[Quorum Queues](https://www.rabbitmq.com/quorum-queues.html)
+
+
+

@@ -1,66 +1,18 @@
 
-#include <stdlib.h>
+
 #include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <assert.h>
 
 #include "gmp.h"
 int main()
 {
 	mpz_t p;       // The first prime
-	mpz_t q;       //  The second prime
-	mpz_t n;       // n = p * q
-	mpz_t phai_p;  // euler function of p
-	mpz_t phai_q;  // euler function of q
-	mpz_t phai_n;  // euler function of n = (p-1)(q-1)
-	mpz_t const_1; // const 1
-	mpz_t pub;     //  public key
-	mpz_t pri;     // private key
-	mpz_t secret;  //  the ciphertext
-	mpz_t P;       // cleartext
-	mpz_t Q;       // the  cleartext decoded
+    // initialize  the big number
+	mpz_inits (p, NULL);
 
-    // initialize all the big number
-	mpz_inits (p, q ,n ,phai_p ,phai_q ,phai_n ,const_1 ,pub ,pri ,P ,Q ,secret, NULL);
-
-	mpz_set_str (P, "1520", 0);
-	mpz_set_str (p, "43", 0);
-	mpz_set_str (q, "59", 0);
-	mpz_set_str (const_1, "1", 0);
-	mpz_mul(n, p, q);  // n = p * q
-
+	mpz_set_str (p, "0x00ed6aead4012490897cc99074d534488d8cd85ecd0839fb6b1e12bd7a6a7849431a5aef1938e97b3cdeedfbd1166fa044c2785a1838bf1e71d88ff3009d1aac5f74756d1b3742e2931249e42b60f993d934df85d5bbd64e2dcb726e80a692b628f544549a15a4c85655c27a26ca144db403a27137fde1a9cdb8f46e8f677d1ecd", 0);
 	// you can print the big num by function  `mpz_out_str`
 	printf("n=: ");
-	mpz_out_str(stdout, 10, n);
+	mpz_out_str(stdout, 10, p);
 	printf("\n");
-
-	mpz_sub (phai_p, p, const_1);
-	mpz_sub (phai_q, q, const_1);
-	mpz_mul(phai_n, phai_p, phai_q); // phai_n
-
-	// 13 is the public key , coprime with phai_n
-	mpz_set_str (pub, "13", 0);
-
-	// modulo inverse of 13，this is private key
-	if(mpz_invert (pri, pub, phai_n))
-	{
-		printf("private exist:\n");
-	}
-	else
-	{
-		printf("private not exist:\n");
-		exit(1);
-	}
-	// encrypt the cleartex P to secret
-	mpz_powm(secret, P, pub, n);
-	// the cleartext decoded from secret
-	mpz_powm(Q, secret, pri, n);
-
-	int equal =  mpz_cmp (P, Q);
-	if (equal == 0 )
-	    printf("success\n");
-	else
-	    printf("failed\n");
 }
 
