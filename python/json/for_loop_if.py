@@ -7,10 +7,10 @@ import datetime
 
 #volume = [ { "imgId": "img2020030807930426", "partitionType": "ROOT", "rawRootTag": "rawRootDisk", "serial": "ldisk-19wm7dzf", "size": 52, "target": "xvda", "type": "standard", "uuid": "0ca02200-4c0b-4c87-96f6-8117d6d2181b", "virtualSize": 50, "volumeType": "lvm" }, { "partitionType": "DATA", "rawRootTag": "", "serial": "ldisk-c0vp279d", "size": 10, "target": "xvdb", "type": "standard", "uuid": "00bbd6f2-3285-4f48-94d3-6c8a8a091305", "virtualSize": 0, "volumeType": "cbs" } ] 
 
-volume = [ { "imgId": "img2020030807930426", "partitionType": "ROOT", "rawRootTag": "rawRootDisk", "serial": "ldisk-19wm7dzf", "size": 52, "target": "xvda", "type": "standard", "uuid": "0ca02200-4c0b-4c87-96f6-8117d6d2181b", "virtualSize": 50, "volumeType": "lvm" }, { "partitionType": "DATA", "rawRootTag": "", "serial": "ldisk-c0vp279d", "size": 10, "target": "xvdb", "type": "standard", "uuid": "00bbd6f2-3285-4f48-94d3-6c8a8a091305", "virtualSize": 0, "volumeType": "lvm" } ] 
+volume = [ { "imgId": "img2020030807930426", "partitionType": "ROOT", "rawRootTag": "rawRootDisk", "serial": "ldisk-19wm7dzf", "size": 52, "target": "xvda", "type": "standard", "uuid": "0ca02200-4c0b-4c87-96f6-8117d6d2181b", "virtualSize": 50, "volumeType": "cbs" }, { "partitionType": "DATA", "rawRootTag": "", "serial": "ldisk-c0vp279d", "size": 10, "target": "xvdb", "type": "standard", "uuid": "00bbd6f2-3285-4f48-94d3-6c8a8a091305", "virtualSize": 0, "volumeType": "lvm" } ] 
 print(volume)
 
-volume_type  = [ n['volumeType'] for n in volume if  n['volumeType'] == "cbs"]
+volume_type  = [ n['volumeType'] for n in volume if  n['volumeType'] == "cbs" and n["partitionType"] == "ROOT"]
 print(volume_type)
 if volume_type:
     print("there is cbs")
