@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 '''
 回调函数的相关实现，包含一个从hander到真实pika接受的回调函数
@@ -8,6 +8,12 @@ import os
 import time
 import inspect
 import traceback
+from pika.exceptions import AMQPError, AMQPConnectionError, ChannelClosed, AMQPChannelError
+
+
+class CallbackError(Exception):
+    '回调函数执行时抛出的异常'
+    pass
 
 
 def mq_callback_adapter(callback):
@@ -31,16 +37,19 @@ def mq_callback_adapter(callback):
             ...
         CallbackError: handler is invalid
     '''
-    # 这里才是真正体现 MQ的参数的地方 
+
+    # 这里才是真正体现 MQ的参数的地方
     # 这样可以不用把各参数暴露给外面
     def mq_cb(channel, method, properties, body):
         print " [x] Received %r, ch:%s method:%s, properties:%s" % (body, channel, method, properties)
 
-        class Namespace(object): pass
+        class Namespace(object):
+            pass
+
         ns = Namespace()
 
         '实际的被回调的函数'
-        ns.msg           = None
+        ns.msg = None
 
         def load_msg(body):
             print 'load msg'
@@ -57,9 +66,10 @@ def mq_callback_adapter(callback):
 
         def callback_exec():
             try:
-			    print("the callback body%s"%(ns.msg))
+                print("the callback body%s" % (ns.msg))
             except Exception as e:
                 print traceback.format_exc()
+
         def callback_exec():
             msg = ns.msg
             key = ns.key
@@ -74,21 +84,49 @@ def mq_callback_adapter(callback):
                 print error_msg
 
         try:
-            load_msg(body)                    # 构建消息结构体
-            callback_exec()                 # 执行业务逻辑
+            load_msg(body)  # 构建消息结构体
+            callback_exec()  # 执行业务逻辑
         except Exception, inst:
+            import traceback
             print traceback.format_exc()
-
         finally:
-		    pass
+            try:
+                channel.basic_ack(delivery_tag=method.delivery_tag)
+            except ChannelClosed, inst:
+                print('Error: AMQPChannelError:  %s' % (inst,))
+                raise
+            except AMQPChannelError, inst:
+                print('Error: AMQPChannelError:  %s' % (inst,))
+                raise
+            except AMQPError, inst:
+                print('Error: AMQPError:  %s' % (inst,))
+                raise
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print('create mq except %s' % e)
+                raise
+            print('channel.basic_ack success')
+            # 如果 ACK成功，但是下面这个失败，需要重试
+            # try:
+            #     print("exchange:%s, properties:%s"%(method.exchange, properties))
+            #     ret = channel.basic_publish(exchange=method.exchange,
+            #                                 routing_key="FLOW",
+            #                                 body="Hello,China" + str(time.time()),
+            #                                 properties=properties)
+            #     print "publish msg  to MQ, next_module ret:[%s]"%(ret, )
+            # except Exception, e:
+            #     import traceback
+            #     print(traceback.format_exc())
+            #     print('create mq except %s' % e)
+            #     raise
+            # time.sleep(10)
 
     # 函数的入口处，上面都是函数定义
     args_len = len(inspect.getargspec(callback).args)
     # 对应的是业务模块的这个 callback:  def handler(module, command, params):
-    print("args_len %s"%(args_len))
+    print("args_len %s, inspect.getargspec(callback).args: %s" % (args_len, inspect.getargspec(callback).args))
     if args_len in (3, 5):
         return mq_cb
     else:
         raise CallbackError('handler is invalid')
-
-

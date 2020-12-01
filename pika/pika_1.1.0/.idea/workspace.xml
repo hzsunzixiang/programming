@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9eb43118-0251-40bd-9326-5bf136fcc2b8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../pika_0.11.2/admin/init.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../pika_0.11.2/test/receive_ack_exeption.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Makefile" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../algrithm/alg.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../algrithm/alg.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../algrithm/dijkstra/main" beforeDir="false" afterPath="$PROJECT_DIR$/../../algrithm/dijkstra/main" afterDir="false" />
@@ -218,16 +216,24 @@
       <change beforePath="$PROJECT_DIR$/../../cryptography/aes/openssl/infile.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/aes/openssl/infile.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../cryptography/aes/openssl/keyfile.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/aes/openssl/keyfile.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../cryptography/aes/openssl/test-aes.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/aes/openssl/test-aes.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../cryptography/des/DES/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/des/DES/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../cryptography/des/DES/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/des/DES/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../cryptography/des/DES/src/DES.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../cryptography/des/DES/src/DES.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../cryptography/des/DES/src/Makefile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../cryptography/des/DES/src/genkey.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../cryptography/des/DES/src/main.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../cryptography/des/DES/src/test.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/crypt.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/des/des/crypt.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/decrypt.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/des/des/decrypt.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/DES/src/DES.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/des/DES/src/DES.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/DES/src/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/des/DES/src/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/DES/src/genkey.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/des/DES/src/genkey.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/DES/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/des/DES/src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/des/des/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/des/des/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/crypt.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/decrypt.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/des.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/des.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/gdb_init.gdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/key.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/main.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/mode.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/moulinette.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/plaintext.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/readme_my.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cryptography/des/des/tools.c" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../cryptography/ecc/galois_ecc/galois/run_w3.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/ecc/galois_ecc/galois/run_w3.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../cryptography/ecc/galois_ecc/galois/run_w4.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/ecc/galois_ecc/galois/run_w4.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../cryptography/openssl/ecc_Parameters/run.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../cryptography/openssl/ecc_Parameters/run.sh" afterDir="false" />
@@ -1075,7 +1081,6 @@
       <change beforePath="$PROJECT_DIR$/../../lxc_image/lxc_create/lxc-debootstrap" beforeDir="false" afterPath="$PROJECT_DIR$/../../lxc_image/lxc_create/lxc-debootstrap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-install.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-install.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-prepare.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-prepare.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../makefile/make/make_pattern/make3/Makefile5" beforeDir="false" afterPath="$PROJECT_DIR$/../../makefile/make/make_pattern/make3/Makefile5" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_read" beforeDir="false" afterPath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_read" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_write" beforeDir="false" afterPath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_write" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../manual/man.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../manual/man.sh" afterDir="false" />
@@ -1628,19 +1633,27 @@
       <change beforePath="$PROJECT_DIR$/../pika_0.11.2/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pika_0.11.2/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pika_0.11.2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pika_0.11.2/admin/init.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/admin/init.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pika_0.11.2/pika/adapters/libev_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/pika/adapters/libev_connection.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pika_0.11.2/pika/credentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/pika/credentials.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pika_0.11.2/pika/heartbeat.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/pika/heartbeat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pika_0.11.2/rabbitmq_work/callback_adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/rabbitmq_work/callback_adapter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pika_0.11.2/rabbitmq_work/executor.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/rabbitmq_work/executor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pika_0.11.2/rabbitmq_work/mq.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/rabbitmq_work/mq.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pika_0.11.2/rabbitmq_work/pkgadmin.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/rabbitmq_work/pkgadmin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pika_0.11.2/rabbitmq_work/send.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/rabbitmq_work/send.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pika_0.11.2/readme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/readme.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pika_0.11.2/test/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/test/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pika_0.11.2/test/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/test/logger.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pika_0.11.2/test/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/test/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pika_0.11.2/test/main1.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/test/main1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pika_0.11.2/test/receive.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/test/receive.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pika_0.11.2/test/receive_ack_exeption.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/test/receive_ack_exeption.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pika_0.11.2/test/receive_retry.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/test/receive_retry.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pika_0.11.2/test/send.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_0.11.2/test/send.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/ericksun_test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ericksun_test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
@@ -2195,18 +2208,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pika/adapters/base_connection.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8175">
-              <caret line="336" column="65" selection-start-line="336" selection-start-column="65" selection-end-line="336" selection-end-column="65" />
-              <folding>
-                <element signature="e#186#196#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/send.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="475">
@@ -2242,11 +2243,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pika/adapters/twisted_connection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="901" selection-start-line="901" selection-end-line="907" selection-end-column="38" />
+            <state relative-caret-position="656">
+              <caret line="916" column="74" lean-forward="true" selection-start-line="916" selection-start-column="74" selection-end-line="916" selection-end-column="74" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pika/spec.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1">
+              <caret line="47" column="19" selection-start-line="47" selection-end-line="47" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -2326,11 +2336,11 @@
       <find>Connection is idle</find>
       <find>connection_is_idle</find>
       <find>_check_heartbeat</find>
-      <find>heartbeat frames, sent</find>
       <find>_idle_byte_intervals</find>
       <find>_check_interval</find>
       <find>BlockingConnection</find>
       <find>EPIPE</find>
+      <find>PRECONDITION_FAILED</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2383,57 +2393,7 @@
               <item name="pika_1.1.0" type="b2602c69:ProjectViewProjectNode" />
               <item name="pika_1.1.0" type="462c0819:PsiDirectoryNode" />
               <item name="pika" type="462c0819:PsiDirectoryNode" />
-              <item name="adapters" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pika_1.1.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pika_1.1.0" type="462c0819:PsiDirectoryNode" />
-              <item name="pika" type="462c0819:PsiDirectoryNode" />
-              <item name="adapters" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pika_1.1.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pika_1.1.0" type="462c0819:PsiDirectoryNode" />
-              <item name="pika" type="462c0819:PsiDirectoryNode" />
-              <item name="adapters" type="462c0819:PsiDirectoryNode" />
-              <item name="base_connection.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="pika_1.1.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pika_1.1.0" type="462c0819:PsiDirectoryNode" />
-              <item name="pika" type="462c0819:PsiDirectoryNode" />
-              <item name="adapters" type="462c0819:PsiDirectoryNode" />
-              <item name="base_connection.py" type="8704e2dd:PyFileNode" />
-              <item name="BaseConnection" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="pika_1.1.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pika_1.1.0" type="462c0819:PsiDirectoryNode" />
-              <item name="pika" type="462c0819:PsiDirectoryNode" />
-              <item name="adapters" type="462c0819:PsiDirectoryNode" />
-              <item name="twisted_connection.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="pika_1.1.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pika_1.1.0" type="462c0819:PsiDirectoryNode" />
-              <item name="pika" type="462c0819:PsiDirectoryNode" />
-              <item name="adapters" type="462c0819:PsiDirectoryNode" />
-              <item name="twisted_connection.py" type="8704e2dd:PyFileNode" />
-              <item name="TwistedChannel" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="pika_1.1.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pika_1.1.0" type="462c0819:PsiDirectoryNode" />
-              <item name="pika" type="462c0819:PsiDirectoryNode" />
-              <item name="channel.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="pika_1.1.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pika_1.1.0" type="462c0819:PsiDirectoryNode" />
-              <item name="pika" type="462c0819:PsiDirectoryNode" />
-              <item name="channel.py" type="8704e2dd:PyFileNode" />
-              <item name="Channel" type="dd8bbb05:PyElementNode" />
+              <item name="spec.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
               <item name="pika_1.1.0" type="b2602c69:ProjectViewProjectNode" />
@@ -2472,10 +2432,10 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24920969" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24920969" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.15144767" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.2260579" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -2667,8 +2627,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pika/adapters/twisted_connection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="901" selection-start-line="901" selection-end-line="907" selection-end-column="38" />
+        <state relative-caret-position="656">
+          <caret line="916" column="74" lean-forward="true" selection-start-line="916" selection-start-column="74" selection-end-line="916" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pika/spec.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1">
+          <caret line="47" column="19" selection-start-line="47" selection-end-line="47" selection-end-column="19" />
         </state>
       </provider>
     </entry>

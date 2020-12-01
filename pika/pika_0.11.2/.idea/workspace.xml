@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9eb43118-0251-40bd-9326-5bf136fcc2b8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/test/receive_ack_exeption.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Makefile" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../algrithm/alg.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../algrithm/alg.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../algrithm/dijkstra/main" beforeDir="false" afterPath="$PROJECT_DIR$/../../algrithm/dijkstra/main" afterDir="false" />
@@ -1634,15 +1633,19 @@
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/init.xml" beforeDir="false" afterPath="$PROJECT_DIR$/admin/init.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pika/adapters/libev_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/pika/adapters/libev_connection.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pika/credentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/pika/credentials.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pika/heartbeat.py" beforeDir="false" afterPath="$PROJECT_DIR$/pika/heartbeat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rabbitmq_work/pkgadmin.py" beforeDir="false" afterPath="$PROJECT_DIR$/rabbitmq_work/pkgadmin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rabbitmq_work/send.py" beforeDir="false" afterPath="$PROJECT_DIR$/rabbitmq_work/send.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/readme.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/logger.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/main1.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/main1.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/receive.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/receive.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/receive_ack_exeption.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/receive_ack_exeption.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/receive_retry.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/receive_retry.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/send.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/send.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pika_1.1.0/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pika_1.1.0/.idea/encodings.xml" afterDir="false" />
@@ -2211,19 +2214,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pika/exceptions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="76" column="6" selection-start-line="76" selection-start-column="6" selection-end-line="76" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rabbitmq_work/executor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+            <state relative-caret-position="-840">
+              <caret line="61" column="48" lean-forward="true" selection-start-line="61" selection-start-column="24" selection-end-line="61" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -2231,8 +2225,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rabbitmq_work/mq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="563">
-              <caret line="116" column="39" lean-forward="true" selection-start-line="116" selection-start-column="39" selection-end-line="116" selection-end-column="39" />
+            <state relative-caret-position="385">
+              <caret line="177" column="12" lean-forward="true" selection-start-line="177" selection-start-column="12" selection-end-line="177" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -2240,8 +2234,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pika/channel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="784" column="36" lean-forward="true" selection-start-line="784" selection-start-column="36" selection-end-line="784" selection-end-column="36" />
+            <state relative-caret-position="22">
+              <caret line="393" column="8" selection-start-line="393" selection-start-column="8" selection-end-line="393" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -2249,8 +2243,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rabbitmq_work/callback_adapter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+            <state relative-caret-position="250">
+              <caret line="10" column="51" lean-forward="true" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pika/spec.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="47" column="19" selection-start-line="47" selection-end-line="47" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pika/adapters/twisted_connection.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="430">
+              <caret line="134" column="51" lean-forward="true" selection-start-line="134" selection-start-column="51" selection-end-line="134" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pika/adapters/blocking_connection.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="397">
+              <caret line="2075" column="12" selection-start-line="2075" selection-start-column="12" selection-end-line="2075" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -2280,19 +2301,9 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Creating a HeartbeatChecker</find>
-      <find>Creating a HeartbeatChecker:</find>
-      <find>LOGGER</find>
-      <find>self.async</find>
-      <find>Connection is idle</find>
-      <find>MAX_IDLE_COUNT</find>
-      <find>heartbeat frames, sent</find>
-      <find>_idle_byte_intervals</find>
-      <find>_CONNECTION_FORCED</find>
       <find>EPIPE</find>
       <find>Disconnected from RabbitMQ at</find>
       <find>queue_name</find>
-      <find>ConnectionError</find>
       <find>exchange</find>
       <find>self.connection.process_data_events</find>
       <find>SSLError</find>
@@ -2307,8 +2318,19 @@
       <find>app_name</find>
       <find>check_process</find>
       <find>all</find>
-      <find>_reconnect</find>
+      <find>PRECONDITION_FAILED</find>
+      <find>406</find>
+      <find>mq_conn</find>
       <find>declar</find>
+      <find>ConnectionError</find>
+      <find>_reconnect</find>
+      <find>unknown</find>
+      <find>listen</find>
+      <find>handler is invalid</find>
+      <find>mq_callback_adapter</find>
+      <find>callback</find>
+      <find>mq_cb</find>
+      <find>Error: ConnectionError</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2336,7 +2358,9 @@
         <option value="$PROJECT_DIR$/test/receive_ack_exeption.py" />
         <option value="$PROJECT_DIR$/rabbitmq_work/pkgadmin.py" />
         <option value="$PROJECT_DIR$/admin/init.xml" />
+        <option value="$PROJECT_DIR$/pika/spec.py" />
         <option value="$PROJECT_DIR$/rabbitmq_work/executor.py" />
+        <option value="$PROJECT_DIR$/rabbitmq_work/callback_adapter.py" />
         <option value="$PROJECT_DIR$/rabbitmq_work/mq.py" />
       </list>
     </option>
@@ -2393,6 +2417,42 @@
               <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
               <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
               <item name="pika" type="462c0819:PsiDirectoryNode" />
+              <item name="adapters" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
+              <item name="pika" type="462c0819:PsiDirectoryNode" />
+              <item name="adapters" type="462c0819:PsiDirectoryNode" />
+              <item name="blocking_connection.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
+              <item name="pika" type="462c0819:PsiDirectoryNode" />
+              <item name="adapters" type="462c0819:PsiDirectoryNode" />
+              <item name="blocking_connection.py" type="8704e2dd:PyFileNode" />
+              <item name="BlockingChannel" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
+              <item name="pika" type="462c0819:PsiDirectoryNode" />
+              <item name="adapters" type="462c0819:PsiDirectoryNode" />
+              <item name="twisted_connection.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
+              <item name="pika" type="462c0819:PsiDirectoryNode" />
+              <item name="adapters" type="462c0819:PsiDirectoryNode" />
+              <item name="twisted_connection.py" type="8704e2dd:PyFileNode" />
+              <item name="TwistedChannel" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
+              <item name="pika" type="462c0819:PsiDirectoryNode" />
               <item name="channel.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
@@ -2418,6 +2478,12 @@
             <path>
               <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
               <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
+              <item name="pika" type="462c0819:PsiDirectoryNode" />
+              <item name="spec.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
               <item name="rabbitmq_work" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -2437,14 +2503,19 @@
               <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
               <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
               <item name="rabbitmq_work" type="462c0819:PsiDirectoryNode" />
-              <item name="mq.py" type="8704e2dd:PyFileNode" />
+              <item name="callback_adapter.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
+              <item name="rabbitmq_work" type="462c0819:PsiDirectoryNode" />
+              <item name="executor.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
               <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
               <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
               <item name="rabbitmq_work" type="462c0819:PsiDirectoryNode" />
               <item name="mq.py" type="8704e2dd:PyFileNode" />
-              <item name="RMQ" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
               <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
@@ -2561,10 +2632,10 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17228661" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17228661" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.11358575" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.20712695" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -2618,13 +2689,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pika/spec.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51300">
-          <caret line="2055" column="6" selection-start-line="2055" selection-start-column="6" selection-end-line="2055" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pika/credentials.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="575">
@@ -2673,13 +2737,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="422">
           <caret line="106" column="31" lean-forward="true" selection-start-line="106" selection-start-column="31" selection-end-line="106" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pika/adapters/blocking_connection.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="681" column="77" lean-forward="true" selection-start-line="681" selection-start-column="48" selection-end-line="681" selection-end-column="77" />
         </state>
       </provider>
     </entry>
@@ -2843,34 +2900,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rabbitmq_work/callback_adapter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rabbitmq_work/modules/FLOW/flow.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/rabbitmq_work/executor.py">
+    <entry file="file://$PROJECT_DIR$/pika/channel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+        <state relative-caret-position="22">
+          <caret line="393" column="8" selection-start-line="393" selection-start-column="8" selection-end-line="393" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pika/channel.py">
+    <entry file="file://$PROJECT_DIR$/pika/adapters/blocking_connection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="784" column="36" lean-forward="true" selection-start-line="784" selection-start-column="36" selection-end-line="784" selection-end-column="36" />
+        <state relative-caret-position="397">
+          <caret line="2075" column="12" selection-start-line="2075" selection-start-column="12" selection-end-line="2075" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pika/adapters/twisted_connection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="134" column="51" lean-forward="true" selection-start-line="134" selection-start-column="51" selection-end-line="134" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pika/spec.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="47" column="19" selection-start-line="47" selection-end-line="47" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rabbitmq_work/callback_adapter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="10" column="51" lean-forward="true" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rabbitmq_work/executor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-840">
+          <caret line="61" column="48" lean-forward="true" selection-start-line="61" selection-start-column="24" selection-end-line="61" selection-end-column="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rabbitmq_work/mq.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="563">
-          <caret line="116" column="39" lean-forward="true" selection-start-line="116" selection-start-column="39" selection-end-line="116" selection-end-column="39" />
+        <state relative-caret-position="385">
+          <caret line="177" column="12" lean-forward="true" selection-start-line="177" selection-start-column="12" selection-end-line="177" selection-end-column="12" />
         </state>
       </provider>
     </entry>

@@ -168,10 +168,13 @@ class RMQ(object):
     def _consuming(self, callback, queue, no_ack):
         self.channel.basic_qos(prefetch_count=1)
         #self.channel.basic_consume(callback, queue=queue, no_ack=no_ack)
-        # 特别注意这里的熟顺序，跟 pika版本有关系
+        # 特别注意这里的顺序，跟 pika版本有关系
         # auto_ack = True 很关键，不然一直不消费
-        self.channel.basic_consume(queue, callback, auto_ack=True)
-
+        print("begin channel.basic_consume....")
+        #  注意这里 auto_ack=False
+        #  如果为True 报很奇怪的错误
+        # xxxx Error: ConnectionError: (406, 'PRECONDITION_FAILED - unknown delivery tag 1')
+        self.channel.basic_consume(queue, callback, auto_ack=False)
         try:
             self.run_flag = 2
             self.channel.start_consuming()
