@@ -1,0 +1,189 @@
+framework_ver=2.0.7
+<base_info>
+author="lewiszeng"
+product="cloud"
+module=""
+
+name="vstation_frame_for_private_cloud"
+app_name="executor.py"
+port=""
+ip_type="0"
+udp_port=""
+version="1.0"
+user="root"
+kill_sig="TERM"
+auto_start="1"
+boot_path="/usr/local/services/etc/svc.sh"
+log_dir="/data/log/$name-$version"
+rpt_port="5570"
+install_base="/usr/local/services"
+install_path=""
+force_install="false"
+dependency=""
+</base_info>
+
+<link>
+
+</link>
+<start>
+ulimit -c 4 -S
+
+cd $install_path/modules
+if [ ! -e "networkOss" ] ; then ln -s network networkOss; fi
+if [ ! -e "networkIp"  ] ; then ln -s network networkIp; fi
+if [ ! -e "networkDfw"  ] ; then ln -s network networkDfw; fi
+if [ ! -e "vsScheduler" ] ; then ln -s vsresource vsScheduler; fi
+if [ ! -e "vsresourceCmdbVital" ] ; then ln -s vsresource vsresourceCmdbVital; fi
+if [ ! -e "vsresourceCmdb" ] ; then ln -s vsresource vsresourceCmdb; fi
+if [ ! -e "vsresourceIp" ] ; then ln -s vsresource vsresourceIp; fi
+if [ ! -e "vsresourceVolume" ] ; then ln -s vsresource vsresourceVolume; fi
+if [ ! -e "computeLong" ] ; then ln -s compute computeLong; fi
+
+
+sysctl -w net.ipv4.tcp_timestamps=1
+sysctl -w net.ipv4.tcp_tw_recycle=0
+sysctl -w net.ipv4.tcp_tw_reuse=1
+
+
+cd $install_path
+if [ ! -e "vstation_conf.py" ] ; then ln -s /usr/local/services/vstation_conf/vstation_conf.py vstation_conf.py; fi
+
+./main.py start
+
+sleep 15
+ps -ef | grep executor.py
+</start>
+
+
+<!--Example: "0 0 * * * #INSTALL_PATH/admin/start.sh &" -->
+<crontab>
+*/1 * * * * cd #INSTALL_PATH/main.py auto > #INSTALL_PATH/log/autorestart.log 2>&1 &
+*/3 * * * * #INSTALL_PATH/admin/monitor.sh > #INSTALL_PATH/log/crontab.log 2>&1 &
+*/15 * * * * #INSTALL_PATH/admin/clear.sh file > #INSTALL_PATH/log/crontab.log 2>&1 &
+#15 8 * * * #INSTALL_PATH/admin/md5sum.sh check > #INSTALL_PATH/log/crontab.log 2>&1 &
+</crontab>
+
+
+<stop>
+sleep_count=1
+
+cd $install_path
+./main.py stop
+
+
+#if [ $app_count -gt 1 -a "$app_to_stop" != "all" ];then
+#    kill_app $app_to_stop $kill_sig
+#    sleep $sleep_count
+#    return
+#fi
+
+#for app_info in $app_name
+#do
+#    app=`echo $app_info | awk -F: '{print $1}'`
+#    kill_app $app $kill_sig
+#    sleep $sleep_count
+#done
+</stop>
+
+
+
+
+
+
+<!--����״̬��⣬������쳣������쳣��������err_app������쳣�˿ڵ�err_port-->
+<monitor>
+#�����������
+for app_info in `cat $runing_file`
+do
+    #check_process "$app_info"
+    count=`ps -ewf|grep -w $app_info|grep -v grep|wc -l`
+    if [ $count -eq 0 ]
+    then
+        err_app=all
+    fi
+done
+
+#�˿ڼ��
+#for p in `echo $port`
+#do
+#    check_port "$bind_ip" "$p"
+#done
+</monitor>
+
+<!--�����쳣��������״̬����Ƿ���������-->
+<resolve>
+#if [ "$err_port" != "" ];then
+#    $install_path/admin/restart.sh all
+#    return
+#fi
+
+for app in `echo $err_app`
+do
+    $install_path/admin/restart.sh $app
+done
+</resolve>
+
+<!--��Ҫ����md5У����ļ��б���ʹ����԰�װĿ¼��·������"<�ո�>-"��׺Ϊ����Ҫ����У��-->
+<md5>
+bin/*
+lib/*
+admin/*
+bin/*.pid -
+bin/*core* -
+bin/*.tmp -
+bin/*.stat -
+bin/*.log -
+bin/*.data -
+bin/*.dat -
+bin/*.bin -
+bin/*.info -
+</md5>
+
+<!--��Ҫ���а�װʱ�滻���ݵ��ļ��б�,��ʹ����԰�װĿ¼��·��-->
+<substitute>
+init.xml
+conf/*
+etc/*
+</substitute>
+
+<!--������������-->
+<clear_file>
+#Ŀ¼              #��ֵ        #����  #���� #Ŀ��
+log                85%:100000M    tar    10   *.log
+log                85%:100000M    delete  90  clear*.tgz
+admin/data/backup  90%:100M      tar    10    *
+admin/data/tmp     90%:100M      delete 1     *
+
+#----˵��-----
+#Ŀ¼����Ҫ��ص�Ŀ¼��ʹ����԰�װĿ¼·��
+#��ֵ�������������������[����ʹ�ðٷֱ�:Ŀ¼���ռ�<M|m>]
+#���delete(ɾ��ָ��ʱ��ǰ�ļ�)��tar(ѹ��ָ��ʱ��ǰ�ļ�)��clear(��ճ���ָ����С�ļ�)
+#������delete,tar(Ĭ������,��׺hΪСʱ��mΪ����)��clear(�ļ���Сk)
+#Ŀ�꣺����������ļ�,����ͨ���
+
+#----ʾ��-----
+#Ŀ¼     #��ֵ    #����   #����  #Ŀ��
+#log      80%:10M  delete  30     stat*.log
+#data     90%:10M  tar     30     */*.dat
+#log      90%:10M  clear   50000  debug/err*.log
+</clear_file>
+
+<reload>
+sysctl -w net.ipv4.tcp_timestamps=1      # ��ʱ�������
+sysctl -w net.ipv4.tcp_tw_recycle=0      # �����鿪���� ��nat���������׳�����
+sysctl -w net.ipv4.tcp_tw_reuse=1        # �����tcp_tw_recycle���ܰ�ȫ��
+
+cd $install_path/modules
+if [ ! -e "networkOss" ] ; then ln -s network networkOss; fi
+if [ ! -e "networkIp"  ] ; then ln -s network networkIp; fi
+if [ ! -e "networkDfw"  ] ; then ln -s network networkDfw; fi
+if [ ! -e "vsScheduler" ] ; then ln -s vsresource vsScheduler; fi
+if [ ! -e "vsresourceCmdbVital" ] ; then ln -s vsresource vsresourceCmdbVital; fi
+if [ ! -e "vsresourceCmdb" ] ; then ln -s vsresource vsresourceCmdb; fi
+if [ ! -e "vsresourceIp" ] ; then ln -s vsresource vsresourceIp; fi
+if [ ! -e "vsresourceVolume" ] ; then ln -s vsresource vsresourceVolume; fi
+if [ ! -e "computeLong" ] ; then ln -s compute computeLong; fi
+
+cd $install_path
+./main.py restart
+</reload>
