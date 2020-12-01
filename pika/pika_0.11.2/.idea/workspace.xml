@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9eb43118-0251-40bd-9326-5bf136fcc2b8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../python/getattr/getattr.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../python/getattr/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Makefile" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../algrithm/alg.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../algrithm/alg.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../algrithm/dijkstra/main" beforeDir="false" afterPath="$PROJECT_DIR$/../../algrithm/dijkstra/main" afterDir="false" />
@@ -1638,6 +1640,8 @@
       <change beforePath="$PROJECT_DIR$/pika/adapters/libev_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/pika/adapters/libev_connection.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pika/credentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/pika/credentials.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pika/heartbeat.py" beforeDir="false" afterPath="$PROJECT_DIR$/pika/heartbeat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rabbitmq_work/callback_adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/rabbitmq_work/callback_adapter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rabbitmq_work/executor.py" beforeDir="false" afterPath="$PROJECT_DIR$/rabbitmq_work/executor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rabbitmq_work/mq.py" beforeDir="false" afterPath="$PROJECT_DIR$/rabbitmq_work/mq.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rabbitmq_work/pkgadmin.py" beforeDir="false" afterPath="$PROJECT_DIR$/rabbitmq_work/pkgadmin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rabbitmq_work/send.py" beforeDir="false" afterPath="$PROJECT_DIR$/rabbitmq_work/send.py" afterDir="false" />
@@ -2215,11 +2219,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rabbitmq_work/executor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="84" column="27" lean-forward="true" selection-start-line="84" selection-start-column="27" selection-end-line="84" selection-end-column="27" />
+            <state relative-caret-position="544">
+              <caret line="102" column="35" selection-start-line="102" selection-start-column="25" selection-end-line="102" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -2227,8 +2231,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rabbitmq_work/mq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="178" column="29" lean-forward="true" selection-start-line="178" selection-start-column="29" selection-end-line="178" selection-end-column="29" />
+            <state relative-caret-position="-3106">
+              <caret line="46" column="8" lean-forward="true" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -2242,11 +2246,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rabbitmq_work/callback_adapter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="113" column="70" selection-start-line="113" selection-start-column="70" selection-end-line="113" selection-end-column="70" />
+            <state relative-caret-position="2050">
+              <caret line="115" column="36" lean-forward="true" selection-start-line="115" selection-start-column="36" selection-end-line="115" selection-end-column="36" />
               <folding>
                 <element signature="e#90#99#0" expanded="true" />
               </folding>
@@ -2306,11 +2310,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>EPIPE</find>
-      <find>Disconnected from RabbitMQ at</find>
-      <find>queue_name</find>
-      <find>exchange</find>
-      <find>self.connection.process_data_events</find>
       <find>SSLError</find>
       <find>ack</find>
       <find>CallbackError</find>
@@ -2334,8 +2333,13 @@
       <find>handler is invalid</find>
       <find>mq_callback_adapter</find>
       <find>mq_cb</find>
-      <find>callback</find>
+      <find>body</find>
+      <find>inspect.getargspec</find>
+      <find>handler</find>
       <find>Error: ConnectionError</find>
+      <find>call_back</find>
+      <find>Executor Run...</find>
+      <find>callback</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2526,6 +2530,13 @@
               <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
               <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
               <item name="rabbitmq_work" type="462c0819:PsiDirectoryNode" />
+              <item name="mq.py" type="8704e2dd:PyFileNode" />
+              <item name="RMQ" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
+              <item name="rabbitmq_work" type="462c0819:PsiDirectoryNode" />
               <item name="pkgadmin.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
@@ -2640,7 +2651,7 @@
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17228661" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.20712695" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.114699334" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -2908,13 +2919,6 @@
     <entry file="file://$PROJECT_DIR$/rabbitmq_work/modules/FLOW/flow.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/pika/channel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="393" column="8" selection-start-line="393" selection-start-column="8" selection-end-line="393" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pika/adapters/blocking_connection.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="397">
@@ -2936,27 +2940,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rabbitmq_work/mq.py">
+    <entry file="file://$PROJECT_DIR$/pika/channel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="178" column="29" lean-forward="true" selection-start-line="178" selection-start-column="29" selection-end-line="178" selection-end-column="29" />
+        <state relative-caret-position="22">
+          <caret line="393" column="8" selection-start-line="393" selection-start-column="8" selection-end-line="393" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rabbitmq_work/executor.py">
+    <entry file="file://$PROJECT_DIR$/rabbitmq_work/mq.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="84" column="27" lean-forward="true" selection-start-line="84" selection-start-column="27" selection-end-line="84" selection-end-column="27" />
+        <state relative-caret-position="-3106">
+          <caret line="46" column="8" lean-forward="true" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rabbitmq_work/callback_adapter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="113" column="70" selection-start-line="113" selection-start-column="70" selection-end-line="113" selection-end-column="70" />
+        <state relative-caret-position="2050">
+          <caret line="115" column="36" lean-forward="true" selection-start-line="115" selection-start-column="36" selection-end-line="115" selection-end-column="36" />
           <folding>
             <element signature="e#90#99#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rabbitmq_work/executor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="102" column="35" selection-start-line="102" selection-start-column="25" selection-end-line="102" selection-end-column="35" />
         </state>
       </provider>
     </entry>

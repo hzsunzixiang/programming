@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9eb43118-0251-40bd-9326-5bf136fcc2b8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../python/getattr/getattr.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../python/getattr/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Makefile" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../algrithm/alg.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../algrithm/alg.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../algrithm/dijkstra/main" beforeDir="false" afterPath="$PROJECT_DIR$/../../algrithm/dijkstra/main" afterDir="false" />

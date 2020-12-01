@@ -59,6 +59,7 @@ def run_executor(key, callback, overhear=False):
     try:
         # 参数为业务模块中的 callback
         # 返回之后即为 callback_adapter 中的 callback
+        # 在这里 callback 的含义发生变化，从 3个参数，变为 4个参数
         callback = mq_callback_adapter(callback)
         # 此时的callback 即为 适合MQ调用的 callback
     except CallbackError, inst:
@@ -90,6 +91,12 @@ def run_executor(key, callback, overhear=False):
         print 'Fatal: connect MQ failed: %s' % inst
         raise inst
 
+   # mq_conn.channel 重试 publish
+    try:
+        pass
+    except:
+        pass
+
     # Step3: wait or die alone
     try:
         print("getattr(mq_conn, listen_fun)(key, callback)........")
@@ -118,7 +125,7 @@ def main():
     module = __import__("FLOW")
     callback = module.handler
     key = 'FLOW'
-    run_executor(key, callback, overhear=True)
+    run_executor(key, callback, overhear=False)
     #if module_name == 'DEBUG':
     #    key = 'DEBUG'
     #    run_executor(key, callback, overhear=True)

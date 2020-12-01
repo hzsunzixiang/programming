@@ -38,6 +38,20 @@ def mq_callback_adapter(callback):
         CallbackError: handler is invalid
     '''
 
+
+    def decompress_cb(channel, method, properties, body):
+        """
+        给其他的没有mq_cb的其他模块进行解压缩操作。
+        :param channel:
+        :param method:
+        :param properties:
+        :param body:
+        :return:
+        """
+        # 这里没有返回值，直接使用channel进行向MQ ack数据
+        callback(channel, method, properties, body)
+
+
     # 这里才是真正体现 MQ的参数的地方
     # 这样可以不用把各参数暴露给外面
     def mq_cb(channel, method, properties, body):
@@ -92,24 +106,17 @@ def mq_callback_adapter(callback):
         finally:
             try:
                 channel.basic_ack(delivery_tag=method.delivery_tag)
-            except ChannelClosed, inst:
-                print('Error: AMQPChannelError:  %s' % (inst,))
-                raise
-            except AMQPChannelError, inst:
-                print('Error: AMQPChannelError:  %s' % (inst,))
-                raise
             except AMQPError, inst:
                 print('Error: AMQPError:  %s' % (inst,))
                 raise
             except Exception, e:
-                import traceback
                 print(traceback.format_exc())
-                print('create mq except %s' % e)
                 raise
             print('channel.basic_ack success')
             # 如果 ACK成功，但是下面这个失败，需要重试
+
             try:
-                print("exchange:%s, properties:%s"%(method.exchange, properties))
+                print("channel.basic_publish: exchange:%s, properties:%s"%(method.exchange, properties))
                 ret = channel.basic_publish(exchange=method.exchange,
                                             routing_key="ericksun_test",
                                             body="Hello,China" + str(time.time()),
@@ -123,9 +130,13 @@ def mq_callback_adapter(callback):
             time.sleep(10)
 
     # 函数的入口处，上面都是函数定义
+    # TODO 这里的callback已经是重连之后的callback，不再是入口的callback
     args_len = len(inspect.getargspec(callback).args)
     # 对应的是业务模块的这个 callback:  def handler(module, command, params):
     print("args_len %s, inspect.getargspec(callback).args: %s" % (args_len, inspect.getargspec(callback).args))
+    if args_len == 4:
+        # 重连的时候走的是这里的逻辑
+        return decompress_cb
     if args_len in (3, 5):
         return mq_cb
     else:
