@@ -1081,6 +1081,7 @@
       <change beforePath="$PROJECT_DIR$/../../lxc_image/lxc_create/lxc-debootstrap" beforeDir="false" afterPath="$PROJECT_DIR$/../../lxc_image/lxc_create/lxc-debootstrap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-install.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-install.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-prepare.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-prepare.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../makefile/make/make_pattern/make3/Makefile5" beforeDir="false" afterPath="$PROJECT_DIR$/../../makefile/make/make_pattern/make3/Makefile5" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_read" beforeDir="false" afterPath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_read" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_write" beforeDir="false" afterPath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_write" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../manual/man.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../manual/man.sh" afterDir="false" />

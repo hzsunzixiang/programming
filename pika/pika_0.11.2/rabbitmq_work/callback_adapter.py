@@ -108,19 +108,19 @@ def mq_callback_adapter(callback):
                 raise
             print('channel.basic_ack success')
             # 如果 ACK成功，但是下面这个失败，需要重试
-            # try:
-            #     print("exchange:%s, properties:%s"%(method.exchange, properties))
-            #     ret = channel.basic_publish(exchange=method.exchange,
-            #                                 routing_key="FLOW",
-            #                                 body="Hello,China" + str(time.time()),
-            #                                 properties=properties)
-            #     print "publish msg  to MQ, next_module ret:[%s]"%(ret, )
-            # except Exception, e:
-            #     import traceback
-            #     print(traceback.format_exc())
-            #     print('create mq except %s' % e)
-            #     raise
-            # time.sleep(10)
+            try:
+                print("exchange:%s, properties:%s"%(method.exchange, properties))
+                ret = channel.basic_publish(exchange=method.exchange,
+                                            routing_key="ericksun_test",
+                                            body="Hello,China" + str(time.time()),
+                                            properties=properties)
+                print "publish msg  to MQ, next_module ret:[%s]"%(ret, )
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print('create mq except %s' % e)
+                raise
+            time.sleep(10)
 
     # 函数的入口处，上面都是函数定义
     args_len = len(inspect.getargspec(callback).args)

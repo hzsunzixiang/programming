@@ -81,7 +81,7 @@ def run_executor(key, callback, overhear=False):
                          password=password)
 
     except AMQPConnectionError, inst:
-        print '...Error: ConnectionError: %s' % inst
+        print 'Error: ConnectionError: %s' % inst
         return _reconnect()
     except AMQPError, inst:
         print 'Error: connect MQ failed: %s' % inst
@@ -95,7 +95,7 @@ def run_executor(key, callback, overhear=False):
         print("getattr(mq_conn, listen_fun)(key, callback)........")
         getattr(mq_conn, listen_fun)(key, callback)
     except AMQPError, inst:
-        print 'xxxx Error: ConnectionError: %s' % inst
+        print 'Error: ConnectionError: %s' % inst
         return _reconnect()
     except Exception, inst:
         import traceback

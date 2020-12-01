@@ -1081,6 +1081,7 @@
       <change beforePath="$PROJECT_DIR$/../../lxc_image/lxc_create/lxc-debootstrap" beforeDir="false" afterPath="$PROJECT_DIR$/../../lxc_image/lxc_create/lxc-debootstrap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-install.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-install.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-prepare.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-prepare.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../makefile/make/make_pattern/make3/Makefile5" beforeDir="false" afterPath="$PROJECT_DIR$/../../makefile/make/make_pattern/make3/Makefile5" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_read" beforeDir="false" afterPath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_read" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_write" beforeDir="false" afterPath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_write" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../manual/man.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../manual/man.sh" afterDir="false" />
@@ -1637,6 +1638,7 @@
       <change beforePath="$PROJECT_DIR$/pika/adapters/libev_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/pika/adapters/libev_connection.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pika/credentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/pika/credentials.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pika/heartbeat.py" beforeDir="false" afterPath="$PROJECT_DIR$/pika/heartbeat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rabbitmq_work/mq.py" beforeDir="false" afterPath="$PROJECT_DIR$/rabbitmq_work/mq.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rabbitmq_work/pkgadmin.py" beforeDir="false" afterPath="$PROJECT_DIR$/rabbitmq_work/pkgadmin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rabbitmq_work/send.py" beforeDir="false" afterPath="$PROJECT_DIR$/rabbitmq_work/send.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/readme.txt" afterDir="false" />
@@ -2216,17 +2218,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rabbitmq_work/executor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-840">
-              <caret line="61" column="48" lean-forward="true" selection-start-line="61" selection-start-column="24" selection-end-line="61" selection-end-column="48" />
+            <state relative-caret-position="410">
+              <caret line="84" column="27" lean-forward="true" selection-start-line="84" selection-start-column="27" selection-end-line="84" selection-end-column="27" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rabbitmq_work/mq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="177" column="12" lean-forward="true" selection-start-line="177" selection-start-column="12" selection-end-line="177" selection-end-column="12" />
+            <state relative-caret-position="410">
+              <caret line="178" column="29" lean-forward="true" selection-start-line="178" selection-start-column="29" selection-end-line="178" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -2240,11 +2242,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rabbitmq_work/callback_adapter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="10" column="51" lean-forward="true" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
+            <state relative-caret-position="275">
+              <caret line="113" column="70" selection-start-line="113" selection-start-column="70" selection-end-line="113" selection-end-column="70" />
+              <folding>
+                <element signature="e#90#99#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -2328,8 +2333,8 @@
       <find>listen</find>
       <find>handler is invalid</find>
       <find>mq_callback_adapter</find>
-      <find>callback</find>
       <find>mq_cb</find>
+      <find>callback</find>
       <find>Error: ConnectionError</find>
     </findStrings>
   </component>
@@ -2359,9 +2364,9 @@
         <option value="$PROJECT_DIR$/rabbitmq_work/pkgadmin.py" />
         <option value="$PROJECT_DIR$/admin/init.xml" />
         <option value="$PROJECT_DIR$/pika/spec.py" />
+        <option value="$PROJECT_DIR$/rabbitmq_work/mq.py" />
         <option value="$PROJECT_DIR$/rabbitmq_work/executor.py" />
         <option value="$PROJECT_DIR$/rabbitmq_work/callback_adapter.py" />
-        <option value="$PROJECT_DIR$/rabbitmq_work/mq.py" />
       </list>
     </option>
   </component>
@@ -2931,24 +2936,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rabbitmq_work/callback_adapter.py">
+    <entry file="file://$PROJECT_DIR$/rabbitmq_work/mq.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="10" column="51" lean-forward="true" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
+        <state relative-caret-position="410">
+          <caret line="178" column="29" lean-forward="true" selection-start-line="178" selection-start-column="29" selection-end-line="178" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rabbitmq_work/executor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-840">
-          <caret line="61" column="48" lean-forward="true" selection-start-line="61" selection-start-column="24" selection-end-line="61" selection-end-column="48" />
+        <state relative-caret-position="410">
+          <caret line="84" column="27" lean-forward="true" selection-start-line="84" selection-start-column="27" selection-end-line="84" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rabbitmq_work/mq.py">
+    <entry file="file://$PROJECT_DIR$/rabbitmq_work/callback_adapter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="177" column="12" lean-forward="true" selection-start-line="177" selection-start-column="12" selection-end-line="177" selection-end-column="12" />
+        <state relative-caret-position="275">
+          <caret line="113" column="70" selection-start-line="113" selection-start-column="70" selection-end-line="113" selection-end-column="70" />
+          <folding>
+            <element signature="e#90#99#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
