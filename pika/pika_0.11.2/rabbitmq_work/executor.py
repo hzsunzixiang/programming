@@ -51,7 +51,7 @@ def run_executor(key, callback, overhear=False, retry_publish_para=None):
             print 'Error: retry too many times!'
             return
         retry_times += 1
-        time.sleep(10)
+        time.sleep(5)
         run_executor(key, callback, overhear, retry_publish_para)
 
     if overhear:
@@ -104,6 +104,8 @@ def run_executor(key, callback, overhear=False, retry_publish_para=None):
     # 发送未成功消息
     # mq_conn.channel 重试 publish
     if isinstance(retry_publish_para, dict):
+        print("try publish: channel.basic_publish................")
+        time.sleep(10)
         print("try publish: channel.basic_publish: exchange:%s, routing_key:%s,body:%s " % (
             retry_publish_para["exchange"], retry_publish_para["routing_key"], retry_publish_para["body"]))
         try:

@@ -7,7 +7,8 @@ exchange = 'vstation'
 vhost = 'vstation'
 user =  'vstation'
 password = 'vstation'
-queue_name =  'FLOW'
+#queue_name =  'FLOW'
+queue_name =  'ericksun_test'
 
 credentials = pika.PlainCredentials(user, password)
 

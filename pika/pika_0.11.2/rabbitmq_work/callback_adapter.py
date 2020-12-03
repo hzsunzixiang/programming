@@ -124,8 +124,8 @@ def mq_callback_adapter(key, callback, overhear):
                                             properties=properties)
                 print "publish msg  to MQ, next_module ret:[%s]"%(ret, )
             except Exception, e:
-                import traceback
-                print(traceback.format_exc())
+                #import traceback
+                #print(traceback.format_exc())
                 print('publish msg  to MQ failed, except %s' % e)
                 retry_publish_para = {"exchange":method.exchange, "routing_key":"ericksun_test", "body":"Hello,China" + str(time.time()), "properties": properties }
                 from executor import run_executor
