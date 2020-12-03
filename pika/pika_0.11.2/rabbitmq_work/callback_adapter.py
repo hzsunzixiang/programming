@@ -16,7 +16,8 @@ class CallbackError(Exception):
     pass
 
 
-def mq_callback_adapter(callback):
+def mq_callback_adapter(key, callback, overhear):
+
     '''回调函数装饰器, 将模块定义的回调函数转化为pika的回调函数。
     @param callback: 模块自定义的回调函数
     @type callback: 函数对象
@@ -55,8 +56,8 @@ def mq_callback_adapter(callback):
     # 这里才是真正体现 MQ的参数的地方
     # 这样可以不用把各参数暴露给外面
     def mq_cb(channel, method, properties, body):
-        print " [x] Received %r, ch:%s method:%s, properties:%s" % (body, channel, method, properties)
-
+        #print " [x] Received %r, ch:%s method:%s, properties:%s" % (body, channel, method, properties)
+        print " [x] Received %r,   method:%s " % (body,  method )
         class Namespace(object):
             pass
 
@@ -112,9 +113,9 @@ def mq_callback_adapter(callback):
             except Exception, e:
                 print(traceback.format_exc())
                 raise
-            print('channel.basic_ack success')
+            print('channel.basic_ack success, will publish to next queue')
             # 如果 ACK成功，但是下面这个失败，需要重试
-
+            time.sleep(10)
             try:
                 print("channel.basic_publish: exchange:%s, properties:%s"%(method.exchange, properties))
                 ret = channel.basic_publish(exchange=method.exchange,
@@ -125,12 +126,14 @@ def mq_callback_adapter(callback):
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
-                print('create mq except %s' % e)
-                raise
-            time.sleep(10)
+                print('publish msg  to MQ failed, except %s' % e)
+                retry_publish_para = {"exchange":method.exchange, "routing_key":"ericksun_test", "body":"Hello,China" + str(time.time()), "properties": properties }
+                from executor import run_executor
+                run_executor(key, callback_origin, overhear, retry_publish_para)
+            time.sleep(2)
 
     # 函数的入口处，上面都是函数定义
-    # TODO 这里的callback已经是重连之后的callback，不再是入口的callback
+    # 这里的callback可能是是重连之后的callback，也可能是入口的callback, 需要根据参数个数匹配
     args_len = len(inspect.getargspec(callback).args)
     # 对应的是业务模块的这个 callback:  def handler(module, command, params):
     print("args_len %s, inspect.getargspec(callback).args: %s" % (args_len, inspect.getargspec(callback).args))
@@ -138,6 +141,8 @@ def mq_callback_adapter(callback):
         # 重连的时候走的是这里的逻辑
         return decompress_cb
     if args_len in (3, 5):
+        # 保留原始的callback函数，重连的时候需要
+        callback_origin = callback
         return mq_cb
     else:
         raise CallbackError('handler is invalid')

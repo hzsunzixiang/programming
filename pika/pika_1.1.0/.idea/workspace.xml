@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9eb43118-0251-40bd-9326-5bf136fcc2b8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../python/getattr/getattr.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../python/getattr/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Makefile" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../algrithm/alg.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../algrithm/alg.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../algrithm/dijkstra/main" beforeDir="false" afterPath="$PROJECT_DIR$/../../algrithm/dijkstra/main" afterDir="false" />
@@ -1083,7 +1081,6 @@
       <change beforePath="$PROJECT_DIR$/../../lxc_image/lxc_create/lxc-debootstrap" beforeDir="false" afterPath="$PROJECT_DIR$/../../lxc_image/lxc_create/lxc-debootstrap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-install.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-install.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-prepare.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-prepare.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../makefile/make/make_pattern/make3/Makefile5" beforeDir="false" afterPath="$PROJECT_DIR$/../../makefile/make/make_pattern/make3/Makefile5" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_read" beforeDir="false" afterPath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_read" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_write" beforeDir="false" afterPath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_write" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../manual/man.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../manual/man.sh" afterDir="false" />
@@ -1774,6 +1771,9 @@
       <change beforePath="$PROJECT_DIR$/../../python/decorator_work/main_20.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../python/decorator_work/main_20.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../python/decorator_work/main_back.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../python/decorator_work/main_back.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../python/function/useFun.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../python/function/useFun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../python/getargspec/getargspec.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../python/getargspec/getargspec.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../python/getattr/getattr.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../python/getattr/getattr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../python/getattr/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../python/getattr/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../python/gevent/20190619/1_gevent.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../python/gevent/20190619/1_gevent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../python/gevent/20190619/2_gevent.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../python/gevent/20190619/2_gevent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../python/gevent/20190619/3_gevent.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../python/gevent/20190619/3_gevent.py" afterDir="false" />
@@ -2214,7 +2214,7 @@
         <entry file="file://$PROJECT_DIR$/test/send.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="475">
-              <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+              <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
               <folding>
                 <element signature="e#42#53#0" expanded="true" />
               </folding>
@@ -2238,7 +2238,7 @@
         <entry file="file://$PROJECT_DIR$/test/receive.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1300">
-              <caret line="55" column="11" lean-forward="true" selection-start-line="55" selection-start-column="11" selection-end-line="55" selection-end-column="11" />
+              <caret line="55" column="11" selection-start-line="55" selection-start-column="11" selection-end-line="55" selection-end-column="11" />
               <folding>
                 <element signature="e#42#53#0" expanded="true" />
               </folding>
@@ -2250,7 +2250,7 @@
         <entry file="file://$PROJECT_DIR$/pika/adapters/twisted_connection.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="656">
-              <caret line="916" column="74" lean-forward="true" selection-start-line="916" selection-start-column="74" selection-end-line="916" selection-end-column="74" />
+              <caret line="916" column="74" selection-start-line="916" selection-start-column="74" selection-end-line="916" selection-end-column="74" />
             </state>
           </provider>
         </entry>
@@ -2258,8 +2258,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pika/spec.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1">
-              <caret line="47" column="19" selection-start-line="47" selection-end-line="47" selection-end-column="19" />
+            <state relative-caret-position="376">
+              <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
             </state>
           </provider>
         </entry>
@@ -2268,7 +2268,7 @@
         <entry file="file://$PROJECT_DIR$/pika/channel.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34800">
-              <caret line="1400" column="30" lean-forward="true" selection-start-line="1400" selection-start-column="30" selection-end-line="1400" selection-end-column="30" />
+              <caret line="1400" column="30" selection-start-line="1400" selection-start-column="30" selection-end-line="1400" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -2298,7 +2298,7 @@
         <entry file="file://$PROJECT_DIR$/pika/connection.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="603">
-              <caret line="2238" column="67" lean-forward="true" selection-start-line="2238" selection-start-column="67" selection-end-line="2238" selection-end-column="67" />
+              <caret line="2238" column="67" selection-start-line="2238" selection-start-column="67" selection-end-line="2238" selection-end-column="67" />
               <folding>
                 <element signature="e#80#90#0" expanded="true" />
               </folding>
@@ -2369,9 +2369,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="width" value="1932" />
-    <option name="height" value="1030" />
+    <option name="x" value="260" />
+    <option name="y" value="20" />
+    <option name="width" value="1400" />
+    <option name="height" value="1000" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -2395,12 +2396,6 @@
             <path>
               <item name="pika_1.1.0" type="b2602c69:ProjectViewProjectNode" />
               <item name="pika_1.1.0" type="462c0819:PsiDirectoryNode" />
-              <item name="pika" type="462c0819:PsiDirectoryNode" />
-              <item name="spec.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="pika_1.1.0" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pika_1.1.0" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -2414,7 +2409,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="E:/workspace/FLOW" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -2433,12 +2428,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24920969" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1548999" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.2260579" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.19153675" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -2567,7 +2561,7 @@
     <entry file="file://$PROJECT_DIR$/test/receive.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1300">
-          <caret line="55" column="11" lean-forward="true" selection-start-line="55" selection-start-column="11" selection-end-line="55" selection-end-column="11" />
+          <caret line="55" column="11" selection-start-line="55" selection-start-column="11" selection-end-line="55" selection-end-column="11" />
           <folding>
             <element signature="e#42#53#0" expanded="true" />
           </folding>
@@ -2577,7 +2571,7 @@
     <entry file="file://$PROJECT_DIR$/pika/channel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34800">
-          <caret line="1400" column="30" lean-forward="true" selection-start-line="1400" selection-start-column="30" selection-end-line="1400" selection-end-column="30" />
+          <caret line="1400" column="30" selection-start-line="1400" selection-start-column="30" selection-end-line="1400" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -2611,7 +2605,7 @@
     <entry file="file://$PROJECT_DIR$/pika/connection.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="603">
-          <caret line="2238" column="67" lean-forward="true" selection-start-line="2238" selection-start-column="67" selection-end-line="2238" selection-end-column="67" />
+          <caret line="2238" column="67" selection-start-line="2238" selection-start-column="67" selection-end-line="2238" selection-end-column="67" />
           <folding>
             <element signature="e#80#90#0" expanded="true" />
           </folding>
@@ -2621,7 +2615,7 @@
     <entry file="file://$PROJECT_DIR$/test/send.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
-          <caret line="26" column="26" lean-forward="true" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+          <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
           <folding>
             <element signature="e#42#53#0" expanded="true" />
           </folding>
@@ -2631,14 +2625,14 @@
     <entry file="file://$PROJECT_DIR$/pika/adapters/twisted_connection.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="656">
-          <caret line="916" column="74" lean-forward="true" selection-start-line="916" selection-start-column="74" selection-end-line="916" selection-end-column="74" />
+          <caret line="916" column="74" selection-start-line="916" selection-start-column="74" selection-end-line="916" selection-end-column="74" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pika/spec.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1">
-          <caret line="47" column="19" selection-start-line="47" selection-end-line="47" selection-end-column="19" />
+        <state relative-caret-position="376">
+          <caret line="62" lean-forward="true" selection-start-line="62" selection-end-line="62" />
         </state>
       </provider>
     </entry>
