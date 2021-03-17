@@ -10,7 +10,7 @@ import time
 import mq
 from callback_adapter import mq_callback_adapter
 from pika.exceptions import AMQPError, AMQPConnectionError
-
+import inspect
 # 当前重连次数
 retry_times = 0
 
@@ -45,7 +45,7 @@ def run_executor(key, callback, overhear=False, retry_publish_para=None):
     @return: None'''
 
     def _reconnect():
-        print 'Info: try reconnect...'
+        print 'Info: try reconnect... retry_times:%s, callback:%s'%(retry_times, inspect.getargspec(callback))
         global retry_times
         if retry_times >= MAX_RETRY:
             print 'Error: retry too many times!'
@@ -108,8 +108,8 @@ def run_executor(key, callback, overhear=False, retry_publish_para=None):
         time.sleep(10)
         print("try publish: channel.basic_publish: exchange:%s, routing_key:%s,body:%s " % (
             retry_publish_para["exchange"], retry_publish_para["routing_key"], retry_publish_para["body"]))
+        print("try publish: retry_publish_para:%s " % (retry_publish_para, ))
         try:
-
             ret = mq_conn.channel.basic_publish(exchange=retry_publish_para["exchange"],
                                                 routing_key=retry_publish_para["routing_key"],
                                                 body=retry_publish_para["body"],
@@ -118,7 +118,22 @@ def run_executor(key, callback, overhear=False, retry_publish_para=None):
         except Exception, e:
             import traceback
             print(traceback.format_exc())
-            print('create mq except %s' % e)
+            print('create mq except %s..................................' % e)
+            # Traceback (most recent call last):
+            #   File "/home/ericksun/programming/pika/pika_0.11.2/rabbitmq_work/executor.py", line 116, in run_executor
+            #     properties=retry_publish_para["properties"])
+            #   File "/usr/local/lib/python2.7/dist-packages/pika/adapters/blocking_connection.py", line 2239, in basic_publish
+            #     self._flush_output()
+            #   File "/usr/local/lib/python2.7/dist-packages/pika/adapters/blocking_connection.py", line 1327, in _flush_output
+            #     self._connection._flush_output(lambda: self.is_closed, *waiters)
+            #   File "/usr/local/lib/python2.7/dist-packages/pika/adapters/blocking_connection.py", line 523, in _flush_output
+            #     raise self._closed_result.value.error
+            # StreamLostError: Stream connection lost: error(104, 'Connection reset by peer')
+            #
+            # create mq except Stream connection lost: error(104, 'Connection reset by peer')..................................
+            # Info: try reconnect...
+
+            #time.sleep(10)
             return _reconnect()
     else:
         print("retry_publish_para is None or not dict")

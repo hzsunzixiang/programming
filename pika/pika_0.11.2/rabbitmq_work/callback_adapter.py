@@ -19,6 +19,7 @@ class CallbackError(Exception):
 def mq_callback_adapter(key, callback, overhear):
 
     '''回调函数装饰器, 将模块定义的回调函数转化为pika的回调函数。
+    @param key : 模块监听的队列, 重试的时候需要
     @param callback: 模块自定义的回调函数
     @type callback: 函数对象
     @return: 装饰后可作为pika consume时回调的函数对象
@@ -118,8 +119,9 @@ def mq_callback_adapter(key, callback, overhear):
             time.sleep(10)
             try:
                 print("channel.basic_publish: exchange:%s, properties:%s"%(method.exchange, properties))
+                routing_key = "ericksun_test"
                 ret = channel.basic_publish(exchange=method.exchange,
-                                            routing_key="ericksun_test",
+                                            routing_key=routing_key,
                                             body="Hello,China" + str(time.time()),
                                             properties=properties)
                 print "publish msg  to MQ, next_module ret:[%s]"%(ret, )
@@ -129,6 +131,7 @@ def mq_callback_adapter(key, callback, overhear):
                 print('publish msg  to MQ failed, except %s' % e)
                 retry_publish_para = {"exchange":method.exchange, "routing_key":"ericksun_test", "body":"Hello,China" + str(time.time()), "properties": properties }
                 from executor import run_executor
+                # 这里的key 是 run_executor 中最原始的key， callback_origin 也是最原始的callback
                 run_executor(key, callback_origin, overhear, retry_publish_para)
             time.sleep(2)
 

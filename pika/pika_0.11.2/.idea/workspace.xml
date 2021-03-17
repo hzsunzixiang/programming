@@ -1081,7 +1081,6 @@
       <change beforePath="$PROJECT_DIR$/../../lxc_image/lxc_create/lxc-debootstrap" beforeDir="false" afterPath="$PROJECT_DIR$/../../lxc_image/lxc_create/lxc-debootstrap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-install.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-install.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-prepare.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../lxc_image/lxc_create_final/lxc-prepare.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../makefile/make/make_pattern/make3/Makefile5" beforeDir="false" afterPath="$PROJECT_DIR$/../../makefile/make/make_pattern/make3/Makefile5" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_read" beforeDir="false" afterPath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_read" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_write" beforeDir="false" afterPath="$PROJECT_DIR$/../../makefile/so/multitarget/mmap_write" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../manual/man.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../../manual/man.sh" afterDir="false" />
@@ -1638,6 +1637,8 @@
       <change beforePath="$PROJECT_DIR$/pika/adapters/libev_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/pika/adapters/libev_connection.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pika/credentials.py" beforeDir="false" afterPath="$PROJECT_DIR$/pika/credentials.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pika/heartbeat.py" beforeDir="false" afterPath="$PROJECT_DIR$/pika/heartbeat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rabbitmq_work/callback_adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/rabbitmq_work/callback_adapter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rabbitmq_work/executor.py" beforeDir="false" afterPath="$PROJECT_DIR$/rabbitmq_work/executor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rabbitmq_work/mq.py" beforeDir="false" afterPath="$PROJECT_DIR$/rabbitmq_work/mq.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rabbitmq_work/pkgadmin.py" beforeDir="false" afterPath="$PROJECT_DIR$/rabbitmq_work/pkgadmin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rabbitmq_work/send.py" beforeDir="false" afterPath="$PROJECT_DIR$/rabbitmq_work/send.py" afterDir="false" />
@@ -2215,19 +2216,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rabbitmq_work_iterator/executor.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="54" column="36" lean-forward="true" selection-start-line="54" selection-start-column="36" selection-end-line="54" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rabbitmq_work/executor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
-              <caret line="107" column="21" selection-start-line="107" selection-start-column="21" selection-end-line="107" selection-end-column="21" />
+            <state relative-caret-position="247">
+              <caret line="66" column="33" selection-start-line="66" selection-start-column="33" selection-end-line="66" selection-end-column="33" />
               <folding>
                 <element signature="e#63#73#0" expanded="true" />
               </folding>
@@ -2235,11 +2227,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rabbitmq_work/callback_adapter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="125" column="32" lean-forward="true" selection-start-line="125" selection-start-column="32" selection-end-line="125" selection-end-column="32" />
+            <state relative-caret-position="47">
+              <caret line="64" column="24" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="24" />
               <folding>
                 <element signature="e#91#100#0" expanded="true" />
               </folding>
@@ -2268,8 +2260,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pika/channel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1478">
-              <caret line="393" column="8" selection-start-line="393" selection-start-column="8" selection-end-line="393" selection-end-column="8" />
+            <state relative-caret-position="581">
+              <caret line="201" column="73" selection-start-line="201" selection-start-column="73" selection-end-line="201" selection-end-column="73" />
             </state>
           </provider>
         </entry>
@@ -2295,8 +2287,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pika/adapters/blocking_connection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="2075" column="12" selection-start-line="2075" selection-start-column="12" selection-end-line="2075" selection-end-column="12" />
+            <state relative-caret-position="556">
+              <caret line="1986" column="25" selection-start-line="1986" selection-start-column="25" selection-end-line="1986" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -2312,10 +2304,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>get_app_num</find>
-      <find>run script succeeded</find>
-      <find>base_info</find>
-      <find>app_name</find>
       <find>check_process</find>
       <find>all</find>
       <find>PRECONDITION_FAILED</find>
@@ -2337,11 +2325,15 @@
       <find>Executor Run...</find>
       <find>executor</find>
       <find>callback_adapter</find>
-      <find>mq_callback_adapter</find>
       <find>publish msg  to MQ failed,</find>
       <find>Received</find>
       <find>_reconnect</find>
       <find>sleep</find>
+      <find>callback_origin</find>
+      <find>Info: try reconnect...</find>
+      <find>key</find>
+      <find>basic_ac</find>
+      <find>mq_callback_adapter</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -2372,11 +2364,12 @@
         <option value="$PROJECT_DIR$/pika/spec.py" />
         <option value="$PROJECT_DIR$/rabbitmq_work/mq.py" />
         <option value="$PROJECT_DIR$/rabbitmq_work/callback_adapter.py" />
+        <option value="$PROJECT_DIR$/rabbitmq_work_iterator/executor.py" />
         <option value="$PROJECT_DIR$/rabbitmq_work/executor.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="260" />
     <option name="y" value="20" />
     <option name="width" value="1400" />
@@ -2395,30 +2388,6 @@
             <path>
               <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
               <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="check_port.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="pkgadmin.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-              <item name="pkgadmin.py" type="8704e2dd:PyFileNode" />
-              <item name="PkgAdmin" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
               <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
@@ -2450,21 +2419,6 @@
               <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
               <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
               <item name="pika" type="462c0819:PsiDirectoryNode" />
-              <item name="adapters" type="462c0819:PsiDirectoryNode" />
-              <item name="twisted_connection.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
-              <item name="pika" type="462c0819:PsiDirectoryNode" />
-              <item name="adapters" type="462c0819:PsiDirectoryNode" />
-              <item name="twisted_connection.py" type="8704e2dd:PyFileNode" />
-              <item name="TwistedChannel" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
-              <item name="pika" type="462c0819:PsiDirectoryNode" />
               <item name="channel.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
@@ -2473,12 +2427,6 @@
               <item name="pika" type="462c0819:PsiDirectoryNode" />
               <item name="channel.py" type="8704e2dd:PyFileNode" />
               <item name="Channel" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
-              <item name="pika" type="462c0819:PsiDirectoryNode" />
-              <item name="spec.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
               <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
@@ -2499,91 +2447,9 @@
             </path>
             <path>
               <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 2.6 &gt;" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 2.6 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 2.6 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="hashlib.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 2.6 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="traceback.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 2.6 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="python2.6" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 2.6 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="python2.6" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 2.6 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="python2.6" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="hashlib.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 2.6 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="python2.6" type="462c0819:PsiDirectoryNode" />
-              <item name="Lib" type="462c0819:PsiDirectoryNode" />
-              <item name="traceback.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 2.6 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Typeshed Stubs" type="9c07c3ae:PyTypeShedNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 2.6 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Typeshed Stubs" type="9c07c3ae:PyTypeShedNode" />
-              <item name="2and3" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 2.6 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Typeshed Stubs" type="9c07c3ae:PyTypeShedNode" />
-              <item name="2and3" type="462c0819:PsiDirectoryNode" />
-              <item name="socket.pyi" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="pika_0.11.2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 2.6 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="Typeshed Stubs" type="9c07c3ae:PyTypeShedNode" />
-              <item name="2and3" type="462c0819:PsiDirectoryNode" />
-              <item name="socket.pyi" type="8704e2dd:PyFileNode" />
-              <item name="socket" type="dd8bbb05:PyElementNode" />
+              <item name="pika_0.11.2" type="462c0819:PsiDirectoryNode" />
+              <item name="rabbitmq_work" type="462c0819:PsiDirectoryNode" />
+              <item name="flow.py" type="8704e2dd:PyFileNode" />
             </path>
           </expand>
           <select />
@@ -2618,7 +2484,7 @@
     <configuration />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17228661" />
@@ -2903,13 +2769,6 @@
     <entry file="file://$PROJECT_DIR$/rabbitmq_work/modules/FLOW/flow.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/pika/adapters/blocking_connection.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="2075" column="12" selection-start-line="2075" selection-start-column="12" selection-end-line="2075" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pika/adapters/twisted_connection.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="430">
@@ -2931,13 +2790,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pika/channel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1478">
-          <caret line="393" column="8" selection-start-line="393" selection-start-column="8" selection-end-line="393" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rabbitmq_work/mq.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="572">
@@ -2945,32 +2797,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rabbitmq_work/flow.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/rabbitmq_work_iterator/executor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="54" column="36" lean-forward="true" selection-start-line="54" selection-start-column="36" selection-end-line="54" selection-end-column="36" />
+        <state relative-caret-position="547">
+          <caret line="49" column="110" lean-forward="true" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="110" />
+          <folding>
+            <element signature="e#63#73#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rabbitmq_work/callback_adapter.py">
+    <entry file="file://$PROJECT_DIR$/rabbitmq_work/flow.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pika/adapters/blocking_connection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="125" column="32" lean-forward="true" selection-start-line="125" selection-start-column="32" selection-end-line="125" selection-end-column="32" />
-          <folding>
-            <element signature="e#91#100#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="556">
+          <caret line="1986" column="25" selection-start-line="1986" selection-start-column="25" selection-end-line="1986" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pika/channel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="581">
+          <caret line="201" column="73" selection-start-line="201" selection-start-column="73" selection-end-line="201" selection-end-column="73" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rabbitmq_work/executor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="107" column="21" selection-start-line="107" selection-start-column="21" selection-end-line="107" selection-end-column="21" />
+        <state relative-caret-position="247">
+          <caret line="66" column="33" selection-start-line="66" selection-start-column="33" selection-end-line="66" selection-end-column="33" />
           <folding>
             <element signature="e#63#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rabbitmq_work/callback_adapter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="64" column="24" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="24" />
+          <folding>
+            <element signature="e#91#100#0" expanded="true" />
           </folding>
         </state>
       </provider>
