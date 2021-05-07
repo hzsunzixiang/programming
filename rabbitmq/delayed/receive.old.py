@@ -7,8 +7,7 @@ exchange = 'vstation'
 vhost = 'vstation'
 user =  'vstation'
 password = 'vstation'
-queue_name =  'FLOW'
-#queue_name =  'ericksun_test'
+queue_name =  'ericksun_test'
 
 credentials = pika.PlainCredentials(user, password)
 
@@ -37,9 +36,9 @@ def callback(ch, method, properties, body):
     print " [x] Received %r, ch:%s method:%s, properties:%s" % (body, ch, method, properties)
     ch.basic_ack(delivery_tag = method.delivery_tag)
 
-channel.basic_consume(queue_name,
-	       	          callback,
-                      auto_ack=False)
+channel.basic_consume(callback,
+		              queue_name,
+                      no_ack=False)
 
 #channel.basic_consume(queue_name,
 #	       	          callback,
