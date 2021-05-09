@@ -4,11 +4,11 @@
 import pika
 import time
 
-exchange = 'vstation_delay_exchange_2'
+exchange = 'vstation_delay_exchange'
 vhost = 'vstation'
 user =  'vstation'
 password = 'vstation'
-queue_name =  'DELAYED_QUEUE_2'
+queue_name =  'DELAYED_QUEUE'
 
 credentials = pika.PlainCredentials(user, password)
 

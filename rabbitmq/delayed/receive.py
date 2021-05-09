@@ -3,11 +3,11 @@
 
 import pika
 
-#exchange = 'vstation_delay_exchange'
+exchange = 'vstation_delay_exchange'
 vhost = 'vstation'
 user =  'vstation'
 password = 'vstation'
-queue_name =  'DELAYED_QUEUE_2'
+queue_name =  'DELAYED_QUEUE'
 
 credentials = pika.PlainCredentials(user, password)
 
@@ -23,16 +23,16 @@ result = channel.queue_declare(queue=queue_name, durable=True)
 queue_name = result.method.queue
 print 'queue_name:' + queue_name
 
-## 发送的时候 需要bind 一旦发送方bind之后， 接收方可以不再需要bind，
-## 指定exchange
-#channel.exchange_declare(exchange='vstation_delay_exchange',
-#        exchange_type='x-delayed-message',
-#        arguments={"x-delayed-type":"direct"},
-#        durable=True)
+# 发送的时候 需要bind 一旦发送方bind之后， 接收方可以不再需要bind，
+# 指定exchange
+channel.exchange_declare(exchange=exchange,
+        exchange_type='x-delayed-message',
+        arguments={"x-delayed-type":"direct"},
+        durable=True)
 
 
-## 这一句很重要，否则不生效 
-#channel.queue_bind(exchange=exchange, queue=queue_name)
+# 这一句很重要，否则不生效 
+channel.queue_bind(exchange=exchange, queue=queue_name)
 
 
 print ' [*] Waiting for messages. To exit press CTRL+C'
