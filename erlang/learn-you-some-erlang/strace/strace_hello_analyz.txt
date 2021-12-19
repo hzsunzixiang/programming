@@ -1,0 +1,156 @@
+
+# ================================
+# execve 调用系统函数执行
+## erl -eval 'hello:add(2,3).' -noshell -s init stop  >strace_hello.txt 2>&1
+execve("/usr/bin/erl", ["erl", "-eval", "hello:add(2,3).", "-noshell", "-s", "init", "stop"], 0x7ffd827d9f70 /* 23 vars */) = 0
+
+#另外一种调用方式
+## erl -s write hello  -noshell -s init stop > strace_write.txt 2>&1
+execve("/usr/bin/erl", ["erl", "-s", "write", "hello", "-noshell", "-s", "init", "stop"], 0x7ffed3530240 /* 23 vars */) = 0
+
+# 堆顶
+
+brk(NULL)                               = 0x562179adb000
+
+
+# 当前目录
+stat("/home/ericksun/programming/erlang/learn-you-some-erlang/strace", {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+
+# 打开erl 执行文件 , 这是一个脚本文件
+openat(AT_FDCWD, "/usr/bin/erl", O_RDONLY) = 3
+
+
+# 这是脚本内容
+read(10, "#!/bin/sh\n#\n# %CopyrightBegin%\n# \n# Copyright Ericsson AB 1996-2016. All Rights Reserved.\n# \n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this file except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#     http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n# \n# %CopyrightEnd%\n#\nROOTDIR=/usr/lib/erlang\nBINDIR=$ROOTDIR/erts-10.2.4/bin\nEMU=beam\nPROGNAME=`echo $0 | sed 's/.*\\///'`\nexport EMU\nexport ROOTDIR\nexport BINDIR\nexport PROGNAME\nexec \"$BINDIR/erlexec\" ${1+\"$@\"}\n", 8192) = 849
+
+
+# 查找sed 
+[pid 14932] stat("/usr/local/bin/sed", 0x7ffcd1b226d0) = -1 ENOENT (No such file or directory)
+[pid 14933] write(1, "/usr/bin/erl\n", 13) = 13
+[pid 14932] stat("/usr/bin/sed", {st_mode=S_IFREG|0755, st_size=122224, ...}) = 0
+
+
+# sed 执行 
+[pid 14934] execve("/usr/bin/sed", ["sed", "s/.*\\///"], 0x562179adba58 /* 23 vars */ <unfinished ...>
+
+# 加在SO 共享内存中
+[pid 14934] openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libacl.so.1", O_RDONLY|O_CLOEXEC) = 3
+[pid 14934] openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libselinux.so.1", O_RDONLY|O_CLOEXEC) = 3
+[pid 14934] openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+[pid 14934] openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libattr.so.1", O_RDONLY|O_CLOEXEC) = 3
+[pid 14934] openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpcre.so.3", O_RDONLY|O_CLOEXEC) = 3
+[pid 14934] fstat(3, {st_mode=S_IFREG|0644, st_size=468944, ...}) = 0
+[pid 14934] openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+[pid 14934] openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+
+
+# 信号设置
+[pid 14934] set_tid_address(0x7fcc6c827ad0) = 14934
+[pid 14934] set_robust_list(0x7fcc6c827ae0, 24) = 0
+[pid 14934] rt_sigaction(SIGRTMIN, {sa_handler=0x7fcc6c8306b0, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x7fcc6c83c730}, NULL, 8) = 0
+[pid 14934] rt_sigaction(SIGRT_1, {sa_handler=0x7fcc6c830740, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART|SA_SIGINFO, sa_restorer=0x7fcc6c83c730}, NULL, 8) = 0
+[pid 14934] rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+
+# 读取很多文件 
+[pid 14934] statfs("/sys/fs/selinux", 0x7ffec2fd4b70) = -1 ENOENT (No such file or directory)
+[pid 14934] statfs("/selinux", 0x7ffec2fd4b70) = -1 ENOENT (No such file or directory)
+[pid 14934] brk(NULL)                   = 0x5646a790e000
+[pid 14934] brk(0x5646a792f000)         = 0x5646a792f000
+[pid 14934] openat(AT_FDCWD, "/proc/filesystems", O_RDONLY|O_CLOEXEC) = 3
+[pid 14934] access("/etc/selinux/config", F_OK) = -1 ENOENT (No such file or directory)
+[pid 14934] openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+[pid 14934] openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+[pid 14934] openat(AT_FDCWD, "/usr/lib/locale/en_US.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+[pid 14934] openat(AT_FDCWD, "/usr/lib/locale/en_US.utf8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3
+
+# 继续 执行erlang的 运行时系统
+execve("/usr/lib/erlang/erts-10.2.4/bin/erlexec", ["/usr/lib/erlang/erts-10.2.4/bin/erlexec", "-eval", "hello:add(2,3).", "-noshell", "-s", "init", "stop"], 0x562179adba28 /* 27 vars */) = 0
+
+# add 函数
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/sys/devices/system/cpu", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+
+# 读取 /sys 下各种文件
+lstat("/sys", {st_mode=S_IFDIR|0555, st_size=0, ...}) = 0
+lstat("/sys/devices", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+lstat("/sys/devices/system", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+......
+# 这里读取 cpu 信息  ,充分利用多核信息？
+lstat("/sys/devices/system/node/node0", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+lstat("/sys/devices/system/node/node0/cpu0", {st_mode=S_IFLNK|0777, st_size=0, ...}) = 0
+readlink("/sys/devices/system/node/node0/cpu0", "../../cpu/cpu0", 4095) = 14
+lstat("/sys/devices/system/cpu", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+lstat("/sys/devices/system/cpu/cpu0", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+lstat("/sys/devices/system/cpu/cpu0/topology", {st_mode=S_IFDIR|0755, st_size=0, ...}) = 0
+lstat("/sys/devices/system/cpu/cpu0/topology/core_id", {st_mode=S_IFREG|0444, st_size=4096, ...}) = 0
+openat(AT_FDCWD, "/sys/devices/system/cpu/cpu0/topology/core_id", O_RDONLY) = 5
+
+
+# beam.smp erlang 运行时, beam 虚拟机启动
+execve("/usr/lib/erlang/erts-10.2.4/bin/beam.smp", ["/usr/lib/erlang/erts-10.2.4/bin/beam.smp", "--", "-root", "/usr/lib/erlang", "-progname", "erl", "--", "-home", "/home/ericksun", "--", "-eval", "hello:add(2,3).", "-noshell", "-s", "init", "stop"], 0x7ffde8368108 /* 27 vars */) = 0
+
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libdl.so.2", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libm.so.6", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libtinfo.so.6", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libpthread.so.0", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/librt.so.1", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+arch_prctl(ARCH_SET_FS, 0x7f6f6b081740) = 0
+# 
+rt_sigaction(SIGRTMIN, {sa_handler=0x7f6f6b2576b0, sa_mask=[], sa_flags=SA_RESTORER|SA_SIGINFO, sa_restorer=0x7f6f6b263730}, NULL, 8) = 0
+rt_sigaction(SIGRT_1, {sa_handler=0x7f6f6b257740, sa_mask=[], sa_flags=SA_RESTORER|SA_RESTART|SA_SIGINFO, sa_restorer=0x7f6f6b263730}, NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+
+# 
+brk(NULL)                               = 0x559d5699a000
+brk(0x559d569bb000)                     = 0x559d569bb000
+getpid()                                = 14931
+openat(AT_FDCWD, "/sys/devices/system/cpu", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+
+# 在线 online cpu
+openat(AT_FDCWD, "/sys/devices/system/cpu/online", O_RDONLY|O_CLOEXEC) = 3
+# 亲和性
+sched_getaffinity(14931, 128, [0, 1, 2, 3]) = 64
+readlink("/sys/devices/system/node/node0/cpu3", "../../cpu/cpu3", 4095) = 14
+
+# cpu 和node信息 
+lstat("/sys/devices/system/cpu/cpu3/topology/physical_package_id", {st_mode=S_IFREG|0444, st_size=4096, ...}) = 0
+openat(AT_FDCWD, "/sys/devices/system/cpu/cpu3/topology/physical_package_id", O_RDONLY) = 5
+
+# 
+uname({sysname="Linux", nodename="debian-1", ...}) = 0
+openat(AT_FDCWD, "/dev/null", O_RDONLY) = 3
+
+
+#  调用 epoll_ctl
+epoll_ctl(4, EPOLL_CTL_ADD, 5, {EPOLLIN|EPOLLONESHOT, {u32=5, u64=537881453380239365}}) = 0
+timerfd_create(CLOCK_MONOTONIC, 0)      = 7
+epoll_ctl(4, EPOLL_CTL_ADD, 7, {EPOLLIN|EPOLLONESHOT, {u32=7, u64=537881453380239367}}) = 0
+epoll_create(256)                       = 8
+
+epoll_ctl(8, EPOLL_CTL_ADD, 9, {EPOLLIN, {u32=9, u64=537881453380239369}}) = 0
+timerfd_create(CLOCK_MONOTONIC, 0)      = 11
+epoll_ctl(8, EPOLL_CTL_ADD, 11, {EPOLLIN, {u32=11, u64=537881453380239371}}) = 0
+
+
+[pid 14931] openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+[pid 14931] openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 18
+[pid 14931] fstat(18, {st_mode=S_IFREG|0644, st_size=2995, ...}) = 0
+[pid 14931] brk(0x559d569c6000)         = 0x559d569c6000
+
+
+
+# 如果调用系统函数
+
+比如下面的erlang代码对应着
+hello() ->
+    io:format("Hello, world!~n").
+
+[pid 14170] <... sched_yield resumed> ) = 0
+[pid 14154] writev(1, [{iov_base="Hello, world!\n", iov_len=14}], 1Hello, world!
+ <unfinished ...>
+[pid 14156] futex(0x7fe219c002d0, FUTEX_WAKE_PRIVATE, 1 <unfinished ...>
+
+
+

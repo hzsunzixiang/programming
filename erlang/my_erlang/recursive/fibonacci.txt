@@ -1,0 +1,98 @@
+
+
+# https://puredanger.github.io/tech.puredanger.com/2008/12/30/playing-with-erlang/
+
+Fibbing with Erlang
+30 Dec 2008
+Next week I’ll be doing a talk on Actor Concurrency at the CodeMash conference, which looks like it will be a lot of fun. During my holiday downtime I’ve been hacking around on a bunch of Erlang (and Scala) code. I’m going to write a couple posts with some little snippets here in case anyone’s interested.
+
+Erlang in a nutshell is a functional, dynamically-typed language designed to build concurrent, distributed, fault-tolerant systems. The language is 20 years old and was invented at Ericsson to build telecom software however the feature set seems remarkably prescient to the challenges we face in the multi-core era today.
+
+Here’s a little Fibonacci module I wrote during exploration (fib.erl):
+
+	-module(fib).
+
+	-export([fib/1]).
+
+	fib(0) -> 0;
+
+	fib(1) -> 1;
+
+	fib(N) -> fib(N-1) + fib(N-2).
+
+	A module is the unit of code in Erlang and this file defines a set of functions in a module. By default, all modules are local to the module unless they are exported with the -export directive. The “fib/1” refers to the function “fib” with arity 1. In this module I’ve defined fib with three expressions; the one actually invoked at any given time is selected based on pattern matching. Here I defined fib(0) and fib(1) as special base cases and defined fib(N) recursively in terms of the two prior values in the sequence.
+
+	To actually use this module interactively in the Erlang shell, you can do something like this:
+
+	[~/erl]$ erl
+
+	Erlang (BEAM) emulator version 5.6.3 [smp:2] [async-threads:0] [kernel-poll:false]
+
+	Eshell V5.6.3 (abort with ^G)
+
+	1> c(fib.erl).
+
+{ok,fib}
+
+2> [fib:fib(1), fib:fib(2), fib:fib(3), fib:fib(4), fib:fib(5), fib:fib(6)].
+
+[1,1,2,3,5,8]
+
+In that trace, I started the Erlang shell with “erl”, then typed a series of commands at the numbered prompt. The first call “c” just loads and compiles a module, specifically the module I declared above. The second call creates a list (square brackets) with a series of expressions each of which invokes my fib function for the ith Fibonacci number.
+
+However, the definition of Fibonacci here is not really ideal. Because we are relying on two recursive calls back to the fib function, we cannot utilize tail recursion and so to compute each preceding value for the Nth value, we consume a stack frame. This makes poor use of memory and will cause the runtime to crash with a large enough value.
+
+A better approach is to calculate the values iteratively, reusing the same stack frame for each successive Fibonacci calculation. To do this, we need to walk forward through the Fibonacci sequence, passing the prior two values and computing a new one at each step. In this way, we pass the “state” (in the form of the last two values) on the parameter stack until we reach the Nth value.
+
+Here is fib recast in a tail-recursive friendly form:
+
+-module(fib2).
+
+-export([fib/1]).
+
+fib(N) -> fib_iter(N, 0, 1).
+
+fib_iter(0, Result, _Next) -> Result;
+
+fib_iter(Iter, Result, Next) when Iter > 0 ->
+
+fib_iter(Iter-1, Next, Result+Next).
+
+A common technique when converting a recursive algorithm to an iterative one is to use a helper function that puts extra state in some additional parameters that can change during the iterative call. This example uses that technique by doing the real work in fib_iter/2 and just priming it with the proper values when you call fib/1.
+
+fib_iter takes three arguments – the first tells you how many more values of the sequence you need to compute and serves as what would be a decreasing loop index in an imperative language. The last two arguments are the last two values in the sequence, starting with 0 and 1 as the initial values. The first definition for fib_iter is the base case and says that when the iteration argument hits 0, the Result is the second argument and we just return it.
+
+An aside: _Next here is unused (but must exist to match the arity for fib_iter/2). In Erlang, variables starting with an _ are unused (often just _ is used but here I’ve named it to match the other definition for clarity). If I had just used Next here, Erlang would have warned me with something like: “./fib2.erl:6: Warning: variable ‘Next’ is unused”.
+
+The second definition has a guard (“when Iter > 0”) that indicates when it should be matched and just makes a single recursive call to itself (allowing tail recursion to kick in). You’ll notice that the first iterator argument is decremented, the most recent prior value moves from the 3rd arg to the 2nd, and we calculate the next value by adding the two incoming values.
+
+Running this we see the same results as before:
+
+1> c(fib2).
+
+{ok,fib2}
+
+2> [fib2:fib(1), fib2:fib(2), fib2:fib(3), fib2:fib(4), fib2:fib(5), fib2:fib(6)].
+
+[1,1,2,3,5,8]
+
+3> fib2:fib(1024).
+
+4506699633677819813104383235728886049367860596218604830803023149600030645708721396248792609141030396244873266580345011219530209367425581019871067646094200262285202346655868899711089246778413354004103631553925405243
+
+Note that fib2 copes just fine with fib(1024) and clearly Erlang uses arbitrary precision integers like Java’s BigInteger.
+
+The big difference though is in performance. We’ve switched from a O(2^n) kind of algorithm to a O(n) algorithm, which obviously is a lot different. Here’s a quick test of the two. I got tired of waiting on fib(64) after 10 minutes or so although it probably would have returned eventually.
+
+
+To obtain a timing in Erlang, you can use this little function:
+
+1> timer:tc(fib, fib, [16]).
+
+{160,987}
+
+The tc function takes the module, function, and list of arguments and returns a tuple with the time (in microseconds) and the result.
+
+Hope you enjoyed a little romp into Erlang with me. I should also mention for completeness that there are even more efficient implementations of Fibonacci as well.
+
+Probably my biggest syntactical gripe about Erlang coding so far is how annoying it is to have three termination symbols (, ; .) that are used in different contexts. These all have well-defined rational uses and I can almost always decide which is the right one to use, but it still requires a lot of thinking about something that really shouldn’t be that hard. I’ve also found it to be a royal pain when refactoring my code as I frequently move a line of code and then find the terminator is the wrong one in the new context. But other than that, writing Erlang code has been a lot of fun.
