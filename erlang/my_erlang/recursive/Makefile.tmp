@@ -1,0 +1,19 @@
+.PHONY:clean all
+
+all: compile
+#BIN=fac
+#BIN=fib
+#BIN=len
+#BIN=reverse
+#BIN=duplicate
+%BIN=sublist
+BIN=quicksort
+%BIN=zip
+compile: clean
+	erlc  $(BIN).erl
+
+run:
+	erl -s $(BIN) start -noshell -s init stop
+
+clean:
+	rm -f *.beam

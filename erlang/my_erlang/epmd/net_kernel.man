@@ -1,0 +1,281 @@
+net_kernel(3erl)                                                 Erlang Module Definition                                                 net_kernel(3erl)
+
+NAME
+       net_kernel - Erlang networking kernel.
+
+DESCRIPTION
+       The net kernel is a system process, registered as net_kernel, which must be operational for distributed Erlang to work. The purpose of this process
+       is to implement parts of the BIFs spawn/4 and spawn_link/4, and to provide monitoring of the network.
+
+       An Erlang node is started using command-line flag -name or -sname:
+
+       $ erl -sname foobar
+
+       It is also possible to call net_kernel:start([foobar]) directly from the normal Erlang shell prompt:
+
+       1> net_kernel:start([foobar, shortnames]).
+       {ok,<0.64.0>}
+       (foobar@gringotts)2>
+
+       If the node is started with command-line flag -sname, the node name is foobar@Host, where Host is the short name of the host (not the fully  quali‐
+       fied  domain  name). If started with flag -name, the node name is foobar@Host, where Host is the fully qualified domain name. For more information,
+       see erl.
+
+       Normally, connections are established automatically when another node is referenced. This functionality can be disabled by setting Kernel  configu‐
+       ration parameter dist_auto_connect to never, see kernel(7). In this case, connections must be established explicitly by calling connect_node/1.
+
+       Which  nodes  that  are  allowed to communicate with each other is handled by the magic cookie system, see section Distributed Erlang in the Erlang
+       Reference Manual.
+
+   Warning:
+       Starting a distributed node without also specifying -proto_dist inet_tls will expose the node to attacks that may give the attacker complete access
+       to  the  node  and in extension the cluster. When using un-secure distributed nodes, make sure that the network is configured to keep potential at‐
+       tackers out. See the  Using SSL for Erlang Distribution User's Guide for details on how to setup a secure distributed node.
+
+EXPORTS
+       allow(Nodes) -> ok | error
+
+              Types:
+
+                 Nodes = [node()]
+
+              Permits access to the specified set of nodes.
+
+              Before the first call to allow/1, any node with the correct cookie can be connected. When allow/1 is called, a list of allowed nodes is  es‐
+              tablished. Any access attempts made from (or to) nodes not in that list will be rejected.
+
+              Subsequent calls to allow/1 will add the specified nodes to the list of allowed nodes. It is not possible to remove nodes from the list.
+
+              Returns error if any element in Nodes is not an atom.
+
+       connect_node(Node) -> boolean() | ignored
+
+              Types:
+
+                 Node = node()
+
+              Establishes  a  connection to Node. Returns true if a connection was established or was already established or if Node is the local node it‐
+              self. Returns false if the connection attempt failed, and ignored if the local node is not alive.
+
+       get_net_ticktime() -> Res
+
+              Types:
+
+                 Res = NetTicktime | {ongoing_change_to, NetTicktime} | ignored
+                 NetTicktime = integer() >= 1
+
+              Gets net_ticktime (see kernel(7)).
+
+              Defined return values (Res):
+
+                NetTicktime:
+                  net_ticktime is NetTicktime seconds.
+
+                {ongoing_change_to, NetTicktime}:
+                  net_kernel is currently changing net_ticktime to NetTicktime seconds.
+
+                ignored:
+                  The local node is not alive.
+
+       getopts(Node, Options) ->
+                  {ok, OptionValues} | {error, Reason} | ignored
+
+              Types:
+
+                 Node = node()
+                 Options = [inet:socket_getopt()]
+                 OptionValues = [inet:socket_setopt()]
+                 Reason = inet:posix() | noconnection
+
+              Get one or more options for the distribution socket connected to Node.
+
+              If Node is a connected node the return value is the same as from inet:getopts(Sock, Options) where Sock is the distribution socket for Node.
+
+              Returns ignored if the local node is not alive or {error, noconnection} if Node is not connected.
+
+       monitor_nodes(Flag) -> ok | Error
+
+       monitor_nodes(Flag, Options) -> ok | Error
+
+              Types:
+
+                 Flag = boolean()
+                 Options = [Option]
+                 Option = {node_type, NodeType} | nodedown_reason
+                 NodeType = visible | hidden | all
+                 Error = error | {error, term()}
+
+              The calling process subscribes or unsubscribes to node status change messages. A nodeup message is delivered to  all  subscribing  processes
+              when a new node is connected, and a nodedown message is delivered when a node is disconnected.
+
+              If  Flag is true, a new subscription is started. If Flag is false, all previous subscriptions started with the same Options are stopped. Two
+              option lists are considered the same if they contain the same set of options.
+
+              As from Kernel version 2.11.4, and ERTS version 5.5.4, the following is guaranteed:
+
+                * nodeup messages are delivered before delivery of any message from the remote node passed through the newly established connection.
+
+                * nodedown messages are not delivered until all messages from the remote node that have been passed through the connection have  been  de‐
+                  livered.
+
+              Notice that this is not guaranteed for Kernel versions before 2.11.4.
+
+              As  from  Kernel  version  2.11.4,  subscriptions  can  also  be  made  before  the  net_kernel server is started, that is, net_kernel:moni‐
+              tor_nodes/[1,2] does not return ignored.
+
+              As from Kernel version 2.13, and ERTS version 5.7, the following is guaranteed:
+
+                * nodeup messages are delivered after the corresponding node appears in results from erlang:nodes/X.
+
+                * nodedown messages are delivered after the corresponding node has disappeared in results from erlang:nodes/X.
+
+              Notice that this is not guaranteed for Kernel versions before 2.13.
+
+              The format of the node status change messages depends on Options. If Options is [], which is the default, the format is as follows:
+
+              {nodeup, Node} | {nodedown, Node}
+                Node = node()
+
+              If Options is not [], the format is as follows:
+
+              {nodeup, Node, InfoList} | {nodedown, Node, InfoList}
+                Node = node()
+                InfoList = [{Tag, Val}]
+
+              InfoList is a list of tuples. Its contents depends on Options, see below.
+
+              Also, when OptionList == [], only visible nodes, that is, nodes that appear in the result of erlang:nodes/0, are monitored.
+
+              Option can be any of the following:
+
+                {node_type, NodeType}:
+                  Valid values for NodeType:
+
+                  visible:
+                    Subscribe to node status change messages for visible nodes only. The tuple {node_type, visible} is included in InfoList.
+
+                  hidden:
+                    Subscribe to node status change messages for hidden nodes only. The tuple {node_type, hidden} is included in InfoList.
+
+                  all:
+                    Subscribe to node status change messages for both visible and hidden nodes. The tuple {node_type, visible | hidden} is included in In‐
+                    foList.
+
+                nodedown_reason:
+                  The tuple {nodedown_reason, Reason} is included in InfoList in nodedown messages.
+
+                  Reason  can, depending on which distribution module or process that is used be any term, but for the standard TCP distribution module it
+                  is any of the following:
+
+                  connection_setup_failed:
+                    The connection setup failed (after nodeup messages were sent).
+
+                  no_network:
+                    No network is available.
+
+                  net_kernel_terminated:
+                    The net_kernel process terminated.
+
+                  shutdown:
+                    Unspecified connection shutdown.
+
+                  connection_closed:
+                    The connection was closed.
+
+                  disconnect:
+                    The connection was disconnected (forced from the current node).
+
+                  net_tick_timeout:
+                    Net tick time-out.
+
+                  send_net_tick_failed:
+                    Failed to send net tick over the connection.
+
+                  get_status_failed:
+                    Status information retrieval from the Port holding the connection failed.
+
+       set_net_ticktime(NetTicktime) -> Res
+
+       set_net_ticktime(NetTicktime, TransitionPeriod) -> Res
+
+              Types:
+
+                 NetTicktime = integer() >= 1
+                 TransitionPeriod = integer() >= 0
+                 Res =
+                     unchanged |
+                     change_initiated |
+                     {ongoing_change_to, NewNetTicktime}
+                 NewNetTicktime = integer() >= 1
+
+              Sets net_ticktime (see kernel(7)) to NetTicktime seconds. TransitionPeriod defaults to 60.
+
+              Some definitions:
+
+                Minimum transition traffic interval (MTTI):
+                  minimum(NetTicktime, PreviousNetTicktime)*1000 div 4 milliseconds.
+
+                Transition period:
+                  The time of the least number of consecutive MTTIs to cover TransitionPeriod seconds following the call to set_net_ticktime/2  (that  is,
+                  ((TransitionPeriod*1000 - 1) div MTTI + 1)*MTTI milliseconds).
+
+              If  NetTicktime < PreviousNetTicktime, the net_ticktime change is done at the end of the transition period; otherwise at the beginning. Dur‐
+              ing the transition period, net_kernel ensures that there is outgoing traffic on all connections at least every MTTI millisecond.
+
+          Note:
+              The net_ticktime changes must be initiated on all nodes in the network (with the same NetTicktime) before the end of any  transition  period
+              on any node; otherwise connections can erroneously be disconnected.
+
+              Returns one of the following:
+
+                unchanged:
+                  net_ticktime already has the value of NetTicktime and is left unchanged.
+
+                change_initiated:
+                  net_kernel initiated the change of net_ticktime to NetTicktime seconds.
+
+                {ongoing_change_to, NewNetTicktime}:
+                  The request is ignored because net_kernel is busy changing net_ticktime to NewNetTicktime seconds.
+
+       setopts(Node, Options) -> ok | {error, Reason} | ignored
+
+              Types:
+
+                 Node = node() | new
+                 Options = [inet:socket_setopt()]
+                 Reason = inet:posix() | noconnection
+
+              Set one or more options for distribution sockets. Argument Node can be either one node name or the atom new to affect the distribution sock‐
+              ets of all future connected nodes.
+
+              The return value is the same as from inet:setopts/2 or {error, noconnection} if Node is not a connected node or new.
+
+              If Node is new the Options will then also be added to kernel configration parameters inet_dist_listen_options and inet_dist_connect_options.
+
+              Returns ignored if the local node is not alive.
+
+       start([Name]) -> {ok, pid()} | {error, Reason}
+       start([Name, NameType]) -> {ok, pid()} | {error, Reason}
+       start([Name, NameType, Ticktime]) -> {ok, pid()} | {error, Reason}
+
+              Types:
+
+                 Name = atom()
+                 NameType = shortnames | longnames
+                 Reason = {already_started, pid()} | term()
+
+              Turns a non-distributed node into a distributed node by starting net_kernel and other necessary processes.
+
+              Notice that the argument is a list with exactly one, two, or three arguments. NameType defaults to longnames and Ticktime to 15000.
+
+       stop() -> ok | {error, Reason}
+
+              Types:
+
+                 Reason = not_allowed | not_found
+
+              Turns a distributed node into a non-distributed node. For other nodes in the network, this is the same as the node going down. Only possible
+              when  the  net kernel was started using start/1, otherwise {error, not_allowed} is returned. Returns {error, not_found} if the local node is
+              not alive.
+
+Ericsson AB                                                             kernel 6.2                                                        net_kernel(3erl)

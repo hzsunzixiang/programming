@@ -1,0 +1,22 @@
+.PHONY:clean all run compile
+
+# https://makefiletutorial.com/#multiple-targets
+all: compile run
+
+BIN=add incr_decr
+
+compile:$(BIN) 
+%:%.erl
+	erlc $< 
+
+#run:$(BIN) 
+#%:%.beam
+#	erl -s $@ start -noshell -s init stop
+
+RUN_BIN=add
+run:
+	erl -s $(RUN_BIN) start -noshell -s init stop
+
+
+clean:
+	@rm -rf $@.beam 

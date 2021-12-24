@@ -1,0 +1,356 @@
+kernel(7)                                                      Erlang Application Definition                                                     kernel(7)
+
+NAME
+       kernel - The Kernel application.
+
+DESCRIPTION
+       The Kernel application has all the code necessary to run the Erlang runtime system: file servers, code servers, and so on.
+
+       The  Kernel application is the first application started. It is mandatory in the sense that the minimal system based on Erlang/OTP consists of Ker‐
+       nel and STDLIB. Kernel contains the following functional areas:
+
+         * Start, stop, supervision, configuration, and distribution of applications
+
+         * Code loading
+
+         * Logging
+
+         * Global name service
+
+         * Supervision of Erlang/OTP
+
+         * Communication with sockets
+
+         * Operating system interface
+
+LOGGER HANDLERS
+       Two standard logger handlers are defined in the Kernel application. These are described in the Kernel User's Guide, and in  the  logger_std_h(3erl)
+       and logger_disk_log_h(3erl) manual pages.
+
+OS SIGNAL EVENT HANDLER
+       Asynchronous  OS  signals may be subscribed to via the Kernel applications event manager (see OTP Design Principles and gen_event(3erl)) registered
+       as erl_signal_server. A default signal handler is installed which handles the following signals:
+
+         sigusr1:
+           The default handler will halt Erlang and produce a crashdump with slogan "Received SIGUSR1". This is  equivalent  to  calling  erlang:halt("Re‐
+           ceived SIGUSR1").
+
+         sigquit:
+           The default handler will halt Erlang immediately. This is equivalent to calling erlang:halt().
+
+         sigterm:
+           The default handler will terminate Erlang normally. This is equivalent to calling init:stop().
+
+   Events
+       Any event handler added to erl_signal_server must handle the following events.
+
+         sighup:
+           Hangup detected on controlling terminal or death of controlling process
+
+         sigquit:
+           Quit from keyboard
+
+         sigabrt:
+           Abort signal from abort
+
+         sigalrm:
+           Timer signal from alarm
+
+         sigterm:
+           Termination signal
+
+         sigusr1:
+           User-defined signal 1
+
+         sigusr2:
+           User-defined signal 2
+
+         sigchld:
+           Child process stopped or terminated
+
+         sigstop:
+           Stop process
+
+         sigtstp:
+           Stop typed at terminal
+
+       Setting OS signals are described in os:set_signal/2.
+
+CONFIGURATION
+       The  following  configuration  parameters  are  defined  for  the Kernel application. For more information about configuration parameters, see file
+       app(5).
+
+         distributed = [Distrib]:
+           Specifies which applications that are distributed and on which nodes they are allowed to execute. In this parameter:
+
+           * Distrib = {App,Nodes} | {App,Time,Nodes}
+
+           * App = atom()
+
+           * Time = integer()>0
+
+           * Nodes = [node() | {node(),...,node()}]
+
+           The parameter is described in application:load/2.
+
+         dist_auto_connect = Value:
+           Specifies when nodes are automatically connected. If this parameter is not specified, a node is always automatically  connected,  for  example,
+           when a message is to be sent to that node. Value is one of:
+
+           never:
+             Connections are never automatically established, they must be explicitly connected. See net_kernel(3erl).
+
+           once:
+             Connections  are  established  automatically,  but  only  once per node. If a node goes down, it must thereafter be explicitly connected. See
+             net_kernel(3erl).
+
+         permissions = [Perm]:
+           Specifies the default permission for applications when they are started. In this parameter:
+
+           * Perm = {ApplName,Bool}
+
+           * ApplName = atom()
+
+           * Bool = boolean()
+
+           Permissions are described in application:permit/2.
+
+         logger = [Config]:
+           Specifies the configuration for Logger, except the primary log level, which is specified with logger_level, and the compatibility with SASL Er‐
+           ror Logging, which is specified with logger_sasl_compatible.
+
+           The logger  parameter is described in section  Logging in the Kernel User's Guide.
+
+         logger_level = Level:
+           Specifies  the  primary  log  level for Logger. Log events with the same, or a more severe level, pass through the primary log level check. See
+           section Logging in the Kernel User's Guide for more information about Logger and log levels.
+
+           Level = emergency | alert | critical | error | warning | notice | info | debug | all | none
+
+           To change the primary log level at runtime, use logger:set_primary_config(level, Level).
+
+           Defaults to notice.
+
+         logger_sasl_compatible = true | false:
+           Specifies if Logger behaves backwards compatible with the SASL error logging functionality from releases prior to Erlang/OTP 21.0.
+
+           If this parameter is set to true, the default Logger handler does not log any progress-, crash-, or supervisor reports. If the SASL application
+           is  then started, it adds a Logger handler named sasl, which logs these events according to values of the SASL configuration parameter sasl_er‐
+           ror_logger and sasl_errlog_type.
+
+           See section  Deprecated Error Logger Event Handlers and Configuration in the sasl(7) manual page for information about the  SASL  configuration
+           parameters.
+
+           See  section  SASL Error Logging in the SASL User's Guide, and section Backwards Compatibility with error_logger in the Kernel User's Guide for
+           information about the SASL error logging functionality, and how Logger can be backwards compatible with this.
+
+           Defaults to false.
+
+     Note:
+         If this parameter is set to true, sasl_errlog_type indicates that progress reports shall be logged, and the configured primary log level  is  no‐
+         tice or more severe, then SASL automatically sets the primary log level to info. That is, this setting can potentially overwrite the value of the
+         Kernel configuration parameter logger_level. This is to allow progress reports, which have log level info, to be forwarded to the handlers.
+
+         global_groups = [GroupTuple]:
+
+           Defines global groups, see global_group(3erl). In this parameter:
+
+           * GroupTuple = {GroupName, [Node]} | {GroupName, PublishType, [Node]}
+
+           * GroupName = atom()
+
+           * PublishType = normal | hidden
+
+           * Node = node()
+
+         inet_default_connect_options = [{Opt, Val}]:
+           Specifies default options for connect sockets, see inet(3erl).
+
+         inet_default_listen_options = [{Opt, Val}]:
+           Specifies default options for listen (and accept) sockets, see inet(3erl).
+
+         {inet_dist_use_interface, ip_address()}:
+           If the host of an Erlang node has many network interfaces, this parameter specifies which one to listen on. For the type definition  of  ip_ad‐
+           dress(), see inet(3erl).
+
+         {inet_dist_listen_min, First} and {inet_dist_listen_max, Last}:
+           Defines the First..Last port range for the listener socket of a distributed Erlang node.
+
+         {inet_dist_listen_options, Opts}:
+
+           Defines a list of extra socket options to be used when opening the listening socket for a distributed Erlang node. See gen_tcp:listen/2.
+
+         {inet_dist_connect_options, Opts}:
+
+           Defines a list of extra socket options to be used when connecting to other distributed Erlang nodes. See gen_tcp:connect/4.
+
+         inet_parse_error_log = silent:
+           If set, no log events are issued when erroneous lines are found and skipped in the various Inet configuration files.
+
+         inetrc = Filename:
+           The name (string) of an Inet user configuration file. For details, see section Inet Configuration in the ERTS User's Guide.
+
+         net_setuptime = SetupTime:
+
+           SetupTime must be a positive integer or floating point number, and is interpreted as the maximum allowed time for each network operation during
+           connection setup to another Erlang node. The maximum allowed value is 120. If higher values are specified, 120 is used. Default is 7 seconds if
+           the variable is not specified, or if the value is incorrect (for example, not a number).
+
+           Notice that this value does not limit the total connection setup time, but rather each individual network operation during the connection setup
+           and handshake.
+
+         net_ticktime = TickTime:
+
+           Specifies the net_kernel tick time in seconds. This is the approximate time a connected node may be unresponsive until it  is  considered  down
+           and thereby disconnected.
+
+           Once  every  TickTime/4 seconds, each connected node is ticked if nothing has been sent to it during that last TickTime/4 interval. A tick is a
+           small package sent on the connection. A connected node is considered to be down if no ticks or payload packages have been received  during  the
+           last  four  TickTime/4  intervals.  This  ensures that nodes that are not responding, for reasons such as hardware errors, are considered to be
+           down.
+
+           As the availability is only checked every TickTime/4 seconds, the actual time T a node have been unresponsive when detected  may  vary  between
+           MinT and MaxT, where:
+
+         MinT = TickTime - TickTime / 4
+         MaxT = TickTime + TickTime / 4
+
+           TickTime defaults to 60 seconds. Thus, 45 < T < 75 seconds.
+
+           Notice  that  all  communicating nodes are to have the same TickTime value specified, as it determines both the frequency of outgoing ticks and
+           the expected frequency of incominging ticks.
+
+           Normally, a terminating node is detected immediately by the transport protocol (like TCP/IP).
+
+         shutdown_timeout = integer() | infinity:
+           Specifies the time application_controller waits for an application to terminate during node shutdown. If the  timer  expires,  application_con‐
+           troller brutally kills application_master of the hanging application. If this parameter is undefined, it defaults to infinity.
+
+         sync_nodes_mandatory = [NodeName]:
+           Specifies  which  other  nodes that must be alive for this node to start properly. If some node in the list does not start within the specified
+           time, this node does not start either. If this parameter is undefined, it defaults to [].
+
+         sync_nodes_optional = [NodeName]:
+           Specifies which other nodes that can be alive for this node to start properly. If some node in this list does not start  within  the  specified
+           time, this node starts anyway. If this parameter is undefined, it defaults to the empty list.
+
+         sync_nodes_timeout = integer() | infinity:
+           Specifies  the  time  (in  milliseconds) that this node waits for the mandatory and optional nodes to start. If this parameter is undefined, no
+           node synchronization is performed. This option ensures that global is synchronized.
+
+         start_dist_ac = true | false:
+           Starts the dist_ac server if the parameter is true. This parameter is to be set to true for systems using distributed applications.
+
+           Defaults to false. If this parameter is undefined, the server is started if parameter distributed is set.
+
+         start_boot_server = true | false:
+           Starts the boot_server if the parameter is true (see erl_boot_server(3erl)). This parameter is to be set to true in an  embedded  system  using
+           this service.
+
+           Defaults to false.
+
+         boot_server_slaves = [SlaveIP]:
+           If configuration parameter start_boot_server is true, this parameter can be used to initialize boot_server with a list of slave IP addresses:
+
+           SlaveIP = string() | atom | {integer(),integer(),integer(),integer()},
+
+           where 0 <= integer() <=255.
+
+           Examples of SlaveIP in atom, string, and tuple form:
+
+           '150.236.16.70', "150,236,16,70", {150,236,16,70}.
+
+           Defaults to [].
+
+         start_disk_log = true | false:
+           Starts  the disk_log_server if the parameter is true (see disk_log(3erl)). This parameter is to be set to true in an embedded system using this
+           service.
+
+           Defaults to false.
+
+         start_pg2 = true | false:
+
+           Starts the pg2 server (see pg2(3erl)) if the parameter is true. This parameter is to be set to true in an embedded system that uses  this  ser‐
+           vice.
+
+           Defaults to false.
+
+         start_timer = true | false:
+           Starts  the  timer_server if the parameter is true (see timer(3erl)). This parameter is to be set to true in an embedded system using this ser‐
+           vice.
+
+           Defaults to false.
+
+         shell_history = enabled | disabled :
+           Specifies whether shell history should be logged to disk between usages of erl.
+
+         shell_history_drop = [string()]:
+           Specific log lines that should not be persisted. For example ["q().", "init:stop()."] will allow to ignore commands that shut  the  node  down.
+           Defaults to [].
+
+         shell_history_file_bytes = integer():
+           how many bytes the shell should remember. By default, the value is set to 512kb, and the minimal value is 50kb.
+
+         shell_history_path = string():
+           Specifies where the shell history files will be stored. defaults to the user's cache directory as returned by filename:basedir(user_cache, "er‐
+           lang-history").
+
+         shutdown_func = {Mod, Func}:
+           Where:
+
+           * Mod = atom()
+
+           * Func = atom()
+
+           Sets a function that application_controller calls when it starts to terminate. The function is called as Mod:Func(Reason), where Reason is  the
+           terminate reason for application_controller, and it must return as soon as possible for application_controller to terminate properly.
+
+         source_search_rules = [DirRule] | [SuffixRule] :
+
+           Where:
+
+           * DirRule = {ObjDirSuffix,SrcDirSuffix}
+
+           * SuffixRule = {ObjSuffix,SrcSuffix,[DirRule]}
+
+           * ObjDirSuffix = string()
+
+           * SrcDirSuffix = string()
+
+           * ObjSuffix = string()
+
+           * SrcSuffix = string()
+
+           Specifies  a  list of rules for use by filelib:find_file/2 filelib:find_source/2 If this is set to some other value than the empty list, it re‐
+           places the default rules. Rules can be simple pairs of directory suffixes, such as {"ebin", "src"}, which are used by  filelib:find_file/2,  or
+           triples  specifying separate directory suffix rules depending on file name extensions, for example [{".beam", ".erl", [{"ebin", "src"}]}, which
+           are used by filelib:find_source/2. Both kinds of rules can be mixed in the list.
+
+           The interpretation of ObjDirSuffix and SrcDirSuffix is as follows: if the end of the directory name where an  object  is  located  matches  Ob‐
+           jDirSuffix,  then the name created by replacing ObjDirSuffix with SrcDirSuffix is expanded by calling filelib:wildcard/1, and the first regular
+           file found among the matches is the source file.
+
+DEPRECATED CONFIGURATION PARAMETERS
+       In Erlang/OTP 21.0, a new API for logging was added. The old error_logger event manager, and event handlers running on this  manager,  still  work,
+       but they are no longer used by default.
+
+       The  following application configuration parameters can still be set, but they are only used if the corresponding configuration parameters for Log‐
+       ger are not set.
+
+         error_logger:
+           Replaced by setting the type of the default logger_std_h to the same value. Example:
+
+         erl -kernel logger '[{handler,default,logger_std_h,#{config=>#{type=>{file,"/tmp/erlang.log"}}}}]'
+
+         error_logger_format_depth:
+           Replaced by setting the depth parameter of the default handlers formatter. Example:
+
+         erl -kernel logger '[{handler,default,logger_std_h,#{formatter=>{logger_formatter,#{legacy_header=>true,template=>[{logger_formatter,header},"\n",msg,"\n"],depth=>10}}}]'
+
+       See Backwards compatibility with error_logger for more information.
+
+SEE ALSO
+       app(5),  application(3erl),  code(3erl),  disk_log(3erl),  erl_boot_server(3erl),  erl_ddll(3erl),  file(3erl),  global(3erl),  global_group(3erl),
+       heart(3erl), inet(3erl), logger(3erl), net_kernel(3erl), os(3erl), pg2(3erl), rpc(3erl), seq_trace(3erl), user(3erl), timer(3erl)
+
+Ericsson AB                                                             kernel 6.2                                                               kernel(7)
