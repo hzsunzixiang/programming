@@ -15,7 +15,7 @@
 nano_client_eval(Str) ->
     {ok, Socket} = 
 	gen_tcp:connect("localhost", 2345,
-			[binary, {packet, 4}]),
+			[binary, {packet, 2}]),
     ok = gen_tcp:send(Socket, term_to_binary(Str)),
     receive
 	{tcp,Socket,Bin} ->
@@ -26,7 +26,7 @@ nano_client_eval(Str) ->
     end.
 
 start_nano_server() ->
-    {ok, Listen} = gen_tcp:listen(2345, [binary, {packet, 4},  %% (6)
+    {ok, Listen} = gen_tcp:listen(2345, [binary, {packet, 2},  %% (6)
 					 {reuseaddr, true},
 					 {active, true}]),
     {ok, Socket} = gen_tcp:accept(Listen),  %% (7)
