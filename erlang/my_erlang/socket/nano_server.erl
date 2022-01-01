@@ -25,6 +25,28 @@ nano_client_eval(Str) ->
 	    gen_tcp:close(Socket)
     end.
 
+
+% package lenth = 4
+% Frame 4: 104 bytes on wire (832 bits), 104 bytes captured (832 bits)
+% Linux cooked capture v1
+% Internet Protocol Version 4, Src: 127.0.0.1, Dst: 127.0.0.1
+% Transmission Control Protocol, Src Port: 52540, Dst Port: 2345, Seq: 1, Ack: 1, Len: 36
+% Data (36 bytes)
+%     Data: 00000020836b001c6c6973745f746f5f7475706c65285b322b332a342c31302b32305d29
+%     [Length: 36]
+% 
+% package lenth = 2
+% Frame 4: 104 bytes on wire (832 bits), 104 bytes captured (832 bits)
+% Frame 4: 102 bytes on wire (816 bits), 102 bytes captured (816 bits)
+% Linux cooked capture v1
+% Internet Protocol Version 4, Src: 127.0.0.1, Dst: 127.0.0.1
+% Transmission Control Protocol, Src Port: 52546, Dst Port: 2345, Seq: 1, Ack: 1, Len: 34
+% Data (34 bytes)
+%     Data: 0020836b001c6c6973745f746f5f7475706c65285b322b332a342c31302b32305d29
+%     [Length: 34]
+
+
+
 start_nano_server() ->
     {ok, Listen} = gen_tcp:listen(2345, [binary, {packet, 2},  %% (6)
 					 {reuseaddr, true},
