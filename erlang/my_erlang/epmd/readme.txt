@@ -148,6 +148,27 @@ nodes(). 操作不会产生网络通信
 ['watermelon@centos2.com','pinapple@centos2.com']
 ```
 
+erl  -name blackberry -remsh watermelon@centos2.com
+
+-remsh Node:
+  Starts Erlang with a remote shell connected to Node.
+
+-rsh Program:
+  Specifies an alternative to rsh for starting a slave node on a remote host; see slave(3erl).
+
+# 登录成功
+ericksun@centos-1:~/programming/erlang/programming_erlang$ erl  -name blackberry@centos1.com  -remsh watermelon@centos2.com
+Erlang/OTP 24 [erts-12.2] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [jit]
+
+Eshell V12.2  (abort with ^G)
+(watermelon@centos2.com)1>
+
+ericksun@centos-1:~$ ps aux|grep beam
+ericksun   18087  0.4  1.0 2521500 39148 pts/2   Sl+  22:13   0:00 /usr/lib64/erlang/erts-12.2/bin/beam.smp -- -root /usr/lib64/erlang -progname erl -- -home /home/ericksun -- -name blackberry@centos1.com -remsh watermelon@centos2.com
+
+
+
+
 
 ======================================
          -remsh Node:
