@@ -168,12 +168,30 @@ ericksun   18087  0.4  1.0 2521500 39148 pts/2   Sl+  22:13   0:00 /usr/lib64/er
 
 
 
+# ssh
+
+https://www.erlang.org/doc/apps/ssh/using_ssh.html
+
 
 
 ======================================
-         -remsh Node:
-		            Starts Erlang with a remote shell connected to Node.
+要使用stop功能，epmd必须以 -relaxed_command_check 启动，具体参考epmd –help
+演示下：
 
+view sourceprint?
+$ erl -sname x -epmd "epmd -relaxed_command_check -daemon"
+Erlang R14B04 (erts-5.8.5)  [64-bit] [smp:16:16] [rq:16] [async-threads:0] [hipe] [kernel-poll:false]
+ 
+Eshell V5.8.5  (abort with ^G)
+(x@my031089)1>
+ 
+$ epmd -names
+epmd: up and running on port 4369 with data:
+name x at port 58953
+$ epmd -stop x
+STOPPED
+$ epmd -names
+epmd: up and running on port 4369 with data:
 
 
 					https://www.cnblogs.com/me-sa/p/erlang-epmd.html
@@ -207,15 +225,6 @@ net_kernel:start(['apple@debian-2']).
 
 (apple@debian-1)8> erl_epmd:names().
 {ok,[{"rabbit",25672},{"orange",40205},{"apple",6000}]}
-
-
-apple1@debian-1
-apple2@debian-2
-
-
-192.168.142.130 apple1@debian1
-192.168.142.132 apple2@debian2
-192.168.142.131 apple3@debian3
 
 
 
