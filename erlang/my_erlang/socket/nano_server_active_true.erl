@@ -10,7 +10,7 @@
 -compile(export_all).
 -compile(nowarn_export_all).
 -import(lists, [reverse/1]).
--define(packetLen, 0). 
+-define(packetLen, 4). 
 -define(portNumber, 2345). 
 -define(host, "localhost"). 
 
