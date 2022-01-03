@@ -4,12 +4,16 @@
 -compile(nowarn_export_all).
 
 
+
 start() ->
    ListX = ['10'],
    [ListY|_] = ListX,
    Ix = list_to_integer(atom_to_list(ListY)),
    io:format("the format value:=~p~n",[Ix]),
    ListX.
+% 这样也可以
+%N=atom_to_binary(Y).
+%K=binary_to_integer(N).
 
 start(Number) ->
    ListX = Number,
