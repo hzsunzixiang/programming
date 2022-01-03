@@ -47,10 +47,7 @@ start() ->
    server(4000).
 
 start(Number) ->
-   %io:format("client from start value:=~p~n",[100000]),
-   %io:format("client from start value:=~p~n",[Number]),
-   %%FacNum=list_to_integer(atom_to_list(Number)),
-   %%FacNum=atom_to_list(Number),
-   %%FacNum=atom_to_binary(Number),
-   %FacNum=list_to_atom(Number),
-   client(5).
+   [ListY|_] = Number,
+   Ix = list_to_integer(atom_to_list(ListY)),
+   io:format("the format value:=~p~n",[Ix]),
+   client(Ix).
