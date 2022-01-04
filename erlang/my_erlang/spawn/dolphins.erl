@@ -28,7 +28,8 @@ dolphin3() ->
             From ! "How about no?",
             dolphin3();
         {From, fish} ->
-            From ! "So long and thanks for all the fish!";
+            From ! "So long and thanks for all the fish!",
+            dolphin3();
         _ ->
             io:format("Heh, we're smarter than you humans.~n"),
             dolphin3()
@@ -48,12 +49,31 @@ dolphin3() ->
 %   %Dolphins2 ! {self(), do_a_flip},
 %   Dolphins2 ! {self(), fish},
 %   'this is an end'.
+%
+%
+%接受信息的时候是穿插着来的，接受消息不确定?
+receive_from_dophine() ->
+    receive
+        Msg ->
+            io:format("message from dophine:~p~n", [Msg])
+    end,
+    receive_from_dophine().
 
 start() ->
    Dolphins3 = spawn(dolphins, dolphin3, []),
    Dolphins3 ! {self(), do_a_flip},
-   Dolphins3 ! {self(), unknown_messange},
+   Dolphins3 ! {self(), do_a_flip},
+   Dolphins3 ! {self(), do_a_flip},
+   Dolphins3 ! {self(), do_a_flip},
+   %Dolphins3 ! {self(), unknown_messange},
+   %Dolphins3 ! {self(), unknown_messange},
+   %Dolphins3 ! {self(), unknown_messange},
+   %Dolphins3 ! {self(), unknown_messange},
+   %Dolphins3 ! {self(), unknown_messange},
    Dolphins3 ! {self(), fish},
+   Dolphins3 ! {self(), fish},
+   Dolphins3 ! {self(), fish},
+   receive_from_dophine(),
    'this is an end'.
 
 
