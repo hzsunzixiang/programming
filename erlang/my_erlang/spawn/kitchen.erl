@@ -81,6 +81,7 @@ start() ->
    store(Pid,bacon),
    take(Pid,bacon),
    take(Pid,turkey),
+   %take2(pid(0,250,0),turkey),
    %Pid ! {self(), {store, milk}},
    %Pid ! {self(), {store, bacon}},
    %Pid ! {self(), {take, bacon}},
