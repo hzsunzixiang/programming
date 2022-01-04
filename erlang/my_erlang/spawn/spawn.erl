@@ -1,5 +1,6 @@
 -module(spawn). 
--export([start/0]). 
+-compile(export_all).
+-compile(nowarn_export_all).
 
 start() ->
    spawn(fun() -> server("Hello") end). 
