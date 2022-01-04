@@ -11,6 +11,7 @@ MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 
 RUN_BIN=spawn_1
 RUN_BIN=dolphins
+RUN_BIN=kitchen
 all:compile
 	erl -noshell -s $(RUN_BIN) start -s init stop
 	#erl -noshell -run $(RUN_BIN) start -s init stop
