@@ -21,8 +21,10 @@ cancel(Pid) ->
     receive
         {Ref, ok} ->
             erlang:demonitor(Ref, [flush]),
+	        io:format("demonitor return : ~p ~n", [Ref]),
             ok;
         {'DOWN', Ref, process, Pid, _Reason} ->
+	        io:format("DOWN return : ~p ~n", [Ref]),
             ok
     end.
 
@@ -79,11 +81,11 @@ start1()->
 	 end,
     'this is an end'.
 start2()->
-     Pid = start("Event2", 500),
+     Pid = start("Event2", calendar:local_time()),
 	 cancel(Pid),
     'this is an end'.
 
 start()->
     start1(),
-    %start2(),
+    start2(),
     'this is an end'.
