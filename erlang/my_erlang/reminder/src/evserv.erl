@@ -166,3 +166,18 @@ valid_time(H,M,S) when H >= 0, H < 24,
                        M >= 0, M < 60,
                        S >= 0, S < 60 -> true;
 valid_time(_,_,_) -> false.
+
+
+% https://www.erlang.org/doc/man/orddict.html
+% map(Fun, Orddict1) -> Orddict2
+% Types
+% Fun = fun((Key, Value1) -> Value2)
+% 	Orddict1 = orddict(Key, Value1)
+% 	Orddict2 = orddict(Key, Value2)
+% 	Calls Fun on successive keys and values of Orddict1 tvo return a new value for each key.
+%
+make:all([load]).
+evserv:start().  
+evserv:subscribe(self()).  
+evserv:add_event("Hey there", "test", calendar:local_time()).
+evserv:listen(5).
