@@ -44,12 +44,12 @@ start() ->
 
    % 这里被覆盖了，。。。。
    %由于太阳风暴(要假装得更真实些)，通信的连接中断了。
-   %6> exit(whereis(criticProcName), solar_storm).
+   %6> exit(Critic, solar_storm).
    %restarter the Pid:[<0.90.0>]
    %true
 
    % 再次请求
-   %8> register_name_restart:judge2("System of a Downtime", "Memoize").
+   %8> register_name:judge(Critic, "System of a Downtime", "Memoize").
    %judge2 return :Pid:[<0.90.0>] "They're not Johnny Crash but they're good.",
    %ok
 
