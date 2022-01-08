@@ -1,4 +1,4 @@
--module(event).
+-module(event_datatime).
 %-export([start/2, start_link/2, cancel/1]).
 %-export([init/3, loop/1]).
 -compile(export_all).
@@ -70,7 +70,7 @@ normalize(N) ->
 
 start1()->
      %start("Event", 0),
-     start("Event2", calendar:local_time()+5),
+     start("Event2", calendar:local_time()),
 	 receive
         {Ref, ok} ->
 	         io:format("return : ~p ~n", [Ref]);

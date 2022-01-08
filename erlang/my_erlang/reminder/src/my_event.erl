@@ -35,10 +35,23 @@ start2()->
 	 end,
     'this is an end'.
 
+start3()->
+     Pid =spawn(my_event, loop, [#state{server=self(), name="test", to_go=365*24*60*60}]),
+     ReplyRef = make_ref(),
+     Pid ! {self(), ReplyRef, cancel},
+	 receive
+        {Ref, ok} ->
+	         io:format("return : ~p ~n", [Ref]);
+        {done, Name} ->
+	         io:format("return : ~p ~n", [Name])
+	 end,
+    'this is an end'.
+
 
 start()->
     start1(),
-    start2().
+    start2(),
+    start3().
 %% spawn(my_event, loop, [#state{server=self(), name="test", to_go=5}]).
 %% Pid =spawn(my_event, loop, [#state{server=self(), name="test", to_go=500}]).
 %% ReplyRef = make_ref().

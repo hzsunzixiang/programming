@@ -10,6 +10,8 @@ ERL = erl -boot start_clean
 MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 
 RUN_BIN=my_event
+RUN_BIN=event_delay
+RUN_BIN=event_datatime
 all:compile
 	erl -noshell -s $(RUN_BIN) start -s init stop
 	#erl -noshell -run $(RUN_BIN) start -s init stop
