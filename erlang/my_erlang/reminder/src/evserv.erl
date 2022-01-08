@@ -1,7 +1,7 @@
 %% Event server
 -module(evserv).
 -compile(export_all).
-
+-compile(nowarn_export_all).
 -record(state, {events,    %% list of #event{} records
                 clients}). %% list of Pids
 
@@ -93,6 +93,7 @@ loop(S=#state{}) ->
         {Pid, MsgRef, {add, Name, Description, TimeOut}} ->
             case valid_datetime(TimeOut) of
                 true ->
+				    % 这里调用event 模块
                     EventPid = event:start_link(Name, TimeOut),
                     NewEvents = orddict:store(Name,
                                               #event{name=Name,
@@ -175,9 +176,20 @@ valid_time(_,_,_) -> false.
 % 	Orddict1 = orddict(Key, Value1)
 % 	Orddict2 = orddict(Key, Value2)
 % 	Calls Fun on successive keys and values of Orddict1 tvo return a new value for each key.
+%%
+%make:all([load]).
+%evserv:start().  
+%evserv:subscribe(self()).  
+%evserv:add_event("Hey there", "test", calendar:local_time()).
+%evserv:listen(5).
 %
-make:all([load]).
-evserv:start().  
-evserv:subscribe(self()).  
-evserv:add_event("Hey there", "test", calendar:local_time()).
-evserv:listen(5).
+%
+%1> evserv:start().
+%<0.82.0>
+%2> evserv:subscribe(self()).
+%{ok,#Ref<0.2173301855.160956420.72177>}
+%3> evserv:add_event("Hey there", "test", calendar:local_time()).
+%Now: {{2022,1,8},{4,15,13}} , ToGo: 0
+%ok
+%4> evserv:listen(5).
+%[{done,"Hey there","test"}]

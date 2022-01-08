@@ -1,5 +1,7 @@
 -module(sup).
--export([start/2, start_link/2, init/1, loop/1]).
+%-export([start/2, start_link/2, init/1, loop/1]).
+-compile(export_all).
+-compile(nowarn_export_all).
 
 start(Mod, Args) ->
     spawn(?MODULE, init, [{Mod, Args}]).
@@ -20,3 +22,12 @@ loop({M,F,A}) ->
             io:format("Process ~p exited for reason ~p~n",[Pid,Reason]),
             loop({M,F,A})
     end.
+
+start()->
+    SupPid = sup:start(evserv, []),
+	io:format("return SupPid: ~p ~n", [SupPid]),
+	Pid = whereis(evserv),
+	io:format("return Pid: ~p ~n", [Pid]),
+	'this is an end'.
+
+    %evserv:start(),
