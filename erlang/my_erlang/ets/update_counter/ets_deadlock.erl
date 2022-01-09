@@ -2,6 +2,9 @@
 -compile([export_all]).
 -compile(nowarn_export_all).
 
+% {write_concurrency, true | false}
+% https://learnyousomeerlang.com/ets#the-concepts-of-ets
+% Usually, writing to a table will lock the whole thing and nobody else can access it, either for reading or writing to it, until the write is done. Setting this option to 'true' lets both reads and writes be done concurrently, without affecting the ACID properties of ETS. Doing this, however, will reduce the performance of sequential writes by a single process and also the capacity of concurrent reads. You can combine this option with 'read_concurrency' when both writes and reads come in large bursts.
 func() ->
      Table = ets:new(table, [set, {write_concurrency, true}]),
 
