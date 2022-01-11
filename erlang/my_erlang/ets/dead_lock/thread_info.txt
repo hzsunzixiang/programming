@@ -1,0 +1,234 @@
+[New LWP 349165]
+[New LWP 349166]
+[New LWP 349167]
+[New LWP 349168]
+[New LWP 349169]
+[New LWP 349170]
+[New LWP 349171]
+[New LWP 349172]
+[New LWP 349173]
+[New LWP 349174]
+[New LWP 349175]
+[New LWP 349176]
+[New LWP 349177]
+[New LWP 349178]
+[New LWP 349179]
+[New LWP 349180]
+[New LWP 349181]
+[New LWP 349182]
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib64/libthread_db.so.1".
+0x00007fb389e7029f in select () from /lib64/libc.so.6
+
+Thread 19 (Thread 0x7fb3853fb700 (LWP 349182)):
+#0  0x00007fb389e7352d in syscall () from /lib64/libc.so.6
+#1  0x000000000061954c in wait__ (timeout=-1, spincount=0, e=<optimized out>) at pthread/ethr_event.c:152
+#2  ethr_event_wait (e=0x7fb388f00550) at pthread/ethr_event.c:593
+#3  0x00000000004da805 in erts_tse_wait (ep=<optimized out>) at beam/erl_threads.h:3491
+#4  aux_thread (unused=<optimized out>) at beam/erl_process.c:2999
+#5  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd47562720) at pthread/ethread.c:114
+#6  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#7  0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 18 (Thread 0x7fb385dfc700 (LWP 349181)):
+#0  0x00007fb389e7352d in syscall () from /lib64/libc.so.6
+#1  0x000000000061967b in wait__ (timeout=-1, spincount=spincount@entry=-1997535984, e=0x7fb388f00510, e@entry=0xa) at pthread/ethr_event.c:152
+#2  ethr_event_swait (e=e@entry=0x7fb388f00510, spincount=spincount@entry=990) at pthread/ethr_event.c:599
+#3  0x00000000006172cb in event_wait (mtxb=mtxb@entry=0x7fb385523168, tse=tse@entry=0x7fb388f00500, spincount=spincount@entry=990, type=type@entry=1073741824, is_freq_read=is_freq_read@entry=0, is_rwmtx=1) at common/ethr_mutex.c:575
+#4  0x0000000000618a54 in write_lock_wait (is_rwmtx=1, is_freq_read=0, initial=<optimized out>, mtxb=0x7fb385523168) at common/ethr_mutex.c:707
+#5  rwmutex_normal_rwlock_wait (initial=<optimized out>, rwmtx=0x7fb385523168) at common/ethr_mutex.c:2308
+#6  ethr_rwmutex_rwlock (rwmtx=rwmtx@entry=0x7fb385523168) at common/ethr_mutex.c:3006
+#7  0x0000000000529759 in erts_rwmtx_rwlock (rwmtx=0x7fb385523168) at beam/erl_threads.h:2689
+#8  erts_smp_rwmtx_rwlock (rwmtx=0x7fb385523168) at beam/erl_smp.h:1323
+#9  WLOCK_HASH (hval=<optimized out>, tb=0x7fb38551f2a0) at beam/erl_db_hash.c:213
+#10 grow (nactive=319, tb=0x7fb38551f2a0) at beam/erl_db_hash.c:2664
+#11 grow (tb=0x7fb38551f2a0, nactive=319) at beam/erl_db_hash.c:2632
+#12 0x000000000052aaa4 in db_lookup_dbterm_hash (p=0x7fb388f803d8, tbl=0x7fb38551f2a0, key=140408994217538, obj=<optimized out>, handle=0x7fb385dfbc80) at beam/erl_db_hash.c:2878
+#13 0x000000000050d977 in do_update_counter (p=0x7fb388f803d8, arg1=131327, arg2=140408994217538, arg3=<optimized out>, arg4=140408994217890) at beam/erl_db.c:910
+#14 0x000000000044078b in process_main () at beam/beam_emu.c:2873
+#15 0x00000000004d393c in sched_thread_func (vesdp=0x7fb3885a0f00) at beam/erl_process.c:8118
+#16 0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd47562720) at pthread/ethread.c:114
+#17 0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#18 0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 17 (Thread 0x7fb3865fd700 (LWP 349180)):
+#0  0x00007fb389e7352d in syscall () from /lib64/libc.so.6
+#1  0x00000000006197ae in wait__ (timeout=86399999673709, spincount=0, e=0x7fb388f004d0) at pthread/ethr_event.c:152
+#2  ethr_event_twait (e=0x7fb388f004d0, timeout=86399999673709) at pthread/ethr_event.c:605
+#3  0x00000000004db0e0 in erts_tse_twait (tmo=<optimized out>, ep=<optimized out>) at beam/erl_threads.h:3509
+#4  scheduler_wait (fcalls=fcalls@entry=0x7fb3865fcc84, esdp=esdp@entry=0x7fb388596c00, rq=rq@entry=0x7fb388581d40) at beam/erl_process.c:3142
+#5  0x00000000004e3606 in schedule (p=<optimized out>, calls=0) at beam/erl_process.c:9642
+#6  0x00000000004397c2 in process_main () at beam/beam_emu.c:1254
+#7  0x00000000004d393c in sched_thread_func (vesdp=0x7fb388596c00) at beam/erl_process.c:8118
+#8  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd47562720) at pthread/ethread.c:114
+#9  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#10 0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 16 (Thread 0x7fb386dfe700 (LWP 349179)):
+#0  0x00007fb389e7352d in syscall () from /lib64/libc.so.6
+#1  0x00000000006197ae in wait__ (timeout=86399999426826, spincount=0, e=0x7fb388f00490) at pthread/ethr_event.c:152
+#2  ethr_event_twait (e=0x7fb388f00490, timeout=86399999426826) at pthread/ethr_event.c:605
+#3  0x00000000004db0e0 in erts_tse_twait (tmo=<optimized out>, ep=<optimized out>) at beam/erl_threads.h:3509
+#4  scheduler_wait (fcalls=fcalls@entry=0x7fb386dfdc84, esdp=esdp@entry=0x7fb38858c900, rq=rq@entry=0x7fb388581bc0) at beam/erl_process.c:3142
+#5  0x00000000004e3606 in schedule (p=<optimized out>, calls=0) at beam/erl_process.c:9642
+#6  0x00000000004397c2 in process_main () at beam/beam_emu.c:1254
+#7  0x00000000004d393c in sched_thread_func (vesdp=0x7fb38858c900) at beam/erl_process.c:8118
+#8  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd47562720) at pthread/ethread.c:114
+#9  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#10 0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 15 (Thread 0x7fb3875ff700 (LWP 349178)):
+#0  0x00007fb389e7352d in syscall () from /lib64/libc.so.6
+#1  0x00000000006197ae in wait__ (timeout=1000912230, spincount=0, e=0x7fb388f00450) at pthread/ethr_event.c:152
+#2  ethr_event_twait (e=0x7fb388f00450, timeout=1000912230) at pthread/ethr_event.c:605
+#3  0x00000000004db0e0 in erts_tse_twait (tmo=<optimized out>, ep=<optimized out>) at beam/erl_threads.h:3509
+#4  scheduler_wait (fcalls=fcalls@entry=0x7fb3875fec84, esdp=esdp@entry=0x7fb388582600, rq=rq@entry=0x7fb388581a40) at beam/erl_process.c:3142
+#5  0x00000000004e3606 in schedule (p=<optimized out>, calls=0) at beam/erl_process.c:9642
+#6  0x00000000004397c2 in process_main () at beam/beam_emu.c:1254
+#7  0x00000000004d393c in sched_thread_func (vesdp=0x7fb388582600) at beam/erl_process.c:8118
+#8  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd47562720) at pthread/ethread.c:114
+#9  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#10 0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 14 (Thread 0x7fb38af54700 (LWP 349177)):
+#0  0x00007fb38a3573fc in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x0000000000617939 in ethr_cond_wait (cnd=cnd@entry=0x90e680 <chld_stat_cnd>, mtx=mtx@entry=0x90e560 <chld_stat_mtx>) at common/ethr_mutex.c:1369
+#2  0x000000000059a9f6 in erts_cnd_wait (cnd=0x90e680 <chld_stat_cnd>, mtx=0x90e560 <chld_stat_mtx>) at beam/erl_threads.h:2423
+#3  child_waiter (unused=<optimized out>) at sys/unix/sys.c:3102
+#4  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd475626c0) at pthread/ethread.c:114
+#5  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#6  0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 13 (Thread 0x7fb387966700 (LWP 349176)):
+#0  0x00007fb389e7352d in syscall () from /lib64/libc.so.6
+#1  0x000000000061954c in wait__ (timeout=-1, spincount=0, e=<optimized out>) at pthread/ethr_event.c:152
+#2  ethr_event_wait (e=e@entry=0x7fb388f003d0) at pthread/ethr_event.c:593
+#3  0x0000000000549352 in erts_tse_wait (ep=<optimized out>) at beam/erl_threads.h:3491
+#4  async_get (prep_enq=<synthetic pointer>, tse=<optimized out>, q=0x7fb388677580) at beam/erl_async.c:380
+#5  async_main (arg=0x7fb388677580) at beam/erl_async.c:501
+#6  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd475626a0) at pthread/ethread.c:114
+#7  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#8  0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 12 (Thread 0x7fb387989700 (LWP 349175)):
+#0  0x00007fb389e7352d in syscall () from /lib64/libc.so.6
+#1  0x000000000061954c in wait__ (timeout=-1, spincount=0, e=<optimized out>) at pthread/ethr_event.c:152
+#2  ethr_event_wait (e=e@entry=0x7fb388f00390) at pthread/ethr_event.c:593
+#3  0x0000000000549352 in erts_tse_wait (ep=<optimized out>) at beam/erl_threads.h:3491
+#4  async_get (prep_enq=<synthetic pointer>, tse=<optimized out>, q=0x7fb388677440) at beam/erl_async.c:380
+#5  async_main (arg=0x7fb388677440) at beam/erl_async.c:501
+#6  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd475626a0) at pthread/ethread.c:114
+#7  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#8  0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 11 (Thread 0x7fb3879ac700 (LWP 349174)):
+#0  0x00007fb389e7352d in syscall () from /lib64/libc.so.6
+#1  0x000000000061954c in wait__ (timeout=-1, spincount=0, e=<optimized out>) at pthread/ethr_event.c:152
+#2  ethr_event_wait (e=e@entry=0x7fb388f00350) at pthread/ethr_event.c:593
+#3  0x0000000000549352 in erts_tse_wait (ep=<optimized out>) at beam/erl_threads.h:3491
+#4  async_get (prep_enq=<synthetic pointer>, tse=<optimized out>, q=0x7fb388677300) at beam/erl_async.c:380
+#5  async_main (arg=0x7fb388677300) at beam/erl_async.c:501
+#6  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd475626a0) at pthread/ethread.c:114
+#7  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#8  0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 10 (Thread 0x7fb3879cf700 (LWP 349173)):
+#0  0x00007fb389e7352d in syscall () from /lib64/libc.so.6
+#1  0x000000000061954c in wait__ (timeout=-1, spincount=0, e=<optimized out>) at pthread/ethr_event.c:152
+#2  ethr_event_wait (e=e@entry=0x7fb388f00310) at pthread/ethr_event.c:593
+#3  0x0000000000549352 in erts_tse_wait (ep=<optimized out>) at beam/erl_threads.h:3491
+#4  async_get (prep_enq=<synthetic pointer>, tse=<optimized out>, q=0x7fb3886771c0) at beam/erl_async.c:380
+#5  async_main (arg=0x7fb3886771c0) at beam/erl_async.c:501
+#6  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd475626a0) at pthread/ethread.c:114
+#7  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#8  0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 9 (Thread 0x7fb3879f2700 (LWP 349172)):
+#0  0x00007fb389e7352d in syscall () from /lib64/libc.so.6
+#1  0x000000000061954c in wait__ (timeout=-1, spincount=0, e=<optimized out>) at pthread/ethr_event.c:152
+#2  ethr_event_wait (e=e@entry=0x7fb388f002d0) at pthread/ethr_event.c:593
+#3  0x0000000000549352 in erts_tse_wait (ep=<optimized out>) at beam/erl_threads.h:3491
+#4  async_get (prep_enq=<synthetic pointer>, tse=<optimized out>, q=0x7fb388677080) at beam/erl_async.c:380
+#5  async_main (arg=0x7fb388677080) at beam/erl_async.c:501
+#6  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd475626a0) at pthread/ethread.c:114
+#7  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#8  0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 8 (Thread 0x7fb387a15700 (LWP 349171)):
+#0  0x00007fb389e7352d in syscall () from /lib64/libc.so.6
+#1  0x000000000061954c in wait__ (timeout=-1, spincount=0, e=<optimized out>) at pthread/ethr_event.c:152
+#2  ethr_event_wait (e=e@entry=0x7fb388f00290) at pthread/ethr_event.c:593
+#3  0x0000000000549352 in erts_tse_wait (ep=<optimized out>) at beam/erl_threads.h:3491
+#4  async_get (prep_enq=<synthetic pointer>, tse=<optimized out>, q=0x7fb388676f40) at beam/erl_async.c:380
+#5  async_main (arg=0x7fb388676f40) at beam/erl_async.c:501
+#6  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd475626a0) at pthread/ethread.c:114
+#7  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#8  0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 7 (Thread 0x7fb387a38700 (LWP 349170)):
+#0  0x00007fb389e7352d in syscall () from /lib64/libc.so.6
+#1  0x000000000061954c in wait__ (timeout=-1, spincount=0, e=<optimized out>) at pthread/ethr_event.c:152
+#2  ethr_event_wait (e=e@entry=0x7fb388f00250) at pthread/ethr_event.c:593
+#3  0x0000000000549352 in erts_tse_wait (ep=<optimized out>) at beam/erl_threads.h:3491
+#4  async_get (prep_enq=<synthetic pointer>, tse=<optimized out>, q=0x7fb388676e00) at beam/erl_async.c:380
+#5  async_main (arg=0x7fb388676e00) at beam/erl_async.c:501
+#6  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd475626a0) at pthread/ethread.c:114
+#7  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#8  0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 6 (Thread 0x7fb387a5b700 (LWP 349169)):
+#0  0x00007fb389e7352d in syscall () from /lib64/libc.so.6
+#1  0x000000000061954c in wait__ (timeout=-1, spincount=0, e=<optimized out>) at pthread/ethr_event.c:152
+#2  ethr_event_wait (e=e@entry=0x7fb388f00210) at pthread/ethr_event.c:593
+#3  0x0000000000549352 in erts_tse_wait (ep=<optimized out>) at beam/erl_threads.h:3491
+#4  async_get (prep_enq=<synthetic pointer>, tse=<optimized out>, q=0x7fb388676cc0) at beam/erl_async.c:380
+#5  async_main (arg=0x7fb388676cc0) at beam/erl_async.c:501
+#6  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd475626a0) at pthread/ethread.c:114
+#7  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#8  0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 5 (Thread 0x7fb387a7e700 (LWP 349168)):
+#0  0x00007fb389e7352d in syscall () from /lib64/libc.so.6
+#1  0x000000000061954c in wait__ (timeout=-1, spincount=0, e=<optimized out>) at pthread/ethr_event.c:152
+#2  ethr_event_wait (e=e@entry=0x7fb388f001d0) at pthread/ethr_event.c:593
+#3  0x0000000000549352 in erts_tse_wait (ep=<optimized out>) at beam/erl_threads.h:3491
+#4  async_get (prep_enq=<synthetic pointer>, tse=<optimized out>, q=0x7fb388676b80) at beam/erl_async.c:380
+#5  async_main (arg=0x7fb388676b80) at beam/erl_async.c:501
+#6  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd475626a0) at pthread/ethread.c:114
+#7  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#8  0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 4 (Thread 0x7fb3886ab700 (LWP 349167)):
+#0  0x00007fb389e7352d in syscall () from /lib64/libc.so.6
+#1  0x000000000061954c in wait__ (timeout=-1, spincount=0, e=<optimized out>) at pthread/ethr_event.c:152
+#2  ethr_event_wait (e=e@entry=0x7fb388f00190) at pthread/ethr_event.c:593
+#3  0x0000000000549352 in erts_tse_wait (ep=<optimized out>) at beam/erl_threads.h:3491
+#4  async_get (prep_enq=<synthetic pointer>, tse=<optimized out>, q=0x7fb388676a40) at beam/erl_async.c:380
+#5  async_main (arg=0x7fb388676a40) at beam/erl_async.c:501
+#6  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd475626a0) at pthread/ethread.c:114
+#7  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#8  0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 3 (Thread 0x7fb38827f700 (LWP 349166)):
+#0  0x00007fb38a3573fc in pthread_cond_wait@@GLIBC_2.3.2 () from /lib64/libpthread.so.0
+#1  0x0000000000617939 in ethr_cond_wait (cnd=cnd@entry=0x8f7620 <smq_cnd>, mtx=mtx@entry=0x8f76e0 <smq_mtx>) at common/ethr_mutex.c:1369
+#2  0x000000000049c27f in erts_cnd_wait (cnd=0x8f7620 <smq_cnd>, mtx=0x8f76e0 <smq_mtx>) at beam/erl_threads.h:2423
+#3  erts_smp_cnd_wait (mtx=0x8f76e0 <smq_mtx>, cnd=0x8f7620 <smq_cnd>) at beam/erl_smp.h:1174
+#4  sys_msg_dispatcher_func (unused=<optimized out>) at beam/erl_trace.c:3413
+#5  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd475626d0) at pthread/ethread.c:114
+#6  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#7  0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 2 (Thread 0x7fb388eff700 (LWP 349165)):
+#0  0x00007fb38a35a9e4 in read () from /lib64/libpthread.so.0
+#1  0x000000000059d565 in signal_dispatcher_thread_func (unused=<optimized out>) at sys/unix/sys.c:3164
+#2  0x0000000000618d56 in thr_wrapper (vtwd=0x7ffd47562640) at pthread/ethread.c:114
+#3  0x00007fb38a35117a in start_thread () from /lib64/libpthread.so.0
+#4  0x00007fb389e78dc3 in clone () from /lib64/libc.so.6
+
+Thread 1 (Thread 0x7fb38b13a740 (LWP 349161)):
+#0  0x00007fb389e7029f in select () from /lib64/libc.so.6
+#1  0x000000000059dab0 in erts_sys_main_thread () at sys/unix/sys.c:3326
+#2  0x000000000047fb58 in erl_start (argc=<optimized out>, argv=<optimized out>) at beam/erl_init.c:2166
+#3  0x00000000004352c9 in main (argc=<optimized out>, argv=<optimized out>) at sys/unix/erl_main.c:30
+[Inferior 1 (process 349161) detached]
