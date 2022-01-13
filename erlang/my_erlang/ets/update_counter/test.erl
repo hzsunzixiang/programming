@@ -19,7 +19,5 @@ func2() ->
 
 start() ->
      func2(),
-     io:fwrite("~p~n",[list_to_binary([1,2,3])]),
-     io:fwrite("~p~n",[list_to_binary([48,8,3,60,90,32,83,92,91,14])]),
      'this is an end'.
 
