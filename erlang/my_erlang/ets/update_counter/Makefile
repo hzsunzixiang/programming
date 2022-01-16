@@ -17,6 +17,7 @@ RUN_BIN=ets_update_incr
 RUN_BIN=ets_update_incr_default
 RUN_BIN=ets_deadlock_1
 RUN_BIN=ets_deadlock
+RUN_BIN=test
 all:compile
 	erl -noshell -s $(RUN_BIN) start -s init stop
 	#erl -noshell -run $(RUN_BIN) start -s init stop
