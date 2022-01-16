@@ -1,4 +1,4 @@
--module(test).
+-module(test_1).
 -compile([export_all]).
 -compile(nowarn_export_all).
 
