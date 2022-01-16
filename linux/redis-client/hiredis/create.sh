@@ -4,7 +4,8 @@ DIR=`pwd;`
 
 FILE="$DIR/adapters $DIR/examples"
 
-find -L .  $FILE -name "*.h"  -o -name "*.c" > cscope_my.files
+#find -L .  $FILE -name "*.h"  -o -name "*.c" > cscope_my.files
+find -L $DIR $FILE -name "*.h"  -o -name "*.c" > cscope_my.files
 
 cscope -bkq -i cscope_my.files  -f cscope_my.out
 
