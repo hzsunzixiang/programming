@@ -7,12 +7,12 @@ exchange = 'vstation'
 vhost = 'vstation'
 user =  'vstation'
 password = 'vstation'
-queue_name =  'TEST_ACK'
+queue_name =  'FLOW'
 
 credentials = pika.PlainCredentials(user, password)
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-			               host='localhost',
+			               host='9.134.165.238',
                            virtual_host=vhost,
 						   credentials=credentials))
 

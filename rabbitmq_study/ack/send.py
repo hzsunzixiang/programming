@@ -14,7 +14,7 @@ queue_name =  'FLOW'
 credentials = pika.PlainCredentials(user, password)
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-			               host='localhost',
+			               host='9.134.165.238',
                            virtual_host=vhost,
 						   credentials=credentials))
 
@@ -37,7 +37,7 @@ properties = pika.BasicProperties(delivery_mode=2)
 channel.basic_publish(exchange=exchange, routing_key=queue_name,
                            body="Hello World!", properties=properties)
 
-time.sleep(1000)
+#time.sleep(1000)
 
 channel.basic_publish(exchange=exchange, routing_key=queue_name,
                            body="Hello World!", properties=properties)
