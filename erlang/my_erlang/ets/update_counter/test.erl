@@ -17,7 +17,7 @@ func2() ->
 	   % Bytes  表示Key
 	   % update_counter(Tab, Key, X3 :: [UpdateOp], Default) -> [Result]  opt18引入
        ets:update_counter(Table, Bytes, {2, 9}, {Bytes, 7}),
-       io:format("result:~p~n", [ets:tab2list(Table)]),
+       %io:format("result:~p~n", [ets:tab2list(Table)]),
 	   timer:sleep(3000),
        'this is an end'
      end, lists:seq(1, 50000)).
