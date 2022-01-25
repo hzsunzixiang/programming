@@ -10,6 +10,8 @@ ERL = erl -boot start_clean
 MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 
 RUN_BIN=database_logic
+RUN_BIN=database_logic_analyze
+RUN_BIN=database_logic_debug
 all:compile
 	erl -noshell -s $(RUN_BIN) start -s init stop
 	#erl -noshell -run $(RUN_BIN) start -s init stop

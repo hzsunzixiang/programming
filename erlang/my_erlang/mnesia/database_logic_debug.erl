@@ -22,6 +22,7 @@ initDB()->
 	% application:start(mnesia), % 等价
     try
         Type = mnesia:table_info(factorial, type) 
+        io:format("table type message: ~p~n",[Msg]),
     catch
         exit:_ ->
             mnesia:create_table(factorial, [{attributes, record_info(fields, factorial)},
