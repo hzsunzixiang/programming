@@ -1,5 +1,5 @@
 %% Copyright
--module(database_logic).
+-module(database_logic_debug).
 -author("ericksun").
 
 -include_lib("stdlib/include/qlc.hrl").
@@ -17,18 +17,25 @@
 
 %% Initialise Database
 initDB()->
+    mnesia:stop(),
+    io:format("initDB table factorial: ~n"),
+    ok = deleteScheme([node()]),  % 先保证DB不存在
     ok = mnesia:create_schema([node()]), 
     ok = mnesia:start(), 
-	% application:start(mnesia), % 等价
+	%% application:start(mnesia), % 等价
     try
-        Type = mnesia:table_info(factorial, type) 
-        io:format("table type message: ~p~n",[Msg]),
+        Type = mnesia:table_info(factorial, type), 
+        io:format("table type message: ~p~n",[Type])
     catch
         exit:_ ->
-            mnesia:create_table(factorial, [{attributes, record_info(fields, factorial)},
+            io:format("catch table factorial  not exist: ~n"),
+            Result = mnesia:create_table(factorial, [{attributes, record_info(fields, factorial)},
                 {type, bag},
-                {disc_copies, [node()]}]) 
-    end.
+                {disc_copies, [node()]}]),
+            io:format("create table result: ~p~n",[Result])
+    end,
+    'this is fun end'.
+
 
 storeDB(NodeName,Comment)->
     AF=fun()->
@@ -44,6 +51,7 @@ getDB(NodeName) ->
         lists:map(fun(Item)-> Item#factorial.comment end, Results) 
     end,
     {atomic,Comments}=mnesia:transaction(AF), 
+    io:format("create table result: ~p~n",[Comments]),
     Comments.
 
 getDBTwo(NodeName)->
@@ -53,6 +61,7 @@ getDBTwo(NodeName)->
         lists:map(fun(Item)->{Item#factorial.comment, Item#factorial.createdOn} end, Results) 
     end,
     {atomic, Comments}= mnesia:transaction(AF), 
+    io:format("create table result: ~p~n",[Comments]),
     Comments.
 
 deleteDB(NodeName)-> 
@@ -65,16 +74,23 @@ deleteDB(NodeName)->
         end,
         mnesia:transaction(F) 
     end,
-    mnesia:transaction(AF).
+    mnesia:transaction(AF),
+    io:format("deleteDB table result: ~n").
 
+deleteScheme(NodeName)-> 
+    ok = mnesia:delete_schema(NodeName).
 
 
 start() ->
-    mnesia:stop(),
-    database_logic:initDB(),
-    database_logic:storeDB(node(), "This is my first Mnesia"),
-    database_logic:getDB(node()),
-	database_logic:getDBTwo(node()),
+    database_logic_debug:initDB(),
+    database_logic_debug:storeDB(node(), "This is my first Mnesia"),
+    database_logic_debug:storeDB(node(), "This is my first Mnesia Again"),
+    database_logic_debug:getDB(node()),
+	database_logic_debug:getDBTwo(node()),
+
+    % 删除
+	database_logic_debug:deleteDB(node()),
+	database_logic_debug:getDBTwo(node()),
 
     "this is the end".
 

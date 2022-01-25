@@ -69,11 +69,11 @@ deleteDB(NodeName)->
 
 
 start() ->
-    mnesia:stop(),
-    database_logic:initDB(),
-    database_logic:storeDB(node(), "This is my first Mnesia"),
-    database_logic:getDB(node()),
-	database_logic:getDBTwo(node()),
+    %mnesia:stop(),
+    %database_logic:initDB(),
+    %database_logic:storeDB(node(), "This is my first Mnesia"),
+    %database_logic:getDB(node()),
+	%database_logic:getDBTwo(node()),
 
     "this is the end".
 
