@@ -73,8 +73,8 @@ deleteDB(NodeName)->
         end,
         mnesia:transaction(F) 
     end,
-    mnesia:transaction(AF),
-    io:format("deleteDB table result: ~n").
+    Result = mnesia:transaction(AF),
+    io:format("deleteDB table result: ~p~n", [Result]).
 
 deleteScheme(NodeName)-> 
     ok = mnesia:delete_schema(NodeName).
