@@ -17,7 +17,6 @@
 
 %% Initialise Database
 initDB()->
-    mnesia:stop(),
     io:format("initDB table factorial: ~n"),
     ok = deleteScheme([node()]),  % 先保证DB不存在
     ok = mnesia:create_schema([node()]), 
@@ -91,6 +90,7 @@ start() ->
     % 删除
 	database_logic_debug:deleteDB(node()),
 	database_logic_debug:getDBTwo(node()),
+    mnesia:stop(),
 
     "this is the end".
 
