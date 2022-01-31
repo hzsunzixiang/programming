@@ -1,0 +1,22 @@
+-module(mod_fanout_send).
+
+-export([send/1]).
+-include("common.hrl").
+-define(HOST, '192.168.142.130'). 
+-define(username, vstation). 
+-define(password, vstation). 
+
+send(Msg) ->
+	Params = #amqp_params_network{host=?HOST,username=?USER_NAME,password=?PASSWORD},
+	case amqp_connection:start(Params) of
+		{ok,ConnectionPid} ->
+			{ok, Channel} = amqp_connection:open_channel(ConnectionPid),
+			amqp_channel:cast(Channel,
+							  #'basic.publish'{
+											   exchange = <<"logs">>},
+							  #amqp_msg{payload = Msg}),
+			io:format("Sent '~p'~n",[Msg]),
+			amqp_channel:close(Channel),
+			amqp_connection:close(ConnectionPid);
+		{error,Reason} ->Reason
+	end.
