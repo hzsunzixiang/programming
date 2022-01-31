@@ -9,6 +9,8 @@
 
 -export([start/2, stop/1]).
 
+% https://rebar3.readme.io/discuss/550788db6ac1620d001b932a
+% you should use -include_lib("epgsql/include/epgsql.hrl").	
 -include_lib("amqp_client/include/amqp_client.hrl").
 
 -compile([export_all]).
@@ -24,8 +26,18 @@
 -define(PORT, 5672). 
 
 start(_StartType, _StartArgs) ->
-    erlang_client_1_sup:start_link().
 
+    RabbitParams=#amqp_params_network{host=?HOST, username=?RABBIT_USERNAME,
+                      password=?RABBIT_PASSWORD, virtual_host=?VHOST, port=?PORT},    
+    %{ok, Connection} = amqp_connection:start(#amqp_params_network{}),
+    {ok, Connection} = amqp_connection:start(RabbitParams),
+    %% Open a channel on the connection
+    {ok, Channel} = amqp_connection:open_channel(Connection),
+
+
+    %erlang_client_1_sup:start_link().
+
+	'this is an end'.
 stop(_State) ->
     ok.
 
