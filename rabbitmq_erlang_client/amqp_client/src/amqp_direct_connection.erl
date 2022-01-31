@@ -1,17 +1,8 @@
-%% The contents of this file are subject to the Mozilla Public License
-%% Version 1.1 (the "License"); you may not use this file except in
-%% compliance with the License. You may obtain a copy of the License at
-%% http://www.mozilla.org/MPL/
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, You can obtain one at https://mozilla.org/MPL/2.0/.
 %%
-%% Software distributed under the License is distributed on an "AS IS"
-%% basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
-%% License for the specific language governing rights and limitations
-%% under the License.
-%%
-%% The Original Code is RabbitMQ.
-%%
-%% The Initial Developer of the Original Code is GoPivotal, Inc.
-%% Copyright (c) 2007-2016 Pivotal Software, Inc.  All rights reserved.
+%% Copyright (c) 2007-2021 VMware, Inc. or its affiliates.  All rights reserved.
 %%
 
 %% @private
@@ -43,7 +34,7 @@
 -define(CREATION_EVENT_KEYS, [pid, protocol, host, port, name,
                               peer_host, peer_port,
                               user, vhost, client_properties, type,
-                              connected_at]).
+                              connected_at, node, user_who_performed_action]).
 
 %%---------------------------------------------------------------------------
 
@@ -62,8 +53,9 @@ init() ->
 open_channel_args(#state{node = Node,
                          user = User,
                          vhost = VHost,
-                         collector = Collector}) ->
-    [self(), Node, User, VHost, Collector].
+                         collector = Collector,
+                         params = Params}) ->
+    [self(), Node, User, VHost, Collector, Params].
 
 do(_Method, _State) ->
     ok.
@@ -78,6 +70,8 @@ handle_message({'DOWN', _MRef, process, _ConnSup, shutdown}, State) ->
     {stop, {shutdown, node_down}, State};
 handle_message({'DOWN', _MRef, process, _ConnSup, Reason}, State) ->
     {stop, {remote_node_down, Reason}, State};
+handle_message({'EXIT', Pid, Reason}, State) ->
+    {stop, rabbit_misc:format("stopping because dependent process ~p died: ~p", [Pid, Reason]), State};
 handle_message(Msg, State) ->
     {stop, {unexpected_msg, Msg}, State}.
 
@@ -89,26 +83,40 @@ channels_terminated(State = #state{closing_reason = Reason,
     rabbit_queue_collector:delete_all(Collector),
     {stop, {shutdown, Reason}, State}.
 
-terminate(_Reason, #state{node = Node}) ->
-    rpc:call(Node, rabbit_direct, disconnect, [self(), [{pid, self()}]]),
+terminate(_Reason, #state{node = Node} = State) ->
+    rpc:call(Node, rabbit_direct, disconnect,
+                   [self(), [{pid, self()},
+                             {node, Node},
+                             {name, i(name, State)}]]),
     ok.
 
 i(type, _State) -> direct;
 i(pid,  _State) -> self();
-%% AMQP Params
+
+%% Mandatory connection parameters
+
+i(node,              #state{node = N})   -> N;
 i(user,              #state{params = P}) -> P#amqp_params_direct.username;
+i(user_who_performed_action, St) -> i(user, St);
 i(vhost,             #state{params = P}) -> P#amqp_params_direct.virtual_host;
 i(client_properties, #state{params = P}) ->
     P#amqp_params_direct.client_properties;
 i(connected_at,      #state{connected_at = T}) -> T;
+
+%%
 %% Optional adapter info
+%%
+
+%% adapter_info can be undefined e.g. when we were
+%% not granted access to a vhost
+i(_Key,         #state{adapter_info = undefined}) -> unknown;
 i(protocol,     #state{adapter_info = I}) -> I#amqp_adapter_info.protocol;
 i(host,         #state{adapter_info = I}) -> I#amqp_adapter_info.host;
 i(port,         #state{adapter_info = I}) -> I#amqp_adapter_info.port;
 i(peer_host,    #state{adapter_info = I}) -> I#amqp_adapter_info.peer_host;
 i(peer_port,    #state{adapter_info = I}) -> I#amqp_adapter_info.peer_port;
 i(name,         #state{adapter_info = I}) -> I#amqp_adapter_info.name;
-
+i(internal_user, #state{user = U}) -> U;
 i(Item, _State) -> throw({bad_argument, Item}).
 
 info_keys() ->
@@ -131,10 +139,11 @@ connect(Params = #amqp_params_direct{username     = Username,
                          params       = Params,
                          adapter_info = ensure_adapter_info(Info),
                          connected_at =
-                           time_compat:os_system_time(milli_seconds)},
+                           os:system_time(milli_seconds)},
+    DecryptedPassword = credentials_obfuscation:decrypt(Password),
     case rpc:call(Node, rabbit_direct, connect,
-                  [{Username, Password}, VHost, ?PROTOCOL, self(),
-                   connection_info(State1)]) of
+                  [{Username, DecryptedPassword}, VHost, ?PROTOCOL, self(),
+                   connection_info(State1)], ?DIRECT_OPERATION_TIMEOUT) of
         {ok, {User, ServerProperties}} ->
             {ok, ChMgr, Collector} = SIF(i(name, State1)),
             State2 = State1#state{user      = User,
@@ -149,8 +158,8 @@ connect(Params = #amqp_params_direct{username     = Username,
             {ok, {ServerProperties, 0, ChMgr, State2}};
         {error, _} = E ->
             E;
-        {badrpc, nodedown} ->
-            {error, {nodedown, Node}}
+        {badrpc, Reason} ->
+            {error, {Reason, Node}}
     end.
 
 ensure_adapter_info(none) ->
@@ -185,20 +194,22 @@ socket_adapter_info(Sock, Protocol) ->
                        additional_info = maybe_ssl_info(Sock)}.
 
 maybe_ssl_info(Sock) ->
-    case rabbit_net:is_ssl(Sock) of
-        true  -> [{ssl, true}] ++ ssl_info(Sock) ++ ssl_cert_info(Sock);
-        false -> [{ssl, false}]
+    RealSocket = rabbit_net:unwrap_socket(Sock),
+    case rabbit_net:proxy_ssl_info(RealSocket, rabbit_net:maybe_get_proxy_socket(Sock)) of
+        nossl -> [{ssl, false}];
+        Info -> [{ssl, true}] ++ ssl_info(Info) ++ ssl_cert_info(RealSocket)
     end.
 
-ssl_info(Sock) ->
+ssl_info(Info) ->
     {Protocol, KeyExchange, Cipher, Hash} =
-        case rabbit_net:ssl_info(Sock) of
+        case Info of
             {ok, Infos} ->
                 {_, P} = lists:keyfind(protocol, 1, Infos),
-                case lists:keyfind(cipher_suite, 1, Infos) of
-                    {_,{K, C, H}}    -> {P, K, C, H};
-                    {_,{K, C, H, _}} -> {P, K, C, H}
-                end;
+                #{cipher := C,
+                  key_exchange := K,
+                  mac := H} = proplists:get_value(
+                                selected_cipher_suite, Infos),
+                {P, K, C, H};
             _           ->
                 {unknown, unknown, unknown, unknown}
         end,
@@ -211,11 +222,11 @@ ssl_cert_info(Sock) ->
     case rabbit_net:peercert(Sock) of
         {ok, Cert} ->
             [{peer_cert_issuer,   list_to_binary(
-                                    rabbit_ssl:peer_cert_issuer(Cert))},
+                                    rabbit_cert_info:issuer(Cert))},
              {peer_cert_subject,  list_to_binary(
-                                    rabbit_ssl:peer_cert_subject(Cert))},
+                                    rabbit_cert_info:subject(Cert))},
              {peer_cert_validity, list_to_binary(
-                                    rabbit_ssl:peer_cert_validity(Cert))}];
+                                    rabbit_cert_info:validity(Cert))}];
         _ ->
             []
     end.

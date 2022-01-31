@@ -1,17 +1,8 @@
-%% The contents of this file are subject to the Mozilla Public License
-%% Version 1.1 (the "License"); you may not use this file except in
-%% compliance with the License. You may obtain a copy of the License at
-%% http://www.mozilla.org/MPL/
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, You can obtain one at https://mozilla.org/MPL/2.0/.
 %%
-%% Software distributed under the License is distributed on an "AS IS"
-%% basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
-%% License for the specific language governing rights and limitations
-%% under the License.
-%%
-%% The Original Code is RabbitMQ.
-%%
-%% The Initial Developer of the Original Code is GoPivotal, Inc.
-%% Copyright (c) 2007-2016 Pivotal Software, Inc.  All rights reserved.
+%% Copyright (c) 2007-2021 VMware, Inc. or its affiliates.  All rights reserved.
 %%
 
 %% @private
@@ -30,7 +21,7 @@
 -record(state, {connection,
                 channel_sup_sup,
                 map_num_pa      = gb_trees:empty(), %% Number -> {Pid, AState}
-                map_pid_num     = dict:new(),       %% Pid -> Number
+                map_pid_num     = #{},       %% Pid -> Number
                 channel_max     = ?MAX_CHANNEL_NUMBER,
                 closing         = false}).
 
@@ -43,16 +34,16 @@ start_link(Connection, ConnName, ChSupSup) ->
 
 open_channel(ChMgr, ProposedNumber, Consumer, InfraArgs) ->
     gen_server:call(ChMgr, {open_channel, ProposedNumber, Consumer, InfraArgs},
-                     infinity).
+                     amqp_util:call_timeout()).
 
 set_channel_max(ChMgr, ChannelMax) ->
     gen_server:cast(ChMgr, {set_channel_max, ChannelMax}).
 
 is_empty(ChMgr) ->
-    gen_server:call(ChMgr, is_empty, infinity).
+    gen_server:call(ChMgr, is_empty, amqp_util:call_timeout()).
 
 num_channels(ChMgr) ->
-    gen_server:call(ChMgr, num_channels, infinity).
+    gen_server:call(ChMgr, num_channels, amqp_util:call_timeout()).
 
 pass_frame(ChMgr, ChNumber, Frame) ->
     gen_server:cast(ChMgr, {pass_frame, ChNumber, Frame}).
@@ -63,10 +54,10 @@ signal_connection_closing(ChMgr, ChannelCloseType, Reason) ->
 process_channel_frame(Frame, Channel, ChPid, AState) ->
     case rabbit_command_assembler:process(Frame, AState) of
         {ok, NewAState}                  -> NewAState;
-        {ok, Method, NewAState}          -> rabbit_channel:do(ChPid, Method),
+        {ok, Method, NewAState}          -> rabbit_channel_common:do(ChPid, Method),
                                             NewAState;
-        {ok, Method, Content, NewAState} -> rabbit_channel:do(ChPid, Method,
-                                                              Content),
+        {ok, Method, Content, NewAState} -> rabbit_channel_common:do(ChPid, Method,
+                                                                     Content),
                                             NewAState;
         {error, Reason}                  -> ChPid ! {channel_exit, Channel,
                                                      Reason},
@@ -212,7 +203,7 @@ internal_pass_frame(Number, Frame, State) ->
     case internal_lookup_npa(Number, State) of
         undefined ->
             ?LOG_INFO("Dropping frame ~p for invalid or closed "
-                      "channel number ~p~n", [Frame, Number]),
+                      "channel number ~p", [Frame, Number]),
             State;
         {ChPid, AState} ->
             NewAState = process_channel_frame(Frame, Number, ChPid, AState),
@@ -222,14 +213,14 @@ internal_pass_frame(Number, Frame, State) ->
 internal_register(Number, Pid, AState,
                   State = #state{map_num_pa = MapNPA, map_pid_num = MapPN}) ->
     MapNPA1 = gb_trees:enter(Number, {Pid, AState}, MapNPA),
-    MapPN1 = dict:store(Pid, Number, MapPN),
+    MapPN1 = maps:put(Pid, Number, MapPN),
     State#state{map_num_pa  = MapNPA1,
                 map_pid_num = MapPN1}.
 
 internal_unregister(Number, Pid,
                     State = #state{map_num_pa = MapNPA, map_pid_num = MapPN}) ->
     MapNPA1 = gb_trees:delete(Number, MapNPA),
-    MapPN1 = dict:erase(Pid, MapPN),
+    MapPN1 = maps:remove(Pid, MapPN),
     State#state{map_num_pa  = MapNPA1,
                 map_pid_num = MapPN1}.
 
@@ -245,7 +236,7 @@ internal_lookup_npa(Number, #state{map_num_pa = MapNPA}) ->
     end.
 
 internal_lookup_pn(Pid, #state{map_pid_num = MapPN}) ->
-    case dict:find(Pid, MapPN) of {ok, Number} -> Number;
+    case maps:find(Pid, MapPN) of {ok, Number} -> Number;
                                   error        -> undefined
     end.
 
@@ -255,4 +246,4 @@ internal_update_npa(Number, Pid, AState, State = #state{map_num_pa = MapNPA}) ->
 signal_channels_connection_closing(ChannelCloseType, Reason,
                                    #state{map_pid_num = MapPN}) ->
     [amqp_channel:connection_closing(Pid, ChannelCloseType, Reason)
-        || Pid <- dict:fetch_keys(MapPN)].
+        || Pid <- maps:keys(MapPN)].

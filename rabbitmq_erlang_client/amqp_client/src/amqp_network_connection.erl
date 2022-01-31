@@ -1,17 +1,8 @@
-%% The contents of this file are subject to the Mozilla Public License
-%% Version 1.1 (the "License"); you may not use this file except in
-%% compliance with the License. You may obtain a copy of the License at
-%% http://www.mozilla.org/MPL/
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, You can obtain one at https://mozilla.org/MPL/2.0/.
 %%
-%% Software distributed under the License is distributed on an "AS IS"
-%% basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
-%% License for the specific language governing rights and limitations
-%% under the License.
-%%
-%% The Original Code is RabbitMQ.
-%%
-%% The Initial Developer of the Original Code is GoPivotal, Inc.
-%% Copyright (c) 2007-2016 Pivotal Software, Inc.  All rights reserved.
+%% Copyright (c) 2007-2021 VMware, Inc. or its affiliates.  All rights reserved.
 %%
 
 %% @private
@@ -73,6 +64,8 @@ handle_message(heartbeat_timeout, State) ->
     {stop, heartbeat_timeout, State};
 handle_message(closing_timeout, State = #state{closing_reason = Reason}) ->
     {stop, Reason, State};
+handle_message({'EXIT', Pid, Reason}, State) ->
+    {stop, rabbit_misc:format("stopping because dependent process ~p died: ~p", [Pid, Reason]), State};
 %% see http://erlang.org/pipermail/erlang-bugs/2012-June/002933.html
 handle_message({Ref, {error, Reason}},
                State = #state{waiting_socket_close = Waiting,
@@ -84,6 +77,9 @@ handle_message({Ref, {error, Reason}},
                {_,          _} -> {socket_error, Reason}
            end, State}.
 
+closing(_ChannelCloseType, {server_initiated_close, _, _} = Reason, State) ->
+    {ok, State#state{waiting_socket_close = true,
+                     closing_reason = Reason}};
 closing(_ChannelCloseType, Reason, State) ->
     {ok, State#state{closing_reason = Reason}}.
 
@@ -112,9 +108,8 @@ info_keys() ->
 
 connect(AmqpParams = #amqp_params_network{host = Host}, SIF, TypeSup, State) ->
     case gethostaddr(Host) of
-        []     -> {error, unknown_host};
-        [AF|_] -> do_connect(
-                    AF, AmqpParams, SIF, State#state{type_sup = TypeSup})
+        {error, Reason}     -> {error, Reason};
+        AF -> do_connect(AF, AmqpParams, SIF, State#state{type_sup = TypeSup})
     end.
 
 do_connect({Addr, Family},
@@ -123,7 +118,7 @@ do_connect({Addr, Family},
                                              connection_timeout = Timeout,
                                              socket_options     = ExtraOpts},
            SIF, State) ->
-    obtain(),
+    ok = obtain(),
     case gen_tcp:connect(Addr, Port,
                          [Family | ?RABBIT_TCP_OPTS] ++ ExtraOpts,
                          Timeout) of
@@ -139,17 +134,17 @@ do_connect({Addr, Family},
            SIF, State) ->
     {ok, GlobalSslOpts} = application:get_env(amqp_client, ssl_options),
     app_utils:start_applications([asn1, crypto, public_key, ssl]),
-    obtain(),
+    ok = obtain(),
     case gen_tcp:connect(Addr, Port,
                          [Family | ?RABBIT_TCP_OPTS] ++ ExtraOpts,
                          Timeout) of
         {ok, Sock} ->
-            SslOpts = rabbit_networking:fix_ssl_options(
+            SslOpts = rabbit_ssl_options:fix(
                         orddict:to_list(
                           orddict:merge(fun (_, _A, B) -> B end,
                                         orddict:from_list(GlobalSslOpts),
                                         orddict:from_list(SslOpts0)))),
-            case ssl:connect(Sock, SslOpts) of
+            case ssl:connect(Sock, SslOpts, Timeout) of
                 {ok, SslSock} ->
                     try_handshake(AmqpParams, SIF,
                                   State#state{sock = SslSock});
@@ -167,9 +162,15 @@ inet_address_preference() ->
     end.
 
 gethostaddr(Host) ->
-    Lookups = [{Family, inet:getaddr(Host, Family)}
-               || Family <- inet_address_preference()],
-    [{IP, Family} || {Family, {ok, IP}} <- Lookups].
+    resolve_address(Host, inet_address_preference()).
+
+resolve_address(Host, [Family | Remaining]) ->
+    case inet:getaddr(Host, Family) of
+        {ok, IP} -> {IP, Family};
+        _ -> resolve_address(Host, Remaining)
+    end;
+resolve_address(_Host, []) ->
+    {error, unknown_host}.
 
 try_handshake(AmqpParams, SIF, State = #state{sock = Sock}) ->
     Name = case rabbit_net:connection_string(Sock, outbound) of
@@ -183,12 +184,25 @@ try_handshake(AmqpParams, SIF, State = #state{sock = Sock}) ->
     end.
 
 handshake(AmqpParams, SIF, State0 = #state{sock = Sock}) ->
-    ok = rabbit_net:send(Sock, ?PROTOCOL_HEADER),
-    network_handshake(AmqpParams, start_infrastructure(SIF, State0)).
+    case rabbit_net:send(Sock, ?PROTOCOL_HEADER) of
+        ok ->
+            case start_infrastructure(SIF, State0) of
+              {ok, ChMgr, State1} ->
+                network_handshake(AmqpParams, {ChMgr, State1});
+              {error, Reason} ->
+                {error, Reason}
+            end;
+        {error, Reason} ->
+            {error, Reason}
+    end.
 
 start_infrastructure(SIF, State = #state{sock = Sock, name = Name}) ->
-    {ok, ChMgr, Writer} = SIF(Sock, Name),
-    {ChMgr, State#state{writer0 = Writer}}.
+    case SIF(Sock, Name) of
+      {ok, ChMgr, Writer} ->
+        {ok, ChMgr, State#state{writer0 = Writer}};
+      {error, Reason} ->
+        {error, Reason}
+    end.
 
 network_handshake(AmqpParams = #amqp_params_network{virtual_host = VHost},
                   {ChMgr, State0}) ->
@@ -303,10 +317,10 @@ client_properties(UserProperties) ->
                {<<"version">>,   longstr, list_to_binary(Vsn)},
                {<<"platform">>,  longstr, <<"Erlang">>},
                {<<"copyright">>, longstr,
-                <<"Copyright (c) 2007-2016 Pivotal Software, Inc.">>},
+                <<"Copyright (c) 2007-2021 VMware, Inc. or its affiliates.">>},
                {<<"information">>, longstr,
                 <<"Licensed under the MPL.  "
-                  "See http://www.rabbitmq.com/">>},
+                  "See https://www.rabbitmq.com/">>},
                {<<"capabilities">>, table, ?CLIENT_CAPABILITIES}],
     lists:foldl(fun({K, _, _} = Tuple, Acc) ->
                     lists:keystore(K, 1, Acc, Tuple)

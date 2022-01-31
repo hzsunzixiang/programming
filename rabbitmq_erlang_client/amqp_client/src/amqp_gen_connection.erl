@@ -1,17 +1,8 @@
-%% The contents of this file are subject to the Mozilla Public License
-%% Version 1.1 (the "License"); you may not use this file except in
-%% compliance with the License. You may obtain a copy of the License at
-%% http://www.mozilla.org/MPL/
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, You can obtain one at https://mozilla.org/MPL/2.0/.
 %%
-%% Software distributed under the License is distributed on an "AS IS"
-%% basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
-%% License for the specific language governing rights and limitations
-%% under the License.
-%%
-%% The Original Code is RabbitMQ.
-%%
-%% The Initial Developer of the Original Code is GoPivotal, Inc.
-%% Copyright (c) 2007-2016 Pivotal Software, Inc.  All rights reserved.
+%% Copyright (c) 2007-2021 VMware, Inc. or its affiliates.  All rights reserved.
 %%
 
 %% @private
@@ -24,7 +15,7 @@
 -export([start_link/2, connect/1, open_channel/3, hard_error_in_channel/3,
          channel_internal_error/3, server_misbehaved/2, channels_terminated/1,
          close/3, server_close/2, info/2, info_keys/0, info_keys/1,
-         register_blocked_handler/2]).
+         register_blocked_handler/2, update_secret/2]).
 -export([behaviour_info/1]).
 -export([init/1, terminate/2, code_change/3, handle_call/3, handle_cast/2,
          handle_info/2]).
@@ -55,15 +46,17 @@ start_link(TypeSup, AMQPParams) ->
     gen_server:start_link(?MODULE, {TypeSup, AMQPParams}, []).
 
 connect(Pid) ->
-    gen_server:call(Pid, connect, infinity).
+    gen_server:call(Pid, connect, amqp_util:call_timeout()).
 
 open_channel(Pid, ProposedNumber, Consumer) ->
-    case gen_server:call(Pid,
+    try gen_server:call(Pid,
                          {command, {open_channel, ProposedNumber, Consumer}},
-                         infinity) of
+                         amqp_util:call_timeout()) of
         {ok, ChannelPid} -> ok = amqp_channel:open(ChannelPid),
                             {ok, ChannelPid};
         Error            -> Error
+    catch
+        _:Reason         -> {error, Reason}
     end.
 
 hard_error_in_channel(Pid, ChannelPid, Reason) ->
@@ -79,19 +72,22 @@ channels_terminated(Pid) ->
     gen_server:cast(Pid, channels_terminated).
 
 close(Pid, Close, Timeout) ->
-    gen_server:call(Pid, {command, {close, Close, Timeout}}, infinity).
+    gen_server:call(Pid, {command, {close, Close, Timeout}}, amqp_util:call_timeout()).
 
 server_close(Pid, Close) ->
     gen_server:cast(Pid, {server_close, Close}).
 
+update_secret(Pid, Method) ->
+    gen_server:call(Pid, {command, {update_secret, Method}}, amqp_util:call_timeout()).
+
 info(Pid, Items) ->
-    gen_server:call(Pid, {info, Items}, infinity).
+    gen_server:call(Pid, {info, Items}, amqp_util:call_timeout()).
 
 info_keys() ->
     ?INFO_KEYS.
 
 info_keys(Pid) ->
-    gen_server:call(Pid, info_keys, infinity).
+    gen_server:call(Pid, info_keys, amqp_util:call_timeout()).
 
 %%---------------------------------------------------------------------------
 %% Behaviour
@@ -207,7 +203,7 @@ handle_cast(channels_terminated, State) ->
 handle_cast({hard_error_in_channel, _Pid, Reason}, State) ->
     server_initiated_close(Reason, State);
 handle_cast({channel_internal_error, Pid, Reason}, State) ->
-    ?LOG_WARN("Connection (~p) closing: internal error in channel (~p): ~p~n",
+    ?LOG_WARN("Connection (~p) closing: internal error in channel (~p): ~p",
               [self(), Pid, Reason]),
     internal_error(Pid, Reason, State);
 handle_cast({server_misbehaved, AmqpError}, State) ->
@@ -221,9 +217,18 @@ handle_cast({register_blocked_handler, HandlerPid}, State) ->
 %% @private
 handle_info({'DOWN', _, process, BlockHandler, Reason},
             State = #state{block_handler = {BlockHandler, _Ref}}) ->
-    ?LOG_WARN("Connection (~p): Unregistering block handler ~p because it died. "
-              "Reason: ~p~n", [self(), BlockHandler, Reason]),
+    ?LOG_WARN("Connection (~p): Unregistering connection.{blocked,unblocked} handler ~p because it died. "
+              "Reason: ~p", [self(), BlockHandler, Reason]),
     {noreply, State#state{block_handler = none}};
+handle_info({'EXIT', BlockHandler, Reason},
+            State = #state{block_handler = {BlockHandler, Ref}}) ->
+    ?LOG_WARN("Connection (~p): Unregistering connection.{blocked,unblocked} handler ~p because it died. "
+              "Reason: ~p", [self(), BlockHandler, Reason]),
+    erlang:demonitor(Ref, [flush]),
+    {noreply, State#state{block_handler = none}};
+%% propagate the exit to the module that will stop with a sensible reason logged
+handle_info({'EXIT', _Pid, _Reason} = Info, State) ->
+    callback(handle_message, [Info], State);
 handle_info(Info, State) ->
     callback(handle_message, [Info], State).
 
@@ -264,7 +269,11 @@ handle_command({open_channel, ProposedNumber, Consumer}, _From,
                                                Mod:open_channel_args(MState)),
      State};
 handle_command({close, #'connection.close'{} = Close, Timeout}, From, State) ->
-    app_initiated_close(Close, From, Timeout, State).
+    app_initiated_close(Close, From, Timeout, State);
+handle_command({update_secret, #'connection.update_secret'{} = Method}, _From,
+               State = #state{module = Mod,
+                              module_state = MState}) ->
+    {reply, Mod:do(Method, MState), State}.
 
 %%---------------------------------------------------------------------------
 %% Handling methods from broker
@@ -286,6 +295,8 @@ handle_method(#'connection.unblocked'{} = Unblocked, State = #state{block_handle
     case BlockHandler of none        -> ok;
                          {Pid, _Ref} -> Pid ! Unblocked
     end,
+    {noreply, State};
+handle_method(#'connection.update_secret_ok'{} = _Method, State) ->
     {noreply, State};
 handle_method(Other, State) ->
     server_misbehaved_close(#amqp_error{name        = command_invalid,
@@ -318,12 +329,12 @@ internal_error(Pid, Reason, State) ->
 
 server_initiated_close(Close, State) ->
     ?LOG_WARN("Connection (~p) closing: received hard error ~p "
-              "from server~n", [self(), Close]),
+              "from server", [self(), Close]),
     set_closing_state(abrupt, #closing{reason = server_initiated_close,
                                        close = Close}, State).
 
 server_misbehaved_close(AmqpError, State) ->
-    ?LOG_WARN("Connection (~p) closing: server misbehaved: ~p~n",
+    ?LOG_WARN("Connection (~p) closing: server misbehaved: ~p",
               [self(), AmqpError]),
     {0, Close} = rabbit_binary_generator:map_exception(0, AmqpError, ?PROTOCOL),
     set_closing_state(abrupt, #closing{reason = server_misbehaved,

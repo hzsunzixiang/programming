@@ -1,17 +1,8 @@
-%% The contents of this file are subject to the Mozilla Public License
-%% Version 1.1 (the "License"); you may not use this file except in
-%% compliance with the License. You may obtain a copy of the License at
-%% http://www.mozilla.org/MPL/
+%% This Source Code Form is subject to the terms of the Mozilla Public
+%% License, v. 2.0. If a copy of the MPL was not distributed with this
+%% file, You can obtain one at https://mozilla.org/MPL/2.0/.
 %%
-%% Software distributed under the License is distributed on an "AS IS"
-%% basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
-%% License for the specific language governing rights and limitations
-%% under the License.
-%%
-%% The Original Code is RabbitMQ.
-%%
-%% The Initial Developer of the Original Code is GoPivotal, Inc.
-%% Copyright (c) 2007-2015 Pivotal Software, Inc.  All rights reserved.
+%% Copyright (c) 2020-2021 VMware, Inc. or its affiliates.  All rights reserved.
 %%
 
 -ifndef(AMQP_CLIENT_HRL).
@@ -27,10 +18,10 @@
                               virtual_host       = <<"/">>,
                               host               = "localhost",
                               port               = undefined,
-                              channel_max        = 0,
+                              channel_max        = 2047,
                               frame_max          = 0,
                               heartbeat          = 10,
-                              connection_timeout = infinity,
+                              connection_timeout = 60000,
                               ssl_options        = none,
                               auth_mechanisms    =
                                   [fun amqp_auth_mechanisms:plain/3,
