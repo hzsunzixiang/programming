@@ -9,7 +9,8 @@
 
 -export([start/2, stop/1]).
 
--include("amqp_client.hrl").
+-include_lib("amqp_client/include/amqp_client.hrl").
+
 -compile([export_all]).
 -compile(nowarn_export_all).
 
@@ -29,3 +30,10 @@ stop(_State) ->
     ok.
 
 %% internal functions
+%%
+
+%-include_lib("cowlib/include/cow_inline.hrl").
+%-include("amqp_client.hrl").
+%-include_lib("proper/include/proper.hrl").
+%-include_lib("amqp_client/include/amqp_client.hrl").
+%../erlang_client_1/_build/default/lib/amqp_client/include/amqp_client.hrl
