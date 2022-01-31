@@ -1,22 +1,10 @@
 {"1.2.0",
 [{<<"amqp_client">>,{pkg,<<"amqp_client">>,<<"3.9.11">>},0},
- {<<"cowboy">>,
-  {git,"https://github.com/ninenines/cowboy.git",
-       {ref,"d846827b2a70317914621328bd617e4e5d4d13d8"}},
-  0},
- {<<"cowlib">>,
-  {git,"https://github.com/ninenines/cowlib",
-       {ref,"75aaeb8415033b07303febbfeba66d6d3413ad06"}},
-  1},
  {<<"credentials_obfuscation">>,
   {pkg,<<"credentials_obfuscation">>,<<"2.4.0">>},
   2},
  {<<"jsx">>,{pkg,<<"jsx">>,<<"3.1.0">>},2},
  {<<"rabbit_common">>,{pkg,<<"rabbit_common">>,<<"3.9.11">>},1},
- {<<"ranch">>,
-  {git,"https://github.com/ninenines/ranch",
-       {ref,"3190aef88aea04d6dce8545fe9b4574288903f44"}},
-  1},
  {<<"recon">>,{pkg,<<"recon">>,<<"2.5.1">>},2}]}.
 [
 {pkg_hash,[
