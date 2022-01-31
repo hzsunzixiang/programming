@@ -28,5 +28,5 @@ RUN service ssh restart
 
 
 # compile
-RUN cd /data/amqp_client && make
+#RUN cd /data/amqp_client && make
 #RUN cd /data/client_example & make
