@@ -1,0 +1,17 @@
+{application, erlang_client_1,
+ [{description, "An OTP application"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {erlang_client_1_app, []}},
+  {applications,
+   [kernel,
+    stdlib,
+	amqp_client,
+	rabbit_common
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache 2.0"]},
+  {links, []}
+ ]}.

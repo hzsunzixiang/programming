@@ -7,6 +7,10 @@
 
 -behaviour(application).
 
+%-include_lib("epgsql/include/epgsql.hrl").
+-include_lib("cowlib/include/cow_inline.hrl").
+
+
 -export([start/2, stop/1]).
 
 start(_StartType, _StartArgs) ->

@@ -1,0 +1,6 @@
+-sname erlang_client
+
+-setcookie erlang_client_cookie
+
++K true
++A30
