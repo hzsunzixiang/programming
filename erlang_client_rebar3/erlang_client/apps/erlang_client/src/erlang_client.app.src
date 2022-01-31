@@ -5,6 +5,8 @@
   {mod, {erlang_client_app, []}},
   {applications,
    [kernel,
+    amqp_client,
+    rabbit_common,
     stdlib
    ]},
   {env,[]},
