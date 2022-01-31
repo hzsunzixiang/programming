@@ -1,0 +1,32 @@
+#FROM erlang:17.5.6.10
+#FROM  erlang:17
+
+#FROM   erlang:18.3.4.11
+FROM  erlang:17
+
+# copy file
+RUN mkdir /data
+ADD amqp_client /data/amqp_client
+ADD client_example /data/client_example
+
+# install  software
+RUN apt-get update
+RUN apt-get install  -y aptitude 
+RUN apt-get install  -y vim 
+RUN apt-get install  -y zip 
+RUN apt-get install  -y gdb 
+RUN apt-get install  -y net-tools 
+RUN apt-get install  -y sudo
+RUN apt-get install  -y ssh 
+RUN apt-get install  -y less
+RUN apt-get install  -y tmux 
+RUN apt-get install  -y tcpdump 
+RUN apt-get install  -y telnet 
+RUN apt-get install  -y strace 
+
+RUN service ssh restart
+
+
+# compile
+RUN cd /data/amqp_client && make
+#RUN cd /data/client_example & make

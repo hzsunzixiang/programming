@@ -5,7 +5,8 @@
 -compile(nowarn_export_all).
 
 %-define(HOST, '192.168.142.130'). 
--define(HOST, "192.168.142.130"). 
+%-define(HOST, "192.168.142.130"). 
+-define(HOST, "127.0.0.1"). 
 -define(RABBIT_USERNAME, vstation). 
 -define(RABBIT_PASSWORD, vstation). 
 -define(VHOST, vstation). 
@@ -36,11 +37,15 @@
 test() ->
     %% Start a network connection
     RabbitParams=#amqp_params_network{host=?HOST, username=?RABBIT_USERNAME,
-                      password=?RABBIT_PASSWORD, virtual_host=?VHOST, port=?PORT},    
+                      password=?RABBIT_PASSWORD, virtual_host=?VHOST, port=?PORT},
     %{ok, Connection} = amqp_connection:start(#amqp_params_network{}),
+    io:format("amqp_connection:start begin ~n"),
     {ok, Connection} = amqp_connection:start(RabbitParams),
+    io:format("amqp_connection:start ok ~n"),
     %% Open a channel on the connection
+    io:format("amqp_connection:open_channel begin ~n"),
     {ok, Channel} = amqp_connection:open_channel(Connection),
+    io:format("amqp_connection:open_channel ok ~n"),
 
     %%%%% Declare a queue
     %%%#'queue.declare_ok'{queue = Q}
