@@ -8,11 +8,39 @@
 -define(HOST, '192.168.142.130'). 
 -define(RABBIT_USERNAME, vstation). 
 -define(RABBIT_PASSWORD, vstation). 
+-define(VHOST, vstation). 
+-define(EXCHANGE, vstation). 
+-define(QUEUE_NAME, 'FLOW'). 
+% virtual_host	/
+
+
+
+% exchange = 'vstation'
+% vhost = 'vstation'
+% user =  'vstation'
+% password = 'vstation'
+% queue_name =  'FLOW'
+
+
+% The #amqp_params_network record sets the following default values:
+% 
+% Parameter	Default Value
+% username	guest
+% password	guest
+% virtual_host	/
+% host	localhost
+% port	5672
+% channel_max	2047
+% frame_max	0
+% heartbeat	0
+% ssl_options	none
+% auth_mechanisms	[fun amqp_auth_mechanisms:plain/3, fun amqp_auth_mechanisms:amqplain/3]
+% client_properties	[]
 
 test() ->
     %% Start a network connection
-    RabbitParams=#amqp_params_network{host=?HOST,username=?RABBIT_USERNAME,
-                      password=?RABBIT_PASSWORD},    
+    RabbitParams=#amqp_params_network{host=?HOST, username=?RABBIT_USERNAME,
+                      password=?RABBIT_PASSWORD, virtual_host=?VHOST},    
     %{ok, Connection} = amqp_connection:start(#amqp_params_network{}),
     {ok, Connection} = amqp_connection:start(RabbitParams),
     %% Open a channel on the connection
@@ -24,7 +52,9 @@ test() ->
 
     %% Publish a message
     Payload = <<"foobar">>,
-    Publish = #'basic.publish'{exchange = <<>>, routing_key = Q},
+    %% Publish = #'basic.publish'{exchange = <<>>, routing_key = Q},
+	Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = ?QUEUE_NAME,
+                          mandatory = true},
     amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload}),
 
     %% Poll for a message
