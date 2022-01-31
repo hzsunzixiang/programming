@@ -5,7 +5,7 @@
 .erl.beam:
 	#erlc  -I ~/programming/rabbitmq_erlang_client/amqp_client/include/  -pa  ~/programming/rabbitmq_erlang_client/amqp_client/deps/rabbit_common/ebin/  -W $<
 	#erlc  -I ../amqp_client/include/  -pa  ../amqp_client/deps/rabbit_common/ebin/ -pa ../amqp_client/ebin/ -W $<
-	erlc  -I ../amqp_client/include/  -pa  ../rabbit_common/ebin/ -pa ../amqp_client/ebin/  -pa ../amqp_client/src/ -W $<
+	erlc  -I ../amqp_client/include/ -I ../amqp_client/deps/  -pa  ../amqp_client/deps/rabbit_common/ebin/ -pa ../amqp_client/ebin/  -pa ../amqp_client/src/ -W $<
 	#erlc  -I ../amqp_client/include/  -pa  ../amqp_client/deps/rabbit_common/ebin/  -pa ../amqp_client/src/ -W $<
 	#erlc  -I ../amqp_client/include/  -pa  ../amqp_client/deps/rabbit_common/ebin/ -pa ../amqp_client/ebin/ -E  $<
 
@@ -16,7 +16,7 @@ MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 
 RUN_BIN=amqp_example
 all:compile
-	erl -noshell -pa  ../rabbit_common/ebin/ -pa ../amqp_client/ebin/  -s $(RUN_BIN) start_my -s init stop
+	erl -noshell -pa  ../amqp_client/deps/rabbit_common/ebin/  -pa ../amqp_client/ebin/ -s $(RUN_BIN) start_my -s init stop
 
 
 compile:${MODS:%=%.beam} 
