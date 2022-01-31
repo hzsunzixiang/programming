@@ -1,8 +1,17 @@
-%% This Source Code Form is subject to the terms of the Mozilla Public
-%% License, v. 2.0. If a copy of the MPL was not distributed with this
-%% file, You can obtain one at https://mozilla.org/MPL/2.0/.
+%% The contents of this file are subject to the Mozilla Public License
+%% Version 1.1 (the "License"); you may not use this file except in
+%% compliance with the License. You may obtain a copy of the License at
+%% http://www.mozilla.org/MPL/
 %%
-%% Copyright (c) 2011-2021 VMware, Inc. or its affiliates.  All rights reserved.
+%% Software distributed under the License is distributed on an "AS IS"
+%% basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+%% License for the specific language governing rights and limitations
+%% under the License.
+%%
+%% The Original Code is RabbitMQ.
+%%
+%% The Initial Developer of the Original Code is GoPivotal, Inc.
+%% Copyright (c) 2011-2015 Pivotal Software, Inc.  All rights reserved.
 %%
 
 %% @doc A behaviour module for implementing consumers for
@@ -49,7 +58,7 @@ start_link(ConsumerModule, ExtraParams, Identity) ->
 %% @doc This function is used to perform arbitrary calls into the
 %% consumer module.
 call_consumer(Pid, Msg) ->
-    gen_server2:call(Pid, {consumer_call, Msg}, amqp_util:call_timeout()).
+    gen_server2:call(Pid, {consumer_call, Msg}, infinity).
 
 %% @spec (Consumer, Method, Args) -> ok
 %% where
@@ -60,10 +69,10 @@ call_consumer(Pid, Msg) ->
 %% @doc This function is used by amqp_channel to forward received
 %% methods and deliveries to the consumer module.
 call_consumer(Pid, Method, Args) ->
-    gen_server2:call(Pid, {consumer_call, Method, Args}, amqp_util:call_timeout()).
+    gen_server2:call(Pid, {consumer_call, Method, Args}, infinity).
 
 call_consumer(Pid, Method, Args, DeliveryCtx) ->
-    gen_server2:call(Pid, {consumer_call, Method, Args, DeliveryCtx}, amqp_util:call_timeout()).
+    gen_server2:call(Pid, {consumer_call, Method, Args, DeliveryCtx}, infinity).
 
 %%---------------------------------------------------------------------------
 %% Behaviour

@@ -1,13 +1,13 @@
 %% This file is a copy of http_uri.erl from the R13B-1 Erlang/OTP
 %% distribution with several modifications.
 
-%% All modifications are Copyright (c) 2009-2021 VMware, Inc. or its affiliates.
+%% All modifications are Copyright (c) 2009-2014 GoPivotal, Ltd.
 
 %% ``The contents of this file are subject to the Erlang Public License,
 %% Version 1.1, (the "License"); you may not use this file except in
 %% compliance with the License. You should have received a copy of the
 %% Erlang Public License along with this software. If not, it can be
-%% retrieved via the world wide web at https://www.erlang.org/.
+%% retrieved via the world wide web at http://www.erlang.org/.
 %% 
 %% Software distributed under the License is distributed on an "AS IS"
 %% basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See
@@ -18,7 +18,7 @@
 %% Portions created by Ericsson are Copyright 1999, Ericsson Utvecklings
 %% AB. All Rights Reserved.''
 
-%% See https://tools.ietf.org/html/rfc3986
+%% See http://tools.ietf.org/html/rfc3986
 
 -module(uri_parser).
 
@@ -39,12 +39,8 @@
 %% are: 'scheme', 'userinfo', 'host', 'port', 'path', 'query',
 %% 'fragment'.
 
--spec parse(AbsURI, Defaults :: list())
-    -> [{atom(), string()}] | {error, no_scheme | {malformed_uri, AbsURI, any()}}
-    when AbsURI :: string() | binary().
 parse(AbsURI, Defaults) ->
-    AbsUriString = rabbit_data_coercion:to_list(AbsURI),
-    case parse_scheme(AbsUriString) of
+    case parse_scheme(AbsURI) of
 	{error, Reason} ->
 	    {error, Reason};
 	{Scheme, Rest} ->

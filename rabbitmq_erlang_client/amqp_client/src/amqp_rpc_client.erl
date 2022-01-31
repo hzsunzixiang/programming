@@ -1,8 +1,17 @@
-%% This Source Code Form is subject to the terms of the Mozilla Public
-%% License, v. 2.0. If a copy of the MPL was not distributed with this
-%% file, You can obtain one at https://mozilla.org/MPL/2.0/.
+%% The contents of this file are subject to the Mozilla Public License
+%% Version 1.1 (the "License"); you may not use this file except in
+%% compliance with the License. You may obtain a copy of the License at
+%% http://www.mozilla.org/MPL/
 %%
-%% Copyright (c) 2007-2021 VMware, Inc. or its affiliates.  All rights reserved.
+%% Software distributed under the License is distributed on an "AS IS"
+%% basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+%% License for the specific language governing rights and limitations
+%% under the License.
+%%
+%% The Original Code is RabbitMQ.
+%%
+%% The Initial Developer of the Original Code is GoPivotal, Inc.
+%% Copyright (c) 2007-2016 Pivotal Software, Inc.  All rights reserved.
 %%
 
 %% @doc This module allows the simple execution of an asynchronous RPC over
@@ -25,7 +34,7 @@
                 reply_queue,
                 exchange,
                 routing_key,
-                continuations = #{},
+                continuations = dict:new(),
                 correlation_id = 0}).
 
 %%--------------------------------------------------------------------------
@@ -59,9 +68,9 @@ start_link(Connection, Queue) ->
 %% @spec (RpcClient) -> ok
 %% where
 %%      RpcClient = pid()
-%% @doc Stops an existing RPC client.
+%% @doc Stops an exisiting RPC client.
 stop(Pid) ->
-    gen_server:call(Pid, stop, amqp_util:call_timeout()).
+    gen_server:call(Pid, stop, infinity).
 
 %% @spec (RpcClient, Payload) -> ok
 %% where
@@ -70,7 +79,7 @@ stop(Pid) ->
 %% @doc Invokes an RPC. Note the caller of this function is responsible for
 %% encoding the request and decoding the response.
 call(RpcClient, Payload) ->
-    gen_server:call(RpcClient, {call, Payload}, amqp_util:call_timeout()).
+    gen_server:call(RpcClient, {call, Payload}, infinity).
 
 %%--------------------------------------------------------------------------
 %% Plumbing
@@ -107,7 +116,7 @@ publish(Payload, From,
     amqp_channel:call(Channel, Publish, #amqp_msg{props = Props,
                                                   payload = Payload}),
     State#state{correlation_id = CorrelationId + 1,
-                continuations = maps:put(EncodedCorrelationId, From, Continuations)}.
+                continuations = dict:store(EncodedCorrelationId, From, Continuations)}.
 
 %%--------------------------------------------------------------------------
 %% gen_server callbacks
@@ -166,10 +175,10 @@ handle_info({#'basic.deliver'{delivery_tag = DeliveryTag},
              #amqp_msg{props = #'P_basic'{correlation_id = Id},
                        payload = Payload}},
             State = #state{continuations = Conts, channel = Channel}) ->
-    From = maps:get(Id, Conts),
+    From = dict:fetch(Id, Conts),
     gen_server:reply(From, Payload),
     amqp_channel:call(Channel, #'basic.ack'{delivery_tag = DeliveryTag}),
-    {noreply, State#state{continuations = maps:remove(Id, Conts) }}.
+    {noreply, State#state{continuations = dict:erase(Id, Conts) }}.
 
 %% @private
 code_change(_OldVsn, State, _Extra) ->

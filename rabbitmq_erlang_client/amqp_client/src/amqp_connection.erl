@@ -1,8 +1,17 @@
-%% This Source Code Form is subject to the terms of the Mozilla Public
-%% License, v. 2.0. If a copy of the MPL was not distributed with this
-%% file, You can obtain one at https://mozilla.org/MPL/2.0/.
+%% The contents of this file are subject to the Mozilla Public License
+%% Version 1.1 (the "License"); you may not use this file except in
+%% compliance with the License. You may obtain a copy of the License at
+%% http://www.mozilla.org/MPL/
 %%
-%% Copyright (c) 2007-2021 VMware, Inc. or its affiliates.  All rights reserved.
+%% Software distributed under the License is distributed on an "AS IS"
+%% basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+%% License for the specific language governing rights and limitations
+%% under the License.
+%%
+%% The Original Code is RabbitMQ.
+%%
+%% The Initial Developer of the Original Code is GoPivotal, Inc.
+%% Copyright (c) 2007-2016 Pivotal Software, Inc.  All rights reserved.
 %%
 
 %% @type close_reason(Type) = {shutdown, amqp_reason(Type)}.
@@ -61,10 +70,10 @@
 -include("amqp_client_internal.hrl").
 
 -export([open_channel/1, open_channel/2, open_channel/3, register_blocked_handler/2]).
--export([start/1, start/2, close/1, close/2, close/3, close/4]).
+-export([start/1, start/2, close/1, close/2, close/3]).
 -export([error_atom/1]).
 -export([info/2, info_keys/1, info_keys/0]).
--export([connection_name/1, update_secret/3]).
+-export([connection_name/1]).
 -export([socket_adapter_info/2]).
 
 -define(DEFAULT_CONSUMER, {amqp_selective_consumer, []}).
@@ -108,19 +117,19 @@
 %%     defaults to 0</li>
 %% <li>frame_max :: non_neg_integer() - The frame_max handshake parameter,
 %%     defaults to 0 (network only)</li>
-%% <li>heartbeat :: non_neg_integer() - The heartbeat interval in seconds,
+%% <li>heartbeat :: non_neg_integer() - The hearbeat interval in seconds,
 %%     defaults to 0 (turned off) (network only)</li>
 %% <li>connection_timeout :: non_neg_integer() | 'infinity'
 %%     - The connection timeout in milliseconds,
-%%     defaults to 30000 (network only)</li>
+%%     defaults to 'infinity' (network only)</li>
 %% <li>ssl_options :: term() - The second parameter to be used with the
 %%     ssl:connect/2 function, defaults to 'none' (network only)</li>
 %% <li>client_properties :: [{binary(), atom(), binary()}] - A list of extra
 %%     client properties to be sent to the server, defaults to []</li>
 %% <li>socket_options :: [any()] - Extra socket options.  These are
 %%     appended to the default options.  See
-%%     <a href="https://www.erlang.org/doc/man/inet.html#setopts-2">inet:setopts/2</a>
-%%     and <a href="https://www.erlang.org/doc/man/gen_tcp.html#connect-4">
+%%     <a href="http://www.erlang.org/doc/man/inet.html#setopts-2">inet:setopts/2</a>
+%%     and <a href="http://www.erlang.org/doc/man/gen_tcp.html#connect-4">
 %%     gen_tcp:connect/4</a> for descriptions of the available options.</li>
 %% </ul>
 
@@ -148,40 +157,31 @@ start(AmqpParams) ->
 %% running in the same process space.  If the port is set to 'undefined',
 %% the default ports will be selected depending on whether this is a
 %% normal or an SSL connection.
-%% If ConnectionName is binary - it will be added to client_properties as
+%% If ConnectionName is binary - it will be added to client_properties as 
 %% user specified connection name.
 start(AmqpParams, ConnName) when ConnName == undefined; is_binary(ConnName) ->
     ensure_started(),
-    AmqpParams0 =
-        case AmqpParams of
-            #amqp_params_direct{password = Password} ->
-                AmqpParams#amqp_params_direct{password = credentials_obfuscation:encrypt(Password)};
-            #amqp_params_network{password = Password} ->
-                AmqpParams#amqp_params_network{password = credentials_obfuscation:encrypt(Password)}
-        end,
     AmqpParams1 =
-        case AmqpParams0 of
+        case AmqpParams of
             #amqp_params_network{port = undefined, ssl_options = none} ->
-                AmqpParams0#amqp_params_network{port = ?PROTOCOL_PORT};
+                AmqpParams#amqp_params_network{port = ?PROTOCOL_PORT};
             #amqp_params_network{port = undefined, ssl_options = _} ->
-                AmqpParams0#amqp_params_network{port = ?PROTOCOL_SSL_PORT};
+                AmqpParams#amqp_params_network{port = ?PROTOCOL_SSL_PORT};
             _ ->
-                AmqpParams0
+                AmqpParams
         end,
     AmqpParams2 = set_connection_name(ConnName, AmqpParams1),
-    AmqpParams3 = amqp_ssl:maybe_enhance_ssl_options(AmqpParams2),
-    ok = ensure_safe_call_timeout(AmqpParams3, amqp_util:call_timeout()),
-    {ok, _Sup, Connection} = amqp_sup:start_connection_sup(AmqpParams3),
+    {ok, _Sup, Connection} = amqp_sup:start_connection_sup(AmqpParams2),
     amqp_gen_connection:connect(Connection).
 
 set_connection_name(undefined, Params) -> Params;
-set_connection_name(ConnName,
+set_connection_name(ConnName, 
                     #amqp_params_network{client_properties = Props} = Params) ->
     Params#amqp_params_network{
         client_properties = [
             {<<"connection_name">>, longstr, ConnName} | Props
         ]};
-set_connection_name(ConnName,
+set_connection_name(ConnName, 
                     #amqp_params_direct{client_properties = Props} = Params) ->
     Params#amqp_params_direct{
         client_properties = [
@@ -195,15 +195,15 @@ set_connection_name(ConnName,
 %% application controller is in the process of shutting down the very
 %% application which is making this call.
 ensure_started() ->
-    [ensure_started(App) || App <- [syntax_tools, compiler, xmerl,
-                                    rabbit_common, amqp_client, credentials_obfuscation]].
+    [ensure_started(App) || App <- [xmerl, rabbit_common, amqp_client]].
 
 ensure_started(App) ->
     case is_pid(application_controller:get_master(App)) andalso amqp_sup:is_ready() of
         true  -> ok;
-        false -> case application:ensure_all_started(App) of
-                     {ok, _}        -> ok;
-                     {error, _} = E -> throw(E)
+        false -> case application:start(App) of
+                     ok                              -> ok;
+                     {error, {already_started, App}} -> ok;
+                     {error, _} = E                  -> throw(E)
                  end
     end.
 
@@ -278,7 +278,7 @@ close(ConnectionPid, Timeout) ->
 %% @doc Closes the AMQP connection, allowing the caller to set the reply
 %% code and text.
 close(ConnectionPid, Code, Text) ->
-    close(ConnectionPid, Code, Text, amqp_util:call_timeout()).
+    close(ConnectionPid, Code, Text, infinity).
 
 %% @spec (ConnectionPid, Code, Text, Timeout) -> ok | closing
 %% where
@@ -298,16 +298,6 @@ close(ConnectionPid, Code, Text, Timeout) ->
 
 register_blocked_handler(ConnectionPid, BlockHandler) ->
     amqp_gen_connection:register_blocked_handler(ConnectionPid, BlockHandler).
-
--spec update_secret(pid(), term(), binary()) ->
-    {'ok', rabbit_types:auth_user()} |
-    {'refused', string(), [any()]} |
-    {'error', any()}.
-
-update_secret(ConnectionPid, NewSecret, Reason) ->
-  Update = #'connection.update_secret'{new_secret = NewSecret,
-                                       reason = Reason},
-  amqp_gen_connection:update_secret(ConnectionPid, Update).
 
 %%---------------------------------------------------------------------------
 %% Other functions
@@ -394,30 +384,3 @@ connection_name(ConnectionPid) ->
         {<<"connection_name">>, _, ConnName} -> ConnName;
         false                                -> undefined
     end.
-
-ensure_safe_call_timeout(#amqp_params_network{connection_timeout = ConnTimeout}, CallTimeout) ->
-    maybe_update_call_timeout(ConnTimeout, CallTimeout);
-ensure_safe_call_timeout(#amqp_params_direct{}, CallTimeout) ->
-    case net_kernel:get_net_ticktime() of
-        NetTicktime when is_integer(NetTicktime) ->
-            maybe_update_call_timeout(tick_or_direct_timeout(NetTicktime * 1000),
-                CallTimeout);
-        {ongoing_change_to, NetTicktime} ->
-            maybe_update_call_timeout(tick_or_direct_timeout(NetTicktime * 1000),
-                CallTimeout);
-        ignored ->
-            maybe_update_call_timeout(?DIRECT_OPERATION_TIMEOUT, CallTimeout)
-    end.
-
-maybe_update_call_timeout(BaseTimeout, CallTimeout)
-  when is_integer(BaseTimeout), CallTimeout > BaseTimeout ->
-    ok;
-maybe_update_call_timeout(BaseTimeout, CallTimeout) ->
-    EffectiveSafeCallTimeout = amqp_util:safe_call_timeout(BaseTimeout),
-    ?LOG_WARN("AMQP 0-9-1 client call timeout was ~p ms, is updated to a safe effective "
-              "value of ~p ms", [CallTimeout, EffectiveSafeCallTimeout]),
-    amqp_util:update_call_timeout(EffectiveSafeCallTimeout),
-    ok.
-
-tick_or_direct_timeout(Timeout) when Timeout >= ?DIRECT_OPERATION_TIMEOUT -> Timeout;
-tick_or_direct_timeout(_Timeout) -> ?DIRECT_OPERATION_TIMEOUT.

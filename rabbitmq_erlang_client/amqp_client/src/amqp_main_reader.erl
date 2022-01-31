@@ -1,8 +1,17 @@
-%% This Source Code Form is subject to the terms of the Mozilla Public
-%% License, v. 2.0. If a copy of the MPL was not distributed with this
-%% file, You can obtain one at https://mozilla.org/MPL/2.0/.
+%% The contents of this file are subject to the Mozilla Public License
+%% Version 1.1 (the "License"); you may not use this file except in
+%% compliance with the License. You may obtain a copy of the License at
+%% http://www.mozilla.org/MPL/
 %%
-%% Copyright (c) 2007-2021 VMware, Inc. or its affiliates.  All rights reserved.
+%% Software distributed under the License is distributed on an "AS IS"
+%% basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+%% License for the specific language governing rights and limitations
+%% under the License.
+%%
+%% The Original Code is RabbitMQ.
+%%
+%% The Initial Developer of the Original Code is GoPivotal, Inc.
+%% Copyright (c) 2007-2016 Pivotal Software, Inc.  All rights reserved.
 %%
 
 %% @private
@@ -12,12 +21,11 @@
 
 -behaviour(gen_server).
 
--export([start_link/5, post_init/1]).
+-export([start_link/5]).
 -export([init/1, terminate/2, code_change/3, handle_call/3, handle_cast/2,
          handle_info/2]).
 
 -record(state, {sock,
-                timer,
                 connection,
                 channels_manager,
                 astate,
@@ -32,14 +40,6 @@ start_link(Sock, Connection, ChMgr, AState, ConnName) ->
     gen_server:start_link(
       ?MODULE, [Sock, Connection, ConnName, ChMgr, AState], []).
 
-post_init(Reader) ->
-    try
-      gen_server:call(Reader, post_init)
-    catch
-      exit:{timeout, Timeout} ->
-        {error, {timeout, Timeout}}
-    end.
-
 %%---------------------------------------------------------------------------
 %% gen_server callbacks
 %%---------------------------------------------------------------------------
@@ -51,7 +51,11 @@ init([Sock, Connection, ConnName, ChMgr, AState]) ->
                    channels_manager = ChMgr,
                    astate           = AState,
                    message          = none},
-    {ok, State}.
+    case rabbit_net:async_recv(Sock, 0, infinity) of
+        {ok, _}         -> {ok, State};
+        {error, Reason} -> {stop, Reason, _} = handle_error(Reason, State),
+                           {stop, Reason}
+    end.
 
 terminate(_Reason, _State) ->
     ok.
@@ -59,33 +63,22 @@ terminate(_Reason, _State) ->
 code_change(_OldVsn, State, _Extra) ->
     {ok, State}.
 
-%% We need to use a call because we are not controlling the socket yet.
-handle_call(post_init, _From, State = #state{sock = Sock}) ->
-    case rabbit_net:setopts(Sock, [{active, once}]) of
-        ok              -> {reply, ok, set_timeout(State)};
-        {error, Reason} -> handle_error(Reason, State)
-    end;
 handle_call(Call, From, State) ->
     {stop, {unexpected_call, Call, From}, State}.
 
 handle_cast(Cast, State) ->
     {stop, {unexpected_cast, Cast}, State}.
 
-handle_info({Tag, Sock, Data}, State = #state{sock = Sock})
-            when Tag =:= tcp; Tag =:= ssl ->
+handle_info({inet_async, Sock, _, {ok, Data}},
+            State = #state {sock = Sock}) ->
     %% Latency hiding: Request next packet first, then process data
-    case rabbit_net:setopts(Sock, [{active, once}]) of
-         ok              -> handle_data(Data, set_timeout(State));
+    case rabbit_net:async_recv(Sock, 0, infinity) of
+         {ok, _}         -> handle_data(Data, State);
          {error, Reason} -> handle_error(Reason, State)
     end;
-handle_info({Tag, Sock}, State = #state{sock = Sock})
-            when Tag =:= tcp_closed; Tag =:= ssl_closed ->
-    handle_error(closed, State);
-handle_info({Tag, Sock, Reason}, State = #state{sock = Sock})
-            when Tag =:= tcp_error; Tag =:= ssl_error ->
-    handle_error(Reason, State);
-handle_info({timeout, _TimerRef, idle_timeout}, State) ->
-    handle_error(timeout, State).
+handle_info({inet_async, Sock, _, {error, Reason}},
+            State = #state{sock = Sock}) ->
+    handle_error(Reason, State).
 
 handle_data(<<Type:8, Channel:16, Length:32, Payload:Length/binary, ?FRAME_END,
               More/binary>>,
@@ -127,21 +120,6 @@ handle_data(<<>>, State) ->
 %%---------------------------------------------------------------------------
 %% Internal plumbing
 %%---------------------------------------------------------------------------
-
-set_timeout(State0) ->
-	State = cancel_timeout(State0),
-	TimerRef = case amqp_util:call_timeout() of
-		infinity -> undefined;
-		Timeout -> erlang:start_timer(Timeout, self(), idle_timeout)
-	end,
-	State#state{timer=TimerRef}.
-
-cancel_timeout(State=#state{timer=TimerRef}) ->
-	ok = case TimerRef of
-		undefined -> ok;
-		_ -> erlang:cancel_timer(TimerRef, [{async, true}, {info, false}])
-	end,
-	State#state{timer=undefined}.
 
 process_frame(Type, ChNumber, Payload,
               State = #state{connection       = Connection,
