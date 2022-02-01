@@ -40,6 +40,9 @@ test() ->
                       password=?RABBIT_PASSWORD, virtual_host=?VHOST, port=?PORT},
     io:format("amqp_connection:start begin ~n"),
     {ok, Connection} = amqp_connection:start(#amqp_params_network{}),
+    %{ok, Connection} = amqp_connection:start(#amqp_params_network{host=?HOST}),
+    %{ok, Connection} = amqp_connection:start(#amqp_params_network{host=?HOST, port=?PORT}),
+    %{ok, Connection} = amqp_connection:start(#amqp_params_network{host=?HOST, port=?PORT, virtual_host=?VHOST}),
     %{ok, Connection} = amqp_connection:start(RabbitParams),
     io:format("amqp_connection:start ok ~n"),
     %% Open a channel on the connection
