@@ -19,5 +19,5 @@ ADD client_example /data/client_example
 
 
 # compile
-#RUN cd /data/amqp_client && make
+RUN cd /data/amqp_client && make
 #RUN cd /data/client_example & make
