@@ -1,0 +1,46 @@
+FROM erlang:24.1.7
+
+
+# install  software
+RUN apt-get update
+RUN apt-get install  -y aptitude 
+RUN aptitude install -y vim zip gdb net-tools sudo ssh less tmux tcpdump telnet strace 
+
+RUN service ssh restart
+
+
+
+# rabbitmq
+ADD ./software/rabbitmq-server /data/rabbitmq-server
+
+RUN sed  -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed  -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+
+# 修改配置不然报错 debug1: Exit status 254
+RUN sed  -i 's/UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+RUN systemctl enable ssh
+
+RUN echo "123456\n123456" | passwd root 
+
+ADD start_up.sh /root/
+ADD bashrc /root/.bashrc
+ADD rc.local /etc/rc.local
+
+# copy file
+RUN mkdir  -p data
+ADD amqp_client /data/amqp_client
+ADD client_example /data/client_example
+
+
+RUN cd /data/rabbitmq-server && make
+
+## compile
+#RUN cd /data/amqp_client && make
+##RUN cd /data/client_example & make
+##
+
+# env
+#ENV PATH=$PATH:/data/rabbitmq_server-3.6.9/sbin
+#ENV PATH=$PATH:/data/rabbitmq_server-3.5.6/sbin
+#ENV ROOTDIR=/usr/local/lib/erlang
+#ENV BINDIR=$ROOTDIR/erts-5.5.5/bin
