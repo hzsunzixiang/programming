@@ -32,7 +32,8 @@ RUN mkdir  -p data
 ADD client_example /data/client_example
 
 
-RUN cd /data/rabbitmq-server && make
+RUN cd /data/rabbitmq-server/deps/amqp_client/ && make
+
 
 ## compile
 #RUN cd /data/amqp_client && make
