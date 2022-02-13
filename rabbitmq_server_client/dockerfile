@@ -28,7 +28,7 @@ ADD rc.local /etc/rc.local
 
 # copy file
 RUN mkdir  -p data
-ADD amqp_client /data/amqp_client
+#ADD amqp_client /data/amqp_client
 ADD client_example /data/client_example
 
 
