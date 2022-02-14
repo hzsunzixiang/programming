@@ -15,9 +15,16 @@ RUN service ssh restart
 
 # rabbitmq
 ADD ./software/rabbitmq-server-generic-unix-3.5.6.tar.gz /data
-ADD ./software/otp_src_24.2.1.tar.gz /data
-#ADD ./software/rabbitmq-server-generic-unix-3.6.9.tar.xz /data
 
+# 编译客户端的库需要
+ADD ./software/otp_src_24.2.1.tar.gz /data
+
+RUN mkdir -p  /data/otp-install
+RUN cd /data/otp_src_24.2.1 && ./configure --prefix=/data/otp-install  && make -j 5 && make install
+
+#ADD ./software/rabbitmq-server-generic-unix-3.6.9.tar.xz /data
+#
+RUN useradd -d /data/ericksun  -s /bin/bash -m  ericksun
 
 # https://www.systutorials.com/changing-linux-users-password-in-one-command-line/
 # echo "linuxpassword" | passwd --stdin linuxuser
@@ -33,8 +40,16 @@ RUN systemctl enable ssh
 RUN echo "123456\n123456" | passwd root 
 
 ADD start_up.sh /root/
-ADD bashrc /root/.bashrc
+ADD start_up.sh /data/ericksun
+ADD bashrc_root /root/.bashrc
 ADD rc.local /etc/rc.local
+
+# 在这个用户下用erlang 17 启动rabbitmq ,因为低版本的rabbitmq需要用低版本的erlang启动
+ADD bashrc_ericksun /data/ericksun/.bashrc
+
+# 目录 使用户有权限启动
+RUN  chown  ericksun:ericksun /data/ -R
+
 
 # copy file
 RUN mkdir  -p data
@@ -42,13 +57,25 @@ ADD amqp_client /data/amqp_client
 ADD client_example /data/client_example
 
 
-# compile
-RUN cd /data/amqp_client && make
+# compile 用erlang 24 编译
+ENV PATH=/data/otp-install/bin:$PATH
+RUN cd /data/amqp_client && make clean && make
 #RUN cd /data/client_example & make
 #
 
 # env
 #ENV PATH=$PATH:/data/rabbitmq_server-3.6.9/sbin
-ENV PATH=$PATH:/data/rabbitmq_server-3.5.6/sbin
-ENV ROOTDIR=/usr/local/lib/erlang
-ENV BINDIR=$ROOTDIR/erts-5.5.5/bin
+#ENV PATH=$PATH:/data/rabbitmq_server-3.5.6/sbin
+#ENV ROOTDIR=/usr/local/lib/erlang
+#ENV BINDIR=$ROOTDIR/erts-5.5.5/bin
+
+
+
+# 启动MQ的方式
+# sudo su ericksun
+# cd && source start_up.sh
+# 然后再root用户下面执行
+# cd /data/client_example & make
+#
+#
+
