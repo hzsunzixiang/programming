@@ -20,6 +20,9 @@ ADD ./software/rabbitmq-server-generic-unix-3.5.6.tar.gz /data
 ADD ./software/otp_src_24.2.1.tar.gz /data
 
 RUN mkdir -p  /data/otp-install
+
+# 首先要下载，放到software目录下 software/otp_src_24.2.1.tar.gz
+
 RUN cd /data/otp_src_24.2.1 && ./configure --prefix=/data/otp-install  && make -j 5 && make install
 
 #ADD ./software/rabbitmq-server-generic-unix-3.6.9.tar.xz /data
