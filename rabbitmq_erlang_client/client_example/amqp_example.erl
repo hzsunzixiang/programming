@@ -34,6 +34,21 @@
 % auth_mechanisms	[fun amqp_auth_mechanisms:plain/3, fun amqp_auth_mechanisms:amqplain/3]
 % client_properties	[]
 
+%%%%% 默认值介绍 抓包: 5672_1.pcap
+% https://www.rabbitmq.com/erlang-client-user-guide.html
+% virtual_host	/
+% {ok, Connection} = amqp_connection:start(#amqp_params_network{}),
+% Advanced Message Queueing Protocol
+%     Type: Method (1)
+%     Channel: 0
+%     Length: 8
+%     Class: Connection (10)
+%     Method: Open (40)
+%     Arguments
+%         Virtual-Host: /
+%         Capabilities: 
+%         .... ...0 = Insist: False
+
 test() ->
     %% Start a network connection
     RabbitParams=#amqp_params_network{host=?HOST, username=?RABBIT_USERNAME,

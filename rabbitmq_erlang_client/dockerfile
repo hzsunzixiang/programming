@@ -7,7 +7,7 @@ FROM erlang:17.5.6
 # install  software
 RUN apt-get update
 RUN apt-get install  -y aptitude 
-RUN aptitude install -y vim zip gdb net-tools sudo ssh less tmux tcpdump telnet strace 
+RUN aptitude install -y vim zip gdb net-tools sudo ssh less tmux tcpdump telnet strace  lrzsz
 
 RUN service ssh restart
 
