@@ -7,9 +7,18 @@
 %-define(HOST, '192.168.142.130'). 
 %-define(HOST, "192.168.142.130"). 
 -define(HOST, "127.0.0.1"). 
--define(RABBIT_USERNAME, vstation). 
--define(RABBIT_PASSWORD, vstation). 
--define(VHOST, vstation). 
+
+% 不能用原子
+%-define(RABBIT_USERNAME, vstation). 
+%-define(RABBIT_PASSWORD, vstation). 
+%-define(VHOST, vstation). 
+
+% 这里必须是二进制
+% 而且需要设置响应的权限 start_up.sh 脚本中有
+-define(RABBIT_USERNAME, <<"vstation">>).
+-define(RABBIT_PASSWORD, <<"vstation">>).
+-define(VHOST, <<"vstation">>).
+
 -define(EXCHANGE, vstation). 
 -define(QUEUE_NAME, 'FLOW'). 
 -define(PORT, 5672). 
@@ -36,7 +45,15 @@
 
 %%%%% 默认值介绍 抓包: 5672_1.pcap
 % https://www.rabbitmq.com/erlang-client-user-guide.html
+% Parameter	Default Value
+% username	none
+% password	none
 % virtual_host	/
+% node	node()
+% client_properties	[]
+
+
+% 从抓包看出默认值:virtual_host	/
 % {ok, Connection} = amqp_connection:start(#amqp_params_network{}),
 % Advanced Message Queueing Protocol
 %     Type: Method (1)
@@ -49,16 +66,21 @@
 %         Capabilities: 
 %         .... ...0 = Insist: False
 
+% 设置密码
+%Arguments
+%    Virtual-Host: vstation
+%    Capabilities: 
+%    .... ...0 = Insist: False
+
 test() ->
     %% Start a network connection
     RabbitParams=#amqp_params_network{host=?HOST, username=?RABBIT_USERNAME,
                       password=?RABBIT_PASSWORD, virtual_host=?VHOST, port=?PORT},
     io:format("amqp_connection:start begin ~n"),
-    {ok, Connection} = amqp_connection:start(#amqp_params_network{}),
+    %{ok, Connection} = amqp_connection:start(#amqp_params_network{}),
     %{ok, Connection} = amqp_connection:start(#amqp_params_network{host=?HOST}),
     %{ok, Connection} = amqp_connection:start(#amqp_params_network{host=?HOST, port=?PORT}),
-    %{ok, Connection} = amqp_connection:start(#amqp_params_network{host=?HOST, port=?PORT, virtual_host=?VHOST}),
-    %{ok, Connection} = amqp_connection:start(RabbitParams),
+    {ok, Connection} = amqp_connection:start(RabbitParams),
     io:format("amqp_connection:start ok ~n"),
     %% Open a channel on the connection
     io:format("amqp_connection:open_channel begin ~n"),
