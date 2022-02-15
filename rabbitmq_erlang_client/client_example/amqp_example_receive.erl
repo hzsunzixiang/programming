@@ -59,7 +59,7 @@ test() ->
     % Get = #'basic.get'{queue = ?QUEUE_NAME, no_ack = true},
     {#'basic.get_ok'{delivery_tag = Tag}, Content} = amqp_channel:call(Channel, Get),
     #amqp_msg{payload = PayloadRec} = Content,
-    io:format("receive ok ~n~p", [PayloadRec]),
+    io:format("receive ok ~p~n", [PayloadRec]),
 
     %% Do something with the message payload
     %% (some work here)

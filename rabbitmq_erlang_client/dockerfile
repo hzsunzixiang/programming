@@ -1,3 +1,4 @@
+#d64e3a65845f99fc2f043e9dcaf9a9；w:w
 #FROM   erlang:18.3.4.11
 #
 # FROM erlang:24.1.7
@@ -11,11 +12,6 @@ RUN aptitude install -y vim zip gdb net-tools sudo ssh less tmux tcpdump telnet 
 
 RUN service ssh restart
 
-
-
-# rabbitmq
-ADD ./software/rabbitmq-server-generic-unix-3.5.6.tar.gz /data
-
 # 编译客户端的库需要
 # 下载地址: https://www.erlang.org/patches/otp-24.2.1
 ADD ./software/otp_src_24.2.1.tar.gz /data
@@ -26,7 +22,11 @@ RUN mkdir -p  /data/otp-install
 
 RUN cd /data/otp_src_24.2.1 && ./configure --prefix=/data/otp-install  && make -j 5 && make install
 
-#ADD ./software/rabbitmq-server-generic-unix-3.6.9.tar.xz /data
+
+# rabbitmq
+#ADD ./software/rabbitmq-server-generic-unix-3.5.6.tar.gz /data
+ADD ./software/rabbitmq-server-generic-unix-3.6.9.tar.xz /data
+
 #
 RUN useradd -d /data/ericksun  -s /bin/bash -m  ericksun
 
