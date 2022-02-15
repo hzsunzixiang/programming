@@ -17,3 +17,8 @@ Erlang/OTP 24 [erts-12.2] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads
 Erlang/OTP 24 [erts-12.2] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads:1]
 
 Eshell V12.2  (abort with ^G)
+
+
+# API
+
+https://github.com/rabbitmq/rabbitmq-erlang-client/blob/master/src/amqp_connection.erl

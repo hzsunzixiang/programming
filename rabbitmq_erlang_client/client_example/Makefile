@@ -14,7 +14,8 @@ ERL = erl -boot start_clean
 
 MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 
-RUN_BIN=amqp_example
+#RUN_BIN=amqp_example_send
+RUN_BIN=amqp_example_receive
 all:compile
 	erl -noshell -pa  ../amqp_client/deps/rabbit_common/ebin/  -pa ../amqp_client/ebin/ -s $(RUN_BIN) start_my -s init stop
 

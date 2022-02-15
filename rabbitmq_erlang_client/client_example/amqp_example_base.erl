@@ -4,43 +4,9 @@
 -compile([export_all]).
 -compile(nowarn_export_all).
 
-%-define(HOST, '192.168.142.130'). 
-%-define(HOST, "192.168.142.130"). 
--define(HOST, "127.0.0.1"). 
--define(RABBIT_USERNAME, vstation). 
--define(RABBIT_PASSWORD, vstation). 
--define(VHOST, vstation). 
--define(EXCHANGE, vstation). 
--define(QUEUE_NAME, 'FLOW'). 
--define(PORT, 5672). 
-% exchange = 'vstation'
-% vhost = 'vstation'
-% user =  'vstation'
-% password = 'vstation'
-% queue_name =  'FLOW'
-
-% The #amqp_params_network record sets the following default values:
-% 
-% Parameter	Default Value
-% username	guest
-% password	guest
-% virtual_host	/
-% host	localhost
-% port	5672
-% channel_max	2047
-% frame_max	0
-% heartbeat	0
-% ssl_options	none
-% auth_mechanisms	[fun amqp_auth_mechanisms:plain/3, fun amqp_auth_mechanisms:amqplain/3]
-% client_properties	[]
-
 test() ->
-    %% Start a network connection
-    RabbitParams=#amqp_params_network{host=?HOST, username=?RABBIT_USERNAME,
-                      password=?RABBIT_PASSWORD, virtual_host=?VHOST, port=?PORT},
     io:format("amqp_connection:start begin ~n"),
     {ok, Connection} = amqp_connection:start(#amqp_params_network{}),
-    %{ok, Connection} = amqp_connection:start(RabbitParams),
     io:format("amqp_connection:start ok ~n"),
     %% Open a channel on the connection
     io:format("amqp_connection:open_channel begin ~n"),

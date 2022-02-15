@@ -17,6 +17,7 @@ RUN service ssh restart
 ADD ./software/rabbitmq-server-generic-unix-3.5.6.tar.gz /data
 
 # 编译客户端的库需要
+# 下载地址: https://www.erlang.org/patches/otp-24.2.1
 ADD ./software/otp_src_24.2.1.tar.gz /data
 
 RUN mkdir -p  /data/otp-install

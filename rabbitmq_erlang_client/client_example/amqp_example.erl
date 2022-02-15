@@ -19,7 +19,7 @@
 -define(RABBIT_PASSWORD, <<"vstation">>).
 -define(VHOST, <<"vstation">>).
 
--define(EXCHANGE, vstation). 
+-define(EXCHANGE, <<"vstation">>). 
 -define(QUEUE_NAME, 'FLOW'). 
 -define(PORT, 5672). 
 % exchange = 'vstation'
@@ -42,6 +42,22 @@
 % ssl_options	none
 % auth_mechanisms	[fun amqp_auth_mechanisms:plain/3, fun amqp_auth_mechanisms:amqplain/3]
 % client_properties	[]
+% 定义在文件 amqp_client.hrl
+%-record(amqp_params_network, {username           = <<"guest">>,
+%                              password           = <<"guest">>,
+%                              virtual_host       = <<"/">>,
+%                              host               = "localhost",
+%                              port               = undefined,
+%                              channel_max        = 0,
+%                              frame_max          = 0,
+%                              heartbeat          = 10,
+%                              connection_timeout = infinity,
+%                              ssl_options        = none,
+%                              auth_mechanisms    =
+%                                  [fun amqp_auth_mechanisms:plain/3,
+%                                   fun amqp_auth_mechanisms:amqplain/3],
+%                              client_properties  = [],
+%                              socket_options     = []}).
 
 %%%%% 默认值介绍 抓包: 5672_1.pcap
 % https://www.rabbitmq.com/erlang-client-user-guide.html
@@ -82,20 +98,32 @@ test() ->
     %{ok, Connection} = amqp_connection:start(#amqp_params_network{host=?HOST, port=?PORT}),
     {ok, Connection} = amqp_connection:start(RabbitParams),
     io:format("amqp_connection:start ok ~n"),
+
     %% Open a channel on the connection
     io:format("amqp_connection:open_channel begin ~n"),
     {ok, Channel} = amqp_connection:open_channel(Connection),
     io:format("amqp_connection:open_channel ok ~n"),
 
     %% Declare a queue
-    #'queue.declare_ok'{queue = Q}
-        = amqp_channel:call(Channel, #'queue.declare'{}),
+    % rabbit_framing.hrl:  -record('queue.declare_ok', {queue, message_count, consumer_count}).
+    % rabbit_framing.hrl : -record('queue.declare', {ticket = 0, queue = <<"">>, passive = false, durable = false, exclusive = false, auto_delete = false, nowait = false, arguments = []}).
+	% 默认情况下产生的队列, 命名方式如下
+	% bash-4.2$ rabbitmqctl list_queues  -p vstation
+	% Listing queues ...
+	% amq.gen-4xcb2UGthrHBvdtPebCfTg  0
+	% amq.gen-5pOP9ILyLfsYagbAUz1M5g  0
+	% amq.gen-hS0ysJLAAHlJ2nZs3N85qw  0
+	% amq.gen-qyLbZJEo-ciTsCpRtVfBuA  0
+	% amq.gen-x9umQrijeAbVHxiC80f2pA  0
+	%
+    #'queue.declare_ok'{queue = Q} = amqp_channel:call(Channel, #'queue.declare'{}),
 
     %% Publish a message
     Payload = <<"foobar">>,
     Publish = #'basic.publish'{exchange = <<>>, routing_key = Q},
 	%%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = ?QUEUE_NAME,
     %%                     mandatory = true},
+	%% https://github.com/rabbitmq/rabbitmq-erlang-client/blob/master/src/amqp_channel.erl
     amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload}),
 
     %% Poll for a message
