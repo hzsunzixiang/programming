@@ -53,9 +53,10 @@ test() ->
                             routing_key = ?QUEUE_NAME},
     #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding),
 
-    %% 接收消息的流程
+    %% 接收消息的流程 , 队列中没有消息，消息为空时，调用会报错 {'basic.get_empty',<<>>}
     %% Poll for a message
     Get = #'basic.get'{queue = ?QUEUE_NAME},
+    % Get = #'basic.get'{queue = ?QUEUE_NAME, no_ack = true},
     {#'basic.get_ok'{delivery_tag = Tag}, Content} = amqp_channel:call(Channel, Get),
     #amqp_msg{payload = PayloadRec} = Content,
     io:format("receive ok ~n~p", [PayloadRec]),

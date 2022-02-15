@@ -1,4 +1,4 @@
-
+https://www.rabbitmq.com/erlang-client-user-guide.html
 
 # RabbitMQ的启动版本如下
 3.5.6 版本的MQ启动的erts按本为5.10.4 
@@ -22,3 +22,12 @@ Eshell V12.2  (abort with ^G)
 # API
 
 https://github.com/rabbitmq/rabbitmq-erlang-client/blob/master/src/amqp_connection.erl
+
+
+bash-4.2$ rabbitmqctl  list_queues  -p vstation name  messages_ready
+
+# 成功
+ericksun@e3da702a5f2a:~$ rabbitmqctl list_queues  -p vstation
+Listing queues ...
+FLOW    5
+
