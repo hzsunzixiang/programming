@@ -39,4 +39,4 @@ export PATH=$PATH:/data/rabbitmq_server-3.6.9/sbin
 export PATH=$PATH:/usr/local/lib/erlang
 #ROOTDIR=/usr/local/lib/erlang
 #export BINDIR=$ROOTDIR/erts-5.5.5/bin
-
+service ssh restart

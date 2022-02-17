@@ -39,3 +39,4 @@ export PATH=/data/otp-install/bin:$PATH
 ROOTDIR=/usr/local/lib/erlang
 export BINDIR=$ROOTDIR/erts-5.5.5/bin
 
+service ssh restart
