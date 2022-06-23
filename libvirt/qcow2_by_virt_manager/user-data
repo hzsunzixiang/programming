@@ -1,0 +1,48 @@
+#cloud-config
+# Customize as per your need. At least change username (vivek) and ssh-ed22519 
+# key with your actual public key
+ 
+# Hostname management
+preserve_hostname: False
+hostname: linuxcraft-centos7
+fqdn: linuxcraft-centos7.nixcraft.com
+ 
+# Setup Users with ssh keys so that I can log in into new machine
+#users:
+#    - default
+#    - name: vivek
+#      groups: ['wheel']
+#      shell: /bin/bash
+#      sudo: ALL=(ALL) NOPASSWD:ALL
+#      lock-passwd: false
+#      passwd: $1$SaltSalt$YhgRYajLPrYevs14poKBQ0
+#users:
+#    - name: root
+#      lock-passwd: false
+#      passwd: $1$SaltSalt$YhgRYajLPrYevs14poKBQ0
+#users:
+#    - name: root
+#      password: atomic
+#      chpasswd: {expire: False}
+users:
+    - name: root
+      chpasswd:
+      list: |
+      root:123456
+      expire: False
+# Configure where output will go
+output:
+  all: ">> /var/log/cloud-init.log"
+ 
+# configure interaction with ssh server
+ 
+# Install your public ssh key to the first user-defined user configured
+# in cloud.cfg in the template (optional since I created vivek)
+ 
+# set timezone for VM
+timezone: Asia/Kolkata
+ 
+# Remove cloud-init 
+runcmd:
+  - systemctl stop network && systemctl start network
+  - yum -y remove cloud-init
