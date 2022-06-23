@@ -11,6 +11,13 @@ mkdir -vp $DIR_VM
 
 
 
+hostname=linuxcraft-centos7-$SUFFIX ## <-- set vm name ##
+sed  's/hostname: linuxcraft-centos7/host: '"$hostname"'/g' user-data.origin > user-data
+
+
+fqdn=linuxcraft-centos7-$SUFFIX.nixcraft.com
+sed  -i 's/fqdn: linuxcraft-centos7.nixcraft.com/fqdn: '"$fqdn"'/g' user-data
+
 METADATA_ISO=$VM-cidata.iso
 mkisofs -o $METADATA_ISO -V cidata -J -r user-data meta-data
 

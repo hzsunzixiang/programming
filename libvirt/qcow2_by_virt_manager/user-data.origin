@@ -4,8 +4,8 @@
  
 # Hostname management
 preserve_hostname: False
-host: linuxcraft-centos7-563
-fqdn: linuxcraft-centos7-563.nixcraft.com
+hostname: linuxcraft-centos7
+fqdn: linuxcraft-centos7.nixcraft.com
  
 # Setup Users with ssh keys so that I can log in into new machine
 users:

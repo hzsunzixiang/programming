@@ -4,19 +4,32 @@
  
 # Hostname management
 preserve_hostname: False
-host: linuxcraft-centos7-563
-fqdn: linuxcraft-centos7-563.nixcraft.com
+hostname: linuxcraft-centos7
+fqdn: linuxcraft-centos7.nixcraft.com
  
 # Setup Users with ssh keys so that I can log in into new machine
+#users:
+#    - default
+#    - name: vivek
+#      groups: ['wheel']
+#      shell: /bin/bash
+#      sudo: ALL=(ALL) NOPASSWD:ALL
+#      lock-passwd: false
+#      passwd: $1$SaltSalt$YhgRYajLPrYevs14poKBQ0
+#users:
+#    - name: root
+#      lock-passwd: false
+#      passwd: $1$SaltSalt$YhgRYajLPrYevs14poKBQ0
+#users:
+#    - name: root
+#      password: atomic
+#      chpasswd: {expire: False}
 users:
-  - default
-  - name: centos 
-    sudo: ALL=(ALL) NOPASSWD:ALL
-    groups: users, admin
-    lock_passwd: true
-    ssh_authorized_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8fDTIFnoEGs+h/DCa/z/J4lSCVHyWmq2hN59RhYYD230pk0GDuQJUScZBWioNMg97+iEzAIkun7eDr0E26yO3mmbT6Exk4s4qTlMEu4ofd/0S8g7brYxClzAwpZJUb3QG9bjwghtITmF0GnYgwBryE+rZRsRpEG6QmVkp3y50b1YS3FlKPlOr+0ehe5qVEln2YltXmTvRyywpa7a5wfJeizqVK7FNL6/s3Zf+HqsvoKLCaRzLm7Lyx44KlMDQ5BM5amXRPymO0AsIY05YxZoHq+j7EcliH2PC8EIt2idufBxusCy471/3IzOmgP1JuqQPeLBV76ZcaQMf1xv6XbA9 
-
+    - name: root
+      chpasswd:
+      list: |
+      root:123456
+      expire: False
 # Configure where output will go
 output:
   all: ">> /var/log/cloud-init.log"
