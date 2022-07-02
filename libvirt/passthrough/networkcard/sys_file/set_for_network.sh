@@ -60,7 +60,7 @@ done
 echo "find the venderId:deviceId"
 for i in 0000:02:00.0 0000:02:01.0 0000:02:02.0 0000:02:04.0
 do
-    lspci -ns $i |grep $i
+    lspci -ns $i 
 done
 #[ericksun@centos-kvm-1 passthrough]$ for i in 0000:02:00.0 0000:02:01.0 0000:02:02.0 0000:02:04.0; do     lspci -ns $i ; done
 #02:00.0 0c03: 15ad:0774
