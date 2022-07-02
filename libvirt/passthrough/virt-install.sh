@@ -1,0 +1,1 @@
+virt-install  --import --name=centos7passthroughNetwork --vcpus=2 --ram=1024 --disk path=/vm/centos7passthroughnetcard.qcow2  --network network=default --graphics vnc,listen=0.0.0.0  --host-device=pci_0000_02_01_0

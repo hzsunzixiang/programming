@@ -9,6 +9,13 @@
 
 # 把 bridge 过滤掉，不用操作
 
+#echo "bind the device"
+##echo "0000:02:04.0" > /sys/bus/pci/devices/0000\:02\:04.0/driver/bind
+#for i in 0000:02:00.0 0000:02:01.0 0000:02:02.0 0000:02:04.0
+#do
+#    echo "$i" > /sys/bus/pci/devices/$i/driver/unbind
+#done
+
 echo "before unbind"
 for i in 0000:02:00.0 0000:02:01.0 0000:02:02.0 0000:02:04.0
 do
@@ -18,13 +25,17 @@ do
 	echo
 done
 
-exit 0
+echo "unbind the device"
 #echo "0000:02:04.0" > /sys/bus/pci/devices/0000\:02\:04.0/driver/unbind
 for i in 0000:02:00.0 0000:02:01.0 0000:02:02.0 0000:02:04.0
 do
     echo "$i" > /sys/bus/pci/devices/$i/driver/unbind
 done
 
+sleep 2
+
+
+# here cannot find string "Kernel driver in use: vfio-pci"
 echo "after unbind"
 for i in 0000:02:00.0 0000:02:01.0 0000:02:02.0 0000:02:04.0
 do
@@ -57,6 +68,7 @@ done
 #02:02.0 0c03: 15ad:0770
 #02:04.0 0200: 8086:100f (rev 01)
 
+echo "vifo new_id"
 #echo "15ad 0790" > /sys/bus/pci/drivers/vfio-pci/new_id
 for i in "15ad 0774" "8086 100f" "15ad 0770" "8086 100f"
 do
@@ -67,3 +79,10 @@ done
 
 #echo "0000:02:04.0" > /sys/bus/pci/drivers/vfio-pci/bind
 #echo -n "0000:02:04.0" > /sys/bus/pci/drivers/vfio-pci/bind
+for i in 0000:02:00.0 0000:02:01.0 0000:02:02.0 0000:02:04.0
+do
+    echo "========$i================"
+    lspci -nnDvs $i |grep Kernel
+    echo "========$i================"
+	echo
+done

@@ -1,0 +1,58 @@
+========0000:02:00.0================
+0000:02:00.0 USB controller [0c03]: VMware USB1.1 UHCI Controller [15ad:0774] (prog-if 00 [UHCI])
+	DeviceName: usb
+	Subsystem: VMware Device [15ad:1976]
+	Physical Slot: 32
+	Flags: medium devsel, IRQ 18, IOMMU group 5
+	I/O ports at 2080 [size=32]
+	Capabilities: [40] PCI Advanced Features
+	Kernel driver in use: vfio-pci
+
+========0000:02:00.0================
+
+========0000:02:01.0================
+0000:02:01.0 Ethernet controller [0200]: Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) [8086:100f] (rev 01)
+	DeviceName: Ethernet0
+	Subsystem: VMware PRO/1000 MT Single Port Adapter [15ad:0750]
+	Physical Slot: 33
+	Flags: 66MHz, medium devsel, IRQ 19, IOMMU group 5
+	Memory at fd5c0000 (64-bit, non-prefetchable) [size=128K]
+	Memory at fdff0000 (64-bit, non-prefetchable) [size=64K]
+	I/O ports at 2000 [size=64]
+	Expansion ROM at fd500000 [virtual] [disabled] [size=64K]
+	Capabilities: [dc] Power Management version 2
+	Capabilities: [e4] PCI-X non-bridge device
+	Kernel driver in use: vfio-pci
+	Kernel modules: e1000
+
+========0000:02:01.0================
+
+========0000:02:02.0================
+0000:02:02.0 USB controller [0c03]: VMware USB2 EHCI Controller [15ad:0770] (prog-if 20 [EHCI])
+	DeviceName: ehci
+	Subsystem: VMware USB2 EHCI Controller [15ad:0770]
+	Physical Slot: 34
+	Flags: fast devsel, IRQ 16, IOMMU group 5
+	Memory at fd5bf000 (32-bit, non-prefetchable) [size=4K]
+	Capabilities: [40] PCI Advanced Features
+	Kernel driver in use: vfio-pci
+
+========0000:02:02.0================
+
+========0000:02:04.0================
+0000:02:04.0 Ethernet controller [0200]: Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) [8086:100f] (rev 01)
+	DeviceName: Ethernet1
+	Subsystem: VMware PRO/1000 MT Single Port Adapter [15ad:0750]
+	Physical Slot: 36
+	Flags: 66MHz, medium devsel, IRQ 18, IOMMU group 5
+	Memory at fd580000 (64-bit, non-prefetchable) [size=128K]
+	Memory at fdfe0000 (64-bit, non-prefetchable) [size=64K]
+	I/O ports at 2040 [size=64]
+	Expansion ROM at fd510000 [virtual] [disabled] [size=64K]
+	Capabilities: [dc] Power Management version 2
+	Capabilities: [e4] PCI-X non-bridge device
+	Kernel driver in use: vfio-pci
+	Kernel modules: e1000
+
+========0000:02:04.0================
+

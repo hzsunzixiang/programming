@@ -1,0 +1,64 @@
+before unbind
+========0000:02:00.0================
+	Kernel driver in use: vfio-pci
+========0000:02:00.0================
+
+========0000:02:01.0================
+	Kernel driver in use: vfio-pci
+	Kernel modules: e1000
+========0000:02:01.0================
+
+========0000:02:02.0================
+	Kernel driver in use: vfio-pci
+========0000:02:02.0================
+
+========0000:02:04.0================
+	Kernel driver in use: vfio-pci
+	Kernel modules: e1000
+========0000:02:04.0================
+
+unbind the device
+after unbind
+========0000:02:00.0================
+========0000:02:00.0================
+
+========0000:02:01.0================
+	Kernel modules: e1000
+========0000:02:01.0================
+
+========0000:02:02.0================
+========0000:02:02.0================
+
+========0000:02:04.0================
+	Kernel modules: e1000
+========0000:02:04.0================
+
+find the venderId:deviceId
+0000:02:00.0 USB controller [0c03]: VMware USB1.1 UHCI Controller [15ad:0774] (prog-if 00 [UHCI])
+0000:02:01.0 Ethernet controller [0200]: Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) [8086:100f] (rev 01)
+0000:02:02.0 USB controller [0c03]: VMware USB2 EHCI Controller [15ad:0770] (prog-if 20 [EHCI])
+0000:02:04.0 Ethernet controller [0200]: Intel Corporation 82545EM Gigabit Ethernet Controller (Copper) [8086:100f] (rev 01)
+find the venderId:deviceId
+vifo new_id
+15ad 0774
+8086 100f
+15ad 0770
+8086 100f
+========0000:02:00.0================
+	Kernel driver in use: vfio-pci
+========0000:02:00.0================
+
+========0000:02:01.0================
+	Kernel driver in use: vfio-pci
+	Kernel modules: e1000
+========0000:02:01.0================
+
+========0000:02:02.0================
+	Kernel driver in use: vfio-pci
+========0000:02:02.0================
+
+========0000:02:04.0================
+	Kernel driver in use: vfio-pci
+	Kernel modules: e1000
+========0000:02:04.0================
+
