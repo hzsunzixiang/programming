@@ -9,6 +9,7 @@ centos-simple-disk-virtio.qemu.sh.format 为实际运行的命令行
 centos-simple-disk-virtio.qemu.process.sh 是运行之后的进程
 
 可以看出几乎一模一样, 也就是运行时去掉了单引号
+这是一个没有网络的
 
 vimdiff centos-simple-disk-virtio.qemu.sh.format centos-simple-disk-virtio.qemu.process.sh
 
