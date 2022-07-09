@@ -1,0 +1,55 @@
+<domain type="kvm">
+  <name>centos7-virt-install</name>
+  <uuid>df47b48b-a6ca-441b-9644-9fff4b47f81c</uuid>
+  <memory>1048576</memory>
+  <currentMemory>1048576</currentMemory>
+  <vcpu>2</vcpu>
+  <os>
+    <type arch="x86_64" machine="pc-i440fx-rhel7.6.0">hvm</type>
+    <boot dev="hd"/>
+  </os>
+  <features>
+    <acpi/>
+    <apic/>
+  </features>
+  <cpu mode="host-model"/>
+  <clock offset="utc">
+    <timer name="rtc" tickpolicy="catchup"/>
+    <timer name="pit" tickpolicy="delay"/>
+    <timer name="hpet" present="no"/>
+  </clock>
+  <pm>
+    <suspend-to-mem enabled="no"/>
+    <suspend-to-disk enabled="no"/>
+  </pm>
+  <devices>
+    <emulator>/usr/libexec/qemu-kvm</emulator>
+    <disk type="file" device="disk">
+      <driver name="qemu" type="raw"/>
+      <source file="/vm/centos7hda_from_qemu"/>
+      <target dev="hda" bus="ide"/>
+    </disk>
+    <controller type="usb" index="0" model="ich9-ehci1"/>
+    <controller type="usb" index="0" model="ich9-uhci1">
+      <master startport="0"/>
+    </controller>
+    <controller type="usb" index="0" model="ich9-uhci2">
+      <master startport="2"/>
+    </controller>
+    <controller type="usb" index="0" model="ich9-uhci3">
+      <master startport="4"/>
+    </controller>
+    <interface type="network">
+      <source network="default"/>
+      <mac address="52:54:00:b8:dd:0e"/>
+      <model type="e1000"/>
+    </interface>
+    <console type="pty"/>
+    <input type="tablet" bus="usb"/>
+    <graphics type="vnc" port="-1" listen="0.0.0.0"/>
+    <video>
+      <model type="qxl"/>
+    </video>
+  </devices>
+</domain>
+
