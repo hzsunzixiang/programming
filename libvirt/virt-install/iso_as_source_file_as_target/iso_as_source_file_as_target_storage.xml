@@ -1,0 +1,18 @@
+<emulator>/usr/libexec/qemu-kvm</emulator>
+<disk type='file' device='disk'>
+  <driver name='qemu' type='qcow2'/>
+  <source file='/vm/centos7-virt-install' index='2'/>
+  <backingStore/>
+  <target dev='vda' bus='virtio'/>
+  <alias name='virtio-disk0'/>
+  <address type='pci' domain='0x0000' bus='0x04' slot='0x00' function='0x0'/>
+</disk>
+<disk type='file' device='cdrom'>
+  <driver name='qemu' type='raw'/>
+  <source file='/root/CentOS-7-x86_64-Minimal-2009.iso' index='1'/>
+  <backingStore/>
+  <target dev='sda' bus='sata'/>
+  <readonly/>
+  <alias name='sata0-0-0'/>
+  <address type='drive' controller='0' bus='0' target='0' unit='0'/>
+</disk>
