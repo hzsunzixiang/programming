@@ -7,7 +7,7 @@ virt-install  --import \
 --memory=1024 \
 --cdrom /dev/sdc \
 --disk path=/vm/centos7-virt-install,size=10 \
---network network=network1 \
+--network network=default \
 --graphics vnc,listen=0.0.0.0 
 
 

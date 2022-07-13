@@ -7,7 +7,7 @@ virt-install  --import \
 --memory=1024 \
 --cdrom /root/CentOS-7-x86_64-Minimal-2009.iso \
 --disk path=/dev/sdc \
---network network=network1 \
+--network network=default \
 --graphics vnc,listen=0.0.0.0 
 
 
