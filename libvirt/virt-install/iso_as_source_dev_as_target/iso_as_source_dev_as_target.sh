@@ -1,6 +1,6 @@
 virt-install  --import \
 --connect qemu:///system \
---name=centos7-virt-install.1 \
+--name=centos7-virt-install.2 \
 --boot=hd \
 --debug \
 --vcpus=2 \
