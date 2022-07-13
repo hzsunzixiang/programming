@@ -2,6 +2,7 @@ virt-install  --name=centos7-virt-install \
 	--vcpus=2 \
 	--memory=1024 \
 	--disk path=/vm/centos7hda_from_qemu  \
+	--cdrom /root/CentOS-7-x86_64-Minimal-2009.iso \
 	--graphics vnc,listen=0.0.0.0 \
 	--print-xml  --dry-run
 
