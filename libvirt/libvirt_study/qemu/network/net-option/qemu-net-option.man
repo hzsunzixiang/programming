@@ -1,0 +1,5 @@
+-net nic[,netdev=nd][,macaddr=mac][,model=type] [,name=name][,addr=addr][,vectors=v]
+    Legacy option to configure or create an on-board (or machine default) Network Interface Card(NIC) and connect it either to the emulated hub with ID 0 (i.e.  the default hub), or to the netdev nd.  The NIC is an e1000 by default on the PC target. Optionally, the MAC address can be changed to mac, the device address set to addr (PCI cards only), and a name can be assigned for use in monitor commands.  Optionally, for PCI cards, you can specify the number v of MSI-X vectors that the card should have; this option currently only affects virtio cards; set v = 0 to disable MSI-X. If no -net option is specified, a single NIC is created.  QEMU can emulate several different models of network card.  Use "-net nic,model=help" for a list of available devices for your target.  
+-net user|tap|bridge|socket|l2tpv3|vde[,...][,name=name]
+    Configure a host network backend (with the options corresponding to the same -netdev option) and connect it to the emulated hub 0 (the default hub). Use name to specify the name of the hub port.
+

@@ -1,0 +1,1 @@
+/usr/libexec/qemu-kvm -m 512 -smp 2   -drive file=/vm/centos7hda_from_qemu_2 -nographic
