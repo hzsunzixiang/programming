@@ -1,0 +1,10 @@
+
+qemu-kvm   -nic model=help
+
+Supported NIC models:
+e1000
+e1000e
+rtl8139
+virtio-net-pci
+virtio-net-pci-non-transitional
+virtio-net-pci-transitional
