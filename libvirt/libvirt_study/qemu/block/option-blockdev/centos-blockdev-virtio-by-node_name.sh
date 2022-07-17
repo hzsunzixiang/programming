@@ -26,7 +26,7 @@
 #-blockdev '{"node-name":"libvirt-1-format","read-only":false,"driver":"qcow2","file":"libvirt-1-storage"}' \
 #-device virtio-blk-pci,scsi=off,bus=pci.3,addr=0x0,drive=libvirt-1-format,id=virtio-disk0,bootindex=1 \
 
-
+# qemu-kvm -device help
 # Storage devices:
 # name "floppy", bus floppy-bus, desc "virtual floppy drive"
 # name "ich9-ahci", bus PCI, alias "ahci"
