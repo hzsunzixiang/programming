@@ -12,6 +12,27 @@ virt-install  --import \
 # -smp 16,sockets=16,cores=1,threads=1 
 #  <vcpu placement='static'>16</vcpu>
 
+#--numatune OPTIONS
+#    Tune NUMA policy for the domain process. Example invocations
+#
+#        --numatune 1,2,3,4-7
+#        --numatune 1-3,5,memory.mode=preferred
+#
+#    Specifies the numa nodes to allocate memory from. This has the same syntax as "--vcpus cpuset=" option. mode can be one of 'interleave',
+#    'preferred', or 'strict' (the default). See 'man 8 numactl' for information about each mode.
+#
+#    Use --numatune=? to see a list of all available sub options. Complete details at <https://libvirt.org/formatdomain.html#elementsNUMATuning>
+
+#[root@centos-kvm-1 disk]# virt-install  --numatune=?
+#--numatune options:
+#  clearxml
+#  memnode[0-9]*.cellid
+#  memnode[0-9]*.mode
+#  memnode[0-9]*.nodeset
+#  memory.mode
+#  memory.nodeset
+#  memory.placement
+#
 
 #[root@centos-kvm-1 disk]# virt-install  --cpu ?
 #--cpu options:
