@@ -14,6 +14,16 @@ virt-install  --import \
 
 #memory specifies the node memory in kibibytes (i.e. blocks of 1024 bytes).
 # 注意这里的单位是kb, 不然内存太小系统起不来
+
+# qemu 上的命令
+# -smp 8,sockets=2,dies=1,cores=2,threads=2 -numa node,nodeid=0,cpus=0-3,mem=2048 -numa node,nodeid=1,cpus=4-7,mem=2048 
+# xml上的表现
+#    <numa>
+#      <cell id='0' cpus='0-3' memory='2097152' unit='KiB'/>
+#      <cell id='1' cpus='4-7' memory='2097152' unit='KiB'/>
+#    </numa>
+
+
 #--cpu numa.cell0.memory=1024,numa.cell0.cpus=0-3 \
 #--cpu numa.cell0.memory=1024,numa.cell0.cpus=0-1,numa.cell1.memory=1024,numa.cell1.cpus=2-3 \
 #--cpu numa.cell0.memory=64,numa.cell0.cpus=0-7,numa.cell1.memory=64,numa.cell1.cpus=8-15 \
