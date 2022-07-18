@@ -4,15 +4,16 @@ virt-install  --import \
 --name=centos7-virt-install-cpu \
 --boot=hd \
 --debug \
---memory=1024 \
+--memory=4096 \
 --vcpus=8,sockets=2,cores=2,threads=2 \
---cpu numa.cell0.memory=256,numa.cell0.cpus=0-3,numa.cell1.memory=256,numa.cell1.cpus=4-7 \
+--cpu numa.cell0.memory=2097152,numa.cell0.cpus=0-3,numa.cell1.memory=2097152,numa.cell1.cpus=4-7 \
 --disk path=/vm/centos7-virt-install,device=disk,bus=virtio \
 --network network=default \
 --graphics vnc,listen=0.0.0.0 
 
 
-# 现在还有错误， 系统起不来，需要继续调试
+#memory specifies the node memory in kibibytes (i.e. blocks of 1024 bytes).
+# 注意这里的单位是kb, 不然内存太小系统起不来
 #--cpu numa.cell0.memory=1024,numa.cell0.cpus=0-3 \
 #--cpu numa.cell0.memory=1024,numa.cell0.cpus=0-1,numa.cell1.memory=1024,numa.cell1.cpus=2-3 \
 #--cpu numa.cell0.memory=64,numa.cell0.cpus=0-7,numa.cell1.memory=64,numa.cell1.cpus=8-15 \
