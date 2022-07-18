@@ -2,3 +2,5 @@ qemu       28210  5.3  9.5 6119452 757892 ?      Sl   Jul17   0:34 /usr/libexec/
 
 
 -smp 8,sockets=2,dies=1,cores=2,threads=2 -numa node,nodeid=0,cpus=0-3,mem=2048 -numa node,nodeid=1,cpus=4-7,mem=2048 
+
+/usr/libexec/qemu-kvm -name guest=centos7-virt-install-cpu,debug-threads=on -cpu qemu64 -m 4096 -overcommit mem-lock=off -smp 8,sockets=2,dies=1,cores=2,threads=2 -numa node,nodeid=0,cpus=0-3,mem=2048 -numa node,nodeid=1,cpus=4-7,mem=2048 -uuid 4eb18a63-892d-4604-8d4f-6d6fee09cb6a 
