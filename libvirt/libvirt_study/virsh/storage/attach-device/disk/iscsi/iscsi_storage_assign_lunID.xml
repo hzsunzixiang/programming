@@ -1,0 +1,28 @@
+
+
+<disk type='network' device='lun'>
+  <driver name='qemu' type='raw'/>
+  <source protocol='iscsi' name='iqn.2022-07.com.world.hello:stor1/1'>
+    <host name='192.168.142.139' port='3260'/>
+    <initiator>
+      <iqn name='iqn.1994-05.com.redhat:ctkvm2'/>
+    </initiator>
+  </source>
+  <target dev='sdb' bus='scsi'/>
+</disk>
+
+
+<!--
+    <disk type='network' device='lun'>
+      <driver name='qemu' type='raw'/>
+      <source protocol='iscsi' name='iqn.2022-07.com.world.hello:stor1/0' index='3'>
+        <host name='192.168.142.139' port='3260'/>
+        <initiator>
+          <iqn name='iqn.1994-05.com.redhat:ctkvm2'/>
+        </initiator>
+      </source>
+      <target dev='sda' bus='scsi'/>
+      <alias name='scsi0-0-0-0'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='0'/>
+    </disk>
+-->
