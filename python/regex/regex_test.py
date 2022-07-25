@@ -54,6 +54,8 @@ if m:
 #x = re.search(r"\bS\w+", txt)
 #print(x.group())
 
+addr_nic = re.search("\[[0-9a-fA-F]{4}:[0-9a-fA-F]{4}\]", string_1).group(0).strip('[').strip(']')
+print(addr_nic)
 
 
 
