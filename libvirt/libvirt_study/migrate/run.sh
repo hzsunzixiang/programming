@@ -14,8 +14,8 @@
     	if [ ! -z "$process" ]
     	then 
     	    echo "the process is" $process
-    	    ps aux |grep $process
-    		netstat -anpt |grep $process 
+    	    ps aux |grep $process |grep -v grep
+    		netstat -anpt |grep $process | grep -v grep
     	fi
         echo  '=================virsh list========================='
         virsh list
