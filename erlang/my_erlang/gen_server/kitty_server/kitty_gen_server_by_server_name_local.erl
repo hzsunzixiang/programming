@@ -28,16 +28,16 @@ start_link() ->
 %% 返回值Reply是从 Module:handle_call/3 的返回值来的:  {reply,Reply,NewState}
 %% The return value Reply is passed from the return value of Module:handle_call/3.
 
-order_cat(Pid, Name, Color, Description) ->
-   gen_server:call(Pid, {order, Name, Color, Description}).
+order_cat(Name, Color, Description) ->
+   gen_server:call(?MODULE, {order, Name, Color, Description}).
 
 %% This call is asynchronous
-return_cat(Pid, Cat = #cat{}) ->
-    gen_server:cast(Pid, {return, Cat}).
+return_cat(Cat = #cat{}) ->
+    gen_server:cast(?MODULE, {return, Cat}).
 
 %% Synchronous call
-close_shop(Pid) ->
-    gen_server:call(Pid, terminate).
+close_shop() ->
+    gen_server:call(?MODULE, terminate).
 
 %%% Server functions
 init([]) -> {ok, []}. %% no treatment of info here!
@@ -87,9 +87,9 @@ start() ->
     {ok,Pid} = kitty_gen_server_by_server_name_local:start_link(),
 	Pid ! <<"Test handle info">>,
     io:format("local,The Pid:: ~p~n",[Pid]),
-	Cat = kitty_gen_server_by_server_name_local:order_cat(Pid, "Cat stevens", white, "not actually a cat"),
-	kitty_gen_server_by_server_name_local:order_cat(Pid, "Kitten Mittens",  black, "look at them little paws!"), 
-	kitty_gen_server_by_server_name_local:order_cat(Pid, "Kitten Mittens", black, "look at them little paws!"), 
-	kitty_gen_server_by_server_name_local:return_cat(Pid,Cat),
-	kitty_gen_server_by_server_name_local:close_shop(Pid),
+	Cat = kitty_gen_server_by_server_name_local:order_cat("Cat stevens", white, "not actually a cat"),
+	kitty_gen_server_by_server_name_local:order_cat("Kitten Mittens",  black, "look at them little paws!"), 
+	kitty_gen_server_by_server_name_local:order_cat("Kitten Mittens", black, "look at them little paws!"), 
+	kitty_gen_server_by_server_name_local:return_cat(Cat),
+	kitty_gen_server_by_server_name_local:close_shop(),
     'this is an end'.
