@@ -84,7 +84,7 @@ handle_info(_Msg, LoopData) ->
 %% Termination callback. Does nothing, but should instead kill clients.
 
 terminate(_Reason, _LoopData) ->
-    io:format("call terminate ...... _LoopData:~p ~n", [_LoopData]),
+    io:format("call terminate ...... _LoopData:~p ~n", [{_Reason, _LoopData}]),
     ok.
 
 format_status(_Opt, [_ProcDict, {Available, Allocated}]) ->
