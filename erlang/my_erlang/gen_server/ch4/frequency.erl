@@ -84,6 +84,7 @@ handle_info(_Msg, LoopData) ->
 %% Termination callback. Does nothing, but should instead kill clients.
 
 terminate(_Reason, _LoopData) ->
+    io:format("call terminate ...... _LoopData:~p ~n", [_LoopData]),
     ok.
 
 format_status(_Opt, [_ProcDict, {Available, Allocated}]) ->
@@ -109,18 +110,12 @@ start() ->
     {ok,Pid} = frequency:start_link(),
 	Pid ! <<"Test handle info">>,
     io:format("local,The Pid:: ~p~n",[Pid]),
-	Freq1 = frequency:allocate(),
+    {ok,Freq1}= frequency:allocate(),
     io:format("the Freq:: ~p~n",[Freq1]),
-	Freq2 = frequency:allocate(),
+    {ok,Freq2}= frequency:allocate(),
     io:format("the Freq:: ~p~n",[Freq2]),
-	frequency:allocate(),
-	frequency:allocate(),
-	frequency:allocate(),
-	frequency:allocate(),
-	frequency:allocate(),
-	frequency:allocate(),
-	frequency:allocate(),
-	Freq3 = frequency:allocate(),
+    {ok,Freq3}= frequency:allocate(),
     io:format("the Freq:: ~p~n",[Freq3]),
 	frequency:deallocate(Freq2),
+	frequency:stop(),
     'this is an end'.
