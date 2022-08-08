@@ -25,8 +25,9 @@ call(ServerPid, Msg) ->
         erlang:error(timeout)
     end.
 
-cast(Pid, Msg) ->
-    Pid ! {async, Msg},
+% 发送消息之后，不等回应，直接返回ok
+cast(ServerPid, Msg) ->
+    ServerPid ! {async, Msg},
     ok.
 %%%%% 上面对应处理客户端的
 
@@ -45,12 +46,12 @@ loop(Module, LoopStatus) ->
     receive
         {sync, ClientFrom, Ref, Msg} ->
              {reply, Reply, NewState} = Module:handle_call(Msg, ClientFrom, LoopStatus),
-             io:format("in loop LoopStatus: ~p~n",[NewState]),
+             io:format("sync in loop LoopStatus: ~p~n",[NewState]),
 		     reply({ClientFrom, Ref}, Reply),
 			 loop(Module, NewState);
-        {async, ClientFrom, Ref, Msg} ->
+        {async, Msg} ->
              {noreply, NewState} = Module:handle_cast(Msg, LoopStatus),
-		     reply({ClientFrom, Ref}, ok),
+             io:format("async in loop LoopStatus: ~p~n",[NewState]),
 			 loop(Module, NewState)
     end.
 

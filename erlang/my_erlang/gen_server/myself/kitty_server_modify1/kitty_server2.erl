@@ -16,18 +16,18 @@ order_cat(ServerPid, Name, Color, Description) ->
     my_server:call(ServerPid, {order, Name, Color, Description}).
 
 %% This call is asynchronous
-return_cat(Pid, Cat = #cat{}) ->
-    my_server:cast(Pid, {return, Cat}).
+return_cat(ServerPid, Cat = #cat{}) ->
+    my_server:cast(ServerPid, {return, Cat}).
 
 %% Synchronous call
-close_shop(Pid) ->
-    my_server:call(Pid, terminate).
+close_shop(ServerPid) ->
+    my_server:call(ServerPid, terminate).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%% Server functions 这里是服务端的调用 Cats的初始化集合
-%init([]) -> []. %% no treatment of info here!
-init([]) -> [make_cat(orgin, white, "origin loves to burn bridges")]. %% no treatment of info here!
+init([]) -> []. %% no treatment of info here!
+%init([]) -> [make_cat(orgin, white, "origin loves to burn bridges")]. %% no treatment of info here!
 
 %% 这里的From 其实就是客户端
 handle_call({order, Name, Color, Description}, From, Cats) ->
@@ -57,13 +57,17 @@ terminate(Cats) ->
 start() ->
     ServerPid = kitty_server2:start_link(),
     io:format("ServerPid: ~p~n",[ServerPid]),
-    Cat1 = kitty_server2:order_cat(ServerPid, carl, brown, "loves to burn bridges"),
-    Cat2 = kitty_server2:order_cat(ServerPid, carl, brown, "loves to burn bridges"),
-    Cat3 = kitty_server2:order_cat(ServerPid, carl, brown, "loves to burn bridges"),
-    Cat4 = kitty_server2:order_cat(ServerPid, carl, brown, "loves to burn bridges"),
-    Cat5 = kitty_server2:order_cat(ServerPid, carl, brown, "loves to burn bridges"),
-    %kitty_server2:return_cat(Pid, Cat1),
-    %kitty_server2:order_cat(Pid, jimmy, orange,"cuddly"),
+    Cat1 = kitty_server2:order_cat(ServerPid, carl_1, brown, "loves to burn bridges"),
+    Cat2 = kitty_server2:order_cat(ServerPid, carl_2, brown, "loves to burn bridges"),
+    Cat3 = kitty_server2:order_cat(ServerPid, carl_3, brown, "loves to burn bridges"),
+    Cat4 = kitty_server2:order_cat(ServerPid, carl_4, brown, "loves to burn bridges"),
+    Cat5 = kitty_server2:order_cat(ServerPid, carl_5, brown, "loves to burn bridges"),
+    kitty_server2:return_cat(ServerPid, Cat1),
+    kitty_server2:return_cat(ServerPid, Cat2),
+    kitty_server2:return_cat(ServerPid, Cat3),
+    kitty_server2:return_cat(ServerPid, Cat4),
+    Cat6 = kitty_server2:order_cat(ServerPid, jimmy, orange,"cuddly"),
+    io:format("Cat6: ~p~n",[Cat6]),
     %kitty_server2:return_cat(Pid, Cat1),
     %kitty_server2:close_shop(Pid),
     %kitty_server2:close_shop(Pid),
