@@ -37,9 +37,8 @@ handle_call({order, Name, Color, Description}, From, Cats) ->
 	    {reply, hd(Cats), tl(Cats)}
     end;
 
-handle_call(terminate, From, Cats) ->
-    my_server:reply(From, ok),
-    terminate(Cats).
+handle_call(terminate, _From, Cats) ->
+    {stop, normal, ok, Cats}.
 
 handle_cast({return, Cat = #cat{}}, Cats) ->
     {noreply, [Cat|Cats]}.
@@ -48,11 +47,9 @@ handle_cast({return, Cat = #cat{}}, Cats) ->
 make_cat(Name, Col, Desc) ->
     #cat{name=Name, color=Col, description=Desc}.
 
-terminate(Cats) ->
-    [io:format("~p was set free.~n",[C#cat.name]) || C <- Cats],
-    exit(normal).
-
-
+terminate(normal, Cats) ->
+    [io:format("here, terminate. ~p was set free.~n",[C#cat.name]) || C <- Cats],
+    ok.
 
 start() ->
     ServerPid = kitty_server2:start_link(),
@@ -69,6 +66,7 @@ start() ->
     Cat6 = kitty_server2:order_cat(ServerPid, jimmy, orange,"cuddly"),
     io:format("Cat6: ~p~n",[Cat6]),
     %kitty_server2:return_cat(Pid, Cat1),
-    %kitty_server2:close_shop(Pid),
+    kitty_server2:close_shop(ServerPid),
+    %Cat7 = kitty_server2:order_cat(ServerPid, carl_7, brown, "loves to burn bridges"),
     %kitty_server2:close_shop(Pid),
     'this is an end'.

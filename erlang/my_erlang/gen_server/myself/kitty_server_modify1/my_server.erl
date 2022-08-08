@@ -16,6 +16,8 @@ call(ServerPid, Msg) ->
 	% 这其中的self() 是客户端Pid ClientFrom
     ServerPid ! {sync, self(), Ref, Msg},
     receive
+        {Ref, normal, terminate} ->
+            erlang:demonitor(Ref, [flush]);
         {Ref, Reply} ->
             erlang:demonitor(Ref, [flush]),
             Reply;
@@ -36,6 +38,11 @@ cast(ServerPid, Msg) ->
 reply({Pid, Ref}, Reply) ->
     Pid ! {Ref, Reply}.
 
+% 这里是服务端处理的返回
+% {Pid, Ref} 对应loop循环中的同步调用信息, 异步不用
+reply({Pid, Ref}, normal, terminate) ->
+    Pid ! {Ref, normal, terminate}.
+
 %%% Private stuff ,这里的Module是从调用者过来的
 init(Module, InitialState) ->
     LoopStatus = Module:init(InitialState),
@@ -45,10 +52,17 @@ init(Module, InitialState) ->
 loop(Module, LoopStatus) ->
     receive
         {sync, ClientFrom, Ref, Msg} ->
-             {reply, Reply, NewState} = Module:handle_call(Msg, ClientFrom, LoopStatus),
-             io:format("sync in loop LoopStatus: ~p~n",[NewState]),
-		     reply({ClientFrom, Ref}, Reply),
-			 loop(Module, NewState);
+             Result = Module:handle_call(Msg, ClientFrom, LoopStatus),
+             case Result of
+                 {reply, Reply, NewState} -> 
+                     io:format("sync in loop LoopStatus: ~p~n",[NewState]),
+		             reply({ClientFrom, Ref}, Reply),
+			         loop(Module, NewState);
+                 {stop, normal, ok, NewState} ->
+                     io:format("will stop: sync in loop ~n"),
+                     ok = Module:terminate(normal, LoopStatus),
+		             reply({ClientFrom, Ref}, normal, terminate)
+             end;
         {async, Msg} ->
              {noreply, NewState} = Module:handle_cast(Msg, LoopStatus),
              io:format("async in loop LoopStatus: ~p~n",[NewState]),
