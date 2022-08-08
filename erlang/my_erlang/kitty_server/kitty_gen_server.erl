@@ -34,9 +34,19 @@ handle_call({order, Name, Color, Description}, _From, Cats) ->
        Cats =/= [] ->
         {reply, hd(Cats), tl(Cats)}
     end;
+
 handle_call(terminate, _From, Cats) ->
     {stop, normal, ok, Cats}.
 
+% 之所以会调用 terminate 函数，原因在于这里的返回值
+% https://www.erlang.org/doc/man/gen_server.html#Module:handle_call-3
+%{stop,Reason,NewState}
+%{stop,Reason,Reply,NewState}
+%The gen_server process will call Module:terminate(Reason,NewState) and then terminate.
+%
+%{stop,_,Reply,_} will create a reply to the client request just as {reply,Reply,...} while {stop,_,_} will not, so just as for {noreply,NewState,...} a reply has to be created by calling reply(From, Reply) before returning {stop,_,_}.
+%
+%
 handle_cast({return, Cat = #cat{}}, Cats) ->
     {noreply, [Cat|Cats]}.
 
@@ -45,7 +55,7 @@ handle_info(Msg, Cats) ->
     {noreply, Cats}.
 
 terminate(normal, Cats) ->
-    [io:format("~p was set free.~n",[C#cat.name]) || C <- Cats],
+    [io:format("here, terminate. ~p was set free.~n",[C#cat.name]) || C <- Cats],
     ok.
 
 code_change(_OldVsn, State, _Extra) ->
