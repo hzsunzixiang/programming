@@ -23,6 +23,10 @@ return_cat(ServerPid, Cat = #cat{}) ->
 close_shop(ServerPid) ->
     my_server:call(ServerPid, terminate).
 
+%% Asynchronous call
+close_shop_cast(ServerPid) ->
+    my_server:cast(ServerPid, terminate).
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%% Server functions 这里是服务端的调用 Cats的初始化集合
@@ -30,7 +34,7 @@ init([]) -> []. %% no treatment of info here!
 %init([]) -> [make_cat(orgin, white, "origin loves to burn bridges")]. %% no treatment of info here!
 
 %% 这里的From 其实就是客户端
-handle_call({order, Name, Color, Description}, From, Cats) ->
+handle_call({order, Name, Color, Description}, _From, Cats) ->
     if Cats =:= [] ->
 		{reply, make_cat(Name, Color, Description), Cats};
        Cats =/= [] ->
@@ -40,6 +44,8 @@ handle_call({order, Name, Color, Description}, From, Cats) ->
 handle_call(terminate, _From, Cats) ->
     {stop, normal, ok, Cats}.
 
+handle_cast(terminate, Cats) ->
+    {stop, normal, ok, Cats};
 handle_cast({return, Cat = #cat{}}, Cats) ->
     {noreply, [Cat|Cats]}.
 
@@ -63,10 +69,12 @@ start() ->
     kitty_server2:return_cat(ServerPid, Cat2),
     kitty_server2:return_cat(ServerPid, Cat3),
     kitty_server2:return_cat(ServerPid, Cat4),
+    kitty_server2:return_cat(ServerPid, Cat5),
     Cat6 = kitty_server2:order_cat(ServerPid, jimmy, orange,"cuddly"),
     io:format("Cat6: ~p~n",[Cat6]),
     %kitty_server2:return_cat(Pid, Cat1),
-    kitty_server2:close_shop(ServerPid),
+    %kitty_server2:close_shop(ServerPid),
+    kitty_server2:close_shop_cast(ServerPid),
     %Cat7 = kitty_server2:order_cat(ServerPid, carl_7, brown, "loves to burn bridges"),
     %kitty_server2:close_shop(Pid),
     'this is an end'.

@@ -60,12 +60,18 @@ loop(Module, LoopStatus) ->
 			         loop(Module, NewState);
                  {stop, normal, ok, NewState} ->
                      io:format("will stop: sync in loop ~n"),
-                     ok = Module:terminate(normal, LoopStatus),
+                     ok = Module:terminate(normal, NewState),
 		             reply({ClientFrom, Ref}, normal, terminate)
              end;
         {async, Msg} ->
-             {noreply, NewState} = Module:handle_cast(Msg, LoopStatus),
-             io:format("async in loop LoopStatus: ~p~n",[NewState]),
-			 loop(Module, NewState)
+             Result = Module:handle_cast(Msg, LoopStatus),
+             case Result of
+             {noreply, NewState} ->
+                 io:format("async in loop LoopStatus: ~p~n",[NewState]),
+			     loop(Module, NewState);
+             {stop, normal, ok, NewState} -> 
+                 io:format("will stop: sync in loop ~n"),
+                 ok = Module:terminate(normal, NewState)
+             end
     end.
 
