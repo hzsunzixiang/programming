@@ -77,6 +77,7 @@ remove() ->
 	_Other ->   % cancel/selection
 	    remove()
     end.
+
 start1() ->
     {ok,Pid} = coffee_fsm:start_link(),
     io:format("local,The Pid:: ~p~n",[Pid]),
@@ -84,9 +85,9 @@ start1() ->
     pay(50),
     pay(50),
     pay(50),
-    cup_removed()
-    'this is an e,
+    cup_removed(),
     'this is an end'.
+start() ->
     {ok,Pid} = coffee_fsm:start_link(),
     io:format("local,The Pid:: ~p~n",[Pid]),
     cappuccino(),
