@@ -1,11 +1,13 @@
 -module(coffee_fsm_timeout).
 -behaviour(gen_fsm).
 
--export([start_link/0, stop/0]).
--export([init/1, terminate/3, handle_event/3]).    %% Callback functions
--export([selection/2, payment/2, remove/2]).       %% States
--export([americano/0, cappuccino/0, tea/0,         %% Client Functions
-         espresso/0, pay/1, cancel/0, cup_removed/0]).
+%-export([start_link/0, stop/0]).
+%-export([init/1, terminate/3, handle_event/3]).    %% Callback functions
+%-export([selection/2, payment/2, remove/2]).       %% States
+%-export([americano/0, cappuccino/0, tea/0,         %% Client Functions
+%         espresso/0, pay/1, cancel/0, cup_removed/0]).
+-compile(export_all).
+-compile(nowarn_export_all).
 
 -define(TIMEOUT, 10000).
 

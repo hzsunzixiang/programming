@@ -1,11 +1,13 @@
 -module(coffee_fsm).
 -behaviour(gen_fsm).
 
--export([start_link/0, stop/0]).
--export([init/1, terminate/3, handle_event/3]).
--export([selection/2, payment/2, remove/2]).
--export([americano/0, cappuccino/0, tea/0, espresso/0, 
-         pay/1,cancel/0, cup_removed/0]). 
+%-export([start_link/0, stop/0]).
+%-export([init/1, terminate/3, handle_event/3]).
+%-export([selection/2, payment/2, remove/2]).
+%-export([americano/0, cappuccino/0, tea/0, espresso/0, 
+%         pay/1,cancel/0, cup_removed/0]). 
+-compile(export_all).
+-compile(nowarn_export_all).
 
 
 start_link() ->
@@ -33,26 +35,25 @@ cup_removed() -> gen_fsm:send_event(?MODULE,cup_removed).
 
 
 %% State: drink selection
-selection({selection,Type,Price}, _LoopData) ->
+selection({selection, Type, Price}, _LoopData) ->
   hw:display("Please pay:~w",[Price]),
   {next_state, payment, {Type, Price, 0}};
 selection({pay, Coin}, LoopData) ->
   hw:return_change(Coin),
   {next_state, selection, LoopData};
 selection(_Other, LoopData) ->  
+  io:format("in selection _Other:: ~p~n",[_Other]),
   {next_state, selection, LoopData}.
 
 
-payment({pay, Coin}, {Type,Price,Paid}) 
-                when Coin+Paid >= Price ->
+payment({pay, Coin}, {Type,Price,Paid}) when Coin+Paid >= Price ->
     NewPaid = Coin + Paid,
     hw:display("Preparing Drink.",[]),
     hw:return_change(NewPaid - Price),
     hw:drop_cup(), hw:prepare(Type),
     hw:display("Remove Drink.", []),
     {next_state, remove, []};
-payment({pay, Coin}, {Type,Price,Paid}) 
-                when Coin+Paid < Price ->
+payment({pay, Coin}, {Type,Price,Paid}) when Coin+Paid < Price ->
     NewPaid = Coin + Paid,
     hw:display("Please pay:~w",[Price - NewPaid]),
     {next_state, payment, {Type, Price, NewPaid}};
@@ -84,3 +85,19 @@ terminate(_Reason, payment, {_Type,_Price,Paid}) ->
     hw:return_change(Paid);
 terminate(_Reason, _StateName, _LoopData) ->
     ok.
+
+
+start() ->
+    {ok, Pid} = coffee_fsm:start_link(),
+	sys:trace(Pid, true),
+	coffee_fsm:cancel(),
+	coffee_fsm:tea(),
+	coffee_fsm:cancel(),
+	coffee_fsm:americano(),
+	coffee_fsm:pay(100),
+	coffee_fsm:pay(100),
+	coffee_fsm:pay(50),
+	coffee_fsm:cup_removed(),
+	'this is an end'.
+
+
