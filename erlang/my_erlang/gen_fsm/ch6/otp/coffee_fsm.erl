@@ -84,4 +84,3 @@ terminate(_Reason, payment, {_Type,_Price,Paid}) ->
     hw:return_change(Paid);
 terminate(_Reason, _StateName, _LoopData) ->
     ok.
-
