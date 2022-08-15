@@ -14,6 +14,7 @@ MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 #RUN_BIN=logger_my
 RUN_BIN=counters_my
 RUN_BIN=counters
+RUN_BIN=crash_example.erl
 all:compile
 	erl -noshell -s $(RUN_BIN) start -s init stop
 #erl -noshell -run $(RUN_BIN) start -s init stop
