@@ -23,7 +23,7 @@ delete(M,A) -> gen_event:delete_handler(?MODULE,M,A).
 
 start() ->
     start_link(),
-	no_frequency(),
-	frequency_available(),
-	frequency_denied(),
+    no_frequency(),
+    frequency_available(),
+    frequency_denied(),
     'this is an end'.

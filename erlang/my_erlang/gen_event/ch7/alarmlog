@@ -1,0 +1,6 @@
+Id:1 Time:{5,12,27} Date:{2022,8,15}
+Event:{set_alarm,{no_frequency,<0.3.0>}}
+Id:2 Time:{5,12,27} Date:{2022,8,15}
+Event:{clear_alarm,no_frequency}
+Id:3 Time:{5,12,27} Date:{2022,8,15}
+Unknown:sending_junk
