@@ -21,9 +21,20 @@ frequency_denied() -> gen_event:notify(?MODULE, {event, {frequency_denied, self(
 add(M,A) -> gen_event:add_sup_handler(?MODULE, M, A).
 delete(M,A) -> gen_event:delete_handler(?MODULE,M,A).
 
-start() ->
+start1() ->
     start_link(),
     no_frequency(),
     frequency_available(),
     frequency_denied(),
+    'this is an end'.
+start() ->
+    frequency:start_link(),
+    freq_overload:start_link(),
+    freq_overload:add(logger, standard_io),
+    frequency:allocate(), frequency:allocate(), frequency:allocate(),
+    frequency:allocate(), frequency:allocate(), frequency:allocate(),
+    frequency:allocate(),
+    frequency:allocate(),
+    frequency:deallocate(15),
+    counters:get_counters(freq_overload),
     'this is an end'.

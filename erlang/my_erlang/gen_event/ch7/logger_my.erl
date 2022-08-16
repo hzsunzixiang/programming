@@ -15,11 +15,16 @@ init(standard_io)  ->
     {ok, {standard_io, 1}};
 init({file, File}) ->
     {ok, Fd} = file:open(File, write),
+	io:format("init file:~p~n", [{Fd}]),
     {ok, {Fd, 1}};
 init(Args) ->
     {error, {args, Args}}.
 
+%% 这里的 {Type, Count} 类似 init 中的 {Fd, Count} {standard_io, Count}
+%% 其中 Type 对应的就是描述符  
+%% 这里的返回值 {Type, Count} 传递给 init函数
 terminate(swap, {Type, Count}) ->
+	io:format("terminate swap :~p~n", [{Type, Count}]),
     {Type, Count};
 terminate(_Reason, {standard_io, Count}) ->
     {count, Count};
@@ -40,11 +45,11 @@ print(Fd, Count, Event, Tag) ->
               [Count, time(),date(),Event]).
 start1() ->
     {ok, P} = gen_event:start(),
-    gen_event:add_handler(P, logger_my, {file, "alarmlog"}),
+    gen_event:add_handler(P, logger_my, {file, "alarmlog.log"}),
 	gen_event:notify(P, {set_alarm, {no_frequency, self()}}),
 	gen_event:sync_notify(P, {clear_alarm, no_frequency}),
 	P ! sending_junk,
-	{ok, Binary} = file:read_file("alarmlog"),
+	{ok, Binary} = file:read_file("alarmlog.log"),
 	io:format(Binary),
 	gen_event:delete_handler(P, freq_overload, stop),
     'this is an end'.
@@ -52,11 +57,12 @@ start1() ->
 
 start() ->
     {ok, P} = gen_event:start(),
-    gen_event:add_handler(P, logger_my, {file, "alarmlog"}),
+    gen_event:add_handler(P, logger_my, {file, "alarmlog.log"}),
     gen_event:notify(P, {set_alarm, {no_frequency, self()}}),
     gen_event:swap_handler(P, {logger_my, swap}, {logger_my, standard_io}),
     gen_event:notify(P, {set_alarm, {no_frequency, self()}}),
-    {ok, Binary}=file:read_file("alarmlog"), 
+    {ok, Binary}=file:read_file("alarmlog.log"), 
+	io:format("~n~nbegin read file~n"),
 	io:format(Binary),
     'this is an end'.
 
