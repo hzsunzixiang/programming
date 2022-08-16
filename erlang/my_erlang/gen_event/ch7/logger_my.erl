@@ -38,7 +38,7 @@ handle_info(Event, {Fd, Count}) ->
 print(Fd, Count, Event, Tag) ->
     io:format(Fd, "Id:~w Time:~w Date:~w~n"++Tag++":~w~n",
               [Count, time(),date(),Event]).
-start() ->
+start1() ->
     {ok, P} = gen_event:start(),
     gen_event:add_handler(P, logger_my, {file, "alarmlog"}),
 	gen_event:notify(P, {set_alarm, {no_frequency, self()}}),
@@ -50,5 +50,14 @@ start() ->
     'this is an end'.
 
 
+start() ->
+    {ok, P} = gen_event:start(),
+    gen_event:add_handler(P, logger_my, {file, "alarmlog"}),
+    gen_event:notify(P, {set_alarm, {no_frequency, self()}}),
+    gen_event:swap_handler(P, {logger_my, swap}, {logger_my, standard_io}),
+    gen_event:notify(P, {set_alarm, {no_frequency, self()}}),
+    {ok, Binary}=file:read_file("alarmlog"), 
+	io:format(Binary),
+    'this is an end'.
 
 
