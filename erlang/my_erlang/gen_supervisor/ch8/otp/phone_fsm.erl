@@ -14,7 +14,8 @@
 -export([start_link/1]).
 
 %% gen_fsm callbacks
--export([init/1, terminate/3, handle_sync_event/4]).
+%% -export([init/1, terminate/3, handle_sync_event/4]).
+-export([init/1, handle_sync_event/4]).
 %% Client Functions
 -export([inbound/1, action/2, busy/1, reject/1, accept/1, hangup/1]).
 %% States

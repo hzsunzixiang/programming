@@ -1,7 +1,7 @@
 -module(frequency_sup).
 -behaviour(supervisor).
 
--export([start_link/0, init/1]).
+-export([start/0, start_link/0, init/1]).
 -export([stop/0]).
 
 start_link() ->
@@ -32,3 +32,15 @@ child(Module) ->
 %%      shutdown => 2000,
 %%      type => worker,
 %%      modules => [Module]}.
+%%
+start()->
+    frequency_sup:start_link(),
+    whereis(frequency),
+    whereis (freq_overload),
+    frequency:stop(),
+    whereis(frequency),
+    exit(whereis(frequency), kill),
+    whereis(frequency),
+    supervisor:which_children(frequency_sup),
+    supervisor:count_children(frequency_sup),
+	'this is an end'.
