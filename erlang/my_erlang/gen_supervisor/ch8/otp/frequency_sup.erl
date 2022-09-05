@@ -44,3 +44,26 @@ start()->
     supervisor:which_children(frequency_sup),
     supervisor:count_children(frequency_sup),
 	'this is an end'.
+
+% Eshell V8.3.5.3  (abort with ^G)
+% 1> frequency_sup:start_link().
+% {ok,<0.60.0>}
+% 2> whereis(frequency).
+% <0.62.0>
+% 3> whereis (freq_overload)
+% 3> .
+% <0.61.0>
+% 4> frequency:stop().
+% ok
+% 5> whereis(frequency).
+% <0.66.0>
+% 6> exit(whereis(frequency), kill).
+% true
+% 7> whereis(frequency).
+% <0.69.0>
+% 8> supervisor:which_children(frequency_sup).
+% [{frequency,<0.69.0>,worker,[frequency]},
+%  {freq_overload,<0.61.0>,worker,[freq_overload]}]
+% 9> supervisor:count_children(frequency_sup).
+% [{specs,2},{active,2},{supervisors,0},{workers,2}]
+
