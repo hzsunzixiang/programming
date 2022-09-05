@@ -1,7 +1,7 @@
 -module(bsc_sup).
 -behaviour(supervisor).
 
--export([start_link/0, init/1]).
+-export([start/0, start_link/0, init/1]).
 -export([stop/0]).
 
 start_link() ->
@@ -16,3 +16,8 @@ init(_) ->
 child(Module) ->
     {Module, {Module, start_link, []},
      permanent, 2000, worker, [Module]}.
+start() ->
+    bsc_sup:start_link(),
+    phone:start_test(150, 500),
+    counters:get_counters(freq_overload),
+    'this is an end'.

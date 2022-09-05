@@ -12,6 +12,7 @@ MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 RUN_BIN=frequency_sup
 RUN_BIN=phone_sup
 RUN_BIN=simple_phone_sup
+RUN_BIN=bsc_sup
 all:compile
 	erl -noshell -s $(RUN_BIN) start -s init stop
 	#erl -noshell -run $(RUN_BIN) start -s init stop
