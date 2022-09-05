@@ -9,9 +9,7 @@ ERL = erl -boot start_clean
 
 MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 
-RUN_BIN=apply_test
-RUN_BIN=register_test
-RUN_BIN=element_test
+RUN_BIN=my_supervisor
 all:compile
 	erl -noshell -s $(RUN_BIN) start -s init stop
 	#erl -noshell -run $(RUN_BIN) start -s init stop
