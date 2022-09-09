@@ -4,7 +4,7 @@ cp  -v ~/program/programming/erlang/my_erlang/release/ch11/bsc/src/*.erl apps/bs
 
 # 注意，需要对logger.erl 重命名，不然跟系统的冲突
 
-_build/default/rel/bsc/bin/bsc
+_build/default/rel/bsc/bin/bsc console
 #github@9.134.165.238:~/program/programming/erlang/my_erlang/release/rebar3/ernie2/bsc (master)$ _build/default/rel/bsc/bin/bsc
 #
 #Usage: bsc [COMMAND] [ARGS]
