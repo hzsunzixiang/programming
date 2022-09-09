@@ -8,4 +8,7 @@ wget https://s3.amazonaws.com/rebar3/rebar3
 
 
 
+# 安装
+sudo cp rebar3 /bin/
+sudo chmod a+x /bin/rebar3
 
