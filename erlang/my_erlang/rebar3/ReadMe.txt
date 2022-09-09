@@ -38,3 +38,18 @@ ericksun@centos-1:~/programming/erlang/my_erlang/rebar3/myapp (master)$ rebar3 h
 # 启动之后的进程是这样的 
 rebar3 shell
 /usr/bin/rebar3 -B -sbtu -A1 -- -root /usr/lib64/erlang -progname erl -- -home /home/ericksun -- -boot no_dot_erlang -noshell -run escript start -extra /usr/bin/rebar3 shell
+
+
+
+
+# rebar3的下载方式
+这里有讲述
+https://rebar3.readme.io/docs/getting-started#installing-binary
+直接下载
+wget https://s3.amazonaws.com/rebar3/rebar3
+
+
+
+
+
+

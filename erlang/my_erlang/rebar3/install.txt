@@ -1,0 +1,11 @@
+# rebar3的下载方式
+这里有讲述
+https://rebar3.readme.io/docs/getting-started#installing-binary
+直接下载
+wget https://s3.amazonaws.com/rebar3/rebar3
+
+
+
+
+
+
