@@ -1,6 +1,6 @@
 {application, bsc,
  [{description, "Base Station Controller"},
-  {vsn, "0.1.0"},
+  {vsn, "1.0"},
   {registered, []},
   {mod, {bsc_app, []}},
   {applications,
