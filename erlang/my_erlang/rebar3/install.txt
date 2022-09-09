@@ -4,6 +4,8 @@ https://rebar3.readme.io/docs/getting-started#installing-binary
 直接下载
 wget https://s3.amazonaws.com/rebar3/rebar3
 
+# curl -LO https://s3.amazonaws.com/rebar3/rebar3
+
 
 
 
