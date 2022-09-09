@@ -6,7 +6,7 @@ start_link() ->
     case gen_event:start_link({local, ?MODULE}) of
 	{ok, Pid} -> 
 	    add(counters, {}),
-	    add(logger, {file, "log"}),
+	    add(my_logger, {file, "log"}),
 	    {ok, Pid};
 	Error ->
 	    Error

@@ -1,4 +1,4 @@
--module(logger).
+-module(my_logger).
 -behaviour(gen_event).
 -export([init/1, terminate/2, handle_event/2, handle_info/2]). 
 
