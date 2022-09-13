@@ -17,11 +17,10 @@ all:compile
 
 
 compile:${MODS:%=%.beam} 
-	mkdir -p ernie
-
+#	mkdir -p ernie
+#
 #RUN_BIN=hello
 #run:
 #	erl -noshell -s $(RUN_BIN) start  -s init stop
-
 clean:
-	rm -rf rm *.script *.boot *.beam ernie
+	rm  -rf *.beam

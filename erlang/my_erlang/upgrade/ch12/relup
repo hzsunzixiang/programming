@@ -1,4 +1,5 @@
-{"1.1",
+%% coding: utf-8
+{"1.0",
  [{"1.0",[],
    [{load_object_code,{coffee,"1.1",[coffee_fsm]}},
     point_of_no_return,
