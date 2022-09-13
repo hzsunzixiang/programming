@@ -35,7 +35,7 @@ close()       -> gen_fsm:send_event(?MODULE, close).
 
 %% State: drink selection
 selection({selection,Type,Price}, _LoopData) ->
-    hw:display("Please pay:~w",[Price]),
+   hw:display("Please pay:~w",[Price]),
     {next_state, payment, {Type, Price, 0}};
 selection({pay, Coin}, LoopData) ->
     hw:return_change(Coin),
