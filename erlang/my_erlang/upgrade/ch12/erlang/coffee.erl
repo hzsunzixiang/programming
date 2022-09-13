@@ -1,8 +1,7 @@
 -module(coffee).
--export([tea/0, espresso/0, americano/0, cappuccino/0,      
+-export([tea/0, espresso/0, americano/0, cappuccino/0,
          pay/1, cup_removed/0, cancel/0]).
--export([start_link/0, init/0,code_change/2]).
--vsn(1.0).
+-export([start_link/0, init/0]).
 
 start_link() ->
     {ok, spawn_link(?MODULE, init, [])}.
@@ -33,15 +32,13 @@ selection() ->
 	{pay, Coin} ->
 	    hw:return_change(Coin),
 	    selection();
-	{upgrade, Data} ->
-	    ?MODULE:code_change(fun selection/0, Data);
 	_Other ->   % cancel
 	    selection()
     end.
 
 %% State: payment
 payment(Type, Price, Paid) ->
-    receive 
+    receive
 	{pay, Coin} ->
 	    if Coin + Paid >= Price ->
 		    hw:display("Preparing Drink.",[]),
@@ -54,12 +51,10 @@ payment(Type, Price, Paid) ->
 		    hw:display("Please pay:~w",[ToPay]),
 		    payment(Type, Price, Coin + Paid)
 	    end;
-	cancel ->   
+	cancel ->
 	    hw:display("Make Your Selection", []),
 	    hw:return_change(Paid),
 	    selection();
-	{upgrade, Data} ->
-	    ?MODULE:code_change({payment, Type, Price, Paid}, Data);
 	_Other -> %selection
 	    payment(Type, Price, Paid)
     end.
@@ -73,13 +68,6 @@ remove() ->
 	{pay, Coin} ->
 	    hw:return_change(Coin),
 	    remove();
-	{upgrade, Data} ->
-	    ?MODULE:code_change(fun remove/0, Data);
-	_Other ->   % cancel/selection  
+	_Other ->   % cancel/selection
 	    remove()
     end.
-
-code_change({payment, Type, Price, Paid}, _) ->
-    payment(Type, Price, Paid);
-code_change(State, _) ->
-    State().
