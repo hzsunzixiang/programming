@@ -26,4 +26,4 @@ compile:${MODS:%=%.beam}
 #	erl -noshell -s $(RUN_BIN) start  -s init stop
 
 clean:
-	rm -rf rm *.script *.boot *.beam ernie
+	rm -rf handle_release.beam
