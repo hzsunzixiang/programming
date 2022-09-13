@@ -35,3 +35,21 @@ Eshell V12.2  (abort with ^G)
  {md5,<<128,210,117,43,179,200,220,11,59,150,121,113,155,
         231,197,106>>}]
 
+
+Cgithub@9.134.165.238:~/program/programming/erlang/my_erlang/upgrade/ch12/erlang (master)$ erl -pa patches
+Erlang/OTP 24 [erts-12.2] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads:1]
+
+Eshell V12.2  (abort with ^G)
+1> coffee:start_link().
+Machine:Rebooted Hardware
+Display:Make Your Selection
+{ok,<0.82.0>}
+2>  coffee:module_info(attributes).
+[{vsn,[1.0]}]
+3> coffee ! {upgrade, {}}.
+in code_change State, _
+{upgrade,{}}
+4> coffee:module_info(attributes).
+[{vsn,[1.0]}]
+5>
+

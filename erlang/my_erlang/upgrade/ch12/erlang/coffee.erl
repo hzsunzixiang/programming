@@ -80,6 +80,8 @@ remove() ->
     end.
 
 code_change({payment, Type, Price, Paid}, _) ->
+    io:format("in code_change {}, _ ~n"),
     payment(Type, Price, Paid);
 code_change(State, _) ->
+    io:format("in code_change State, _ ~n"),
     State().
