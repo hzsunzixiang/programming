@@ -5,7 +5,8 @@
   {mod, {hello_server_app, []}},
   {applications,
    [kernel,
-    stdlib
+    stdlib,
+    cowboy     % add this line
    ]},
   {env,[]},
   {modules, []},
