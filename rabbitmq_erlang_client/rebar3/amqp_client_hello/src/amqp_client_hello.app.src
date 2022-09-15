@@ -5,7 +5,8 @@
   {mod, {amqp_client_hello_app, []}},
   {applications,
    [kernel,
-    stdlib
+    stdlib,
+    amqp_client
    ]},
   {env,[]},
   {modules, []},
