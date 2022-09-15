@@ -5,7 +5,8 @@
   {mod, {bar_app, []}},
   {applications,
    [kernel,
-    stdlib
+    stdlib,
+    foo_nest
    ]},
   {env,[]},
   {modules, []},
