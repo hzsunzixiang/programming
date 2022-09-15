@@ -1,0 +1,6 @@
+-sname foo_nest
+
+-setcookie foo_nest_cookie
+
++K true
++A30
