@@ -3,6 +3,7 @@
 -compile(export_all).
 -compile(nowarn_export_all).
 
+% 为了防止warning，编译选项增加 -pa ./
 get_happy() ->
     "Yay!".
 
