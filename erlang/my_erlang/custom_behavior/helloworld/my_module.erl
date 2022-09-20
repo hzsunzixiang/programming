@@ -7,6 +7,7 @@
 get_happy() ->
     "Yay!".
 
+%%  把函数注释掉，可以体会一下警告的作用
 get_ecstatic() ->
     "Wow, Wow, OMG, Yes, Yes!".
 
