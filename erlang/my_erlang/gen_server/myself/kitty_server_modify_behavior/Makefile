@@ -3,7 +3,7 @@
 
 
 .erl.beam:
-	erlc -W $<
+	erlc -W  -pa ./ $<
 
 ERL = erl -boot start_clean
 
