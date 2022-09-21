@@ -16,3 +16,6 @@ init(#{}) -> {ok, #{}}.
 handle_cast({store, K, V}, State) -> {noreply, State#{K => V}}.
 
 handle_call({retrieve, K}, _From, State) -> {reply, maps:get(K, State, notfound), State}.
+
+
+% https://learnyousomeerlang.com/maps
