@@ -27,6 +27,8 @@ start() ->
     io:format("the firsh data= ~p~n",[X2]),
     X3= adult_section(#user{id=3, name="Bill", group=admin, age=72}),
     io:format("the firsh data= ~p~n",[X3]),
-    X4= adult_section(#user{id=4, name="Noah", group=admin, age=13}),
+    X4 = adult_section(#user{id=4, name="Noah", group=admin, age=13}),
     io:format("the firsh data= ~p~n",[X4]),
-    admin_panel(#user{id=5, name="Hello", group=admin, age=96}).
+    X5= admin_panel(#user{id=5, name="Hello", group=admin, age=96}),
+    io:format("the firsh data= ~p~n",[X5]),
+	'This is the end'.

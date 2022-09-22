@@ -24,4 +24,5 @@ repairman(Rob) ->
 start() ->
     Rob=first_robot(),
 	Repair = repairman(Rob),
-    io:format("the firsh data= ~p~n",[Repair]).
+    io:format("the firsh data= ~p~n",[Repair]),
+	'this is the end'.
