@@ -16,6 +16,7 @@ RUN_BIN=records_2
 RUN_BIN=records_3
 RUN_BIN=records_4
 RUN_BIN=records_5
+RUN_BIN=records_6
 all:compile
 	erl -noshell -s $(RUN_BIN) start -s init stop
 	#erl -noshell -run $(RUN_BIN) start -s init stop
@@ -29,4 +30,4 @@ compile:${MODS:%=%.beam}
 #	erl -noshell -s $(RUN_BIN) start  -s init stop
 
 clean:
-	rm -f *.beam
+	rm -f *.beam *.dump
