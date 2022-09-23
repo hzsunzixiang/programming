@@ -1,5 +1,18 @@
 
 
+#  https://www.erlang.org/doc/reference_manual/modules.html
+
+
+The -callback attribute is to be preferred 
+
+The callback functions of the module can be specified either directly by the exported function behaviour_info/1:
+behaviour_info(callbacks) -> Callbacks.
+or by a -callback attribute for each callback function:
+-callback Name(Arguments) -> Result.
+Here, Arguments is a list of zero or more arguments. The -callback attribute is to be preferred since the extra type information can be used by tools to produce documentation or find discrepancies.
+
+
+
 # https://blog.csdn.net/wangyangkobe/article/details/9004979
 
 之前erlang中自定义行为模式，需要导出behaviour_info函数，比如：
