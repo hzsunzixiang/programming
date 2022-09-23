@@ -19,6 +19,10 @@ type_record(Addr) ->
     {ok, HostEnt} = inet:gethostbyname(Addr),
     HostEnt.
 
+type_test1(Addr) ->
+    {ok, #hostent{h_addrtype=AddrType}}  = inet:gethostbyname(Addr),
+    AddrType.
+	
 start() ->
     %type_test('l27.0.0.l'),
     %type_test('::l'),
@@ -26,6 +30,8 @@ start() ->
     io:format("result: ~p~n", [X]),
     Y = type_record('baidu.com'),
     io:format("result: ~p,~p~n", [Y#hostent.h_name, Y#hostent.h_addr_list]),
+    Z = type_test1('163.com'),
+    io:format("result: ~p~n", [Z]),
     'this is the end'.
 
 %-record(hostent,
