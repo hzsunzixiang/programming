@@ -21,3 +21,44 @@ start() ->
     phone:start_test(150, 500),
     counters:get_counters(freq_overload),
     'this is an end'.
+
+
+
+% Module:init(Args) -> Result
+% Types
+% Args = term()
+% Result = {ok,{SupFlags,[ChildSpec]}} | ignore
+%  SupFlags = sup_flags()
+%  ChildSpec = child_spec()
+% 
+% 
+% sup_flags() =
+%     #{strategy => strategy(),
+%       intensity => integer() >= 0,
+%       period => integer() >= 1,
+%       auto_shutdown => auto_shutdown()} |
+%     {RestartStrategy :: strategy(),
+%      Intensity :: integer() >= 0,
+%      Period :: integer() >= 1}
+% The tuple format is kept for backward compatibility only. A map is preferred; see more details above.
+% 
+% 
+% 
+% child_spec() =
+%     #{id := child_id(),
+%       start := mfargs(),
+%       restart => restart(),
+%       significant => significant(),
+%       shutdown => shutdown(),
+%       type => worker(),
+%       modules => modules()} |
+%     {Id :: child_id(),
+%      StartFunc :: mfargs(),
+%      Restart :: restart(),
+%      Shutdown :: shutdown(),
+%      Type :: worker(),
+%      Modules :: modules()}
+% The tuple format is kept for backward compatibility only. A map is preferred; see more details above.
+
+
+
