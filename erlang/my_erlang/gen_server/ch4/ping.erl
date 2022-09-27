@@ -16,3 +16,15 @@ handle_info(timeout, LoopData) ->
     {_Hour,_Min,Sec} = time(),
     io:format("~2.w~n",[Sec]),
     {noreply, LoopData, ?TIMEOUT}.
+
+
+
+
+% 1> gen_server:start({local,ping}, ping, [], []).
+% {ok,<0.83.0>}
+% 24
+% 29
+% 34
+% 39
+% 2> gen_server:call(ping,pause).
+
