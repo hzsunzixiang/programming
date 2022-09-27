@@ -36,7 +36,7 @@ handle_cast(_Message, S) ->
 
 handle_info(timeout, S = #state{name=N, skill=good}) ->
     io:format("~s produced sound!~n",[N]),
-    {noreply, S, ?DELAY};
+    {noreply, S, 7750};
 handle_info(timeout, S = #state{name=N, skill=bad}) ->
     case random:uniform(5) of
         1 ->
@@ -44,7 +44,7 @@ handle_info(timeout, S = #state{name=N, skill=bad}) ->
             {stop, bad_note, S};
         _ ->
             io:format("~s produced sound!~n",[N]),
-            {noreply, S, ?DELAY}
+            {noreply, S, 750}
     end;
 handle_info(_Message, S) ->
     {noreply, S, ?DELAY}.
