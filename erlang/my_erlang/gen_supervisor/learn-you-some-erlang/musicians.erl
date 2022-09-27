@@ -28,7 +28,7 @@ init([Role, Skill]) ->
 
 handle_call(stop, _From, S=#state{}) ->
     {stop, normal, ok, S};
-handle_call(_Message, _From, S) ->
+handle_call(_Message, _From, S) -> % 只触发一次
     {noreply, S, ?DELAY}.
 
 handle_cast(_Message, S) ->
@@ -36,7 +36,8 @@ handle_cast(_Message, S) ->
 
 handle_info(timeout, S = #state{name=N, skill=good}) ->
     io:format("~s produced sound!~n",[N]),
-    {noreply, S, 7750};
+    {noreply, S, ?DELAY};
+    % 改成这里就不会触发了 {noreply, S, infinity};
 handle_info(timeout, S = #state{name=N, skill=bad}) ->
     case random:uniform(5) of
         1 ->
@@ -44,7 +45,7 @@ handle_info(timeout, S = #state{name=N, skill=bad}) ->
             {stop, bad_note, S};
         _ ->
             io:format("~s produced sound!~n",[N]),
-            {noreply, S, 750}
+            {noreply, S, ?DELAY}
     end;
 handle_info(_Message, S) ->
     {noreply, S, ?DELAY}.
