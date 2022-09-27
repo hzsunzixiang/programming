@@ -7,6 +7,7 @@
 init(_Args) ->
     {ok, undefined, ?TIMEOUT}.
 
+% 这里启动的时候只触发一次
 handle_call(start, _From, LoopData) ->
     {reply, started, LoopData, ?TIMEOUT};
 handle_call(pause, _From, LoopData) ->
@@ -16,6 +17,8 @@ handle_info(timeout, LoopData) ->
     {_Hour,_Min,Sec} = time(),
     io:format("~2.w~n",[Sec]),
     {noreply, LoopData, ?TIMEOUT}.
+    % 如果这里 改成{noreply, LoopData, infinity}.
+	% 则不会再定时触发了
 
 
 
