@@ -17,6 +17,7 @@ init(Mod, Args) ->
 call(Name, Msg) ->
     Ref = erlang:monitor(process, Name),
     catch Name ! {request, {Ref, self()}, Msg},
+	%timer:sleep(infinity),
     receive
 	{reply, Ref, Reply} ->
 	    erlang:demonitor(Ref, [flush]),
