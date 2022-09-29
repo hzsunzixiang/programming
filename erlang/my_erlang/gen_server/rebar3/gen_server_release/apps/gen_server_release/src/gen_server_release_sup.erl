@@ -25,11 +25,24 @@ start_link() ->
 %%                  shutdown => shutdown(), % optional
 %%                  type => worker(),       % optional
 %%                  modules => modules()}   % optional
+
+%init(_) ->
+%    ChildSpecList = [child(freq_overload), child(frequency), child(simple_phone_sup)],
+%    {ok,{{rest_for_one, 2, 3600}, ChildSpecList}}.
+
+child(Module) ->
+    {Module, {Module, start_link, []},
+     permanent, 2000, worker, [Module]}.
+
 init([]) ->
     SupFlags = #{strategy => one_for_all,
                  intensity => 0,
                  period => 1},
-    ChildSpecs = [],
+    %ChildSpecs = [],
+    ChildSpecs = [child(frequency)],
     {ok, {SupFlags, ChildSpecs}}.
 
 %% internal functions
+
+
+
