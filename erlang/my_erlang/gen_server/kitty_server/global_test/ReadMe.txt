@@ -65,3 +65,39 @@ global           global_group     global_search
 (pear@centos7-dev)5> global:whereis_name(kitty_gen_server_by_server_name_global).
 <9435.89.0>
 
+
+%%% 测试发消息
+
+
+在这里启动 start_link
+ericksun@centos7-dev:~/programming/erlang/my_erlang/gen_server/kitty_server (master)$ erl -sname apple -setcookie test
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+(apple@centos7-dev)1> {ok, Pid}=kitty_gen_server_by_server_name_global:start_link().
+{ok,<0.89.0>}
+(apple@centos7-dev)2> global:registered_names().
+[kitty_gen_server_by_server_name_global]
+(apple@centos7-dev)3> kitty_gen_server_by_server_name_global:return_cat(Pid, {cat,"Kitten Mittens",black,"look at them little paws!"}).
+ok
+(apple@centos7-dev)4> kitty_gen_server_by_server_name_global:return_cat(Pid, {cat,"Kitten Mittens",black,"look at them little paws!"}).
+ok
+
+
+
+在这里 order_cat
+ericksun@centos7-dev:~/programming/erlang/my_erlang/gen_server/kitty_server (master)$ erl -sname pear -setcookie test
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+(pear@centos7-dev)1> net_kernel:connect_node('apple@centos7-dev').
+true
+(pear@centos7-dev)2> global:registered_names().
+[kitty_gen_server_by_server_name_global]
+(pear@centos7-dev)3> Pid=global:whereis_name(kitty_gen_server_by_server_name_global).
+<9435.89.0>
+(pear@centos7-dev)4> kitty_gen_server_by_server_name_global:order_cat(Pid, "Kitten Mittens",  black, "look at them little paws!").
+{cat,"Kitten Mittens",black,"look at them little paws!"}
+(pear@centos7-dev)5> kitty_gen_server_by_server_name_global:order_cat(Pid, "Kitten Mittens",  black, "look at them little paws!").
+{cat,"Kitten Mittens",black,"look at them little paws!"}
+
