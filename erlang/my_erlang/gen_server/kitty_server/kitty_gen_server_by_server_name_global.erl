@@ -12,6 +12,7 @@
 %%% Client API
 start_link() ->
     gen_server:start_link({global, ?MODULE}, ?MODULE, [], []).
+    %gen_server:start_link({global, kitty_gen_server_by_server_name_global_2}, ?MODULE, [], []).
 
 %% Synchronous call : 这里是客户端发送响应到服务端
 %%
