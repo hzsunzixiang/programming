@@ -293,3 +293,10 @@ https://www.tecmint.com/fix-no-route-to-host-ssh-error-in-linux/
 
 
 
+
+# 必须是原子 atom 不能是字符串
+(pear@centos7-dev)1> net_kernel:connect_node("apple@centos7-dev").
+** exception error: no function clause matching net_kernel:connect_node("apple@centos7-dev") (net_kernel.erl, line 333)
+(pear@centos7-dev)2> net_kernel:connect_node('apple@centos7-dev').
+true
+
