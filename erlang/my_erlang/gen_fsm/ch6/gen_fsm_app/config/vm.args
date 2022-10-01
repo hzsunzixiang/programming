@@ -1,0 +1,6 @@
+-sname gen_fsm_app
+
+-setcookie gen_fsm_app_cookie
+
++K true
++A30
