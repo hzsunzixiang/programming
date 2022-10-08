@@ -25,11 +25,32 @@ start_link() ->
 %%                  shutdown => shutdown(), % optional
 %%                  type => worker(),       % optional
 %%                  modules => modules()}   % optional
+
+
 init([]) ->
-    SupFlags = #{strategy => one_for_all,
-                 intensity => 0,
-                 period => 1},
-    ChildSpecs = [],
+    SupFlags = #{strategy => one_for_one,
+                 intensity => 5,
+                 period => 3600},
+    ChildSpecs = [child(mutex)],
     {ok, {SupFlags, ChildSpecs}}.
 
+child(Module) ->
+    {Module, {Module, start_link, [printer, [trace]]},
+     permanent, 5000, worker, [Module]}.
+
 %% internal functions
+
+
+
+
+%mutex_sup:start_link().
+%supervisor:start_child(mutex_sup, ChildSpec).
+%sys:log(printer, {true,10}).
+%sys:statistics(printer, true).
+%mutex:wait(printer), mutex:signal(printer).
+%sys:log(printer, get).
+%sys:log(printer, print).
+%sys:get_status(printer).
+%whereis(printer).
+%exit(whereis(printer), kill).
+
