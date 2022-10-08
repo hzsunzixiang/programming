@@ -18,19 +18,21 @@ behaviour_info(_) ->
 %    spawn_link(fun() -> init(Module, InitialState) end).
 %%%
 
-start_link(Name) ->
-    start_link(Name, []).
+start_link(Module) ->
+    start_link(Module, [], []).
 
-start_link(Name, DbgOpts) ->
-    proc_lib:start_link(?MODULE, init, [self(), Name, DbgOpts]).
+start_link(Module, InitialState, DbgOpts) ->
+    proc_lib:start_link(Module, init, [self(), Module, InitialState, DbgOpts]).
+    %proc_lib:spawn_link(Module, init, [self(), Module, InitialState, DbgOpts]).
 
-init(Parent, Name, InitialState, DbgOpts) ->
-    register(Name, self()),
+init(Parent, Module, InitialState, DbgOpts) ->
+    register(Module, self()),
     process_flag(trap_exit, true),
     Debug = sys:debug_options(DbgOpts),
     proc_lib:init_ack({ok,self()}),
-    NewDebug = sys:handle_debug(Debug, fun debug/3, Name, init),
-    loop(Name, Parent, InitialState, NewDebug).
+    NewDebug = sys:handle_debug(Debug, fun debug/3, Module, init),
+    LoopStatus = Module:init(Parent, Module, InitialState, DbgOpts),
+    loop(Module, Parent, LoopStatus, NewDebug).
 %%%
 
 
@@ -106,8 +108,8 @@ loop(Module, Parent, LoopStatus, Debug) ->
 	         sys:handle_system_msg(Msg, From, Parent, Module, Debug, {Module, LoopStatus})
     end.
 
-debug(Dev, Event, Name) ->
-    io:format(Dev, "mutex ~w: ~w~n", [Name,Event]).
+debug(Dev, Event, Module) ->
+    io:format(Dev, "mutex ~w: ~w~n", [Module,Event]).
 
 
 system_continue(Parent, Debug, {Module, LoopStatus}) ->
