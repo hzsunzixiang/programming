@@ -10,12 +10,29 @@ behaviour_info(_) ->
     undefined.
 
 
-%%% Public API
-start(Module, InitialState) ->
-    spawn(fun() -> init(Module, InitialState) end).
+%%%% Public API
+%start(Module, InitialState) ->
+%    spawn(fun() -> init(Module, InitialState) end).
+%
+%start_link(Module, InitialState) ->
+%    spawn_link(fun() -> init(Module, InitialState) end).
+%%%
 
-start_link(Module, InitialState) ->
-    spawn_link(fun() -> init(Module, InitialState) end).
+start_link(Name) ->
+    start_link(Name, []).
+
+start_link(Name, DbgOpts) ->
+    proc_lib:start_link(?MODULE, init, [self(), Name, DbgOpts]).
+
+init(Parent, Name, InitialState, DbgOpts) ->
+    register(Name, self()),
+    process_flag(trap_exit, true),
+    Debug = sys:debug_options(DbgOpts),
+    proc_lib:init_ack({ok,self()}),
+    NewDebug = sys:handle_debug(Debug, fun debug/3, Name, init),
+    loop(Name, Parent, InitialState, NewDebug).
+%%%
+
 
 
 %%%%% 这里对应处理客户端的,  客户端发给服务器
@@ -57,34 +74,42 @@ stop(ServerPid) ->
     ServerPid ! {stop, self()},
 	ok.
 
-%%% Private stuff ,这里的Module是从调用者过来的
-init(Module, InitialState) ->
-    LoopStatus = Module:init(InitialState),
-    loop(Module, LoopStatus).
-
 
 % 函数会返回  LoopState
-loop(Module, LoopStatus) ->
+loop(Module, Parent, LoopStatus, Debug) ->
     receive
         {sync, ClientFrom, Ref, Msg} ->
              Result = Module:handle_call(Msg, ClientFrom, LoopStatus),
              case Result of
                  {reply, Reply, NewState} -> 
                      io:format("sync in loop LoopStatus: ~p~n",[NewState]),
+	                 sys:handle_debug(Debug, fun debug/3, Module, {reply, Reply, NewState}),
 		             reply({ClientFrom, Ref}, Reply),
-			         loop(Module, NewState);
+			         loop(Module, Parent, NewState, Debug);
                  {stop, normal, ok, NewState} ->
                      io:format("sync in loop LoopStatus stop: ~p~n",[NewState]),
+	                 sys:handle_debug(Debug, fun debug/3, Module, {stop, normal, ok, NewState}),
                      io:format("will stop: sync in loop ~n"),
                      ok = Module:terminate(normal, LoopStatus),
 		             reply({ClientFrom, Ref}, normal, terminate)
              end;
         {async, Msg} ->
              {noreply, NewState} = Module:handle_cast(Msg, LoopStatus),
+	         sys:handle_debug(Debug, fun debug/3, Module, {async, Msg}),
              io:format("async in loop LoopStatus: ~p~n",[NewState]),
-			 loop(Module, NewState);
+			 loop(Module, Parent, NewState, Debug);
 	    {stop, From}  ->
              io:format("will stop:from stop function sync in loop ~p~n", [From]),
-	         Module:terminate(nomal, LoopStatus)
+	         sys:handle_debug(Debug, fun debug/3, Module, {stop, From}),
+	         Module:terminate(nomal, LoopStatus);
+	    {system,From,Msg} ->	%% The system messages.
+	         sys:handle_system_msg(Msg, From, Parent, Module, Debug, {Module, LoopStatus})
     end.
+
+debug(Dev, Event, Name) ->
+    io:format(Dev, "mutex ~w: ~w~n", [Name,Event]).
+
+
+system_continue(Parent, Debug, {Module, LoopStatus}) ->
+    loop(Module, Parent, LoopStatus, Debug).
 
