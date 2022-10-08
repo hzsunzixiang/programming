@@ -1,0 +1,6 @@
+-sname proc_lib_mutex
+
+-setcookie proc_lib_mutex_cookie
+
++K true
++A30

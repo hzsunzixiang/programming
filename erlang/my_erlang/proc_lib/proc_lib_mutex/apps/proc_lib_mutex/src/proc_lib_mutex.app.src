@@ -1,0 +1,15 @@
+{application, proc_lib_mutex,
+ [{description, "application for proc_lib"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {proc_lib_mutex_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache-2.0"]},
+  {links, []}
+ ]}.
