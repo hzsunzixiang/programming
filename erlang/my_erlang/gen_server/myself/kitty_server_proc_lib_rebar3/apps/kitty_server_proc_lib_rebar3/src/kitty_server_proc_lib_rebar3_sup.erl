@@ -25,11 +25,18 @@ start_link() ->
 %%                  shutdown => shutdown(), % optional
 %%                  type => worker(),       % optional
 %%                  modules => modules()}   % optional
+
+
+child(Module) ->
+    {Module, {Module, start_link, []},
+     permanent, 2000, worker, [Module]}.
+
 init([]) ->
     SupFlags = #{strategy => one_for_all,
                  intensity => 0,
                  period => 1},
-    ChildSpecs = [],
+    ChildSpecs = [child(kitty_server2)],
     {ok, {SupFlags, ChildSpecs}}.
+
 
 %% internal functions
