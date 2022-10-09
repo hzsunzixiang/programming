@@ -62,6 +62,7 @@ terminate(normal, Cats) ->
     [io:format("here, terminate. ~p was set free.~n",[C#cat.name]) || C <- Cats],
     ok.
 
+
 start() ->
     {ok, ServerPid} = kitty_server2:start_link(),
     io:format("ServerPid: ~p~n",[ServerPid]),

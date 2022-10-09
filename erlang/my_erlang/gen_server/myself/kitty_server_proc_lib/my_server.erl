@@ -34,27 +34,27 @@ loop(Module, Parent, LoopStatus, Debug) ->
              case Result of
                  {reply, Reply, NewState} -> 
                      io:format("sync in loop LoopStatus: ~p~n",[NewState]),
-	                 %sys:handle_debug(Debug, fun debug/3, Module, {reply, Reply, NewState}),
+	                 NewDebug = sys:handle_debug(Debug, fun debug/3, Module, {reply, Reply, NewState}),
 		             reply({ClientFrom, Ref}, Reply),
-			         loop(Module, Parent, NewState, Debug);
+			         loop(Module, Parent, NewState, NewDebug);
                  {stop, normal, ok, NewState} ->
                      io:format("sync in loop LoopStatus stop: ~p~n",[NewState]),
-	                 %sys:handle_debug(Debug, fun debug/3, Module, {stop, normal, ok, NewState}),
+	                 NewDebug = sys:handle_debug(Debug, fun debug/3, Module, {stop, normal, ok, NewState}),
                      io:format("will stop: sync in loop ~n"),
                      ok = Module:terminate(normal, LoopStatus),
 		             reply({ClientFrom, Ref}, normal, terminate)
              end;
         {async, Msg} ->
              {noreply, NewState} = Module:handle_cast(Msg, LoopStatus),
-	         sys:handle_debug(Debug, fun debug/3, Module, {async, Msg}),
+	         NewDebug = sys:handle_debug(Debug, fun debug/3, Module, {async, Msg}),
              io:format("async in loop LoopStatus: ~p~n",[NewState]),
-			 loop(Module, Parent, NewState, Debug);
+			 loop(Module, Parent, NewState, NewDebug);
 	    {stop, From}  ->
              io:format("will stop:from stop function sync in loop ~p~n", [From]),
-	         sys:handle_debug(Debug, fun debug/3, Module, {stop, From}),
+	         NewDebug = sys:handle_debug(Debug, fun debug/3, Module, {stop, From}),
 	         Module:terminate(nomal, LoopStatus);
 	    {system,From,Msg} ->	%% The system messages.
-	         sys:handle_system_msg(Msg, From, Parent, Module, Debug, {Module, LoopStatus})
+	         sys:handle_system_msg(Msg, From, Parent, ?MODULE, Debug, {Module, LoopStatus})
     end.
 
 
@@ -99,9 +99,9 @@ stop(ServerPid) ->
 
 
 
-
 debug(Dev, Event, Module) ->
     io:format(Dev, "mutex ~w: ~w~n", [Module,Event]).
+
 
 
 system_continue(Parent, Debug, {Module, LoopStatus}) ->
