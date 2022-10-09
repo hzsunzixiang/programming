@@ -1,0 +1,6 @@
+-sname kitty_server_proc_lib_rebar3
+
+-setcookie kitty_server_proc_lib_rebar3_cookie
+
++K true
++A30
