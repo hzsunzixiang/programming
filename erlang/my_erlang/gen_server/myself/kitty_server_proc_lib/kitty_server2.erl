@@ -1,7 +1,7 @@
 %%%%% Abstracted version
 -module(kitty_server2).
 
--behavior(my_server).
+%-behavior(my_server).
 
 -compile(export_all).
 -compile(nowarn_export_all).
@@ -9,7 +9,8 @@
 -record(cat, {name, color=green, description}).
 
 %%% Client API
-start_link() -> my_server:start_link(?MODULE, [], [trace]).
+%% start_link() -> my_server:start_link(?MODULE, [], [trace]).
+start_link() -> my_server:start_link().
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -34,7 +35,7 @@ close_shop(ServerPid) ->
 
 % 这里的init必须跟 behavior中的一致， 不然一致报错:
 %     exception error: undefined function kitty_server2:init/4
-init(Parent, Module, InitialState, DbgOpts) -> []. %% no treatment of info here!
+%init(Parent, Module, InitialState, DbgOpts) -> []. %% no treatment of info here!
 %init([]) -> [make_cat(orgin, white, "origin loves to burn bridges")]. %% no treatment of info here!
 
 %% 这里的From 其实就是客户端
@@ -64,9 +65,10 @@ terminate(normal, Cats) ->
     ok.
 
 start() ->
-    ServerPid = kitty_server2:start_link(),
-    io:format("ServerPid: ~p~n",[ServerPid]),
-    Cat1 = kitty_server2:order_cat(ServerPid, carl_1, brown, "loves to burn bridges"),
+    %ServerPid = kitty_server2:start_link(),
+    kitty_server2:start_link(),
+    %io:format("ServerPid: ~p~n",[ServerPid]),
+    %Cat1 = kitty_server2:order_cat(ServerPid, carl_1, brown, "loves to burn bridges"),
     %Cat2 = kitty_server2:order_cat(ServerPid, carl_2, brown, "loves to burn bridges"),
     %Cat3 = kitty_server2:order_cat(ServerPid, carl_3, brown, "loves to burn bridges"),
     %Cat4 = kitty_server2:order_cat(ServerPid, carl_4, brown, "loves to burn bridges"),

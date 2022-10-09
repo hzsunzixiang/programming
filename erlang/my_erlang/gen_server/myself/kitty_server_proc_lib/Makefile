@@ -23,4 +23,4 @@ compile:${MODS:%=%.beam}
 #	erl -noshell -s $(RUN_BIN) start  -s init stop
 
 clean:
-	rm -f *.beam
+	rm -f *.beam erl_crash.dump

@@ -1,6 +1,5 @@
--module(ch4).
+-module(my_server).
 -export([start_link/0]).
--export([alloc/0, free/1]).
 -export([init/1]).
 -export([system_continue/3, system_terminate/4,
          write_debug/3,
@@ -9,19 +8,8 @@
 start_link() ->
     proc_lib:start_link(ch4, init, [self()]).
 
-alloc() ->
-    ch4 ! {self(), alloc},
-    receive
-        {ch4, Res} ->
-            Res
-    end.
-
-free(Ch) ->
-    ch4 ! {free, Ch},
-    ok.
-
 init(Parent) ->
-    registel(ch4, self()),
+    register(ch4, self()),
     Chs = channels(),
     Deb = sys:debug_options([]),
     proc_lib:init_ack(Parent, {ok, self()}),  % The new process must also acknowledge that it has been started to the parent:
