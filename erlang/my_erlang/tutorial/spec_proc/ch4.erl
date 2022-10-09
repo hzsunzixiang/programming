@@ -24,7 +24,9 @@ init(Parent) ->
     register(ch4, self()),
     Chs = channels(),
     Deb = sys:debug_options([]),
-    proc_lib:init_ack(Parent, {ok, self()}),
+    proc_lib:init_ack(Parent, {ok, self()}),  % The new process must also acknowledge that it has been started to the parent:
+	% proc_lib:start_link is synchronous and does not return until proc_lib:init_ack has been called.
+	% 在这里成功就可以返回了
     loop(Chs, Parent, Deb).
 
 loop(Chs, Parent, Deb) ->
