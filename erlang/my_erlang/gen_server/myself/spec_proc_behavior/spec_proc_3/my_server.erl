@@ -38,7 +38,9 @@ loop(Module, Chs, Parent, Deb) ->
 
         {system, From, Request} ->
             sys:handle_system_msg(Request, From, Parent,
-                                  Module, Deb, {Chs, Module})
+                                  ?MODULE, Deb, {Chs, Module})
+
+         % 这样写，就完全错误了  Module, Deb, {Chs, Module})
     end.
 
 

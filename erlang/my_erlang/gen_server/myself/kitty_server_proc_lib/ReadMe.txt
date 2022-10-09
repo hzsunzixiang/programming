@@ -54,3 +54,9 @@ async in loop LoopStatus: [{cat,carl_1,brown,"loves to burn bridges"}]
      {async,{return,{cat,carl_1,brown,
                          "loves to burn bridges"}}}]}
 
+10> sys:log(kitty_server2, print).
+mutex kitty_server2: {reply,{cat,carl_1,brown,[108,111,118,101,115,32,116,111,32,98,117,114,110,32,98,114,105,100,103,101,115]},[]}
+mutex kitty_server2: {reply,{cat,carl_2,brown,[108,111,118,101,115,32,116,111,32,98,117,114,110,32,98,114,105,100,103,101,115]},[]}
+mutex kitty_server2: {async,{return,{cat,carl_1,brown,[108,111,118,101,115,32,116,111,32,98,117,114,110,32,98,114,105,100,103,101,115]}}}
+ok
+
