@@ -1,55 +1,30 @@
 -module(my_server).
 -compile(export_all).
 -compile(nowarn_export_all).
-%-export([behaviour_info/1]).   % export_all 在这里不管用
+-export([behaviour_info/1]).   % export_all 在这里不管用
 
 
-%behaviour_info(callbacks) ->
-%    [{handle_call, 3}, {handle_cast, 2}, {terminate, 2}, {init, 1}, {handle_info, 2}];
-%behaviour_info(_) ->
-%    undefined.
+behaviour_info(callbacks) ->
+    [{handle_call, 3}, {handle_cast, 2}, {terminate, 2}, {init, 1}, {handle_info, 2}];
+behaviour_info(_) ->
+    undefined.
 
 
-%%%% Public API
-%start(Module, InitialState) ->
-%    spawn(fun() -> init(Module, InitialState) end).
-%
-%start_link(Module, InitialState) ->
-%    spawn_link(fun() -> init(Module, InitialState) end).
-%%%
-%
-%start_link(Module) ->
-%    start_link(Module, [], []).
-%
-%start_link(Module, InitialState, DbgOpts) ->
-%    %proc_lib:start_link(Module, init, [self(), Module, InitialState, DbgOpts]).
-%    proc_lib:spawn_link(Module, init, [self(), Module, InitialState, DbgOpts]).
-%
-%init(Parent, Module, InitialState, DbgOpts) ->
-%    register(Module, self()),
-%    process_flag(trap_exit, true),
-%    Debug = sys:debug_options(DbgOpts),
-%    proc_lib:init_ack({ok,self()}),
-%    NewDebug = sys:handle_debug(Debug, fun debug/3, Module, init),
-%    LoopStatus = Module:init(Parent, Module, InitialState, DbgOpts),
-%    loop(Module, Parent, LoopStatus, NewDebug).
-%%%%
-%%%
-%%%
-%%%
 
-start_link() ->
-    proc_lib:start_link(kitty_server2, init, [self()]).
+start_link(Module, InitialState, Deb) ->
+    proc_lib:start_link(?MODULE, init, [self(), Module, InitialState, Deb]).
+    %% 这里的 ?MODULE 指的是本模块
 
-init(Parent) ->
-    register(kitty_server2, self()),
-    LoopStatus = [],
-    NewDebug = sys:debug_options([]),
+init(Parent, Module, InitialState, DbgOpts) ->
+    register(Module, self()),
+    process_flag(trap_exit, true),
+    Debug = sys:debug_options(DbgOpts),
     proc_lib:init_ack(Parent, {ok, self()}),  % The new process must also acknowledge that it has been started to the parent:
 	% proc_lib:start_link is synchronous and does not return until proc_lib:init_ack has been called.
 	% 在这里成功就可以返回了
-    % loop(Chs, Parent, Deb).
-    loop(kitty_server2, Parent, LoopStatus, NewDebug).
+    NewDebug = sys:handle_debug(Debug, fun debug/3, Module, init),
+    LoopStatus = Module:init(InitialState),
+    loop(Module, Parent, LoopStatus, NewDebug).
 
 % 函数会返回  LoopState
 loop(Module, Parent, LoopStatus, Debug) ->
@@ -59,12 +34,12 @@ loop(Module, Parent, LoopStatus, Debug) ->
              case Result of
                  {reply, Reply, NewState} -> 
                      io:format("sync in loop LoopStatus: ~p~n",[NewState]),
-	                 sys:handle_debug(Debug, fun debug/3, Module, {reply, Reply, NewState}),
+	                 %sys:handle_debug(Debug, fun debug/3, Module, {reply, Reply, NewState}),
 		             reply({ClientFrom, Ref}, Reply),
 			         loop(Module, Parent, NewState, Debug);
                  {stop, normal, ok, NewState} ->
                      io:format("sync in loop LoopStatus stop: ~p~n",[NewState]),
-	                 sys:handle_debug(Debug, fun debug/3, Module, {stop, normal, ok, NewState}),
+	                 %sys:handle_debug(Debug, fun debug/3, Module, {stop, normal, ok, NewState}),
                      io:format("will stop: sync in loop ~n"),
                      ok = Module:terminate(normal, LoopStatus),
 		             reply({ClientFrom, Ref}, normal, terminate)
