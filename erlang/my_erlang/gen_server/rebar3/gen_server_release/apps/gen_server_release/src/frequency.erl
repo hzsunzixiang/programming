@@ -15,7 +15,18 @@
 %% Starts the frequency server. Called by supervisor
 
 start_link() ->
-    gen_server:start_link({local, frequency}, frequency, [], []).
+    %gen_server:start_link({local, frequency}, frequency, [], []).
+	%If option {debug,Dbgs} is present in Opts, debugging through sys is activated.
+    gen_server:start_link({local, frequency}, frequency, [], [{debug, [trace,log,statistics]}]).
+%  {debug, Dbgs :: [sys:debug_option()]}
+%debug_option() =
+%    trace | log |
+%    {log, N :: integer() >= 1} |
+%    statistics |
+%    {log_to_file, FileName :: file:name()} |
+%    {install,
+%     {Func :: dbg_fun(), FuncState :: term()} |
+%     {FuncId :: term(), Func :: dbg_fun(), FuncState :: term()}}
 
 %% stop() -> ok.
 %% Stops the frequency server.
