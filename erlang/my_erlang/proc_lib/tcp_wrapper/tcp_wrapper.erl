@@ -1,6 +1,6 @@
 -module(tcp_wrapper).
--export([start_link/2, cast/3]).
--export([init/3, system_continue/3, system_terminate/4, init_request/2]).
+-export([start_link/2, start_link/3, cast/3]).
+-export([init/4, system_continue/3, system_terminate/4, init_request/2]).
 %-export([behaviour_info/1]).
 
 -callback init_request() -> {'ok', Reply :: term()}.
@@ -12,7 +12,10 @@
 %    [{init_request, 0},{get_request, 2},{stop_request, 2}].
 
 start_link(Mod, Port) ->
-    proc_lib:start_link(?MODULE, init, [Mod, Port, self()]).
+    proc_lib:start_link(?MODULE, init, [Mod, Port, self(), []]).
+
+start_link(Mod, Port, DbgOpts) ->
+    proc_lib:start_link(?MODULE, init, [Mod, Port, self(), DbgOpts]).
 
 cast(Host, Port, Data) ->
     {ok, Socket} = gen_tcp:connect(Host, Port, [binary, {active, false}, {reuseaddr, true}]),
@@ -25,10 +28,11 @@ send(Socket, <<Chunk:1/binary,Rest/binary>>) ->
 send(Socket, <<Rest/binary>>) ->
     gen_tcp:send(Socket, Rest).
 
-init(Mod, Port, Parent) ->
+init(Mod, Port, Parent, DbgOpts) ->
+    register(Mod, self()),
     {ok, Listener} = gen_tcp:listen(Port, [{active, false}]),
     proc_lib:init_ack({ok, self()}),
-    loop(Mod, Listener, Parent, sys:debug_options([])).
+    loop(Mod, Listener, Parent, sys:debug_options(DbgOpts)).
 
 loop(Mod, Listener, Parent, Debug) ->
     receive

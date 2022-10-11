@@ -20,3 +20,42 @@ ok
 ok
 3> tcp_wrapper:cast('127.0.0.1', 8080, list_to_binary("hello world++++++")).
 
+
+
+Eshell V13.0.4  (abort with ^G)
+1> tcp_wrapper:start_link(tcp_print, 8080).
+{ok,<0.83.0>}
+2> sys:trace(tcp_print, true).
+ok
+3> sys:log(tcp_print, true).
+ok
+Listener <0.87.0>:init_request
+Receiving Data
+*&
+hello world++++++
+Listener <0.88.0>:init_request
+Receiving Data
+*&
+hello world++++++
+4> sys:log(tcp_print,get).
+{ok,[<0.87.0>,<0.88.0>]}
+5> sys:log(tcp_print,print).
+Listener <0.87.0>:init_request
+Listener <0.88.0>:init_request
+
+
+
+
+Eshell V13.0.4  (abort with ^G)
+1> tcp_wrapper:start_link(tcp_print, 8080, [trace,log]).
+{ok,<0.83.0>}
+Listener <0.85.0>:init_request
+Receiving Data
+*&
+hello world++++++
+2> sys:log(tcp_print,get).
+{ok,[<0.85.0>]}
+3> sys:log(tcp_print,print).
+Listener <0.85.0>:init_request
+ok
+
