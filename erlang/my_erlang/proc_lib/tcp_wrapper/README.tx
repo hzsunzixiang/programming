@@ -1,0 +1,22 @@
+Eshell V13.0.4  (abort with ^G)
+1> tcp_wrapper:start_link(tcp_print, 8080).
+{ok,<0.83.0>}
+Receiving Data
+*&
+hello world
+Receiving Data
+*&
+hello world
+Receiving Data
+*&
+hello world++++++
+
+
+因为是TCP链接，所以可以不在一个shell里面
+Eshell V13.0.4  (abort with ^G)
+1> tcp_wrapper:cast('127.0.0.1', 8080, list_to_binary("hello world")).
+ok
+2> tcp_wrapper:cast('127.0.0.1', 8080, list_to_binary("hello world")).
+ok
+3> tcp_wrapper:cast('127.0.0.1', 8080, list_to_binary("hello world++++++")).
+

@@ -53,3 +53,31 @@ ok
 mutex printer: init
 true
 
+6> exit(whereis(proc_lib_mutex_sup), kill).  
+mutex printer: {terminate,killed}  % 来自于系统消息
+true
+7> =CRASH REPORT==== 10-Oct-2022::08:31:31.435914 ===
+  crasher:
+    initial call: application_master:init/4
+    pid: <0.142.0>
+    registered_name: []
+    exception exit: killed
+      in function  application_master:terminate/2 (application_master.erl, line 236)
+    ancestors: [<0.141.0>]
+    message_queue_len: 0
+    messages: []
+    links: [<0.44.0>]
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 610
+    stack_size: 28
+    reductions: 21876
+  neighbours:
+
+=INFO REPORT==== 10-Oct-2022::08:31:31.439127 ===
+    application: proc_lib_mutex
+    exited: killed
+    type: temporary
+
+

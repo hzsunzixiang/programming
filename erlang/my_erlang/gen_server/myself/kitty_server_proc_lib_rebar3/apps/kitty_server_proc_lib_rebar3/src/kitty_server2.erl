@@ -9,7 +9,7 @@
 -record(cat, {name, color=green, description}).
 
 %%% Client API
-start_link() -> my_server:start_link(?MODULE, [], [trace]).
+start_link() -> my_server:start_link(?MODULE, [], [trace,log,statistics]).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -35,7 +35,7 @@ init([]) ->
     {ok, {SupFlags, ChildSpecs}}.
 
 child(Module) ->
-    {Module, {Module, start_link, [printer, [trace]]},
+    {Module, {Module, start_link, [printer, [trace, log]]},
      permanent, 5000, worker, [Module]}.
 
 %% internal functions
