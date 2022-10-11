@@ -25,11 +25,18 @@ start_link() ->
 %%                  shutdown => shutdown(), % optional
 %%                  type => worker(),       % optional
 %%                  modules => modules()}   % optional
+
 init([]) ->
-    SupFlags = #{strategy => one_for_all,
-                 intensity => 0,
-                 period => 1},
-    ChildSpecs = [],
+    SupFlags = #{strategy => one_for_one,
+                 intensity => 5,
+                 period => 3600},
+    ChildSpecs = [child(tcp_print)],
     {ok, {SupFlags, ChildSpecs}}.
+
+child(Module) ->
+    {Module, {Module, start_link, [tcp_print, 8080, [trace, log]]},
+     permanent, 5000, worker, [Module]}.
+
+
 
 %% internal functions
