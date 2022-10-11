@@ -1,10 +1,10 @@
--module(counters).
+-module(my_counters).
 -behaviour(gen_event).
 -export([init/1, terminate/2, handle_event/2, handle_info/2]). 
 -export([get_counters/1, handle_call/2]).
 
 get_counters(Pid) ->
-    gen_event:call(Pid, counters, get_counters).
+    gen_event:call(Pid, my_counters, get_counters).
 
 init(_)  ->
     TableId = ets:new(counters, []),
