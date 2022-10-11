@@ -65,3 +65,19 @@ Event:{event,{frequency_denied,<0.222.0>}}
 {counters,[{{set_alarm,{no_frequency,<0.222.0>}},1},
            {{event,{frequency_denied,<0.222.0>}},6}]}
 
+
+
+可以看到 动态子进程 
+19> simple_phone_sup:attach_phone(1).
+{ok,<0.283.0>}
+20> simple_phone_sup:attach_phone(2).
+{ok,<0.286.0>}
+21>
+21> simple_phone_sup:attach_phone(3).
+{ok,<0.289.0>}
+22> supervisor:which_children(simple_phone_sup).
+[{undefined,<0.283.0>,worker,[phone_fsm]},
+ {undefined,<0.286.0>,worker,[phone_fsm]},
+  {undefined,<0.289.0>,worker,[phone_fsm]}]
+  23>
+
