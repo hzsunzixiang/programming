@@ -13,8 +13,15 @@
 
 -define(SERVER, ?MODULE).
 
+stop() -> exit(whereis(?MODULE), shutdown).
+
 start_link() ->
-    supervisor:start_link({local, ?SERVER}, ?MODULE, []).
+    {ok, Pid} = supervisor:start_link({local,?MODULE},?MODULE, []),
+    freq_overload:add(my_counters, {}),
+    freq_overload:add(my_logger, {file, "log.txt"}),
+    freq_overload:add(my_logger, standard_io),
+
+    {ok, Pid}.
 
 %% sup_flags() = #{strategy => strategy(),         % optional
 %%                 intensity => non_neg_integer(), % optional
@@ -25,11 +32,18 @@ start_link() ->
 %%                  shutdown => shutdown(), % optional
 %%                  type => worker(),       % optional
 %%                  modules => modules()}   % optional
-init([]) ->
-    SupFlags = #{strategy => one_for_all,
-                 intensity => 0,
-                 period => 1},
-    ChildSpecs = [],
-    {ok, {SupFlags, ChildSpecs}}.
+init(_) ->
+    hlr:new(),
+    SupFlags = #{strategy => rest_for_one,
+                 intensity => 2,
+                 period => 3600},
+
+    ChildSpecList = [child(freq_overload), child(frequency)],
+
+    {ok,{SupFlags, ChildSpecList}}.
+
+child(Module) ->
+    {Module, {Module, start_link, []},
+     permanent, 2000, worker, [Module]}.
 
 %% internal functions
