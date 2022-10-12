@@ -1,0 +1,15 @@
+{application, dynamic_children_rebar3,
+ [{description, "dynamic children rebar3"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {dynamic_children_rebar3_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache-2.0"]},
+  {links, []}
+ ]}.
