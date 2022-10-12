@@ -10,9 +10,9 @@ start_link() ->
 stop() -> exit(whereis(?MODULE), shutdown).
 
 init(_) ->
-    ChildSpecList = [child(freq_overload), child(frequency), child(simple_phone_sup)],
+    ChildSpecList = [child(freq_overload, worker), child(frequency, woker), child(simple_phone_sup, supervisor)],
     {ok,{{rest_for_one, 2, 3600}, ChildSpecList}}.
 
-child(Module) ->
+child(Module, Type) ->
     {Module, {Module, start_link, []},
      permanent, 2000, worker, [Module]}.

@@ -81,3 +81,8 @@ Event:{event,{frequency_denied,<0.222.0>}}
   {undefined,<0.289.0>,worker,[phone_fsm]}]
   23>
 
+
+
+
+注意这里的测试, 没有加入到监督树中，是独立的， 只有通过  simple_phone_sup:attach_phone(1) 这种方式才是加入监督熟的
+phone:start_test(150,500) 
