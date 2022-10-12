@@ -1,0 +1,15 @@
+{application, simple_phone_sup_rebar3,
+ [{description, "dynamic children simple_one_for_one rebar3"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {simple_phone_sup_rebar3_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache-2.0"]},
+  {links, []}
+ ]}.
