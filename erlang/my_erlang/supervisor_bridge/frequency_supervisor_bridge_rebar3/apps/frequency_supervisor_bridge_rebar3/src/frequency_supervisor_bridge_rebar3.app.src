@@ -1,0 +1,15 @@
+{application, frequency_supervisor_bridge_rebar3,
+ [{description, "supervisor_bridge_rebar3"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {frequency_supervisor_bridge_rebar3_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache-2.0"]},
+  {links, []}
+ ]}.
