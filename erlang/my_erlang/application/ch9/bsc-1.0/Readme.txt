@@ -37,3 +37,9 @@ ok
 16> simple_phone_sup:attach_phone(2).
 {ok,<0.137.0>}
 
+phone:start_test(150,500).
+5> my_counters:get_counters(freq_overload).
+{counters,[{{event,{frequency_denied,<0.98.0>}},12},
+           {{clear_alarm,no_frequency},6},
+           {{set_alarm,{no_frequency,<0.98.0>}},6}]}
+
