@@ -5,8 +5,9 @@
 start_link() ->
     case gen_event:start_link({local, ?MODULE}) of
 	{ok, Pid} ->
-	    add(counters, {}),
-	    add(logger, {file, "log"}),
+        freq_overload:add(my_counters, {}),
+        freq_overload:add(my_logger, {file, "log.txt"}),
+        freq_overload:add(my_logger, standard_io),
 	    {ok, Pid};
 	Error ->
 	    Error
