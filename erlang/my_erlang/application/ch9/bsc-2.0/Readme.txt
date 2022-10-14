@@ -1,3 +1,6 @@
+
+application 和 supervisor 合并在一起
+
 ericksun@centos7-dev:~/programming/erlang/my_erlang/application/ch9 (master)$ erl -pa bsc-1.0/ebin
 Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
 
