@@ -1,24 +1,29 @@
 -module(bsc).
 -behaviour(application).
--behaviour(supervisor).
 
--export([start/2, stop/1, init/1]).
+%% Application callbacks
+-export([start/2, stop/1]).
 
 start(_StartType, _StartArgs) ->
-    {ok, Pid} = supervisor:start_link({local,?MODULE}, ?MODULE, []),
-    freq_overload:add(counters, {}),
-    freq_overload:add(logger, {file, "log"}),
-    {ok, Pid}.
+    bsc_sup:start_link().
+
 
 stop(_Data) ->
     ok.
 
-%% Supervisor callbacks.
+%stop(Data) ->
+%    io:format('Data:~p~n', [Data]),
+%    ok.
 
-init(_) ->
-    ChildSpecList = [child(freq_overload), child(frequency), child(simple_phone_sup)],
-    {ok,{{rest_for_one, 2, 3600}, ChildSpecList}}.
 
-child(Module) ->
-    {Module, {Module, start_link, []},
-     permanent, 2000, worker, [Module]}.
+%prep_stop(_State) -> 
+%  'test_pre_stop'. 
+%
+%Module:prep_stop(State) -> NewState
+%Types
+%State = NewState = term()
+%This function is called when an application is about to be stopped, before shutting down the processes of the application.
+%
+%State is the state returned from Module:start/2, or [] if no state was returned. NewState is any term and is passed to Module:stop/1.
+%
+%The function is optional. If it is not defined, the processes are terminated and then Module:stop(State) is called.
