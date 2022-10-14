@@ -9,7 +9,7 @@
              simple_phone_sup,
              phone_fsm
             ]},
-  {registered, [bsc_sup, frequency, freq_overload, simple_phone_sup]},
+{registered, [bsc_sup, frequen  , freq_overload, simple_phone_sup]},
   {applications, [kernel, stdlib, sasl]},
   %% {start_phases, [{init, []}, {admin, []}, {oper, []}]},
   {env, []},
