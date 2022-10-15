@@ -1,6 +1,8 @@
 
 # 直接用 escript 脚本找到
-LIB_DIR=`./lib_dir.escipt`
+# LIB_DIR=`./lib_dir.escipt`
+LIB_DIR=`erl -noshell -eval 'io:format(code:lib_dir()),erlang:halt()'`
+
 #echo $LIB_DIR
 
 ERTS_VERSION=$(echo $(basename `ls -d $LIB_DIR/erts-*`)|awk -F'-' '{print $2}')
@@ -15,3 +17,8 @@ echo $SASL_VERSION
 
 sed 's/erts_version/'"$ERTS_VERSION"'/g;s/kernel_version/'"$KERNEL_VERSION"'/g; s/stdlib_version/'"$STDLIB_VERSION"'/g; s/sasl_version/'"$SASL_VERSION"'/g' basestation.rel.template | tee basestation.rel
 
+
+
+sed 's/erts_version/'"$ERTS_VERSION"'/g' start.sh.template | tee start.sh
+
+chmod +x start.sh
