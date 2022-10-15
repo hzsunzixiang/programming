@@ -5,7 +5,8 @@
              bsc_sup,
              frequency,
              freq_overload,
-             logger,
+             my_logger,
+             my_counters,
              simple_phone_sup,
              phone_fsm
             ]},

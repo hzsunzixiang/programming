@@ -1,7 +1,7 @@
 {release,
  {"basestation","1.0"},
- {erts, "8.3.5.3"},
- [{kernel, "5.2"},
-  {stdlib, "3.3"},
-  {sasl, "3.0.3"},
+ {erts, "13.0.4"},
+ [{kernel, "8.4.2"},
+  {stdlib, "4.0.1"},
+  {sasl, "4.2"},
   {bsc, "1.0"}]}.
