@@ -11,6 +11,7 @@ MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 
 RUN_BIN=handle_release
 all:compile
+	bash find_the_version.sh
 	erl -noshell -s $(RUN_BIN) start -s init stop
 
 compile:${MODS:%=%.beam} 
