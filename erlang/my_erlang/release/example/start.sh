@@ -1,14 +1,14 @@
 mkdir -p bin
-cp erts-8.3.5.3/bin/start.src bin/start
-cp erts-8.3.5.3/bin/start_erl.src bin/start_erl
-cp erts-8.3.5.3/bin/run_erl bin
-cp erts-8.3.5.3/bin/to_erl bin
+cp erts-13.0.4/bin/start.src bin/start
+cp erts-13.0.4/bin/start_erl.src bin/start_erl
+cp erts-13.0.4/bin/run_erl bin
+cp erts-13.0.4/bin/to_erl bin
 mkdir -p log
 
 
 perl -i -pe "s#%FINAL_ROOTDIR%#$PWD#" bin/start
-diff erts-8.3.5.3/bin/start.src bin/start
-echo '8.3.5.3 1.0' > releases/start_erl.data
+diff erts-13.0.4/bin/start.src bin/start
+echo '13.0.4 1.0' > releases/start_erl.data
 
 
 # 包里面的内容复制不全，没有包含hrl等
