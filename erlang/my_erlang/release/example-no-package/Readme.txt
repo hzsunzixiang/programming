@@ -1,7 +1,8 @@
 
 
 
-% Makefile  
-执行make
-然后会生成一个ernie目录
-进去之后 解压，然后执行start.sh，可以启动程序，如果不行，可以手工启动
+# 这里演示直接手工启动，不打包
+
+用这个命令运行
+erl -pa bsc/ebin -boot basestation
+

@@ -1,6 +1,0 @@
-#!/bin/sh
-#Basic Heart Script for the Base Station Controller
-
-ROOTDIR=/Users/francescoc/ernie
-
-$ROOTDIR/bin/start
