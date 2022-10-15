@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ERTS_VERSION=13.0.4
+ERTS_VERSION=erts_version
 mkdir -p bin
 cp erts-${ERTS_VERSION}/bin/start.src bin/start
 cp erts-${ERTS_VERSION}/bin/start_erl.src bin/start_erl
