@@ -18,3 +18,5 @@ sed 's/erts_version/'"$ERTS_VERSION"'/g;s/kernel_version/'"$KERNEL_VERSION"'/g; 
 
 
 sed 's/erts_version/'"$ERTS_VERSION"'/g' start.sh.template | tee start.sh
+
+chmod +x start.sh

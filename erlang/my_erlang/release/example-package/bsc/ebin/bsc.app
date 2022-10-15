@@ -7,6 +7,7 @@
              freq_overload,
              my_logger,
              my_counters,
+             hlr,
              simple_phone_sup,
              phone_fsm
             ]},
