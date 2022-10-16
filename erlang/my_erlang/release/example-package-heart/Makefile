@@ -12,7 +12,7 @@ MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 RUN_BIN=handle_release
 all:dir_name compile
 	erl -noshell -s $(RUN_BIN) start -s init stop
-	cp start.sh ernie
+	cp start.sh bsc_heart ernie
 
 dir_name:
 	bash find_the_version.sh
