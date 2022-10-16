@@ -1,0 +1,6 @@
+#!/usr/bin/env escript
+main(_) ->
+    X = code:lib_dir(),
+	io:format(X).
+
+% https://www.erlang.org/doc/man/escript.html

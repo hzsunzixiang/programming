@@ -1,0 +1,6 @@
+#!/bin/sh
+#Basic Heart Script for the Base Station Controller
+
+ROOTDIR=/home/ericksun/programming/erlang/my_erlang/release/example-package-heart/ernie
+
+$ROOTDIR/bin/start

@@ -1,0 +1,8 @@
+{release,
+ {"basestation","1.0"},
+ {erts, "erts_version"},
+ [{kernel, "kernel_version"},
+  {stdlib, "stdlib_version"},
+  {sasl, "sasl_version"},
+  {erts, "erts_version"},
+  {bsc, "1.0"}]}.
