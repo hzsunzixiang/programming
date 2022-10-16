@@ -44,7 +44,13 @@ init(_Args) ->
     {ok, Frequencies}.
 
 %% Dummy function. To be replaced with call to BSC.
-get_frequencies() -> [10,11,12,13,14,15].
+%get_frequencies() -> [10,11,12,13,14,15].
+
+get_frequencies() ->
+    case application:get_env(frequencies) of
+        {ok, FreqList}  -> FreqList;
+        undefined       -> [10,11,12,13,14,15]
+	end.
 
 %% This version of this function needs to be used with the
 %% bsc.config and rb.config files
