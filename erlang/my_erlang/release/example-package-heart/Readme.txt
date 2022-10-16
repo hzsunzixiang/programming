@@ -17,3 +17,7 @@ heart: Sun Oct 16 04:23:00 2022: Wait 5 seconds for Erlang to terminate nicely
 heart: Sun Oct 16 04:23:00 2022: Executed "/home/ericksun/programming/erlang/my_erlang/release/example-package-heart/ernie/bin/bsc_heart" -> 0. Terminating.
 [End]
 
+
+
+此时发现无法杀掉进程，即使使用 kill -9
+方法是删除重启文件 bsc_heart, 再执行 kill -9 , 就可以杀掉进程
