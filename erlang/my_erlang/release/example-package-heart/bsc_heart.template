@@ -1,0 +1,6 @@
+#!/bin/sh
+#Basic Heart Script for the Base Station Controller
+
+ROOTDIR=RUN_DIR_NAME
+
+$ROOTDIR/bin/start
