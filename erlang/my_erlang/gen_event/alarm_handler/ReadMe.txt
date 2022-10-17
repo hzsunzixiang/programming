@@ -1,3 +1,5 @@
+%% 启动方式
+ erl -boot start_sasl -config elog3
 
 
 
@@ -167,4 +169,13 @@ rb: reading report...done.
               {child_type,worker}]
 
 {ok,<0.146.0>}
+
+
+%% 如果注释掉  set_alarm 分支
+5> l(my_alarm_handler).
+{module,my_alarm_handler}
+6> alarm_handler:set_alarm({100,tooHot}).
+*** unmatched event:{set_alarm,{100,tooHot}}
+*** unmatched event:{set_alarm,{100,tooHot}}
+
 

@@ -49,8 +49,8 @@ code_change(_OldVsn, State, _Extra) -> {ok, State}.
 start() ->
     % The alarm handler process is a gen_event event manager process that receives alarms in the system. 
     alarm_handler:set_alarm({100,tooHot}),
-    gen_event:swap_handler(alarm_handler, {alarm_handler, swap}, {my_alarm_handler, xyz}),
-    alarm_handler:get_alarms(),
+    gen_event:swap_handler(alarm_handler, {alarm_handler, swap}, {my_alarm_handler, 0}),
+    %alarm_handler:get_alarms(),
     alarm_handler:set_alarm({100, tooHot}),
     alarm_handler:clear_alarm(100),
     'this is an end'.
