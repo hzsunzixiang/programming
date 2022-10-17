@@ -27,10 +27,13 @@ ok
 [{100,tooHot}]
 
 %% 用自定义替换掉自带的简单handler 之后就开始 自定义的handler起作用，原来的就被替换掉了
+%% NewHandler:init({Args, {alarm_handler, Alarms}}) is called. For more details, see gen_event(3) in STDLIB.
 
-3> gen_event:swap_handler(alarm_handler, {alarm_handler, swap}, {my_alarm_handler, xyz}).
-*** my_alarm_handler init:{xyz,{alarm_handler,[{100,tooHot}]}}
+4> gen_event:swap_handler(alarm_handler, {alarm_handler, swap}, {my_alarm_handler, 0}).
+in init here call  {Args:0, {alarm_handler, Alarms:[{100,tooHot}]}}
 ok
+
+
 
 %% 再执行，聚会报错
 4> alarm_handler:get_alarms().
@@ -132,9 +135,10 @@ ok
 
 3> alarm_handler:get_alarms().
 [tooHot]
-4> gen_event:swap_handler(alarm_handler, {alarm_handler, swap}, {my_alarm_handler, xyz}).
-*** my_alarm_handler init:{xyz,{alarm_handler,[tooHot]}}
+2> gen_event:swap_handler(alarm_handler, {alarm_handler, swap}, {my_alarm_handler, 0}).
+in init here call  {Args:0, {alarm_handler, Alarms:[{100,tooHot}]}}
 ok
+
 5> alarm_handler:get_alarms().
 {error,bad_module}
 6> alarm_handler:set_alarm(tooHot).
