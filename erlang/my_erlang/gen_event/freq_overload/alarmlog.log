@@ -1,0 +1,10 @@
+Id:1 Time:{4,13,21} Date:{2022,10,17}
+Event:{set_alarm,{no_frequency,<0.83.0>}}
+Id:2 Time:{4,13,21} Date:{2022,10,17}
+Event:{event,{frequency_denied,<0.83.0>}}
+Id:3 Time:{4,13,22} Date:{2022,10,17}
+Event:{event,{frequency_denied,<0.83.0>}}
+Id:4 Time:{4,13,22} Date:{2022,10,17}
+Event:{event,{frequency_denied,<0.83.0>}}
+Id:5 Time:{4,13,27} Date:{2022,10,17}
+Event:{clear_alarm,no_frequency}

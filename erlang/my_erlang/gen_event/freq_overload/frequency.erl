@@ -111,7 +111,6 @@ deallocate({Free, Allocated}, Res) ->
 start() ->
     {ok, PF} = frequency:start_link(),
     {ok, PO} = freq_overload:start_link(),
-    counters_my:get_counters_my(PO),
     frequency:allocate(),
     frequency:allocate(),
     frequency:allocate(),
@@ -119,5 +118,10 @@ start() ->
     frequency:allocate(),
     frequency:allocate(),
     frequency:allocate(),
-    counters_my:get_counters_my(PO),
+    frequency:allocate(),
+    frequency:allocate(),
+    frequency:allocate(),
+    frequency:deallocate(10),
+    Res2=counters_my:get_counters_my(PO),
+    io:format("result:~p~n", [Res2]),
     'this is an end'.
