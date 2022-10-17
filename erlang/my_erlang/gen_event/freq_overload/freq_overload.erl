@@ -8,7 +8,7 @@ start_link() ->
     case gen_event:start_link({local, ?MODULE}) of
 	{ok, Pid} ->
 	    add(counters_my, {}),
-	    add(logger_my, {file, "log"}),
+	    add(logger_my, {file, "alarmlog.log"}),
 	    add(logger_my, standard_io),
 	    {ok, Pid};
 	Error ->
