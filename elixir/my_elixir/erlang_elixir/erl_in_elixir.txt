@@ -1,0 +1,18 @@
+
+
+# 直接在 iex 下面载入 erlang 
+ericksun@centos7-dev:~/programming/elixir/my_elixir/erlang_elixir (master)$ iex
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Interactive Elixir (1.15.0-dev) - press Ctrl+C to exit (type h() ENTER for help)
+iex(1)> c("example.erl")    必须是双引号，没有引号，或者单引号都不行
+[:example]
+iex(2)> :example.sum(2, 3)
+5
+iex(3)> :example.start
+result: X: 5
+:ok
+
+
+
+

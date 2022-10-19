@@ -1,0 +1,71 @@
+
+===========================================================
+
+# 在erl下运行 elixir 代码 
+ericksun@centos7-dev:~/programming/elixir/my_elixir/erlang_elixir (master)$ elixirc  example.exs
+ericksun@centos7-dev:~/programming/elixir/my_elixir/erlang_elixir (master)$ ll
+total 16
+-rw-rw-r--. 1 ericksun ericksun 1940 Oct 19 07:58 Elixir.Example.beam
+-rw-rw-r--. 1 ericksun ericksun  151 Oct 19 05:53 example.erl
+-rw-rw-r--. 1 ericksun ericksun  210 Oct 19 07:44 example.exs
+-rw-rw-r--. 1 ericksun ericksun 1529 Oct 19 07:57 ReadMe.txt
+
+可以看到，example.exs 编译之后的结果为： Elixir.Example.beam
+它对应着代码中的模块名，以大写开头， 加上 Elixir 前缀
+
+defmodule Example do
+........
+end
+
+在erl 命令行下 运行
+ericksun@centos7-dev:~/programming/elixir/my_elixir/erlang_elixir (master)$ erl
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> 'Elixir.Example':
+'__info__'/1   module_info/0  module_info/1  start/1        sum/2
+test/0
+1> 'Elixir.Example':test().
+in test:10
+119
+2> 'Elixir.Example':start(10).
+x+10:10
+ok
+ericksun@centos7-dev:~/programming/elixir/my_elixir/erlang_elixir (master)$ erl
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> 'Elixir.Example':test_print(hello).
+in test:hello
+119
+2> 'Elixir.Example':test_print(world).
+in test:world
+119
+
+ericksun@centos7-dev:~/programming/elixir/my_elixir/erlang_elixir (master)$ erl -noshell -s  'Elixir.Example' test_print hello -s init stop
+in test:[hello]
+
+
+这里必须按照erlang的语法来，不然报错
+
+正确:  :io.format("in test:~p~n", [x])
+错误:  :io.format("in test:~p~n", x)
+
+Eshell V13.0.4  (abort with ^G)
+1> 'Elixir.Example':test_print(world).
+** exception error: bad argument
+     in function  io:format/2
+        called as io:format(<<"in test:~p~n">>,world)
+        *** argument 2: not a list
+     in call from 'Elixir.Example':test_print/1 (example.exs, line 14)
+
+
+
+
+
+
+
+
+
+
+
