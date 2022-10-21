@@ -2,7 +2,7 @@
  [{description, "Base Station Controller"},
   {vsn, "1.0"},
   {registered, []},
-  {mod, {bsc_app, []}},
+  {mod, {bsc, []}},
   {applications,
    [kernel,
     stdlib,
