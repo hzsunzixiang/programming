@@ -5,6 +5,7 @@
   {mod, {xprof_use_debug_app, []}},
   {applications,
    [kernel,
+    xprof, 
     stdlib
    ]},
   {env,[]},
