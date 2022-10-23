@@ -1,4 +1,7 @@
 
+
+% 这里是以  phone_sup.erl 模块来演示动态子进程的
+
 ericksun@centos7-dev:~/programming/erlang/my_erlang/gen_supervisor/ch8/otp/dynamic_children (master)$ erl
 Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
 

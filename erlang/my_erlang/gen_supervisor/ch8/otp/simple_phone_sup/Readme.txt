@@ -1,3 +1,5 @@
+% 通imple_phone_sup.erl 模块来演示
+% [{ms, {phone_fsm, start_link, []},  % 这里的参数 是在 supervisor:start_child(?MODULE, [Ms]) 这里添加进来的
 
 ericksun@centos7-dev:~/programming/erlang/my_erlang/gen_supervisor/ch8/otp/simple_phone_sup (master)$ erl
 Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
