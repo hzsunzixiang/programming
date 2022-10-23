@@ -1,0 +1,6 @@
+-sname gen_event_rebar3
+
+-setcookie gen_event_rebar3_cookie
+
++K true
++A30
