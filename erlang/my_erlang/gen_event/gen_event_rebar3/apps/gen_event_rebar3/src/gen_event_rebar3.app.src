@@ -5,7 +5,8 @@
   {mod, {gen_event_rebar3_app, []}},
   {applications,
    [kernel,
-    stdlib
+    stdlib,
+    recon
    ]},
   {env,[]},
   {modules, []},
