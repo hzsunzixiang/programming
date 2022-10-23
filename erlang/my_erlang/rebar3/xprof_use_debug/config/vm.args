@@ -1,0 +1,6 @@
+-sname xprof_use_debug
+
+-setcookie xprof_use_debug_cookie
+
++K true
++A30

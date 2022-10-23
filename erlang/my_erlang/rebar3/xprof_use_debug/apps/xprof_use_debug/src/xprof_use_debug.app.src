@@ -1,0 +1,15 @@
+{application, xprof_use_debug,
+ [{description, "using xprof for debugging"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {xprof_use_debug_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache-2.0"]},
+  {links, []}
+ ]}.
