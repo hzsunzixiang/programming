@@ -5,7 +5,8 @@
   {mod, {redbug_debug_app, []}},
   {applications,
    [kernel,
-    stdlib
+    stdlib,
+    redbug 
    ]},
   {env,[]},
   {modules, []},
