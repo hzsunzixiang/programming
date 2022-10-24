@@ -1,0 +1,6 @@
+-sname redbug_debug
+
+-setcookie redbug_debug_cookie
+
++K true
++A30
