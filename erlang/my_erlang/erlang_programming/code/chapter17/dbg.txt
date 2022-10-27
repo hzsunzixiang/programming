@@ -1,0 +1,79 @@
+
+2> Pid = ping:start().
+<0.85.0>
+3> dbg:tracer().
+{ok,<0.87.0>}
+4> dbg:p(Pid, m).
+{ok,[{matched,nonode@nohost,1}]}
+5> ping:send(Pid).
+(<0.85.0>) << {<0.83.0>,ping}
+(<0.85.0>) <0.83.0> ! pong
+pong
+6> =ERROR REPORT==== 27-Oct-2022::00:23:14.976209 ===
+Error in process <0.91.0> with exit value:
+{undef,[{crash,do_not_exist,[],[]}]}
+
+
+6> call dbg:h(Item) for brief help a brief description
+6> self().
+<0.83.0>
+
+7> dbg:tracer().
+{error,already_started}
+8> dbg:p(Pid,[p, sos]).
+{ok,[{matched,nonode@nohost,1}]}
+9> ping:send(Pid).
+(<0.85.0>) << {<0.83.0>,ping}
+(<0.85.0>) spawn <0.97.0> as crash:do_not_exist()
+(<0.97.0>) spawned <0.85.0> {crash,do_not_exist,[]}
+pong
+(<0.85.0>) <0.83.0> ! pong
+(<0.97.0>) code_server ! {code_call,<0.97.0>,{ensure_loaded,crash}}
+10> (<0.97.0>) << {code_server,{error,nofile}}
+(<0.97.0>) exit {undef,[{crash,do_not_exist,[],[]}]}
+=ERROR REPORT==== 27-Oct-2022::00:27:11.515249 ===
+Error in process <0.97.0> with exit value:
+{undef,[{crash,do_not_exist,[],[]}]}
+
+ericksun@centos7-dev:~/programming/erlang/my_erlang/erlang_programming/code/chapter17 (master)$ erl
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> dbg:tracer().
+{ok,<0.83.0>}
+2> dbg:p(all, [c]).
+{ok,[{matched,nonode@nohost,42}]}
+3>  dbg:tp({ping,'_', '_'}, []).
+{ok,[{matched,nonode@nohost,5}]}
+4> Pid = ping:start().
+(<0.81.0>) call ping:start()
+(<0.88.0>) call ping:loop()
+<0.88.0>
+5> ping:send(Pid).
+(<0.81.0>) call ping:send(<0.88.0>)
+pong
+6> =ERROR REPORT==== 27-Oct-2022::02:27:42.898141 ===
+Error in process <0.90.0> with exit value:
+{undef,[{crash,do_not_exist,[],[]}]}
+
+ericksun@centos7-dev:~/programming/erlang/my_erlang/erlang_programming/code/chapter17 (master)$ erl
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> dbg:tracer().
+{ok,<0.83.0>}
+2> dbg:p(all, [c]).
+{ok,[{matched,nonode@nohost,42}]}
+3> dbg:tp({ping,'_', '_'}, []).
+{ok,[{matched,nonode@nohost,5}]}
+4> dbg:ctpg({ping, '_', '_' }).  # 禁用
+{ok,[{matched,nonode@nohost,5}]}
+5> Pid = ping:start().
+<0.89.0>
+6> ping:send(Pid).
+pong
+7> =ERROR REPORT==== 27-Oct-2022::02:32:42.469076 ===
+Error in process <0.91.0> with exit value:
+{undef,[{crash,do_not_exist,[],[]}]}
+
+
