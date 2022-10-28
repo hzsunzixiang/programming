@@ -12,5 +12,10 @@ loop() ->
 	{Pid, ping} ->
 	    spawn(crash, do_not_exist, []),
 	    Pid ! pong,
+        inner_fun(),
 	    loop()
     end.
+
+
+inner_fun() ->
+    io:format("hello,world~n").
