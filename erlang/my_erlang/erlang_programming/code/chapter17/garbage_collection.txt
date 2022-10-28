@@ -1,4 +1,4 @@
-# 如果不加procs的flags， 可能触发不到 垃圾回收
+# 占用内存太小， 可能触发不到 垃圾回收
 ericksun@centos7-dev:~/programming/erlang/my_erlang/erlang_programming/code/chapter17 (master)$ erl
 Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
 
@@ -20,7 +20,7 @@ ok
 5> flush().
 ok
 
-# 加上 procs就可以了
+# 占用内存太小， 可能触发不到 垃圾回收
 Eshell V13.0.4  (abort with ^G)
 1> Pid = ping:start().
 <0.83.0>
