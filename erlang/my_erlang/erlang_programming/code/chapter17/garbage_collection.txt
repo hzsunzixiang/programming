@@ -1,16 +1,16 @@
-# 这里可能触发不到 垃圾回收
+# 如果不加procs的flags， 可能触发不到 垃圾回收
 ericksun@centos7-dev:~/programming/erlang/my_erlang/erlang_programming/code/chapter17 (master)$ erl
 Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
 
 Eshell V13.0.4  (abort with ^G)
-	1> Pid = ping:start().
-	<0.83.0>
-	2> erlang:trace(Pid, true, [garbage_collection, timestamp]).
-	1
-	3> ping:send(Pid).
-	pong
-	4> =ERROR REPORT==== 25-Oct-2022::22:44:42.630678 ===
-	Error in process <0.86.0> with exit value:
+1> Pid = ping:start().
+<0.83.0>
+2> erlang:trace(Pid, true, [garbage_collection, timestamp]).
+1
+3> ping:send(Pid).
+pong
+4> =ERROR REPORT==== 25-Oct-2022::22:44:42.630678 ===
+Error in process <0.86.0> with exit value:
 {undef,[{crash,do_not_exist,[],[]}]}
 
 
@@ -18,5 +18,37 @@ Eshell V13.0.4  (abort with ^G)
 ok
 5>
 5> flush().
+ok
+
+# 加上 procs就可以了
+Eshell V13.0.4  (abort with ^G)
+1> Pid = ping:start().
+<0.83.0>
+2> erlang:trace(Pid, true, [garbage_collection, timestamp]).
+1
+3>  ping:send(Pid).
+hello,world
+pong
+4> =ERROR REPORT==== 28-Oct-2022::04:21:32.301359 ===
+Error in process <0.86.0> with exit value:
+{undef,[{crash,do_not_exist,[],[]}]}
+
+
+4> flush().
+ok
+5> erlang:trace(Pid, true, [garbage_collection, timestamp, procs]).
+1
+6> ping:send(Pid).
+hello,world
+pong
+7> =ERROR REPORT==== 28-Oct-2022::04:21:45.571812 ===
+Error in process <0.90.0> with exit value:
+{undef,[{crash,do_not_exist,[],[]}]}
+
+
+7> flush().
+Shell got {trace_ts,<0.83.0>,spawn,<0.90.0>,
+                    {crash,do_not_exist,[]},
+                    {1666,945305,570634}}
 ok
 
