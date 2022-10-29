@@ -1,0 +1,26 @@
+
+ericksun@centos7-dev:~/programming/elixir/my_elixir/elixir-in-action/code_samples/ch06 (master)$ elixirc server_process.ex
+ericksun@centos7-dev:~/programming/elixir/my_elixir/elixir-in-action/code_samples/ch06 (master)$ ll
+total 28
+-rw-rw-r--. 1 ericksun ericksun 2600 Oct 29 05:30 Elixir.KeyValueStore.beam
+-rw-rw-r--. 1 ericksun ericksun 2492 Oct 29 05:30 Elixir.ServerProcess.beam
+-rw-rw-r--. 1 ericksun ericksun  486 Oct 29 05:21 key_value_gen_server.ex
+-rw-rw-r--. 1 ericksun ericksun 1380 Oct 29 05:21 server_process_cast.ex
+-rw-rw-r--. 1 ericksun ericksun 1107 Oct 29 05:21 server_process.ex
+-rw-rw-r--. 1 ericksun ericksun 2685 Oct 29 05:21 server_process_todo.ex
+drwxrwxr-x. 2 ericksun ericksun   23 Oct 29 05:30 test
+-rw-rw-r--. 1 ericksun ericksun 1895 Oct 29 05:21 todo_server.ex
+ericksun@centos7-dev:~/programming/elixir/my_elixir/elixir-in-action/code_samples/ch06 (master)$ iex
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Interactive Elixir (1.15.0-dev) - press Ctrl+C to exit (type h() ENTER for help)
+iex(1)> pid = ServerProcess.start(KeyValueStore)
+#PID<0.108.0>
+iex(2)> ServerProcess.call(pid, {:put, :some_key, :some_value})
+:ok
+iex(3)> :ok
+:ok
+iex(4)> ServerProcess.call(pid, {:get, :some_key})
+:some_value
+iex(5)>
+

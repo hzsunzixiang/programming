@@ -29,7 +29,7 @@ fib(N) -> fib(N-1) + fib(N-2).
 	
 trace_module(Mod, StartFun) ->
     %% We'll spawn a process to do the tracing
-    spawn(fun() -> trace_module1(Mod, StartFun) end).
+    spawn(fun() -> trace_module1(Mod, StartFun) end).            %  这里是监控进程
 
 trace_module1(Mod, StartFun) ->
     %% The next line says: trace all function calls and return
@@ -39,16 +39,17 @@ trace_module1(Mod, StartFun) ->
 			 [local]),
     %% spawn a function to do the tracing
     S = self(),
-    Pid = spawn(fun() -> do_trace(S, StartFun) end),
+    Pid = spawn(fun() -> do_trace(S, StartFun) end),               % 这里是被监控的进程
     %% setup the trace. Tell the system to start tracing 
-    %% the process Pid
+    %% the process Pid 被 trace的进程，这个是关键
     erlang:trace(Pid, true, [call,procs]),
     %% Now tell Pid to start
     Pid ! {self(), start},
-    trace_loop().
+    trace_loop().   % 监控进程的mailbox中会受到消息，然后打印出来
 
 %% do_trace evaluates StartFun()
 %%    when it is told to do so by Parent
+%% 收到通知之后启动被监控进程
 do_trace(Parent, StartFun) ->
     receive
 	{Parent, start} ->
