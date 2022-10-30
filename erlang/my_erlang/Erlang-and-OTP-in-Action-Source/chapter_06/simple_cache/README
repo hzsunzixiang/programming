@@ -11,7 +11,7 @@ Then, run the following in the Erlang shell:
 1> application:start(simple_cache).
 ok
 
-
+% 可以把过期时间改小，观察过期时间
 
 ericksun@centos7-dev:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_06/simple_cache (master)$ erl -pa ebin
 Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
