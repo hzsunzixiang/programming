@@ -12,7 +12,7 @@ loop() ->
 	{Pid, ping} ->
 	    spawn(crash, do_not_exist, []),
 	    Pid ! pong,
-        inner_fun(),
+        %inner_fun(),
 	    loop()
     end.
 
