@@ -39,3 +39,21 @@ Eshell V13.0.4  (abort with ^G)
 {ok,<0.83.0>}
 hello,world!2>
 
+
+ericksun@centos7-dev:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_03 (master)$ erl
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> eunit:test(tr_server).
+  Test passed.
+ok
+
+ericksun@centos7-dev:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_03 (master)$ erl
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1>
+1> tr_server:test().
+  Test passed.
+ok
+

@@ -10,3 +10,34 @@ Then, run the following in the Erlang shell:
 
 1> application:start(simple_cache).
 ok
+
+
+
+ericksun@centos7-dev:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_06/simple_cache (master)$ erl -pa ebin
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> observer:start().
+ok
+3> application:start(simple_cache).
+ok
+4> simple_cache:
+delete/1       insert/2       lookup/1       module_info/0  module_info/1
+
+4> simple_cache:insert(abc,def).
+true
+5> simple_cache:insert(ab,de).
+true
+6> simple_cache:insert(a,d).
+true
+7> L = [a,b,c,d,e,f,g],
+7> Function = fun(Elem) -> simple_cache:insert(Elem,Elem) end,
+7> lists:foreach(Function, L).
+ok
+8> lists:seq(70,10,-5).
+[70,65,60,55,50,45,40,35,30,25,20,15,10]
+9> L1 = lists:seq(70,10,-5).
+[70,65,60,55,50,45,40,35,30,25,20,15,10]
+10> lists:foreach(Function, L1).
+ok
+

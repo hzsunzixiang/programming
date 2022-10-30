@@ -24,3 +24,24 @@ lists:reverse([1,2,3]).
 init:stop().
 ok
 Connection closed by foreign host.
+
+ericksun@centos7-dev:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_04/tcp_rpc (master)$ erl -pa ebin
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> observer:start().
+ok
+2> application:st
+start/1       start/2       start_boot/1  start_boot/2  start_type/0
+stop/1
+2> application:start(tcp_rpc).
+ok
+3> edoc:application(tcp_rpc, "." []).
+* 1:31: syntax error before: '['
+3> edoc:application(tcp_rpc, ".", []).
+./src/tr_server.erl, function start_link/1: at line 41: warning: EDoc @spec tags are deprecated. Please use -spec attributes instead.
+./src/tr_server.erl, function start_link/0: at line 49: warning: EDoc @spec tags are deprecated. Please use -spec attributes instead.
+./src/tr_server.erl, function get_count/0: at line 56: warning: EDoc @spec tags are deprecated. Please use -spec attributes instead.
+./src/tr_server.erl, function stop/0: at line 66: warning: EDoc @spec tags are deprecated. Please use -spec attributes instead.
+ok
+
