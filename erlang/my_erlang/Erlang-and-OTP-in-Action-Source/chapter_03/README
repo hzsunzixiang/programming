@@ -1,0 +1,41 @@
+To build this code, run the following command:
+
+erlc *.erl
+
+To run the program, start Erlang (in the same directory),
+then run the following in the Erlang shell:
+
+1> tr_server:start_link().
+{ok,<0.34.0>}
+2> 
+
+After that, open another terminal window and use telnet
+to connect to the application, like this:
+
+$ telnet localhost 1055
+Trying 127.0.0.1...
+Connected to localhost.localdomain.
+Escape character is '^]'.
+lists:reverse([1,2,3]).
+[3,2,1]
+init:stop().
+ok
+Connection closed by foreign host.
+
+## 另一个命令
+ericksun@centos7-dev:~/programming/erlang/my_erlang/rebar3/recon_use (master)$ telnet localhost 1055
+Trying ::1...
+telnet: connect to address ::1: Connection refused
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+io:format('hello,world!').
+ok
+
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+	1> tr_server:start_link(1055).
+{ok,<0.83.0>}
+hello,world!2>
+
