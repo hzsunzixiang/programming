@@ -20,5 +20,5 @@ event(_,_) -> ok.
 ping(_) -> ok.
 
 fill() ->
-    catch ets:new(msgQ, [named_table, ordered_set]),
-    dp:handle_msg(<<2,3,0,2,0>>).
+    catch ets:new(msgQ, [named_table, ordered_set]).
+    %dp:handle_msg(<<2,3,0,2,0>>).
