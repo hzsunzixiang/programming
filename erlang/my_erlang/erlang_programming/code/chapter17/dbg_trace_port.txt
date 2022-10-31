@@ -1,0 +1,35 @@
+
+使用网络=====================
+
+服务端：
+Eshell V13.0.4  (abort with ^G)
+1> PortFun = dbg:trace_port(ip, 1234).
+#Fun<dbg.14.63636429>
+2> dbg:tracer(port, PortFun).
+{ok,<0.84.0>}
+3> dbg:p(all, [c]).
+{ok,[{matched,nonode@nohost,41}]}
+4> dbg:tp({ping, '_', '_'}, []).
+{ok,[{matched,nonode@nohost,5}]}
+5> dbg:tpl({ping, '_', '_'}, []).
+{ok,[{matched,nonode@nohost,5}]}
+6> Pid = ping:start().
+<0.91.0>
+7> ping:send(Pid).
+pong
+8> =ERROR REPORT==== 27-Oct-2022::07:21:38.496952 ===
+Error in process <0.93.0> with exit value:
+{undef,[{crash,do_not_exist,[],[]}]}
+
+客户端：
+2> Pid = dbg:trace_client(ip, 1234).
+<0.85.0>
+3> (<0.81.0>) call ping:module_info()
+(<0.81.0>) call ping:start()
+(<0.91.0>) call ping:loop()
+(<0.81.0>) call ping:send(<0.91.0>)
+(<0.91.0>) call ping:loop()
+
+3> dbg:stop_trace_client(Pid).
+ok
+
