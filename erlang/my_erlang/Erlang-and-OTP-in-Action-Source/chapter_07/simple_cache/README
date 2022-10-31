@@ -13,3 +13,40 @@ ok
 2> application:start(simple_cache).
 ok
 3> 
+
+
+%%% 实验
+
+3> application:ensure_all_started(simple_cache).
+{ok,[sasl,simple_cache]}
+4> simple_cache:
+delete/1       insert/2       lookup/1       module_info/0  module_info/1
+
+4> simple_cache:insert(abc,def).
+=INFO REPORT==== 30-Oct-2022::23:47:36.787915 ===
+create(abc, def)
+
+ok
+5> simple_cache:lookup(abc).
+=INFO REPORT==== 30-Oct-2022::23:47:49.537302 ===
+lookup(abc)
+
+{ok,def}
+6> simple_cache:insert(abc,def).
+=INFO REPORT==== 30-Oct-2022::23:47:57.489578 ===
+replace(abc, def)
+
+ok
+7> observer:start().
+ok
+8> simple_cache:insert(abc,def).
+=INFO REPORT==== 30-Oct-2022::23:49:31.692145 ===
+replace(abc, def)
+
+ok
+9> simple_cache:delete(abc).
+=INFO REPORT==== 30-Oct-2022::23:49:40.160237 ===
+delete(abc)
+
+ok
+
