@@ -51,3 +51,24 @@ in the foo 12{ok,msg}
 (<0.81.0>) returned from traceme:baz/3 -> ok (Timestamp: {1667,206620,416542})
 ok
 
+
+
+%% 对比
+
+9> dbg:tp(traceme, baz, [{['_', '_', '$7000'], [{'==', {'element', 1, '$7000'}, ok}], [{message,{'element',2,'$7000'}}, {message, {caller}}]}]).
+{ok,[{matched,nonode@nohost,1},{saved,3}]}
+10> traceme:baz(1,2,{ok, msg}).
+in the foo 12{ok,msg}
+(<0.81.0>) call traceme:baz(1,2,{ok,msg}) ({erl_eval,do_apply,7}) (Timestamp: {1667,
+                                                                               223814,
+                                                                               541727})
+ok
+11> dbg:tp(traceme, baz, [{['_', '_', '$7000'], [{'==', {'element', 1, '$7000'}, ok}], [{message,{'element',2,'$7000'}}, {return_trace}]}]).
+{ok,[{matched,nonode@nohost,1},{saved,4}]}
+12> traceme:baz(1,2,{ok, msg}).
+in the foo 12{ok,msg}
+(<0.81.0>) call traceme:baz(1,2,{ok,msg}) (msg) (Timestamp: {1667,223861,
+                                                             996928})
+(<0.81.0>) returned from traceme:baz/3 -> ok (Timestamp: {1667,223861,997029})
+ok
+
