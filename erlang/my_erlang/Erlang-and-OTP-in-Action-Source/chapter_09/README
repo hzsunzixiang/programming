@@ -8,11 +8,11 @@ node names in sc_app:ensure_contact() match your host name, and/or
 use -sname instead of -name. (Edit and recompile if necessary.)
 For example, in a separate terminal window, do:
 
-erl -name contact1
+erl -sname contact1
 
 To run the program, start Erlang like this:
 
-erl -name mynode -pa ./simple_cache/ebin -pa ./resource_discovery/ebin/
+erl -sname mynode -pa ./simple_cache/ebin -pa ./resource_discovery/ebin/
 
 Then, run the following in the Erlang shell:
 
@@ -33,3 +33,62 @@ For more fun, start one or two other nodes in the same
 way (with different names, of course), and start the same
 applications on them. Then try inserting something in the
 cache on one node, and looking it up on another node.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% 节点 mynode1
+
+Eshell V13.0.4  (abort with ^G)
+(mynode1@centos7-dev)1>
+(mynode1@centos7-dev)1>
+(mynode1@centos7-dev)1> application:ensure_all_started(simple_cache).
+=INFO REPORT==== 1-Nov-2022::06:22:02.461572 ===
+    application: mnesia
+    exited: stopped
+    type: temporary
+
+{ok,[sasl,mnesia,resource_discovery,simple_cache]}
+(mynode1@centos7-dev)2> application:which_applications().
+[{simple_cache,"A simple caching system","0.3.0"},
+ {mnesia,"MNESIA  CXC 138 12","4.21.1"},
+ {resource_discovery,"A simple resource discovery system",
+                     "0.1.0"},
+ {sasl,"SASL  CXC 138 11","4.2"},
+ {stdlib,"ERTS  CXC 138 10","4.0.1"},
+ {kernel,"ERTS  CXC 138 10","8.4.2"}]
+(mynode1@centos7-dev)3> simple_cache:insert(123, abc).
+=INFO REPORT==== 1-Nov-2022::06:25:04.945385 ===
+create(123, abc)
+
+ok
+
+
+%%% 节点 mynode2 ====================================
+
+Eshell V13.0.4  (abort with ^G)
+(mynode2@centos7-dev)1>
+(mynode2@centos7-dev)1> application:ensure_all_started(simple_cache).
+=INFO REPORT==== 1-Nov-2022::06:22:07.485941 ===
+    application: mnesia
+    exited: stopped
+    type: temporary
+
+{ok,[sasl,mnesia,resource_discovery,simple_cache]}
+(mynode2@centos7-dev)2>
+(mynode2@centos7-dev)2> application:which_applications().
+[{simple_cache,"A simple caching system","0.3.0"},
+ {mnesia,"MNESIA  CXC 138 12","4.21.1"},
+ {resource_discovery,"A simple resource discovery system",
+                     "0.1.0"},
+ {sasl,"SASL  CXC 138 11","4.2"},
+ {stdlib,"ERTS  CXC 138 10","4.0.1"},
+ {kernel,"ERTS  CXC 138 10","8.4.2"}]
+(mynode2@centos7-dev)3> nodes().
+['contact1@centos7-dev','mynode1@centos7-dev']
+(mynode2@centos7-dev)4> simple_cache:lookup(123).
+=INFO REPORT==== 1-Nov-2022::06:25:14.283879 ===
+lookup(123)
+
+{ok,abc}
+
