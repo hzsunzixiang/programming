@@ -11,6 +11,6 @@ start() ->
     % systools:make_script(RelaseName, [{path, ["bsc/ebin"]}]),
     systools:make_script(RelaseName, [local, {path, [RelaseName ++ "/ebin", OptName1 ++ "/ebin"]}]),
     % 生成tar包, 这里需要使用beam文件
-	% systools:make_tar(RelaseName, [{erts, code:root_dir()}, {path, ["bsc/ebin"]}, {outdir, RelaseName ++ "_release"}]),
+	systools:make_tar(RelaseName, [{erts, code:root_dir()}, {path, [RelaseName ++ "/ebin", OptName1 ++ "/ebin"]}, {outdir, RelaseName ++ "_release"}]),
 	%systools:make_tar(RelaseName, [{erts, "/home/ericksun/program/otp-25.0.4/lib/erlang"}, {path, ["bsc/ebin"]}, {outdir, "ernie"}]),
 	'this is an end'.

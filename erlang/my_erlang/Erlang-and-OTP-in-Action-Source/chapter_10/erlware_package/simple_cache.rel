@@ -7,4 +7,4 @@
   {sasl, "4.2"},
   {erts, "13.0.4"},
   {resource_discovery, "0.1.0"},
-  {simple_cache, "0.1.0"}]}.
+  {simple_cache, "0.3.0"}]}.
