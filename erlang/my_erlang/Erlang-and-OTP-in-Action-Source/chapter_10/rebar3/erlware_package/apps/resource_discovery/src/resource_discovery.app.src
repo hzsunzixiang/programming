@@ -1,16 +1,13 @@
-{application, erlware_package,
- [{description, "simple cache of erlang"},
+{application, resource_discovery,
+ [{description, "true"},
   {vsn, "0.1.0"},
   {registered, []},
-  {mod, {erlware_package_app, []}},
+  {mod, {resource_discovery_app, []}},
   {applications,
    [kernel,
     stdlib,
-    sasl,
-    mnesia,
-    resource_discovery
+    mnesia 
    ]},
-
   {env,[]},
   {modules, []},
 

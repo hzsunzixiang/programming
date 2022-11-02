@@ -1,9 +1,9 @@
 %%%-------------------------------------------------------------------
-%% @doc erlware_package top level supervisor.
+%% @doc resource_discovery top level supervisor.
 %% @end
 %%%-------------------------------------------------------------------
 
--module(erlware_package_sup).
+-module(resource_discovery_sup).
 
 -behaviour(supervisor).
 
@@ -25,16 +25,11 @@ start_link() ->
 %%                  shutdown => shutdown(), % optional
 %%                  type => worker(),       % optional
 %%                  modules => modules()}   % optional
-
 init([]) ->
-    ElementSup = {sc_element_sup, {sc_element_sup, start_link, []},
-                  permanent, 2000, supervisor, [sc_element]},
-
-    EventManager = {sc_event, {sc_event, start_link, []},
-                    permanent, 2000, worker, [sc_event]},
-
-    Children = [ElementSup, EventManager],
-    RestartStrategy = {one_for_one, 4, 3600},
+    Server = {rd_server, {rd_server, start_link, []},
+              permanent, 2000, worker, [rd_server]},
+    Children = [Server],
+    RestartStrategy = {one_for_one, 0, 1},
     {ok, {RestartStrategy, Children}}.
 
 %% internal functions
