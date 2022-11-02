@@ -32,6 +32,6 @@ compile:${MODS:%=%.beam}
 #	erl -noshell -s $(RUN_BIN) start  -s init stop
 
 clean:
-	rm -rf rm *.script *.boot *.beam ${RELEASE_NAME}_release start.sh  ${RELEASE_NAME}.rel handle_release.erl
+	rm -rf rm *.script *.boot *.beam ${RELEASE_NAME}_release start.sh  ${RELEASE_NAME}.rel 
 	cd ${OPT_NAME1}/src && make clean
 	cd ${RELEASE_NAME}/src && make clean
