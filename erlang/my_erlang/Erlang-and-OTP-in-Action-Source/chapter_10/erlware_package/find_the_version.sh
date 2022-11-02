@@ -22,7 +22,7 @@ echo $MNESIA_VERSION
 sed 's/erts_version/'"$ERTS_VERSION"'/g;s/mnesia_version/'"$MNESIA_VERSION"'/g;s/kernel_version/'"$KERNEL_VERSION"'/g; s/stdlib_version/'"$STDLIB_VERSION"'/g; s/sasl_version/'"$SASL_VERSION"'/g' ${RELEASE_NAME}.rel.template > ${RELEASE_NAME}.rel
 
 
-ERLANG_DIR_NAME=$(echo $(dirname $LIB_DIR))
+#ERLANG_DIR_NAME=$(echo $(dirname $LIB_DIR))
 #echo $ERLANG_DIR_NAME
 #sed 's#ERLANG_DIR_NAME#'"$ERLANG_DIR_NAME"'#g' handle_release.erl.template > handle_release.erl
 
