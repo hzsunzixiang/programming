@@ -1,0 +1,10 @@
+{release,
+ {"simple_cache","0.1.0"},
+ {erts, "erts_version"},
+ [{kernel, "kernel_version"},
+  {stdlib, "stdlib_version"},
+  {mnesia, "mnesia_version"},
+  {sasl, "sasl_version"},
+  {erts, "erts_version"},
+  {resource_discovery, "0.1.0"},
+  {simple_cache, "0.1.0"}]}.

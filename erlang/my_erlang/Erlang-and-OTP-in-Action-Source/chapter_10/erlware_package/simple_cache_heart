@@ -1,0 +1,6 @@
+#!/bin/sh
+#Basic Heart Script for the simple cache 
+
+ROOTDIR=/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_10/erlware_package/simple_cache_release
+
+$ROOTDIR/bin/start
