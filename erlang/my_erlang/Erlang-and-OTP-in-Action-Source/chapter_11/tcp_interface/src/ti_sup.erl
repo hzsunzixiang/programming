@@ -14,7 +14,7 @@ start_link(LSock) ->
     supervisor:start_link({local, ?SERVER}, ?MODULE, [LSock]).
 
 start_child() ->
-    supervisor:start_child(?SERVER, []).
+    supervisor:start_child(?SERVER, []). % 在这里创建一个进程，参数为LSock
 
 init([LSock]) ->
     Server = {ti_server, {ti_server, start_link, [LSock]},

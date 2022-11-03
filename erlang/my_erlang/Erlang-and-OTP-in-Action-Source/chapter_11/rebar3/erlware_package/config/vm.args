@@ -1,0 +1,6 @@
+-sname erlware_package
+
+-setcookie erlware_package_cookie
+
++K true
++A30

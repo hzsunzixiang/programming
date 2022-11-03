@@ -1,0 +1,19 @@
+{application, erlware_package,
+ [{description, "simple cache of erlang"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {erlware_package_app, []}},
+  {applications,
+   [kernel,
+    stdlib,
+    sasl,
+    mnesia,
+    resource_discovery
+   ]},
+
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache-2.0"]},
+  {links, []}
+ ]}.
