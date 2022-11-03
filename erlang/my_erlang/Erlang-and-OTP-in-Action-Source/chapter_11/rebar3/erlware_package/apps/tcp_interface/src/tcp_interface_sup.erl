@@ -7,7 +7,8 @@
 
 -behaviour(supervisor).
 
--export([start_link/0]).
+-export([start_link/1, start_child/0]).
+
 
 -export([init/1]).
 
@@ -15,6 +16,8 @@
 
 start_link(LSock) ->
     supervisor:start_link({local, ?SERVER}, ?MODULE, [LSock]).
+
+
 
 %% sup_flags() = #{strategy => strategy(),         % optional
 %%                 intensity => non_neg_integer(), % optional

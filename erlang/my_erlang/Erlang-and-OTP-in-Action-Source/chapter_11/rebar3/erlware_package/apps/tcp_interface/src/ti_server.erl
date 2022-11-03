@@ -28,7 +28,7 @@ handle_info({tcp_closed, _Socket}, State) ->
     {stop, normal, State};
 handle_info(timeout, #state{lsock = LSock} = State) -> % 超时后跳至此处
     {ok, _Sock} = gen_tcp:accept(LSock),
-    ti_sup:start_child(),
+    tcp_interface_sup:start_child(),
     {noreply, State}.
 
 terminate(_Reason, _State) ->
