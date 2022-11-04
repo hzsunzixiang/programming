@@ -1,0 +1,60 @@
+To build the Erlang code, run the following command:
+
+erlc -o ./ebin ./src/*.erl
+
+To build the C code using gcc, run the following:
+
+gcc -o ./priv/jp_prog -I${OTPROOT}/lib/erl_interface-3.6.5/include -I${YAJLROOT}/include -L${OTPROOT}/lib/erl_interface-3.6.5/lib -L${YAJLROOT}/lib ./c_src/jp_prog.c -lei_st -lyajl
+
+OTPROOT is typically /usr/lib/erlang. Check what your version of
+erl_interface is and that the include and lib directories exist and contain
+the expected header files and library files - not all Erlang distributions
+ship these development files in the basic installation package. YAJLROOT is
+wherever your YAJL installation is. If you built YAJL but did not do 'make
+install', this will be something like lloyd-yajl-1.0.9-0/build/yajl-1.0.9/.
+
+For the YAJL shared library to be loaded at runtime, you may need to set the
+environment variable LD_LIBRARY_PATH to ${YAJLROOT}/lib if you did not
+install YAJL it in a standard location.
+
+To run the program, first start Erlang like this:
+
+erl -pa ../json_parser/ebin
+
+Then, run the following in the Erlang shell:
+
+1> application:start(json_parser).
+ok
+2> json_parser:parse_document(<<"[null,true,{\"int\":42,\"float\":3.14}]">>).
+{ok,{undefined,true,[{<<"int">>,42},{<<"float">>,3.14}]}}
+3> 
+
+# yajl的下载方式
+https://github.com/lloyd/yajl.git
+
+# 切换到tag 为 1.0.9 的版本
+
+# 编译
+./configure --prefix /home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/yajl_install
+
+
+# 运行
+ericksun@centos7-dev:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/(master)$ export LD_LIBRARY_PATH=/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/yajl_install/lib/
+ericksun@centos7-dev:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/(master)$ erl -pa ../json_parser/ebin  -pa priv/
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> application:start(j
+jp_app         jp_server      jp_sup         json_parser
+1> application:start(json_parser).
+ok
+2> json_parser:parse_document(<<"[null,true,{\"int\":42,\"float\":3.14}]">>).
+{ok,{undefined,true,[{<<"int">>,42},{<<"float">>,3.14}]}}
+3>
+
+
+
+https://rebar3.readme.io/docs/building-cc
+
+$ rebar3 new cmake
+===> Writing c_src/Makefile
