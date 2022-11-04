@@ -38,7 +38,7 @@ gcc -o ./priv/jp_driver.so -fpic -shared -I/home/ericksun/program/otp-25.0.4/lib
 
 
 # 设置环境变量
-export LD_LIBRARY_PATH=/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/plain_port/json_parser/yajl_install/lib/:/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/port_driver/json_parser/priv
+export LD_LIBRARY_PATH=/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/yajl_install/lib/:/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/port_driver/json_parser/priv
 
 # 启动
 ericksun@centos7-dev:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/port_driver/json_parser (master)$ erl -pa ../json_parser/ebin -pa priv/

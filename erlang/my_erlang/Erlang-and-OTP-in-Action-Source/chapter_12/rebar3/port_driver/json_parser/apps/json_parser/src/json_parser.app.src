@@ -1,0 +1,15 @@
+{application, json_parser,
+ [{description, "JSON parser (using a port driver)"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {json_parser_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache-2.0"]},
+  {links, []}
+ ]}.
