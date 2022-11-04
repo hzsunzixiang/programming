@@ -9,6 +9,8 @@ Build
     $ rebar3 compile
 
 %% 实验
+LD_LIBRARY_PATH=/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/yajl_install/lib/  rebar3 shell
+
 ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/yajl_install/lib/  rebar3 shell
 ===> Verifying dependencies...
 make: Entering directory `/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/rebar3/port_driver/json_parser/apps/json_parser/c_src'
