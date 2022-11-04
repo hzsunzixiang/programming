@@ -32,9 +32,9 @@ init([Callback, IP, Port, UserArgs]) ->
                    undefined -> BasicSockOpts;
                    _         -> [{ip,IP} | BasicSockOpts]
                end,
-    {ok, LSock} = gen_tcp:listen(Port, SockOpts),
+    {ok, LSock} = gen_tcp:listen(Port, SockOpts),  %% 监听套接字赋值的地方
     Server = {gws_server, {gws_server, start_link,
-                           [Callback, LSock, UserArgs]},
+                           [Callback, LSock, UserArgs]},   % 调用 gws_server 的参数，
               temporary, brutal_kill, worker, [gws_server]},
     RestartStrategy = {simple_one_for_one, 1000, 3600},
     {ok, {RestartStrategy, [Server]}}.

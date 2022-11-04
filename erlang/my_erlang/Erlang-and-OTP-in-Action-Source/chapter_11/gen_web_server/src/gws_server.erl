@@ -16,18 +16,18 @@
 %%%===================================================================
 %%% API
 
-start_link(Callback, LSock, UserArgs) ->
+start_link(Callback, LSock, UserArgs) -> % Callback是行为模式实现模块的模块名
     gen_server:start_link(?MODULE,
-                          [Callback, LSock, UserArgs, self()], []).
+                          [Callback, LSock, UserArgs, self()], []). % start_link 由 gws_connection_sup 启动
 
 %%%===================================================================
 %%% gen_server callbacks
 
 init([Callback, LSock, UserArgs, Parent]) ->
-    {ok, UserData} = Callback:init(UserArgs),
+    {ok, UserData} = Callback:init(UserArgs), % 在 回调模块中
     State = #state{lsock = LSock, callback = Callback,
                    user_data = UserData, parent = Parent},
-    {ok, State, 0}.
+    {ok, State, 0}. % 0: 在这里触发超时
 
 handle_call(_Request, _From, State) ->
     {reply, ok, State}.
@@ -35,10 +35,10 @@ handle_call(_Request, _From, State) ->
 handle_cast(_Request, State) ->
     {noreply, State}.
 
-handle_info({http, _Sock, {http_request, _, _, _}=Request}, State) ->
+handle_info({http, _Sock, {http_request, _, _, _}=Request}, State) ->  %% 处理请求行 
     inet:setopts(State#state.socket, [{active,once}]),
     {noreply, State#state{request_line = Request}};
-handle_info({http, _Sock, {http_header, _, Name, _, Value}}, State) ->
+handle_info({http, _Sock, {http_header, _, Name, _, Value}}, State) -> %% 处理header协议头
     inet:setopts(State#state.socket, [{active,once}]),
     {noreply, header(Name, Value, State)};
 handle_info({http, _Sock, http_eoh},
@@ -47,7 +47,7 @@ handle_info({http, _Sock, http_eoh},
 handle_info({http, _Sock, http_eoh}, State) ->
     inet:setopts(State#state.socket, [{active,once}, {packet, raw}]),
     {noreply, State};
-handle_info({tcp, _Sock, Data}, State) when is_binary(Data) ->
+handle_info({tcp, _Sock, Data}, State) when is_binary(Data) ->  % 开始接受body
     ContentRem = State#state.content_remaining - byte_size(Data),
     Body       = list_to_binary([State#state.body, Data]),
     NewState = State#state{body = Body,
@@ -60,11 +60,11 @@ handle_info({tcp, _Sock, Data}, State) when is_binary(Data) ->
     end;
 handle_info({tcp_closed, _Sock}, State) ->
     {stop, normal, State};
-handle_info(timeout, #state{lsock = LSock, parent = Parent} = State) ->
+handle_info(timeout, #state{lsock = LSock, parent = Parent} = State) ->  % 在这里处理超时
     {ok, Socket} = gen_tcp:accept(LSock),
-    gws_connection_sup:start_child(Parent),
+    gws_connection_sup:start_child(Parent), % 可以多次调用 start_child 第一个参数是监督这的进程信息
     inet:setopts(Socket,[{active,once}]),
-    {noreply, State#state{socket = Socket}}.
+    {noreply, State#state{socket = Socket}}.  %% 连接套接字 socket
 
 terminate(_Reason, _State) ->
     ok.
