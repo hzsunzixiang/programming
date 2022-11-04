@@ -28,3 +28,12 @@ ok
 2> json_parser:parse_document(<<"[null,true,{\"int\":42,\"float\":3.14}]">>).
 {ok,{undefined,true,[{<<"int">>,42},{<<"float">>,3.14}]}}
 3> 
+
+# yajl的下载方式
+https://github.com/lloyd/yajl.git
+
+# 切换到1.0.9版本
+
+# 编译
+./configure --prefix /home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/plain_port/json_parser/yajl_install
+
