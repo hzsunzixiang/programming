@@ -20,7 +20,7 @@ start_link(Port) ->
     supervisor:start_link({local, ?SERVER}, ?MODULE, [Port]).
 
 start_child() ->
-    supervisor:start_child(?SERVER, []).
+    supervisor:start_child(?SERVER, []).  %% 是一个one_for_one 动态启动的进程 对应于 gws_connection_sup
 
 init([Port]) ->
     Server = {hi_server, {hi_server, start_link, [Port]},

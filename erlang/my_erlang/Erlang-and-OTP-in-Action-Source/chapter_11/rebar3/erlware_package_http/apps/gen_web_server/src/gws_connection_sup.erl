@@ -12,13 +12,30 @@
 %%% API functions
 
 start_link(Callback, IP, Port, UserArgs) ->
-    {ok, Pid} = supervisor:start_link(?MODULE, [Callback, IP,
+    % 这里使用的是：	
+	% start_link(Module, Args) -> startlink_ret()
+	% 可以启动多个实例, 为此 gws_server进程必须知道自己隶属于哪个监督者
+	% 没有使用，所以没有展示注册名
+    % start_link(SupName, Module, Args) -> startlink_ret()
+	%
+	%
+	% 方式之一 
+    % {ok, Pid} = supervisor:start_link(?MODULE, [Callback, IP,
+    %                                             Port, UserArgs]),
+    % start_child(Pid),  %% 这里没有用 SupName,所以没有展示 进程信息 
+    % {ok, Pid}.
+
+
+	% 换个方式，只启动一个实例
+    supervisor:start_link({local, ?MODULE}, ?MODULE, [Callback, IP,
                                                 Port, UserArgs]),
-    start_child(Pid),
+    Pid = whereis(?MODULE),
+    start_child(?MODULE),  %% 这里没有用 SupName,所以没有展示 进程信息 
     {ok, Pid}.
 
 start_child(Server) ->
     supervisor:start_child(Server, []).
+
 
 %%%===================================================================
 %%% Supervisor callbacks
