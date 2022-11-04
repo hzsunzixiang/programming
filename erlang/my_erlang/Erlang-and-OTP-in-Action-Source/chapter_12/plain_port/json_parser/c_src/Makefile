@@ -18,6 +18,7 @@ all:$(BIN)
 
 $(BIN):%:%.c 
 	$(CC) $(CFLAGS)  $^ $(LIB) $(INCLUDE) -o ../priv/$@
+	export LD_LIBRARY_PATH=/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/yajl_install/lib/
 
 clean:
 	rm -f *.o $(BIN) ../priv/$(BIN)
