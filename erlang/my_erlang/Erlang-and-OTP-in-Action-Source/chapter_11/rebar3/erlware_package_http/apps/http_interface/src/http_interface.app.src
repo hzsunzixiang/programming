@@ -1,0 +1,15 @@
+{application, http_interface,
+ [{description, "A RESTful HTTP interface to simple_cache"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {http_interface_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache-2.0"]},
+  {links, []}
+ ]}.
