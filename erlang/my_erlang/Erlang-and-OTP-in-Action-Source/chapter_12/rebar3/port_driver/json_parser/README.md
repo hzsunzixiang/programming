@@ -10,8 +10,6 @@ Build
 
 %% 实验
 LD_LIBRARY_PATH=/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/yajl_install/lib/  rebar3 shell
-
-ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/yajl_install/lib/  rebar3 shell
 ===> Verifying dependencies...
 make: Entering directory `/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/rebar3/port_driver/json_parser/apps/json_parser/c_src'
 gcc -Wall -g   -fpic -shared  jp_driver.c -L/home/ericksun/program/otp-25.0.4/lib/erlang/lib/erl_interface-5.3/lib -L../../../../../../yajl_install/lib/ -lei_st -lyajl -I/home/ericksun/program/otp-25.0.4/lib/erlang/lib/erl_interface-5.3/include -I/home/ericksun/program/otp-25.0.4/lib/erlang/erts-13.0.4/include/ -I../../../../../../yajl_install/include/  -o ../priv/jp_driver.so
