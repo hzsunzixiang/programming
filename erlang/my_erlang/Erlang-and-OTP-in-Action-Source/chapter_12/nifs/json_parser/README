@@ -29,3 +29,13 @@ Then, run the following in the Erlang shell:
 1> json_parser:parse_document(<<"[null,true,{\"int\":42,\"float\":3.14}]">>).
 {ok,{undefined,true,[{<<"int">>,42},{<<"float">>,3.14}]}}
 2> 
+
+%% 实践
+ericksun@centos7-dev:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/nifs/json_parser (master)$ erl -pa ../json_parser/ebin
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> json_parser:parse_document(<<"[null,true,{\"int\":42,\"float\":3.14}]">>).
+{ok,{undefined,true,[{<<"int">>,42},{<<"float">>,3.14}]}}
+2>
+
