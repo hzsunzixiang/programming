@@ -28,3 +28,25 @@ ok
 2> json_parser:parse_document(<<"[null,true,{\"int\":42,\"float\":3.14}]">>).
 {ok,{undefined,true,[{<<"int">>,42},{<<"float">>,3.14}]}}
 3> 
+
+
+# 编译erlang 
+  erlc -o ./ebin ./src/*.erl
+# 编译C
+
+gcc -o ./priv/jp_driver.so -fpic -shared -I/home/ericksun/program/otp-25.0.4/lib/erlang/erts-13.0.4/include  -I/home/ericksun/program/otp-25.0.4/lib/erlang/lib/erl_interface-5.3/include -I/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/plain_port/json_parser/yajl_install/include/ -L/home/ericksun/program/otp-25.0.4/lib/erlang/lib/erl_interface-5.3/lib/ -L/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/plain_port/json_parser/yajl_install/lib/ c_src/jp_driver.c -lei_st -lyajl
+
+
+# 设置环境变量
+export LD_LIBRARY_PATH=/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/plain_port/json_parser/yajl_install/lib/:/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/port_driver/json_parser/priv
+
+# 启动
+ericksun@centos7-dev:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/port_driver/json_parser (master)$ erl -pa ../json_parser/ebin -pa priv/
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> application:start(json_parser).
+ok
+2> json_parser:parse_document(<<"[null,true,{\"int\":42,\"float\":3.14}]">>).
+{ok,{undefined,true,[{<<"int">>,42},{<<"float">>,3.14}]}}
+
