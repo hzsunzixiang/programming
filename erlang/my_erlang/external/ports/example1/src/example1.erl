@@ -10,16 +10,32 @@
 -export([start/0, stop/0]).
 -export([twice/1, sum/2]).
 
+-define(APPNAME, example1).
+
 start() ->
     register(example1, 
 	     spawn(fun() ->
 		     process_flag(trap_exit, true),
-		     Port = open_port({spawn, "./example1"}, [{packet, 2}]),
+             Port = create_port(),
 		     loop(Port)
+
 		   end)).
+
 
 stop() ->
     ?MODULE ! stop.
+
+create_port() ->
+    case code:priv_dir(?APPNAME) of
+        {error, _} ->
+            error_logger:format("~w priv dir not found~n", [?APPNAME]),
+            exit(error);
+        PrivDir ->
+            open_port({spawn, filename:join([PrivDir, "example1"])},
+                      [{packet, 2}, exit_status])
+		    %Port = open_port({spawn, "./example1"}, [{packet, 2}]),
+    end.
+
 twice(X) -> call_port({twice, X}).
 sum(X,Y) -> call_port({sum, X, Y}).
 call_port(Msg) ->
