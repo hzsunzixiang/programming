@@ -6,35 +6,22 @@
 %%  We make no guarantees that this code is fit for any purpose. 
 %%  Visit http://www.pragmaticprogrammer.com/titles/jaerlang2 for more book information.
 %%---
--module(example1_lid).
+-module(example1).
 -export([start/0, stop/0]).
 -export([twice/1, sum/2]).
 
 start() ->
-    start("example1_drv").
-
-start(SharedLib) ->
-    case erl_ddll:load_driver("/home/ericksun/programming/erlang/my_erlang/external/ports/example1_drv/priv", SharedLib) of
-	ok -> ok;
-	{error, already_loaded} -> ok;
-	_ -> exit({error, could_not_load_driver})
-    end,
-    register(example1_lid, spawn(fun() -> init(SharedLib) end)).
-
-init(SharedLib) ->
-    Port = open_port({spawn, SharedLib}, []),
-    loop(Port).
+    register(example1, 
+	     spawn(fun() ->
+		     process_flag(trap_exit, true),
+		     Port = open_port({spawn, "./example1"}, [{packet, 2}]),
+		     loop(Port)
+		   end)).
 
 stop() ->
-%%  ...
-%%  From here on the code is identical to that in
-%%  example1.erl 
-%%  ...
     ?MODULE ! stop.
-
 twice(X) -> call_port({twice, X}).
 sum(X,Y) -> call_port({sum, X, Y}).
-
 call_port(Msg) ->
     ?MODULE ! {call, self(), Msg},
     receive
@@ -60,8 +47,8 @@ loop(Port) ->
 	{'EXIT', Port, Reason} ->
 	    exit({port_terminated, Reason})
     end.
-
-encode({twice, X})  -> [1, X];
-encode({sum, X, Y}) -> [2, X, Y].
+	
+encode({sum, X, Y}) -> [1, X, Y];
+encode({twice, X})  -> [2, X].
 
 decode([Int]) -> Int.

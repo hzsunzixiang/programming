@@ -14,7 +14,7 @@ start() ->
     start("example1_drv").
 
 start(SharedLib) ->
-    case erl_ddll:load_driver("/home/ericksun/programming/erlang/my_erlang/external/ports/example1_drv/priv", SharedLib) of
+    case erl_ddll:load_driver(".", SharedLib) of
 	ok -> ok;
 	{error, already_loaded} -> ok;
 	_ -> exit({error, could_not_load_driver})
