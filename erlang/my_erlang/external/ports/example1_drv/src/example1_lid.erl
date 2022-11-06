@@ -9,19 +9,36 @@
 -module(example1_lid).
 -export([start/0, stop/0]).
 -export([twice/1, sum/2]).
+-define(APPNAME, example1_drv).
+
 
 start() ->
     start("example1_drv").
 
 start(SharedLib) ->
-    case erl_ddll:load_driver("/home/ericksun/programming/erlang/my_erlang/external/ports/example1_drv/priv", SharedLib) of
-	ok -> ok;
-	{error, already_loaded} -> ok;
-	_ -> exit({error, could_not_load_driver})
-    end,
+    %case erl_ddll:load_driver("/home/ericksun/programming/erlang/my_erlang/external/ports/example1_drv/priv", SharedLib) of
+	%ok -> ok;
+	%{error, already_loaded} -> ok;
+	%_ -> exit({error, could_not_load_driver})
+    %end,
     register(example1_lid, spawn(fun() -> init(SharedLib) end)).
 
+
+create_port(SharedLib) ->
+    case code:priv_dir(?APPNAME) of
+        {error, _} ->
+            error_logger:format("~w priv dir not found~n", [?APPNAME]),
+            exit(error);
+        PrivDir ->
+            case erl_ddll:load(PrivDir, SharedLib) of
+                ok -> ok;
+                Other -> exit(Other)
+            end,
+            open_port({spawn, SharedLib}, [])
+    end.
+
 init(SharedLib) ->
+    create_port(SharedLib),
     Port = open_port({spawn, SharedLib}, []),
     loop(Port).
 
