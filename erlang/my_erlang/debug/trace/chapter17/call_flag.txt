@@ -1,0 +1,123 @@
+
+
+# 对于函数做追踪时， trace和trace_pattern 必须结合使用,缺一不可
+
+
+##  单纯只使用trace , flag置为 call, 但是不使用trace_pattern, 是不生效的
+
+Eshell V13.0.4  (abort with ^G)
+1> l(ping).
+{module,ping}
+2> erlang:trace(all, true, [call]).
+40
+3> Pid = ping:start().
+<0.85.0>
+4> ping:send(Pid).
+pong
+5> =ERROR REPORT==== 28-Oct-2022::02:51:08.700992 ===
+Error in process <0.87.0> with exit value:
+{undef,[{crash,do_not_exist,[],[]}]}
+
+
+5> flush().
+ok
+
+
+
+
+## 这里如果不使用 trace, 直接使用 trace_pattern  是不生效的
+Eshell V13.0.4  (abort with ^G)
+1> l(ping).
+{module,ping}
+2> erlang:trace_pattern({ping, '_', '_'}, true, [local]).
+5
+3> Pid = ping:start().
+<0.85.0>
+4> ping:send(Pid).
+pong
+5> =ERROR REPORT==== 28-Oct-2022::02:48:58.139199 ===
+Error in process <0.87.0> with exit value:
+{undef,[{crash,do_not_exist,[],[]}]}
+
+
+5> flush().
+ok
+
+# 注意 start 必须在 trace_pattern 之前，不然没响应
+Eshell V13.0.4  (abort with ^G)
+1> Pid = ping:start().
+<0.83.0>
+2> erlang:trace(all, true, [call]).
+41
+3> erlang:trace_pattern({ping, '_', '_'}, true, [local]).
+5
+4> ping:send(Pid).
+pong
+5> =ERROR REPORT==== 28-Oct-2022::02:44:57.417222 ===
+Error in process <0.87.0> with exit value:
+{undef,[{crash,do_not_exist,[],[]}]}
+
+
+5> flush().
+Shell got {trace,<0.83.0>,call,{ping,loop,[]}}
+ok
+
+
+##  trace 和 进程启动的顺序不做要求
+Eshell V13.0.4  (abort with ^G)
+1> erlang:trace(all, true, [call]).
+40
+2> Pid = ping:start().
+<0.84.0>
+3> erlang:trace_pattern({ping, '_', '_'}, true, [local]).
+5
+4> ping:send(Pid).
+pong
+5> =ERROR REPORT==== 28-Oct-2022::02:45:53.875312 ===
+Error in process <0.87.0> with exit value:
+{undef,[{crash,do_not_exist,[],[]}]}
+
+
+5> flush().
+Shell got {trace,<0.84.0>,call,{ping,loop,[]}}
+ok
+
+
+## 如果trace_pattern放在后面，需要 先 load  module
+trace 放在前后是不一样的，跟踪消息的数量有差异
+
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> l(ping).
+{module,ping}
+2>  erlang:trace(all, true, [call]).
+40
+3> erlang:trace_pattern({ping, '_', '_'}, true, [local]).
+5
+4> Pid = ping:start().
+<0.86.0>
+5> ping:send(Pid).
+pong
+6> =ERROR REPORT==== 28-Oct-2022::02:47:31.401370 ===
+Error in process <0.88.0> with exit value:
+{undef,[{crash,do_not_exist,[],[]}]}
+
+
+6> flush().
+Shell got {trace,<0.86.0>,call,{ping,loop,[]}}
+Shell got {trace,<0.86.0>,call,{ping,loop,[]}}
+ok
+
+## 必须现load模块，再 使用 trace_pattern 不然返回值为0
+Eshell V13.0.4  (abort with ^G)
+1> erlang:trace(all, true, [call]).
+40
+2> erlang:trace_pattern({ping, '_', '_'}, true, [local]).
+0
+3> Pid = ping:start().
+<0.85.0>
+4> erlang:trace_pattern({ping, '_', '_'}, true, [local]).
+5
+5>
+
