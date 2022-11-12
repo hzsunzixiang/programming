@@ -1,0 +1,51 @@
+
+
+* If argument MFA is the atom on_load, the match specification and flag list are used on all modules that are newly loaded.
+
+  如果MFA是 on_load , 新加载loaded的模块才回被跟踪
+
+
+%%% case 1 : on_load 标志为之后没有被加载，则不会有跟踪消息
+ericksun@centos7-dev:~/programming/erlang/my_erlang/debug/chapter17/trace_pattern (master)$ erl
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> l(flag_return_trace_test).
+{module,flag_return_trace_test}
+2> erlang:trace(all, true, [call]).
+40
+3> erlang:trace_pattern(on_load, [{'_', [], [{return_trace}]}], [local]).
+0
+4> Pid = flag_return_trace_test:start().
+<0.86.0>
+5> flag_return_trace_test:send(Pid).
+hello,world
+pong
+6> flush().
+ok
+
+%%% case 2 ： 有跟踪消息
+
+ericksun@centos7-dev:~/programming/erlang/my_erlang/debug/chapter17/trace_pattern (master)$ erl
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> erlang:trace(all, true, [call]).
+40
+2> erlang:trace_pattern(on_load, [{'_', [], [{return_trace}]}], [local]).
+0
+3> l(flag_return_trace_test).    %% 这里有一次加载
+{module,flag_return_trace_test}
+4> Pid = flag_return_trace_test:start().
+<0.86.0>
+5>  flag_return_trace_test:send(Pid).
+hello,world
+pong
+6> flush().
+Shell got {trace,<0.86.0>,call,{flag_return_trace_test,loop,[]}}
+Shell got {trace,<0.86.0>,call,{flag_return_trace_test,inner_fun,[]}}
+Shell got {trace,<0.86.0>,return_from,{flag_return_trace_test,inner_fun,0},ok}
+Shell got {trace,<0.86.0>,call,{flag_return_trace_test,loop,[]}}
+ok
+
+

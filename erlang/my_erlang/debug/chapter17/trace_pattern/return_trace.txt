@@ -22,6 +22,8 @@ false
 Disables tracing for all sent messages. Any match specification is removed.
 
 
+Enables or disables call tracing for one or more functions. Must be combined with erlang:trace/3 to set the call trace flag for one or more processes.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
 
