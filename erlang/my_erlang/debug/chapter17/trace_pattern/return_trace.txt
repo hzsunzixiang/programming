@@ -1,0 +1,104 @@
+
+
+
+erlang:trace_pattern({tracer_test_2, '_','_'},  [{'_',[],[{return_trace}]}],
+erlang:trace_pattern({'_', '_', '_'}, [{'_', [], [{return_trace}]}], [local]),
+erlang:trace_pattern(on_load, [{'_', [], [{return_trace}]}], [local]),
+
+* To get trace messages containing return values from functions, use the {return_trace} match specification action instead.
+  获取函数的返回值的追踪信息，在 MatchSpec 中指定 {return_trace}  
+
+
+
+Argument MatchSpec can take the following forms:
+
+MatchSpecList
+A list of match specifications. The matching is done on the list [Receiver, Msg]. Receiver is the process or port identity of the receiver and Msg is the message term. The pid of the sending process can be accessed with the guard function self/0. An empty list is the same as true. For more information, see section Match Specifications in Erlang in the User's Guide.
+
+true
+Enables tracing for all sent messages (from send traced processes). Any match specification is removed. This is the default.
+
+false
+Disables tracing for all sent messages. Any match specification is removed.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> l(flag_return_trace_test).
+{module,flag_return_trace_test}
+2> erlang:trace(all, true, [call, return_to]).
+40
+3> erlang:trace_pattern({flag_return_trace_test, '_', '_'}, [{'_', [], [{return_trace}]}], [local]).
+6
+4> Pid = flag_return_trace_test:start().
+<0.87.0>
+5> flag_return_trace_test:send(Pid).
+hello,world
+pong
+6> flush().
+Shell got {trace,<0.87.0>,call,{flag_return_trace_test,loop,[]}}
+Shell got {trace,<0.87.0>,call,{flag_return_trace_test,inner_fun,[]}}
+Shell got {trace,<0.87.0>,return_from,{flag_return_trace_test,inner_fun,0},ok}  %% 返回值是 ok
+Shell got {trace,<0.87.0>,return_to,{flag_return_trace_test,loop,0}}
+Shell got {trace,<0.87.0>,call,{flag_return_trace_test,loop,[]}}
+ok
+
+%%%% return_to 和 return_from 是相互独立的
+%%%% return_to 是由 erlang:trace/3 的flag指定的
+%%%% return_from 是由 erlang:trace_pattern/3 的 MatchSpec 指定的
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> l(flag_return_trace_test).
+{module,flag_return_trace_test}
+2> erlang:trace(all, true, [call]).
+40
+3> erlang:trace_pattern({flag_return_trace_test, '_', '_'}, [{'_', [], [{return_trace}]}], [local]).
+6
+4> Pid = flag_return_trace_test:start().
+<0.86.0>
+5>  flag_return_trace_test:send(Pid).
+hello,world
+pong
+6> flush().
+Shell got {trace,<0.86.0>,call,{flag_return_trace_test,loop,[]}}
+Shell got {trace,<0.86.0>,call,{flag_return_trace_test,inner_fun,[]}}
+Shell got {trace,<0.86.0>,return_from,{flag_return_trace_test,inner_fun,0},ok}
+Shell got {trace,<0.86.0>,call,{flag_return_trace_test,loop,[]}}
+ok
+
+
+%%%%%%%%%%% 对比一下
+
+* 选项和返回值
+erlang:trace(all, true, [call, return_to]).
+erlang:trace_pattern({flag_return_to_test, '_', '_'}, true, [local]).
+
+Shell got {trace,<0.86.0>,call,{flag_return_to_test,loop,[]}}
+Shell got {trace,<0.86.0>,call,{flag_return_to_test,inner_fun,[]}}
+Shell got {trace,<0.86.0>,return_to,{flag_return_to_test,loop,0}}
+Shell got {trace,<0.86.0>,call,{flag_return_to_test,loop,[]}}
+
+* 选项和返回值
+erlang:trace(all, true, [call, return_to]).
+erlang:trace_pattern({flag_return_trace_test, '_', '_'}, [{'_', [], [{return_trace}]}], [local]).
+
+Shell got {trace,<0.87.0>,call,{flag_return_trace_test,loop,[]}}
+Shell got {trace,<0.87.0>,call,{flag_return_trace_test,inner_fun,[]}}
+Shell got {trace,<0.87.0>,return_from,{flag_return_trace_test,inner_fun,0},ok}
+Shell got {trace,<0.87.0>,return_to,{flag_return_trace_test,loop,0}}
+Shell got {trace,<0.87.0>,call,{flag_return_trace_test,loop,[]}}
+
+* 选项和返回值
+erlang:trace(all, true, [call]).
+erlang:trace_pattern({flag_return_trace_test, '_', '_'}, [{'_', [], [{return_trace}]}], [local]).
+
+Shell got {trace,<0.86.0>,call,{flag_return_trace_test,loop,[]}}
+Shell got {trace,<0.86.0>,call,{flag_return_trace_test,inner_fun,[]}}
+Shell got {trace,<0.86.0>,return_from,{flag_return_trace_test,inner_fun,0},ok}
+Shell got {trace,<0.86.0>,call,{flag_return_trace_test,loop,[]}}
+ok
+
+%%%%%%%%%%% 对比一下
