@@ -1,0 +1,55 @@
+
+https://www.erlang.org/doc/man/erlang.html#trace-3
+
+return_to
+* Used with the call trace flag. 
+  Traces the return `from a traced function back to its caller`. 
+
+  erlang:trace(all, true, [call, return_to]).
+
+  跟踪这return, 这个return 是从被跟踪的函数返回到其调用者
+   6> flush().
+   Shell got {trace,<0.86.0>,call,{flag_return_to_test,loop,[]}}
+   Shell got {trace,<0.86.0>,call,{flag_return_to_test,inner_fun,[]}}
+   Shell got {trace,<0.86.0>,return_to,{flag_return_to_test,loop,0}}
+   Shell got {trace,<0.86.0>,call,{flag_return_to_test,loop,[]}}
+
+
+* Only works for functions traced with option local to erlang:trace_pattern/3.
+
+  erlang:trace_pattern({ping, '_', '_'}, true, [local]).
+
+
+The semantics is that a trace message is sent when a `call traced function` returns, that is, when a chain of tail recursive calls ends.
+Only one trace message is sent per chain of tail recursive calls, so the properties of tail recursiveness for function calls are kept while tracing with this flag. 
+Using call and return_to trace together makes it possible to know exactly in which function a process executes at any time.
+
+* To get trace messages containing return values from functions, use the {return_trace} match specification action instead.
+  return_to 不包含返回值，如果要取得返回值，需要使用  匹配规范中的 {return_trace}
+
+* Message tags: return_to.
+
+  Shell got {trace,<0.86.0>,return_to,{flag_return_to_test,loop,0}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> l(flag_return_to_test).
+{module,flag_return_to_test}
+2> erlang:trace(all, true, [call, return_to]).
+40
+3> erlang:trace_pattern({flag_return_to_test, '_', '_'}, true, [local]).
+6
+4> Pid = flag_return_to_test:start().
+<0.86.0>
+5> flag_return_to_test:send(Pid).
+hello,world
+pong
+6> flush().
+Shell got {trace,<0.86.0>,call,{flag_return_to_test,loop,[]}}
+Shell got {trace,<0.86.0>,call,{flag_return_to_test,inner_fun,[]}}
+Shell got {trace,<0.86.0>,return_to,{flag_return_to_test,loop,0}}
+Shell got {trace,<0.86.0>,call,{flag_return_to_test,loop,[]}}
+ok
+
