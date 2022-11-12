@@ -1,0 +1,56 @@
+
+
+
+# 汇总
+l(flag_arity_test).
+erlang:trace(all, true, [call, arity, return_to]).
+erlang:trace_pattern({flag_arity_test, '_', '_'}, [{'_', [], [{return_trace}]}], [local]).
+Pid = flag_arity_test:start().
+flag_arity_test:send(Pid).
+flush().
+
+%%%% 返回 arity
+
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> l(flag_arity_test).
+{module,flag_arity_test}
+2> erlang:trace(all, true, [call, arity, return_to]).
+40
+3> erlang:trace_pattern({flag_arity_test, '_', '_'}, [{'_', [], [{return_trace}]}], [local]),
+3> Pid = flag_arity_test:start().
+<0.85.0>
+4> flag_arity_test:send(Pid).
+hello,world: here
+pong
+5> flush().
+Shell got {trace,<0.85.0>,call,{flag_arity_test,loop,0}}
+Shell got {trace,<0.85.0>,call,{flag_arity_test,inner_fun,1}}
+Shell got {trace,<0.85.0>,return_from,{flag_arity_test,inner_fun,1},ok}
+Shell got {trace,<0.85.0>,return_to,{flag_arity_test,loop,0}}
+Shell got {trace,<0.85.0>,call,{flag_arity_test,loop,0}}
+ok
+
+%%%% 返回 返回的是参数
+
+Eshell V13.0.4  (abort with ^G)
+1> l(flag_arity_test).
+{module,flag_arity_test}
+2> erlang:trace(all, true, [call,  return_to]).
+40
+3> erlang:trace_pattern({flag_arity_test, '_', '_'}, [{'_', [], [{return_trace}]}], [local]).
+6
+4> Pid = flag_arity_test:start().
+<0.86.0>
+5> flag_arity_test:send(Pid).
+hello,world: here
+pong
+6> flush().
+Shell got {trace,<0.86.0>,call,{flag_arity_test,loop,[]}}
+Shell got {trace,<0.86.0>,call,{flag_arity_test,inner_fun,[here]}}
+Shell got {trace,<0.86.0>,return_from,{flag_arity_test,inner_fun,1},ok}
+Shell got {trace,<0.86.0>,return_to,{flag_arity_test,loop,0}}
+Shell got {trace,<0.86.0>,call,{flag_arity_test,loop,[]}}
+ok
+
