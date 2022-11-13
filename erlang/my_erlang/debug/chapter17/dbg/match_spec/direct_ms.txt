@@ -15,6 +15,7 @@ ok
 in the foo 6
 (<0.81.0>) call traceme:foo/1 (Timestamp: {1667,205970,600806})
 ok
+
 %% case 
 ericksun@centos7-dev:~/programming/erlang/my_erlang/erlang_programming/code/chapter17/dbg_ms (master)$ erl
 Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
@@ -46,7 +47,7 @@ in the foo 123
 ok
 5> traceme:baz(1,2,{ok, msg}).
 in the foo 12{ok,msg}
-(<0.81.0>) call traceme:baz(1,2,{ok,msg}) (msg) (Timestamp: {1667,206620,
+(<0.81.0>) call traceme:baz(1,2,{ok,msg}) (msg) (Timestamp: {1667,206620, %%% 返回了第二个元素 msg
                                                              416383})
 (<0.81.0>) returned from traceme:baz/3 -> ok (Timestamp: {1667,206620,416542})
 ok
