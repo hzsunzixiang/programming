@@ -1,0 +1,10 @@
+
+
+* Part of a match specification list cannot be changed directly. If a function has a match specification, it can be replaced with a new one. To change an existing match specification, use the BIF erlang:trace_info/2 to retrieve the existing match specification.
+
+ match specification list  不能被直接修改，
+ 如果函数 有  match specification 可以被新的匹配替换
+ 修改已存在的匹配，使用erlang:trace_info/2 获取已存在的匹配信息
+
+
+

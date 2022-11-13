@@ -1,0 +1,53 @@
+
+* global
+Turns on or off call tracing for global function calls (that is, calls specifying the module explicitly). Only exported functions match and only global calls generate trace messages. This is the default.
+
+默认行为，只导出 全局函数，也就是显式指定了module
+
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+	1> l(flag_return_trace_test).
+{module,flag_return_trace_test}
+2> erlang:trace(all, true, [call, return_to]).
+40
+3> erlang:trace_pattern({flag_return_trace_test, '_', '_'}, [{'_', [], [{return_trace}]}], [global]).
+5
+4> Pid = flag_return_trace_test:start().
+<0.86.0>
+5> flag_return_trace_test:send(Pid).
+hello,world
+pong
+6> flush().
+Shell got {trace,<0.86.0>,call,{flag_return_trace_test,loop,[]}}
+ok
+
+* local
+Turns on or off call tracing for all types of function calls. Trace messages are sent whenever any of the specified functions are called, regardless of how they are called. If flag return_to is set for the process, a return_to message is also sent when this function returns to its caller.
+
+不论是导出和非导出的，都会跟踪
+
+
+
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+	1> l(flag_return_trace_test).
+{module,flag_return_trace_test}
+2> erlang:trace(all, true, [call, return_to]).
+40
+3> erlang:trace_pattern({flag_return_trace_test, '_', '_'}, [{'_', [], [{return_trace}]}], [local]).
+6
+4> Pid = flag_return_trace_test:start().
+<0.86.0>
+5> flag_return_trace_test:send(Pid).
+hello,world
+pong
+6> flush().
+Shell got {trace,<0.86.0>,call,{flag_return_trace_test,loop,[]}}
+Shell got {trace,<0.86.0>,call,{flag_return_trace_test,inner_fun,[]}}
+Shell got {trace,<0.86.0>,return_from,{flag_return_trace_test,inner_fun,0},ok}
+Shell got {trace,<0.86.0>,return_to,{flag_return_trace_test,loop,0}}
+Shell got {trace,<0.86.0>,call,{flag_return_trace_test,loop,[]}}
+ok
+

@@ -1,0 +1,11 @@
+
+
+* The options global and local are mutually exclusive, and global is the default (if no options are specified). 
+  global 和 local是互斥的，global 是默认值
+
+*  The options call_count and meta perform a kind of local tracing, and cannot be combined with global.
+   call_count 和meta是 local的，不能和global 一起使用
+
+*   A function can be globally or locally traced. If global tracing is specified for a set of functions, then local, meta, call time, and call count tracing for the matching set of local functions is disabled, and conversely.
+  如果会所用global ，那么 local meta  call time, and call count 都会禁止
+

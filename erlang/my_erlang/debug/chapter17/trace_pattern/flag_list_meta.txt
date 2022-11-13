@@ -1,0 +1,81 @@
+
+# meta | {meta, Pid} | {meta, TracerModule, TracerState}
+
+* Turns on or off meta-tracing for all types of function calls. 
+  为所有类型的函数调用打开或关闭
+
+* Trace messages are sent to the tracer whenever any of the specified functions are called. If no tracer is specified, self() is used as a default tracer process.
+
+  不论任何类型的函数被调用，
+* Meta-tracing traces all processes and does not care about the process trace flags set by erlang:trace/3, the trace flags are instead fixed to [call, timestamp].
+
+  此时不会再关心 erlang:trace/3 中的 trace flags, 默认就会被固定为 [call, timestamp].
+
+
+* The match specification function {return_trace} works with meta-trace and sends its trace message to the same tracer.
+  {return_trace}  也会生效
+
+
+%% case trace flag为空 erlang:trace(all, true, []).  一样可以打印出来
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> l(flag_return_trace_test).
+{module,flag_return_trace_test}
+2> erlang:trace(all, true, []).
+0
+3> erlang:trace_pattern({flag_return_trace_test, '_', '_'}, [{'_', [], [{return_trace}]}], [meta]).
+6
+4> Pid = flag_return_trace_test:start().
+<0.86.0>
+5> flag_return_trace_test:send(Pid).
+hello,world
+pong
+6> flush().
+Shell got {trace_ts,<0.86.0>,call,
+                    {flag_return_trace_test,loop,[]},
+                    {1668,268267,976519}}
+Shell got {trace_ts,<0.86.0>,call,
+                    {flag_return_trace_test,inner_fun,[]},
+                    {1668,268269,547496}}
+Shell got {trace_ts,<0.86.0>,return_from,
+                    {flag_return_trace_test,inner_fun,0},
+                    ok,
+                    {1668,268269,547547}}
+Shell got {trace_ts,<0.86.0>,call,
+                    {flag_return_trace_test,loop,[]},
+                    {1668,268269,547549}}
+ok
+
+
+
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> l(flag_return_trace_test).
+{module,flag_return_trace_test}
+2> erlang:trace(all, true, [call, return_to]).
+40
+3> erlang:trace_pattern({flag_return_trace_test, '_', '_'}, [{'_', [], [{return_trace}]}], [meta]).
+6
+4> Pid = flag_return_trace_test:start().
+<0.86.0>
+5> flag_return_trace_test:send(Pid).
+hello,world
+pong
+6> flush().
+Shell got {trace_ts,<0.86.0>,call,
+                    {flag_return_trace_test,loop,[]},
+                    {1668,268041,528896}}
+Shell got {trace_ts,<0.86.0>,call,
+                    {flag_return_trace_test,inner_fun,[]},
+                    {1668,268043,347270}}
+Shell got {trace_ts,<0.86.0>,return_from,
+                    {flag_return_trace_test,inner_fun,0},
+                    ok,
+                    {1668,268043,347333}}
+Shell got {trace_ts,<0.86.0>,call,
+                    {flag_return_trace_test,loop,[]},
+                    {1668,268043,347335}}
+ok
+
