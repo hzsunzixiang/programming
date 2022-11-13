@@ -1,0 +1,22 @@
+
+
+
+%%% 注意 需要先load
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> l(arithmetic).
+{module,arithmetic}
+2> erlang:trace(all, true, [call]).
+40
+3> erlang:trace_pattern({arithmetic, '_', '_'}, true, [local]).
+6
+4> spawn(fun() -> arithmetic:multiply(4, 3) end).
+<0.86.0>
+5>  flush().
+Shell got {trace,<0.86.0>,call,{arithmetic,multiply,[4,3]}}
+Shell got {trace,<0.86.0>,call,{arithmetic,'-multiply/2-fun-0-',[1,0,4]}}
+Shell got {trace,<0.86.0>,call,{arithmetic,'-multiply/2-fun-0-',[2,4,4]}}
+Shell got {trace,<0.86.0>,call,{arithmetic,'-multiply/2-fun-0-',[3,8,4]}}
+ok
+

@@ -1,0 +1,47 @@
+
+
+%%% case 
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> dbg:tracer().
+{ok,<0.83.0>}
+2> dbg:p(all, [c]).
+{ok,[{matched,nonode@nohost,42}]}
+3> dbg:tpl({arithmetic, '_', '_'}, []).
+{ok,[{matched,nonode@nohost,6}]}
+4> arithmetic:multiply(4, 3).
+(<0.81.0>) call arithmetic:multiply(4,3)
+(<0.81.0>) call arithmetic:'-multiply/2-fun-0-'(1,0,4)
+(<0.81.0>) call arithmetic:'-multiply/2-fun-0-'(2,4,4)
+(<0.81.0>) call arithmetic:'-multiply/2-fun-0-'(3,8,4)
+12
+5> dbg:stop_clear().
+ok
+
+
+%% case
+Eshell V13.0.4  (abort with ^G)
+1> dbg:tracer().
+{ok,<0.83.0>}
+2> ServerPid = arithmetic_server:start().
+<0.86.0>
+3> dbg:p(ServerPid, [m, c]).
+{ok,[{matched,nonode@nohost,1}]}
+4> dbg:tpl({arithmetic_server, '_', '_'}, [{'_',[],[{return_trace}]}]).
+{ok,[{matched,nonode@nohost,12},{saved,1}]}
+5> arithmetic_server:multiply(ServerPid, 4, 3).
+(<0.86.0>) << {<0.81.0>,{multiply,4,3}}
+(<0.86.0>) call arithmetic_server:multiply(4,3)
+12
+(<0.86.0>) call arithmetic_server:'-multiply/2-fun-0-'(1,0,4)
+(<0.86.0>) returned from arithmetic_server:'-multiply/2-fun-0-'/3 -> 4
+6> (<0.86.0>) call arithmetic_server:'-multiply/2-fun-0-'(2,4,4)
+(<0.86.0>) returned from arithmetic_server:'-multiply/2-fun-0-'/3 -> 8
+(<0.86.0>) call arithmetic_server:'-multiply/2-fun-0-'(3,8,4)
+(<0.86.0>) returned from arithmetic_server:'-multiply/2-fun-0-'/3 -> 12
+(<0.86.0>) returned from arithmetic_server:multiply/2 -> 12
+(<0.86.0>) <0.81.0> ! 12
+(<0.86.0>) call arithmetic_server:loop()
+
+
