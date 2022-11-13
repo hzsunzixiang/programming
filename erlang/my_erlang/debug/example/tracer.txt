@@ -1,0 +1,28 @@
+
+## {tracer, Tracer}
+Specifies where to send the trace messages. Tracer must be the process identifier of a local process or the port identifier of a local port.
+
+
+Eshell V13.0.4  (abort with ^G)
+1> Pid = my_tracer:start().
+<0.83.0>
+2> ServerPid = arithmetic_server:start().
+<0.85.0>
+3> erlang:trace(ServerPid, true, [call, send, 'receive', {tracer, Pid}]).
+1
+4> erlang:trace_pattern({arithmetic_server, '_', '_'}, [{'_', [], [{return_trace}]}], [local]).
+12
+5> arithmetic_server:multiply(ServerPid, 4, 3).
+Process <0.85.0> received message {<0.81.0>,{multiply,4,3}}
+Function arithmetic_server:multiply invoked with arguments [4,3] in process <0.85.0>
+12
+Function arithmetic_server:'-multiply/2-fun-0-' invoked with arguments [1,0,4] in process <0.85.0>
+Function arithmetic_server:'-multiply/2-fun-0-'/3 returned 4 in process <0.85.0>
+Function arithmetic_server:'-multiply/2-fun-0-' invoked with arguments [2,4,4] in process <0.85.0>
+Function arithmetic_server:'-multiply/2-fun-0-'/3 returned 8 in process <0.85.0>
+Function arithmetic_server:'-multiply/2-fun-0-' invoked with arguments [3,8,4] in process <0.85.0>
+Function arithmetic_server:'-multiply/2-fun-0-'/3 returned 12 in process <0.85.0>
+Function arithmetic_server:multiply/2 returned 12 in process <0.85.0>
+Process <0.85.0> sent message 12 to process <0.81.0>
+Function arithmetic_server:loop invoked with arguments [] in process <0.85.0>
+
