@@ -1,0 +1,197 @@
+
+
+[{['$1','$2'], [{'andalso',{is_list,'$1'},{is_integer,'$2'}}], [{message,{caller}}]}]
+
+
+trace_pattern 没有dbg用起来方便，毕竟dgb做了很多封装，特别是dbg启动的命令可以不依赖于一个已经启动的进程
+
+## return_trace
+
+Causes a return_from trace message to be sent upon return from the current function. 
+Takes no arguments, returns true and can only be used in the MatchBody part when tracing. 
+If the process trace flag silent is active, the return_from trace message is inhibited.
+
+
+*  无条件返回return_trace
+   [{'_', [], [{return_trace}]}]
+
+8> dbg:fun2ms(fun(_) -> return_trace() end).   % 这里的_ 不加引号
+[{'_',[],[{return_trace}]}]
+
+
+Eshell V13.0.4  (abort with ^G)
+1> l(flag_return_trace_test).
+{module,flag_return_trace_test}
+2> erlang:trace(all, true, [call]).
+40
+3> erlang:trace_pattern({flag_return_trace_test, '_', '_'}, [{'_', [], [{return_trace}]}], [local]).
+6
+4> Pid = flag_return_trace_test:start().
+<0.86.0>
+5> flag_return_trace_test:send(Pid).
+in the inner_fun 1000
+pong
+6> flush().
+Shell got {trace,<0.86.0>,call,{flag_return_trace_test,loop,[]}}
+Shell got {trace,<0.86.0>,call,
+                 {flag_return_trace_test,inner_fun,[this_is_an_atom,1000]}}
+Shell got {trace,<0.86.0>,return_from,     %%%%% Causes a return_from trace message to be sent upon return from the current function. 
+                 {flag_return_trace_test,inner_fun,2},
+                 'this is an end'}         %%%%% 返回值
+Shell got {trace,<0.86.0>,call,{flag_return_trace_test,loop,[]}}
+
+
+*  添加一定的条件
+
+
+22> dbg:fun2ms(fun([M,N]) when N > X, is_atom(M)  -> return_trace() end).
+[{['$1','$2'],
+  [{'>','$2',{const,3}},{is_atom,'$1'}],
+  [{return_trace}]}]
+
+Eshell V13.0.4  (abort with ^G)
+1> X=3.
+3
+2> M=dbg:fun2ms(fun([M,N]) when N > X, is_atom(M)  -> return_trace() end).
+[{['$1','$2'],
+  [{'>','$2',{const,3}},{is_atom,'$1'}],
+  [{return_trace}]}]
+3> l(flag_return_trace_test).
+{module,flag_return_trace_test}
+4> erlang:trace(all, true, [call]).
+40
+5> erlang:trace_pattern({flag_return_trace_test, '_', '_'}, M, [local]).
+7
+6> Pid = flag_return_trace_test:start().
+<0.88.0>
+7> flag_return_trace_test:send(Pid).
+in the inner_fun 2
+in the inner_fun 1000
+pong
+8> flush().
+Shell got {trace,<0.88.0>,call,
+                 {flag_return_trace_test,inner_fun_1,[this_is_an_atom,1000]}}
+Shell got {trace,<0.88.0>,return_from,
+                 {flag_return_trace_test,inner_fun_1,2},
+                 'this is an end'}
+ok
+
+*  从元组中获取, 然后判断 
+11> dbg:fun2ms(fun([_, _, A]) when element(1, A)==ok -> message(element(2, A)) end).
+[{['_','_','$1'],
+  [{'==',{element,1,'$1'},ok}],
+  [{message,{element,2,'$1'}}]}]
+
+13> dbg:fun2ms(fun([_, _, A]) when element(1, A)==ok -> message(element(2, A)), return_trace() end).
+[{['_','_','$1'],
+  [{'==',{element,1,'$1'},ok}],
+  [{message,{element,2,'$1'}},{return_trace}]}]
+
+Eshell V13.0.4  (abort with ^G)
+1> M=dbg:fun2ms(fun([_, _, A]) when element(1, A)==ok -> message(element(2, A)), return_trace() end).
+[{['_','_','$1'],
+  [{'==',{element,1,'$1'},ok}],
+  [{message,{element,2,'$1'}},{return_trace}]}]
+
+2> l(flag_return_trace_test).
+{module,flag_return_trace_test}
+3> erlang:trace(all, true, [call]).
+40
+4> erlang:trace_pattern({flag_return_trace_test, '_', '_'}, M, [local]).
+8
+5> Pid = flag_return_trace_test:start().
+<0.87.0>
+6> flag_return_trace_test:send(Pid).
+in the inner_fun 2
+in the inner_fun_1 1000
+pong
+in the inner_fun_2 world
+7> flush().
+Shell got {trace,<0.87.0>,call,
+                 {flag_return_trace_test,inner_fun_2,[world,b,{ok,hello}]},
+                 hello}  % 返回第二个元素 hello
+Shell got {trace,<0.87.0>,return_from,
+                 {flag_return_trace_test,inner_fun_2,3},
+                 'this is an end'}
+ok
+
+## caller
+caller
+Returns the calling function as a tuple {Module, Function, Arity} or the atom undefined if the calling function cannot be determined. 
+Can only be used in the MatchBody part when tracing.
+返回 {Module, Function, Arity}
+
+Eshell V13.0.4  (abort with ^G)
+1> M=dbg:fun2ms(fun([A, B]) when is_list(A) andalso is_integer(B) -> message(caller()) end).
+[{['$1','$2'],
+  [{'andalso',{is_list,'$1'},{is_integer,'$2'}}],
+  [{message,{caller}}]}]
+2> l(flag_return_trace_test).
+{module,flag_return_trace_test}
+3> erlang:trace(all, true, [call]).
+40
+4> erlang:trace_pattern({flag_return_trace_test, '_', '_'}, M, [local]).
+9
+5> Pid = flag_return_trace_test:start().
+<0.87.0>
+6> flag_return_trace_test:send(Pid).
+in the inner_fun 2
+in the inner_fun_1 1000
+pong
+in the inner_fun_2 world
+in the inner_fun_3 [c,d]
+in the inner_fun_3 "String"
+7> flush().
+Shell got {trace,<0.87.0>,call,
+                 {flag_return_trace_test,inner_fun_3,[[c,d],100]},
+                 {flag_return_trace_test,loop,0}}   %%%% Returns the calling function as a tuple {Module, Function, Arity} 
+Shell got {trace,<0.87.0>,call,
+                 {flag_return_trace_test,inner_fun_3,["String",200]},
+                 {flag_return_trace_test,loop,0}}
+ok
+
+
+## 多个message 是不行的
+Sets an additional message appended to the trace message sent. 
+One can only set one additional message in the body.   %%% 只能添加一个
+Later calls replace the appended message.
+
+dbg:fun2ms(fun([_, _, A]) when element(1, A)==ok -> message(element(2, A)), message(element(1, A)), return_trace() end).
+
+Eshell V13.0.4  (abort with ^G)
+1> M=dbg:fun2ms(fun([_, _, A]) when element(1, A)==ok -> message(element(2, A)), message(element(1, A)), return_trace() end).
+[{['_','_','$1'],
+  [{'==',{element,1,'$1'},ok}],
+  [{message,{element,2,'$1'}},
+   {message,{element,1,'$1'}},
+   {return_trace}]}]
+2> erlang:trace(all, true, [call]).
+40
+3> erlang:trace_pattern({flag_return_trace_test, '_', '_'}, [{'_', [], [{return_trace}]}], [local]).
+0
+4> erlang:trace_pattern({flag_return_trace_test, '_', '_'}, M, [local]).
+0
+5> Pid = flag_return_trace_test:start().
+<0.87.0>
+6> flag_return_trace_test:send(Pid).
+in the inner_fun 2
+in the inner_fun_1 1000
+pong
+in the inner_fun_2 world
+in the inner_fun_3 [c,d]
+in the inner_fun_3 "String"
+7> flush().
+ok
+
+
+8> dbg:fun2ms(fun([A, A]) -> ok end).
+[{['$1','$1'],[],[ok]}]
+9>
+9>
+9> dbg:fun2ms(fun([A, B]) when A > B -> enable_trace(garbage_collection) end).
+[{['$1','$2'],
+  [{'>','$1','$2'}],
+  [{enable_trace,garbage_collection}]}]
+
+
+ 
