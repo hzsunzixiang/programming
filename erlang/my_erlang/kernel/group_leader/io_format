@@ -1,0 +1,27 @@
+
+%% io:format
+format(Format) -> ok
+format(Format, Data) -> ok
+format(IoDevice, Format, Data) -> ok   % IoDevice
+fwrite(Format) -> ok
+fwrite(Format, Data) -> ok
+fwrite(IoDevice, Format, Data) -> ok
+Types
+IoDevice = device()   % IoDevice
+Format = format()
+Data = [term()]
+Writes the items in Data 
+
+
+%% device() 
+device() = atom() | pid()
+An I/O device, either standard_io, standard_error, a registered name, or a pid handling I/O protocols (returned from file:open/2).
+
+For more information about the built-in devices see Standard Input/Output and Standard Error.
+
+
+%%%% erlang:display
+erlang:display(Term) -> true
+Types
+Term = term()
+Prints a text representation of Term on the standard output.
