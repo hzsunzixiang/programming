@@ -1,9 +1,56 @@
 
-(a@centos7-dev)17> group_leader() ! {io_request, self(), make_ref(), {put_chars, unicode, "hello\n"}}.
-hello
-{io_request,<0.107.0>,#Ref<0.2239822010.1744044034.17786>,
-	            {put_chars,unicode,"hello\n"}}
-				(a@centos7-dev)18>
+
+%%%%% 以group_leader 来发送才可以， 直接就被 group_leader 执行了
+(b@centos7-dev)30> group_leader().
+<0.72.0>
+(b@centos7-dev)31> register(group_leader_1, group_leader()).
+true
+hello,world
+hello,world
+hello,world
+(b@centos7-dev)32>
+
+
+(a@centos7-dev)40> Pid = rpc:call('b@centos7-dev', erlang, whereis, [group_leader_1]).
+<9437.72.0>
+(a@centos7-dev)41>
+(a@centos7-dev)41>
+(a@centos7-dev)41> Pid ! {io_request, self(), make_ref(), {put_chars, unicode, "hello,world\n"}}.
+{io_request,<0.136.0>,#Ref<0.3539314996.2311061507.8179>,
+            {put_chars,unicode,"hello,world\n"}}
+(a@centos7-dev)42> Pid ! {io_request, self(), make_ref(), {put_chars, unicode, "hello,world\n"}}.
+{io_request,<0.136.0>,#Ref<0.3539314996.2311061507.8184>,
+            {put_chars,unicode,"hello,world\n"}}
+(a@centos7-dev)43>
+(a@centos7-dev)43> Pid ! {io_request, self(), make_ref(), {put_chars, unicode, "hello,world\n"}}.
+{io_request,<0.136.0>,#Ref<0.3539314996.2311061507.8189>,
+            {put_chars,unicode,"hello,world\n"}}
+
+
+
+%%%%% 下面的其实并不生效，直接原原本本的接手了以个元组
+% a 节点 直接获取B节点的Pid，然后直接发送
+
+(a@centos7-dev)24> Pid = rpc:call('b@centos7-dev', erlang, whereis, [hello_server]).
+<9437.116.0>
+(a@centos7-dev)25> rpc:call('b@centos7-dev', erlang, is_process_alive, [Pid]).
+true
+(a@centos7-dev)28> Pid ! {io_request, self(), make_ref(), {put_chars, unicode, "hello\n"}}.
+{io_request,<0.113.0>,#Ref<0.3539314996.2311061507.8105>,
+            {put_chars,unicode,"hello\n"}}
+(a@centos7-dev)29>
+
+
+% b节点flush
+
+
+(b@centos7-dev)23> flush().
+Shell got {io_request,<9372.113.0>,#Ref<9372.3539314996.2311061507.8105>,
+                      {put_chars,unicode,"hello\n"}}
+ok
+(b@centos7-dev)24>
+
+
 
 
 https://www.erlang.org/doc/apps/stdlib/io_protocol.html
