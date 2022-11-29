@@ -1,0 +1,26 @@
+
+(a@centos7-dev)17> group_leader() ! {io_request, self(), make_ref(), {put_chars, unicode, "hello\n"}}.
+hello
+{io_request,<0.107.0>,#Ref<0.2239822010.1744044034.17786>,
+	            {put_chars,unicode,"hello\n"}}
+				(a@centos7-dev)18>
+
+
+https://www.erlang.org/doc/apps/stdlib/io_protocol.html
+
+2.1  Protocol Basics
+As described in Robert's paper, I/O servers and clients communicate using io_request/io_reply tuples as follows:
+
+{io_request, From, ReplyAs, Request}
+{io_reply, ReplyAs, Reply}
+The client sends an io_request tuple to the I/O server and the server eventually sends a corresponding io_reply tuple.
+
+From is the pid() of the client, the process which the I/O server sends the I/O reply to.
+
+ReplyAs can be any datum and is returned in the corresponding io_reply. The io module monitors the the I/O server and uses the monitor reference as the ReplyAs datum. A more complicated client can have many outstanding I/O requests to the same I/O server and can use different references (or something else) to differentiate among the incoming I/O replies. Element ReplyAs is to be considered opaque by the I/O server.
+
+Notice that the pid() of the I/O server is not explicitly present in tuple io_reply. The reply can be sent from any process, not necessarily the actual I/O server.
+
+Request and Reply are described below.
+
+When an I/O server receives an io_request tuple, it acts upon the Request part and eventually sends an io_reply tuple with the corresponding Reply part.

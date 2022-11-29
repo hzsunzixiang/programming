@@ -25,3 +25,25 @@ erlang:display(Term) -> true
 Types
 Term = term()
 Prints a text representation of Term on the standard output.
+
+%% spawn
+(a@centos7-dev)7> spawn('b@centos7-dev', fun()->io:format("hello world~n") end).
+<9797.92.0>
+hello world
+(a@centos7-dev)8>
+
+%%%%%%%%
+(a@centos7-dev)9> spawn('b@centos7-dev', fun()->erlang:display("hello world~n") end).
+<9797.93.0>
+(a@centos7-dev)10>
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ericksun@centos7-dev:~/programming/erlang/my_erlang/begin_end (master)$ erl -sname b
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+(b@centos7-dev)1> "hello world~n"
+
+
+
+
+

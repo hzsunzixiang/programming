@@ -1,0 +1,11 @@
+
+在 #Port<0.7> 打开的情况下:
+
+(a@centos7-dev)14> user_drv ! {#Port<0.7>, {data,"1+1.\r"}}.
+{#Port<0.7>,{data,"1+1.\r"}}
+(a@centos7-dev)15> 1+1.
+2
+(a@centos7-dev)16> user_drv ! {#Port<0.8>, {data,"1+1.\r"}}.
+{#Port<0.8>,{data,"1+1.\r"}}
+(a@centos7-dev)17>
+
