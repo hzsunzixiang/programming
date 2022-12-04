@@ -19,7 +19,7 @@ ok
 7> code_lock:set_lock_button(y).
 Open   %%% 这里有状态变化,触发了enter分支
 x
-Locked
+Locked  % 这里是 code_lock:button(y). 触发的。。。
 
 6:15:08.212251 <0.153.0> code_lock:button(a)
 

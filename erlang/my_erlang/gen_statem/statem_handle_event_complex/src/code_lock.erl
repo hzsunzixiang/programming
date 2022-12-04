@@ -7,6 +7,15 @@
 -export([init/1,callback_mode/0,terminate/3]).
 -export([handle_event/4]).
 
+% 如果先执行 code_lock:button(y). 则没响应，会延迟到 set_lock_button 之后执行
+%  6> code_lock:button(y).
+%  ok
+%  7> code_lock:set_lock_button(y).
+%  Open   %%% 这里有状态变化,触发了enter分支
+%  x
+%  Locked  % 这里是 code_lock:button(y). 触发的。。。
+
+
 start_link(Code, LockButton) ->
     gen_statem:start_link( {local,?NAME}, ?MODULE, {Code,LockButton}, []).
 
@@ -55,6 +64,8 @@ handle_event(enter, _OldState, {open,_}, _Data) ->
     {keep_state_and_data, [{state_timeout,10000,lock}]}; % Time in milliseconds
 handle_event(state_timeout, lock, {open,LockButton}, Data) ->
     {next_state, {locked,LockButton}, Data};
+%6:22:31.929709 <0.162.0> code_lock:handle_event(cast, {button,x}, {open,x}, #{buttons=>[a,b], code=>[a,b,c], length=>3})
+%% 这里是精髓， 直接匹配 LockButton , 
 handle_event(cast, {button,LockButton}, {open,LockButton}, Data) ->
     {next_state, {locked,LockButton}, Data};
 handle_event(cast, {button,_}, {open,_}, _Data) ->
