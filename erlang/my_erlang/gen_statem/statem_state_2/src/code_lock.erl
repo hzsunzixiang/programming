@@ -29,13 +29,14 @@ callback_mode() ->
 -define(HANDLE_COMMON,
     ?FUNCTION_NAME(T, C, D) -> handle_common(T, C, D)).
 %%
+%% To illustrate this we make up an example where the buttons instead generate down and up (press and release) events, 
+%% and the lock responds to an up event only after the corresponding down event.
 handle_common(cast, {down,Button}, Data) ->
     {keep_state, Data#{button => Button}};
 handle_common(cast, {up,Button}, Data) ->
     case Data of
         #{button := Button} ->
-            {keep_state, maps:remove(button, Data),
-             [{next_event,internal,{button,Button}}]};
+            {keep_state, maps:remove(button, Data), [{next_event,internal,{button,Button}}]};
         #{} ->
             keep_state_and_data
     end;
@@ -47,9 +48,7 @@ locked(enter, _OldState, Data) ->
     {keep_state, Data#{buttons := []}};
 locked(state_timeout, button, Data) ->
     {keep_state, Data#{buttons := []}};
-locked(
-  internal, {button,Button},
-  #{code := Code, length := Length, buttons := Buttons} = Data) ->
+locked(internal, {button,Button}, #{code := Code, length := Length, buttons := Buttons} = Data) ->
     NewButtons =
         if
             length(Buttons) < Length ->
@@ -65,10 +64,16 @@ locked(
              [{state_timeout,30000,button}]} % Time in milliseconds
     end;
 ?HANDLE_COMMON.
+% You return a list containing state_enter from your callback_mode/0 function and 
+% the gen_statem engine will call your state callback once with an event (enter, OldState, ...) 
+% whenever it does a state change.   % 每当有状态变化时
+% Then you just need to handle these event-like calls in all states.
+% at every state change, call the state callback with arguments (enter, OldState, Data) or (enter, OldState, State, Data), 
+% depending on the callback mode. 
+% This may look like an event but is really a call performed after the previous state callback returned and before any event is delivered to the new state callback.
 open(enter, _OldState, _Data) ->
     do_unlock(),
-    {keep_state_and_data,
-     [{state_timeout,10000,lock}]}; % Time in milliseconds
+    {keep_state_and_data, [{state_timeout,10000,lock}]}; % Time in milliseconds
 open(state_timeout, lock, Data) ->
     {next_state, locked, Data};
 open(internal, {button,_}, _) ->
