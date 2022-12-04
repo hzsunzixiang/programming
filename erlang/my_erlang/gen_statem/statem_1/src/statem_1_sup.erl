@@ -29,7 +29,13 @@ init([]) ->
     SupFlags = #{strategy => one_for_all,
                  intensity => 0,
                  period => 1},
-    ChildSpecs = [],
-    {ok, {SupFlags, ChildSpecs}}.
+    ChildSpecList = [child(code_lock)],
+    {ok, {SupFlags, ChildSpecList}}.
+
+child(Module) ->
+    {Module, {Module, start_link, [[a,b,c]]},
+     permanent, 2000, worker, [Module]}.
 
 %% internal functions
+
+
