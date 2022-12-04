@@ -1,0 +1,128 @@
+
+1>
+1> {ok, Dev} = file:open("./statem_recon_1.txt",[write]).
+{ok,<0.164.0>}
+2> recon_trace:calls([{code_lock, '_', fun(_) -> return_trace() end}], 10000, [return_to,{scope, local}, {io_server, Dev}]).
+12
+3> %code_lock:start_link([a,b,c]).
+3> code_lock:button(a).
+ok
+4> code_lock:button(b).
+ok
+5> code_lock:button(c).
+Open
+ok
+6>
+6>
+6> code_lock:button(y).
+ok
+7> code_lock:set_lock_button(y).
+Open   %%% 这里有状态变化,触发了enter分支
+x
+Locked
+
+6:15:08.212251 <0.153.0> code_lock:button(a)
+
+6:15:08.215385 <0.153.0> code_lock:button/1 --> ok
+
+6:15:08.215453 <0.153.0>  '--> erl_eval:do_apply/7
+
+6:15:08.215518 <0.162.0> code_lock:handle_event(cast, {button,a}, {locked,x}, #{buttons=>[], code=>[a,b,c], length=>3})
+
+6:15:08.215619 <0.162.0> code_lock:handle_event/4 --> {keep_state,#{buttons => [a],code => [a,b,c],length => 3},
+            [{state_timeout,30000,button}]}
+
+6:15:08.215712 <0.162.0>  '--> gen_statem:loop_state_callback/11
+
+6:15:08.215771 <0.153.0> code_lock:button(b)
+
+6:15:08.215815 <0.153.0> code_lock:button/1 --> ok
+
+6:15:08.215869 <0.153.0>  '--> erl_eval:do_apply/7
+
+6:15:08.215910 <0.162.0> code_lock:handle_event(cast, {button,b}, {locked,x}, #{buttons=>[a], code=>[a,b,c], length=>3})
+
+6:15:08.215993 <0.162.0> code_lock:handle_event/4 --> {keep_state,#{buttons => [a,b],code => [a,b,c],length => 3},
+            [{state_timeout,30000,button}]}
+
+6:15:08.216077 <0.162.0>  '--> gen_statem:loop_state_callback/11
+
+6:15:08.216133 <0.153.0> code_lock:button(c)
+
+6:15:08.216176 <0.153.0> code_lock:button/1 --> ok
+
+6:15:08.216229 <0.153.0>  '--> erl_eval:do_apply/7
+
+6:15:08.216283 <0.162.0> code_lock:handle_event(cast, {button,c}, {locked,x}, #{buttons=>[a,b], code=>[a,b,c], length=>3})
+
+6:15:08.216368 <0.162.0> code_lock:handle_event/4 --> {next_state,{open,x},#{buttons => [a,b],code => [a,b,c],length => 3}}
+
+6:15:08.216459 <0.162.0>  '--> gen_statem:loop_state_callback/11
+
+6:15:08.216512 <0.162.0> code_lock:handle_event(enter, {locked,x}, {open,x}, #{buttons=>[a,b], code=>[a,b,c], length=>3})
+
+6:15:08.216592 <0.162.0> code_lock:do_unlock()
+
+6:15:08.216642 <0.162.0> code_lock:do_unlock/0 --> ok
+
+6:15:08.216695 <0.162.0>  '--> code_lock:handle_event/4
+
+6:15:08.216743 <0.162.0> code_lock:handle_event/4 --> {keep_state_and_data,[{state_timeout,10000,lock}]}
+
+6:15:08.216808 <0.162.0>  '--> gen_statem:loop_state_callback/11
+
+6:15:13.648259 <0.153.0> code_lock:button(y)
+
+6:15:13.648442 <0.153.0> code_lock:button/1 --> ok
+
+6:15:13.648562 <0.153.0>  '--> erl_eval:do_apply/7
+
+6:15:13.648734 <0.162.0> code_lock:handle_event(cast, {button,y}, {open,x}, #{buttons=>[a,b], code=>[a,b,c], length=>3})
+
+6:15:13.648927 <0.162.0> code_lock:handle_event/4 --> {keep_state_and_data,[postpone]}
+
+6:15:13.649051 <0.162.0>  '--> gen_statem:loop_state_callback/11
+
+6:15:13.649103 <0.153.0> code_lock:set_lock_button(y)
+
+6:15:13.649198 <0.162.0> code_lock:handle_event({call,{<0.153.0>,#Ref<0.1311249082.4273209346.244051>}}, {set_lock_button,y}, {open,x}, #{buttons=>[a,b], code=>[a,b,c], length=>3})
+
+6:15:13.649354 <0.162.0> code_lock:handle_event/4 --> {next_state,{open,y},
+            #{buttons => [a,b],code => [a,b,c],length => 3},
+            [{reply,{<0.153.0>,#Ref<0.1311249082.4273209346.244051>},x}]}
+
+6:15:13.649517 <0.162.0>  '--> gen_statem:loop_state_callback/11
+
+6:15:13.649572 <0.162.0> code_lock:handle_event(enter, {open,x}, {open,y}, #{buttons=>[a,b], code=>[a,b,c], length=>3})
+
+6:15:13.649709 <0.162.0> code_lock:do_unlock()
+
+6:15:13.649752 <0.153.0> code_lock:set_lock_button/1 --> x
+
+6:15:13.649792 <0.153.0>  '--> erl_eval:do_apply/7
+
+6:15:13.649833 <0.162.0> code_lock:do_unlock/0 --> ok
+
+6:15:13.649876 <0.162.0>  '--> code_lock:handle_event/4
+
+6:15:13.649911 <0.162.0> code_lock:handle_event/4 --> {keep_state_and_data,[{state_timeout,10000,lock}]}
+
+6:15:13.649974 <0.162.0>  '--> gen_statem:loop_state_callback/11
+
+6:15:13.650015 <0.162.0> code_lock:handle_event(cast, {button,y}, {open,y}, #{buttons=>[a,b], code=>[a,b,c], length=>3})
+
+6:15:13.650179 <0.162.0> code_lock:handle_event/4 --> {next_state,{locked,y},#{buttons => [a,b],code => [a,b,c],length => 3}}
+
+6:15:13.650346 <0.162.0>  '--> gen_statem:loop_state_callback/11
+
+6:15:13.650410 <0.162.0> code_lock:handle_event(enter, {open,y}, {locked,y}, #{buttons=>[a,b], code=>[a,b,c], length=>3})
+
+6:15:13.650544 <0.162.0> code_lock:do_lock()
+
+6:15:13.650588 <0.162.0> code_lock:do_lock/0 --> ok
+
+6:15:13.650629 <0.162.0>  '--> code_lock:handle_event/4
+
+6:15:13.650669 <0.162.0> code_lock:handle_event/4 --> {keep_state,#{buttons => [],code => [a,b,c],length => 3}}
+
+6:15:13.650765 <0.162.0>  '--> gen_statem:loop_state_callback/11
