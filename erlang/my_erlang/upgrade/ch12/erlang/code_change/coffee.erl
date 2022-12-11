@@ -9,7 +9,7 @@ start_link() ->
 init() ->
     register(?MODULE, self()),
     hw:reboot(),
-    hw:display("Make Your Selection", []),
+    hw:display("Make Your Selection in old version", []),
     selection().
 
 %% Client Functions for Drink Selections

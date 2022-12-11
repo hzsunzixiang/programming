@@ -10,7 +10,7 @@ start_link() ->
 init() ->
     register(?MODULE, self()),
     hw:reboot(),
-    hw:display("Make Your Selection", []),
+    hw:display("Make Your Selection in new version", []),
     selection().
 
 %% Client Functions for Drink Selections
@@ -80,6 +80,8 @@ remove() ->
     end.
 
 code_change({payment, Type, Price, Paid}, _) ->
+    io:format("in code_change.....~n"),
     payment(Type, Price, Paid);
 code_change(State, _) ->
+    io:format("in code_change State:.....~n"),
     State().
