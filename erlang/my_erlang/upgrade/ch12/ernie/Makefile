@@ -31,4 +31,4 @@ compile:${MODS:%=%.beam}
 
 clean:
 	rm -rf rm *.script *.boot *.beam ${RELEASE_NAME}_release start.sh  ${RELEASE_NAME}.rel 
-	cd ${RELEASE_NAME}/src && make clean
+	cd ${RELEASE_NAME}/src && rm *.beam
