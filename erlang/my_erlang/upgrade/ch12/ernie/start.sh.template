@@ -6,7 +6,7 @@ LIB_DIR=`erl -noshell -eval 'io:format(code:lib_dir()),erlang:halt()'`
 ERTS_VERSION=$(echo $(basename `ls -d $LIB_DIR/erts-*`)|awk -F'-' '{print $2}')
 
 
-HEART_SCRIPT=${RELEASE_NAME}_heart
+#HEART_SCRIPT=${RELEASE_NAME}_heart
 
 tar xvf  ${RELEASE_NAME}.tar.gz
 
@@ -20,7 +20,7 @@ cp erts-${ERTS_VERSION}/bin/to_erl bin
 sed  -i '/exec $BINDIR/ s/$/ -heart/'  bin/start_erl
 
 
-cp ${HEART_SCRIPT} bin/ && chmod +x bin/${HEART_SCRIPT}
+#cp ${HEART_SCRIPT} bin/ && chmod +x bin/${HEART_SCRIPT}
 
 mkdir -p log
 
@@ -28,7 +28,7 @@ perl -i -pe "s#%FINAL_ROOTDIR%#$PWD#" bin/start
 diff erts-${ERTS_VERSION}/bin/start.src bin/start
 echo "$ERTS_VERSION 1.0" > releases/start_erl.data
 
-export HEART_COMMAND=`pwd`/bin/${HEART_SCRIPT}
+#export HEART_COMMAND=`pwd`/bin/${HEART_SCRIPT}
 
 bin/start
 # 这行不能在这个脚本中运行， 必须在独立的shell中运行
