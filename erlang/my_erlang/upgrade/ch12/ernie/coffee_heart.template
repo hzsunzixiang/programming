@@ -1,0 +1,6 @@
+#!/bin/sh
+#Basic Heart Script for the simple cache 
+
+ROOTDIR=RUN_DIR_NAME
+
+$ROOTDIR/bin/start
