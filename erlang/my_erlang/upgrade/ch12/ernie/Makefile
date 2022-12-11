@@ -9,7 +9,7 @@ ERL = erl -boot start_clean
 
 MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 
-RELEASE_NAME=coffee
+RELEASE_NAME=coffee-1.0
 
 RUN_BIN=handle_release
 all:dir_name compile
@@ -22,7 +22,7 @@ dir_name:
 compile:${MODS:%=%.beam}
 	erlc $(RUN_BIN).erl
 	mkdir -p ${RELEASE_NAME}_release
-	cd ${RELEASE_NAME}/src && make 
+	cd ${RELEASE_NAME}/src && erl -make 
 
 
 #RUN_BIN=hello
