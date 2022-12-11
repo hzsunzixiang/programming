@@ -28,12 +28,14 @@ cancel()      -> ?MODULE ! cancel.
 selection() ->
     receive
 	{selection, Type, Price} ->
-	    hw:display("Please pay:~w",[Price]),
+	    hw:display("Please pay in new version:~w",[Price]),
 	    payment(Type, Price, 0);
 	{pay, Coin} ->
+	    hw:display("Please pay in new version pay coin:"),
 	    hw:return_change(Coin),
 	    selection();
 	{upgrade, Data} ->
+	    hw:display("Please pay in new version upgrade selection:"),
 	    ?MODULE:code_change(fun selection/0, Data);
 	_Other ->   % cancel
 	    selection()
@@ -44,7 +46,7 @@ payment(Type, Price, Paid) ->
     receive
 	{pay, Coin} ->
 	    if Coin + Paid >= Price ->
-		    hw:display("Preparing Drink.",[]),
+		    hw:display("Preparing Drink in new version.",[]),
 		    hw:return_change(Coin + Paid - Price),
 		    hw:drop_cup(), hw:prepare(Type),
 		    hw:display("Remove Drink.", []),
@@ -59,8 +61,10 @@ payment(Type, Price, Paid) ->
 	    hw:return_change(Paid),
 	    selection();
 	{upgrade, Data} ->
+	    hw:display("Please pay in new version upgrade payment:"),
 	    ?MODULE:code_change({payment, Type, Price, Paid}, Data);
 	_Other -> %selection
+		io:format("_Other  in new version."),
 	    payment(Type, Price, Paid)
     end.
 
@@ -74,6 +78,7 @@ remove() ->
 	    hw:return_change(Coin),
 	    remove();
 	{upgrade, Data} ->
+	    hw:display("Please pay in new version upgrade remove:"),
 	    ?MODULE:code_change(fun remove/0, Data);
 	_Other ->   % cancel/selection  
 	    remove()
