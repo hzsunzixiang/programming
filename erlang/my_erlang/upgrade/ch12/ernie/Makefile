@@ -23,7 +23,7 @@ dir_name:
 compile:${MODS:%=%.beam}
 	erlc $(RUN_BIN).erl
 	mkdir -p ${RELEASE_NAME}_release
-	cd ${RELEASE_NAME}/src && erl -make 
+	cd ${RELEASE_NAME}/src && make 
 
 
 #RUN_BIN=hello
@@ -32,4 +32,4 @@ compile:${MODS:%=%.beam}
 
 clean:
 	rm -rf rm *.script *.boot *.beam ${RELEASE_NAME}_release start.sh  ${RELEASE_NAME}.rel 
-	cd ${RELEASE_NAME}/src && rm *.beam
+	cd ${RELEASE_NAME}/src &&  make clean
