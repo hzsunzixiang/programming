@@ -14,7 +14,8 @@ RELEASE_NAME=coffee-1.0
 RUN_BIN=handle_release
 all:dir_name compile
 	erl -noshell -s $(RUN_BIN) start -s init stop
-	cp start.sh ${RELEASE_NAME}_heart ${RELEASE_NAME}_release 
+	#cp start.sh ${RELEASE_NAME}_heart ${RELEASE_NAME}_release 
+	cp start.sh  ${RELEASE_NAME}_release 
 
 dir_name:
 	bash find_the_version.sh
