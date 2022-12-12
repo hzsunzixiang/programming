@@ -28,6 +28,9 @@ perl -i -pe "s#%FINAL_ROOTDIR%#$PWD#" bin/start
 diff erts-${ERTS_VERSION}/bin/start.src bin/start
 echo "$ERTS_VERSION 1.0" > releases/start_erl.data
 
+# compile erlang script
+erl -make 
+
 #export HEART_COMMAND=`pwd`/bin/${HEART_SCRIPT}
 
 bin/start
