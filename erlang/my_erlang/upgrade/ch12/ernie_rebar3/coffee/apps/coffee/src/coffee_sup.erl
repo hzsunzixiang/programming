@@ -1,35 +1,21 @@
-%%%-------------------------------------------------------------------
-%% @doc coffee top level supervisor.
-%% @end
-%%%-------------------------------------------------------------------
-
 -module(coffee_sup).
-
 -behaviour(supervisor).
+-export([start_link/0, init/1]).
+-define(CHILD(I, Type), {I, {I, start_link, []}, permanent, 5000, Type, [I]}).
+-vsn('1.0').
 
--export([start_link/0]).
-
--export([init/1]).
-
--define(SERVER, ?MODULE).
+%% ===================================================================
+%% API functions
+%% ===================================================================
 
 start_link() ->
-    supervisor:start_link({local, ?SERVER}, ?MODULE, []).
+    supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
-%% sup_flags() = #{strategy => strategy(),         % optional
-%%                 intensity => non_neg_integer(), % optional
-%%                 period => pos_integer()}        % optional
-%% child_spec() = #{id => child_id(),       % mandatory
-%%                  start => mfargs(),      % mandatory
-%%                  restart => restart(),   % optional
-%%                  shutdown => shutdown(), % optional
-%%                  type => worker(),       % optional
-%%                  modules => modules()}   % optional
+%% ===================================================================
+%% Supervisor callbacks
+%% ===================================================================
+
 init([]) ->
-    SupFlags = #{strategy => one_for_all,
-                 intensity => 0,
-                 period => 1},
-    ChildSpecs = [],
-    {ok, {SupFlags, ChildSpecs}}.
+    {ok, { {one_for_one, 5, 10}, [?CHILD(coffee_fsm, worker)]}}.
 
-%% internal functions
+ 
