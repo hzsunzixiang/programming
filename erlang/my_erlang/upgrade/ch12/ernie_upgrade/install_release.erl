@@ -9,6 +9,9 @@ start() ->
     ReleaseName="coffee-1.1",
     application:which_applications(),
     release_handler:unpack_release(ReleaseName),
+    %release_handler:unpack_release("coffee-1.1").
+    %coffee_fsm:espresso().
+    %coffee_fsm:pay(100).
     release_handler:install_release("1.1"),
 
 	'this is an end'.
