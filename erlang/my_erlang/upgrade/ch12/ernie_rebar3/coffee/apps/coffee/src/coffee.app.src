@@ -1,6 +1,6 @@
 {application, coffee,
  [{description, "Coffee Machine Controller"},
-  {vsn, "1.0"},
+  {vsn, "1.1"},
   {registered, []},
   {mod, {coffee_app, []}},
   {applications,
