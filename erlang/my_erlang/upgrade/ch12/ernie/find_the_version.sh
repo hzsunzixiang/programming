@@ -5,6 +5,7 @@
 LIB_DIR=`erl -noshell -eval 'io:format(code:lib_dir()),erlang:halt()'`
 
 RELEASE_NAME=coffee-1.0
+RELEASE_NAME_UPGRADE=coffee-1.1
 HEART_SCRIPT=${RELEASE_NAME}_heart
 #echo $LIB_DIR
 
@@ -20,6 +21,8 @@ MNESIA_VERSION=$(echo $(basename `ls -d $LIB_DIR/mnesia-*`)|awk -F'-' '{print $2
 echo $MNESIA_VERSION
 
 sed 's/erts_version/'"$ERTS_VERSION"'/g;s/mnesia_version/'"$MNESIA_VERSION"'/g;s/kernel_version/'"$KERNEL_VERSION"'/g; s/stdlib_version/'"$STDLIB_VERSION"'/g; s/sasl_version/'"$SASL_VERSION"'/g' ${RELEASE_NAME}.rel.template > ${RELEASE_NAME}.rel
+
+sed 's/erts_version/'"$ERTS_VERSION"'/g;s/mnesia_version/'"$MNESIA_VERSION"'/g;s/kernel_version/'"$KERNEL_VERSION"'/g; s/stdlib_version/'"$STDLIB_VERSION"'/g; s/sasl_version/'"$SASL_VERSION"'/g' ${RELEASE_NAME_UPGRADE}.rel.template > ${RELEASE_NAME_UPGRADE}.rel
 
 
 #ERLANG_DIR_NAME=$(echo $(dirname $LIB_DIR))

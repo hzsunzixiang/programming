@@ -10,6 +10,7 @@ ERL = erl -boot start_clean
 MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 
 RELEASE_NAME=coffee-1.0
+RELEASE_NAME_UPGRADE=coffee-1.1
 
 RUN_BIN=handle_release
 all:dir_name compile
@@ -24,6 +25,7 @@ compile:${MODS:%=%.beam}
 	erlc $(RUN_BIN).erl
 	mkdir -p ${RELEASE_NAME}_release
 	cd ${RELEASE_NAME}/src && make 
+	cd ${RELEASE_NAME_UPGRADE}/src && make 
 
 
 #RUN_BIN=hello
@@ -31,5 +33,6 @@ compile:${MODS:%=%.beam}
 #	erl -noshell -s $(RUN_BIN) start  -s init stop
 
 clean:
-	rm -rf rm *.script *.boot *.beam ${RELEASE_NAME}_release start.sh  ${RELEASE_NAME}.rel 
+	rm -rf rm *.script *.boot *.beam ${RELEASE_NAME}_release start.sh  ${RELEASE_NAME}.rel ${RELEASE_NAME_UPGRADE}.rel 
 	cd ${RELEASE_NAME}/src &&  make clean
+	cd ${RELEASE_NAME_UPGRADE}/src &&  make clean
