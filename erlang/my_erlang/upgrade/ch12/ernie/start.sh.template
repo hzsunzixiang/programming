@@ -31,6 +31,9 @@ echo "$ERTS_VERSION 1.0" > releases/start_erl.data
 # compile erlang script
 erl -make 
 
+# rm
+rm releases/1.0/relup
+
 #export HEART_COMMAND=`pwd`/bin/${HEART_SCRIPT}
 
 bin/start

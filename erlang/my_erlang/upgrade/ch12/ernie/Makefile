@@ -23,7 +23,7 @@ dir_name:
 
 compile:${MODS:%=%.beam}
 	erlc $(RUN_BIN).erl
-	mkdir -p ${RELEASE_NAME}_release
+	mkdir -p ${RELEASE_NAME}_release/releases
 	cd ${RELEASE_NAME}/src && make 
 	cd ${RELEASE_NAME_UPGRADE}/src && make 
 

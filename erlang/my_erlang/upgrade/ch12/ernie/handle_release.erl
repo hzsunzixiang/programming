@@ -23,7 +23,8 @@ start() ->
     systools:make_script(ReleaseNameUpgrade, [{path, [ReleaseNameUpgrade ++ "/ebin"]}]),
     systools:make_relup(ReleaseNameUpgrade,  [ReleaseNameUpgrade], [ReleaseNameUpgrade], [{path, [ReleaseNameWilcard ++ "/ebin"]}]),
     % 不要这个选项了 {erts, code:root_dir()},
-	systools:make_tar(ReleaseNameUpgrade, [ {path, [ReleaseNameUpgrade ++ "/ebin"]}, {outdir, ReleaseName ++ "_release"}]),
+	% systools:make_tar(ReleaseNameUpgrade, [ {path, [ReleaseNameUpgrade ++ "/ebin"]}, {outdir, ReleaseName ++ "_release"}]),
+	systools:make_tar(ReleaseNameUpgrade, [ {path, [ReleaseNameUpgrade ++ "/ebin"]}, {outdir, ReleaseName ++ "_release" ++ "/releases"}]),
 
 
 	'this is an end'.
