@@ -1,0 +1,6 @@
+#!/bin/sh
+#Basic Heart Script for the simple cache 
+
+ROOTDIR=/home/ericksun/programming/erlang/my_erlang/upgrade/ch12/ernie/coffee-1.0_release
+
+$ROOTDIR/bin/start

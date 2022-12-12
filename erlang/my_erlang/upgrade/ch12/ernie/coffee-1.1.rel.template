@@ -1,8 +1,0 @@
-{release,
- {"coffee","1.1"},
- {erts, "erts_version"},
- [{kernel, "kernel_version"},
-  {stdlib, "stdlib_version"},
-  {sasl, "sasl_version"},
-  {erts, "erts_version"},
-  {coffee, "1.1"}]}.
