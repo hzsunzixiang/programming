@@ -1,0 +1,24 @@
+
+# 一个原始工程，没有实际业务
+~/programming/erlang/my_erlang/upgrade_1
+
+
+# 有实际业务的，状态机
+/home/ericksun/programming/erlang/my_erlang/upgrade/ch12/rebar3_coffee
+
+
+
+# 书中的一个例子，试图修复成功: 已修复成功
+/home/ericksun/programming/erlang/my_erlang/upgrade/ch12/ernie_rebar3
+
+
+# 网上的一个例子 
+/home/ericksun/programming/erlang/my_erlang/upgrade/nine9s
+
+https://medium.com/@kansi/hot-code-loading-with-erlang-and-rebar3-8252af16605b
+
+另一个例子
+/home/ericksun/programming/erlang/my_erlang/upgrade/nine9s.1
+
+
+
