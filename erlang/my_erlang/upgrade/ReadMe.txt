@@ -1,4 +1,10 @@
-		  
+	
+# 这篇文章对于新版本有些问题
+http://lrascao.github.io/automatic-release-upgrades-in-erlang/
+
+# 这篇文章可以照着实操
+https://medium.com/@kansi/hot-code-loading-with-erlang-and-rebar3-8252af16605b
+
 1. rebar.config 中的  {dev_mode, false},
 
 2. coffee.apppup.src 中的标志位
