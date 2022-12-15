@@ -4,7 +4,7 @@
 
 %% Application callbacks
 -export([start/2, stop/1]).
-%-vsn('1.0').
+-vsn('1.0').
 
 %% ===================================================================
 %% Application callbacks

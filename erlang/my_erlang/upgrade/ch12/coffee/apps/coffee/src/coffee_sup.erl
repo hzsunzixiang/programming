@@ -2,7 +2,7 @@
 -behaviour(supervisor).
 -export([start_link/0, init/1]).
 -define(CHILD(I, Type), {I, {I, start_link, []}, permanent, 5000, Type, [I]}).
-%-vsn('1.0').
+-vsn('1.0').
 
 %% ===================================================================
 %% API functions

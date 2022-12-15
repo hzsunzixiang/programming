@@ -1,6 +1,6 @@
 -module(coffee_fsm).
 -behaviour(gen_fsm).
-%-vsn('1.1').
+-vsn('1.1').
 -export([start_link/0, init/1]).
 -export([selection/2, payment/2, remove/2, service/2]).
 -export([americano/0, cappuccino/0, tea/0, espresso/0,

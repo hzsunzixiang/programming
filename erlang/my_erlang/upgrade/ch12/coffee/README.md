@@ -8,20 +8,6 @@ Build
 
     $ rebar3 compile
 
-%% 对比
-/home/ericksun/programming/erlang/my_erlang/upgrade_1
-
-
-
-
-
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 太麻烦了，需要手工操作，思路可能不对。
 
