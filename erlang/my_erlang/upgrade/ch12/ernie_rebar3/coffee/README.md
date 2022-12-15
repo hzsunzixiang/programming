@@ -8,21 +8,18 @@ Build
 
     $ rebar3 compile
 
-%% 对比
-/home/ericksun/programming/erlang/my_erlang/upgrade_1
+%%%% 2022.12.15 更新 ，成功了
 
 
+% 旧版本
+git checkout 1.0
+rebar3 compile && rebar3 release
+% 新版本 
+git checkout 1.1
+python3 upgrade.py
 
 
-
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%%%%%%% 
 太麻烦了，需要手工操作，思路可能不对。
 
 perl -i -pe 's/0\.1\.0/1.0/' ./apps/coffee/src/coffee.app.src ./rebar.config

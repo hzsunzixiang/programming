@@ -1,8 +1,8 @@
 import os
 import sys
 
-VSN_OLD = "0.1.0"
-VSN_NEW = "0.2.0"
+VSN_OLD = "1.0"
+VSN_NEW = "1.1"
 
 
 print("Upgrading from ", VSN_OLD, " to ", VSN_NEW, "(press enter to continue) ", end="")
