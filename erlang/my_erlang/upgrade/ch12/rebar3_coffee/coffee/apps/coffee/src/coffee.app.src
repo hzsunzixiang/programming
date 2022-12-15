@@ -1,8 +1,8 @@
-{application, coffee_my,
- [{description, "An OTP application"},
-  {vsn, "0.1.0"},
+{application, coffee,
+ [{description, "Coffee Machine Controller"},
+  {vsn, "0.2.0"},
   {registered, []},
-  {mod, {coffee_my_app, []}},
+  {mod, {coffee_app, []}},
   {applications,
    [kernel,
     stdlib
