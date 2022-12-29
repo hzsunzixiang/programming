@@ -1,4 +1,31 @@
 
+* [begin erlang:display(N), N*10 end || N <- lists:seq(1,3)].
+22:25:53.915608 <0.161.0> comprehension:'-start/0-lc$^0/1-0-'([1,2,3])
+
+
+* Running = [F(E) || E <- Es].
+22:10:14.455339 <0.169.0> fun_param:'-partition_parallel/2-lc$^0/1-0-'([1,2,3], #Fun<fun_param.0.76017594>)
+
+* Running = [spawn_monitor(fun() -> F(E) end ) || E <- Es].
+22:2:05.698063 <0.169.0> fun_param:'-partition_parallel/2-lc$^0/1-0-'([1,2,3], #Fun<fun_param.0.132343702>)
+
+* Running = [{spawn_monitor(fun() -> Parent ! {F(E)} end), E, helloworld} || E <- Es].
+22:20:54.187962 <0.169.0> fun_param:'-partition_parallel/3-lc$^0/1-0-'([1,2,3], #Fun<fun_param.0.82396756>, <0.169.0>)
+
+* Running = [{spawn_monitor(fun() -> Parent ! {self(), F(E)} end), E} || E <- Es].
+4:22:12.026917 <0.161.0> fun_param:'-partition_parallel/2-lc$^0/1-0-'([1,2,3], #Fun<fun_param.0.111727472>, <0.161.0>)
+
+
+* Running = [{F(E),F(E)} || E <- Es].
+22:13:46.071191 <0.169.0> fun_param:'-partition_parallel/2-lc$^0/1-0-'([1,2,3], #Fun<fun_param.0.79153048>)
+
+
+
+* Running = [{F(E),K(E)} || E <- Es].
+22:16:51.278758 <0.169.0> fun_param:'-partition_parallel/3-lc$^0/1-0-'([1,2,3], #Fun<fun_param.0.65629503>, #Fun<fun_param.1.65629503>)
+
+
+
 1> l(fun_param).
 {module,fun_param}
 2> {ok, Dev} = file:open("/home/ericksun/programming/erlang/my_erlang/rebar3/recon_use/README.fun_param.erl",[write]).

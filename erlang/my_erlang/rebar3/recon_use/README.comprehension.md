@@ -2,6 +2,11 @@
 
 注意看出，有个递归的过程
 
+
+start()->
+    [begin erlang:display(N), N*10 end || N <- lists:seq(1,3)].
+
+
 1> l(comprehension).
 {module,comprehension}
 2> recon_trace:calls({comprehension, '_', fun(_) -> return_trace() end}, 2000, [return_to, {scope, local}]).

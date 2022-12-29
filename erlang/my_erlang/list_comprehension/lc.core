@@ -1,0 +1,52 @@
+module 'lc' ['f'/1,
+	     'module_info'/0,
+	     'module_info'/1]
+    attributes [%% Line 1
+		'file' =
+		    %% Line 1
+		    [{[108|[99|[46|[101|[114|[108]]]]]],1}]]
+'f'/1 =
+    %% Line 3
+    ( fun (_0) ->
+	  %% Line 4
+	  ( letrec
+		'lc$^0'/1 =
+		    fun (_3) ->
+			case _3 of
+			  <[N|_2]> when 'true' ->
+			      let <_5> =
+				  call 'erlang':'+'
+				      (N, 1)
+			      in  let <_6> =
+				      apply 'lc$^0'/1
+					  (_2)
+				  in  ( [_5|_6]
+					-| ['compiler_generated'] )
+			  ( <[N|_2]> when 'true' ->
+				apply 'lc$^0'/1
+				    (_2)
+			    -| ['compiler_generated'] )
+			  <[]> when 'true' ->
+			      []
+			  ( <_4> when 'true' ->
+				call 'erlang':'error'
+				    ({'bad_generator',_4})
+			    -| ['compiler_generated'] )
+			end
+	    in  apply 'lc$^0'/1
+		    (( _0
+		       -| [{'function',{'f',1}}] ))
+	    -| ['list_comprehension'] )
+      -| [{'function',{'f',1}}] )
+'module_info'/0 =
+    ( fun () ->
+	  call 'erlang':'get_module_info'
+	      ('lc')
+      -| [{'function',{'module_info',0}}] )
+'module_info'/1 =
+    ( fun (_0) ->
+	  call 'erlang':'get_module_info'
+	      ('lc', ( _0
+		       -| [{'function',{'module_info',1}}] ))
+      -| [{'function',{'module_info',1}}] )
+end
