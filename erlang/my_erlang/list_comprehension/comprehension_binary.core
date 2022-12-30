@@ -1,0 +1,364 @@
+module 'comprehension_binary' ['binary_generator_in_bc'/0,
+			       'binary_generator_in_lc'/0,
+			       'list_generator_in_bc'/0,
+			       'list_generator_in_lc'/0,
+			       'module_info'/0,
+			       'module_info'/1,
+			       'start'/0]
+    attributes [%% Line 1
+		'file' =
+		    %% Line 1
+		    [{[99|[111|[109|[112|[114|[101|[104|[101|[110|[115|[105|[111|[110|[95|[98|[105|[110|[97|[114|[121|[46|[101|[114|[108]]]]]]]]]]]]]]]]]]]]]]]],1}],
+		%% Line 3
+		'compile' =
+		    %% Line 3
+		    ['export_all'],
+		%% Line 4
+		'compile' =
+		    %% Line 4
+		    ['nowarn_export_all']]
+'start'/0 =
+    %% Line 6
+    ( fun () ->
+	  do  %% Line 8
+	      ( letrec
+		    'lc$^0'/1 =
+			fun (_2) ->
+			    case _2 of
+			      <#{#<X>(8,1,'integer',['unsigned'|['big']]),
+				 #<_0>('all',1,'binary',['unsigned'|['big']])}#>
+				  when try
+					let <_1> =
+					    call 'erlang':'rem'
+						(X, 2)
+					in  call 'erlang':'=='
+						(_1, 0)
+				    of <Try> ->
+					Try
+				    catch <T,R> ->
+					'false' ->
+				  apply 'lc$^0'/1
+				      (_0)
+			      ( <#{#<X>(8,1,'integer',['unsigned'|['big']]),
+				   #<_0>('all',1,'binary',['unsigned'|['big']])}#> when 'true' ->
+				    apply 'lc$^0'/1
+					(_0)
+				-| ['compiler_generated'] )
+			      <#{#<_0>('all',1,'binary',['unsigned'|['big']])}#> when 'true' ->
+				  []
+			      ( <_3> when 'true' ->
+				    call 'erlang':'error'
+					({'bad_generator',_3})
+				-| ['compiler_generated'] )
+			    end
+		in  apply 'lc$^0'/1
+			(#{#<1>(8,1,'integer',['unsigned'|['big']]),
+			   #<2>(8,1,'integer',['unsigned'|['big']]),
+			   #<3>(8,1,'integer',['unsigned'|['big']]),
+			   #<4>(8,1,'integer',['unsigned'|['big']]),
+			   #<5>(8,1,'integer',['unsigned'|['big']])}#)
+		-| ['list_comprehension'] )
+	      let <_6> =
+		  primop 'bs_init_writable'
+		      (256)
+	      in  do  %% Line 15
+		      ( letrec
+			    'lbc$^1'/2 =
+				fun (_10,_9) ->
+				    case <_10,_9> of
+				      <[{R,G,B}|_8],_13> when 'true' ->
+					  let <_32> =
+					      #{( #<_9>(( 'all'
+							  -| ['compiler_generated'] ),1,'binary',['unsigned'|['big']])
+						  -| [{'segment',1}] ),
+						( #<R>(8,1,'integer',['unsigned'|['big']])
+						  -| [{'segment',2}] ),
+						( #<G>(8,1,'integer',['unsigned'|['big']])
+						  -| [{'segment',3}] ),
+						( #<B>(8,1,'integer',['unsigned'|['big']])
+						  -| [{'segment',4}] )}#
+					  in  apply 'lbc$^1'/2
+						  (_8, _32)
+				      ( <[_7|_8],_13> when 'true' ->
+					    apply 'lbc$^1'/2
+						(_8, _9)
+					-| ['compiler_generated'] )
+				      <[],_13> when 'true' ->
+					  'ok'
+				      ( <_12,_11> when 'true' ->
+					    call 'erlang':'error'
+						({'bad_generator',_12})
+					-| ['compiler_generated'] )
+				    end
+			in  apply 'lbc$^1'/2
+				([{213,45,132}|[{64,76,32}|[{76,0,0}|[{234,32,15}]]]], _6)
+			-| ['list_comprehension','no_inline'] )
+		      let <_14> =
+			  primop 'bs_init_writable'
+			      (256)
+		      in  do  %% Line 18
+			      ( letrec
+				    'lbc$^2'/2 =
+					fun (_18,_17) ->
+					    case <_18,_17> of
+					      <[Bin|_16],_21> when 'true' ->
+						  let <_31> =
+						      #{( #<_17>(( 'all'
+								   -| ['compiler_generated'] ),1,'binary',['unsigned'|['big']])
+							  -| [{'segment',1}] ),
+							( #<Bin>(( 'all'
+								   -| ['compiler_generated'] ),8,'binary',['unsigned'|['big']])
+							  -| [{'segment',2}] )}#
+						  in  apply 'lbc$^2'/2
+							  (_16, _31)
+					      ( <[Bin|_16],_21> when 'true' ->
+						    apply 'lbc$^2'/2
+							(_16, _17)
+						-| ['compiler_generated'] )
+					      <[],_21> when 'true' ->
+						  'ok'
+					      ( <_20,_19> when 'true' ->
+						    call 'erlang':'error'
+							({'bad_generator',_20})
+						-| ['compiler_generated'] )
+					    end
+				in  apply 'lbc$^2'/2
+					([#{#<3>(8,1,'integer',['unsigned'|['big']]),
+					    #<7>(8,1,'integer',['unsigned'|['big']]),
+					    #<5>(8,1,'integer',['unsigned'|['big']]),
+					    #<4>(8,1,'integer',['unsigned'|['big']]),
+					    #<7>(8,1,'integer',['unsigned'|['big']])}#], _14)
+				-| ['list_comprehension','no_inline'] )
+			      let <_22> =
+				  primop 'bs_init_writable'
+				      (256)
+			      in  %% Line 20
+				  ( letrec
+					'lbc$^3'/2 =
+					    fun (_25,_24) ->
+						case <_25,_24> of
+						  <#{#<X>(8,1,'integer',['unsigned'|['big']]),
+						     #<_23>('all',1,'binary',['unsigned'|['big']])}#,_28> when 'true' ->
+						      let <_29> =
+							  call 'erlang':'+'
+							      (X, 1)
+						      in  let <_30> =
+							      #{( #<_24>(( 'all'
+									   -| ['compiler_generated'] ),1,'binary',['unsigned'|['big']])
+								  -| [{'segment',1}] ),
+								( #<_29>(8,1,'integer',['unsigned'|['big']])
+								  -| [{'segment',2}] )}#
+							  in  apply 'lbc$^3'/2
+								  (_23, _30)
+						  ( <#{#<X>(8,1,'integer',['unsigned'|['big']]),
+						       #<_23>('all',1,'binary',['unsigned'|['big']])}#,_28> when 'true' ->
+							apply 'lbc$^3'/2
+							    (_23, _24)
+						    -| ['compiler_generated'] )
+						  <#{#<_23>('all',1,'binary',['unsigned'|['big']])}#,_28> when 'true' ->
+						      _24
+						  ( <_27,_26> when 'true' ->
+							call 'erlang':'error'
+							    ({'bad_generator',_27})
+						    -| ['compiler_generated'] )
+						end
+				    in  apply 'lbc$^3'/2
+					    (#{#<3>(8,1,'integer',['unsigned'|['big']]),
+					       #<7>(8,1,'integer',['unsigned'|['big']]),
+					       #<5>(8,1,'integer',['unsigned'|['big']]),
+					       #<4>(8,1,'integer',['unsigned'|['big']]),
+					       #<7>(8,1,'integer',['unsigned'|['big']])}#, _22)
+				    -| ['list_comprehension','no_inline'] )
+      -| [{'function',{'start',0}}] )
+'list_generator_in_lc'/0 =
+    %% Line 22
+    ( fun () ->
+	  %% Line 24
+	  ( letrec
+		'lc$^0'/1 =
+		    fun (_4) ->
+			case _4 of
+			  <[X|_1]> when 'true' ->
+			      ( letrec
+				    'lc$^1'/1 =
+					fun (_6) ->
+					    case _6 of
+					      <[Y|_3]> when 'true' ->
+						  let <_8> =
+						      call 'erlang':'+'
+							  (X, Y)
+						  in  let <_9> =
+							  apply 'lc$^1'/1
+							      (_3)
+						      in  ( [_8|_9]
+							    -| ['compiler_generated'] )
+					      ( <[Y|_3]> when 'true' ->
+						    apply 'lc$^1'/1
+							(_3)
+						-| ['compiler_generated'] )
+					      <[]> when 'true' ->
+						  apply 'lc$^0'/1
+						      (_1)
+					      ( <_7> when 'true' ->
+						    call 'erlang':'error'
+							({'bad_generator',_7})
+						-| ['compiler_generated'] )
+					    end
+				in  apply 'lc$^1'/1
+					([2|[3]])
+				-| ['list_comprehension'] )
+			  ( <[X|_1]> when 'true' ->
+				apply 'lc$^0'/1
+				    (_1)
+			    -| ['compiler_generated'] )
+			  <[]> when 'true' ->
+			      []
+			  ( <_5> when 'true' ->
+				call 'erlang':'error'
+				    ({'bad_generator',_5})
+			    -| ['compiler_generated'] )
+			end
+	    in  apply 'lc$^0'/1
+		    ([1|[2]])
+	    -| ['list_comprehension'] )
+      -| [{'function',{'list_generator_in_lc',0}}] )
+'binary_generator_in_lc'/0 =
+    %% Line 26
+    ( fun () ->
+	  %% Line 28
+	  ( letrec
+		'lc$^0'/1 =
+		    fun (_2) ->
+			case _2 of
+			  <#{#<X>(8,1,'integer',['unsigned'|['big']]),
+			     #<_0>('all',1,'binary',['unsigned'|['big']])}#>
+			      when try
+				    let <_1> =
+					call 'erlang':'rem'
+					    (X, 2)
+				    in  call 'erlang':'=='
+					    (_1, 0)
+				of <Try> ->
+				    Try
+				catch <T,R> ->
+				    'false' ->
+			      let <_4> =
+				  apply 'lc$^0'/1
+				      (_0)
+			      in  ( [X|_4]
+				    -| ['compiler_generated'] )
+			  ( <#{#<X>(8,1,'integer',['unsigned'|['big']]),
+			       #<_0>('all',1,'binary',['unsigned'|['big']])}#> when 'true' ->
+				apply 'lc$^0'/1
+				    (_0)
+			    -| ['compiler_generated'] )
+			  <#{#<_0>('all',1,'binary',['unsigned'|['big']])}#> when 'true' ->
+			      []
+			  ( <_3> when 'true' ->
+				call 'erlang':'error'
+				    ({'bad_generator',_3})
+			    -| ['compiler_generated'] )
+			end
+	    in  apply 'lc$^0'/1
+		    (#{#<1>(8,1,'integer',['unsigned'|['big']]),
+		       #<2>(8,1,'integer',['unsigned'|['big']]),
+		       #<3>(8,1,'integer',['unsigned'|['big']]),
+		       #<4>(8,1,'integer',['unsigned'|['big']]),
+		       #<5>(8,1,'integer',['unsigned'|['big']])}#)
+	    -| ['list_comprehension'] )
+      -| [{'function',{'binary_generator_in_lc',0}}] )
+'list_generator_in_bc'/0 =
+    %% Line 30
+    ( fun () ->
+	  let <_1> =
+	      primop 'bs_init_writable'
+		  (256)
+	  in  %% Line 33
+	      ( letrec
+		    'lbc$^0'/2 =
+			fun (_5,_4) ->
+			    case <_5,_4> of
+			      <[{R,G,B}|_3],_8> when 'true' ->
+				  let <_9> =
+				      #{( #<_4>(( 'all'
+						  -| ['compiler_generated'] ),1,'binary',['unsigned'|['big']])
+					  -| [{'segment',1}] ),
+					( #<R>(8,1,'integer',['unsigned'|['big']])
+					  -| [{'segment',2}] ),
+					( #<G>(8,1,'integer',['unsigned'|['big']])
+					  -| [{'segment',3}] ),
+					( #<B>(8,1,'integer',['unsigned'|['big']])
+					  -| [{'segment',4}] )}#
+				  in  apply 'lbc$^0'/2
+					  (_3, _9)
+			      ( <[_2|_3],_8> when 'true' ->
+				    apply 'lbc$^0'/2
+					(_3, _4)
+				-| ['compiler_generated'] )
+			      <[],_8> when 'true' ->
+				  _4
+			      ( <_7,_6> when 'true' ->
+				    call 'erlang':'error'
+					({'bad_generator',_7})
+				-| ['compiler_generated'] )
+			    end
+		in  apply 'lbc$^0'/2
+			([{213,45,132}|[{64,76,32}|[{76,0,0}|[{234,32,15}]]]], _1)
+		-| ['list_comprehension','no_inline'] )
+      -| [{'function',{'list_generator_in_bc',0}}] )
+'binary_generator_in_bc'/0 =
+    %% Line 35
+    ( fun () ->
+	  let <_0> =
+	      primop 'bs_init_writable'
+		  (256)
+	  in  %% Line 37
+	      ( letrec
+		    'lbc$^0'/2 =
+			fun (_3,_2) ->
+			    case <_3,_2> of
+			      <#{#<X>(8,1,'integer',['unsigned'|['big']]),
+				 #<_1>('all',1,'binary',['unsigned'|['big']])}#,_6> when 'true' ->
+				  let <_7> =
+				      call 'erlang':'+'
+					  (X, 1)
+				  in  let <_8> =
+					  #{( #<_2>(( 'all'
+						      -| ['compiler_generated'] ),1,'binary',['unsigned'|['big']])
+					      -| [{'segment',1}] ),
+					    ( #<_7>(8,1,'integer',['unsigned'|['big']])
+					      -| [{'segment',2}] )}#
+				      in  apply 'lbc$^0'/2
+					      (_1, _8)
+			      ( <#{#<X>(8,1,'integer',['unsigned'|['big']]),
+				   #<_1>('all',1,'binary',['unsigned'|['big']])}#,_6> when 'true' ->
+				    apply 'lbc$^0'/2
+					(_1, _2)
+				-| ['compiler_generated'] )
+			      <#{#<_1>('all',1,'binary',['unsigned'|['big']])}#,_6> when 'true' ->
+				  _2
+			      ( <_5,_4> when 'true' ->
+				    call 'erlang':'error'
+					({'bad_generator',_5})
+				-| ['compiler_generated'] )
+			    end
+		in  apply 'lbc$^0'/2
+			(#{#<3>(8,1,'integer',['unsigned'|['big']]),
+			   #<7>(8,1,'integer',['unsigned'|['big']]),
+			   #<5>(8,1,'integer',['unsigned'|['big']]),
+			   #<4>(8,1,'integer',['unsigned'|['big']]),
+			   #<7>(8,1,'integer',['unsigned'|['big']])}#, _0)
+		-| ['list_comprehension','no_inline'] )
+      -| [{'function',{'binary_generator_in_bc',0}}] )
+'module_info'/0 =
+    ( fun () ->
+	  call 'erlang':'get_module_info'
+	      ('comprehension_binary')
+      -| [{'function',{'module_info',0}}] )
+'module_info'/1 =
+    ( fun (_0) ->
+	  call 'erlang':'get_module_info'
+	      ('comprehension_binary', ( _0
+					 -| [{'function',{'module_info',1}}] ))
+      -| [{'function',{'module_info',1}}] )
+end
