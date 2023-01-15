@@ -29,3 +29,19 @@ init([]) ->
     MaxRestart = 6,
     MaxTime = 3000,
     {ok, {{one_for_one, MaxRestart, MaxTime}, []}}.
+
+
+% {state,{local,ppool},
+%        one_for_one,
+%        {[nag],
+%         #{nag =>
+%               {child,<0.292.0>,nag,
+%                      {ppool_sup,start_link,
+%                                 [nag,2,{ppool_nagger,start_link,[]}]},
+%                      permanent,false,10500,supervisor,
+%                      [ppool_sup]}}},
+%        undefined,6,3000,[],0,never,ppool_supersup,[]}
+
+
+
+

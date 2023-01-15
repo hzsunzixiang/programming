@@ -14,7 +14,7 @@
           [ppool_worker_sup]}).
 
 -record(state, {limit=0,
-                sup,
+                sup,  % woker_sup 类型的进程
                 refs,
                 queue=queue:new()}).
 
@@ -42,6 +42,8 @@ init({Limit, MFA, Sup}) ->
     %% but alas, this would be calling the supervisor while it waits for us!
     self() ! {start_worker_supervisor, Sup, MFA},
     {ok, #state{limit=Limit, refs=gb_sets:empty()}}.
+
+% {state,2,<0.110.0>,{0,nil},{[],[]}}
 
 handle_call({run, Args}, _From, S = #state{limit=N, sup=Sup, refs=R}) when N > 0 ->
     {ok, Pid} = supervisor:start_child(Sup, Args),
@@ -81,8 +83,8 @@ handle_info({'DOWN', Ref, process, _Pid, _}, S = #state{refs=Refs}) ->
         false -> %% Not our responsibility
             {noreply, S}
     end;
-handle_info({start_worker_supervisor, Sup, MFA}, S = #state{}) ->
-    {ok, Pid} = supervisor:start_child(Sup, ?SPEC(MFA)),
+handle_info({start_worker_supervisor, Sup, MFA}, S = #state{}) ->  % 这里的Sup 为 ppool_sup
+    {ok, Pid} = supervisor:start_child(Sup, ?SPEC(MFA)),  % 这里返回的进程 为  worker_sup
     link(Pid),
     {noreply, S#state{sup=Pid}};
 handle_info(Msg, State) ->
@@ -111,3 +113,15 @@ handle_down_worker(Ref, S = #state{limit=L, sup=Sup, refs=Refs}) ->
         {empty, _} ->
             {noreply, S#state{limit=L+1, refs=gb_sets:delete(Ref,Refs)}}
     end.
+
+% {state,{local,ppool},
+%        one_for_one,
+%        {[nag],
+%         #{nag =>
+%               {child,<0.292.0>,nag,
+%                      {ppool_sup,start_link,
+%                                 [nag,2,{ppool_nagger,start_link,[]}]},
+%                      permanent,false,10500,supervisor,
+%                      [ppool_sup]}}},
+%        undefined,6,3000,[],0,never,ppool_supersup,[]}
+
