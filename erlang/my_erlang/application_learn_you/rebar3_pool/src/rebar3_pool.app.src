@@ -1,0 +1,15 @@
+{application, rebar3_pool,
+ [{description, "ppool An OTP application"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {rebar3_pool_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache-2.0"]},
+  {links, []}
+ ]}.
