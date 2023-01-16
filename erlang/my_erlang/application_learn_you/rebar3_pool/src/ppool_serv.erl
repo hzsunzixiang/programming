@@ -45,7 +45,7 @@ init({Limit, MFA, Sup}) ->
 
 handle_call({run, Args}, _From, S = #state{limit=N, sup=Sup, refs=R}) when N > 0 ->
     {ok, Pid} = supervisor:start_child(Sup, Args),
-    Ref = erlang:monitor(process, Pid),
+    Ref = erlang:monitor(process, Pid),  %% ppool_serv 监控 worker
     {reply, {ok,Pid}, S#state{limit=N-1, refs=gb_sets:add(Ref,R)}};
 handle_call({run, _Args}, _From, S=#state{limit=N}) when N =< 0 ->
     {reply, noalloc, S};
@@ -82,7 +82,7 @@ handle_info({'DOWN', Ref, process, _Pid, _}, S = #state{refs=Refs}) ->
     end;
 handle_info({start_worker_supervisor, Sup, MFA}, S = #state{}) ->
     {ok, Pid} = supervisor:start_child(Sup, ?SPEC(MFA)),
-    link(Pid),
+    link(Pid),   %% 这里使用link， 在 ppool_serv 和 ppool_worker_sup 之间
     {noreply, S#state{sup=Pid}};
 handle_info(Msg, State) ->
     io:format("Unknown msg: ~p~n", [Msg]),
