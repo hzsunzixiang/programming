@@ -55,6 +55,11 @@ publish_message(Channel, Q) ->
 	Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = Q, mandatory = true},
     amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload}),
 
+    Binding = #'queue.bind'{queue       = Q,
+                            exchange    = ?EXCHANGE,
+                            routing_key = ?EXCHANGE},
+    #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding),
+
     %% Poll for a message
     Get = #'basic.get'{queue = Q},
     {#'basic.get_ok'{delivery_tag = Tag}, Content}
@@ -79,7 +84,31 @@ start() ->
    Connection=amqp_example:connect_amqp(),
    Channel=amqp_example:open_channel(Connection),
    Q=amqp_example:declare_queue(Channel),
+   %publish_message(Channel, Q),
    close_channel(Channel),
    close_connection(Connection),
    "Finish".
+
+%=WARNING REPORT==== 17-Jan-2023::03:15:44.818199 ===
+%Channel (<0.313.0>): received {{'basic.return',312,<<"NO_ROUTE">>,
+%                                   <<"vstation">>,<<"FLOW">>}, {amqp_msg,
+%                                                                {'P_basic',
+%                                                                 undefined,
+%                                                                 undefined,
+%                                                                 undefined,
+%                                                                 undefined,
+%                                                                 undefined,
+%                                                                 undefined,
+%                                                                 undefined,
+%                                                                 undefined,
+%                                                                 undefined,
+%                                                                 undefined,
+%                                                                 undefined,
+%                                                                 undefined,
+%                                                                 undefined,
+%                                                                 undefined},
+%                                                                <<"foobar">>}} but there is no return handler registered
+%** exception error: no match of right hand side value {'basic.get_empty',<<>>}
+%     in function  amqp_example:publish_message/2 (/home/ericksun/programming/rabbitmq_erlang_client/rebar3/amqp_client_hello/src/amqp_example.erl, line 60)
+%     in call from amqp_example:start/0 (/home/ericksun/programming/rabbitmq_erlang_client/rebar3/amqp_client_hello/src/amqp_example.erl, line 82)
 
