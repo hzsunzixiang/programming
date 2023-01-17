@@ -1,4 +1,4 @@
--module(amqp_example).
+-module(amqp_tutorial).
 
 %-include("amqp_client/include/amqp_client.hrl").
 -include_lib("amqp_client/include/amqp_client.hrl").
@@ -159,50 +159,6 @@ connect_amqp() ->
     %{ok, Connection} = amqp_connection:start(#amqp_params_network{host=?HOST}),
     %{ok, Connection} = amqp_connection:start(#amqp_params_network{host=?HOST, port=?PORT}),
     {ok, Connection} = amqp_connection:start(RabbitParams),
-    io:format("amqp_connection:start ok ~n"),
-    Connection.
-
-open_channel(Connection) ->
-    %% Open a channel on the connection
-    io:format("amqp_connection:open_channel begin ~n"),
-    {ok, Channel} = amqp_connection:open_channel(Connection),
-    io:format("amqp_connection:open_channel ok ~n"),
-    Channel.
-
-% 声明一个队列
-declare_queue(Channel) ->
-	%%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = ?QUEUE_NAME,
-	%
-    % 如果不写队列的名字，默认是这种, <<"amq.gen-tRkmLkwbpU3NxwaRMH0eAw">>
-    #'queue.declare_ok'{queue = Q} = amqp_channel:call(Channel, #'queue.declare'{queue=?QUEUE_NAME}),
-    Q.
-
-% 声明之前先删除
-
-publish_message(Channel, Q) ->
-    %% Publish a message
-    Payload = <<"foobar">>,
-	Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = ?QUEUE_NAME, mandatory = true},
-    amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload}),
-
-    %% Poll for a message
-    Get = #'basic.get'{queue = Q},
-    {#'basic.get_ok'{delivery_tag = Tag}, Content}
-         = amqp_channel:call(Channel, Get),
-
-    %% Do something with the message payload
-    %% (some work here)
-
-    %% Ack the message
-    amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}).
-
-close_channel(Channel) ->
-    % Close the channel
-    amqp_channel:close(Channel).
-
-close_connection(Connection) ->
-    % Close the connection
-    amqp_connection:close(Connection).
-
+    io:format("amqp_connection:start ok ~n").
 
 
