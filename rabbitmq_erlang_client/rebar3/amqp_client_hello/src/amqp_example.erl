@@ -84,7 +84,7 @@ start() ->
    Connection=amqp_example:connect_amqp(),
    Channel=amqp_example:open_channel(Connection),
    Q=amqp_example:declare_queue(Channel),
-   %publish_message(Channel, Q),
+   publish_message(Channel, Q),
    close_channel(Channel),
    close_connection(Connection),
    "Finish".

@@ -1,4 +1,34 @@
+# 2023.01.18 更新
 
+1. erlang版本一致
+2. 使用长域名
+3. cookie保持一致
+4. 使用 -name 而非  -sname
+==================================================================================================================
+
+特别要注意erlang的版本，如果版本不匹配，则无法连通
+(apple3@debian3.com)1> net_kernel:connect_node('apple2@debian2.com').
+true
+
+ericksun@debian-3:~$ erl -name apple3@debian3.com
+Erlang/OTP 21 [erts-10.2.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V10.2.4  (abort with ^G)
+(apple3@debian3.com)1> net_kernel:connect_node('apple2@debian2.com').
+true
+
+
+ericksun@debian-2:~$ erl -name apple2@debian2.com
+Erlang/OTP 21 [erts-10.2.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V10.2.4  (abort with ^G)
+(apple2@debian2.com)1> nodes().
+['apple3@debian3.com']
+(apple2@debian2.com)2> node().
+'apple2@debian2.com'
+(apple2@debian2.com)3>
+
+==================================================================================================================
 #  erl -name 'apple@centos1.com' -kernel inet_dist_listen_min 6369 inet_dist_listen_max 7369 -setcookie test
 #  erl -name 'blackberry@centos1.com' -kernel inet_dist_listen_min 6369 inet_dist_listen_max 7369 -setcookie test
 
