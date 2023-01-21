@@ -13,10 +13,8 @@
 -define(RABBIT_USERNAME, <<"vstation">>).
 -define(RABBIT_PASSWORD, <<"vstation">>).
 -define(VHOST, <<"vstation">>).
-
 -define(EXCHANGE, <<"vstation">>). 
 -define(QUEUE_NAME, <<"FLOW">>). 
--define(PORT, 5672). 
 -define(NODE, 'rabbit@centos7-mq'). 
 
 % 连接
@@ -28,10 +26,9 @@
 %                             client_properties = []}).
 connect_amqp() ->
     %% Start a network connection
-    %RabbitParams=#amqp_params_direct{virtual_host=?VHOST, password=?RABBIT_PASSWORD, node=?NODE},
-    %RabbitParams=#amqp_params_direct{virtual_host=?VHOST, password=?RABBIT_PASSWORD, node=?NODE},
-    RabbitParams=#amqp_params_direct{username=?RABBIT_USERNAME,
-                      password=?RABBIT_PASSWORD, virtual_host=?VHOST, node='rabbit@centos7-mq'},
+    RabbitParams=#amqp_params_direct{virtual_host=?VHOST, node=?NODE},
+    %RabbitParams=#amqp_params_direct{username=?RABBIT_USERNAME,
+    %                  password=?RABBIT_PASSWORD, virtual_host=?VHOST, node='rabbit@centos7-mq'},
     io:format("amqp_connection:start begin ~n"),
     Connection = amqp_connection:start(RabbitParams),
     io:format("amqp_connection:start result: ~p~n", [Connection]),
