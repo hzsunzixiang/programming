@@ -38,3 +38,12 @@ amqp_connection:start result: {ok,<0.310.0>}
 "Finish"
 (test@centos7-mq)2>
 
+ericksun@centos7-mq:~/program/rabbitmq-server (ericksun/debug)$ sudo netstat -anpt |grep 4369 |grep 127
+tcp        0      0 127.0.0.1:4369          127.0.0.1:56672         ESTABLISHED 2293/epmd
+tcp        0      0 127.0.0.1:56712         127.0.0.1:4369          TIME_WAIT   -
+tcp        0      0 127.0.0.1:4369          127.0.0.1:56268         ESTABLISHED 2293/epmd
+tcp        0      0 127.0.0.1:4369          127.0.0.1:56006         ESTABLISHED 2293/epmd
+tcp        0      0 127.0.0.1:56006         127.0.0.1:4369          ESTABLISHED 2256/beam.smp
+tcp        0      0 127.0.0.1:56268         127.0.0.1:4369          ESTABLISHED 6803/beam.smp
+tcp        0      0 127.0.0.1:56672         127.0.0.1:4369          ESTABLISHED 13260/rebar3   %%%% 这个就是连接
+
