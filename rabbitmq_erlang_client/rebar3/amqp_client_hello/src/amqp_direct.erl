@@ -28,10 +28,13 @@
 %                             client_properties = []}).
 connect_amqp() ->
     %% Start a network connection
-    RabbitParams=#amqp_params_direct{virtual_host=?VHOST, node=?NODE},
+    %RabbitParams=#amqp_params_direct{virtual_host=?VHOST, password=?RABBIT_PASSWORD, node=?NODE},
+    %RabbitParams=#amqp_params_direct{virtual_host=?VHOST, password=?RABBIT_PASSWORD, node=?NODE},
+    RabbitParams=#amqp_params_direct{username=?RABBIT_USERNAME,
+                      password=?RABBIT_PASSWORD, virtual_host=?VHOST, node='rabbit@centos7-mq'},
     io:format("amqp_connection:start begin ~n"),
-    {ok, Connection} = amqp_connection:start(RabbitParams),
-    io:format("amqp_connection:start ok ~n"),
+    Connection = amqp_connection:start(RabbitParams),
+    io:format("amqp_connection:start result: ~p~n", [Connection]),
     Connection.
 
 % 打开一个channel
@@ -87,34 +90,11 @@ close_connection(Connection) ->
 
 
 start() ->
-   Connection=amqp_example:connect_amqp(),
+   amqp_direct:connect_amqp(),
    %Channel=amqp_example:open_channel(Connection),
    %Q=amqp_example:declare_queue(Channel),
    %publish_message(Channel, Q),
    %close_channel(Channel),
    %close_connection(Connection),
    "Finish".
-
-%=WARNING REPORT==== 17-Jan-2023::03:15:44.818199 ===
-%Channel (<0.313.0>): received {{'basic.return',312,<<"NO_ROUTE">>,
-%                                   <<"vstation">>,<<"FLOW">>}, {amqp_msg,
-%                                                                {'P_basic',
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined},
-%                                                                <<"foobar">>}} but there is no return handler registered
-%** exception error: no match of right hand side value {'basic.get_empty',<<>>}
-%     in function  amqp_example:publish_message/2 (/home/ericksun/programming/rabbitmq_erlang_client/rebar3/amqp_client_hello/src/amqp_example.erl, line 60)
-%     in call from amqp_example:start/0 (/home/ericksun/programming/rabbitmq_erlang_client/rebar3/amqp_client_hello/src/amqp_example.erl, line 82)
 
