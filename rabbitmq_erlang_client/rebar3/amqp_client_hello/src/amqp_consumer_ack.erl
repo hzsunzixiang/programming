@@ -88,8 +88,8 @@ loop(Channel, Tag) ->
             %% Do something with the message payload
             %% (some work here)
             io:format("Tag:~p, TagRet:~p, Content:~p.~n", [Tag, TagRet, Content#amqp_msg.payload]),
-            %% Ack the message
-            amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
+            %% Ack the message  , 注意，这里是返回的 delivery_tag 不是传进来的, 不然会失败
+            amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = TagRet}),
             io:format("after ack .....~n"),
 
             %% Loop
