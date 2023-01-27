@@ -40,6 +40,7 @@ open_channel(Connection) ->
 % 声明一个exchange
 declare_exchange(Channel) ->
     Declare = #'exchange.declare'{exchange = ?EXCHANGE},
+    %% Declare = #'exchange.declare'{exchange = ?EXCHANGE, type = <<"direct">>,}, %% type 默认值为 <<"direct">> 模式，一对一
     #'exchange.declare_ok'{} = amqp_channel:call(Channel, Declare).
 
 % 声明一个队列
