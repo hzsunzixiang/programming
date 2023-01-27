@@ -1,0 +1,12 @@
+7> #amqp_params_network{host="192.168.142.130", username=<<"vstation">>, password=<<"vstation">>, virtual_host=<<"vstation">>, port=5672}.
+* 1:54: syntax error before: '=<'
+7> RabbitParams=#amqp_params_network{host = "192.168.142.130", username = <<"vstation">>, password = <<"vstation">>, virtual_host = <<"vstation">>, port=5672}.
+#amqp_params_network{username = <<"vstation">>,
+                     password = <<"vstation">>,virtual_host = <<"vstation">>,
+                     host = "192.168.142.130",port = 5672,channel_max = 2047,
+                     frame_max = 0,heartbeat = 10,connection_timeout = 60000,
+                     ssl_options = none,
+                     auth_mechanisms = [fun amqp_auth_mechanisms:plain/3,
+                                        fun amqp_auth_mechanisms:amqplain/3],
+                     client_properties = [],socket_options = []}
+

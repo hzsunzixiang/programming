@@ -1,4 +1,4 @@
--module(amqp_example).
+-module(amqp_consumer).
 
 %-include("amqp_client/include/amqp_client.hrl").
 -include_lib("amqp_client/include/amqp_client.hrl").

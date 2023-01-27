@@ -1,4 +1,4 @@
--module(amqp_example).
+-module(amqp_publish).
 
 %-include("amqp_client/include/amqp_client.hrl").
 -include_lib("amqp_client/include/amqp_client.hrl").
@@ -56,28 +56,19 @@ declare_queue(Channel) ->
 binding_queue(Q, Channel)->
     Binding = #'queue.bind'{queue       = Q,
                             exchange    = ?EXCHANGE,
-                            routing_key = ?EXCHANGE},
+                            routing_key = Q},  %%%% 这里有个routing_key bind 那个就发往哪个
     #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding).
 
 publish_message(Channel, Q) ->
 	%%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = ?QUEUE_NAME,
     %% Publish a message
     Payload = <<"foobar">>,
-	Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = Q, mandatory = true},
+	% Here is an example of unrouteable message handling:
+	%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = Q, mandatory = true},
+	Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = Q},
 	Props = #'P_basic'{delivery_mode = 2}, %% persistent message
     Msg = #amqp_msg{props = Props, payload = Payload},
     amqp_channel:cast(Channel, Publish, Msg).
-
-    %%% Poll for a message
-    %Get = #'basic.get'{queue = Q},
-    %{#'basic.get_ok'{delivery_tag = Tag}, Content}
-    %     = amqp_channel:call(Channel, Get),
-
-    %%% Do something with the message payload
-    %%% (some work here)
-
-    %%% Ack the message
-    %amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}).
 
 close_channel(Channel) ->
     % Close the channel
@@ -94,31 +85,7 @@ start() ->
    amqp_example:declare_exchange(Channel),
    Q=amqp_example:declare_queue(Channel),
    binding_queue(Q, Channel),
-   %publish_message(Channel, Q),
+   publish_message(Channel, Q),
    %close_channel(Channel),
-   %close_connection(Connection),
-   "Finish".
-
-%=WARNING REPORT==== 17-Jan-2023::03:15:44.818199 ===
-%Channel (<0.313.0>): received {{'basic.return',312,<<"NO_ROUTE">>,
-%                                   <<"vstation">>,<<"FLOW">>}, {amqp_msg,
-%                                                                {'P_basic',
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined},
-%                                                                <<"foobar">>}} but there is no return handler registered
-%** exception error: no match of right hand side value {'basic.get_empty',<<>>}
-%     in function  amqp_example:publish_message/2 (/home/ericksun/programming/rabbitmq_erlang_client/rebar3/amqp_client_hello/src/amqp_example.erl, line 60)
-%     in call from amqp_example:start/0 (/home/ericksun/programming/rabbitmq_erlang_client/rebar3/amqp_client_hello/src/amqp_example.erl, line 82)
-
+   %close_connection(Connection), 
+   "Finish".  
