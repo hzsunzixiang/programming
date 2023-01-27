@@ -39,10 +39,14 @@ open_channel(Connection) ->
     io:format("amqp_connection:open_channel ok ~n"),
     Channel.
 
+% 声明一个exchange
+declare_exchange(Channel) ->
+    Declare = #'exchange.declare'{exchange = ?EXCHANGE},
+    %% Declare = #'exchange.declare'{exchange = ?EXCHANGE, type = <<"direct">>,}, %% type 默认值为 <<"direct">> 模式，一对一
+    #'exchange.declare_ok'{} = amqp_channel:call(Channel, Declare).
+
 % 声明一个队列
 declare_queue(Channel) ->
-	%%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = ?QUEUE_NAME,
-	%
     % 如果不写队列的名字，默认是这种, <<"amq.gen-tRkmLkwbpU3NxwaRMH0eAw">>
     Declare = #'queue.declare'{
       queue = ?QUEUE_NAME,   % 这里是二进制
@@ -52,27 +56,22 @@ declare_queue(Channel) ->
     io:format("return Q: ~p~n", [Q]),
     Q.  % 这里的返回和声明一致，如果没有声明，则是一个随机的队列
 
-publish_message(Channel, Q) ->
-    %% Publish a message
-    Payload = <<"foobar">>,
-	Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = Q, mandatory = true},
-    amqp_channel:cast(Channel, Publish, #amqp_msg{payload = Payload}),
-
+binding_queue(Q, Channel)->
     Binding = #'queue.bind'{queue       = Q,
                             exchange    = ?EXCHANGE,
-                            routing_key = ?EXCHANGE},
-    #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding),
+                            routing_key = Q},  %%%% 这里有个routing_key bind 那个就发往哪个
+    #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding).
 
-    %% Poll for a message
-    Get = #'basic.get'{queue = Q},
-    {#'basic.get_ok'{delivery_tag = Tag}, Content}
-         = amqp_channel:call(Channel, Get),
-
-    %% Do something with the message payload
-    %% (some work here)
-
-    %% Ack the message
-    amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}).
+publish_message(Channel, Q) ->
+	%%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = ?QUEUE_NAME,
+    %% Publish a message
+    Payload = <<"foobar">>,
+	% Here is an example of unrouteable message handling:
+	%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = Q, mandatory = true},
+	Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = Q},
+	Props = #'P_basic'{delivery_mode = 2}, %% persistent message
+    Msg = #amqp_msg{props = Props, payload = Payload},
+    amqp_channel:cast(Channel, Publish, Msg).
 
 close_channel(Channel) ->
     % Close the channel
@@ -84,11 +83,12 @@ close_connection(Connection) ->
 
 
 start() ->
-   amqp_direct:connect_amqp(),
-   %Channel=amqp_example:open_channel(Connection),
-   %Q=amqp_example:declare_queue(Channel),
-   %publish_message(Channel, Q),
+   Connection=amqp_example:connect_amqp(),
+   Channel=amqp_example:open_channel(Connection),
+   amqp_example:declare_exchange(Channel),
+   Q=amqp_example:declare_queue(Channel),
+   binding_queue(Q, Channel),
+   publish_message(Channel, Q),
    %close_channel(Channel),
-   %close_connection(Connection),
-   "Finish".
-
+   %close_connection(Connection), 
+   "Finish".  
