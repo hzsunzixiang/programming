@@ -1,4 +1,4 @@
--module(amqp_consumer).
+-module(amqp_consumer_ack).
 
 %-include("amqp_client/include/amqp_client.hrl").
 -include_lib("amqp_client/include/amqp_client.hrl").
@@ -59,11 +59,11 @@ binding_queue(Q, Channel)->
                             routing_key = ?EXCHANGE},
     #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding).
 
+
 consumer_message(Channel, Q) ->
     %process (`self()`),
-    #'basic.consume_ok'{consumer_tag = Tag} = amqp_channel:subscribe(Channel, #'basic.consume'{queue = Q, no_ack = true}, self()),
+    #'basic.consume_ok'{consumer_tag = Tag} = amqp_channel:subscribe(Channel, #'basic.consume'{queue = Q}, self()),
     Tag.
-
 
 loop(Channel, Tag) ->
     io:format("in loop....Tag: ~p, ~n", [Tag]),
@@ -89,13 +89,12 @@ loop(Channel, Tag) ->
             %% (some work here)
             io:format("Tag:~p, TagRet:~p, Content:~p.~n", [Tag, TagRet, Content#amqp_msg.payload]),
             %% Ack the message
-            %amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
+            amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
             io:format("after ack .....~n"),
 
             %% Loop
             loop(Channel, Tag)
     end.
-
 
 
 %%% Poll for a message
