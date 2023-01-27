@@ -5,7 +5,7 @@
 -compile([export_all]).
 -compile(nowarn_export_all).
 
--define(HOST, "192.168.142.152"). 
+-define(HOST, "192.168.142.130"). 
 
 
 % 这里必须是二进制
@@ -27,6 +27,7 @@
 connect_amqp() ->
     %% Start a network connection
     RabbitParams=#amqp_params_direct{virtual_host=?VHOST, node=?NODE},
+    %RabbitParams=#amqp_params_direct{virtual_host="192.168.142.130", node='rabbit@centos7-mq'},
     %RabbitParams=#amqp_params_direct{username=?RABBIT_USERNAME,
     %                  password=?RABBIT_PASSWORD, virtual_host=?VHOST, node='rabbit@centos7-mq'},
     io:format("amqp_connection:start begin ~n"),
