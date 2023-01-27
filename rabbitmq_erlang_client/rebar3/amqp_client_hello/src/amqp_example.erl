@@ -56,14 +56,15 @@ declare_queue(Channel) ->
 binding_queue(Q, Channel)->
     Binding = #'queue.bind'{queue       = Q,
                             exchange    = ?EXCHANGE,
-                            routing_key = ?EXCHANGE},
+                            routing_key = Q},
     #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding).
 
 publish_message(Channel, Q) ->
 	%%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = ?QUEUE_NAME,
     %% Publish a message
     Payload = <<"foobar">>,
-	Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = Q, mandatory = true},
+	Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = Q},
+	%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = Q, mandatory = true},
 	Props = #'P_basic'{delivery_mode = 2}, %% persistent message
     Msg = #amqp_msg{props = Props, payload = Payload},
     amqp_channel:cast(Channel, Publish, Msg).

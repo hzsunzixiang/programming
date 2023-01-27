@@ -59,25 +59,53 @@ binding_queue(Q, Channel)->
                             routing_key = ?EXCHANGE},
     #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding).
 
-publish_message(Channel, Q) ->
-	%%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = ?QUEUE_NAME,
-    %% Publish a message
-    Payload = <<"foobar">>,
-	Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = Q, mandatory = true},
-	Props = #'P_basic'{delivery_mode = 2}, %% persistent message
-    Msg = #amqp_msg{props = Props, payload = Payload},
-    amqp_channel:cast(Channel, Publish, Msg).
+consumer_message(Channel, Q) ->
+    %process (`self()`),
+    #'basic.consume_ok'{consumer_tag = Tag} = amqp_channel:subscribe(Channel, #'basic.consume'{queue = Q, no_ack = true}, self()),
+    Tag.
 
-    %%% Poll for a message
-    %Get = #'basic.get'{queue = Q},
-    %{#'basic.get_ok'{delivery_tag = Tag}, Content}
-    %     = amqp_channel:call(Channel, Get),
+loop(Channel, Tag) ->
+    io:format("in loop....Tag: ~p, ~n", [Tag]),
+    receive
+        %% This is the first message received
+        #'basic.consume_ok'{} ->
+            %io:format("in basic.consume_ok....~n"),
+            loop(Channel, Tag);
 
-    %%% Do something with the message payload
-    %%% (some work here)
+        %% This is received when the subscription is cancelled
+        #'basic.cancel_ok'{} ->
+            io:format("in basic.cancel_ok....~n"),
+            ok;
+%
+%decode_method_fields('basic.deliver', <<F0Len:8/unsigned, F0:F0Len/binary, F1:64/unsigned, F2Bits:8, F3Len:8/unsigned, F3:F3Len/binary, F4Len:8/unsigned, F4:F4Len/binary>>) ->
+%  F2 = ((F2Bits band 1) /= 0),
+%  #'basic.deliver'{consumer_tag = F0, delivery_tag = F1, redelivered = F2, exchange = F3, routing_key = F4};
 
-    %%% Ack the message
-    %amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}).
+        %% A delivery
+        %{#'basic.deliver'{delivery_tag = Tag}, Content} ->
+        {#'basic.deliver'{}, Content} ->
+            io:format("in basic.deliver....~n"),
+            %% Do something with the message payload
+            %% (some work here)
+            io:format("Tag:~p, Content:~p.~n", [Tag, Content]),
+            %% Ack the message
+            %amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
+            io:format("after ack .....~n"),
+
+            %% Loop
+            loop(Channel, Tag)
+    end.
+
+%%% Poll for a message
+%Get = #'basic.get'{queue = Q},
+%{#'basic.get_ok'{delivery_tag = Tag}, Content}
+%     = amqp_channel:call(Channel, Get),
+
+%%% Do something with the message payload
+%%% (some work here)
+
+%%% Ack the message
+%amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}).
 
 close_channel(Channel) ->
     % Close the channel
@@ -94,31 +122,10 @@ start() ->
    amqp_example:declare_exchange(Channel),
    Q=amqp_example:declare_queue(Channel),
    binding_queue(Q, Channel),
-   %publish_message(Channel, Q),
+   Tag=consumer_message(Channel, Q),
+   io:format("Tag:~p~n", [Tag]),
+   loop(Channel, Tag),
    %close_channel(Channel),
    %close_connection(Connection),
    "Finish".
-
-%=WARNING REPORT==== 17-Jan-2023::03:15:44.818199 ===
-%Channel (<0.313.0>): received {{'basic.return',312,<<"NO_ROUTE">>,
-%                                   <<"vstation">>,<<"FLOW">>}, {amqp_msg,
-%                                                                {'P_basic',
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined},
-%                                                                <<"foobar">>}} but there is no return handler registered
-%** exception error: no match of right hand side value {'basic.get_empty',<<>>}
-%     in function  amqp_example:publish_message/2 (/home/ericksun/programming/rabbitmq_erlang_client/rebar3/amqp_client_hello/src/amqp_example.erl, line 60)
-%     in call from amqp_example:start/0 (/home/ericksun/programming/rabbitmq_erlang_client/rebar3/amqp_client_hello/src/amqp_example.erl, line 82)
 
