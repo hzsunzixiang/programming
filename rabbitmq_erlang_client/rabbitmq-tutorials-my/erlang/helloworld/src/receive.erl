@@ -21,6 +21,7 @@ loop(Channel) ->
             io:format(" [x] Saw basic.consume_ok~n"),
             loop(Channel);
         {#'basic.deliver'{}, #amqp_msg{payload = Body}} ->
+			% 这里也可以定义个回调处理函数
             io:format(" [x] Received ~p~n", [Body]),
             loop(Channel)
     end.
