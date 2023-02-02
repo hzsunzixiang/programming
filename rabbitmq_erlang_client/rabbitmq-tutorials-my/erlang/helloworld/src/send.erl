@@ -1,7 +1,7 @@
-#!/usr/bin/env escript
-%%! -pz ./_build/default/lib/amqp_client/ebin ./_build/default/lib/credentials_obfuscation/ebin ./_build/default/lib/jsx/ebin ./_build/default/lib/rabbit_common/ebin ./_build/default/lib/recon/ebin
-
+-module(send).
 -include_lib("amqp_client/include/amqp_client.hrl").
+-compile([export_all]).
+-compile(nowarn_export_all).
 
 main(_) ->
     {ok, Connection} =
@@ -19,3 +19,5 @@ main(_) ->
     ok = amqp_channel:close(Channel),
     ok = amqp_connection:close(Connection),
     ok.
+%#!/usr/bin/env escript
+%%! -pz ./_build/default/lib/amqp_client/ebin ./_build/default/lib/credentials_obfuscation/ebin ./_build/default/lib/jsx/ebin ./_build/default/lib/rabbit_common/ebin ./_build/default/lib/recon/ebin
