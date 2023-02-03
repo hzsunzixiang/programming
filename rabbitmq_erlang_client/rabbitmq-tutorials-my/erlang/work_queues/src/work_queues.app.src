@@ -1,0 +1,15 @@
+{application, work_queues,
+ [{description, "tutorial--work_queues"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {work_queues_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache-2.0"]},
+  {links, []}
+ ]}.
