@@ -1,7 +1,9 @@
 -module(worker).
+-compile([export_all]).
+-compile(nowarn_export_all).
 -include_lib("amqp_client/include/amqp_client.hrl").
 
-main(_) ->
+main() ->
     {ok, Connection} =
         amqp_connection:start(#amqp_params_network{host = "localhost"}),
     {ok, Channel} = amqp_connection:open_channel(Connection),
@@ -32,6 +34,6 @@ loop(Channel) ->
             amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = Tag}),
             loop(Channel)
     end.
-#!/usr/bin/env escript
+%#!/usr/bin/env escript
 %%! -pz ./_build/default/lib/amqp_client/ebin ./_build/default/lib/credentials_obfuscation/ebin ./_build/default/lib/jsx/ebin ./_build/default/lib/rabbit_common/ebin ./_build/default/lib/recon/ebin
 
