@@ -3,6 +3,10 @@
 -compile([export_all]).
 -compile(nowarn_export_all).
 
+%1> emit_log_direct:main(["error", "Run. Run. Or it will explode."]).
+% [x] Sent <<"error">>:<<"Run. Run. Or it will explode.">>
+% ok
+
 main(Argv) ->
     {ok, Connection} =
         amqp_connection:start(#amqp_params_network{host = "localhost"}),

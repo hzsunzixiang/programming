@@ -3,6 +3,9 @@
 -compile(nowarn_export_all).
 -include_lib("amqp_client/include/amqp_client.hrl").
 
+%3> receive_logs_direct:main(["warning","error"]).
+%[*] Waiting for logs. To exit press CTRL+C
+
 main(Argv) ->
     {ok, Connection} =
         amqp_connection:start(#amqp_params_network{host = "localhost"}),
