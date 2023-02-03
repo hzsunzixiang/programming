@@ -3,6 +3,10 @@
 -compile(nowarn_export_all).
 -include_lib("amqp_client/include/amqp_client.hrl").
 
+%1> emit_log_topic:main(["kern.critical" "A critical kernel error"]).
+% [x] Sent <<"kern.criticalA critical kernel error">>:<<"Hello World!">>
+%ok
+
 main(Argv) ->
     {ok, Connection} =
         amqp_connection:start(#amqp_params_network{host = "localhost"}),
