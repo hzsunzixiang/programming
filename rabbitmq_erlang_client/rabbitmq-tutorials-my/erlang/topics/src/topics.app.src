@@ -1,0 +1,15 @@
+{application, topics,
+ [{description, "tutorial--topics"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {topics_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache-2.0"]},
+  {links, []}
+ ]}.
