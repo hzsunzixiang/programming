@@ -68,10 +68,10 @@ close_connection(Connection) ->
 
 
 start() ->
-   Connection = amqp_publish:connect_amqp(),
-   Channel = amqp_publish:open_channel(Connection),
-   amqp_publish:declare_exchange(Channel),
-   Q = amqp_publish:declare_queue(Channel),
+   Connection = connect_amqp(),
+   Channel = open_channel(Connection),
+   declare_exchange(Channel),
+   Q = declare_queue(Channel),
    binding_queue(Q, Channel),
    publish_message(Channel, Q),
    close_channel(Channel),
