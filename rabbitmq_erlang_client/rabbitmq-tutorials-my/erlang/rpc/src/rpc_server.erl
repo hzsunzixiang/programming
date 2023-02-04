@@ -3,7 +3,7 @@
 -compile([export_all]).
 -compile(nowarn_export_all).
 
--define(QUEUE_NAME, <<"FLOW">>).
+-define(QUEUE_NAME, <<"rpc_queue">>).
 
 %% You can use pattern matching in function arguments part
 fib(0) -> 

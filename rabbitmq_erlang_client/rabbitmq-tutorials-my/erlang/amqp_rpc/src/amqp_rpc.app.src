@@ -1,0 +1,15 @@
+{application, amqp_rpc,
+ [{description, "tutorial--amqp_rpc"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {amqp_rpc_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache-2.0"]},
+  {links, []}
+ ]}.

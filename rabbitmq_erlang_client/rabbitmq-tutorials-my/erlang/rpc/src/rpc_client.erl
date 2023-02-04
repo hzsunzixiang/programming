@@ -3,7 +3,7 @@
 -compile([export_all]).
 -compile(nowarn_export_all).
 
--define(QUEUE_NAME, <<"FLOW">>).
+-define(QUEUE_NAME, <<"rpc_queue">>).
 
 call(N) ->
     {ok, Connection} = amqp_connection:start(#amqp_params_network{host = "localhost"}),
