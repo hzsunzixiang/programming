@@ -90,10 +90,10 @@ close_connection(Connection) ->
 
 
 start() ->
-   Connection=amqp_example:connect_amqp(),
-   Channel=amqp_example:open_channel(Connection),
-   amqp_example:declare_exchange(Channel),
-   Q=amqp_example:declare_queue(Channel),
+   Connection=connect_amqp(),
+   Channel=open_channel(Connection),
+   declare_exchange(Channel),
+   Q=declare_queue(Channel),
    binding_queue(Q, Channel),
    %publish_message(Channel, Q),
    %close_channel(Channel),
@@ -120,6 +120,6 @@ start() ->
 %                                                                 undefined},
 %                                                                <<"foobar">>}} but there is no return handler registered
 %** exception error: no match of right hand side value {'basic.get_empty',<<>>}
-%     in function  amqp_example:publish_message/2 (/home/ericksun/programming/rabbitmq_erlang_client/rebar3/amqp_client_hello/src/amqp_example.erl, line 60)
-%     in call from amqp_example:start/0 (/home/ericksun/programming/rabbitmq_erlang_client/rebar3/amqp_client_hello/src/amqp_example.erl, line 82)
+%     in function  publish_message/2 (/home/ericksun/programming/rabbitmq_erlang_client/rebar3/amqp_client_hello/src/amqp_example.erl, line 60)
+%     in call from start/0 (/home/ericksun/programming/rabbitmq_erlang_client/rebar3/amqp_client_hello/src/amqp_example.erl, line 82)
 

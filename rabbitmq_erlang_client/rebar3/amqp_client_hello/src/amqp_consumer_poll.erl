@@ -86,10 +86,10 @@ close_connection(Connection) ->
 
 
 start() ->
-   Connection=amqp_example:connect_amqp(),
-   Channel=amqp_example:open_channel(Connection),
-   amqp_example:declare_exchange(Channel),
-   Q=amqp_example:declare_queue(Channel),
+   Connection=connect_amqp(),
+   Channel=open_channel(Connection),
+   declare_exchange(Channel),
+   Q=declare_queue(Channel),
    binding_queue(Q, Channel),
    get_message(Channel, Q),
    %close_channel(Channel),

@@ -3,18 +3,18 @@
 -include("amqp_info.hrl").
 -compile([export_all]).
 -compile(nowarn_export_all).
--include_lib("amqp_client/include/amqp_client.hrl").
 
 % 连接
 connect_amqp() ->
     %% Start a network connection
     RabbitParams=#amqp_params_network{host=?HOST, username=?RABBIT_USERNAME,
                       password=?RABBIT_PASSWORD, virtual_host=?VHOST, port=?PORT},
-    %RabbitParams=#amqp_params_network{host="192.168.142.130", username=<<"vstation">>, password=<<"vstation">>, virtual_host=<<"vstation">>, port=5672},
+    %RabbitParams=#amqp_params_network{host = "192.168.142.133", username = <<"vstation">>, password = <<"vstation">>, virtual_host = <<"vstation">>, port = 5672},
     io:format("amqp_connection:start begin ~n"),
     {ok, Connection} = amqp_connection:start(RabbitParams),
     io:format("amqp_connection:start ok ~n"),
     Connection.
+
 
 % 打开一个channel
 open_channel(Connection) ->
@@ -68,12 +68,12 @@ close_connection(Connection) ->
 
 
 start() ->
-   Connection = amqp_example:connect_amqp(),
-   Channel = amqp_example:open_channel(Connection),
-   amqp_example:declare_exchange(Channel),
-   Q = amqp_example:declare_queue(Channel),
+   Connection = amqp_publish:connect_amqp(),
+   Channel = amqp_publish:open_channel(Connection),
+   amqp_publish:declare_exchange(Channel),
+   Q = amqp_publish:declare_queue(Channel),
    binding_queue(Q, Channel),
    publish_message(Channel, Q),
-   %close_channel(Channel),
-   %close_connection(Connection), 
+   close_channel(Channel),
+   close_connection(Connection), 
    "Finish".  
