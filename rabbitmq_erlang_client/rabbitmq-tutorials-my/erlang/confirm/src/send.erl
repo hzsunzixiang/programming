@@ -19,10 +19,29 @@ main() ->
                       #amqp_msg{payload = <<"Hello World!">>}),
     io:format(" [x] Sent 'Hello World!'~n"),
 
+    amqp_channel:register_confirm_handler(Channel, self()),
+
 	Result = amqp_channel:wait_for_confirms_or_die(Channel, 5000),
+    loop(Channel),
     ok = amqp_channel:close(Channel),
     ok = amqp_connection:close(Connection),
     ok.
+
+loop(Channel) ->
+    receive
+        #'basic.ack'{} ->
+            io:format(" [x] Saw basic.ack~n");
+        #'basic.nack'{} ->
+            io:format(" [x] Saw basic.nack~n")
+    end.
+
+%https://hexdocs.pm/amqp_client/
+%register_confirm_handler/2
+%register_confirm_handler(Channel, ConfirmHandler) -> ok
+%
+%Channel = pid()
+%ConfirmHandler = pid()
+%This registers a handler to deal with confirm-related messages. The registered process will receive #basic.ack{} and #basic.nack{} commands.
 
 %#!/usr/bin/env escript
 %%! -pz ./_build/default/lib/amqp_client/ebin ./_build/default/lib/credentials_obfuscation/ebin ./_build/default/lib/jsx/ebin ./_build/default/lib/rabbit_common/ebin ./_build/default/lib/recon/ebin
