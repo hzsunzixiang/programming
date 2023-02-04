@@ -1,22 +1,9 @@
 -module(amqp_publish).
 
-%-include("amqp_client/include/amqp_client.hrl").
--include_lib("amqp_client/include/amqp_client.hrl").
+-include("amqp_info.hrl").
 -compile([export_all]).
 -compile(nowarn_export_all).
-
--define(HOST, "192.168.142.130"). 
-
-
-% 这里必须是二进制
-% 而且需要设置相应的权限 start_up.sh 脚本中有
--define(RABBIT_USERNAME, <<"vstation">>).
--define(RABBIT_PASSWORD, <<"vstation">>).
--define(VHOST, <<"vstation">>).
-
--define(EXCHANGE, <<"vstation">>). 
--define(QUEUE_NAME, <<"FLOW">>). 
--define(PORT, 5672). 
+-include_lib("amqp_client/include/amqp_client.hrl").
 
 % 连接
 connect_amqp() ->
@@ -81,10 +68,10 @@ close_connection(Connection) ->
 
 
 start() ->
-   Connection=amqp_example:connect_amqp(),
-   Channel=amqp_example:open_channel(Connection),
+   Connection = amqp_example:connect_amqp(),
+   Channel = amqp_example:open_channel(Connection),
    amqp_example:declare_exchange(Channel),
-   Q=amqp_example:declare_queue(Channel),
+   Q = amqp_example:declare_queue(Channel),
    binding_queue(Q, Channel),
    publish_message(Channel, Q),
    %close_channel(Channel),
