@@ -1,7 +1,6 @@
 -module(amqp_consumer).
 
 -include("amqp_info.hrl").
--include_lib("amqp_client/include/amqp_client.hrl").
 -compile([export_all]).
 -compile(nowarn_export_all).
 
