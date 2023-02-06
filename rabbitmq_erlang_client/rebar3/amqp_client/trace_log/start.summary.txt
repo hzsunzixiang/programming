@@ -1,0 +1,30 @@
+
+21:42:32.199508 <0.482.0> amqp_client:start(normal, [])
+21:42:32.199722 <0.482.0> amqp_sup:start_link()
+21:42:32.199843 <0.482.0> supervisor2:start_link({local,amqp_sup}, amqp_sup, [])
+21:42:32.200002 <0.483.0> supervisor2:init({{local,amqp_sup},amqp_sup,[]})
+21:42:32.200176 <0.483.0> amqp_sup:init([])
+
+获取 ?SUPERVISOR_WAIT
+21:42:32.200297 <0.483.0> rabbit_misc:get_env(rabbit, supervisor_shutdown_timeout, infinity)
+
+21:42:32.200452 <0.483.0> rabbit_misc:get_env/3 --> infinity
+
+21:42:32.200617 <0.483.0>  '--> amqp_sup:init/1
+21:42:32.200713 <0.483.0> amqp_sup:init/1 --> {ok,{{simple_one_for_one,0,1},
+     [{connection_sup,{amqp_connection_sup,start_link,[]},
+                      temporary,infinity,supervisor,
+                      [amqp_connection_sup]}]}}
+21:42:32.200918 <0.483.0>  '--> supervisor2:init/1
+
+# supervisor2 部分的代码全部删掉
+
+21:42:32.205053 <0.483.0> supervisor2:init_dynamic({state,{local,amqp_sup},
+       simple_one_for_one,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_sup,[]}, [{connection_sup,{amqp_connection_sup,start_link,[]},
+                 temporary,infinity,supervisor,
+                 [amqp_connection_sup]}])
+
+然后就启动了，start函数就是这么简单
+

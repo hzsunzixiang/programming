@@ -11,6 +11,8 @@
 -define(EXCHANGE, <<"vstation">>). 
 -define(QUEUE_NAME, <<"FLOW">>). 
 -define(PORT, 5672). 
+-define(NODE, 'rabbit@centos7-mq').
+
 
 
 -endif.

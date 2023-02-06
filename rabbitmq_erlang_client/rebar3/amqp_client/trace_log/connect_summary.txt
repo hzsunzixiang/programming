@@ -1,0 +1,3591 @@
+
+
+# 接受请求
+
+start(AmqpParams) ->
+    start(AmqpParams, undefined).
+
+3:27:15.608255 <0.265.0> amqp_connection:start({amqp_params_network,<<"vstation">>,<<"vstation">>,<<"vstation">>,
+                     "192.168.142.152",5672,2047,0,10,60000,none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]})
+
+start(AmqpParams, ConnName) when ConnName == undefined; is_binary(ConnName) ->
+
+3:27:15.608650 <0.265.0> amqp_connection:start({amqp_params_network,<<"vstation">>,<<"vstation">>,<<"vstation">>,
+                     "192.168.142.152",5672,2047,0,10,60000,none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]}, undefined)
+
+ensure_started(),
+
+ensure_started() ->
+    [ensure_started(App) || App <- [syntax_tools, compiler, xmerl,
+                                    rabbit_common, amqp_client, credentials_obfuscation]].
+ensure_started(App) ->
+    case is_pid(application_controller:get_master(App)) andalso amqp_sup:is_ready() of
+        true  -> ok;
+        false -> case application:ensure_all_started(App) of
+                     {ok, _}        -> ok;
+                     {error, _} = E -> throw(E)
+                 end
+    end.
+
+
+3:27:15.608929 <0.265.0> amqp_connection:ensure_started()
+
+
+ AmqpParams2 = set_connection_name(ConnName, AmqpParams1),
+
+3:27:15.614422 <0.265.0> amqp_connection:set_connection_name(undefined, {amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.152",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]})
+
+3:27:15.614597 <0.265.0> amqp_connection:set_connection_name/2 --> {amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.152",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]}
+
+
+3:27:15.615040 <0.265.0> rabbit_misc:get_env(amqp_client, gen_server_call_timeout, 70000)
+
+3:27:15.615138 <0.265.0> rabbit_misc:get_env/3 --> 70000
+
+3:27:15.615228 <0.265.0>  '--> amqp_util:call_timeout/0
+
+3:27:15.615302 <0.265.0> amqp_connection:ensure_safe_call_timeout({amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.152",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]}, 70000)
+
+3:27:15.615502 <0.265.0> amqp_connection:maybe_update_call_timeout(60000, 70000)
+
+3:27:15.615605 <0.265.0> amqp_connection:maybe_update_call_timeout/2 --> ok
+
+3:27:15.615686 <0.265.0> amqp_connection:ensure_safe_call_timeout/2 --> ok
+
+
+# 开始启动各个 进程
+   {ok, _Sup, Connection} = amqp_sup:start_connection_sup(AmqpParams3),
+
+这里涉及两个进程
+
+start_link(AMQPParams) ->
+    {ok, Sup} = supervisor2:start_link(?MODULE, []),
+    {ok, TypeSup}    = supervisor2:start_child(
+                         Sup, {connection_type_sup,
+                               {amqp_connection_type_sup, start_link, []},
+                               transient, ?SUPERVISOR_WAIT, supervisor,
+                               [amqp_connection_type_sup]}),
+    {ok, Connection} = supervisor2:start_child(
+                         Sup, {connection, {amqp_gen_connection, start_link,
+                                            [TypeSup, AMQPParams]},
+                               intrinsic, brutal_kill, worker,
+                               [amqp_gen_connection]}),
+    {ok, Sup, Connection}.
+
+
+
+3:27:15.615835 <0.265.0> amqp_sup:start_connection_sup({amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.152",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]})
+
+
+start_link(AMQPParams) ->
+
+3:27:15.617166 <0.294.0> amqp_connection_sup:start_link({amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.152",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]})
+
+
+
+3:27:15.621548 <0.294.0> rabbit_misc:get_env(rabbit, supervisor_shutdown_timeout, infinity)
+
+3:27:15.621594 <0.294.0> rabbit_misc:get_env/3 --> infinity
+
+
+3:27:15.621669 <0.294.0> supervisor2:start_child(<0.425.0>, {connection_type_sup,{amqp_connection_type_sup,start_link,[]},
+                     transient,infinity,supervisor,
+                     [amqp_connection_type_sup]})
+
+
+
+
+3:27:15.636210 <0.425.0> amqp_gen_connection:start_link(<0.426.0>, {amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.152",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]})
+
+
+3:27:15.643406 <0.265.0> amqp_sup:start_connection_sup/1 --> {ok,<0.425.0>,<0.427.0>}
+
+
+3:27:15.643803 <0.265.0> amqp_gen_connection:connect(<0.427.0>)
+
+3:27:15.643886 <0.427.0> amqp_gen_connection:handle_call(connect, {<0.265.0>,[alias|#Ref<0.3571895162.2791899137.167957>]}, {<0.426.0>,
+ {amqp_params_network,<<"vstation">>,
+                      {plaintext,<<"vstation">>},
+                      <<"vstation">>,"192.168.142.152",5672,2047,0,10,60000,
+                      none,
+                      [fun amqp_auth_mechanisms:plain/3,
+                       fun amqp_auth_mechanisms:amqplain/3],
+                      [],[]}})
+
+3:27:15.644111 <0.427.0> amqp_connection_type_sup:type_module({amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.152",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]})
+
+3:27:15.644315 <0.427.0> amqp_connection_type_sup:type_module/1 --> {network,amqp_network_connection}
+
+3:27:15.644438 <0.427.0>  '--> amqp_gen_connection:handle_call/3
+
+3:27:15.644537 <0.427.0> amqp_connection_type_sup:start_infrastructure_fun(<0.426.0>, <0.427.0>, network)
+
+3:27:15.644633 <0.427.0> amqp_connection_type_sup:start_infrastructure_fun/3 --> #Fun<amqp_connection_type_sup.0.83209754>
+
+3:27:15.644730 <0.427.0>  '--> amqp_gen_connection:handle_call/3
+
+3:27:15.644796 <0.427.0> rabbit_misc:ntoab({192,168,142,151})
+
+3:27:15.644883 <0.427.0> rabbit_misc:ntoa({192,168,142,151})
+
+3:27:15.644980 <0.427.0> rabbit_misc:ntoa/1 --> "192.168.142.151"
+
+3:27:15.645071 <0.427.0>  '--> rabbit_misc:ntoab/1
+
+3:27:15.645122 <0.427.0> rabbit_misc:ntoab/1 --> "192.168.142.151"
+
+3:27:15.645164 <0.427.0>  '--> rabbit_net:connection_string/2
+
+3:27:15.645199 <0.427.0> rabbit_misc:ntoab({192,168,142,152})
+
+3:27:15.645273 <0.427.0> rabbit_misc:ntoa({192,168,142,152})
+
+3:27:15.645317 <0.427.0> rabbit_misc:ntoa/1 --> "192.168.142.152"
+
+3:27:15.645358 <0.427.0>  '--> rabbit_misc:ntoab/1
+
+3:27:15.645477 <0.427.0> rabbit_misc:ntoab/1 --> "192.168.142.152"
+
+3:27:15.645538 <0.427.0>  '--> rabbit_net:connection_string/2
+
+3:27:15.645576 <0.427.0> rabbit_misc:format("~s:~p -> ~s:~p", ["192.168.142.151",51512,"192.168.142.152",5672])
+
+3:27:15.645627 <0.427.0> rabbit_misc:format/2 --> "192.168.142.151:51512 -> 192.168.142.152:5672"
+
+3:27:15.645674 <0.427.0>  '--> rabbit_net:connection_string/2
+
+3:27:15.645710 <0.427.0> amqp_connection_type_sup:'-start_infrastructure_fun/3-fun-0-'(#Port<0.8>, <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>, <0.426.0>, <0.427.0>)
+
+3:27:15.645804 <0.427.0> amqp_connection_type_sup:start_channels_manager(<0.426.0>, <0.427.0>, <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>, network)
+
+3:27:15.645912 <0.427.0> rabbit_misc:get_env(rabbit, supervisor_shutdown_timeout, infinity)
+
+3:27:15.645999 <0.427.0> rabbit_misc:get_env/3 --> infinity
+
+3:27:15.646043 <0.427.0>  '--> amqp_connection_type_sup:start_channels_manager/4
+
+3:27:15.646081 <0.427.0> supervisor2:start_child(<0.426.0>, {channel_sup_sup,
+    {amqp_channel_sup_sup,start_link,
+        [network,<0.427.0>,
+         <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+    intrinsic,infinity,supervisor,
+    [amqp_channel_sup_sup]})
+
+3:27:15.646216 <0.427.0> supervisor2:call(<0.426.0>, {start_child,
+    {channel_sup_sup,
+        {amqp_channel_sup_sup,start_link,
+            [network,<0.427.0>,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+        intrinsic,infinity,supervisor,
+        [amqp_channel_sup_sup]}})
+
+3:27:15.646367 <0.426.0> supervisor2:handle_call({start_child,
+    {channel_sup_sup,
+        {amqp_channel_sup_sup,start_link,
+            [network,<0.427.0>,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+        intrinsic,infinity,supervisor,
+        [amqp_channel_sup_sup]}}, {<0.427.0>,#Ref<0.3571895162.2791833601.167966>}, {state,{<0.426.0>,amqp_connection_type_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.646577 <0.426.0> supervisor2:check_childspec({channel_sup_sup,
+    {amqp_channel_sup_sup,start_link,
+        [network,<0.427.0>,
+         <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+    intrinsic,infinity,supervisor,
+    [amqp_channel_sup_sup]})
+
+3:27:15.646707 <0.426.0> supervisor2:check_childspec(#{id=>channel_sup_sup, modules=>[amqp_channel_sup_sup], restart=>intrinsic, shutdown=>infinity, start=>{amqp_channel_sup_sup,start_link,
+                      [network,<0.427.0>,
+                       <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]}, type=>supervisor})
+
+3:27:15.646868 <0.426.0> supervisor2:do_check_childspec(#{id=>channel_sup_sup, modules=>[amqp_channel_sup_sup], restart=>intrinsic, shutdown=>infinity, start=>{amqp_channel_sup_sup,start_link,
+                      [network,<0.427.0>,
+                       <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]}, type=>supervisor})
+
+3:27:15.647025 <0.426.0> supervisor2:validId(channel_sup_sup)
+
+3:27:15.647073 <0.426.0> supervisor2:validId/1 --> true
+
+3:27:15.647119 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.647172 <0.426.0> supervisor2:validFunc({amqp_channel_sup_sup,start_link,
+                      [network,<0.427.0>,
+                       <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]})
+
+3:27:15.647284 <0.426.0> supervisor2:validFunc/1 --> true
+
+3:27:15.647373 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.647441 <0.426.0> supervisor2:validRestartType(intrinsic)
+
+3:27:15.647520 <0.426.0> supervisor2:validRestartType/1 --> true
+
+3:27:15.647595 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.647654 <0.426.0> supervisor2:validChildType(supervisor)
+
+3:27:15.647725 <0.426.0> supervisor2:validChildType/1 --> true
+
+3:27:15.647771 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.647815 <0.426.0> supervisor2:validShutdown(infinity)
+
+3:27:15.647869 <0.426.0> supervisor2:validShutdown/1 --> true
+
+3:27:15.647911 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.647946 <0.426.0> supervisor2:validMods([amqp_channel_sup_sup])
+
+3:27:15.647989 <0.426.0> supervisor2:'-validMods/1-fun-0-'(amqp_channel_sup_sup)
+
+3:27:15.648029 <0.426.0> supervisor2:'-validMods/1-fun-0-'/1 --> ok
+
+3:27:15.648076 <0.426.0>  '--> lists:foreach_1/2
+
+3:27:15.648114 <0.426.0> supervisor2:validMods/1 --> ok
+
+3:27:15.648154 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.648192 <0.426.0> supervisor2:do_check_childspec/1 --> {ok,{child,undefined,channel_sup_sup,
+           {amqp_channel_sup_sup,start_link,
+                                 [network,<0.427.0>,
+                                  <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+           intrinsic,infinity,supervisor,
+           [amqp_channel_sup_sup]}}
+
+3:27:15.648350 <0.426.0>  '--> supervisor2:check_childspec/1
+
+3:27:15.648444 <0.426.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,channel_sup_sup,
+           {amqp_channel_sup_sup,start_link,
+                                 [network,<0.427.0>,
+                                  <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+           intrinsic,infinity,supervisor,
+           [amqp_channel_sup_sup]}}
+
+3:27:15.648603 <0.426.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,channel_sup_sup,
+           {amqp_channel_sup_sup,start_link,
+                                 [network,<0.427.0>,
+                                  <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+           intrinsic,infinity,supervisor,
+           [amqp_channel_sup_sup]}}
+
+3:27:15.648752 <0.426.0>  '--> supervisor2:handle_call/3
+
+3:27:15.648796 <0.426.0> supervisor2:handle_start_child({child,undefined,channel_sup_sup,
+       {amqp_channel_sup_sup,start_link,
+                             [network,<0.427.0>,
+                              <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+       intrinsic,infinity,supervisor,
+       [amqp_channel_sup_sup]}, {state,{<0.426.0>,amqp_connection_type_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.648973 <0.426.0> supervisor2:internal_find_child(channel_sup_sup, {state,{<0.426.0>,amqp_connection_type_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.649083 <0.426.0> supervisor2:internal_find_child/2 --> error
+
+3:27:15.649165 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.649211 <0.426.0> supervisor2:do_start_child({<0.426.0>,amqp_connection_type_sup}, {child,undefined,channel_sup_sup,
+       {amqp_channel_sup_sup,start_link,
+                             [network,<0.427.0>,
+                              <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+       intrinsic,infinity,supervisor,
+       [amqp_channel_sup_sup]})
+
+3:27:15.649382 <0.426.0> supervisor2:do_start_child_i(amqp_channel_sup_sup, start_link, [network,<0.427.0>,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>])
+
+3:27:15.649499 <0.426.0> amqp_channel_sup_sup:start_link(network, <0.427.0>, <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>)
+
+3:27:15.649596 <0.426.0> supervisor2:start_link(amqp_channel_sup_sup, [network,<0.427.0>,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>])
+
+3:27:15.649691 <0.430.0> supervisor2:init({self,amqp_channel_sup_sup,
+      [network,<0.427.0>,
+       <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]})
+
+3:27:15.649790 <0.430.0> amqp_channel_sup_sup:init([network,<0.427.0>,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>])
+
+3:27:15.649908 <0.430.0> amqp_channel_sup_sup:init/1 --> {ok,{{simple_one_for_one,0,1},
+     [{channel_sup,{amqp_channel_sup,start_link,
+                                     [network,<0.427.0>,
+                                      <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                   temporary,infinity,supervisor,
+                   [amqp_channel_sup]}]}}
+
+3:27:15.650071 <0.430.0>  '--> supervisor2:init/1
+
+3:27:15.650120 <0.430.0> supervisor2:init_state(self, {simple_one_for_one,0,1}, amqp_channel_sup_sup, [network,<0.427.0>,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>])
+
+3:27:15.650232 <0.430.0> supervisor2:supname(self, amqp_channel_sup_sup)
+
+3:27:15.650317 <0.430.0> supervisor2:supname/2 --> {<0.430.0>,amqp_channel_sup_sup}
+
+3:27:15.650402 <0.430.0>  '--> supervisor2:init_state/4
+
+3:27:15.650447 <0.430.0> supervisor2:set_flags({simple_one_for_one,0,1}, {state,{<0.430.0>,amqp_channel_sup_sup},
+       undefined,
+       {[],#{}},
+       undefined,undefined,undefined,[],0,amqp_channel_sup_sup,
+       [network,<0.427.0>,
+        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]})
+
+3:27:15.650589 <0.430.0> supervisor2:check_flags({simple_one_for_one,0,1})
+
+3:27:15.650690 <0.430.0> supervisor2:check_flags(#{intensity=>0, period=>1, strategy=>simple_one_for_one})
+
+3:27:15.650785 <0.430.0> supervisor2:do_check_flags(#{intensity=>0, period=>1, strategy=>simple_one_for_one})
+
+3:27:15.650873 <0.430.0> supervisor2:validStrategy(simple_one_for_one)
+
+3:27:15.650923 <0.430.0> supervisor2:validStrategy/1 --> true
+
+3:27:15.650965 <0.430.0>  '--> supervisor2:do_check_flags/1
+
+3:27:15.651002 <0.430.0> supervisor2:validIntensity(0)
+
+3:27:15.651040 <0.430.0> supervisor2:validIntensity/1 --> true
+
+3:27:15.651080 <0.430.0>  '--> supervisor2:do_check_flags/1
+
+3:27:15.651115 <0.430.0> supervisor2:validPeriod(1)
+
+3:27:15.651152 <0.430.0> supervisor2:validPeriod/1 --> true
+
+3:27:15.651201 <0.430.0>  '--> supervisor2:do_check_flags/1
+
+3:27:15.651237 <0.430.0> supervisor2:do_check_flags/1 --> #{intensity=>0, period=>1, strategy=>simple_one_for_one}
+
+3:27:15.651291 <0.430.0> supervisor2:check_flags/1 --> #{intensity=>0, period=>1, strategy=>simple_one_for_one}
+
+3:27:15.651389 <0.430.0> supervisor2:check_flags/1 --> #{intensity=>0, period=>1, strategy=>simple_one_for_one}
+
+3:27:15.651505 <0.430.0>  '--> supervisor2:set_flags/2
+
+3:27:15.651556 <0.430.0> supervisor2:set_flags/2 --> {ok,{state,{<0.430.0>,amqp_channel_sup_sup},
+           simple_one_for_one,
+           {[],#{}},
+           undefined,0,1,[],0,amqp_channel_sup_sup,
+           [network,<0.427.0>,
+            <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]}}
+
+3:27:15.651696 <0.430.0> supervisor2:init_state/4 --> {ok,{state,{<0.430.0>,amqp_channel_sup_sup},
+           simple_one_for_one,
+           {[],#{}},
+           undefined,0,1,[],0,amqp_channel_sup_sup,
+           [network,<0.427.0>,
+            <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]}}
+
+3:27:15.651867 <0.430.0>  '--> supervisor2:init/1
+
+3:27:15.651912 <0.430.0> supervisor2:init_dynamic({state,{<0.430.0>,amqp_channel_sup_sup},
+       simple_one_for_one,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_channel_sup_sup,
+       [network,<0.427.0>,
+        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]}, [{channel_sup,{amqp_channel_sup,start_link,
+                                [network,<0.427.0>,
+                                 <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+              temporary,infinity,supervisor,
+              [amqp_channel_sup]}])
+
+3:27:15.652126 <0.430.0> supervisor2:check_startspec([{channel_sup,{amqp_channel_sup,start_link,
+                                [network,<0.427.0>,
+                                 <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+              temporary,infinity,supervisor,
+              [amqp_channel_sup]}])
+
+3:27:15.652283 <0.430.0> supervisor2:check_startspec([{channel_sup,{amqp_channel_sup,start_link,
+                                [network,<0.427.0>,
+                                 <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+              temporary,infinity,supervisor,
+              [amqp_channel_sup]}], [], #{})
+
+3:27:15.652469 <0.430.0> supervisor2:check_childspec({channel_sup,{amqp_channel_sup,start_link,
+                               [network,<0.427.0>,
+                                <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+             temporary,infinity,supervisor,
+             [amqp_channel_sup]})
+
+3:27:15.652630 <0.430.0> supervisor2:check_childspec(#{id=>channel_sup, modules=>[amqp_channel_sup], restart=>temporary, shutdown=>infinity, start=>{amqp_channel_sup,start_link,
+                  [network,<0.427.0>,
+                   <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]}, type=>supervisor})
+
+3:27:15.652815 <0.430.0> supervisor2:do_check_childspec(#{id=>channel_sup, modules=>[amqp_channel_sup], restart=>temporary, shutdown=>infinity, start=>{amqp_channel_sup,start_link,
+                  [network,<0.427.0>,
+                   <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]}, type=>supervisor})
+
+3:27:15.652984 <0.430.0> supervisor2:validId(channel_sup)
+
+3:27:15.653044 <0.430.0> supervisor2:validId/1 --> true
+
+3:27:15.653090 <0.430.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.653140 <0.430.0> supervisor2:validFunc({amqp_channel_sup,start_link,
+                  [network,<0.427.0>,
+                   <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]})
+
+3:27:15.653465 <0.430.0> supervisor2:validFunc/1 --> true
+
+3:27:15.653553 <0.430.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.653661 <0.430.0> supervisor2:validRestartType(temporary)
+
+3:27:15.653714 <0.430.0> supervisor2:validRestartType/1 --> true
+
+3:27:15.653766 <0.430.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.653805 <0.430.0> supervisor2:validChildType(supervisor)
+
+3:27:15.653856 <0.430.0> supervisor2:validChildType/1 --> true
+
+3:27:15.653898 <0.430.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.653937 <0.430.0> supervisor2:validShutdown(infinity)
+
+3:27:15.653990 <0.430.0> supervisor2:validShutdown/1 --> true
+
+3:27:15.654028 <0.430.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.654063 <0.430.0> supervisor2:validMods([amqp_channel_sup])
+
+3:27:15.654107 <0.430.0> supervisor2:'-validMods/1-fun-0-'(amqp_channel_sup)
+
+3:27:15.654180 <0.430.0> supervisor2:'-validMods/1-fun-0-'/1 --> ok
+
+3:27:15.654223 <0.430.0>  '--> lists:foreach_1/2
+
+3:27:15.654261 <0.430.0> supervisor2:validMods/1 --> ok
+
+3:27:15.654301 <0.430.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.654336 <0.430.0> supervisor2:do_check_childspec/1 --> {ok,{child,undefined,channel_sup,
+           {amqp_channel_sup,start_link,
+                             [network,<0.427.0>,
+                              <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+           temporary,infinity,supervisor,
+           [amqp_channel_sup]}}
+
+3:27:15.654744 <0.430.0>  '--> supervisor2:check_childspec/1
+
+3:27:15.654843 <0.430.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,channel_sup,
+           {amqp_channel_sup,start_link,
+                             [network,<0.427.0>,
+                              <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+           temporary,infinity,supervisor,
+           [amqp_channel_sup]}}
+
+3:27:15.655032 <0.430.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,channel_sup,
+           {amqp_channel_sup,start_link,
+                             [network,<0.427.0>,
+                              <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+           temporary,infinity,supervisor,
+           [amqp_channel_sup]}}
+
+3:27:15.655206 <0.430.0>  '--> supervisor2:check_startspec/3
+
+3:27:15.655258 <0.430.0> supervisor2:check_startspec([], [channel_sup], #{channel_sup=>{child,undefined,channel_sup,
+       {amqp_channel_sup,start_link,
+                         [network,<0.427.0>,
+                          <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+       temporary,infinity,supervisor,
+       [amqp_channel_sup]}})
+
+3:27:15.655501 <0.430.0> supervisor2:check_startspec/3 --> {ok,{[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+                  {amqp_channel_sup,start_link,
+                                    [network,<0.427.0>,
+                                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                  temporary,infinity,supervisor,
+                  [amqp_channel_sup]}}}}
+
+3:27:15.655695 <0.430.0> supervisor2:check_startspec/3 --> {ok,{[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+                  {amqp_channel_sup,start_link,
+                                    [network,<0.427.0>,
+                                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                  temporary,infinity,supervisor,
+                  [amqp_channel_sup]}}}}
+
+3:27:15.655855 <0.430.0> supervisor2:check_startspec/1 --> {ok,{[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+                  {amqp_channel_sup,start_link,
+                                    [network,<0.427.0>,
+                                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                  temporary,infinity,supervisor,
+                  [amqp_channel_sup]}}}}
+
+3:27:15.656025 <0.430.0>  '--> supervisor2:init_dynamic/2
+
+3:27:15.656072 <0.430.0> supervisor2:dyn_init({state,
+    {<0.430.0>,amqp_channel_sup_sup},
+    simple_one_for_one,
+    {[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+               {amqp_channel_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               temporary,infinity,supervisor,
+               [amqp_channel_sup]}}},
+    undefined,0,1,[],0,amqp_channel_sup_sup,
+    [network,<0.427.0>,
+     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]})
+
+3:27:15.656313 <0.430.0> supervisor2:get_dynamic_child({state,
+    {<0.430.0>,amqp_channel_sup_sup},
+    simple_one_for_one,
+    {[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+               {amqp_channel_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               temporary,infinity,supervisor,
+               [amqp_channel_sup]}}},
+    undefined,0,1,[],0,amqp_channel_sup_sup,
+    [network,<0.427.0>,
+     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]})
+
+3:27:15.656627 <0.430.0> supervisor2:get_dynamic_child/1 --> {child,undefined,channel_sup,
+       {amqp_channel_sup,start_link,
+                         [network,<0.427.0>,
+                          <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+       temporary,infinity,supervisor,
+       [amqp_channel_sup]}
+
+3:27:15.656776 <0.430.0>  '--> supervisor2:dyn_init/1
+
+3:27:15.656861 <0.430.0> supervisor2:dyn_init({child,undefined,channel_sup,
+       {amqp_channel_sup,start_link,
+                         [network,<0.427.0>,
+                          <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+       temporary,infinity,supervisor,
+       [amqp_channel_sup]}, {state,
+    {<0.430.0>,amqp_channel_sup_sup},
+    simple_one_for_one,
+    {[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+               {amqp_channel_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               temporary,infinity,supervisor,
+               [amqp_channel_sup]}}},
+    undefined,0,1,[],0,amqp_channel_sup_sup,
+    [network,<0.427.0>,
+     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]})
+
+3:27:15.657180 <0.430.0> supervisor2:dyn_init/2 --> {state,
+    {<0.430.0>,amqp_channel_sup_sup},
+    simple_one_for_one,
+    {[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+               {amqp_channel_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               temporary,infinity,supervisor,
+               [amqp_channel_sup]}}},
+    {sets,
+        {set,0,16,16,8,80,48,
+            {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+            {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+    0,1,[],0,amqp_channel_sup_sup,
+    [network,<0.427.0>,
+     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]}
+
+3:27:15.657409 <0.430.0> supervisor2:dyn_init/1 --> {state,
+    {<0.430.0>,amqp_channel_sup_sup},
+    simple_one_for_one,
+    {[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+               {amqp_channel_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               temporary,infinity,supervisor,
+               [amqp_channel_sup]}}},
+    {sets,
+        {set,0,16,16,8,80,48,
+            {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+            {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+    0,1,[],0,amqp_channel_sup_sup,
+    [network,<0.427.0>,
+     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]}
+
+3:27:15.658235 <0.430.0>  '--> supervisor2:init_dynamic/2
+
+3:27:15.658558 <0.430.0> supervisor2:init_dynamic/2 --> {ok,{state,
+        {<0.430.0>,amqp_channel_sup_sup},
+        simple_one_for_one,
+        {[channel_sup],
+         #{channel_sup =>
+               {child,undefined,channel_sup,
+                   {amqp_channel_sup,start_link,
+                       [network,<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                   temporary,infinity,supervisor,
+                   [amqp_channel_sup]}}},
+        {sets,
+            {set,0,16,16,8,80,48,
+                {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+        0,1,[],0,amqp_channel_sup_sup,
+        [network,<0.427.0>,
+         <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]}}
+
+3:27:15.658887 <0.430.0> supervisor2:init/1 --> {ok,{state,
+        {<0.430.0>,amqp_channel_sup_sup},
+        simple_one_for_one,
+        {[channel_sup],
+         #{channel_sup =>
+               {child,undefined,channel_sup,
+                   {amqp_channel_sup,start_link,
+                       [network,<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                   temporary,infinity,supervisor,
+                   [amqp_channel_sup]}}},
+        {sets,
+            {set,0,16,16,8,80,48,
+                {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+        0,1,[],0,amqp_channel_sup_sup,
+        [network,<0.427.0>,
+         <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]}}
+
+3:27:15.659138 <0.430.0>  '--> gen_server:init_it/2
+
+3:27:15.659276 <0.426.0> supervisor2:start_link/2 --> {ok,<0.430.0>}
+
+3:27:15.659378 <0.426.0> amqp_channel_sup_sup:start_link/3 --> {ok,<0.430.0>}
+
+3:27:15.659438 <0.426.0>  '--> supervisor2:do_start_child_i/3
+
+3:27:15.659475 <0.426.0> supervisor2:do_start_child_i/3 --> {ok,<0.430.0>}
+
+3:27:15.659523 <0.426.0>  '--> supervisor2:do_start_child/2
+
+3:27:15.659566 <0.426.0> supervisor2:report_progress({child,<0.430.0>,channel_sup_sup,
+       {amqp_channel_sup_sup,start_link,
+                             [network,<0.427.0>,
+                              <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+       intrinsic,infinity,supervisor,
+       [amqp_channel_sup_sup]}, {<0.426.0>,amqp_connection_type_sup})
+
+3:27:15.659724 <0.426.0> supervisor2:report_progress/2 --> ok
+
+3:27:15.659773 <0.426.0>  '--> supervisor2:do_start_child/2
+
+3:27:15.659809 <0.426.0> supervisor2:do_start_child/2 --> {ok,<0.430.0>}
+
+3:27:15.659909 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.659957 <0.426.0> supervisor2:save_child({child,<0.430.0>,channel_sup_sup,
+       {amqp_channel_sup_sup,start_link,
+                             [network,<0.427.0>,
+                              <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+       intrinsic,infinity,supervisor,
+       [amqp_channel_sup_sup]}, {state,{<0.426.0>,amqp_connection_type_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.660142 <0.426.0> supervisor2:do_save_child({child,<0.430.0>,channel_sup_sup,
+       {amqp_channel_sup_sup,start_link,
+                             [network,<0.427.0>,
+                              <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+       intrinsic,infinity,supervisor,
+       [amqp_channel_sup_sup]}, {state,{<0.426.0>,amqp_connection_type_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.660348 <0.426.0> supervisor2:do_save_child/2 --> {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+3:27:15.660542 <0.426.0> supervisor2:save_child/2 --> {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+3:27:15.660759 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.660813 <0.426.0> supervisor2:handle_start_child/2 --> {{ok,<0.430.0>},
+ {state,
+     {<0.426.0>,amqp_connection_type_sup},
+     one_for_all,
+     {[channel_sup_sup],
+      #{channel_sup_sup =>
+            {child,<0.430.0>,channel_sup_sup,
+                {amqp_channel_sup_sup,start_link,
+                    [network,<0.427.0>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                intrinsic,infinity,supervisor,
+                [amqp_channel_sup_sup]}}},
+     undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+3:27:15.660987 <0.426.0>  '--> supervisor2:handle_call/3
+
+3:27:15.661032 <0.426.0> supervisor2:handle_call/3 --> {reply,
+    {ok,<0.430.0>},
+    {state,
+        {<0.426.0>,amqp_connection_type_sup},
+        one_for_all,
+        {[channel_sup_sup],
+         #{channel_sup_sup =>
+               {child,<0.430.0>,channel_sup_sup,
+                   {amqp_channel_sup_sup,start_link,
+                       [network,<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                   intrinsic,infinity,supervisor,
+                   [amqp_channel_sup_sup]}}},
+        undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+3:27:15.661226 <0.426.0>  '--> gen_server:try_handle_call/4
+
+3:27:15.661344 <0.427.0> supervisor2:call/2 --> {ok,<0.430.0>}
+
+3:27:15.661421 <0.427.0> supervisor2:start_child/2 --> {ok,<0.430.0>}
+
+3:27:15.661466 <0.427.0>  '--> amqp_connection_type_sup:start_channels_manager/4
+
+3:27:15.661503 <0.427.0> rabbit_misc:get_env(rabbit, worker_shutdown_timeout, 300000)
+
+3:27:15.661553 <0.427.0> rabbit_misc:get_env/3 --> 300000
+
+3:27:15.661595 <0.427.0>  '--> amqp_connection_type_sup:start_channels_manager/4
+
+3:27:15.661632 <0.427.0> supervisor2:start_child(<0.426.0>, {channels_manager,
+    {amqp_channels_manager,start_link,
+        [<0.427.0>,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+         <0.430.0>]},
+    transient,300000,worker,
+    [amqp_channels_manager]})
+
+3:27:15.661743 <0.427.0> supervisor2:call(<0.426.0>, {start_child,
+    {channels_manager,
+        {amqp_channels_manager,start_link,
+            [<0.427.0>,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+             <0.430.0>]},
+        transient,300000,worker,
+        [amqp_channels_manager]}})
+
+3:27:15.661915 <0.426.0> supervisor2:handle_call({start_child,
+    {channels_manager,
+        {amqp_channels_manager,start_link,
+            [<0.427.0>,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+             <0.430.0>]},
+        transient,300000,worker,
+        [amqp_channels_manager]}}, {<0.427.0>,#Ref<0.3571895162.2791833601.167967>}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.662196 <0.426.0> supervisor2:check_childspec({channels_manager,
+    {amqp_channels_manager,start_link,
+        [<0.427.0>,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+         <0.430.0>]},
+    transient,300000,worker,
+    [amqp_channels_manager]})
+
+3:27:15.662350 <0.426.0> supervisor2:check_childspec(#{id=>channels_manager, modules=>[amqp_channels_manager], restart=>transient, shutdown=>300000, start=>{amqp_channels_manager,start_link,
+                       [<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                        <0.430.0>]}, type=>worker})
+
+3:27:15.662515 <0.426.0> supervisor2:do_check_childspec(#{id=>channels_manager, modules=>[amqp_channels_manager], restart=>transient, shutdown=>300000, start=>{amqp_channels_manager,start_link,
+                       [<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                        <0.430.0>]}, type=>worker})
+
+3:27:15.662665 <0.426.0> supervisor2:validId(channels_manager)
+
+3:27:15.662750 <0.426.0> supervisor2:validId/1 --> true
+
+3:27:15.662860 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.662921 <0.426.0> supervisor2:validFunc({amqp_channels_manager,start_link,
+                       [<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                        <0.430.0>]})
+
+3:27:15.663029 <0.426.0> supervisor2:validFunc/1 --> true
+
+3:27:15.663083 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.663211 <0.426.0> supervisor2:validRestartType(transient)
+
+3:27:15.663303 <0.426.0> supervisor2:validRestartType/1 --> true
+
+3:27:15.663382 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.663424 <0.426.0> supervisor2:validChildType(worker)
+
+3:27:15.663465 <0.426.0> supervisor2:validChildType/1 --> true
+
+3:27:15.663535 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.663577 <0.426.0> supervisor2:validShutdown(300000)
+
+3:27:15.663620 <0.426.0> supervisor2:validShutdown/1 --> true
+
+3:27:15.663661 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.663700 <0.426.0> supervisor2:validMods([amqp_channels_manager])
+
+3:27:15.663753 <0.426.0> supervisor2:'-validMods/1-fun-0-'(amqp_channels_manager)
+
+3:27:15.663799 <0.426.0> supervisor2:'-validMods/1-fun-0-'/1 --> ok
+
+3:27:15.663981 <0.426.0>  '--> lists:foreach_1/2
+
+3:27:15.664038 <0.426.0> supervisor2:validMods/1 --> ok
+
+3:27:15.664081 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.664120 <0.426.0> supervisor2:do_check_childspec/1 --> {ok,{child,undefined,channels_manager,
+           {amqp_channels_manager,start_link,
+                                  [<0.427.0>,
+                                   <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                                   <0.430.0>]},
+           transient,300000,worker,
+           [amqp_channels_manager]}}
+
+3:27:15.664307 <0.426.0>  '--> supervisor2:check_childspec/1
+
+3:27:15.664413 <0.426.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,channels_manager,
+           {amqp_channels_manager,start_link,
+                                  [<0.427.0>,
+                                   <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                                   <0.430.0>]},
+           transient,300000,worker,
+           [amqp_channels_manager]}}
+
+3:27:15.664584 <0.426.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,channels_manager,
+           {amqp_channels_manager,start_link,
+                                  [<0.427.0>,
+                                   <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                                   <0.430.0>]},
+           transient,300000,worker,
+           [amqp_channels_manager]}}
+
+3:27:15.664734 <0.426.0>  '--> supervisor2:handle_call/3
+
+3:27:15.664780 <0.426.0> supervisor2:handle_start_child({child,undefined,channels_manager,
+       {amqp_channels_manager,start_link,
+                              [<0.427.0>,
+                               <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                               <0.430.0>]},
+       transient,300000,worker,
+       [amqp_channels_manager]}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.665075 <0.426.0> supervisor2:internal_find_child(channels_manager, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.665264 <0.426.0> supervisor2:internal_find_child/2 --> error
+
+3:27:15.665315 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.665351 <0.426.0> supervisor2:do_start_child({<0.426.0>,amqp_connection_type_sup}, {child,undefined,channels_manager,
+       {amqp_channels_manager,start_link,
+                              [<0.427.0>,
+                               <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                               <0.430.0>]},
+       transient,300000,worker,
+       [amqp_channels_manager]})
+
+3:27:15.665532 <0.426.0> supervisor2:do_start_child_i(amqp_channels_manager, start_link, [<0.427.0>,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+ <0.430.0>])
+
+3:27:15.665647 <0.426.0> amqp_channels_manager:start_link(<0.427.0>, <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>, <0.430.0>)
+
+3:27:15.665761 <0.431.0> amqp_channels_manager:init([<0.427.0>,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+ <0.430.0>])
+
+3:27:15.665846 <0.431.0> rabbit_misc:store_proc_name(amqp_channels_manager, <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>)
+
+3:27:15.665953 <0.431.0> rabbit_misc:store_proc_name({amqp_channels_manager,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>})
+
+3:27:15.666059 <0.431.0> rabbit_misc:store_proc_name/1 --> undefined
+
+3:27:15.666113 <0.431.0> rabbit_misc:store_proc_name/2 --> undefined
+
+3:27:15.666154 <0.431.0>  '--> amqp_channels_manager:init/1
+
+3:27:15.666188 <0.431.0> amqp_channels_manager:init/1 --> {ok,{state,<0.427.0>,<0.430.0>,{0,nil},#{},65535,false}}
+
+3:27:15.666242 <0.431.0>  '--> gen_server:init_it/2
+
+3:27:15.666280 <0.426.0> amqp_channels_manager:start_link/3 --> {ok,<0.431.0>}
+
+3:27:15.666332 <0.426.0>  '--> supervisor2:do_start_child_i/3
+
+3:27:15.666368 <0.426.0> supervisor2:do_start_child_i/3 --> {ok,<0.431.0>}
+
+3:27:15.666409 <0.426.0>  '--> supervisor2:do_start_child/2
+
+3:27:15.666483 <0.426.0> supervisor2:report_progress({child,<0.431.0>,channels_manager,
+       {amqp_channels_manager,start_link,
+                              [<0.427.0>,
+                               <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                               <0.430.0>]},
+       transient,300000,worker,
+       [amqp_channels_manager]}, {<0.426.0>,amqp_connection_type_sup})
+
+3:27:15.666644 <0.426.0> supervisor2:report_progress/2 --> ok
+
+3:27:15.666692 <0.426.0>  '--> supervisor2:do_start_child/2
+
+3:27:15.666730 <0.426.0> supervisor2:do_start_child/2 --> {ok,<0.431.0>}
+
+3:27:15.666774 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.666808 <0.426.0> supervisor2:save_child({child,<0.431.0>,channels_manager,
+       {amqp_channels_manager,start_link,
+                              [<0.427.0>,
+                               <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                               <0.430.0>]},
+       transient,300000,worker,
+       [amqp_channels_manager]}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.667089 <0.426.0> supervisor2:do_save_child({child,<0.431.0>,channels_manager,
+       {amqp_channels_manager,start_link,
+                              [<0.427.0>,
+                               <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                               <0.430.0>]},
+       transient,300000,worker,
+       [amqp_channels_manager]}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.667347 <0.426.0> supervisor2:do_save_child/2 --> {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+3:27:15.667646 <0.426.0> supervisor2:save_child/2 --> {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+3:27:15.667896 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.667944 <0.426.0> supervisor2:handle_start_child/2 --> {{ok,<0.431.0>},
+ {state,
+     {<0.426.0>,amqp_connection_type_sup},
+     one_for_all,
+     {[channels_manager,channel_sup_sup],
+      #{channel_sup_sup =>
+            {child,<0.430.0>,channel_sup_sup,
+                {amqp_channel_sup_sup,start_link,
+                    [network,<0.427.0>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                intrinsic,infinity,supervisor,
+                [amqp_channel_sup_sup]},
+        channels_manager =>
+            {child,<0.431.0>,channels_manager,
+                {amqp_channels_manager,start_link,
+                    [<0.427.0>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                     <0.430.0>]},
+                transient,300000,worker,
+                [amqp_channels_manager]}}},
+     undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+3:27:15.668234 <0.426.0>  '--> supervisor2:handle_call/3
+
+3:27:15.668282 <0.426.0> supervisor2:handle_call/3 --> {reply,
+    {ok,<0.431.0>},
+    {state,
+        {<0.426.0>,amqp_connection_type_sup},
+        one_for_all,
+        {[channels_manager,channel_sup_sup],
+         #{channel_sup_sup =>
+               {child,<0.430.0>,channel_sup_sup,
+                   {amqp_channel_sup_sup,start_link,
+                       [network,<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                   intrinsic,infinity,supervisor,
+                   [amqp_channel_sup_sup]},
+           channels_manager =>
+               {child,<0.431.0>,channels_manager,
+                   {amqp_channels_manager,start_link,
+                       [<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                        <0.430.0>]},
+                   transient,300000,worker,
+                   [amqp_channels_manager]}}},
+        undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+3:27:15.668571 <0.426.0>  '--> gen_server:try_handle_call/4
+
+3:27:15.668648 <0.427.0> supervisor2:call/2 --> {ok,<0.431.0>}
+
+3:27:15.668703 <0.427.0> supervisor2:start_child/2 --> {ok,<0.431.0>}
+
+3:27:15.668755 <0.427.0>  '--> amqp_connection_type_sup:start_channels_manager/4
+
+3:27:15.668793 <0.427.0> amqp_connection_type_sup:start_channels_manager/4 --> {ok,<0.431.0>}
+
+3:27:15.668836 <0.427.0>  '--> amqp_connection_type_sup:'-start_infrastructure_fun/3-fun-0-'/4
+
+3:27:15.668875 <0.427.0> rabbit_misc:get_env(rabbit, worker_shutdown_timeout, 300000)
+
+3:27:15.668946 <0.427.0> rabbit_misc:get_env/3 --> 300000
+
+3:27:15.668987 <0.427.0>  '--> amqp_connection_type_sup:'-start_infrastructure_fun/3-fun-0-'/4
+
+3:27:15.669048 <0.427.0> supervisor2:start_child(<0.426.0>, {writer,{rabbit_writer,start_link,
+                       [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                        false,1000000000]},
+        transient,300000,worker,
+        [rabbit_writer]})
+
+3:27:15.669203 <0.427.0> supervisor2:call(<0.426.0>, {start_child,{writer,{rabbit_writer,start_link,
+                                    [#Port<0.8>,0,4096,
+                                     rabbit_framing_amqp_0_9_1,<0.427.0>,
+                                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                                     false,1000000000]},
+                     transient,300000,worker,
+                     [rabbit_writer]}})
+
+3:27:15.669383 <0.426.0> supervisor2:handle_call({start_child,{writer,{rabbit_writer,start_link,
+                                    [#Port<0.8>,0,4096,
+                                     rabbit_framing_amqp_0_9_1,<0.427.0>,
+                                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                                     false,1000000000]},
+                     transient,300000,worker,
+                     [rabbit_writer]}}, {<0.427.0>,#Ref<0.3571895162.2791833601.167968>}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.669757 <0.426.0> supervisor2:check_childspec({writer,{rabbit_writer,start_link,
+                       [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                        false,1000000000]},
+        transient,300000,worker,
+        [rabbit_writer]})
+
+3:27:15.669906 <0.426.0> supervisor2:check_childspec(#{id=>writer, modules=>[rabbit_writer], restart=>transient, shutdown=>300000, start=>{rabbit_writer,start_link,
+               [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                false,1000000000]}, type=>worker})
+
+3:27:15.670103 <0.426.0> supervisor2:do_check_childspec(#{id=>writer, modules=>[rabbit_writer], restart=>transient, shutdown=>300000, start=>{rabbit_writer,start_link,
+               [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                false,1000000000]}, type=>worker})
+
+3:27:15.670280 <0.426.0> supervisor2:validId(writer)
+
+3:27:15.670332 <0.426.0> supervisor2:validId/1 --> true
+
+3:27:15.670371 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.670407 <0.426.0> supervisor2:validFunc({rabbit_writer,start_link,
+               [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                false,1000000000]})
+
+3:27:15.670533 <0.426.0> supervisor2:validFunc/1 --> true
+
+3:27:15.670591 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.670629 <0.426.0> supervisor2:validRestartType(transient)
+
+3:27:15.670668 <0.426.0> supervisor2:validRestartType/1 --> true
+
+3:27:15.670706 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.670744 <0.426.0> supervisor2:validChildType(worker)
+
+3:27:15.670789 <0.426.0> supervisor2:validChildType/1 --> true
+
+3:27:15.670827 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.670863 <0.426.0> supervisor2:validShutdown(300000)
+
+3:27:15.670898 <0.426.0> supervisor2:validShutdown/1 --> true
+
+3:27:15.670935 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.670972 <0.426.0> supervisor2:validMods([rabbit_writer])
+
+3:27:15.671093 <0.426.0> supervisor2:'-validMods/1-fun-0-'(rabbit_writer)
+
+3:27:15.671139 <0.426.0> supervisor2:'-validMods/1-fun-0-'/1 --> ok
+
+3:27:15.671178 <0.426.0>  '--> lists:foreach_1/2
+
+3:27:15.671213 <0.426.0> supervisor2:validMods/1 --> ok
+
+3:27:15.671259 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.671299 <0.426.0> supervisor2:do_check_childspec/1 --> {ok,{child,undefined,writer,
+           {rabbit_writer,start_link,
+                          [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,
+                           <0.427.0>,
+                           <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                           false,1000000000]},
+           transient,300000,worker,
+           [rabbit_writer]}}
+
+3:27:15.671449 <0.426.0>  '--> supervisor2:check_childspec/1
+
+3:27:15.671497 <0.426.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,writer,
+           {rabbit_writer,start_link,
+                          [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,
+                           <0.427.0>,
+                           <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                           false,1000000000]},
+           transient,300000,worker,
+           [rabbit_writer]}}
+
+3:27:15.671662 <0.426.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,writer,
+           {rabbit_writer,start_link,
+                          [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,
+                           <0.427.0>,
+                           <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                           false,1000000000]},
+           transient,300000,worker,
+           [rabbit_writer]}}
+
+3:27:15.671831 <0.426.0>  '--> supervisor2:handle_call/3
+
+3:27:15.671878 <0.426.0> supervisor2:handle_start_child({child,undefined,writer,
+       {rabbit_writer,start_link,
+                      [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                       <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                       false,1000000000]},
+       transient,300000,worker,
+       [rabbit_writer]}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.672221 <0.426.0> supervisor2:internal_find_child(writer, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.672536 <0.426.0> supervisor2:internal_find_child/2 --> error
+
+3:27:15.672617 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.672661 <0.426.0> supervisor2:do_start_child({<0.426.0>,amqp_connection_type_sup}, {child,undefined,writer,
+       {rabbit_writer,start_link,
+                      [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                       <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                       false,1000000000]},
+       transient,300000,worker,
+       [rabbit_writer]})
+
+3:27:15.672836 <0.426.0> supervisor2:do_start_child_i(rabbit_writer, start_link, [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+ <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,false,1000000000])
+
+3:27:15.672940 <0.426.0> supervisor2:do_start_child_i/3 --> {ok,<0.432.0>}
+
+3:27:15.673008 <0.426.0>  '--> supervisor2:do_start_child/2
+
+3:27:15.673054 <0.426.0> supervisor2:report_progress({child,<0.432.0>,writer,
+       {rabbit_writer,start_link,
+                      [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                       <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                       false,1000000000]},
+       transient,300000,worker,
+       [rabbit_writer]}, {<0.426.0>,amqp_connection_type_sup})
+
+3:27:15.673191 <0.426.0> supervisor2:report_progress/2 --> ok
+
+3:27:15.673280 <0.426.0>  '--> supervisor2:do_start_child/2
+
+3:27:15.673342 <0.426.0> supervisor2:do_start_child/2 --> {ok,<0.432.0>}
+
+3:27:15.673396 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.673432 <0.426.0> supervisor2:save_child({child,<0.432.0>,writer,
+       {rabbit_writer,start_link,
+                      [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                       <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                       false,1000000000]},
+       transient,300000,worker,
+       [rabbit_writer]}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.673745 <0.426.0> supervisor2:do_save_child({child,<0.432.0>,writer,
+       {rabbit_writer,start_link,
+                      [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                       <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                       false,1000000000]},
+       transient,300000,worker,
+       [rabbit_writer]}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.674091 <0.426.0> supervisor2:do_save_child/2 --> {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+3:27:15.674421 <0.426.0> supervisor2:save_child/2 --> {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+3:27:15.674742 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.674788 <0.426.0> supervisor2:handle_start_child/2 --> {{ok,<0.432.0>},
+ {state,
+     {<0.426.0>,amqp_connection_type_sup},
+     one_for_all,
+     {[writer,channels_manager,channel_sup_sup],
+      #{channel_sup_sup =>
+            {child,<0.430.0>,channel_sup_sup,
+                {amqp_channel_sup_sup,start_link,
+                    [network,<0.427.0>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                intrinsic,infinity,supervisor,
+                [amqp_channel_sup_sup]},
+        channels_manager =>
+            {child,<0.431.0>,channels_manager,
+                {amqp_channels_manager,start_link,
+                    [<0.427.0>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                     <0.430.0>]},
+                transient,300000,worker,
+                [amqp_channels_manager]},
+        writer =>
+            {child,<0.432.0>,writer,
+                {rabbit_writer,start_link,
+                    [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                     false,1000000000]},
+                transient,300000,worker,
+                [rabbit_writer]}}},
+     undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+3:27:15.675123 <0.426.0>  '--> supervisor2:handle_call/3
+
+3:27:15.675242 <0.426.0> supervisor2:handle_call/3 --> {reply,
+    {ok,<0.432.0>},
+    {state,
+        {<0.426.0>,amqp_connection_type_sup},
+        one_for_all,
+        {[writer,channels_manager,channel_sup_sup],
+         #{channel_sup_sup =>
+               {child,<0.430.0>,channel_sup_sup,
+                   {amqp_channel_sup_sup,start_link,
+                       [network,<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                   intrinsic,infinity,supervisor,
+                   [amqp_channel_sup_sup]},
+           channels_manager =>
+               {child,<0.431.0>,channels_manager,
+                   {amqp_channels_manager,start_link,
+                       [<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                        <0.430.0>]},
+                   transient,300000,worker,
+                   [amqp_channels_manager]},
+           writer =>
+               {child,<0.432.0>,writer,
+                   {rabbit_writer,start_link,
+                       [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                        false,1000000000]},
+                   transient,300000,worker,
+                   [rabbit_writer]}}},
+        undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+3:27:15.675594 <0.426.0>  '--> gen_server:try_handle_call/4
+
+3:27:15.675640 <0.432.0> rabbit_misc:store_proc_name(rabbit_writer, <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>)
+
+3:27:15.675735 <0.432.0> rabbit_misc:store_proc_name({rabbit_writer,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>})
+
+3:27:15.675793 <0.432.0> rabbit_misc:store_proc_name/1 --> undefined
+
+3:27:15.675834 <0.432.0> rabbit_misc:store_proc_name/2 --> undefined
+
+3:27:15.675879 <0.432.0>  '--> rabbit_writer:enter_mainloop/2
+
+3:27:15.675918 <0.427.0> supervisor2:call/2 --> {ok,<0.432.0>}
+
+3:27:15.675960 <0.427.0> supervisor2:start_child/2 --> {ok,<0.432.0>}
+
+3:27:15.676040 <0.427.0>  '--> amqp_connection_type_sup:'-start_infrastructure_fun/3-fun-0-'/4
+
+3:27:15.676085 <0.427.0> rabbit_misc:get_env(rabbit, worker_shutdown_timeout, 300000)
+
+3:27:15.676132 <0.427.0> rabbit_misc:get_env/3 --> 300000
+
+3:27:15.676176 <0.427.0>  '--> amqp_connection_type_sup:'-start_infrastructure_fun/3-fun-0-'/4
+
+3:27:15.676215 <0.427.0> supervisor2:start_child(<0.426.0>, {main_reader,{amqp_main_reader,start_link,
+                               [#Port<0.8>,<0.427.0>,<0.431.0>,
+                                {method,rabbit_framing_amqp_0_9_1},
+                                <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+             transient,300000,worker,
+             [amqp_main_reader]})
+
+3:27:15.676390 <0.427.0> supervisor2:call(<0.426.0>, {start_child,
+    {main_reader,
+        {amqp_main_reader,start_link,
+            [#Port<0.8>,<0.427.0>,<0.431.0>,
+             {method,rabbit_framing_amqp_0_9_1},
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+        transient,300000,worker,
+        [amqp_main_reader]}})
+
+3:27:15.676550 <0.426.0> supervisor2:handle_call({start_child,
+    {main_reader,
+        {amqp_main_reader,start_link,
+            [#Port<0.8>,<0.427.0>,<0.431.0>,
+             {method,rabbit_framing_amqp_0_9_1},
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+        transient,300000,worker,
+        [amqp_main_reader]}}, {<0.427.0>,#Ref<0.3571895162.2791833601.167969>}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.677032 <0.426.0> supervisor2:check_childspec({main_reader,{amqp_main_reader,start_link,
+                               [#Port<0.8>,<0.427.0>,<0.431.0>,
+                                {method,rabbit_framing_amqp_0_9_1},
+                                <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+             transient,300000,worker,
+             [amqp_main_reader]})
+
+3:27:15.677193 <0.426.0> supervisor2:check_childspec(#{id=>main_reader, modules=>[amqp_main_reader], restart=>transient, shutdown=>300000, start=>{amqp_main_reader,start_link,
+                  [#Port<0.8>,<0.427.0>,<0.431.0>,
+                   {method,rabbit_framing_amqp_0_9_1},
+                   <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]}, type=>worker})
+
+3:27:15.677384 <0.426.0> supervisor2:do_check_childspec(#{id=>main_reader, modules=>[amqp_main_reader], restart=>transient, shutdown=>300000, start=>{amqp_main_reader,start_link,
+                  [#Port<0.8>,<0.427.0>,<0.431.0>,
+                   {method,rabbit_framing_amqp_0_9_1},
+                   <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]}, type=>worker})
+
+3:27:15.677557 <0.426.0> supervisor2:validId(main_reader)
+
+3:27:15.677625 <0.426.0> supervisor2:validId/1 --> true
+
+3:27:15.677703 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.677761 <0.426.0> supervisor2:validFunc({amqp_main_reader,start_link,
+                  [#Port<0.8>,<0.427.0>,<0.431.0>,
+                   {method,rabbit_framing_amqp_0_9_1},
+                   <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]})
+
+3:27:15.677888 <0.426.0> supervisor2:validFunc/1 --> true
+
+3:27:15.677950 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.678048 <0.426.0> supervisor2:validRestartType(transient)
+
+3:27:15.678110 <0.426.0> supervisor2:validRestartType/1 --> true
+
+3:27:15.678183 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.678270 <0.426.0> supervisor2:validChildType(worker)
+
+3:27:15.678337 <0.426.0> supervisor2:validChildType/1 --> true
+
+3:27:15.678415 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.678475 <0.426.0> supervisor2:validShutdown(300000)
+
+3:27:15.678533 <0.426.0> supervisor2:validShutdown/1 --> true
+
+3:27:15.678600 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.678682 <0.426.0> supervisor2:validMods([amqp_main_reader])
+
+3:27:15.678745 <0.426.0> supervisor2:'-validMods/1-fun-0-'(amqp_main_reader)
+
+3:27:15.678826 <0.426.0> supervisor2:'-validMods/1-fun-0-'/1 --> ok
+
+3:27:15.678889 <0.426.0>  '--> lists:foreach_1/2
+
+3:27:15.678945 <0.426.0> supervisor2:validMods/1 --> ok
+
+3:27:15.679707 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.680343 <0.426.0> supervisor2:do_check_childspec/1 --> {ok,{child,undefined,main_reader,
+           {amqp_main_reader,start_link,
+                             [#Port<0.8>,<0.427.0>,<0.431.0>,
+                              {method,rabbit_framing_amqp_0_9_1},
+                              <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+           transient,300000,worker,
+           [amqp_main_reader]}}
+
+3:27:15.680576 <0.426.0>  '--> supervisor2:check_childspec/1
+
+3:27:15.680645 <0.426.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,main_reader,
+           {amqp_main_reader,start_link,
+                             [#Port<0.8>,<0.427.0>,<0.431.0>,
+                              {method,rabbit_framing_amqp_0_9_1},
+                              <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+           transient,300000,worker,
+           [amqp_main_reader]}}
+
+3:27:15.680835 <0.426.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,main_reader,
+           {amqp_main_reader,start_link,
+                             [#Port<0.8>,<0.427.0>,<0.431.0>,
+                              {method,rabbit_framing_amqp_0_9_1},
+                              <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+           transient,300000,worker,
+           [amqp_main_reader]}}
+
+3:27:15.681058 <0.426.0>  '--> supervisor2:handle_call/3
+
+3:27:15.681129 <0.426.0> supervisor2:handle_start_child({child,undefined,main_reader,
+       {amqp_main_reader,start_link,
+                         [#Port<0.8>,<0.427.0>,<0.431.0>,
+                          {method,rabbit_framing_amqp_0_9_1},
+                          <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+       transient,300000,worker,
+       [amqp_main_reader]}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.681583 <0.426.0> supervisor2:internal_find_child(main_reader, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.681953 <0.426.0> supervisor2:internal_find_child/2 --> error
+
+3:27:15.682065 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.682128 <0.426.0> supervisor2:do_start_child({<0.426.0>,amqp_connection_type_sup}, {child,undefined,main_reader,
+       {amqp_main_reader,start_link,
+                         [#Port<0.8>,<0.427.0>,<0.431.0>,
+                          {method,rabbit_framing_amqp_0_9_1},
+                          <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+       transient,300000,worker,
+       [amqp_main_reader]})
+
+3:27:15.682338 <0.426.0> supervisor2:do_start_child_i(amqp_main_reader, start_link, [#Port<0.8>,<0.427.0>,<0.431.0>,
+ {method,rabbit_framing_amqp_0_9_1},
+ <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>])
+
+3:27:15.682466 <0.433.0> rabbit_misc:store_proc_name(amqp_main_reader, <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>)
+
+3:27:15.682568 <0.433.0> rabbit_misc:store_proc_name({amqp_main_reader,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>})
+
+3:27:15.682672 <0.433.0> rabbit_misc:store_proc_name/1 --> undefined
+
+3:27:15.682749 <0.433.0> rabbit_misc:store_proc_name/2 --> undefined
+
+3:27:15.682817 <0.433.0>  '--> amqp_main_reader:init/1
+
+3:27:15.682895 <0.426.0> supervisor2:do_start_child_i/3 --> {ok,<0.433.0>}
+
+3:27:15.683015 <0.426.0>  '--> supervisor2:do_start_child/2
+
+3:27:15.683091 <0.426.0> supervisor2:report_progress({child,<0.433.0>,main_reader,
+       {amqp_main_reader,start_link,
+                         [#Port<0.8>,<0.427.0>,<0.431.0>,
+                          {method,rabbit_framing_amqp_0_9_1},
+                          <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+       transient,300000,worker,
+       [amqp_main_reader]}, {<0.426.0>,amqp_connection_type_sup})
+
+3:27:15.683295 <0.426.0> supervisor2:report_progress/2 --> ok
+
+3:27:15.683400 <0.426.0>  '--> supervisor2:do_start_child/2
+
+3:27:15.683492 <0.426.0> supervisor2:do_start_child/2 --> {ok,<0.433.0>}
+
+3:27:15.683589 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.683640 <0.426.0> supervisor2:save_child({child,<0.433.0>,main_reader,
+       {amqp_main_reader,start_link,
+                         [#Port<0.8>,<0.427.0>,<0.431.0>,
+                          {method,rabbit_framing_amqp_0_9_1},
+                          <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+       transient,300000,worker,
+       [amqp_main_reader]}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.684086 <0.426.0> supervisor2:do_save_child({child,<0.433.0>,main_reader,
+       {amqp_main_reader,start_link,
+                         [#Port<0.8>,<0.427.0>,<0.431.0>,
+                          {method,rabbit_framing_amqp_0_9_1},
+                          <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+       transient,300000,worker,
+       [amqp_main_reader]}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.684562 <0.426.0> supervisor2:do_save_child/2 --> {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[main_reader,writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+3:27:15.685030 <0.426.0> supervisor2:save_child/2 --> {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[main_reader,writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+3:27:15.685467 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.685556 <0.426.0> supervisor2:handle_start_child/2 --> {{ok,<0.433.0>},
+ {state,
+     {<0.426.0>,amqp_connection_type_sup},
+     one_for_all,
+     {[main_reader,writer,channels_manager,channel_sup_sup],
+      #{channel_sup_sup =>
+            {child,<0.430.0>,channel_sup_sup,
+                {amqp_channel_sup_sup,start_link,
+                    [network,<0.427.0>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                intrinsic,infinity,supervisor,
+                [amqp_channel_sup_sup]},
+        channels_manager =>
+            {child,<0.431.0>,channels_manager,
+                {amqp_channels_manager,start_link,
+                    [<0.427.0>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                     <0.430.0>]},
+                transient,300000,worker,
+                [amqp_channels_manager]},
+        main_reader =>
+            {child,<0.433.0>,main_reader,
+                {amqp_main_reader,start_link,
+                    [#Port<0.8>,<0.427.0>,<0.431.0>,
+                     {method,rabbit_framing_amqp_0_9_1},
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                transient,300000,worker,
+                [amqp_main_reader]},
+        writer =>
+            {child,<0.432.0>,writer,
+                {rabbit_writer,start_link,
+                    [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                     false,1000000000]},
+                transient,300000,worker,
+                [rabbit_writer]}}},
+     undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+3:27:15.686029 <0.426.0>  '--> supervisor2:handle_call/3
+
+3:27:15.686089 <0.426.0> supervisor2:handle_call/3 --> {reply,
+    {ok,<0.433.0>},
+    {state,
+        {<0.426.0>,amqp_connection_type_sup},
+        one_for_all,
+        {[main_reader,writer,channels_manager,channel_sup_sup],
+         #{channel_sup_sup =>
+               {child,<0.430.0>,channel_sup_sup,
+                   {amqp_channel_sup_sup,start_link,
+                       [network,<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                   intrinsic,infinity,supervisor,
+                   [amqp_channel_sup_sup]},
+           channels_manager =>
+               {child,<0.431.0>,channels_manager,
+                   {amqp_channels_manager,start_link,
+                       [<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                        <0.430.0>]},
+                   transient,300000,worker,
+                   [amqp_channels_manager]},
+           main_reader =>
+               {child,<0.433.0>,main_reader,
+                   {amqp_main_reader,start_link,
+                       [#Port<0.8>,<0.427.0>,<0.431.0>,
+                        {method,rabbit_framing_amqp_0_9_1},
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                   transient,300000,worker,
+                   [amqp_main_reader]},
+           writer =>
+               {child,<0.432.0>,writer,
+                   {rabbit_writer,start_link,
+                       [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                        false,1000000000]},
+                   transient,300000,worker,
+                   [rabbit_writer]}}},
+        undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+3:27:15.686619 <0.426.0>  '--> gen_server:try_handle_call/4
+
+3:27:15.686698 <0.427.0> supervisor2:call/2 --> {ok,<0.433.0>}
+
+3:27:15.686790 <0.427.0> supervisor2:start_child/2 --> {ok,<0.433.0>}
+
+3:27:15.686861 <0.427.0>  '--> amqp_connection_type_sup:'-start_infrastructure_fun/3-fun-0-'/4
+
+3:27:15.686940 <0.433.0> rabbit_misc:get_env(amqp_client, gen_server_call_timeout, 70000)
+
+3:27:15.687063 <0.433.0> rabbit_misc:get_env/3 --> 70000
+
+3:27:15.687141 <0.433.0>  '--> amqp_util:call_timeout/0
+
+3:27:15.687203 <0.427.0> amqp_connection_type_sup:'-start_infrastructure_fun/3-fun-0-'/4 --> {ok,<0.431.0>,<0.432.0>}
+
+3:27:15.687308 <0.427.0>  '--> amqp_network_connection:start_infrastructure/2
+
+3:27:15.687369 <0.433.0> amqp_channels_manager:process_channel_frame({method,'connection.start',
+        <<0,9,0,0,1,195,12,99,97,112,97,98,105,108,105,116,105,101,115,70,0,0,
+          0,199,18,112,117,98,108,105,115,104,101,114,95,99,111,110,102,105,
+          114,109,115,116,1,26,101,120,99,104,97,110,103,101,95,101,120,99,
+          104,97,110,103,101,95,98,105,110,100,105,110,103,115,116,1,10,98,97,
+          115,105,99,46,110,97,99,107,116,1,22,99,111,110,115,117,109,101,114,
+          95,99,97,110,99,101,108,95,110,111,116,105,102,121,116,1,18,99,111,
+          110,110,101,99,116,105,111,110,46,98,108,111,99,107,101,100,116,1,
+          19,99,111,110,115,117,109,101,114,95,112,114,105,111,114,105,116,
+          105,101,115,116,1,28,97,117,116,104,101,110,116,105,99,97,116,105,
+          111,110,95,102,97,105,108,117,114,101,95,99,108,111,115,101,116,1,
+          16,112,101,114,95,99,111,110,115,117,109,101,114,95,113,111,115,116,
+          1,15,100,105,114,101,99,116,95,114,101,112,108,121,95,116,111,116,1,
+          12,99,108,117,115,116,101,114,95,110,97,109,101,83,0,0,0,15,114,97,
+          98,98,105,116,64,100,101,98,105,97,110,45,49,9,99,111,112,121,114,
+          105,103,104,116,83,0,0,0,46,67,111,112,121,114,105,103,104,116,32,
+          40,67,41,32,50,48,48,55,45,50,48,49,56,32,80,105,118,111,116,97,108,
+          32,83,111,102,116,119,97,114,101,44,32,73,110,99,46,11,105,110,102,
+          111,114,109,97,116,105,111,110,83,0,0,0,53,76,105,99,101,110,115,
+          101,100,32,117,110,100,101,114,32,116,104,101,32,77,80,76,46,32,32,
+          83,101,101,32,104,116,116,112,58,47,47,119,119,119,46,114,97,98,98,
+          105,116,109,113,46,99,111,109,47,8,112,108,97,116,102,111,114,109,
+          83,0,0,0,17,69,114,108,97,110,103,47,79,84,80,32,50,49,46,50,46,54,
+          7,112,114,111,100,117,99,116,83,0,0,0,8,82,97,98,98,105,116,77,81,7,
+          118,101,114,115,105,111,110,83,0,0,0,5,51,46,55,46,56,0,0,0,14,80,
+          76,65,73,78,32,65,77,81,80,76,65,73,78,0,0,0,5,101,110,95,85,83>>}, 0, <0.427.0>, {method,rabbit_framing_amqp_0_9_1})
+
+3:27:15.687894 <0.433.0> amqp_channels_manager:process_channel_frame/4 --> {method,rabbit_framing_amqp_0_9_1}
+
+3:27:15.687998 <0.433.0>  '--> amqp_main_reader:process_frame/4
+
+3:27:15.688045 <0.427.0> amqp_auth_mechanisms:plain(none, {amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.152",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]}, init)
+
+3:27:15.688212 <0.427.0> amqp_auth_mechanisms:plain/3 --> {<<"PLAIN">>,[]}
+
+3:27:15.688268 <0.427.0>  '--> amqp_network_connection:'-login/3-lc$^0/1-0-'/3
+
+3:27:15.688315 <0.427.0> amqp_auth_mechanisms:amqplain(none, {amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.152",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]}, init)
+
+3:27:15.688493 <0.427.0> amqp_auth_mechanisms:amqplain/3 --> {<<"AMQPLAIN">>,[]}
+
+3:27:15.688562 <0.427.0>  '--> amqp_network_connection:'-login/3-lc$^0/1-0-'/3
+
+3:27:15.688604 <0.427.0> amqp_auth_mechanisms:plain(none, {amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.152",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]}, [])
+
+3:27:15.688755 <0.427.0> amqp_auth_mechanisms:plain/3 --> {<<0,118,115,116,97,116,105,111,110,0,118,115,116,97,116,105,111,110>>,[]}
+
+3:27:15.688855 <0.427.0>  '--> amqp_network_connection:login/3
+
+3:27:15.688917 <0.432.0> rabbit_misc:method_record_type({'connection.start_ok',[{<<"product">>,longstr,<<"RabbitMQ">>},
+                        {<<"version">>,longstr,<<"3.11.2">>},
+                        {<<"platform">>,longstr,<<"Erlang">>},
+                        {<<"copyright">>,longstr,
+                         <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+                        {<<"information">>,longstr,
+                         <<"Licensed under the MPL.  See https://www.rabbitmq.com/">>},
+                        {<<"capabilities">>,table,
+                         [{<<"publisher_confirms">>,bool,true},
+                          {<<"exchange_exchange_bindings">>,bool,true},
+                          {<<"basic.nack">>,bool,true},
+                          {<<"consumer_cancel_notify">>,bool,true},
+                          {<<"connection.blocked">>,bool,true},
+                          {<<"authentication_failure_close">>,bool,true}]}],
+                       <<"PLAIN">>,
+                       <<0,118,115,116,97,116,105,111,110,0,118,115,116,97,116,
+                         105,111,110>>,
+                       <<"en_US">>})
+
+3:27:15.689244 <0.432.0> rabbit_misc:method_record_type/1 --> 'connection.start_ok'
+
+3:27:15.689302 <0.432.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+3:27:15.689342 <0.433.0> amqp_channels_manager:process_channel_frame({method,'connection.tune',<<7,255,0,2,0,0,0,60>>}, 0, <0.427.0>, {method,rabbit_framing_amqp_0_9_1})
+
+3:27:15.689442 <0.433.0> amqp_channels_manager:process_channel_frame/4 --> {method,rabbit_framing_amqp_0_9_1}
+
+3:27:15.689549 <0.433.0>  '--> amqp_main_reader:process_frame/4
+
+3:27:15.689596 <0.427.0> rabbit_misc:get_env(rabbit, worker_shutdown_timeout, 300000)
+
+3:27:15.689649 <0.427.0> rabbit_misc:get_env/3 --> 300000
+
+3:27:15.689688 <0.427.0>  '--> rabbit_heartbeat:start_heartbeater/7
+
+3:27:15.689726 <0.427.0> supervisor2:start_child(<0.426.0>, {heartbeat_sender,
+    {rabbit_heartbeat,start_heartbeat_sender,
+        [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+         {heartbeat_sender,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+    transient,300000,worker,
+    [rabbit_heartbeat]})
+
+3:27:15.689874 <0.427.0> supervisor2:call(<0.426.0>, {start_child,
+    {heartbeat_sender,
+        {rabbit_heartbeat,start_heartbeat_sender,
+            [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+             {heartbeat_sender,
+                 <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+        transient,300000,worker,
+        [rabbit_heartbeat]}})
+
+3:27:15.690499 <0.426.0> supervisor2:handle_call({start_child,
+    {heartbeat_sender,
+        {rabbit_heartbeat,start_heartbeat_sender,
+            [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+             {heartbeat_sender,
+                 <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+        transient,300000,worker,
+        [rabbit_heartbeat]}}, {<0.427.0>,#Ref<0.3571895162.2791833602.161550>}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[main_reader,writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.691099 <0.426.0> supervisor2:check_childspec({heartbeat_sender,
+    {rabbit_heartbeat,start_heartbeat_sender,
+        [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+         {heartbeat_sender,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+    transient,300000,worker,
+    [rabbit_heartbeat]})
+
+3:27:15.691270 <0.426.0> supervisor2:check_childspec(#{id=>heartbeat_sender, modules=>[rabbit_heartbeat], restart=>transient, shutdown=>300000, start=>{rabbit_heartbeat,start_heartbeat_sender,
+                  [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+                   {heartbeat_sender,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]}, type=>worker})
+
+3:27:15.691461 <0.426.0> supervisor2:do_check_childspec(#{id=>heartbeat_sender, modules=>[rabbit_heartbeat], restart=>transient, shutdown=>300000, start=>{rabbit_heartbeat,start_heartbeat_sender,
+                  [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+                   {heartbeat_sender,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]}, type=>worker})
+
+3:27:15.691634 <0.426.0> supervisor2:validId(heartbeat_sender)
+
+3:27:15.691687 <0.426.0> supervisor2:validId/1 --> true
+
+3:27:15.691732 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.691770 <0.426.0> supervisor2:validFunc({rabbit_heartbeat,start_heartbeat_sender,
+                  [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+                   {heartbeat_sender,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]})
+
+3:27:15.691894 <0.426.0> supervisor2:validFunc/1 --> true
+
+3:27:15.692012 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.692095 <0.426.0> supervisor2:validRestartType(transient)
+
+3:27:15.692141 <0.426.0> supervisor2:validRestartType/1 --> true
+
+3:27:15.692181 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.692217 <0.426.0> supervisor2:validChildType(worker)
+
+3:27:15.692253 <0.426.0> supervisor2:validChildType/1 --> true
+
+3:27:15.692295 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.692331 <0.426.0> supervisor2:validShutdown(300000)
+
+3:27:15.692368 <0.426.0> supervisor2:validShutdown/1 --> true
+
+3:27:15.692406 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.692440 <0.426.0> supervisor2:validMods([rabbit_heartbeat])
+
+3:27:15.692481 <0.426.0> supervisor2:'-validMods/1-fun-0-'(rabbit_heartbeat)
+
+3:27:15.692527 <0.426.0> supervisor2:'-validMods/1-fun-0-'/1 --> ok
+
+3:27:15.692567 <0.426.0>  '--> lists:foreach_1/2
+
+3:27:15.692600 <0.426.0> supervisor2:validMods/1 --> ok
+
+3:27:15.692637 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.692671 <0.426.0> supervisor2:do_check_childspec/1 --> {ok,{child,undefined,heartbeat_sender,
+        {rabbit_heartbeat,start_heartbeat_sender,
+            [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+             {heartbeat_sender,
+                 <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+        transient,300000,worker,
+        [rabbit_heartbeat]}}
+
+3:27:15.692833 <0.426.0>  '--> supervisor2:check_childspec/1
+
+3:27:15.692883 <0.426.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,heartbeat_sender,
+        {rabbit_heartbeat,start_heartbeat_sender,
+            [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+             {heartbeat_sender,
+                 <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+        transient,300000,worker,
+        [rabbit_heartbeat]}}
+
+3:27:15.693046 <0.426.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,heartbeat_sender,
+        {rabbit_heartbeat,start_heartbeat_sender,
+            [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+             {heartbeat_sender,
+                 <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+        transient,300000,worker,
+        [rabbit_heartbeat]}}
+
+3:27:15.693193 <0.426.0>  '--> supervisor2:handle_call/3
+
+3:27:15.693240 <0.426.0> supervisor2:handle_start_child({child,undefined,heartbeat_sender,
+    {rabbit_heartbeat,start_heartbeat_sender,
+        [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+         {heartbeat_sender,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+    transient,300000,worker,
+    [rabbit_heartbeat]}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[main_reader,writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.693726 <0.426.0> supervisor2:internal_find_child(heartbeat_sender, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[main_reader,writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.694143 <0.426.0> supervisor2:internal_find_child/2 --> error
+
+3:27:15.694217 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.694259 <0.426.0> supervisor2:do_start_child({<0.426.0>,amqp_connection_type_sup}, {child,undefined,heartbeat_sender,
+    {rabbit_heartbeat,start_heartbeat_sender,
+        [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+         {heartbeat_sender,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+    transient,300000,worker,
+    [rabbit_heartbeat]})
+
+3:27:15.694485 <0.426.0> supervisor2:do_start_child_i(rabbit_heartbeat, start_heartbeat_sender, [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+ {heartbeat_sender,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}])
+
+3:27:15.694614 <0.426.0> supervisor2:do_start_child_i/3 --> {ok,<0.434.0>}
+
+3:27:15.694716 <0.426.0>  '--> supervisor2:do_start_child/2
+
+3:27:15.694767 <0.426.0> supervisor2:report_progress({child,<0.434.0>,heartbeat_sender,
+    {rabbit_heartbeat,start_heartbeat_sender,
+        [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+         {heartbeat_sender,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+    transient,300000,worker,
+    [rabbit_heartbeat]}, {<0.426.0>,amqp_connection_type_sup})
+
+3:27:15.694922 <0.426.0> supervisor2:report_progress/2 --> ok
+
+3:27:15.695017 <0.426.0>  '--> supervisor2:do_start_child/2
+
+3:27:15.695057 <0.426.0> supervisor2:do_start_child/2 --> {ok,<0.434.0>}
+
+3:27:15.695100 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.695137 <0.426.0> supervisor2:save_child({child,<0.434.0>,heartbeat_sender,
+    {rabbit_heartbeat,start_heartbeat_sender,
+        [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+         {heartbeat_sender,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+    transient,300000,worker,
+    [rabbit_heartbeat]}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[main_reader,writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.695611 <0.426.0> supervisor2:do_save_child({child,<0.434.0>,heartbeat_sender,
+    {rabbit_heartbeat,start_heartbeat_sender,
+        [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+         {heartbeat_sender,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+    transient,300000,worker,
+    [rabbit_heartbeat]}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[main_reader,writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.696084 <0.426.0> supervisor2:do_save_child/2 --> {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[heartbeat_sender,main_reader,writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       heartbeat_sender =>
+           {child,<0.434.0>,heartbeat_sender,
+               {rabbit_heartbeat,start_heartbeat_sender,
+                   [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+                    {heartbeat_sender,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+               transient,300000,worker,
+               [rabbit_heartbeat]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+3:27:15.696553 <0.426.0> supervisor2:save_child/2 --> {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[heartbeat_sender,main_reader,writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       heartbeat_sender =>
+           {child,<0.434.0>,heartbeat_sender,
+               {rabbit_heartbeat,start_heartbeat_sender,
+                   [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+                    {heartbeat_sender,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+               transient,300000,worker,
+               [rabbit_heartbeat]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+3:27:15.697088 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.697138 <0.426.0> supervisor2:handle_start_child/2 --> {{ok,<0.434.0>},
+ {state,
+     {<0.426.0>,amqp_connection_type_sup},
+     one_for_all,
+     {[heartbeat_sender,main_reader,writer,channels_manager,channel_sup_sup],
+      #{channel_sup_sup =>
+            {child,<0.430.0>,channel_sup_sup,
+                {amqp_channel_sup_sup,start_link,
+                    [network,<0.427.0>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                intrinsic,infinity,supervisor,
+                [amqp_channel_sup_sup]},
+        channels_manager =>
+            {child,<0.431.0>,channels_manager,
+                {amqp_channels_manager,start_link,
+                    [<0.427.0>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                     <0.430.0>]},
+                transient,300000,worker,
+                [amqp_channels_manager]},
+        heartbeat_sender =>
+            {child,<0.434.0>,heartbeat_sender,
+                {rabbit_heartbeat,start_heartbeat_sender,
+                    [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+                     {heartbeat_sender,
+                         <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+                transient,300000,worker,
+                [rabbit_heartbeat]},
+        main_reader =>
+            {child,<0.433.0>,main_reader,
+                {amqp_main_reader,start_link,
+                    [#Port<0.8>,<0.427.0>,<0.431.0>,
+                     {method,rabbit_framing_amqp_0_9_1},
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                transient,300000,worker,
+                [amqp_main_reader]},
+        writer =>
+            {child,<0.432.0>,writer,
+                {rabbit_writer,start_link,
+                    [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                     false,1000000000]},
+                transient,300000,worker,
+                [rabbit_writer]}}},
+     undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+3:27:15.697743 <0.426.0>  '--> supervisor2:handle_call/3
+
+3:27:15.697803 <0.426.0> supervisor2:handle_call/3 --> {reply,
+    {ok,<0.434.0>},
+    {state,
+        {<0.426.0>,amqp_connection_type_sup},
+        one_for_all,
+        {[heartbeat_sender,main_reader,writer,channels_manager,
+          channel_sup_sup],
+         #{channel_sup_sup =>
+               {child,<0.430.0>,channel_sup_sup,
+                   {amqp_channel_sup_sup,start_link,
+                       [network,<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                   intrinsic,infinity,supervisor,
+                   [amqp_channel_sup_sup]},
+           channels_manager =>
+               {child,<0.431.0>,channels_manager,
+                   {amqp_channels_manager,start_link,
+                       [<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                        <0.430.0>]},
+                   transient,300000,worker,
+                   [amqp_channels_manager]},
+           heartbeat_sender =>
+               {child,<0.434.0>,heartbeat_sender,
+                   {rabbit_heartbeat,start_heartbeat_sender,
+                       [#Port<0.8>,10,
+                        #Fun<amqp_network_connection.2.53417588>,
+                        {heartbeat_sender,
+                            <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+                   transient,300000,worker,
+                   [rabbit_heartbeat]},
+           main_reader =>
+               {child,<0.433.0>,main_reader,
+                   {amqp_main_reader,start_link,
+                       [#Port<0.8>,<0.427.0>,<0.431.0>,
+                        {method,rabbit_framing_amqp_0_9_1},
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                   transient,300000,worker,
+                   [amqp_main_reader]},
+           writer =>
+               {child,<0.432.0>,writer,
+                   {rabbit_writer,start_link,
+                       [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                        false,1000000000]},
+                   transient,300000,worker,
+                   [rabbit_writer]}}},
+        undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+3:27:15.698360 <0.426.0>  '--> gen_server:try_handle_call/4
+
+3:27:15.698412 <0.434.0> rabbit_misc:store_proc_name({heartbeat_sender,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>})
+
+3:27:15.698469 <0.434.0> rabbit_misc:store_proc_name/1 --> undefined
+
+3:27:15.698510 <0.434.0>  '--> rabbit_heartbeat:'-heartbeater/2-fun-0-'/3
+
+3:27:15.698548 <0.427.0> supervisor2:call/2 --> {ok,<0.434.0>}
+
+3:27:15.698596 <0.427.0> supervisor2:start_child/2 --> {ok,<0.434.0>}
+
+3:27:15.698646 <0.427.0>  '--> rabbit_heartbeat:start/7
+
+3:27:15.698683 <0.427.0> rabbit_misc:get_env(rabbit, worker_shutdown_timeout, 300000)
+
+3:27:15.698730 <0.427.0> rabbit_misc:get_env/3 --> 300000
+
+3:27:15.698768 <0.427.0>  '--> rabbit_heartbeat:start_heartbeater/7
+
+3:27:15.698806 <0.427.0> supervisor2:start_child(<0.426.0>, {heartbeat_receiver,
+    {rabbit_heartbeat,start_heartbeat_receiver,
+        [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+         {heartbeat_receiver,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+    transient,300000,worker,
+    [rabbit_heartbeat]})
+
+3:27:15.698964 <0.427.0> supervisor2:call(<0.426.0>, {start_child,
+    {heartbeat_receiver,
+        {rabbit_heartbeat,start_heartbeat_receiver,
+            [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+             {heartbeat_receiver,
+                 <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+        transient,300000,worker,
+        [rabbit_heartbeat]}})
+
+3:27:15.699134 <0.426.0> supervisor2:handle_call({start_child,
+    {heartbeat_receiver,
+        {rabbit_heartbeat,start_heartbeat_receiver,
+            [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+             {heartbeat_receiver,
+                 <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+        transient,300000,worker,
+        [rabbit_heartbeat]}}, {<0.427.0>,#Ref<0.3571895162.2791833602.161551>}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[heartbeat_sender,main_reader,writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       heartbeat_sender =>
+           {child,<0.434.0>,heartbeat_sender,
+               {rabbit_heartbeat,start_heartbeat_sender,
+                   [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+                    {heartbeat_sender,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+               transient,300000,worker,
+               [rabbit_heartbeat]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.699679 <0.426.0> supervisor2:check_childspec({heartbeat_receiver,
+    {rabbit_heartbeat,start_heartbeat_receiver,
+        [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+         {heartbeat_receiver,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+    transient,300000,worker,
+    [rabbit_heartbeat]})
+
+3:27:15.699812 <0.426.0> supervisor2:check_childspec(#{id=>heartbeat_receiver, modules=>[rabbit_heartbeat], restart=>transient, shutdown=>300000, start=>{rabbit_heartbeat,start_heartbeat_receiver,
+    [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+     {heartbeat_receiver,
+         <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]}, type=>worker})
+
+3:27:15.700025 <0.426.0> supervisor2:do_check_childspec(#{id=>heartbeat_receiver, modules=>[rabbit_heartbeat], restart=>transient, shutdown=>300000, start=>{rabbit_heartbeat,start_heartbeat_receiver,
+    [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+     {heartbeat_receiver,
+         <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]}, type=>worker})
+
+3:27:15.700184 <0.426.0> supervisor2:validId(heartbeat_receiver)
+
+3:27:15.700236 <0.426.0> supervisor2:validId/1 --> true
+
+3:27:15.700276 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.700318 <0.426.0> supervisor2:validFunc({rabbit_heartbeat,start_heartbeat_receiver,
+    [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+     {heartbeat_receiver,
+         <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]})
+
+3:27:15.700455 <0.426.0> supervisor2:validFunc/1 --> true
+
+3:27:15.700535 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.700580 <0.426.0> supervisor2:validRestartType(transient)
+
+3:27:15.700643 <0.426.0> supervisor2:validRestartType/1 --> true
+
+3:27:15.700721 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.700786 <0.426.0> supervisor2:validChildType(worker)
+
+3:27:15.700860 <0.426.0> supervisor2:validChildType/1 --> true
+
+3:27:15.700932 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.700991 <0.426.0> supervisor2:validShutdown(300000)
+
+3:27:15.701053 <0.426.0> supervisor2:validShutdown/1 --> true
+
+3:27:15.701135 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.701262 <0.426.0> supervisor2:validMods([rabbit_heartbeat])
+
+3:27:15.701370 <0.435.0> rabbit_misc:store_proc_name({heartbeat_receiver,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>})
+
+3:27:15.701467 <0.435.0> rabbit_misc:store_proc_name/1 --> undefined
+
+3:27:15.701547 <0.435.0>  '--> rabbit_heartbeat:'-heartbeater/2-fun-0-'/3
+
+3:27:15.701608 <0.427.0> supervisor2:call/2 --> {ok,<0.435.0>}
+
+3:27:15.701694 <0.427.0> supervisor2:start_child/2 --> {ok,<0.435.0>}
+
+3:27:15.701774 <0.427.0>  '--> rabbit_heartbeat:start/7
+
+3:27:15.701824 <0.426.0> supervisor2:'-validMods/1-fun-0-'(rabbit_heartbeat)
+
+3:27:15.701870 <0.426.0> supervisor2:'-validMods/1-fun-0-'/1 --> ok
+
+3:27:15.701963 <0.426.0>  '--> lists:foreach_1/2
+
+3:27:15.702008 <0.426.0> supervisor2:validMods/1 --> ok
+
+3:27:15.702057 <0.426.0>  '--> supervisor2:do_check_childspec/1
+
+3:27:15.702095 <0.426.0> supervisor2:do_check_childspec/1 --> {ok,{child,undefined,heartbeat_receiver,
+        {rabbit_heartbeat,start_heartbeat_receiver,
+            [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+             {heartbeat_receiver,
+                 <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+        transient,300000,worker,
+        [rabbit_heartbeat]}}
+
+3:27:15.702238 <0.426.0>  '--> supervisor2:check_childspec/1
+
+3:27:15.702288 <0.426.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,heartbeat_receiver,
+        {rabbit_heartbeat,start_heartbeat_receiver,
+            [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+             {heartbeat_receiver,
+                 <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+        transient,300000,worker,
+        [rabbit_heartbeat]}}
+
+3:27:15.702441 <0.426.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,heartbeat_receiver,
+        {rabbit_heartbeat,start_heartbeat_receiver,
+            [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+             {heartbeat_receiver,
+                 <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+        transient,300000,worker,
+        [rabbit_heartbeat]}}
+
+3:27:15.702603 <0.426.0>  '--> supervisor2:handle_call/3
+
+3:27:15.702653 <0.426.0> supervisor2:handle_start_child({child,undefined,heartbeat_receiver,
+    {rabbit_heartbeat,start_heartbeat_receiver,
+        [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+         {heartbeat_receiver,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+    transient,300000,worker,
+    [rabbit_heartbeat]}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[heartbeat_sender,main_reader,writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       heartbeat_sender =>
+           {child,<0.434.0>,heartbeat_sender,
+               {rabbit_heartbeat,start_heartbeat_sender,
+                   [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+                    {heartbeat_sender,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+               transient,300000,worker,
+               [rabbit_heartbeat]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.703288 <0.426.0> supervisor2:internal_find_child(heartbeat_receiver, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[heartbeat_sender,main_reader,writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       heartbeat_sender =>
+           {child,<0.434.0>,heartbeat_sender,
+               {rabbit_heartbeat,start_heartbeat_sender,
+                   [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+                    {heartbeat_sender,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+               transient,300000,worker,
+               [rabbit_heartbeat]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.703784 <0.426.0> supervisor2:internal_find_child/2 --> error
+
+3:27:15.703858 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.703942 <0.426.0> supervisor2:do_start_child({<0.426.0>,amqp_connection_type_sup}, {child,undefined,heartbeat_receiver,
+    {rabbit_heartbeat,start_heartbeat_receiver,
+        [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+         {heartbeat_receiver,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+    transient,300000,worker,
+    [rabbit_heartbeat]})
+
+3:27:15.704130 <0.426.0> supervisor2:do_start_child_i(rabbit_heartbeat, start_heartbeat_receiver, [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+ {heartbeat_receiver,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}])
+
+3:27:15.704367 <0.426.0> supervisor2:do_start_child_i/3 --> {ok,<0.435.0>}
+
+3:27:15.704475 <0.426.0>  '--> supervisor2:do_start_child/2
+
+3:27:15.704531 <0.426.0> supervisor2:report_progress({child,<0.435.0>,heartbeat_receiver,
+    {rabbit_heartbeat,start_heartbeat_receiver,
+        [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+         {heartbeat_receiver,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+    transient,300000,worker,
+    [rabbit_heartbeat]}, {<0.426.0>,amqp_connection_type_sup})
+
+3:27:15.704703 <0.426.0> supervisor2:report_progress/2 --> ok
+
+3:27:15.704769 <0.426.0>  '--> supervisor2:do_start_child/2
+
+3:27:15.704811 <0.426.0> supervisor2:do_start_child/2 --> {ok,<0.435.0>}
+
+3:27:15.704859 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.704942 <0.426.0> supervisor2:save_child({child,<0.435.0>,heartbeat_receiver,
+    {rabbit_heartbeat,start_heartbeat_receiver,
+        [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+         {heartbeat_receiver,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+    transient,300000,worker,
+    [rabbit_heartbeat]}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[heartbeat_sender,main_reader,writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       heartbeat_sender =>
+           {child,<0.434.0>,heartbeat_sender,
+               {rabbit_heartbeat,start_heartbeat_sender,
+                   [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+                    {heartbeat_sender,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+               transient,300000,worker,
+               [rabbit_heartbeat]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.705503 <0.426.0> supervisor2:do_save_child({child,<0.435.0>,heartbeat_receiver,
+    {rabbit_heartbeat,start_heartbeat_receiver,
+        [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+         {heartbeat_receiver,
+             <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+    transient,300000,worker,
+    [rabbit_heartbeat]}, {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[heartbeat_sender,main_reader,writer,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       heartbeat_sender =>
+           {child,<0.434.0>,heartbeat_sender,
+               {rabbit_heartbeat,start_heartbeat_sender,
+                   [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+                    {heartbeat_sender,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+               transient,300000,worker,
+               [rabbit_heartbeat]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+3:27:15.706147 <0.426.0> supervisor2:do_save_child/2 --> {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[heartbeat_receiver,heartbeat_sender,main_reader,writer,channels_manager,
+      channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       heartbeat_receiver =>
+           {child,<0.435.0>,heartbeat_receiver,
+               {rabbit_heartbeat,start_heartbeat_receiver,
+                   [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+                    {heartbeat_receiver,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+               transient,300000,worker,
+               [rabbit_heartbeat]},
+       heartbeat_sender =>
+           {child,<0.434.0>,heartbeat_sender,
+               {rabbit_heartbeat,start_heartbeat_sender,
+                   [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+                    {heartbeat_sender,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+               transient,300000,worker,
+               [rabbit_heartbeat]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+3:27:15.706741 <0.426.0> supervisor2:save_child/2 --> {state,
+    {<0.426.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[heartbeat_receiver,heartbeat_sender,main_reader,writer,channels_manager,
+      channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.430.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [network,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.431.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    <0.430.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       heartbeat_receiver =>
+           {child,<0.435.0>,heartbeat_receiver,
+               {rabbit_heartbeat,start_heartbeat_receiver,
+                   [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+                    {heartbeat_receiver,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+               transient,300000,worker,
+               [rabbit_heartbeat]},
+       heartbeat_sender =>
+           {child,<0.434.0>,heartbeat_sender,
+               {rabbit_heartbeat,start_heartbeat_sender,
+                   [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+                    {heartbeat_sender,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+               transient,300000,worker,
+               [rabbit_heartbeat]},
+       main_reader =>
+           {child,<0.433.0>,main_reader,
+               {amqp_main_reader,start_link,
+                   [#Port<0.8>,<0.427.0>,<0.431.0>,
+                    {method,rabbit_framing_amqp_0_9_1},
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+               transient,300000,worker,
+               [amqp_main_reader]},
+       writer =>
+           {child,<0.432.0>,writer,
+               {rabbit_writer,start_link,
+                   [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                    <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                    false,1000000000]},
+               transient,300000,worker,
+               [rabbit_writer]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+3:27:15.707405 <0.426.0>  '--> supervisor2:handle_start_child/2
+
+3:27:15.707465 <0.426.0> supervisor2:handle_start_child/2 --> {{ok,<0.435.0>},
+ {state,
+     {<0.426.0>,amqp_connection_type_sup},
+     one_for_all,
+     {[heartbeat_receiver,heartbeat_sender,main_reader,writer,
+       channels_manager,channel_sup_sup],
+      #{channel_sup_sup =>
+            {child,<0.430.0>,channel_sup_sup,
+                {amqp_channel_sup_sup,start_link,
+                    [network,<0.427.0>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                intrinsic,infinity,supervisor,
+                [amqp_channel_sup_sup]},
+        channels_manager =>
+            {child,<0.431.0>,channels_manager,
+                {amqp_channels_manager,start_link,
+                    [<0.427.0>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                     <0.430.0>]},
+                transient,300000,worker,
+                [amqp_channels_manager]},
+        heartbeat_receiver =>
+            {child,<0.435.0>,heartbeat_receiver,
+                {rabbit_heartbeat,start_heartbeat_receiver,
+                    [#Port<0.8>,10,#Fun<amqp_network_connection.3.53417588>,
+                     {heartbeat_receiver,
+                         <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+                transient,300000,worker,
+                [rabbit_heartbeat]},
+        heartbeat_sender =>
+            {child,<0.434.0>,heartbeat_sender,
+                {rabbit_heartbeat,start_heartbeat_sender,
+                    [#Port<0.8>,10,#Fun<amqp_network_connection.2.53417588>,
+                     {heartbeat_sender,
+                         <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+                transient,300000,worker,
+                [rabbit_heartbeat]},
+        main_reader =>
+            {child,<0.433.0>,main_reader,
+                {amqp_main_reader,start_link,
+                    [#Port<0.8>,<0.427.0>,<0.431.0>,
+                     {method,rabbit_framing_amqp_0_9_1},
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                transient,300000,worker,
+                [amqp_main_reader]},
+        writer =>
+            {child,<0.432.0>,writer,
+                {rabbit_writer,start_link,
+                    [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                     false,1000000000]},
+                transient,300000,worker,
+                [rabbit_writer]}}},
+     undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+3:27:15.708165 <0.426.0>  '--> supervisor2:handle_call/3
+
+3:27:15.708224 <0.426.0> supervisor2:handle_call/3 --> {reply,
+    {ok,<0.435.0>},
+    {state,
+        {<0.426.0>,amqp_connection_type_sup},
+        one_for_all,
+        {[heartbeat_receiver,heartbeat_sender,main_reader,writer,
+          channels_manager,channel_sup_sup],
+         #{channel_sup_sup =>
+               {child,<0.430.0>,channel_sup_sup,
+                   {amqp_channel_sup_sup,start_link,
+                       [network,<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                   intrinsic,infinity,supervisor,
+                   [amqp_channel_sup_sup]},
+           channels_manager =>
+               {child,<0.431.0>,channels_manager,
+                   {amqp_channels_manager,start_link,
+                       [<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                        <0.430.0>]},
+                   transient,300000,worker,
+                   [amqp_channels_manager]},
+           heartbeat_receiver =>
+               {child,<0.435.0>,heartbeat_receiver,
+                   {rabbit_heartbeat,start_heartbeat_receiver,
+                       [#Port<0.8>,10,
+                        #Fun<amqp_network_connection.3.53417588>,
+                        {heartbeat_receiver,
+                            <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+                   transient,300000,worker,
+                   [rabbit_heartbeat]},
+           heartbeat_sender =>
+               {child,<0.434.0>,heartbeat_sender,
+                   {rabbit_heartbeat,start_heartbeat_sender,
+                       [#Port<0.8>,10,
+                        #Fun<amqp_network_connection.2.53417588>,
+                        {heartbeat_sender,
+                            <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>}]},
+                   transient,300000,worker,
+                   [rabbit_heartbeat]},
+           main_reader =>
+               {child,<0.433.0>,main_reader,
+                   {amqp_main_reader,start_link,
+                       [#Port<0.8>,<0.427.0>,<0.431.0>,
+                        {method,rabbit_framing_amqp_0_9_1},
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>]},
+                   transient,300000,worker,
+                   [amqp_main_reader]},
+           writer =>
+               {child,<0.432.0>,writer,
+                   {rabbit_writer,start_link,
+                       [#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.427.0>,
+                        <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                        false,1000000000]},
+                   transient,300000,worker,
+                   [rabbit_writer]}}},
+        undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+3:27:15.708958 <0.426.0>  '--> gen_server:try_handle_call/4
+
+3:27:15.709041 <0.432.0> rabbit_misc:method_record_type({'connection.tune_ok',2047,131072,10})
+
+3:27:15.709118 <0.432.0> rabbit_misc:method_record_type/1 --> 'connection.tune_ok'
+
+3:27:15.713364 <0.432.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+3:27:15.713489 <0.432.0> rabbit_misc:method_record_type({'connection.open',<<"vstation">>,<<>>,false})
+
+3:27:15.713583 <0.432.0> rabbit_misc:method_record_type/1 --> 'connection.open'
+
+3:27:15.713667 <0.432.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+3:27:15.713716 <0.433.0> amqp_channels_manager:process_channel_frame({method,'connection.open_ok',<<0>>}, 0, <0.427.0>, {method,rabbit_framing_amqp_0_9_1})
+
+3:27:15.713817 <0.433.0> amqp_channels_manager:process_channel_frame/4 --> {method,rabbit_framing_amqp_0_9_1}
+
+3:27:15.713903 <0.433.0>  '--> amqp_main_reader:process_frame/4
+
+3:27:15.713971 <0.427.0> amqp_gen_connection:after_connect({[{<<"capabilities">>,table,
+   [{<<"publisher_confirms">>,bool,true},
+    {<<"exchange_exchange_bindings">>,bool,true},
+    {<<"basic.nack">>,bool,true},
+    {<<"consumer_cancel_notify">>,bool,true},
+    {<<"connection.blocked">>,bool,true},
+    {<<"consumer_priorities">>,bool,true},
+    {<<"authentication_failure_close">>,bool,true},
+    {<<"per_consumer_qos">>,bool,true},
+    {<<"direct_reply_to">>,bool,true}]},
+  {<<"cluster_name">>,longstr,<<"rabbit@debian-1">>},
+  {<<"copyright">>,longstr,
+   <<"Copyright (C) 2007-2018 Pivotal Software, Inc.">>},
+  {<<"information">>,longstr,
+   <<"Licensed under the MPL.  See http://www.rabbitmq.com/">>},
+  {<<"platform">>,longstr,<<"Erlang/OTP 21.2.6">>},
+  {<<"product">>,longstr,<<"RabbitMQ">>},
+  {<<"version">>,longstr,<<"3.7.8">>}],
+ 2047,<0.431.0>,
+ {state,#Port<0.8>,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+        10,<0.432.0>,131072,<0.426.0>,undefined,false}}, {state,amqp_network_connection,
+       {state,undefined,undefined,undefined,undefined,undefined,undefined,
+              undefined,false},
+       undefined,
+       {amqp_params_network,<<"vstation">>,
+                            {plaintext,<<"vstation">>},
+                            <<"vstation">>,"192.168.142.152",5672,2047,0,10,
+                            60000,none,
+                            [fun amqp_auth_mechanisms:plain/3,
+                             fun amqp_auth_mechanisms:amqplain/3],
+                            [],[]},
+       undefined,undefined,none,false})
+
+3:27:15.714394 <0.427.0> amqp_channels_manager:set_channel_max(<0.431.0>, 2047)
+
+3:27:15.714469 <0.427.0> amqp_channels_manager:set_channel_max/2 --> ok
+
+3:27:15.714514 <0.427.0>  '--> amqp_gen_connection:after_connect/2
+
+3:27:15.714554 <0.427.0> amqp_gen_connection:i(name, {state,amqp_network_connection,
+       {state,#Port<0.8>,
+              <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,10,
+              <0.432.0>,131072,<0.426.0>,undefined,false},
+       <0.431.0>,
+       {amqp_params_network,<<"vstation">>,
+                            {plaintext,<<"vstation">>},
+                            <<"vstation">>,"192.168.142.152",5672,2047,0,10,
+                            60000,none,
+                            [fun amqp_auth_mechanisms:plain/3,
+                             fun amqp_auth_mechanisms:amqplain/3],
+                            [],[]},
+       2047,
+       [{<<"capabilities">>,table,
+         [{<<"publisher_confirms">>,bool,true},
+          {<<"exchange_exchange_bindings">>,bool,true},
+          {<<"basic.nack">>,bool,true},
+          {<<"consumer_cancel_notify">>,bool,true},
+          {<<"connection.blocked">>,bool,true},
+          {<<"consumer_priorities">>,bool,true},
+          {<<"authentication_failure_close">>,bool,true},
+          {<<"per_consumer_qos">>,bool,true},
+          {<<"direct_reply_to">>,bool,true}]},
+        {<<"cluster_name">>,longstr,<<"rabbit@debian-1">>},
+        {<<"copyright">>,longstr,
+         <<"Copyright (C) 2007-2018 Pivotal Software, Inc.">>},
+        {<<"information">>,longstr,
+         <<"Licensed under the MPL.  See http://www.rabbitmq.com/">>},
+        {<<"platform">>,longstr,<<"Erlang/OTP 21.2.6">>},
+        {<<"product">>,longstr,<<"RabbitMQ">>},
+        {<<"version">>,longstr,<<"3.7.8">>}],
+       none,false})
+
+3:27:15.714966 <0.427.0> amqp_gen_connection:i/2 --> <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>
+
+3:27:15.715050 <0.427.0>  '--> amqp_gen_connection:after_connect/2
+
+3:27:15.715098 <0.427.0> rabbit_misc:store_proc_name(amqp_gen_connection, <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>)
+
+3:27:15.715150 <0.427.0> rabbit_misc:store_proc_name({amqp_gen_connection,<<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>})
+
+3:27:15.715209 <0.427.0> rabbit_misc:store_proc_name/1 --> undefined
+
+3:27:15.715252 <0.427.0> rabbit_misc:store_proc_name/2 --> undefined
+
+3:27:15.715290 <0.427.0>  '--> amqp_gen_connection:after_connect/2
+
+3:27:15.715324 <0.427.0> amqp_gen_connection:after_connect/2 --> {state,amqp_network_connection,
+       {state,#Port<0.8>,
+              <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,10,
+              <0.432.0>,131072,<0.426.0>,undefined,false},
+       <0.431.0>,
+       {amqp_params_network,<<"vstation">>,
+                            {plaintext,<<"vstation">>},
+                            <<"vstation">>,"192.168.142.152",5672,2047,0,10,
+                            60000,none,
+                            [fun amqp_auth_mechanisms:plain/3,
+                             fun amqp_auth_mechanisms:amqplain/3],
+                            [],[]},
+       2047,
+       [{<<"capabilities">>,table,
+         [{<<"publisher_confirms">>,bool,true},
+          {<<"exchange_exchange_bindings">>,bool,true},
+          {<<"basic.nack">>,bool,true},
+          {<<"consumer_cancel_notify">>,bool,true},
+          {<<"connection.blocked">>,bool,true},
+          {<<"consumer_priorities">>,bool,true},
+          {<<"authentication_failure_close">>,bool,true},
+          {<<"per_consumer_qos">>,bool,true},
+          {<<"direct_reply_to">>,bool,true}]},
+        {<<"cluster_name">>,longstr,<<"rabbit@debian-1">>},
+        {<<"copyright">>,longstr,
+         <<"Copyright (C) 2007-2018 Pivotal Software, Inc.">>},
+        {<<"information">>,longstr,
+         <<"Licensed under the MPL.  See http://www.rabbitmq.com/">>},
+        {<<"platform">>,longstr,<<"Erlang/OTP 21.2.6">>},
+        {<<"product">>,longstr,<<"RabbitMQ">>},
+        {<<"version">>,longstr,<<"3.7.8">>}],
+       none,false}
+
+3:27:15.715672 <0.427.0>  '--> amqp_gen_connection:handle_call/3
+
+3:27:15.715718 <0.427.0> amqp_gen_connection:handle_call/3 --> {reply,{ok,<0.427.0>},
+       {state,amqp_network_connection,
+              {state,#Port<0.8>,
+                     <<"client 192.168.142.151:51512 -> 192.168.142.152:5672">>,
+                     10,<0.432.0>,131072,<0.426.0>,undefined,false},
+              <0.431.0>,
+              {amqp_params_network,<<"vstation">>,
+                                   {plaintext,<<"vstation">>},
+                                   <<"vstation">>,"192.168.142.152",5672,2047,
+                                   0,10,60000,none,
+                                   [fun amqp_auth_mechanisms:plain/3,
+                                    fun amqp_auth_mechanisms:amqplain/3],
+                                   [],[]},
+              2047,
+              [{<<"capabilities">>,table,
+                [{<<"publisher_confirms">>,bool,true},
+                 {<<"exchange_exchange_bindings">>,bool,true},
+                 {<<"basic.nack">>,bool,true},
+                 {<<"consumer_cancel_notify">>,bool,true},
+                 {<<"connection.blocked">>,bool,true},
+                 {<<"consumer_priorities">>,bool,true},
+                 {<<"authentication_failure_close">>,bool,true},
+                 {<<"per_consumer_qos">>,bool,true},
+                 {<<"direct_reply_to">>,bool,true}]},
+               {<<"cluster_name">>,longstr,<<"rabbit@debian-1">>},
+               {<<"copyright">>,longstr,
+                <<"Copyright (C) 2007-2018 Pivotal Software, Inc.">>},
+               {<<"information">>,longstr,
+                <<"Licensed under the MPL.  See http://www.rabbitmq.com/">>},
+               {<<"platform">>,longstr,<<"Erlang/OTP 21.2.6">>},
+               {<<"product">>,longstr,<<"RabbitMQ">>},
+               {<<"version">>,longstr,<<"3.7.8">>}],
+              none,false}}
+
+3:27:15.716224 <0.427.0>  '--> gen_server:try_handle_call/4
+
+3:27:15.716277 <0.431.0> amqp_channels_manager:handle_cast({set_channel_max,2047}, {state,<0.427.0>,<0.430.0>,{0,nil},#{},65535,false})
+
+3:27:15.716385 <0.431.0> amqp_channels_manager:handle_cast/2 --> {noreply,{state,<0.427.0>,<0.430.0>,{0,nil},#{},2047,false}}
+
+3:27:15.716487 <0.431.0>  '--> gen_server:try_dispatch/4
+
+3:27:15.716539 <0.265.0> amqp_gen_connection:connect/1 --> {ok,<0.427.0>}
+
+3:27:15.716585 <0.265.0> amqp_connection:start/2 --> {ok,<0.427.0>}
+
+3:27:15.716634 <0.265.0> amqp_connection:start/1 --> {ok,<0.427.0>}
+
+3:27:15.716679 <0.265.0>  '--> amqp_example:connect_amqp/0
