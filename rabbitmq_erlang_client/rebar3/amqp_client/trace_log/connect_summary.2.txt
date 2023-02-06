@@ -13,98 +13,8 @@
 
 22:4:23.806419 <0.219.0> amqp_connection:ensure_started()
 
-22:4:23.806732 <0.219.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'([syntax_tools,compiler,xmerl,rabbit_common,amqp_client,
- credentials_obfuscation])
 
-22:4:23.806952 <0.219.0> amqp_connection:ensure_started(syntax_tools)
-
-22:4:23.807033 <0.219.0> amqp_connection:ensure_started/1 --> ok
-
-22:4:23.807123 <0.219.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
-
-22:4:23.807269 <0.219.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'([compiler,xmerl,rabbit_common,amqp_client,credentials_obfuscation])
-
-22:4:23.807424 <0.219.0> amqp_connection:ensure_started(compiler)
-
-22:4:23.807537 <0.219.0> amqp_connection:ensure_started/1 --> ok
-
-22:4:23.807744 <0.219.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
-
-22:4:23.807874 <0.219.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'([xmerl,rabbit_common,amqp_client,credentials_obfuscation])
-
-22:4:23.807998 <0.219.0> amqp_connection:ensure_started(xmerl)
-
-22:4:23.808100 <0.219.0> amqp_connection:ensure_started/1 --> ok
-
-22:4:23.808199 <0.219.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
-
-22:4:23.808287 <0.219.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'([rabbit_common,amqp_client,credentials_obfuscation])
-
-22:4:23.808455 <0.219.0> amqp_connection:ensure_started(rabbit_common)
-
-22:4:23.808525 <0.219.0> amqp_connection:ensure_started/1 --> ok
-
-22:4:23.808638 <0.219.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
-
-22:4:23.808718 <0.219.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'([amqp_client,credentials_obfuscation])
-
-22:4:23.808791 <0.219.0> amqp_connection:ensure_started(amqp_client)
-
-22:4:23.808943 <0.219.0> amqp_sup:is_ready()
-
-22:4:23.809174 <0.219.0> amqp_sup:is_ready/0 --> true
-
-22:4:23.809322 <0.219.0>  '--> amqp_connection:ensure_started/1
-
-22:4:23.809515 <0.219.0> amqp_connection:ensure_started/1 --> ok
-
-22:4:23.809719 <0.219.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
-
-22:4:23.809932 <0.219.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'([credentials_obfuscation])
-
-22:4:23.810086 <0.219.0> amqp_connection:ensure_started(credentials_obfuscation)
-
-22:4:23.810157 <0.219.0> amqp_sup:is_ready()
-
-22:4:23.810269 <0.219.0> amqp_sup:is_ready/0 --> true
-
-22:4:23.810387 <0.219.0>  '--> amqp_connection:ensure_started/1
-
-22:4:23.810476 <0.219.0> amqp_connection:ensure_started/1 --> ok
-
-22:4:23.810569 <0.219.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
-
-22:4:23.810655 <0.219.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'([])
-
-22:4:23.810788 <0.219.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1 --> []
-
-22:4:23.810901 <0.219.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
-
-22:4:23.811147 <0.219.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1 --> [ok]
-
-22:4:23.811263 <0.219.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
-
-22:4:23.811437 <0.219.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1 --> [ok,ok]
-
-22:4:23.811533 <0.219.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
-
-22:4:23.811679 <0.219.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1 --> [ok,ok,ok]
-
-22:4:23.811758 <0.219.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
-
-22:4:23.811995 <0.219.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1 --> [ok,ok,ok,ok]
-
-22:4:23.812181 <0.219.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
-
-22:4:23.812375 <0.219.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1 --> [ok,ok,ok,ok,ok]
-
-22:4:23.812558 <0.219.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
-
-22:4:23.812692 <0.219.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1 --> [ok,ok,ok,ok,ok,ok]
-
-22:4:23.812953 <0.219.0> amqp_connection:ensure_started/0 --> [ok,ok,ok,ok,ok,ok]
-
-22:4:23.813126 <0.219.0>  '--> amqp_connection:start/2
+%% 这里已经执行过 AmqpParams#amqp_params_direct{password = credentials_obfuscation:encrypt(Password)};
 
 22:4:23.813273 <0.219.0> amqp_connection:set_connection_name(undefined, {amqp_params_network,<<"vstation">>,
                      {plaintext,<<"vstation">>},
@@ -114,21 +24,7 @@
                       fun amqp_auth_mechanisms:amqplain/3],
                      [],[]})
 
-22:4:23.813565 <0.219.0> amqp_connection:set_connection_name/2 --> {amqp_params_network,<<"vstation">>,
-                     {plaintext,<<"vstation">>},
-                     <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
-                     none,
-                     [fun amqp_auth_mechanisms:plain/3,
-                      fun amqp_auth_mechanisms:amqplain/3],
-                     [],[]}
-
-22:4:23.813746 <0.219.0>  '--> amqp_connection:start/2
-
 22:4:23.813815 <0.219.0> rabbit_misc:get_env(amqp_client, gen_server_call_timeout, 70000)
-
-22:4:23.813963 <0.219.0> rabbit_misc:get_env/3 --> 70000
-
-22:4:23.814031 <0.219.0>  '--> amqp_util:call_timeout/0
 
 22:4:23.814079 <0.219.0> amqp_connection:ensure_safe_call_timeout({amqp_params_network,<<"vstation">>,
                      {plaintext,<<"vstation">>},
@@ -138,13 +34,8 @@
                       fun amqp_auth_mechanisms:amqplain/3],
                      [],[]}, 70000)
 
-22:4:23.814262 <0.219.0> amqp_connection:maybe_update_call_timeout(60000, 70000)
-
-22:4:23.814370 <0.219.0> amqp_connection:maybe_update_call_timeout/2 --> ok
-
-22:4:23.814432 <0.219.0> amqp_connection:ensure_safe_call_timeout/2 --> ok
-
-22:4:23.814633 <0.219.0>  '--> amqp_connection:start/2
+%% {ok, _Sup, Connection} = amqp_sup:start_connection_sup(AmqpParams3),
+这里只是初始化 supervisor 还没有真正启动名下的进程
 
 22:4:23.814690 <0.219.0> amqp_sup:start_connection_sup({amqp_params_network,<<"vstation">>,
                      {plaintext,<<"vstation">>},
@@ -153,26 +44,13 @@
                      [fun amqp_auth_mechanisms:plain/3,
                       fun amqp_auth_mechanisms:amqplain/3],
                      [],[]})
+%% 启动 amqp_connection_type_sup
+    {ok, TypeSup}    = supervisor2:start_child(
+                         Sup, {connection_type_sup,
+                               {amqp_connection_type_sup, start_link, []},
+                               transient, ?SUPERVISOR_WAIT, supervisor,
+                               [amqp_connection_type_sup]}),
 
-22:4:23.814880 <0.248.0> amqp_connection_sup:start_link({amqp_params_network,<<"vstation">>,
-                     {plaintext,<<"vstation">>},
-                     <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
-                     none,
-                     [fun amqp_auth_mechanisms:plain/3,
-                      fun amqp_auth_mechanisms:amqplain/3],
-                     [],[]})
-
-22:4:23.815119 <0.276.0> amqp_connection_sup:init([])
-
-22:4:23.815204 <0.276.0> amqp_connection_sup:init/1 --> {ok,{{one_for_all,0,1},[]}}
-
-22:4:23.815329 <0.276.0>  '--> supervisor2:init/1
-
-22:4:23.815392 <0.248.0> rabbit_misc:get_env(rabbit, supervisor_shutdown_timeout, infinity)
-
-22:4:23.815449 <0.248.0> rabbit_misc:get_env/3 --> infinity
-
-22:4:23.815544 <0.248.0>  '--> amqp_connection_sup:start_link/1
 
 22:4:23.815597 <0.276.0> amqp_connection_type_sup:start_link()
 
@@ -180,12 +58,17 @@
 
 22:4:23.815703 <0.277.0> amqp_connection_type_sup:init/1 --> {ok,{{one_for_all,0,1},[]}}
 
-22:4:23.815782 <0.277.0>  '--> supervisor2:init/1
-
+%% 最终返回一个进程, 也就是  amqp_connection_type_sup 类型的
 22:4:23.815826 <0.276.0> amqp_connection_type_sup:start_link/0 --> {ok,<0.277.0>}
 
-22:4:23.815877 <0.276.0>  '--> supervisor2:do_start_child_i/3
+%% 启动 amqp_gen_connection  这里把 TypeSup 传递进来，也就是上面的进程
+ {ok, Connection} = supervisor2:start_child(
+                         Sup, {connection, {amqp_gen_connection, start_link,
+                                            [TypeSup, AMQPParams]},
+                               intrinsic, brutal_kill, worker,
+                               [amqp_gen_connection]}),
 
+%% 
 22:4:23.815925 <0.276.0> amqp_gen_connection:start_link(<0.277.0>, {amqp_params_network,<<"vstation">>,
                      {plaintext,<<"vstation">>},
                      <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
@@ -203,31 +86,27 @@
                        fun amqp_auth_mechanisms:amqplain/3],
                       [],[]}})
 
-22:4:23.816408 <0.278.0> amqp_gen_connection:init/1 --> {ok,{<0.277.0>,
-     {amqp_params_network,<<"vstation">>,
-                          {plaintext,<<"vstation">>},
-                          <<"vstation">>,"192.168.142.133",5672,2047,0,10,
-                          60000,none,
-                          [fun amqp_auth_mechanisms:plain/3,
-                           fun amqp_auth_mechanisms:amqplain/3],
-                          [],[]}}}
-
-22:4:23.816647 <0.278.0>  '--> gen_server:init_it/2
-
+%% 返回一个 进程ID ， 是 gen_server 类型的
 22:4:23.816726 <0.276.0> amqp_gen_connection:start_link/2 --> {ok,<0.278.0>}
 
-22:4:23.816783 <0.276.0>  '--> supervisor2:do_start_child_i/3
+
+%% amqp_connection_sup 返回  {ok, Sup, Connection}.
 
 22:4:23.816826 <0.248.0> amqp_connection_sup:start_link/1 --> {ok,<0.276.0>,<0.278.0>}
 
-22:4:23.816879 <0.248.0>  '--> supervisor2:do_start_child_i/3
+%% 继续往下走 
+amqp_connection.erl
+    amqp_gen_connection:connect(Connection).
 
-22:4:23.816927 <0.219.0> amqp_sup:start_connection_sup/1 --> {ok,<0.276.0>,<0.278.0>}
-
-22:4:23.816984 <0.219.0>  '--> amqp_connection:start/2
-
+%% 使用上一步返回的 Connection ,其实就是 amqp_gen_connection 它本身产生的
 22:4:23.817027 <0.219.0> amqp_gen_connection:connect(<0.278.0>)
 
+connect(Pid) ->
+    gen_server:call(Pid, connect, amqp_util:call_timeout()).
+
+
+%% handle_call(connect, _From, {TypeSup, AMQPParams}) ->
+   TypeSup 也就是 amqp_connection_type_sup
 22:4:23.817125 <0.278.0> amqp_gen_connection:handle_call(connect, {<0.219.0>,[alias|#Ref<0.1984136068.2105868289.129134>]}, {<0.277.0>,
  {amqp_params_network,<<"vstation">>,
                       {plaintext,<<"vstation">>},
@@ -236,6 +115,9 @@
                       [fun amqp_auth_mechanisms:plain/3,
                        fun amqp_auth_mechanisms:amqplain/3],
                       [],[]}})
+% 获取 type_module     
+  {Type, Mod} = amqp_connection_type_sup:type_module(AMQPParams),
+
 
 22:4:23.817346 <0.278.0> amqp_connection_type_sup:type_module({amqp_params_network,<<"vstation">>,
                      {plaintext,<<"vstation">>},
@@ -247,10 +129,46 @@
 
 22:4:23.817520 <0.278.0> amqp_connection_type_sup:type_module/1 --> {network,amqp_network_connection}
 
-22:4:23.817661 <0.278.0>  '--> amqp_gen_connection:handle_call/3
 
+%%     SIF = amqp_connection_type_sup:start_infrastructure_fun(
+            TypeSup, self(), Type),
+ 
 22:4:23.817720 <0.278.0> amqp_connection_type_sup:start_infrastructure_fun(<0.277.0>, <0.278.0>, network)
 
+返回一个函数，
+start_infrastructure_fun(Sup, Conn, network) ->
+    fun (Sock, ConnName) ->
+            {ok, ChMgr} = start_channels_manager(Sup, Conn, ConnName, network),
+            {ok, AState} = rabbit_command_assembler:init(?PROTOCOL),
+            {ok, GCThreshold} = application:get_env(amqp_client, writer_gc_threshold),
+            {ok, Writer} =
+                supervisor2:start_child(
+                  Sup,
+                  {writer,
+                   {rabbit_writer, start_link,
+                    [Sock, 0, ?FRAME_MIN_SIZE, ?PROTOCOL, Conn, ConnName,
+                     false, GCThreshold]},
+                   transient, ?WORKER_WAIT, worker, [rabbit_writer]}),
+            {ok, Reader} =
+                supervisor2:start_child(
+                  Sup,
+                  {main_reader, {amqp_main_reader, start_link,
+                                 [Sock, Conn, ChMgr, AState, ConnName]},
+                   transient, ?WORKER_WAIT, worker, [amqp_main_reader]}),
+            case rabbit_net:controlling_process(Sock, Reader) of
+              ok ->
+                case amqp_main_reader:post_init(Reader) of
+                  ok ->
+                    {ok, ChMgr, Writer};
+                  {error, Reason} ->
+                    {error, Reason}
+                end;
+              {error, Reason} ->
+                {error, Reason}
+            end
+    end;
+
+%%%% 返回一个函数
 22:4:23.817786 <0.278.0> amqp_connection_type_sup:start_infrastructure_fun/3 --> #Fun<amqp_connection_type_sup.0.83209754>
 
 22:4:23.817877 <0.278.0>  '--> amqp_gen_connection:handle_call/3
