@@ -1,0 +1,48 @@
+%%%-------------------------------------------------------------------
+%% @doc enclosure top level supervisor.
+%% @end
+%%%-------------------------------------------------------------------
+
+-module(enclosure_sup).
+-compile(export_all).
+-compile(nowarn_export_all).
+
+-behaviour(supervisor).
+
+
+-export([start_link/0]).
+
+-export([init/1]).
+
+-define(SERVER, ?MODULE).
+
+start_link() ->
+    supervisor:start_link({local, ?SERVER}, ?MODULE, []).
+
+start_infrastructure_fun(Sup, Conn, network) ->
+    fun (Sock, ConnName) ->
+            {ok, ChMgr} = start_channels_manager(Sup, Conn, ConnName, network),
+            io:format("Sock:~p, ChMgr:~p~n",[Sup, ChMgr])
+    end.
+
+start_channels_manager(Sup, Conn, ConnName, network)->
+    io:format("Sup:~p~n",[Sup]),
+    {ok, world}.
+
+%% sup_flags() = #{strategy => strategy(),         % optional
+%%                 intensity => non_neg_integer(), % optional
+%%                 period => pos_integer()}        % optional
+%% child_spec() = #{id => child_id(),       % mandatory
+%%                  start => mfargs(),      % mandatory
+%%                  restart => restart(),   % optional
+%%                  shutdown => shutdown(), % optional
+%%                  type => worker(),       % optional
+%%                  modules => modules()}   % optional
+init([]) ->
+    SupFlags = #{strategy => one_for_all,
+                 intensity => 0,
+                 period => 1},
+    ChildSpecs = [],
+    {ok, {SupFlags, ChildSpecs}}.
+
+%% internal functions

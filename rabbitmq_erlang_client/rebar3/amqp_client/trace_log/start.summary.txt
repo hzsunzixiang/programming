@@ -1,6 +1,8 @@
 
 21:42:32.199508 <0.482.0> amqp_client:start(normal, [])
 21:42:32.199722 <0.482.0> amqp_sup:start_link()
+
+## 注意这里的名字 amqp_sup ， 后面就用这来调用
 21:42:32.199843 <0.482.0> supervisor2:start_link({local,amqp_sup}, amqp_sup, [])
 21:42:32.200002 <0.483.0> supervisor2:init({{local,amqp_sup},amqp_sup,[]})
 21:42:32.200176 <0.483.0> amqp_sup:init([])
