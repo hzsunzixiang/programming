@@ -1,9 +1,9 @@
 %%%-------------------------------------------------------------------
-%% @doc proc_lib_mutex top level supervisor.
+%% @doc proc_lib_test top level supervisor.
 %% @end
 %%%-------------------------------------------------------------------
 
--module(proc_lib_mutex_sup).
+-module(proc_lib_test_sup).
 
 -behaviour(supervisor).
 
@@ -25,15 +25,12 @@ start_link() ->
 %%                  shutdown => shutdown(), % optional
 %%                  type => worker(),       % optional
 %%                  modules => modules()}   % optional
-
-
 init([]) ->
     SupFlags = #{strategy => one_for_one,
                  intensity => 5,
                  period => 3600},
-    %ChildSpecs = [child(mutex), child(mutex_proc_lib)],
-    %ChildSpecs = [child(mutex)],
-    ChildSpecs = [child(mutex_proc_lib)],
+    ChildSpecs = [child(mutex)],
+    %ChildSpecs = [child(mutex_proc_lib)],
     {ok, {SupFlags, ChildSpecs}}.
 
 child(Module) ->
@@ -41,18 +38,3 @@ child(Module) ->
      permanent, 5000, worker, [Module]}.
 
 %% internal functions
-
-
-
-
-%mutex_sup:start_link().
-%supervisor:start_child(mutex_sup, ChildSpec).
-%sys:log(printer, {true,10}).
-%sys:statistics(printer, true).
-%mutex:wait(printer), mutex:signal(printer).
-%sys:log(printer, get).
-%sys:log(printer, print).
-%sys:get_status(printer).
-%whereis(printer).
-%exit(whereis(printer), kill).
-
