@@ -1,22 +1,15 @@
 
-open_channel(ConnectionPid) ->
-    open_channel(ConnectionPid, none, ?DEFAULT_CONSUMER).
-
-%% 调用 amqp_connection:open_channel 
 23:22:15.652162 <0.219.0> amqp_connection:open_channel(<0.289.0>)
 
 23:22:15.652477 <0.219.0> amqp_connection:open_channel(<0.289.0>, none, {amqp_selective_consumer,[]})
 
-
-% open_channel(Pid, ProposedNumber, Consumer) ->
-
-
 23:22:15.652636 <0.219.0> amqp_gen_connection:open_channel(<0.289.0>, none, {amqp_selective_consumer,[]})
 
+23:22:15.652820 <0.219.0> amqp_util:call_timeout()
 
-   try gen_server:call(Pid,
-                         {command, {open_channel, ProposedNumber, Consumer}},
-                         amqp_util:call_timeout()) of
+23:22:15.652987 <0.219.0> amqp_util:call_timeout/0 --> 70000
+
+23:22:15.653254 <0.219.0>  '--> amqp_gen_connection:open_channel/3
 
 23:22:15.653379 <0.289.0> amqp_gen_connection:handle_call({command,{open_channel,none,{amqp_selective_consumer,[]}}}, {<0.219.0>,[alias|#Ref<0.1989877418.458555393.208387>]}, {state,amqp_network_connection,
        {state,#Port<0.8>,
@@ -89,50 +82,32 @@ open_channel(ConnectionPid) ->
 
 23:22:15.654586 <0.289.0> amqp_network_connection:open_channel_args/1 --> [#Port<0.8>,131072]
 
-23:22:15.654686 <0.289.0>  '--> amqp_gen_connection:handle_command/3
+% open_channel(ChMgr, ProposedNumber, Consumer, InfraArgs) ->
+    gen_server:call(ChMgr, {open_channel, ProposedNumber, Consumer, InfraArgs},
+			                     amqp_util:call_timeout()).
 
 23:22:15.654728 <0.289.0> amqp_channels_manager:open_channel(<0.293.0>, none, {amqp_selective_consumer,[]}, [#Port<0.8>,131072])
 
-23:22:15.654791 <0.289.0> amqp_util:call_timeout()
-
-23:22:15.654827 <0.289.0> amqp_util:safe_call_timeout(60000)
-
-23:22:15.654892 <0.289.0> amqp_util:safe_call_timeout/1 --> 70000
-
-23:22:15.654956 <0.289.0>  '--> amqp_util:call_timeout/0
-
-23:22:15.655011 <0.289.0> rabbit_misc:get_env(amqp_client, gen_server_call_timeout, 70000)
-
-23:22:15.655077 <0.289.0> rabbit_misc:get_env/3 --> 70000
-
-23:22:15.655131 <0.289.0>  '--> amqp_util:call_timeout/0
-
-23:22:15.655167 <0.289.0> amqp_util:call_timeout/0 --> 70000
-
-23:22:15.655204 <0.289.0>  '--> amqp_channels_manager:open_channel/4
-
+%% gen_server 开始响应
 23:22:15.655256 <0.293.0> amqp_channels_manager:handle_call({open_channel,none,{amqp_selective_consumer,[]},[#Port<0.8>,131072]}, {<0.289.0>,[alias|#Ref<0.1989877418.458555393.208388>]}, {state,<0.289.0>,<0.292.0>,{0,nil},#{},2047,false})
 
 23:22:15.655391 <0.293.0> amqp_channels_manager:handle_open_channel(none, {amqp_selective_consumer,[]}, [#Port<0.8>,131072], {state,<0.289.0>,<0.292.0>,{0,nil},#{},2047,false})
 
 23:22:15.655514 <0.293.0> amqp_channels_manager:new_number(none, {state,<0.289.0>,<0.292.0>,{0,nil},#{},2047,false})
-
 23:22:15.655635 <0.293.0> amqp_channels_manager:new_number/2 --> {ok,1}
 
 23:22:15.655696 <0.293.0>  '--> amqp_channels_manager:handle_open_channel/4
 
+%%  
 23:22:15.655735 <0.293.0> amqp_channel_sup_sup:start_channel_sup(<0.292.0>, [#Port<0.8>,131072], 1, {amqp_selective_consumer,[]})
 
+%% 开始创建真正的supervisor
 23:22:15.655840 <0.292.0> amqp_channel_sup:start_link(network, <0.289.0>, <<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>, [#Port<0.8>,131072], 1, {amqp_selective_consumer,[]})
 
+%% 创建一个进程 <0.391.0>
 23:22:15.655969 <0.391.0> amqp_channel_sup:init([{amqp_selective_consumer,[]},
  {<<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>,1}])
 
-23:22:15.656077 <0.391.0> rabbit_misc:get_env(rabbit, worker_shutdown_timeout, 300000)
-
-23:22:15.656176 <0.391.0> rabbit_misc:get_env/3 --> 300000
-
-23:22:15.656292 <0.391.0>  '--> amqp_channel_sup:init/1
 
 23:22:15.656452 <0.391.0> amqp_channel_sup:init/1 --> {ok,{{one_for_all,0,1},
      [{gen_consumer,
@@ -143,102 +118,17 @@ open_channel(ConnectionPid) ->
           intrinsic,300000,worker,
           [amqp_gen_consumer]}]}}
 
-23:22:15.656679 <0.391.0>  '--> supervisor2:init/1
-
+%% 先执行 init 中的，
 23:22:15.656752 <0.391.0> amqp_gen_consumer:start_link(amqp_selective_consumer, [], {<<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>,1})
 
 23:22:15.656911 <0.391.0> gen_server2:start_link(amqp_gen_consumer, [amqp_selective_consumer,[],
  {<<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>,1}], [])
 
-23:22:15.657036 <0.392.0> gen_server2:init_it(<0.391.0>, <0.391.0>, <0.392.0>, amqp_gen_consumer, [amqp_selective_consumer,[],
- {<<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>,1}], [])
-
-23:22:15.657215 <0.392.0> gen_server2:name(<0.392.0>)
-
-23:22:15.657268 <0.392.0> gen_server2:name/1 --> <0.392.0>
-
-23:22:15.657315 <0.392.0>  '--> gen_server2:init_it/6
-
-23:22:15.657363 <0.392.0> gen_server2:debug_options(<0.392.0>, [])
-
-23:22:15.657411 <0.392.0> gen_server2:opt(debug, [])
-
-23:22:15.657472 <0.392.0> gen_server2:opt/2 --> false
-
-23:22:15.657543 <0.392.0>  '--> gen_server2:debug_options/2
-
-23:22:15.657600 <0.392.0> gen_server2:dbg_options(<0.392.0>, [])
-
-23:22:15.657647 <0.392.0> gen_server2:dbg_opts(<0.392.0>, [])
-
-23:22:15.657695 <0.392.0> gen_server2:dbg_opts/2 --> []
-
-23:22:15.657740 <0.392.0> gen_server2:dbg_options/2 --> []
-
-23:22:15.657811 <0.392.0> gen_server2:debug_options/2 --> []
-
-23:22:15.657863 <0.392.0>  '--> gen_server2:init_it/6
-
-23:22:15.657905 <0.392.0> priority_queue:new()
-
-23:22:15.657952 <0.392.0> priority_queue:new/0 --> {queue,[],[],0}
-
-23:22:15.658008 <0.392.0>  '--> gen_server2:init_it/6
-
-23:22:15.658054 <0.392.0> gen_server2:stats_funs()
-
-23:22:15.658116 <0.392.0> gen_server2:stats_funs/0 --> {#Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>}
-
-23:22:15.658202 <0.392.0>  '--> gen_server2:init_it/6
-
-23:22:15.658251 <0.392.0> gen_server2:find_prioritisers({gs2_state,<0.391.0>,<0.392.0>,undefined,amqp_gen_consumer,undefined,
-           undefined,
-           {queue,[],[],0},
-           [],undefined,undefined,#Fun<gen_server2.10.70526638>,
-           #Fun<gen_server2.11.70526638>})
-
-23:22:15.658374 <0.392.0> gen_server2:function_exported_or_default(amqp_gen_consumer, prioritise_call, 4, #Fun<gen_server2.3.70526638>)
-
-23:22:15.658442 <0.392.0> gen_server2:function_exported_or_default/4 --> #Fun<gen_server2.3.70526638>
-
-23:22:15.658498 <0.392.0>  '--> gen_server2:find_prioritisers/1
-
-23:22:15.658541 <0.392.0> gen_server2:function_exported_or_default(amqp_gen_consumer, prioritise_cast, 3, #Fun<gen_server2.4.70526638>)
-
-23:22:15.658619 <0.392.0> gen_server2:function_exported_or_default/4 --> #Fun<gen_server2.4.70526638>
-
-23:22:15.658671 <0.392.0>  '--> gen_server2:find_prioritisers/1
-
-23:22:15.658720 <0.392.0> gen_server2:function_exported_or_default(amqp_gen_consumer, prioritise_info, 3, #Fun<gen_server2.5.70526638>)
-
-23:22:15.658791 <0.392.0> gen_server2:function_exported_or_default/4 --> #Fun<gen_server2.7.70526638>
-
-23:22:15.658876 <0.392.0>  '--> gen_server2:find_prioritisers/1
-
-23:22:15.658929 <0.392.0> gen_server2:find_prioritisers/1 --> {gs2_state,<0.391.0>,<0.392.0>,undefined,amqp_gen_consumer,undefined,
-           undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           undefined,#Fun<gen_server2.10.70526638>,
-           #Fun<gen_server2.11.70526638>}
-
-23:22:15.659061 <0.392.0>  '--> gen_server2:init_it/6
 
 23:22:15.659111 <0.392.0> amqp_gen_consumer:init([amqp_selective_consumer,[],
  {<<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>,1}])
 
-23:22:15.659176 <0.392.0> rabbit_misc:store_proc_name(amqp_gen_consumer, {<<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>,1})
-
-23:22:15.659258 <0.392.0> rabbit_misc:store_proc_name({amqp_gen_consumer,{<<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>,
-                    1}})
-
-23:22:15.659326 <0.392.0> rabbit_misc:store_proc_name/1 --> undefined
-
-23:22:15.659374 <0.392.0> rabbit_misc:store_proc_name/2 --> undefined
-
-23:22:15.659426 <0.392.0>  '--> amqp_gen_consumer:init/1
+%%  case ConsumerModule:init(ExtraParams) of
 
 23:22:15.659486 <0.392.0> amqp_selective_consumer:init([])
 
@@ -248,228 +138,15 @@ open_channel(ConnectionPid) ->
 
 23:22:15.659719 <0.392.0> amqp_gen_consumer:init/1 --> {ok,{state,amqp_selective_consumer,{state,#{},undefined,#{},none}}}
 
-23:22:15.659793 <0.392.0>  '--> gen_server2:init_it/6
 
-23:22:15.659849 <0.392.0> gen_server2:init_stats({gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           undefined,#Fun<gen_server2.10.70526638>,
-           #Fun<gen_server2.11.70526638>})
-
-23:22:15.659993 <0.392.0> rabbit_event:init_stats_timer({gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           undefined,#Fun<gen_server2.10.70526638>,
-           #Fun<gen_server2.11.70526638>}, 11)
-
-23:22:15.660117 <0.392.0> rabbit_event:init_stats_timer/2 --> {gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>}
-
-23:22:15.660414 <0.392.0>  '--> gen_server2:init_stats/1
-
-23:22:15.660494 <0.392.0> gen_server2:'-stats_funs/0-fun-1-'({gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>})
-
-23:22:15.660677 <0.392.0> gen_server2:'-stats_funs/0-fun-1-'/1 --> {gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>}
-
-23:22:15.660849 <0.392.0>  '--> gen_server2:init_stats/1
-
-23:22:15.660907 <0.392.0> gen_server2:next_stats_timer({gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>})
-
-23:22:15.661064 <0.392.0> rabbit_event:reset_stats_timer({gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>}, 11)
-
-23:22:15.661223 <0.392.0> rabbit_event:reset_stats_timer/2 --> {gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>}
-
-23:22:15.661364 <0.392.0>  '--> gen_server2:next_stats_timer/1
-
-23:22:15.661416 <0.392.0> gen_server2:ensure_stats_timer({gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>})
-
-23:22:15.661585 <0.392.0> rabbit_event:ensure_stats_timer({gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>}, 11, emit_gen_server2_stats)
-
-23:22:15.661769 <0.392.0> rabbit_event:ensure_stats_timer/3 --> {gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>}
-
-23:22:15.661912 <0.392.0> gen_server2:ensure_stats_timer/1 --> {gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>}
-
-23:22:15.662051 <0.392.0> gen_server2:next_stats_timer/1 --> {gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>}
-
-23:22:15.662225 <0.392.0> gen_server2:init_stats/1 --> {gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>}
-
-23:22:15.662427 <0.392.0>  '--> gen_server2:init_it/6
-
-23:22:15.662487 <0.392.0> gen_server2:loop({gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>})
-
-23:22:15.662630 <0.392.0> gen_server2:drain({gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>})
-
-23:22:15.662786 <0.392.0> gen_server2:drain/1 --> {gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>}
-
-23:22:15.662943 <0.392.0>  '--> gen_server2:loop/1
-
-23:22:15.662996 <0.392.0> gen_server2:process_next_msg({gs2_state,<0.391.0>,<0.392.0>,
-           {state,amqp_selective_consumer,{state,#{},undefined,#{},none}},
-           amqp_gen_consumer,infinity,undefined,
-           {queue,[],[],0},
-           [],
-           {#Fun<gen_server2.3.70526638>,#Fun<gen_server2.4.70526638>,
-            #Fun<gen_server2.7.70526638>},
-           {state,none,5000,undefined},
-           #Fun<gen_server2.10.70526638>,#Fun<gen_server2.11.70526638>})
-
-23:22:15.663150 <0.392.0> priority_queue:out({queue,[],[],0})
-
-23:22:15.663202 <0.392.0> priority_queue:out/1 --> {empty,{queue,[],[],0}}
-
-23:22:15.663273 <0.392.0>  '--> gen_server2:process_next_msg/1
-
-23:22:15.663318 <0.391.0> gen_server2:start_link/3 --> {ok,<0.392.0>}
-
-23:22:15.663386 <0.391.0> amqp_gen_consumer:start_link/3 --> {ok,<0.392.0>}
-
-23:22:15.663438 <0.391.0>  '--> supervisor2:do_start_child_i/3
-
-23:22:15.663534 <0.292.0> rabbit_misc:get_env(rabbit, worker_shutdown_timeout, 300000)
-
-23:22:15.663594 <0.292.0> rabbit_misc:get_env/3 --> 300000
-
-23:22:15.663658 <0.292.0>  '--> amqp_channel_sup:start_link/6
-
+%% 执行完 init 再执行 start_link 
 23:22:15.663702 <0.391.0> amqp_channel:start_link(network, <0.289.0>, 1, <0.392.0>, {<<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>,1})
+
+创建一个进程  <0.393.0>
 
 23:22:15.663787 <0.393.0> amqp_channel:init([network,<0.289.0>,1,<0.392.0>,
  {<<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>,1}])
 
-23:22:15.663868 <0.393.0> rabbit_misc:store_proc_name(amqp_channel, {<<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>,1})
-
-23:22:15.663946 <0.393.0> rabbit_misc:store_proc_name({amqp_channel,{<<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>,1}})
-
-23:22:15.664020 <0.393.0> rabbit_misc:store_proc_name/1 --> undefined
-
-23:22:15.664085 <0.393.0> rabbit_misc:store_proc_name/2 --> undefined
 
 23:22:15.664148 <0.393.0>  '--> amqp_channel:init/1
 
@@ -480,19 +157,17 @@ open_channel(ConnectionPid) ->
            {0,nil},
            true,false}}
 
-23:22:15.664316 <0.393.0>  '--> gen_server:init_it/2
 
 23:22:15.664377 <0.391.0> amqp_channel:start_link/5 --> {ok,<0.393.0>}
 
-23:22:15.664428 <0.391.0>  '--> supervisor2:do_start_child_i/3
+%%%%% <0.292.0> amqp_channel_sup_sup 进程
+
+%% 继续向下
+    case start_writer(Sup, Type, InfraArgs, ConnName, ChNumber, ChPid) of
 
 23:22:15.664489 <0.292.0> amqp_channel_sup:start_writer(<0.391.0>, network, [#Port<0.8>,131072], <<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>, 1, <0.393.0>)
 
-23:22:15.664576 <0.292.0> rabbit_misc:get_env(rabbit, worker_shutdown_timeout, 300000)
-
-23:22:15.664634 <0.292.0> rabbit_misc:get_env/3 --> 300000
-
-23:22:15.664693 <0.292.0>  '--> amqp_channel_sup:start_writer/6
+%% 启动 rabbit_writer, start_link,  proc_lib 方式启动
 
 23:22:15.664737 <0.391.0> rabbit_writer:start_link(#Port<0.8>, 1, 131072, rabbit_framing_amqp_0_9_1, <0.393.0>, {<<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>,1}, false, 1000000000)
 
@@ -509,43 +184,33 @@ open_channel(ConnectionPid) ->
         {state,none,0,undefined},
         [],1000000000}
 
-23:22:15.666016 <0.391.0>  '--> rabbit_writer:start_link/8
-
-23:22:15.666075 <0.391.0> rabbit_writer:start_link/8 --> {ok,<0.394.0>}
-
-23:22:15.666160 <0.391.0>  '--> supervisor2:do_start_child_i/3
-
+%% 进入循环
 23:22:15.666230 <0.394.0> rabbit_writer:enter_mainloop({<<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>,1}, {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.393.0>,
         {state,none,0,undefined},
         [],1000000000})
-
-23:22:15.666386 <0.394.0> rabbit_misc:store_proc_name(rabbit_writer, {<<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>,1})
-
-23:22:15.666496 <0.394.0> rabbit_misc:store_proc_name({rabbit_writer,{<<"client 192.168.142.151:55544 -> 192.168.142.133:5672">>,1}})
-
-23:22:15.666578 <0.394.0> rabbit_misc:store_proc_name/1 --> undefined
-
-23:22:15.666640 <0.394.0> rabbit_misc:store_proc_name/2 --> undefined
-
-23:22:15.666718 <0.394.0>  '--> rabbit_writer:enter_mainloop/2
-
 23:22:15.666801 <0.394.0> rabbit_writer:mainloop([], {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.393.0>,
         {state,none,0,undefined},
         [],1000000000})
-
 23:22:15.666929 <0.394.0> rabbit_writer:mainloop1([], {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.393.0>,
         {state,none,0,undefined},
         [],1000000000})
 
-23:22:15.667046 <0.292.0> amqp_channel_sup:start_writer/6 --> {ok,<0.394.0>}
 
-23:22:15.667097 <0.292.0>  '--> amqp_channel_sup:start_link/6
+%%  继续回到  <0.292.0>  amqp_channel_sup_sup
+    case start_writer(Sup, Type, InfraArgs, ConnName, ChNumber, ChPid) of
+        {ok, Writer} ->
+            amqp_channel:set_writer(ChPid, Writer),
+            {ok, AState} = init_command_assembler(Type),
+            {ok, Sup, {ChPid, AState}};
+        {error, _}=Error ->
+            Error
+    end.
+
 
 23:22:15.667138 <0.292.0> amqp_channel:set_writer(<0.393.0>, <0.394.0>)
 
 23:22:15.667195 <0.292.0> amqp_channel:set_writer/2 --> ok
 
-23:22:15.667278 <0.292.0>  '--> amqp_channel_sup:start_link/6
 
 23:22:15.667355 <0.292.0> amqp_channel_sup:init_command_assembler(network)
 
@@ -554,12 +219,9 @@ open_channel(ConnectionPid) ->
 23:22:15.667496 <0.292.0> rabbit_command_assembler:init/1 --> {ok,{method,rabbit_framing_amqp_0_9_1}}
 
 23:22:15.667580 <0.292.0> amqp_channel_sup:init_command_assembler/1 --> {ok,{method,rabbit_framing_amqp_0_9_1}}
-
-23:22:15.667644 <0.292.0>  '--> amqp_channel_sup:start_link/6
-
 23:22:15.667712 <0.292.0> amqp_channel_sup:start_link/6 --> {ok,<0.391.0>,{<0.393.0>,{method,rabbit_framing_amqp_0_9_1}}}
 
-23:22:15.667813 <0.292.0>  '--> supervisor2:do_start_child_i/3
+%% 处理前面的 amqp_channel:set_writer
 
 23:22:15.667857 <0.393.0> amqp_channel:handle_cast({set_writer,<0.394.0>}, {state,1,<0.289.0>,<0.392.0>,network,
        {[],[]},
@@ -575,11 +237,26 @@ open_channel(ConnectionPid) ->
                 {0,nil},
                 true,false}}
 
-23:22:15.668129 <0.393.0>  '--> gen_server:try_dispatch/4
 
 23:22:15.668178 <0.293.0> amqp_channel_sup_sup:start_channel_sup/4 --> {ok,<0.391.0>,{<0.393.0>,{method,rabbit_framing_amqp_0_9_1}}}
 
 23:22:15.668285 <0.293.0>  '--> amqp_channels_manager:handle_open_channel/4
+
+%% 重新回到这里来
+handle_open_channel(ProposedNumber, Consumer, InfraArgs,
+                    State = #state{channel_sup_sup = ChSupSup}) ->
+    case new_number(ProposedNumber, State) of
+        {ok, Number} ->
+            {ok, _ChSup, {Ch, AState}} =
+                amqp_channel_sup_sup:start_channel_sup(ChSupSup, InfraArgs,
+                                                       Number, Consumer),
+            NewState = internal_register(Number, Ch, AState, State),
+            erlang:monitor(process, Ch),
+            {reply, {ok, Ch}, NewState};
+        {error, _} = Error ->
+            {reply, Error, State}
+    end.
+
 
 23:22:15.668337 <0.293.0> amqp_channels_manager:internal_register(1, <0.393.0>, {method,rabbit_framing_amqp_0_9_1}, {state,<0.289.0>,<0.292.0>,{0,nil},#{},2047,false})
 
@@ -588,6 +265,8 @@ open_channel(ConnectionPid) ->
        #{<0.393.0> => 1},
        2047,false}
 
+erlang:monitor(process, Ch),
+ <0.293.0> amqp_channels_manager 监控 <0.393.0>  amqp_channel
 23:22:15.668587 <0.293.0>  '--> amqp_channels_manager:handle_open_channel/4
 
 23:22:15.668639 <0.293.0> amqp_channels_manager:handle_open_channel/4 --> {reply,{ok,<0.393.0>},
@@ -602,8 +281,7 @@ open_channel(ConnectionPid) ->
               #{<0.393.0> => 1},
               2047,false}}
 
-23:22:15.668929 <0.293.0>  '--> gen_server:try_handle_call/4
-
+%%%%%%%%%  回到 amqp_gen_connection
 23:22:15.668992 <0.289.0> amqp_channels_manager:open_channel/4 --> {ok,<0.393.0>}
 
 23:22:15.669075 <0.289.0>  '--> amqp_gen_connection:handle_command/3
@@ -676,15 +354,14 @@ open_channel(ConnectionPid) ->
                {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
               none,false}}
 
-23:22:15.670724 <0.289.0>  '--> gen_server:try_handle_call/4
+%%% 请求  amqp_channel  
+
+ {ok, ChannelPid} -> ok = amqp_channel:open(ChannelPid),
 
 23:22:15.670846 <0.219.0> amqp_channel:open(<0.393.0>)
 
-23:22:15.670930 <0.219.0> amqp_util:call_timeout()
 
-23:22:15.671023 <0.219.0> amqp_util:call_timeout/0 --> 70000
-
-23:22:15.671174 <0.219.0>  '--> amqp_channel:open/1
+%%  amqp_channel 开始响应
 
 23:22:15.671269 <0.393.0> amqp_channel:handle_call(open, {<0.219.0>,[alias|#Ref<0.1989877418.458555393.208402>]}, {state,1,<0.289.0>,<0.392.0>,network,
        {[],[]},
@@ -746,20 +423,38 @@ open_channel(ConnectionPid) ->
        {0,nil},
        true,false})
 
+
+
+%% 这里发送一个请求到 <0.394.0> ，在后面响应
 23:22:15.672474 <0.393.0> rabbit_writer:send_command(<0.394.0>, {'channel.open',<<>>})
 
 23:22:15.672590 <0.393.0> rabbit_writer:send_command/2 --> ok
 
-23:22:15.672660 <0.393.0>  '--> amqp_channel:do/4
+do_rpc(State = #state{rpc_requests = Q,
+                      closing      = Closing}) ->
+    case queue:out(Q) of
+        {{value, {From, Sender, Method, Content, Flow}}, NewQ} ->
+            State1 = pre_do(Method, Content, Sender, State),
+            DoRet = do(Method, Content, Flow, State1),
+            case ?PROTOCOL:is_method_synchronous(Method) of
+                true  -> State1;
+                false -> case {From, DoRet} of
+                             {none, _} -> ok;
+                             {_, ok}   -> gen_server:reply(From, ok);
+                             _         -> ok
+                             %% Do not reply if error in do. Expecting
+                             %% {channel_exit, _, _}
+                         end,
+                         do_rpc(State1#state{rpc_requests = NewQ})
+            end;
 
-23:22:15.672704 <0.393.0> amqp_channel:do/4 --> ok
-
-23:22:15.672780 <0.393.0>  '--> amqp_channel:do_rpc/1
-
+继续向下
 23:22:15.672865 <0.393.0> rabbit_framing_amqp_0_9_1:is_method_synchronous({'channel.open',<<>>})
 
 23:22:15.672932 <0.393.0> rabbit_framing_amqp_0_9_1:is_method_synchronous/1 --> true
 
+
+%% 开始一级级返回
 23:22:15.672997 <0.393.0>  '--> amqp_channel:do_rpc/1
 
 23:22:15.673050 <0.393.0> amqp_channel:do_rpc/1 --> {state,1,<0.289.0>,<0.392.0>,network,
@@ -799,6 +494,9 @@ open_channel(ConnectionPid) ->
 
 23:22:15.673680 <0.393.0>  '--> gen_server:try_handle_call/4
 
+
+
+%% 这里  <0.394.0> rabbit_writer 才开始响应
 23:22:15.673738 <0.394.0> rabbit_writer:handle_message([], {send_command,{'channel.open',<<>>}}, {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.393.0>,
         {state,none,0,undefined},
         [],1000000000})
@@ -811,6 +509,7 @@ open_channel(ConnectionPid) ->
         {state,none,0,undefined},
         [],1000000000})
 
+%% 开始组装二进制包
 23:22:15.674202 <0.394.0> rabbit_writer:assemble_frame(1, {'channel.open',<<>>}, rabbit_framing_amqp_0_9_1)
 
 23:22:15.674337 <0.394.0> rabbit_binary_generator:build_simple_method_frame(1, {'channel.open',<<>>}, rabbit_framing_amqp_0_9_1)
@@ -944,6 +643,9 @@ open_channel(ConnectionPid) ->
         {state,none,0,undefined},
         [],1000000000})
 
+
+%%%% 一直到这里发送完毕
+开始接受来自服务端的响应 
 23:22:15.679096 <0.295.0> amqp_main_reader:handle_info({tcp,#Port<0.8>,<<1,0,1,0,0,0,8,0,20,0,11,0,0,0,0,206>>}, {state,#Port<0.8>,#Ref<0.1989877418.458489857.208065>,<0.289.0>,<0.293.0>,
        {method,rabbit_framing_amqp_0_9_1},
        {expecting_header,<<>>}})
@@ -980,6 +682,8 @@ open_channel(ConnectionPid) ->
 
 23:22:15.680023 <0.295.0>  '--> amqp_main_reader:handle_info/2
 
+
+%% 解析数据
 23:22:15.680074 <0.295.0> amqp_main_reader:handle_data(<<1,0,1,0,0,0,8,0,20,0,11,0,0,0,0,206>>, {state,#Port<0.8>,#Ref<0.1989877418.458489857.208457>,<0.289.0>,<0.293.0>,
        {method,rabbit_framing_amqp_0_9_1},
        {expecting_header,<<>>}})
@@ -1003,6 +707,15 @@ open_channel(ConnectionPid) ->
 23:22:15.680714 <0.295.0> rabbit_command_assembler:analyze_frame/3 --> {method,'channel.open_ok',<<0,0,0,0>>}
 
 23:22:15.680800 <0.295.0>  '--> amqp_main_reader:process_frame/4
+
+%%  ChNumber /= 0 的时候 把信息传递给 amqp_channels_manager 
+        AnalyzedFrame when ChNumber /= 0 ->
+            amqp_channels_manager:pass_frame(ChMgr, ChNumber, AnalyzedFrame),
+            State;
+
+这里会发送一个 pass_frame 包给server处理
+pass_frame(ChMgr, ChNumber, Frame) ->
+    gen_server:cast(ChMgr, {pass_frame, ChNumber, Frame}).
 
 23:22:15.680872 <0.295.0> amqp_channels_manager:pass_frame(<0.293.0>, 1, {method,'channel.open_ok',<<0,0,0,0>>})
 
@@ -1040,8 +753,11 @@ open_channel(ConnectionPid) ->
                 {method,rabbit_framing_amqp_0_9_1},
                 {expecting_header,<<>>}}}
 
-23:22:15.681912 <0.295.0>  '--> gen_server:try_dispatch/4
+%% 处理完毕
 
+
+
+%% <0.293.0> amqp_channels_manager 开始处理来自上面的消息, 这是服务端的来源
 23:22:15.682011 <0.293.0> amqp_channels_manager:handle_cast({pass_frame,1,{method,'channel.open_ok',<<0,0,0,0>>}}, {state,<0.289.0>,<0.292.0>,
        {1,{1,{<0.393.0>,{method,rabbit_framing_amqp_0_9_1}},nil,nil}},
        #{<0.393.0> => 1},
@@ -1061,6 +777,8 @@ open_channel(ConnectionPid) ->
 
 23:22:15.682595 <0.293.0>  '--> amqp_channels_manager:internal_pass_frame/3
 
+
+% 开始处理这个报文
 23:22:15.682679 <0.293.0> amqp_channels_manager:process_channel_frame({method,'channel.open_ok',<<0,0,0,0>>}, 1, <0.393.0>, {method,rabbit_framing_amqp_0_9_1})
 
 23:22:15.682802 <0.293.0> rabbit_command_assembler:process({method,'channel.open_ok',<<0,0,0,0>>}, {method,rabbit_framing_amqp_0_9_1})
@@ -1123,6 +841,8 @@ open_channel(ConnectionPid) ->
 
 23:22:15.686427 <0.293.0>  '--> gen_server:try_dispatch/4
 
+
+%% amqp_channel 来处理这个 'channel.open_ok' 消息
 23:22:15.686483 <0.393.0> amqp_channel:handle_cast({method,{'channel.open_ok',<<>>},none,noflow}, {state,1,<0.289.0>,<0.392.0>,network,
        {[{{<0.219.0>,[alias|#Ref<0.1989877418.458555393.208402>]},
           none,
@@ -1191,6 +911,7 @@ open_channel(ConnectionPid) ->
 
 23:22:15.688151 <0.393.0>  '--> amqp_channel:'-handle_method_from_server/3-fun-0-'/3
 
+%% 继续执行这个回调
 23:22:15.688218 <0.393.0> amqp_channel:handle_method_from_server1({'channel.open_ok',<<>>}, none, {state,1,<0.289.0>,<0.392.0>,network,
        {[{{<0.219.0>,[alias|#Ref<0.1989877418.458555393.208402>]},
           none,
@@ -1273,6 +994,7 @@ open_channel(ConnectionPid) ->
 
 23:22:15.689820 <0.393.0>  '--> gen_server:try_dispatch/4
 
+%%% 以上处理完毕 开始返回
 23:22:15.689873 <0.219.0> amqp_channel:open/1 --> ok
 
 23:22:15.689916 <0.219.0>  '--> amqp_gen_connection:open_channel/3
@@ -1285,6 +1007,9 @@ open_channel(ConnectionPid) ->
 
 23:22:15.690234 <0.219.0>  '--> amqp_example:open_channel/1
 
+%% 正确返回
+
+后面都是心跳包了
 23:22:18.143494 <0.296.0> rabbit_heartbeat:get_sock_stats(#Port<0.8>, send_oct, #Fun<rabbit_heartbeat.4.58237509>)
 
 23:22:18.143681 <0.296.0> rabbit_net:getstat(#Port<0.8>, [send_oct])
