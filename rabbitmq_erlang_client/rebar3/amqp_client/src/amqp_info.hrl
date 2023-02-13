@@ -8,8 +8,8 @@
 -define(RABBIT_USERNAME, <<"vstation">>).
 -define(RABBIT_PASSWORD, <<"vstation">>).
 -define(VHOST, <<"vstation">>).
--define(EXCHANGE, <<"vstation">>). 
--define(QUEUE_NAME, <<"FLOW">>). 
+-define(EXCHANGE, <<"vstation_test">>). 
+-define(QUEUE_NAME, <<"FLOW_TEST">>). 
 -define(PORT, 5672). 
 -define(NODE, 'rabbit@centos7-mq').
 
