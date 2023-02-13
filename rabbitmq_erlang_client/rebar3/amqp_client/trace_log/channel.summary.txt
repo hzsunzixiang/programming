@@ -1,15 +1,22 @@
 
+open_channel(ConnectionPid) ->
+    open_channel(ConnectionPid, none, ?DEFAULT_CONSUMER).
+
+%% 调用 amqp_connection:open_channel 
 23:22:15.652162 <0.219.0> amqp_connection:open_channel(<0.289.0>)
 
 23:22:15.652477 <0.219.0> amqp_connection:open_channel(<0.289.0>, none, {amqp_selective_consumer,[]})
 
+
+% open_channel(Pid, ProposedNumber, Consumer) ->
+
+
 23:22:15.652636 <0.219.0> amqp_gen_connection:open_channel(<0.289.0>, none, {amqp_selective_consumer,[]})
 
-23:22:15.652820 <0.219.0> amqp_util:call_timeout()
 
-23:22:15.652987 <0.219.0> amqp_util:call_timeout/0 --> 70000
-
-23:22:15.653254 <0.219.0>  '--> amqp_gen_connection:open_channel/3
+   try gen_server:call(Pid,
+                         {command, {open_channel, ProposedNumber, Consumer}},
+                         amqp_util:call_timeout()) of
 
 23:22:15.653379 <0.289.0> amqp_gen_connection:handle_call({command,{open_channel,none,{amqp_selective_consumer,[]}}}, {<0.219.0>,[alias|#Ref<0.1989877418.458555393.208387>]}, {state,amqp_network_connection,
        {state,#Port<0.8>,
