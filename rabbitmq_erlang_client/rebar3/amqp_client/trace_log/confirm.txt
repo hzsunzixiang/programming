@@ -7184,7 +7184,7 @@
 
 2:45:16.908006 <0.219.0>  '--> amqp_confirm:main/0
 
-2:45:16.908077 <0.219.0> amqp_channel:cast(<0.311.0>, {'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false}, {amqp_msg,{'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+2:45:16.908077 <0.219.0> amqp_channel:cast(<0.311.0>, {'basmc.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false}, {amqp_msg,{'P_basic',undefined,undefined,undefined,2,undefined,undefined,
                      undefined,undefined,undefined,undefined,undefined,
                      undefined,undefined,undefined},
           <<"Hello World!">>})
