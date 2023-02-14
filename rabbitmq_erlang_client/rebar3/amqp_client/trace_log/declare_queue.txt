@@ -1,0 +1,1252 @@
+
+5:47:32.065267 <0.219.0> amqp_channel:call(<0.292.0>, {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]})
+
+5:47:32.065622 <0.219.0> amqp_util:call_timeout()
+
+5:47:32.065689 <0.219.0> amqp_util:call_timeout/0 --> 70000
+
+5:47:32.065763 <0.219.0>  '--> amqp_channel:call/2
+
+5:47:32.065827 <0.292.0> amqp_channel:handle_call({call,{'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]},
+      none,<0.219.0>}, {<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]}, {state,1,<0.280.0>,<0.291.0>,network,
+       {[],[]},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+5:47:32.066044 <0.292.0> amqp_channel:handle_method_to_server({'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]}, none, {<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]}, <0.219.0>, noflow, {state,1,<0.280.0>,<0.291.0>,network,
+       {[],[]},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+5:47:32.066240 <0.292.0> amqp_channel:check_invalid_method({'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]})
+
+5:47:32.066317 <0.292.0> amqp_channel:is_connection_method({'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]})
+
+5:47:32.066388 <0.292.0> rabbit_framing_amqp_0_9_1:method_id('queue.declare')
+
+5:47:32.066441 <0.292.0> rabbit_framing_amqp_0_9_1:method_id/1 --> {50,10}
+
+5:47:32.066503 <0.292.0>  '--> amqp_channel:is_connection_method/1
+
+5:47:32.066552 <0.292.0> rabbit_framing_amqp_0_9_1:lookup_class_name(50)
+
+5:47:32.066639 <0.292.0> rabbit_framing_amqp_0_9_1:lookup_class_name/1 --> queue
+
+5:47:32.066703 <0.292.0>  '--> amqp_channel:is_connection_method/1
+
+5:47:32.066754 <0.292.0> amqp_channel:is_connection_method/1 --> false
+
+5:47:32.066810 <0.292.0>  '--> amqp_channel:check_invalid_method/1
+
+5:47:32.066866 <0.292.0> amqp_channel:check_invalid_method/1 --> ok
+
+5:47:32.066921 <0.292.0>  '--> amqp_channel:handle_method_to_server/6
+
+5:47:32.066970 <0.292.0> amqp_channel:check_block({'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]}, none, {state,1,<0.280.0>,<0.291.0>,network,
+       {[],[]},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+5:47:32.067079 <0.292.0> amqp_channel:check_block/3 --> ok
+
+5:47:32.067125 <0.292.0>  '--> amqp_channel:handle_method_to_server/6
+
+5:47:32.067169 <0.292.0> amqp_channel:build_content(none)
+
+5:47:32.067219 <0.292.0> amqp_channel:build_content/1 --> none
+
+5:47:32.067281 <0.292.0>  '--> amqp_channel:handle_method_to_server/6
+
+5:47:32.067350 <0.292.0> amqp_channel:rpc_top_half({'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]}, none, {<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]}, <0.219.0>, noflow, {state,1,<0.280.0>,<0.291.0>,network,
+       {[],[]},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+5:47:32.067531 <0.292.0> amqp_channel:do_rpc({state,1,<0.280.0>,<0.291.0>,network,
+       {[{{<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]},
+          <0.219.0>,
+          {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]},
+          none,noflow}],
+        []},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+5:47:32.067728 <0.292.0> amqp_channel:pre_do({'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]}, none, <0.219.0>, {state,1,<0.280.0>,<0.291.0>,network,
+       {[{{<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]},
+          <0.219.0>,
+          {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]},
+          none,noflow}],
+        []},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+5:47:32.067981 <0.292.0> amqp_channel:pre_do/4 --> {state,1,<0.280.0>,<0.291.0>,network,
+       {[{{<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]},
+          <0.219.0>,
+          {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]},
+          none,noflow}],
+        []},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false}
+
+5:47:32.068148 <0.292.0>  '--> amqp_channel:do_rpc/1
+
+5:47:32.068203 <0.292.0> amqp_channel:do({'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]}, none, noflow, {state,1,<0.280.0>,<0.291.0>,network,
+       {[{{<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]},
+          <0.219.0>,
+          {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]},
+          none,noflow}],
+        []},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+5:47:32.068427 <0.292.0> rabbit_writer:send_command(<0.293.0>, {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]})
+
+5:47:32.068516 <0.292.0> rabbit_writer:send_command/2 --> ok
+
+5:47:32.068569 <0.292.0>  '--> amqp_channel:do/4
+
+5:47:32.068687 <0.292.0> amqp_channel:do/4 --> ok
+
+5:47:32.068741 <0.292.0>  '--> amqp_channel:do_rpc/1
+
+5:47:32.068787 <0.292.0> rabbit_framing_amqp_0_9_1:is_method_synchronous({'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]})
+
+5:47:32.068863 <0.292.0> rabbit_framing_amqp_0_9_1:is_method_synchronous/1 --> true
+
+5:47:32.068917 <0.292.0>  '--> amqp_channel:do_rpc/1
+
+5:47:32.068965 <0.292.0> amqp_channel:do_rpc/1 --> {state,1,<0.280.0>,<0.291.0>,network,
+       {[{{<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]},
+          <0.219.0>,
+          {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]},
+          none,noflow}],
+        []},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false}
+
+5:47:32.069133 <0.292.0> amqp_channel:rpc_top_half/6 --> {state,1,<0.280.0>,<0.291.0>,network,
+       {[{{<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]},
+          <0.219.0>,
+          {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]},
+          none,noflow}],
+        []},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false}
+
+5:47:32.069378 <0.292.0>  '--> amqp_channel:handle_method_to_server/6
+
+5:47:32.069438 <0.292.0> amqp_channel:handle_method_to_server/6 --> {noreply,{state,1,<0.280.0>,<0.291.0>,network,
+                {[{{<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]},
+                   <0.219.0>,
+                   {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,
+                                    false,[]},
+                   none,noflow}],
+                 []},
+                false,<0.293.0>,none,none,0,true,none,
+                {0,nil},
+                {0,nil},
+                true,false}}
+
+5:47:32.069726 <0.292.0> amqp_channel:handle_call/3 --> {noreply,{state,1,<0.280.0>,<0.291.0>,network,
+                {[{{<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]},
+                   <0.219.0>,
+                   {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,
+                                    false,[]},
+                   none,noflow}],
+                 []},
+                false,<0.293.0>,none,none,0,true,none,
+                {0,nil},
+                {0,nil},
+                true,false}}
+
+5:47:32.069971 <0.292.0>  '--> gen_server:try_handle_call/4
+
+5:47:32.070068 <0.293.0> rabbit_writer:mainloop([], {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+5:47:32.070144 <0.293.0> rabbit_writer:mainloop1([], {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+5:47:32.070239 <0.293.0> rabbit_writer:handle_message([], {send_command,{'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,
+                               []}}, {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+5:47:32.070376 <0.293.0> rabbit_writer:handle_message({send_command,{'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,
+                               []}}, {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+5:47:32.070500 <0.293.0> rabbit_writer:internal_send_command_async({'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]}, {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+5:47:32.070700 <0.293.0> rabbit_writer:assemble_frame(1, {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]}, rabbit_framing_amqp_0_9_1)
+
+5:47:32.070823 <0.293.0> rabbit_binary_generator:build_simple_method_frame(1, {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]}, rabbit_framing_amqp_0_9_1)
+
+5:47:32.070897 <0.293.0> rabbit_framing_amqp_0_9_1:encode_method_fields({'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]})
+
+5:47:32.070971 <0.293.0> rabbit_framing_amqp_0_9_1:shortstr_size(<<"FLOW_TEST">>)
+
+5:47:32.071032 <0.293.0> rabbit_framing_amqp_0_9_1:shortstr_size/1 --> 9
+
+5:47:32.071087 <0.293.0>  '--> rabbit_framing_amqp_0_9_1:encode_method_fields/1
+
+5:47:32.071149 <0.293.0> rabbit_framing_amqp_0_9_1:bitvalue(false)
+
+5:47:32.071221 <0.293.0> rabbit_framing_amqp_0_9_1:bitvalue/1 --> 0
+
+5:47:32.071368 <0.293.0>  '--> rabbit_framing_amqp_0_9_1:encode_method_fields/1
+
+5:47:32.071456 <0.293.0> rabbit_framing_amqp_0_9_1:bitvalue(true)
+
+5:47:32.071525 <0.293.0> rabbit_framing_amqp_0_9_1:bitvalue/1 --> 1
+
+5:47:32.071592 <0.293.0>  '--> rabbit_framing_amqp_0_9_1:encode_method_fields/1
+
+5:47:32.071658 <0.293.0> rabbit_framing_amqp_0_9_1:bitvalue(false)
+
+5:47:32.071743 <0.293.0> rabbit_framing_amqp_0_9_1:bitvalue/1 --> 0
+
+5:47:32.071823 <0.293.0>  '--> rabbit_framing_amqp_0_9_1:encode_method_fields/1
+
+5:47:32.071895 <0.293.0> rabbit_framing_amqp_0_9_1:bitvalue(false)
+
+5:47:32.072085 <0.293.0> rabbit_framing_amqp_0_9_1:bitvalue/1 --> 0
+
+5:47:32.072160 <0.293.0>  '--> rabbit_framing_amqp_0_9_1:encode_method_fields/1
+
+5:47:32.072235 <0.293.0> rabbit_framing_amqp_0_9_1:bitvalue(false)
+
+5:47:32.072308 <0.293.0> rabbit_framing_amqp_0_9_1:bitvalue/1 --> 0
+
+5:47:32.072388 <0.293.0>  '--> rabbit_framing_amqp_0_9_1:encode_method_fields/1
+
+5:47:32.072460 <0.293.0> rabbit_binary_generator:generate_table([])
+
+5:47:32.072536 <0.293.0> rabbit_binary_generator:generate_table_iolist([])
+
+5:47:32.072673 <0.293.0> rabbit_binary_generator:generate_table_iolist/1 --> []
+
+5:47:32.072752 <0.293.0>  '--> rabbit_binary_generator:generate_table/1
+
+5:47:32.072825 <0.293.0> rabbit_binary_generator:generate_table/1 --> <<>>
+
+5:47:32.072901 <0.293.0>  '--> rabbit_framing_amqp_0_9_1:encode_method_fields/1
+
+5:47:32.072977 <0.293.0> rabbit_framing_amqp_0_9_1:encode_method_fields/1 --> <<0,0,9,70,76,79,87,95,84,69,83,84,2,0,0,0,0>>
+
+5:47:32.073072 <0.293.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+5:47:32.073144 <0.293.0> rabbit_misc:method_record_type({'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]})
+
+5:47:32.073261 <0.293.0> rabbit_misc:method_record_type/1 --> 'queue.declare'
+
+5:47:32.073342 <0.293.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+5:47:32.073417 <0.293.0> rabbit_framing_amqp_0_9_1:method_id('queue.declare')
+
+5:47:32.073488 <0.293.0> rabbit_framing_amqp_0_9_1:method_id/1 --> {50,10}
+
+5:47:32.073567 <0.293.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+5:47:32.073639 <0.293.0> rabbit_binary_generator:create_frame(1, 1, [<<0,50,0,10>>,<<0,0,9,70,76,79,87,95,84,69,83,84,2,0,0,0,0>>])
+
+5:47:32.073741 <0.293.0> rabbit_binary_generator:create_frame/3 --> [<<1,0,1,0,0,0,21>>,
+ [<<0,50,0,10>>,<<0,0,9,70,76,79,87,95,84,69,83,84,2,0,0,0,0>>],
+ 206]
+
+5:47:32.073849 <0.293.0> rabbit_binary_generator:build_simple_method_frame/3 --> [<<1,0,1,0,0,0,21>>,
+ [<<0,50,0,10>>,<<0,0,9,70,76,79,87,95,84,69,83,84,2,0,0,0,0>>],
+ 206]
+
+5:47:32.074000 <0.293.0> rabbit_writer:assemble_frame/3 --> [<<1,0,1,0,0,0,21>>,
+ [<<0,50,0,10>>,<<0,0,9,70,76,79,87,95,84,69,83,84,2,0,0,0,0>>],
+ 206]
+
+5:47:32.074151 <0.293.0>  '--> rabbit_writer:internal_send_command_async/2
+
+5:47:32.074246 <0.293.0> rabbit_writer:maybe_flush({wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [[<<1,0,1,0,0,0,21>>,
+          [<<0,50,0,10>>,<<0,0,9,70,76,79,87,95,84,69,83,84,2,0,0,0,0>>],
+          206]],
+        1000000000})
+
+5:47:32.074478 <0.293.0> rabbit_writer:maybe_flush/1 --> {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [[<<1,0,1,0,0,0,21>>,
+          [<<0,50,0,10>>,<<0,0,9,70,76,79,87,95,84,69,83,84,2,0,0,0,0>>],
+          206]],
+        1000000000}
+
+5:47:32.074657 <0.293.0> rabbit_writer:internal_send_command_async/2 --> {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [[<<1,0,1,0,0,0,21>>,
+          [<<0,50,0,10>>,<<0,0,9,70,76,79,87,95,84,69,83,84,2,0,0,0,0>>],
+          206]],
+        1000000000}
+
+5:47:32.074775 <0.293.0> rabbit_writer:handle_message/2 --> {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [[<<1,0,1,0,0,0,21>>,
+          [<<0,50,0,10>>,<<0,0,9,70,76,79,87,95,84,69,83,84,2,0,0,0,0>>],
+          206]],
+        1000000000}
+
+5:47:32.074899 <0.293.0>  '--> rabbit_writer:handle_message/3
+
+5:47:32.074961 <0.293.0> rabbit_writer:handle_message/3 --> {[],
+ {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+         {state,none,0,undefined},
+         [[<<1,0,1,0,0,0,21>>,
+           [<<0,50,0,10>>,<<0,0,9,70,76,79,87,95,84,69,83,84,2,0,0,0,0>>],
+           206]],
+         1000000000}}
+
+5:47:32.075085 <0.293.0>  '--> rabbit_writer:mainloop1/2
+
+5:47:32.075138 <0.293.0> rabbit_writer:mainloop1([], {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [[<<1,0,1,0,0,0,21>>,
+          [<<0,50,0,10>>,<<0,0,9,70,76,79,87,95,84,69,83,84,2,0,0,0,0>>],
+          206]],
+        1000000000})
+
+5:47:32.075288 <0.293.0> rabbit_writer:internal_flush({wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [[<<1,0,1,0,0,0,21>>,
+          [<<0,50,0,10>>,<<0,0,9,70,76,79,87,95,84,69,83,84,2,0,0,0,0>>],
+          206]],
+        1000000000})
+
+5:47:32.075412 <0.293.0> rabbit_writer:port_cmd(#Port<0.8>, [[<<1,0,1,0,0,0,21>>,
+  [<<0,50,0,10>>,<<0,0,9,70,76,79,87,95,84,69,83,84,2,0,0,0,0>>],
+  206]])
+
+5:47:32.075490 <0.293.0> rabbit_net:port_command(#Port<0.8>, [[<<1,0,1,0,0,0,21>>,
+  [<<0,50,0,10>>,<<0,0,9,70,76,79,87,95,84,69,83,84,2,0,0,0,0>>],
+  206]])
+
+5:47:32.075579 <0.293.0> rabbit_net:port_command/2 --> true
+
+5:47:32.075631 <0.293.0>  '--> rabbit_writer:port_cmd/2
+
+5:47:32.075686 <0.293.0> rabbit_writer:port_cmd/2 --> ok
+
+5:47:32.075743 <0.293.0>  '--> rabbit_writer:internal_flush/1
+
+5:47:32.075801 <0.293.0> rabbit_writer:internal_flush/1 --> {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+5:47:32.075927 <0.293.0>  '--> rabbit_writer:mainloop1/2
+
+5:47:32.076000 <0.293.0> rabbit_writer:mainloop1([], {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+5:47:32.076085 <0.293.0> rabbit_writer:handle_message([], {inet_reply,#Port<0.8>,ok}, {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+5:47:32.076176 <0.293.0> rabbit_writer:handle_message({inet_reply,#Port<0.8>,ok}, {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+5:47:32.076269 <0.293.0> rabbit_event:ensure_stats_timer({wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [],1000000000}, 7, emit_stats)
+
+5:47:32.076346 <0.293.0> rabbit_event:ensure_stats_timer/3 --> {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+5:47:32.076428 <0.293.0> rabbit_writer:handle_message/2 --> {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+5:47:32.076505 <0.293.0>  '--> rabbit_writer:handle_message/3
+
+5:47:32.076614 <0.293.0> rabbit_writer:handle_message/3 --> {[],
+ {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+         {state,none,0,undefined},
+         [],1000000000}}
+
+5:47:32.076715 <0.293.0>  '--> rabbit_writer:mainloop1/2
+
+5:47:32.076765 <0.293.0> rabbit_writer:mainloop1([], {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.292.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+5:47:32.078058 <0.286.0> amqp_main_reader:handle_info({tcp,#Port<0.8>,
+     <<1,0,1,0,0,0,22,0,50,0,11,9,70,76,79,87,95,84,69,83,84,0,0,0,0,0,0,0,0,
+       206>>}, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.69042>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:32.078349 <0.286.0> rabbit_net:setopts(#Port<0.8>, [{active,once}])
+
+5:47:32.078441 <0.286.0> rabbit_net:setopts/2 --> ok
+
+5:47:32.078501 <0.286.0>  '--> amqp_main_reader:handle_info/2
+
+5:47:32.078713 <0.286.0> amqp_main_reader:set_timeout({state,#Port<0.8>,#Ref<0.3424144549.1323302913.69042>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:32.078910 <0.286.0> amqp_main_reader:cancel_timeout({state,#Port<0.8>,#Ref<0.3424144549.1323302913.69042>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:32.079030 <0.286.0> amqp_main_reader:cancel_timeout/1 --> {state,#Port<0.8>,undefined,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}}
+
+5:47:32.079131 <0.286.0>  '--> amqp_main_reader:set_timeout/1
+
+5:47:32.079215 <0.286.0> amqp_util:call_timeout()
+
+5:47:32.079325 <0.286.0> amqp_util:call_timeout/0 --> 70000
+
+5:47:32.079416 <0.286.0>  '--> amqp_main_reader:set_timeout/1
+
+5:47:32.079488 <0.286.0> amqp_main_reader:set_timeout/1 --> {state,#Port<0.8>,#Ref<0.3424144549.1323302913.69630>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}}
+
+5:47:32.079583 <0.286.0>  '--> amqp_main_reader:handle_info/2
+
+5:47:32.079693 <0.286.0> amqp_main_reader:handle_data(<<1,0,1,0,0,0,22,0,50,0,11,9,70,76,79,87,95,84,69,83,84,0,0,0,0,0,0,0,0,206>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.69630>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:32.080310 <0.286.0> amqp_main_reader:handle_data(<<1,0,1,0,0,0,22,0,50,0,11,9,70,76,79,87,95,84,69,83,84,0,0,0,0,0,0,0,0,206>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.69630>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+5:47:32.080540 <0.286.0> amqp_main_reader:process_frame(1, 1, <<0,50,0,11,9,70,76,79,87,95,84,69,83,84,0,0,0,0,0,0,0,0>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.69630>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+5:47:32.080721 <0.286.0> rabbit_command_assembler:analyze_frame(1, <<0,50,0,11,9,70,76,79,87,95,84,69,83,84,0,0,0,0,0,0,0,0>>, rabbit_framing_amqp_0_9_1)
+
+5:47:32.080811 <0.286.0> rabbit_framing_amqp_0_9_1:lookup_method_name({50,11})
+
+5:47:32.080875 <0.286.0> rabbit_framing_amqp_0_9_1:lookup_method_name/1 --> 'queue.declare_ok'
+
+5:47:32.080931 <0.286.0>  '--> rabbit_command_assembler:analyze_frame/3
+
+5:47:32.080977 <0.286.0> rabbit_command_assembler:analyze_frame/3 --> {method,'queue.declare_ok',<<9,70,76,79,87,95,84,69,83,84,0,0,0,0,0,0,0,0>>}
+
+5:47:32.081055 <0.286.0>  '--> amqp_main_reader:process_frame/4
+
+5:47:32.081099 <0.286.0> amqp_channels_manager:pass_frame(<0.284.0>, 1, {method,'queue.declare_ok',<<9,70,76,79,87,95,84,69,83,84,0,0,0,0,0,0,0,0>>})
+
+5:47:32.081200 <0.286.0> amqp_channels_manager:pass_frame/3 --> ok
+
+5:47:32.081271 <0.286.0>  '--> amqp_main_reader:process_frame/4
+
+5:47:32.081329 <0.286.0> amqp_main_reader:process_frame/4 --> {state,#Port<0.8>,#Ref<0.3424144549.1323302913.69630>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none}
+
+5:47:32.081424 <0.286.0>  '--> amqp_main_reader:handle_data/2
+
+5:47:32.081482 <0.286.0> amqp_main_reader:handle_data(<<>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.69630>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+5:47:32.081569 <0.286.0> amqp_main_reader:handle_data/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.69630>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:32.081705 <0.286.0> amqp_main_reader:handle_data/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.69630>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:32.081854 <0.286.0> amqp_main_reader:handle_data/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.69630>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:32.081970 <0.286.0> amqp_main_reader:handle_info/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.69630>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:32.082063 <0.286.0>  '--> gen_server:try_dispatch/4
+
+5:47:32.082114 <0.284.0> amqp_channels_manager:handle_cast({pass_frame,1,
+            {method,'queue.declare_ok',
+                    <<9,70,76,79,87,95,84,69,83,84,0,0,0,0,0,0,0,0>>}}, {state,<0.280.0>,<0.283.0>,
+       {1,{1,{<0.292.0>,{method,rabbit_framing_amqp_0_9_1}},nil,nil}},
+       #{<0.292.0> => 1},
+       2047,false})
+
+5:47:32.082238 <0.284.0> amqp_channels_manager:internal_pass_frame(1, {method,'queue.declare_ok',<<9,70,76,79,87,95,84,69,83,84,0,0,0,0,0,0,0,0>>}, {state,<0.280.0>,<0.283.0>,
+       {1,{1,{<0.292.0>,{method,rabbit_framing_amqp_0_9_1}},nil,nil}},
+       #{<0.292.0> => 1},
+       2047,false})
+
+5:47:32.082347 <0.284.0> amqp_channels_manager:internal_lookup_npa(1, {state,<0.280.0>,<0.283.0>,
+       {1,{1,{<0.292.0>,{method,rabbit_framing_amqp_0_9_1}},nil,nil}},
+       #{<0.292.0> => 1},
+       2047,false})
+
+5:47:32.082446 <0.284.0> amqp_channels_manager:internal_lookup_npa/2 --> {<0.292.0>,{method,rabbit_framing_amqp_0_9_1}}
+
+5:47:32.082568 <0.284.0>  '--> amqp_channels_manager:internal_pass_frame/3
+
+5:47:32.082625 <0.284.0> amqp_channels_manager:process_channel_frame({method,'queue.declare_ok',<<9,70,76,79,87,95,84,69,83,84,0,0,0,0,0,0,0,0>>}, 1, <0.292.0>, {method,rabbit_framing_amqp_0_9_1})
+
+5:47:32.082715 <0.284.0> rabbit_command_assembler:process({method,'queue.declare_ok',<<9,70,76,79,87,95,84,69,83,84,0,0,0,0,0,0,0,0>>}, {method,rabbit_framing_amqp_0_9_1})
+
+5:47:32.082796 <0.284.0> rabbit_framing_amqp_0_9_1:decode_method_fields('queue.declare_ok', <<9,70,76,79,87,95,84,69,83,84,0,0,0,0,0,0,0,0>>)
+
+5:47:32.082859 <0.284.0> rabbit_binary_parser:assert_utf8(<<"FLOW_TEST">>)
+
+5:47:32.082913 <0.284.0> rabbit_binary_parser:validate_utf8(<<"FLOW_TEST">>)
+
+5:47:32.082970 <0.284.0> rabbit_binary_parser:validate_utf8/1 --> ok
+
+5:47:32.083015 <0.284.0>  '--> rabbit_binary_parser:assert_utf8/1
+
+5:47:32.083058 <0.284.0> rabbit_binary_parser:assert_utf8/1 --> ok
+
+5:47:32.083109 <0.284.0>  '--> rabbit_framing_amqp_0_9_1:decode_method_fields/2
+
+5:47:32.083180 <0.284.0> rabbit_framing_amqp_0_9_1:decode_method_fields/2 --> {'queue.declare_ok',<<"FLOW_TEST">>,0,0}
+
+5:47:32.083249 <0.284.0>  '--> rabbit_command_assembler:process/2
+
+5:47:32.083293 <0.284.0> rabbit_framing_amqp_0_9_1:method_has_content('queue.declare_ok')
+
+5:47:32.083346 <0.284.0> rabbit_framing_amqp_0_9_1:method_has_content/1 --> false
+
+5:47:32.083403 <0.284.0>  '--> rabbit_command_assembler:process/2
+
+5:47:32.083447 <0.284.0> rabbit_command_assembler:process/2 --> {ok,{'queue.declare_ok',<<"FLOW_TEST">>,0,0},
+    {method,rabbit_framing_amqp_0_9_1}}
+
+5:47:32.083520 <0.284.0>  '--> amqp_channels_manager:process_channel_frame/4
+
+5:47:32.083571 <0.284.0> rabbit_channel_common:do(<0.292.0>, {'queue.declare_ok',<<"FLOW_TEST">>,0,0})
+
+5:47:32.083634 <0.284.0> rabbit_channel_common:do(<0.292.0>, {'queue.declare_ok',<<"FLOW_TEST">>,0,0}, none)
+
+5:47:32.083705 <0.284.0> gen_server2:cast(<0.292.0>, {method,{'queue.declare_ok',<<"FLOW_TEST">>,0,0},none,noflow})
+
+5:47:32.083774 <0.284.0> gen_server2:cast/2 --> ok
+
+5:47:32.083867 <0.284.0> rabbit_channel_common:do/3 --> ok
+
+5:47:32.083921 <0.284.0> rabbit_channel_common:do/2 --> ok
+
+5:47:32.083971 <0.284.0>  '--> amqp_channels_manager:process_channel_frame/4
+
+5:47:32.084026 <0.284.0> amqp_channels_manager:process_channel_frame/4 --> {method,rabbit_framing_amqp_0_9_1}
+
+5:47:32.084095 <0.284.0>  '--> amqp_channels_manager:internal_pass_frame/3
+
+5:47:32.084146 <0.284.0> amqp_channels_manager:internal_update_npa(1, <0.292.0>, {method,rabbit_framing_amqp_0_9_1}, {state,<0.280.0>,<0.283.0>,
+       {1,{1,{<0.292.0>,{method,rabbit_framing_amqp_0_9_1}},nil,nil}},
+       #{<0.292.0> => 1},
+       2047,false})
+
+5:47:32.084260 <0.284.0> amqp_channels_manager:internal_update_npa/4 --> {state,<0.280.0>,<0.283.0>,
+       {1,{1,{<0.292.0>,{method,rabbit_framing_amqp_0_9_1}},nil,nil}},
+       #{<0.292.0> => 1},
+       2047,false}
+
+5:47:32.084350 <0.284.0> amqp_channels_manager:internal_pass_frame/3 --> {state,<0.280.0>,<0.283.0>,
+       {1,{1,{<0.292.0>,{method,rabbit_framing_amqp_0_9_1}},nil,nil}},
+       #{<0.292.0> => 1},
+       2047,false}
+
+5:47:32.084440 <0.284.0>  '--> amqp_channels_manager:handle_cast/2
+
+5:47:32.084551 <0.284.0> amqp_channels_manager:handle_cast/2 --> {noreply,{state,<0.280.0>,<0.283.0>,
+                {1,{1,{<0.292.0>,{method,rabbit_framing_amqp_0_9_1}},nil,nil}},
+                #{<0.292.0> => 1},
+                2047,false}}
+
+5:47:32.084664 <0.284.0>  '--> gen_server:try_dispatch/4
+
+5:47:32.084715 <0.292.0> amqp_channel:handle_cast({method,{'queue.declare_ok',<<"FLOW_TEST">>,0,0},none,noflow}, {state,1,<0.280.0>,<0.291.0>,network,
+       {[{{<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]},
+          <0.219.0>,
+          {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]},
+          none,noflow}],
+        []},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+5:47:32.084908 <0.292.0> amqp_channel:handle_method_from_server({'queue.declare_ok',<<"FLOW_TEST">>,0,0}, none, {state,1,<0.280.0>,<0.291.0>,network,
+       {[{{<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]},
+          <0.219.0>,
+          {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]},
+          none,noflow}],
+        []},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+5:47:32.085103 <0.292.0> amqp_channel:safely_handle_method_from_server({'queue.declare_ok',<<"FLOW_TEST">>,0,0}, none, #Fun<amqp_channel.0.99635481>, {state,1,<0.280.0>,<0.291.0>,network,
+       {[{{<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]},
+          <0.219.0>,
+          {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]},
+          none,noflow}],
+        []},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+5:47:32.085356 <0.292.0> amqp_channel:is_connection_method({'queue.declare_ok',<<"FLOW_TEST">>,0,0})
+
+5:47:32.085432 <0.292.0> rabbit_framing_amqp_0_9_1:method_id('queue.declare_ok')
+
+5:47:32.085481 <0.292.0> rabbit_framing_amqp_0_9_1:method_id/1 --> {50,11}
+
+5:47:32.085541 <0.292.0>  '--> amqp_channel:is_connection_method/1
+
+5:47:32.085588 <0.292.0> rabbit_framing_amqp_0_9_1:lookup_class_name(50)
+
+5:47:32.085636 <0.292.0> rabbit_framing_amqp_0_9_1:lookup_class_name/1 --> queue
+
+5:47:32.085691 <0.292.0>  '--> amqp_channel:is_connection_method/1
+
+5:47:32.085733 <0.292.0> amqp_channel:is_connection_method/1 --> false
+
+5:47:32.085817 <0.292.0>  '--> amqp_channel:safely_handle_method_from_server/4
+
+5:47:32.085880 <0.292.0> amqp_channel:'-handle_method_from_server/3-fun-0-'({'queue.declare_ok',<<"FLOW_TEST">>,0,0}, none, {state,1,<0.280.0>,<0.291.0>,network,
+       {[{{<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]},
+          <0.219.0>,
+          {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]},
+          none,noflow}],
+        []},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+5:47:32.086072 <0.292.0> amqp_channel:amqp_msg(none)
+
+5:47:32.086129 <0.292.0> amqp_channel:amqp_msg/1 --> none
+
+5:47:32.086182 <0.292.0>  '--> amqp_channel:'-handle_method_from_server/3-fun-0-'/3
+
+5:47:32.086236 <0.292.0> amqp_channel:handle_method_from_server1({'queue.declare_ok',<<"FLOW_TEST">>,0,0}, none, {state,1,<0.280.0>,<0.291.0>,network,
+       {[{{<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]},
+          <0.219.0>,
+          {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]},
+          none,noflow}],
+        []},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+5:47:32.086423 <0.292.0> amqp_channel:rpc_bottom_half({'queue.declare_ok',<<"FLOW_TEST">>,0,0}, {state,1,<0.280.0>,<0.291.0>,network,
+       {[{{<0.219.0>,[alias|#Ref<0.3424144549.1323368449.69394>]},
+          <0.219.0>,
+          {'queue.declare',0,<<"FLOW_TEST">>,false,true,false,false,false,[]},
+          none,noflow}],
+        []},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+5:47:32.086651 <0.292.0> amqp_channel:do_rpc({state,1,<0.280.0>,<0.291.0>,network,
+       {[],[]},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+5:47:32.086745 <0.292.0> amqp_channel:do_rpc/1 --> {state,1,<0.280.0>,<0.291.0>,network,
+       {[],[]},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false}
+
+5:47:32.086839 <0.292.0> amqp_channel:rpc_bottom_half/2 --> {state,1,<0.280.0>,<0.291.0>,network,
+       {[],[]},
+       false,<0.293.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false}
+
+5:47:32.086922 <0.292.0>  '--> amqp_channel:handle_method_from_server1/3
+
+5:47:32.086968 <0.292.0> amqp_channel:handle_method_from_server1/3 --> {noreply,{state,1,<0.280.0>,<0.291.0>,network,
+                {[],[]},
+                false,<0.293.0>,none,none,0,true,none,
+                {0,nil},
+                {0,nil},
+                true,false}}
+
+5:47:32.087067 <0.292.0> amqp_channel:'-handle_method_from_server/3-fun-0-'/3 --> {noreply,{state,1,<0.280.0>,<0.291.0>,network,
+                {[],[]},
+                false,<0.293.0>,none,none,0,true,none,
+                {0,nil},
+                {0,nil},
+                true,false}}
+
+5:47:32.087196 <0.292.0> amqp_channel:safely_handle_method_from_server/4 --> {noreply,{state,1,<0.280.0>,<0.291.0>,network,
+                {[],[]},
+                false,<0.293.0>,none,none,0,true,none,
+                {0,nil},
+                {0,nil},
+                true,false}}
+
+5:47:32.087301 <0.292.0> amqp_channel:handle_method_from_server/3 --> {noreply,{state,1,<0.280.0>,<0.291.0>,network,
+                {[],[]},
+                false,<0.293.0>,none,none,0,true,none,
+                {0,nil},
+                {0,nil},
+                true,false}}
+
+5:47:32.087396 <0.292.0> amqp_channel:handle_cast/2 --> {noreply,{state,1,<0.280.0>,<0.291.0>,network,
+                {[],[]},
+                false,<0.293.0>,none,none,0,true,none,
+                {0,nil},
+                {0,nil},
+                true,false}}
+
+5:47:32.087489 <0.292.0>  '--> gen_server:try_dispatch/4
+
+5:47:32.087541 <0.219.0> amqp_channel:call/2 --> {'queue.declare_ok',<<"FLOW_TEST">>,0,0}
+
+5:47:32.087595 <0.219.0>  '--> amqp_example:declare_queue/1
+
+5:47:35.350817 <0.287.0> rabbit_heartbeat:get_sock_stats(#Port<0.8>, send_oct, #Fun<rabbit_heartbeat.4.58237509>)
+
+5:47:35.351056 <0.287.0> rabbit_net:getstat(#Port<0.8>, [send_oct])
+
+5:47:35.351137 <0.287.0> rabbit_net:getstat/2 --> {ok,[{send_oct,574}]}
+
+5:47:35.351193 <0.287.0>  '--> rabbit_heartbeat:get_sock_stats/3
+
+5:47:35.351259 <0.287.0> rabbit_heartbeat:'-heartbeater/3-fun-2-'(574, 0, send_oct, 0, 545)
+
+5:47:35.351322 <0.287.0> rabbit_heartbeat:'-heartbeater/3-fun-2-'/5 --> {recurse,{574,0}}
+
+5:47:35.351380 <0.287.0> rabbit_heartbeat:get_sock_stats/3 --> {recurse,{574,0}}
+
+5:47:35.351435 <0.287.0>  '--> rabbit_heartbeat:heartbeater/3
+
+5:47:35.351479 <0.287.0> rabbit_heartbeat:handle_get_sock_stats({recurse,{574,0}}, #Port<0.8>, send_oct, #Fun<rabbit_heartbeat.3.58237509>, #Fun<rabbit_heartbeat.0.58237509>)
+
+5:47:35.351552 <0.287.0> rabbit_heartbeat:'-heartbeater/3-fun-0-'({574,0}, {#Port<0.8>,5000,send_oct,0,#Fun<rabbit_heartbeat.0.58237509>}, [])
+
+5:47:35.351649 <0.287.0> rabbit_heartbeat:heartbeater({#Port<0.8>,5000,send_oct,0,#Fun<rabbit_heartbeat.0.58237509>}, [], {574,0})
+
+5:47:40.062241 <0.286.0> amqp_main_reader:handle_info({tcp,#Port<0.8>,<<8,0,0,0,0,0,0,206>>}, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.69630>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:40.062606 <0.286.0> rabbit_net:setopts(#Port<0.8>, [{active,once}])
+
+5:47:40.062773 <0.286.0> rabbit_net:setopts/2 --> ok
+
+5:47:40.062856 <0.286.0>  '--> amqp_main_reader:handle_info/2
+
+5:47:40.062926 <0.286.0> amqp_main_reader:set_timeout({state,#Port<0.8>,#Ref<0.3424144549.1323302913.69630>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:40.063107 <0.286.0> amqp_main_reader:cancel_timeout({state,#Port<0.8>,#Ref<0.3424144549.1323302913.69630>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:40.063341 <0.286.0> amqp_main_reader:cancel_timeout/1 --> {state,#Port<0.8>,undefined,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}}
+
+5:47:40.063463 <0.286.0>  '--> amqp_main_reader:set_timeout/1
+
+5:47:40.063605 <0.286.0> amqp_util:call_timeout()
+
+5:47:40.063681 <0.286.0> amqp_util:call_timeout/0 --> 70000
+
+5:47:40.063754 <0.286.0>  '--> amqp_main_reader:set_timeout/1
+
+5:47:40.063825 <0.286.0> amqp_main_reader:set_timeout/1 --> {state,#Port<0.8>,#Ref<0.3424144549.1323302913.70403>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}}
+
+5:47:40.063978 <0.286.0>  '--> amqp_main_reader:handle_info/2
+
+5:47:40.064088 <0.286.0> amqp_main_reader:handle_data(<<8,0,0,0,0,0,0,206>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.70403>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:40.064341 <0.286.0> amqp_main_reader:handle_data(<<8,0,0,0,0,0,0,206>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.70403>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+5:47:40.064577 <0.286.0> amqp_main_reader:process_frame(8, 0, <<>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.70403>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+5:47:40.064866 <0.286.0> rabbit_command_assembler:analyze_frame(8, <<>>, rabbit_framing_amqp_0_9_1)
+
+5:47:40.065033 <0.286.0> rabbit_command_assembler:analyze_frame/3 --> heartbeat
+
+5:47:40.065250 <0.286.0>  '--> amqp_main_reader:process_frame/4
+
+5:47:40.065356 <0.286.0> amqp_main_reader:process_frame/4 --> {state,#Port<0.8>,#Ref<0.3424144549.1323302913.70403>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none}
+
+5:47:40.065531 <0.286.0>  '--> amqp_main_reader:handle_data/2
+
+5:47:40.065603 <0.286.0> amqp_main_reader:handle_data(<<>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.70403>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+5:47:40.065766 <0.286.0> amqp_main_reader:handle_data/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.70403>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:40.065951 <0.286.0> amqp_main_reader:handle_data/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.70403>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:40.066196 <0.286.0> amqp_main_reader:handle_data/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.70403>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:40.066371 <0.286.0> amqp_main_reader:handle_info/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.70403>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:40.066544 <0.286.0>  '--> gen_server:try_dispatch/4
+
+5:47:40.349311 <0.288.0> rabbit_heartbeat:get_sock_stats(#Port<0.8>, recv_oct, #Fun<rabbit_heartbeat.4.58237509>)
+
+5:47:40.349604 <0.288.0> rabbit_net:getstat(#Port<0.8>, [recv_oct])
+
+5:47:40.349715 <0.288.0> rabbit_net:getstat/2 --> {ok,[{recv_oct,657}]}
+
+5:47:40.349808 <0.288.0>  '--> rabbit_heartbeat:get_sock_stats/3
+
+5:47:40.349881 <0.288.0> rabbit_heartbeat:'-heartbeater/3-fun-2-'(657, 1, recv_oct, 0, 619)
+
+5:47:40.349993 <0.288.0> rabbit_heartbeat:'-heartbeater/3-fun-2-'/5 --> {recurse,{657,0}}
+
+5:47:40.350061 <0.288.0> rabbit_heartbeat:get_sock_stats/3 --> {recurse,{657,0}}
+
+5:47:40.350112 <0.288.0>  '--> rabbit_heartbeat:heartbeater/3
+
+5:47:40.350182 <0.288.0> rabbit_heartbeat:handle_get_sock_stats({recurse,{657,0}}, #Port<0.8>, recv_oct, #Fun<rabbit_heartbeat.3.58237509>, #Fun<rabbit_heartbeat.1.58237509>)
+
+5:47:40.350295 <0.288.0> rabbit_heartbeat:'-heartbeater/3-fun-0-'({657,0}, {#Port<0.8>,10000,recv_oct,1,#Fun<rabbit_heartbeat.1.58237509>}, [])
+
+5:47:40.350410 <0.288.0> rabbit_heartbeat:heartbeater({#Port<0.8>,10000,recv_oct,1,#Fun<rabbit_heartbeat.1.58237509>}, [], {657,0})
+
+5:47:40.352367 <0.287.0> rabbit_heartbeat:get_sock_stats(#Port<0.8>, send_oct, #Fun<rabbit_heartbeat.4.58237509>)
+
+5:47:40.352689 <0.287.0> rabbit_net:getstat(#Port<0.8>, [send_oct])
+
+5:47:40.354630 <0.287.0> rabbit_net:getstat/2 --> {ok,[{send_oct,574}]}
+
+5:47:40.355009 <0.287.0>  '--> rabbit_heartbeat:get_sock_stats/3
+
+5:47:40.355131 <0.287.0> rabbit_heartbeat:'-heartbeater/3-fun-2-'(574, 0, send_oct, 0, 574)
+
+5:47:40.355305 <0.287.0> rabbit_heartbeat:'-heartbeater/3-fun-2-'/5 --> {run_handler,{574,0}}
+
+5:47:40.355441 <0.287.0> rabbit_heartbeat:get_sock_stats/3 --> {run_handler,{574,0}}
+
+5:47:40.355569 <0.287.0>  '--> rabbit_heartbeat:heartbeater/3
+
+5:47:40.355657 <0.287.0> rabbit_heartbeat:handle_get_sock_stats({run_handler,{574,0}}, #Port<0.8>, send_oct, #Fun<rabbit_heartbeat.3.58237509>, #Fun<rabbit_heartbeat.0.58237509>)
+
+5:47:40.355877 <0.287.0> rabbit_heartbeat:'-start_heartbeat_sender/4-fun-0-'(#Fun<amqp_network_connection.2.53417588>)
+
+5:47:40.356025 <0.287.0> amqp_network_connection:'-start_heartbeat/1-fun-0-'(#Port<0.8>, [<<8,0,0,0,0,0,0>>,<<>>,206])
+
+5:47:40.356185 <0.287.0> rabbit_net:send(#Port<0.8>, [<<8,0,0,0,0,0,0>>,<<>>,206])
+
+5:47:40.356323 <0.287.0> rabbit_net:send/2 --> ok
+
+5:47:40.356398 <0.287.0>  '--> amqp_network_connection:'-start_heartbeat/1-fun-0-'/2
+
+5:47:40.356485 <0.287.0> amqp_network_connection:'-start_heartbeat/1-fun-0-'/2 --> ok
+
+5:47:40.356553 <0.287.0>  '--> rabbit_heartbeat:'-start_heartbeat_sender/4-fun-0-'/1
+
+5:47:40.356621 <0.287.0> rabbit_heartbeat:'-start_heartbeat_sender/4-fun-0-'/1 --> continue
+
+5:47:40.356706 <0.287.0>  '--> rabbit_heartbeat:handle_get_sock_stats/5
+
+5:47:40.356770 <0.287.0> rabbit_heartbeat:get_sock_stats(#Port<0.8>, send_oct, #Fun<rabbit_heartbeat.5.58237509>)
+
+5:47:40.356896 <0.287.0> rabbit_net:getstat(#Port<0.8>, [send_oct])
+
+5:47:40.356979 <0.287.0> rabbit_net:getstat/2 --> {ok,[{send_oct,582}]}
+
+5:47:40.357070 <0.287.0>  '--> rabbit_heartbeat:get_sock_stats/3
+
+5:47:40.357173 <0.287.0> rabbit_heartbeat:'-handle_get_sock_stats/5-fun-0-'(582, 0)
+
+5:47:40.357239 <0.287.0> rabbit_heartbeat:'-handle_get_sock_stats/5-fun-0-'/2 --> {recurse,{582,0}}
+
+5:47:40.357315 <0.287.0> rabbit_heartbeat:get_sock_stats/3 --> {recurse,{582,0}}
+
+5:47:40.357424 <0.287.0>  '--> rabbit_heartbeat:handle_get_sock_stats/5
+
+5:47:40.357561 <0.287.0> rabbit_heartbeat:handle_get_sock_stats({recurse,{582,0}}, #Port<0.8>, send_oct, #Fun<rabbit_heartbeat.3.58237509>, #Fun<rabbit_heartbeat.0.58237509>)
+
+5:47:40.357666 <0.287.0> rabbit_heartbeat:'-heartbeater/3-fun-0-'({582,0}, {#Port<0.8>,5000,send_oct,0,#Fun<rabbit_heartbeat.0.58237509>}, [])
+
+5:47:40.357749 <0.287.0> rabbit_heartbeat:heartbeater({#Port<0.8>,5000,send_oct,0,#Fun<rabbit_heartbeat.0.58237509>}, [], {582,0})
+
+5:47:45.015517 <0.286.0> amqp_main_reader:handle_info({tcp,#Port<0.8>,<<8,0,0,0,0,0,0,206>>}, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.70403>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:45.015764 <0.286.0> rabbit_net:setopts(#Port<0.8>, [{active,once}])
+
+5:47:45.015849 <0.286.0> rabbit_net:setopts/2 --> ok
+
+5:47:45.015902 <0.286.0>  '--> amqp_main_reader:handle_info/2
+
+5:47:45.015957 <0.286.0> amqp_main_reader:set_timeout({state,#Port<0.8>,#Ref<0.3424144549.1323302913.70403>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:45.016065 <0.286.0> amqp_main_reader:cancel_timeout({state,#Port<0.8>,#Ref<0.3424144549.1323302913.70403>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:45.016151 <0.286.0> amqp_main_reader:cancel_timeout/1 --> {state,#Port<0.8>,undefined,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}}
+
+5:47:45.016229 <0.286.0>  '--> amqp_main_reader:set_timeout/1
+
+5:47:45.016273 <0.286.0> amqp_util:call_timeout()
+
+5:47:45.016316 <0.286.0> amqp_util:call_timeout/0 --> 70000
+
+5:47:45.016365 <0.286.0>  '--> amqp_main_reader:set_timeout/1
+
+5:47:45.016408 <0.286.0> amqp_main_reader:set_timeout/1 --> {state,#Port<0.8>,#Ref<0.3424144549.1323302913.71007>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}}
+
+5:47:45.016485 <0.286.0>  '--> amqp_main_reader:handle_info/2
+
+5:47:45.016526 <0.286.0> amqp_main_reader:handle_data(<<8,0,0,0,0,0,0,206>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.71007>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:45.016623 <0.286.0> amqp_main_reader:handle_data(<<8,0,0,0,0,0,0,206>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.71007>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+5:47:45.016705 <0.286.0> amqp_main_reader:process_frame(8, 0, <<>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.71007>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+5:47:45.016785 <0.286.0> rabbit_command_assembler:analyze_frame(8, <<>>, rabbit_framing_amqp_0_9_1)
+
+5:47:45.016839 <0.286.0> rabbit_command_assembler:analyze_frame/3 --> heartbeat
+
+5:47:45.016889 <0.286.0>  '--> amqp_main_reader:process_frame/4
+
+5:47:45.016931 <0.286.0> amqp_main_reader:process_frame/4 --> {state,#Port<0.8>,#Ref<0.3424144549.1323302913.71007>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none}
+
+5:47:45.017048 <0.286.0>  '--> amqp_main_reader:handle_data/2
+
+5:47:45.017099 <0.286.0> amqp_main_reader:handle_data(<<>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.71007>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+5:47:45.017174 <0.286.0> amqp_main_reader:handle_data/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.71007>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:45.017273 <0.286.0> amqp_main_reader:handle_data/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.71007>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:45.017382 <0.286.0> amqp_main_reader:handle_data/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.71007>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:45.017462 <0.286.0> amqp_main_reader:handle_info/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.71007>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:45.017544 <0.286.0>  '--> gen_server:try_dispatch/4
+
+5:47:45.353629 <0.287.0> rabbit_heartbeat:get_sock_stats(#Port<0.8>, send_oct, #Fun<rabbit_heartbeat.4.58237509>)
+
+5:47:45.353861 <0.287.0> rabbit_net:getstat(#Port<0.8>, [send_oct])
+
+5:47:45.353935 <0.287.0> rabbit_net:getstat/2 --> {ok,[{send_oct,582}]}
+
+5:47:45.354007 <0.287.0>  '--> rabbit_heartbeat:get_sock_stats/3
+
+5:47:45.354074 <0.287.0> rabbit_heartbeat:'-heartbeater/3-fun-2-'(582, 0, send_oct, 0, 582)
+
+5:47:45.354134 <0.287.0> rabbit_heartbeat:'-heartbeater/3-fun-2-'/5 --> {run_handler,{582,0}}
+
+5:47:45.354189 <0.287.0> rabbit_heartbeat:get_sock_stats/3 --> {run_handler,{582,0}}
+
+5:47:45.354245 <0.287.0>  '--> rabbit_heartbeat:heartbeater/3
+
+5:47:45.354334 <0.287.0> rabbit_heartbeat:handle_get_sock_stats({run_handler,{582,0}}, #Port<0.8>, send_oct, #Fun<rabbit_heartbeat.3.58237509>, #Fun<rabbit_heartbeat.0.58237509>)
+
+5:47:45.354416 <0.287.0> rabbit_heartbeat:'-start_heartbeat_sender/4-fun-0-'(#Fun<amqp_network_connection.2.53417588>)
+
+5:47:45.354469 <0.287.0> amqp_network_connection:'-start_heartbeat/1-fun-0-'(#Port<0.8>, [<<8,0,0,0,0,0,0>>,<<>>,206])
+
+5:47:45.354532 <0.287.0> rabbit_net:send(#Port<0.8>, [<<8,0,0,0,0,0,0>>,<<>>,206])
+
+5:47:45.354592 <0.287.0> rabbit_net:send/2 --> ok
+
+5:47:45.354632 <0.287.0>  '--> amqp_network_connection:'-start_heartbeat/1-fun-0-'/2
+
+5:47:45.354674 <0.287.0> amqp_network_connection:'-start_heartbeat/1-fun-0-'/2 --> ok
+
+5:47:45.354723 <0.287.0>  '--> rabbit_heartbeat:'-start_heartbeat_sender/4-fun-0-'/1
+
+5:47:45.354767 <0.287.0> rabbit_heartbeat:'-start_heartbeat_sender/4-fun-0-'/1 --> continue
+
+5:47:45.354814 <0.287.0>  '--> rabbit_heartbeat:handle_get_sock_stats/5
+
+5:47:45.354858 <0.287.0> rabbit_heartbeat:get_sock_stats(#Port<0.8>, send_oct, #Fun<rabbit_heartbeat.5.58237509>)
+
+5:47:45.354911 <0.287.0> rabbit_net:getstat(#Port<0.8>, [send_oct])
+
+5:47:45.354959 <0.287.0> rabbit_net:getstat/2 --> {ok,[{send_oct,590}]}
+
+5:47:45.355012 <0.287.0>  '--> rabbit_heartbeat:get_sock_stats/3
+
+5:47:45.355052 <0.287.0> rabbit_heartbeat:'-handle_get_sock_stats/5-fun-0-'(590, 0)
+
+5:47:45.355104 <0.287.0> rabbit_heartbeat:'-handle_get_sock_stats/5-fun-0-'/2 --> {recurse,{590,0}}
+
+5:47:45.355158 <0.287.0> rabbit_heartbeat:get_sock_stats/3 --> {recurse,{590,0}}
+
+5:47:45.355215 <0.287.0>  '--> rabbit_heartbeat:handle_get_sock_stats/5
+
+5:47:45.355259 <0.287.0> rabbit_heartbeat:handle_get_sock_stats({recurse,{590,0}}, #Port<0.8>, send_oct, #Fun<rabbit_heartbeat.3.58237509>, #Fun<rabbit_heartbeat.0.58237509>)
+
+5:47:45.355394 <0.287.0> rabbit_heartbeat:'-heartbeater/3-fun-0-'({590,0}, {#Port<0.8>,5000,send_oct,0,#Fun<rabbit_heartbeat.0.58237509>}, [])
+
+5:47:45.355473 <0.287.0> rabbit_heartbeat:heartbeater({#Port<0.8>,5000,send_oct,0,#Fun<rabbit_heartbeat.0.58237509>}, [], {590,0})
+
+5:47:49.968825 <0.286.0> amqp_main_reader:handle_info({tcp,#Port<0.8>,<<8,0,0,0,0,0,0,206>>}, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.71007>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:49.969073 <0.286.0> rabbit_net:setopts(#Port<0.8>, [{active,once}])
+
+5:47:49.969149 <0.286.0> rabbit_net:setopts/2 --> ok
+
+5:47:49.969218 <0.286.0>  '--> amqp_main_reader:handle_info/2
+
+5:47:49.969264 <0.286.0> amqp_main_reader:set_timeout({state,#Port<0.8>,#Ref<0.3424144549.1323302913.71007>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:49.969375 <0.286.0> amqp_main_reader:cancel_timeout({state,#Port<0.8>,#Ref<0.3424144549.1323302913.71007>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:49.969462 <0.286.0> amqp_main_reader:cancel_timeout/1 --> {state,#Port<0.8>,undefined,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}}
+
+5:47:49.969541 <0.286.0>  '--> amqp_main_reader:set_timeout/1
+
+5:47:49.969584 <0.286.0> amqp_util:call_timeout()
+
+5:47:49.969626 <0.286.0> amqp_util:call_timeout/0 --> 70000
+
+5:47:49.969676 <0.286.0>  '--> amqp_main_reader:set_timeout/1
+
+5:47:49.969715 <0.286.0> amqp_main_reader:set_timeout/1 --> {state,#Port<0.8>,#Ref<0.3424144549.1323302913.71202>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}}
+
+5:47:49.969794 <0.286.0>  '--> amqp_main_reader:handle_info/2
+
+5:47:49.969833 <0.286.0> amqp_main_reader:handle_data(<<8,0,0,0,0,0,0,206>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.71202>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+5:47:49.969927 <0.286.0> amqp_main_reader:handle_data(<<8,0,0,0,0,0,0,206>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.71202>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+5:47:49.970009 <0.286.0> amqp_main_reader:process_frame(8, 0, <<>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.71202>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+5:47:49.970097 <0.286.0> rabbit_command_assembler:analyze_frame(8, <<>>, rabbit_framing_amqp_0_9_1)
+
+5:47:49.970150 <0.286.0> rabbit_command_assembler:analyze_frame/3 --> heartbeat
+
+5:47:49.970201 <0.286.0>  '--> amqp_main_reader:process_frame/4
+
+5:47:49.970242 <0.286.0> amqp_main_reader:process_frame/4 --> {state,#Port<0.8>,#Ref<0.3424144549.1323302913.71202>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none}
+
+5:47:49.970371 <0.286.0>  '--> amqp_main_reader:handle_data/2
+
+5:47:49.970425 <0.286.0> amqp_main_reader:handle_data(<<>>, {state,#Port<0.8>,#Ref<0.3424144549.1323302913.71202>,<0.280.0>,<0.284.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+5:47:49.970501 <0.286.0> amqp_main_reader:handle_data/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.71202>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:49.970599 <0.286.0> amqp_main_reader:handle_data/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.71202>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:49.970710 <0.286.0> amqp_main_reader:handle_data/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.71202>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:49.970813 <0.286.0> amqp_main_reader:handle_info/2 --> {noreply,{state,#Port<0.8>,#Ref<0.3424144549.1323302913.71202>,<0.280.0>,
+                <0.284.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+5:47:49.970913 <0.286.0>  '--> gen_server:try_dispatch/4
+
+5:47:50.350049 <0.288.0> rabbit_heartbeat:get_sock_stats(#Port<0.8>, recv_oct, #Fun<rabbit_heartbeat.4.58237509>)
+
+5:47:50.350266 <0.288.0> rabbit_net:getstat(#Port<0.8>, [recv_oct])
+
+5:47:50.350340 <0.288.0> rabbit_net:getstat/2 --> {ok,[{recv_oct,673}]}
+
+5:47:50.350400 <0.288.0>  '--> rabbit_heartbeat:get_sock_stats/3
+
+5:47:50.350460 <0.288.0> rabbit_heartbeat:'-heartbeater/3-fun-2-'(673, 1, recv_oct, 0, 657)
+
+5:47:50.350518 <0.288.0> rabbit_heartbeat:'-heartbeater/3-fun-2-'/5 --> {recurse,{673,0}}
+
+5:47:50.350582 <0.288.0> rabbit_heartbeat:get_sock_stats/3 --> {recurse,{673,0}}
+
+5:47:50.350639 <0.288.0>  '--> rabbit_heartbeat:heartbeater/3
+
+5:47:50.350682 <0.288.0> rabbit_heartbeat:handle_get_sock_stats({recurse,{673,0}}, #Port<0.8>, recv_oct, #Fun<rabbit_heartbeat.3.58237509>, #Fun<rabbit_heartbeat.1.58237509>)
+
+5:47:50.350757 <0.288.0> rabbit_heartbeat:'-heartbeater/3-fun-0-'({673,0}, {#Port<0.8>,10000,recv_oct,1,#Fun<rabbit_heartbeat.1.58237509>}, [])
+
+5:47:50.350892 <0.288.0> rabbit_heartbeat:heartbeater({#Port<0.8>,10000,recv_oct,1,#Fun<rabbit_heartbeat.1.58237509>}, [], {673,0})
+
+5:47:50.355109 <0.287.0> rabbit_heartbeat:get_sock_stats(#Port<0.8>, send_oct, #Fun<rabbit_heartbeat.4.58237509>)
+
+5:47:50.355284 <0.287.0> rabbit_net:getstat(#Port<0.8>, [send_oct])
+
+5:47:50.355375 <0.287.0> rabbit_net:getstat/2 --> {ok,[{send_oct,590}]}
+
+5:47:50.355446 <0.287.0>  '--> rabbit_heartbeat:get_sock_stats/3
+
+5:47:50.355497 <0.287.0> rabbit_heartbeat:'-heartbeater/3-fun-2-'(590, 0, send_oct, 0, 590)
+
+5:47:50.355554 <0.287.0> rabbit_heartbeat:'-heartbeater/3-fun-2-'/5 --> {run_handler,{590,0}}
+
+5:47:50.355615 <0.287.0> rabbit_heartbeat:get_sock_stats/3 --> {run_handler,{590,0}}
+
+5:47:50.355668 <0.287.0>  '--> rabbit_heartbeat:heartbeater/3
+
+5:47:50.355718 <0.287.0> rabbit_heartbeat:handle_get_sock_stats({run_handler,{590,0}}, #Port<0.8>, send_oct, #Fun<rabbit_heartbeat.3.58237509>, #Fun<rabbit_heartbeat.0.58237509>)
+
+5:47:50.355858 <0.287.0> rabbit_heartbeat:'-start_heartbeat_sender/4-fun-0-'(#Fun<amqp_network_connection.2.53417588>)
+
+5:47:50.355934 <0.287.0> amqp_network_connection:'-start_heartbeat/1-fun-0-'(#Port<0.8>, [<<8,0,0,0,0,0,0>>,<<>>,206])
+
+5:47:50.356009 <0.287.0> rabbit_net:send(#Port<0.8>, [<<8,0,0,0,0,0,0>>,<<>>,206])
+
+5:47:50.356066 <0.287.0> rabbit_net:send/2 --> ok
+
+5:47:50.356109 <0.287.0>  '--> amqp_network_connection:'-start_heartbeat/1-fun-0-'/2
+
+5:47:50.356154 <0.287.0> amqp_network_connection:'-start_heartbeat/1-fun-0-'/2 --> ok
+
+5:47:50.356211 <0.287.0>  '--> rabbit_heartbeat:'-start_heartbeat_sender/4-fun-0-'/1
+
+5:47:50.356258 <0.287.0> rabbit_heartbeat:'-start_heartbeat_sender/4-fun-0-'/1 --> continue
+
+5:47:50.356309 <0.287.0>  '--> rabbit_heartbeat:handle_get_sock_stats/5
+
+5:47:50.356359 <0.287.0> rabbit_heartbeat:get_sock_stats(#Port<0.8>, send_oct, #Fun<rabbit_heartbeat.5.58237509>)
+
+5:47:50.356429 <0.287.0> rabbit_net:getstat(#Port<0.8>, [send_oct])
+
+5:47:50.356481 <0.287.0> rabbit_net:getstat/2 --> {ok,[{send_oct,598}]}
+
+5:47:50.356541 <0.287.0>  '--> rabbit_heartbeat:get_sock_stats/3
+
+5:47:50.356582 <0.287.0> rabbit_heartbeat:'-handle_get_sock_stats/5-fun-0-'(598, 0)
+
+5:47:50.356631 <0.287.0> rabbit_heartbeat:'-handle_get_sock_stats/5-fun-0-'/2 --> {recurse,{598,0}}
+
+5:47:50.356692 <0.287.0> rabbit_heartbeat:get_sock_stats/3 --> {recurse,{598,0}}
+
+5:47:50.356750 <0.287.0>  '--> rabbit_heartbeat:handle_get_sock_stats/5
+
+5:47:50.356833 <0.287.0> rabbit_heartbeat:handle_get_sock_stats({recurse,{598,0}}, #Port<0.8>, send_oct, #Fun<rabbit_heartbeat.3.58237509>, #Fun<rabbit_heartbeat.0.58237509>)
+
+5:47:50.356943 <0.287.0> rabbit_heartbeat:'-heartbeater/3-fun-0-'({598,0}, {#Port<0.8>,5000,send_oct,0,#Fun<rabbit_heartbeat.0.58237509>}, [])
+
+5:47:50.357020 <0.287.0> rabbit_heartbeat:heartbeater({#Port<0.8>,5000,send_oct,0,#Fun<rabbit_heartbeat.0.58237509>}, [], {598,0})

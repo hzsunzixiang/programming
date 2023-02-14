@@ -68,12 +68,13 @@ close_connection(Connection) ->
 
 
 start() ->
-   Connection = connect_amqp(),
-   Channel = open_channel(Connection),
-   declare_exchange(Channel),
-   Q = declare_queue(Channel),
-   binding_queue(Q, Channel),
-   publish_message(Channel, Q),
-   close_channel(Channel),
-   close_connection(Connection), 
+   Connection = amqp_publish:connect_amqp(),
+   Channel = amqp_publish:open_channel(Connection),
+   amqp_publish:declare_exchange(Channel),
+   Q = amqp_publish:declare_queue(Channel),
+   amqp_publish:binding_queue(Q, Channel),
+   %timer:sleep(60000),
+   amqp_publish:publish_message(Channel, Q),
+   amqp_publish:close_channel(Channel),
+   amqp_publish:close_connection(Connection), 
    "Finish".  
