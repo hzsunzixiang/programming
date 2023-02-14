@@ -1,46 +1,17 @@
 -module(rpc_client).
--include_lib("amqp_client/include/amqp_client.hrl").
+-include("amqp_info.hrl").
 -compile([export_all]).
 -compile(nowarn_export_all).
 
--define(QUEUE_NAME, <<"rpc_queue">>).
+-define(QUEUE_NAME_RPC, <<"rpc_queue_amqp">>).
 
 call(N) ->
-    {ok, Connection} = amqp_connection:start(#amqp_params_network{host = "localhost"}),
-    {ok, Channel} = amqp_connection:open_channel(Connection),
-
-    #'queue.declare_ok'{queue = Queue} = amqp_channel:call(Channel, #'queue.declare'{exclusive = true}),  % 这里没有 no_ack 标志位，是需要ack的
-
-    CorrelationId = integer_to_binary(erlang:unique_integer()), 
-	%Request = integer_to_list(N),
-
-    %EncodedCorrelationId = base64:encode(<<CorrelationId:64>>), % 这个是格式是透明的
-    Props = #'P_basic'{correlation_id = CorrelationId,
-                       content_type = <<"application/octet-stream">>,
-                       reply_to = Queue},
-    Publish = #'basic.publish'{exchange = <<"">>, % 默认的exchange可以绑定任何队列，所以这里没有队列名字
-                               routing_key = ?QUEUE_NAME,   % 默认和队列名相同
-                               mandatory = true},
-    %% 这里同步发送消息
-    amqp_channel:call(Channel, Publish, #amqp_msg{props = Props,
-                                                  payload = N}),
-
-    %% 这里接收
-    io:format(" [*] Waiting for rpc. To exit press CTRL+C~n"),
-
-    amqp_channel:subscribe(Channel, #'basic.consume'{queue = Queue,
-                                                     no_ack = true}, self()),
-    receive
-        #'basic.consume_ok'{} -> ok
-    end,
-    loop(Channel).
-
-loop(Channel) ->
-    receive
-        {#'basic.deliver'{routing_key = RoutingKey}, #amqp_msg{payload = Body}} ->
-            io:format(" [x] ~p:~p~n", [RoutingKey, Body]),
-            loop(Channel)
-    end.
+    RabbitParams=#amqp_params_network{host=?HOST, username=?RABBIT_USERNAME,
+                      password=?RABBIT_PASSWORD, virtual_host=?VHOST, port=?PORT},
+    {ok, Connection} = amqp_connection:start(RabbitParams),
+	RpcClient = amqp_rpc_client:start_link(Connection, ?QUEUE_NAME_RPC), % -> RpcClient
+	amqp_rpc_client:call(RpcClient, N), %-> ok
+    ok.
 
 main(Argv)->
     N = case Argv of
@@ -50,11 +21,32 @@ main(Argv)->
                 list_to_binary(R)
         end,
     
-    rpc_client:call(N),
-    ok.
+    Result = rpc_client:call(N),
+    Result.
 
 
 %1> rpc_client:main(["20"]).
 % [*] Waiting for rpc. To exit press CTRL+C
 % [x] <<"amq.gen-Kgi1wvhdrm6cE3eUjYPlaw">>:<<"6765">>
 %
+%
+
+% 这里接收响应，但是没有返回值，所以，无法获得来自服务端的响应
+
+%_build/default/lib/amqp_client/src/amqp_rpc_client.erl
+%
+%%% Registers this RPC client instance as a consumer to handle rpc responses
+%setup_consumer(#state{channel = Channel, reply_queue = Q}) ->
+%    amqp_channel:call(Channel, #'basic.consume'{queue = Q}).
+%
+%%% @private
+%handle_info({#'basic.deliver'{delivery_tag = DeliveryTag},
+%             #amqp_msg{props = #'P_basic'{correlation_id = Id},
+%                       payload = Payload}},
+%            State = #state{continuations = Conts, channel = Channel}) ->
+%    From = maps:get(Id, Conts),
+%    gen_server:reply(From, Payload),
+%    amqp_channel:call(Channel, #'basic.ack'{delivery_tag = DeliveryTag}),
+%    {noreply, State#state{continuations = maps:remove(Id, Conts) }}.
+%
+
