@@ -1,4 +1,10 @@
 
+15> rpc_server:main().
+<0.304.0>
+16> rpc_client:main(["20"]).
+Res:<<"6765">>
+ok
+
 3:0:49.316756 <0.219.0> amqp_connection:start({amqp_params_network,<<"vstation">>,<<"vstation">>,<<"vstation">>,
                      "192.168.142.133",5672,2047,0,10,60000,none,
                      [fun amqp_auth_mechanisms:plain/3,
