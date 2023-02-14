@@ -33,9 +33,7 @@ main() ->
 	Result = amqp_channel:wait_for_confirms_or_die(Channel, 5000),
     io:format("Result: ~p~n", [Result]),
     loop(),
-    ok = amqp_channel:close(Channel),
-    ok = amqp_connection:close(Connection),
-    ok.
+    {Connection,Channel}.
 
 loop() ->
     receive
@@ -44,9 +42,15 @@ loop() ->
         #'basic.nack'{} ->
             io:format(" [x] Saw basic.nack~n")
     end.
-
+close({Connection, Channel}) ->
+    ok = amqp_channel:close(Channel),
+    ok = amqp_connection:close(Connection).
+start_and_close() ->
+   {Connection,Channel} = amqp_confirm:main(),
+   close({Connection, Channel}),
+   "Finish".
 start() ->
-   amqp_confirm:main(),
+   {Connection,Channel} = amqp_confirm:main(),
    "Finish".
 
 %https://hexdocs.pm/amqp_client/
