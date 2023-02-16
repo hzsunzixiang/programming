@@ -1,0 +1,3269 @@
+
+0:49:19.808303 <0.227.0> amqp_connection:start({amqp_params_direct,<<"vstation">>,<<"vstation">>,<<"vstation">>,
+                    'rabbit@centos7-mq',none,[]})
+
+0:49:19.808669 <0.227.0> amqp_connection:start({amqp_params_direct,<<"vstation">>,<<"vstation">>,<<"vstation">>,
+                    'rabbit@centos7-mq',none,[]}, undefined)
+
+0:49:19.808919 <0.227.0> amqp_connection:ensure_started()
+
+0:49:19.809098 <0.227.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'([syntax_tools,compiler,xmerl,rabbit_common,amqp_client,
+ credentials_obfuscation])
+
+0:49:19.809282 <0.227.0> amqp_connection:ensure_started(syntax_tools)
+
+0:49:19.809425 <0.227.0> amqp_connection:ensure_started/1 --> ok
+
+0:49:19.809543 <0.227.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
+
+0:49:19.809624 <0.227.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'([compiler,xmerl,rabbit_common,amqp_client,credentials_obfuscation])
+
+0:49:19.809842 <0.227.0> amqp_connection:ensure_started(compiler)
+
+0:49:19.809970 <0.227.0> amqp_connection:ensure_started/1 --> ok
+
+0:49:19.810157 <0.227.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
+
+0:49:19.810281 <0.227.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'([xmerl,rabbit_common,amqp_client,credentials_obfuscation])
+
+0:49:19.810440 <0.227.0> amqp_connection:ensure_started(xmerl)
+
+0:49:19.810613 <0.227.0> amqp_connection:ensure_started/1 --> ok
+
+0:49:19.810714 <0.227.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
+
+0:49:19.810832 <0.227.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'([rabbit_common,amqp_client,credentials_obfuscation])
+
+0:49:19.810930 <0.227.0> amqp_connection:ensure_started(rabbit_common)
+
+0:49:19.811013 <0.227.0> amqp_connection:ensure_started/1 --> ok
+
+0:49:19.811178 <0.227.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
+
+0:49:19.811285 <0.227.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'([amqp_client,credentials_obfuscation])
+
+0:49:19.811387 <0.227.0> amqp_connection:ensure_started(amqp_client)
+
+0:49:19.811719 <0.227.0> amqp_sup:is_ready()
+
+0:49:19.811859 <0.227.0> amqp_sup:is_ready/0 --> true
+
+0:49:19.812091 <0.227.0>  '--> amqp_connection:ensure_started/1
+
+0:49:19.812240 <0.227.0> amqp_connection:ensure_started/1 --> ok
+
+0:49:19.812348 <0.227.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
+
+0:49:19.812504 <0.227.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'([credentials_obfuscation])
+
+0:49:19.812731 <0.227.0> amqp_connection:ensure_started(credentials_obfuscation)
+
+0:49:19.812983 <0.227.0> amqp_sup:is_ready()
+
+0:49:19.813088 <0.227.0> amqp_sup:is_ready/0 --> true
+
+0:49:19.813268 <0.227.0>  '--> amqp_connection:ensure_started/1
+
+0:49:19.813533 <0.227.0> amqp_connection:ensure_started/1 --> ok
+
+0:49:19.813694 <0.227.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
+
+0:49:19.813848 <0.227.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'([])
+
+0:49:19.813983 <0.227.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1 --> []
+
+0:49:19.814135 <0.227.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
+
+0:49:19.814244 <0.227.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1 --> [ok]
+
+0:49:19.814343 <0.227.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
+
+0:49:19.814419 <0.227.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1 --> [ok,ok]
+
+0:49:19.814541 <0.227.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
+
+0:49:19.814635 <0.227.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1 --> [ok,ok,ok]
+
+0:49:19.814732 <0.227.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
+
+0:49:19.814857 <0.227.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1 --> [ok,ok,ok,ok]
+
+0:49:19.814972 <0.227.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
+
+0:49:19.815122 <0.227.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1 --> [ok,ok,ok,ok,ok]
+
+0:49:19.815366 <0.227.0>  '--> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1
+
+0:49:19.815530 <0.227.0> amqp_connection:'-ensure_started/0-lc$^0/1-0-'/1 --> [ok,ok,ok,ok,ok,ok]
+
+0:49:19.815670 <0.227.0> amqp_connection:ensure_started/0 --> [ok,ok,ok,ok,ok,ok]
+
+0:49:19.815760 <0.227.0>  '--> amqp_connection:start/2
+
+0:49:19.815873 <0.227.0> amqp_connection:set_connection_name(undefined, {amqp_params_direct,<<"vstation">>,
+                    {plaintext,<<"vstation">>},
+                    <<"vstation">>,'rabbit@centos7-mq',none,[]})
+
+0:49:19.816128 <0.227.0> amqp_connection:set_connection_name/2 --> {amqp_params_direct,<<"vstation">>,
+                    {plaintext,<<"vstation">>},
+                    <<"vstation">>,'rabbit@centos7-mq',none,[]}
+
+0:49:19.816305 <0.227.0>  '--> amqp_connection:start/2
+
+0:49:19.816453 <0.227.0> rabbit_misc:get_env(amqp_client, gen_server_call_timeout, 70000)
+
+0:49:19.816630 <0.227.0> rabbit_misc:get_env/3 --> 70000
+
+0:49:19.816718 <0.227.0>  '--> amqp_util:call_timeout/0
+
+0:49:19.816787 <0.227.0> amqp_connection:ensure_safe_call_timeout({amqp_params_direct,<<"vstation">>,
+                    {plaintext,<<"vstation">>},
+                    <<"vstation">>,'rabbit@centos7-mq',none,[]}, 70000)
+
+0:49:19.817025 <0.227.0> amqp_connection:tick_or_direct_timeout(60000)
+
+0:49:19.817175 <0.227.0> amqp_connection:tick_or_direct_timeout/1 --> 120000
+
+0:49:19.817428 <0.227.0>  '--> amqp_connection:ensure_safe_call_timeout/2
+
+0:49:19.817537 <0.227.0> amqp_connection:maybe_update_call_timeout(120000, 70000)
+
+0:49:19.817623 <0.227.0> amqp_connection:maybe_update_call_timeout/2 --> ok
+
+0:49:19.817716 <0.227.0> amqp_connection:ensure_safe_call_timeout/2 --> ok
+
+0:49:19.817884 <0.227.0>  '--> amqp_connection:start/2
+
+0:49:19.817990 <0.227.0> amqp_sup:start_connection_sup({amqp_params_direct,<<"vstation">>,
+                    {plaintext,<<"vstation">>},
+                    <<"vstation">>,'rabbit@centos7-mq',none,[]})
+
+0:49:19.818280 <0.227.0> supervisor2:start_child(amqp_sup, [{amqp_params_direct,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,'rabbit@centos7-mq',none,[]}])
+
+0:49:19.818441 <0.227.0> supervisor2:call(amqp_sup, {start_child,[{amqp_params_direct,<<"vstation">>,
+                                  {plaintext,<<"vstation">>},
+                                  <<"vstation">>,'rabbit@centos7-mq',none,
+                                  []}]})
+
+0:49:19.818638 <0.256.0> supervisor2:handle_call({start_child,[{amqp_params_direct,<<"vstation">>,
+                                  {plaintext,<<"vstation">>},
+                                  <<"vstation">>,'rabbit@centos7-mq',none,
+                                  []}]}, {<0.227.0>,#Ref<0.3284298657.3391619074.209167>}, {state,{local,amqp_sup},
+       simple_one_for_one,
+       {[connection_sup],
+        #{connection_sup =>
+              {child,undefined,connection_sup,
+                     {amqp_connection_sup,start_link,[]},
+                     temporary,infinity,supervisor,
+                     [amqp_connection_sup]}}},
+       {sets,{set,0,16,16,8,80,48,
+                  {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                  {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+       0,1,[],0,amqp_sup,[]})
+
+0:49:19.819032 <0.256.0> supervisor2:get_dynamic_child({state,{local,amqp_sup},
+       simple_one_for_one,
+       {[connection_sup],
+        #{connection_sup =>
+              {child,undefined,connection_sup,
+                     {amqp_connection_sup,start_link,[]},
+                     temporary,infinity,supervisor,
+                     [amqp_connection_sup]}}},
+       {sets,{set,0,16,16,8,80,48,
+                  {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                  {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+       0,1,[],0,amqp_sup,[]})
+
+0:49:19.819349 <0.256.0> supervisor2:get_dynamic_child/1 --> {child,undefined,connection_sup,
+       {amqp_connection_sup,start_link,[]},
+       temporary,infinity,supervisor,
+       [amqp_connection_sup]}
+
+0:49:19.819452 <0.256.0>  '--> supervisor2:handle_call/3
+
+0:49:19.819514 <0.256.0> supervisor2:do_start_child_i(amqp_connection_sup, start_link, [{amqp_params_direct,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,'rabbit@centos7-mq',none,[]}])
+
+0:49:19.819697 <0.256.0> amqp_connection_sup:start_link({amqp_params_direct,<<"vstation">>,
+                    {plaintext,<<"vstation">>},
+                    <<"vstation">>,'rabbit@centos7-mq',none,[]})
+
+0:49:19.819993 <0.256.0> supervisor2:start_link(amqp_connection_sup, [])
+
+0:49:19.820129 <0.285.0> supervisor2:init({self,amqp_connection_sup,[]})
+
+0:49:19.820236 <0.285.0> amqp_connection_sup:init([])
+
+0:49:19.820351 <0.285.0> amqp_connection_sup:init/1 --> {ok,{{one_for_all,0,1},[]}}
+
+0:49:19.820741 <0.285.0>  '--> supervisor2:init/1
+
+0:49:19.820800 <0.285.0> supervisor2:init_state(self, {one_for_all,0,1}, amqp_connection_sup, [])
+
+0:49:19.820901 <0.285.0> supervisor2:supname(self, amqp_connection_sup)
+
+0:49:19.820966 <0.285.0> supervisor2:supname/2 --> {<0.285.0>,amqp_connection_sup}
+
+0:49:19.821039 <0.285.0>  '--> supervisor2:init_state/4
+
+0:49:19.821095 <0.285.0> supervisor2:set_flags({one_for_all,0,1}, {state,{<0.285.0>,amqp_connection_sup},
+       undefined,
+       {[],#{}},
+       undefined,undefined,undefined,[],0,amqp_connection_sup,[]})
+
+0:49:19.821262 <0.285.0> supervisor2:check_flags({one_for_all,0,1})
+
+0:49:19.821396 <0.285.0> supervisor2:check_flags(#{intensity=>0, period=>1, strategy=>one_for_all})
+
+0:49:19.826366 <0.285.0> supervisor2:do_check_flags(#{intensity=>0, period=>1, strategy=>one_for_all})
+
+0:49:19.826627 <0.285.0> supervisor2:validStrategy(one_for_all)
+
+0:49:19.826716 <0.285.0> supervisor2:validStrategy/1 --> true
+
+0:49:19.826782 <0.285.0>  '--> supervisor2:do_check_flags/1
+
+0:49:19.826856 <0.285.0> supervisor2:validIntensity(0)
+
+0:49:19.826906 <0.285.0> supervisor2:validIntensity/1 --> true
+
+0:49:19.826961 <0.285.0>  '--> supervisor2:do_check_flags/1
+
+0:49:19.827012 <0.285.0> supervisor2:validPeriod(1)
+
+0:49:19.827137 <0.285.0> supervisor2:validPeriod/1 --> true
+
+0:49:19.827197 <0.285.0>  '--> supervisor2:do_check_flags/1
+
+0:49:19.827243 <0.285.0> supervisor2:do_check_flags/1 --> #{intensity=>0, period=>1, strategy=>one_for_all}
+
+0:49:19.827329 <0.285.0> supervisor2:check_flags/1 --> #{intensity=>0, period=>1, strategy=>one_for_all}
+
+0:49:19.827399 <0.285.0> supervisor2:check_flags/1 --> #{intensity=>0, period=>1, strategy=>one_for_all}
+
+0:49:19.827514 <0.285.0>  '--> supervisor2:set_flags/2
+
+0:49:19.827602 <0.285.0> supervisor2:set_flags/2 --> {ok,{state,{<0.285.0>,amqp_connection_sup},
+           one_for_all,
+           {[],#{}},
+           undefined,0,1,[],0,amqp_connection_sup,[]}}
+
+0:49:19.827710 <0.285.0> supervisor2:init_state/4 --> {ok,{state,{<0.285.0>,amqp_connection_sup},
+           one_for_all,
+           {[],#{}},
+           undefined,0,1,[],0,amqp_connection_sup,[]}}
+
+0:49:19.827855 <0.285.0>  '--> supervisor2:init/1
+
+0:49:19.827960 <0.285.0> supervisor2:init_children({state,{<0.285.0>,amqp_connection_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_sup,[]}, [])
+
+0:49:19.828140 <0.285.0> supervisor2:check_startspec([])
+
+0:49:19.828234 <0.285.0> supervisor2:check_startspec([], [], #{})
+
+0:49:19.828366 <0.285.0> supervisor2:check_startspec/3 --> {ok,{[],#{}}}
+
+0:49:19.828728 <0.285.0> supervisor2:check_startspec/1 --> {ok,{[],#{}}}
+
+0:49:19.828862 <0.285.0>  '--> supervisor2:init_children/2
+
+0:49:19.828956 <0.285.0> supervisor2:start_children({[],#{}}, {<0.285.0>,amqp_connection_sup})
+
+0:49:19.829095 <0.285.0> supervisor2:children_map(#Fun<supervisor2.0.106196900>, {[],#{}})
+
+0:49:19.829232 <0.285.0> supervisor2:children_map(#Fun<supervisor2.0.106196900>, [], #{}, [])
+
+0:49:19.829370 <0.285.0> supervisor2:children_map/4 --> {ok,{[],#{}}}
+
+0:49:19.829470 <0.285.0> supervisor2:children_map/2 --> {ok,{[],#{}}}
+
+0:49:19.829792 <0.285.0> supervisor2:start_children/2 --> {ok,{[],#{}}}
+
+0:49:19.829950 <0.285.0>  '--> supervisor2:init_children/2
+
+0:49:19.830032 <0.285.0> supervisor2:init_children/2 --> {ok,{state,{<0.285.0>,amqp_connection_sup},
+           one_for_all,
+           {[],#{}},
+           undefined,0,1,[],0,amqp_connection_sup,[]}}
+
+0:49:19.830177 <0.285.0> supervisor2:init/1 --> {ok,{state,{<0.285.0>,amqp_connection_sup},
+           one_for_all,
+           {[],#{}},
+           undefined,0,1,[],0,amqp_connection_sup,[]}}
+
+0:49:19.830298 <0.285.0>  '--> gen_server:init_it/2
+
+0:49:19.830359 <0.256.0> supervisor2:start_link/2 --> {ok,<0.285.0>}
+
+0:49:19.830447 <0.256.0>  '--> amqp_connection_sup:start_link/1
+
+0:49:19.830496 <0.256.0> rabbit_misc:get_env(rabbit, supervisor_shutdown_timeout, infinity)
+
+0:49:19.830552 <0.256.0> rabbit_misc:get_env/3 --> infinity
+
+0:49:19.830599 <0.256.0>  '--> amqp_connection_sup:start_link/1
+
+0:49:19.830667 <0.256.0> supervisor2:start_child(<0.285.0>, {connection_type_sup,{amqp_connection_type_sup,start_link,[]},
+                     transient,infinity,supervisor,
+                     [amqp_connection_type_sup]})
+
+0:49:19.830789 <0.256.0> supervisor2:call(<0.285.0>, {start_child,{connection_type_sup,{amqp_connection_type_sup,start_link,[]},
+                                  transient,infinity,supervisor,
+                                  [amqp_connection_type_sup]}})
+
+0:49:19.830897 <0.285.0> supervisor2:handle_call({start_child,{connection_type_sup,{amqp_connection_type_sup,start_link,[]},
+                                  transient,infinity,supervisor,
+                                  [amqp_connection_type_sup]}}, {<0.256.0>,#Ref<0.3284298657.3391619073.214389>}, {state,{<0.285.0>,amqp_connection_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_sup,[]})
+
+0:49:19.831109 <0.285.0> supervisor2:check_childspec({connection_type_sup,{amqp_connection_type_sup,start_link,[]},
+                     transient,infinity,supervisor,
+                     [amqp_connection_type_sup]})
+
+0:49:19.831209 <0.285.0> supervisor2:check_childspec(#{id=>connection_type_sup, modules=>[amqp_connection_type_sup], restart=>transient, shutdown=>infinity, start=>{amqp_connection_type_sup,start_link,[]}, type=>supervisor})
+
+0:49:19.831319 <0.285.0> supervisor2:do_check_childspec(#{id=>connection_type_sup, modules=>[amqp_connection_type_sup], restart=>transient, shutdown=>infinity, start=>{amqp_connection_type_sup,start_link,[]}, type=>supervisor})
+
+0:49:19.831409 <0.285.0> supervisor2:validId(connection_type_sup)
+
+0:49:19.831466 <0.285.0> supervisor2:validId/1 --> true
+
+0:49:19.831514 <0.285.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.831556 <0.285.0> supervisor2:validFunc({amqp_connection_type_sup,start_link,[]})
+
+0:49:19.831610 <0.285.0> supervisor2:validFunc/1 --> true
+
+0:49:19.831675 <0.285.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.831745 <0.285.0> supervisor2:validRestartType(transient)
+
+0:49:19.831803 <0.285.0> supervisor2:validRestartType/1 --> true
+
+0:49:19.831855 <0.285.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.831911 <0.285.0> supervisor2:validChildType(supervisor)
+
+0:49:19.831956 <0.285.0> supervisor2:validChildType/1 --> true
+
+0:49:19.832004 <0.285.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.832048 <0.285.0> supervisor2:validShutdown(infinity)
+
+0:49:19.832111 <0.285.0> supervisor2:validShutdown/1 --> true
+
+0:49:19.832159 <0.285.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.832212 <0.285.0> supervisor2:validMods([amqp_connection_type_sup])
+
+0:49:19.832297 <0.285.0> supervisor2:'-validMods/1-fun-0-'(amqp_connection_type_sup)
+
+0:49:19.832420 <0.285.0> supervisor2:'-validMods/1-fun-0-'/1 --> ok
+
+0:49:19.832479 <0.285.0>  '--> lists:foreach_1/2
+
+0:49:19.832531 <0.285.0> supervisor2:validMods/1 --> ok
+
+0:49:19.832577 <0.285.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.832632 <0.285.0> supervisor2:do_check_childspec/1 --> {ok,{child,undefined,connection_type_sup,
+           {amqp_connection_type_sup,start_link,[]},
+           transient,infinity,supervisor,
+           [amqp_connection_type_sup]}}
+
+0:49:19.832723 <0.285.0>  '--> supervisor2:check_childspec/1
+
+0:49:19.832768 <0.285.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,connection_type_sup,
+           {amqp_connection_type_sup,start_link,[]},
+           transient,infinity,supervisor,
+           [amqp_connection_type_sup]}}
+
+0:49:19.832904 <0.285.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,connection_type_sup,
+           {amqp_connection_type_sup,start_link,[]},
+           transient,infinity,supervisor,
+           [amqp_connection_type_sup]}}
+
+0:49:19.833052 <0.285.0>  '--> supervisor2:handle_call/3
+
+0:49:19.833139 <0.285.0> supervisor2:handle_start_child({child,undefined,connection_type_sup,
+       {amqp_connection_type_sup,start_link,[]},
+       transient,infinity,supervisor,
+       [amqp_connection_type_sup]}, {state,{<0.285.0>,amqp_connection_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_sup,[]})
+
+0:49:19.833656 <0.285.0> supervisor2:internal_find_child(connection_type_sup, {state,{<0.285.0>,amqp_connection_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_sup,[]})
+
+0:49:19.833797 <0.285.0> supervisor2:internal_find_child/2 --> error
+
+0:49:19.833913 <0.285.0>  '--> supervisor2:handle_start_child/2
+
+0:49:19.833998 <0.285.0> supervisor2:do_start_child({<0.285.0>,amqp_connection_sup}, {child,undefined,connection_type_sup,
+       {amqp_connection_type_sup,start_link,[]},
+       transient,infinity,supervisor,
+       [amqp_connection_type_sup]})
+
+0:49:19.834110 <0.285.0> supervisor2:do_start_child_i(amqp_connection_type_sup, start_link, [])
+
+0:49:19.834202 <0.285.0> amqp_connection_type_sup:start_link()
+
+0:49:19.834264 <0.285.0> supervisor2:start_link(amqp_connection_type_sup, [])
+
+0:49:19.834329 <0.286.0> supervisor2:init({self,amqp_connection_type_sup,[]})
+
+0:49:19.834430 <0.286.0> amqp_connection_type_sup:init([])
+
+0:49:19.834529 <0.286.0> amqp_connection_type_sup:init/1 --> {ok,{{one_for_all,0,1},[]}}
+
+0:49:19.834629 <0.286.0>  '--> supervisor2:init/1
+
+0:49:19.834696 <0.286.0> supervisor2:init_state(self, {one_for_all,0,1}, amqp_connection_type_sup, [])
+
+0:49:19.834769 <0.286.0> supervisor2:supname(self, amqp_connection_type_sup)
+
+0:49:19.834880 <0.286.0> supervisor2:supname/2 --> {<0.286.0>,amqp_connection_type_sup}
+
+0:49:19.834961 <0.286.0>  '--> supervisor2:init_state/4
+
+0:49:19.835004 <0.286.0> supervisor2:set_flags({one_for_all,0,1}, {state,{<0.286.0>,amqp_connection_type_sup},
+       undefined,
+       {[],#{}},
+       undefined,undefined,undefined,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.835195 <0.286.0> supervisor2:check_flags({one_for_all,0,1})
+
+0:49:19.835299 <0.286.0> supervisor2:check_flags(#{intensity=>0, period=>1, strategy=>one_for_all})
+
+0:49:19.835383 <0.286.0> supervisor2:do_check_flags(#{intensity=>0, period=>1, strategy=>one_for_all})
+
+0:49:19.835491 <0.286.0> supervisor2:validStrategy(one_for_all)
+
+0:49:19.835560 <0.286.0> supervisor2:validStrategy/1 --> true
+
+0:49:19.835622 <0.286.0>  '--> supervisor2:do_check_flags/1
+
+0:49:19.835664 <0.286.0> supervisor2:validIntensity(0)
+
+0:49:19.835818 <0.286.0> supervisor2:validIntensity/1 --> true
+
+0:49:19.835920 <0.286.0>  '--> supervisor2:do_check_flags/1
+
+0:49:19.835973 <0.286.0> supervisor2:validPeriod(1)
+
+0:49:19.836026 <0.286.0> supervisor2:validPeriod/1 --> true
+
+0:49:19.836085 <0.286.0>  '--> supervisor2:do_check_flags/1
+
+0:49:19.836130 <0.286.0> supervisor2:do_check_flags/1 --> #{intensity=>0, period=>1, strategy=>one_for_all}
+
+0:49:19.836248 <0.286.0> supervisor2:check_flags/1 --> #{intensity=>0, period=>1, strategy=>one_for_all}
+
+0:49:19.836361 <0.286.0> supervisor2:check_flags/1 --> #{intensity=>0, period=>1, strategy=>one_for_all}
+
+0:49:19.836456 <0.286.0>  '--> supervisor2:set_flags/2
+
+0:49:19.836523 <0.286.0> supervisor2:set_flags/2 --> {ok,{state,{<0.286.0>,amqp_connection_type_sup},
+           one_for_all,
+           {[],#{}},
+           undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+0:49:19.836661 <0.286.0> supervisor2:init_state/4 --> {ok,{state,{<0.286.0>,amqp_connection_type_sup},
+           one_for_all,
+           {[],#{}},
+           undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+0:49:19.836820 <0.286.0>  '--> supervisor2:init/1
+
+0:49:19.836931 <0.286.0> supervisor2:init_children({state,{<0.286.0>,amqp_connection_type_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_type_sup,[]}, [])
+
+0:49:19.837096 <0.286.0> supervisor2:check_startspec([])
+
+0:49:19.837244 <0.286.0> supervisor2:check_startspec([], [], #{})
+
+0:49:19.837350 <0.286.0> supervisor2:check_startspec/3 --> {ok,{[],#{}}}
+
+0:49:19.837452 <0.286.0> supervisor2:check_startspec/1 --> {ok,{[],#{}}}
+
+0:49:19.837523 <0.286.0>  '--> supervisor2:init_children/2
+
+0:49:19.837570 <0.286.0> supervisor2:start_children({[],#{}}, {<0.286.0>,amqp_connection_type_sup})
+
+0:49:19.837718 <0.286.0> supervisor2:children_map(#Fun<supervisor2.0.106196900>, {[],#{}})
+
+0:49:19.837854 <0.286.0> supervisor2:children_map(#Fun<supervisor2.0.106196900>, [], #{}, [])
+
+0:49:19.837929 <0.286.0> supervisor2:children_map/4 --> {ok,{[],#{}}}
+
+0:49:19.838013 <0.286.0> supervisor2:children_map/2 --> {ok,{[],#{}}}
+
+0:49:19.838115 <0.286.0> supervisor2:start_children/2 --> {ok,{[],#{}}}
+
+0:49:19.838216 <0.286.0>  '--> supervisor2:init_children/2
+
+0:49:19.838279 <0.286.0> supervisor2:init_children/2 --> {ok,{state,{<0.286.0>,amqp_connection_type_sup},
+           one_for_all,
+           {[],#{}},
+           undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+0:49:19.838503 <0.286.0> supervisor2:init/1 --> {ok,{state,{<0.286.0>,amqp_connection_type_sup},
+           one_for_all,
+           {[],#{}},
+           undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+0:49:19.838666 <0.286.0>  '--> gen_server:init_it/2
+
+0:49:19.838749 <0.285.0> supervisor2:start_link/2 --> {ok,<0.286.0>}
+
+0:49:19.838842 <0.285.0> amqp_connection_type_sup:start_link/0 --> {ok,<0.286.0>}
+
+0:49:19.838964 <0.285.0>  '--> supervisor2:do_start_child_i/3
+
+0:49:19.839081 <0.285.0> supervisor2:do_start_child_i/3 --> {ok,<0.286.0>}
+
+0:49:19.839202 <0.285.0>  '--> supervisor2:do_start_child/2
+
+0:49:19.839296 <0.285.0> supervisor2:report_progress({child,<0.286.0>,connection_type_sup,
+       {amqp_connection_type_sup,start_link,[]},
+       transient,infinity,supervisor,
+       [amqp_connection_type_sup]}, {<0.285.0>,amqp_connection_sup})
+
+0:49:19.839465 <0.285.0> supervisor2:report_progress/2 --> ok
+
+0:49:19.839533 <0.285.0>  '--> supervisor2:do_start_child/2
+
+0:49:19.839585 <0.285.0> supervisor2:do_start_child/2 --> {ok,<0.286.0>}
+
+0:49:19.839733 <0.285.0>  '--> supervisor2:handle_start_child/2
+
+0:49:19.839836 <0.285.0> supervisor2:save_child({child,<0.286.0>,connection_type_sup,
+       {amqp_connection_type_sup,start_link,[]},
+       transient,infinity,supervisor,
+       [amqp_connection_type_sup]}, {state,{<0.285.0>,amqp_connection_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_sup,[]})
+
+0:49:19.840028 <0.285.0> supervisor2:do_save_child({child,<0.286.0>,connection_type_sup,
+       {amqp_connection_type_sup,start_link,[]},
+       transient,infinity,supervisor,
+       [amqp_connection_type_sup]}, {state,{<0.285.0>,amqp_connection_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_sup,[]})
+
+0:49:19.840202 <0.285.0> supervisor2:do_save_child/2 --> {state,{<0.285.0>,amqp_connection_sup},
+       one_for_all,
+       {[connection_type_sup],
+        #{connection_type_sup =>
+              {child,<0.286.0>,connection_type_sup,
+                     {amqp_connection_type_sup,start_link,[]},
+                     transient,infinity,supervisor,
+                     [amqp_connection_type_sup]}}},
+       undefined,0,1,[],0,amqp_connection_sup,[]}
+
+0:49:19.840651 <0.285.0> supervisor2:save_child/2 --> {state,{<0.285.0>,amqp_connection_sup},
+       one_for_all,
+       {[connection_type_sup],
+        #{connection_type_sup =>
+              {child,<0.286.0>,connection_type_sup,
+                     {amqp_connection_type_sup,start_link,[]},
+                     transient,infinity,supervisor,
+                     [amqp_connection_type_sup]}}},
+       undefined,0,1,[],0,amqp_connection_sup,[]}
+
+0:49:19.841075 <0.285.0>  '--> supervisor2:handle_start_child/2
+
+0:49:19.841195 <0.285.0> supervisor2:handle_start_child/2 --> {{ok,<0.286.0>},
+ {state,{<0.285.0>,amqp_connection_sup},
+        one_for_all,
+        {[connection_type_sup],
+         #{connection_type_sup =>
+               {child,<0.286.0>,connection_type_sup,
+                      {amqp_connection_type_sup,start_link,[]},
+                      transient,infinity,supervisor,
+                      [amqp_connection_type_sup]}}},
+        undefined,0,1,[],0,amqp_connection_sup,[]}}
+
+0:49:19.841476 <0.285.0>  '--> supervisor2:handle_call/3
+
+0:49:19.841535 <0.285.0> supervisor2:handle_call/3 --> {reply,{ok,<0.286.0>},
+       {state,{<0.285.0>,amqp_connection_sup},
+              one_for_all,
+              {[connection_type_sup],
+               #{connection_type_sup =>
+                     {child,<0.286.0>,connection_type_sup,
+                            {amqp_connection_type_sup,start_link,[]},
+                            transient,infinity,supervisor,
+                            [amqp_connection_type_sup]}}},
+              undefined,0,1,[],0,amqp_connection_sup,[]}}
+
+0:49:19.841811 <0.285.0>  '--> gen_server:try_handle_call/4
+
+0:49:19.841950 <0.256.0> supervisor2:call/2 --> {ok,<0.286.0>}
+
+0:49:19.842022 <0.256.0> supervisor2:start_child/2 --> {ok,<0.286.0>}
+
+0:49:19.842131 <0.256.0>  '--> amqp_connection_sup:start_link/1
+
+0:49:19.842184 <0.256.0> supervisor2:start_child(<0.285.0>, {connection,
+    {amqp_gen_connection,start_link,
+        [<0.286.0>,
+         {amqp_params_direct,<<"vstation">>,
+             {plaintext,<<"vstation">>},
+             <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+    intrinsic,brutal_kill,worker,
+    [amqp_gen_connection]})
+
+0:49:19.842374 <0.256.0> supervisor2:call(<0.285.0>, {start_child,
+    {connection,
+        {amqp_gen_connection,start_link,
+            [<0.286.0>,
+             {amqp_params_direct,<<"vstation">>,
+                 {plaintext,<<"vstation">>},
+                 <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+        intrinsic,brutal_kill,worker,
+        [amqp_gen_connection]}})
+
+0:49:19.842570 <0.285.0> supervisor2:handle_call({start_child,
+    {connection,
+        {amqp_gen_connection,start_link,
+            [<0.286.0>,
+             {amqp_params_direct,<<"vstation">>,
+                 {plaintext,<<"vstation">>},
+                 <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+        intrinsic,brutal_kill,worker,
+        [amqp_gen_connection]}}, {<0.256.0>,#Ref<0.3284298657.3391619073.214394>}, {state,{<0.285.0>,amqp_connection_sup},
+       one_for_all,
+       {[connection_type_sup],
+        #{connection_type_sup =>
+              {child,<0.286.0>,connection_type_sup,
+                     {amqp_connection_type_sup,start_link,[]},
+                     transient,infinity,supervisor,
+                     [amqp_connection_type_sup]}}},
+       undefined,0,1,[],0,amqp_connection_sup,[]})
+
+0:49:19.842878 <0.285.0> supervisor2:check_childspec({connection,
+    {amqp_gen_connection,start_link,
+        [<0.286.0>,
+         {amqp_params_direct,<<"vstation">>,
+             {plaintext,<<"vstation">>},
+             <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+    intrinsic,brutal_kill,worker,
+    [amqp_gen_connection]})
+
+0:49:19.843122 <0.285.0> supervisor2:check_childspec(#{id=>connection, modules=>[amqp_gen_connection], restart=>intrinsic, shutdown=>brutal_kill, start=>{amqp_gen_connection,start_link,
+    [<0.286.0>,
+     {amqp_params_direct,<<"vstation">>,
+         {plaintext,<<"vstation">>},
+         <<"vstation">>,'rabbit@centos7-mq',none,[]}]}, type=>worker})
+
+0:49:19.843315 <0.285.0> supervisor2:do_check_childspec(#{id=>connection, modules=>[amqp_gen_connection], restart=>intrinsic, shutdown=>brutal_kill, start=>{amqp_gen_connection,start_link,
+    [<0.286.0>,
+     {amqp_params_direct,<<"vstation">>,
+         {plaintext,<<"vstation">>},
+         <<"vstation">>,'rabbit@centos7-mq',none,[]}]}, type=>worker})
+
+0:49:19.843570 <0.285.0> supervisor2:validId(connection)
+
+0:49:19.843670 <0.285.0> supervisor2:validId/1 --> true
+
+0:49:19.843768 <0.285.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.843826 <0.285.0> supervisor2:validFunc({amqp_gen_connection,start_link,
+    [<0.286.0>,
+     {amqp_params_direct,<<"vstation">>,
+         {plaintext,<<"vstation">>},
+         <<"vstation">>,'rabbit@centos7-mq',none,[]}]})
+
+0:49:19.843965 <0.285.0> supervisor2:validFunc/1 --> true
+
+0:49:19.844047 <0.285.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.844119 <0.285.0> supervisor2:validRestartType(intrinsic)
+
+0:49:19.844181 <0.285.0> supervisor2:validRestartType/1 --> true
+
+0:49:19.844232 <0.285.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.844304 <0.285.0> supervisor2:validChildType(worker)
+
+0:49:19.844407 <0.285.0> supervisor2:validChildType/1 --> true
+
+0:49:19.844474 <0.285.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.844529 <0.285.0> supervisor2:validShutdown(brutal_kill)
+
+0:49:19.844605 <0.285.0> supervisor2:validShutdown/1 --> true
+
+0:49:19.844700 <0.285.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.844764 <0.285.0> supervisor2:validMods([amqp_gen_connection])
+
+0:49:19.844821 <0.285.0> supervisor2:'-validMods/1-fun-0-'(amqp_gen_connection)
+
+0:49:19.844884 <0.285.0> supervisor2:'-validMods/1-fun-0-'/1 --> ok
+
+0:49:19.844993 <0.285.0>  '--> lists:foreach_1/2
+
+0:49:19.845098 <0.285.0> supervisor2:validMods/1 --> ok
+
+0:49:19.845169 <0.285.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.845246 <0.285.0> supervisor2:do_check_childspec/1 --> {ok,{child,undefined,connection,
+        {amqp_gen_connection,start_link,
+            [<0.286.0>,
+             {amqp_params_direct,<<"vstation">>,
+                 {plaintext,<<"vstation">>},
+                 <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+        intrinsic,brutal_kill,worker,
+        [amqp_gen_connection]}}
+
+0:49:19.845475 <0.285.0>  '--> supervisor2:check_childspec/1
+
+0:49:19.845533 <0.285.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,connection,
+        {amqp_gen_connection,start_link,
+            [<0.286.0>,
+             {amqp_params_direct,<<"vstation">>,
+                 {plaintext,<<"vstation">>},
+                 <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+        intrinsic,brutal_kill,worker,
+        [amqp_gen_connection]}}
+
+0:49:19.845765 <0.285.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,connection,
+        {amqp_gen_connection,start_link,
+            [<0.286.0>,
+             {amqp_params_direct,<<"vstation">>,
+                 {plaintext,<<"vstation">>},
+                 <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+        intrinsic,brutal_kill,worker,
+        [amqp_gen_connection]}}
+
+0:49:19.845923 <0.285.0>  '--> supervisor2:handle_call/3
+
+0:49:19.845986 <0.285.0> supervisor2:handle_start_child({child,undefined,connection,
+    {amqp_gen_connection,start_link,
+        [<0.286.0>,
+         {amqp_params_direct,<<"vstation">>,
+             {plaintext,<<"vstation">>},
+             <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+    intrinsic,brutal_kill,worker,
+    [amqp_gen_connection]}, {state,{<0.285.0>,amqp_connection_sup},
+       one_for_all,
+       {[connection_type_sup],
+        #{connection_type_sup =>
+              {child,<0.286.0>,connection_type_sup,
+                     {amqp_connection_type_sup,start_link,[]},
+                     transient,infinity,supervisor,
+                     [amqp_connection_type_sup]}}},
+       undefined,0,1,[],0,amqp_connection_sup,[]})
+
+0:49:19.846295 <0.285.0> supervisor2:internal_find_child(connection, {state,{<0.285.0>,amqp_connection_sup},
+       one_for_all,
+       {[connection_type_sup],
+        #{connection_type_sup =>
+              {child,<0.286.0>,connection_type_sup,
+                     {amqp_connection_type_sup,start_link,[]},
+                     transient,infinity,supervisor,
+                     [amqp_connection_type_sup]}}},
+       undefined,0,1,[],0,amqp_connection_sup,[]})
+
+0:49:19.846518 <0.285.0> supervisor2:internal_find_child/2 --> error
+
+0:49:19.846584 <0.285.0>  '--> supervisor2:handle_start_child/2
+
+0:49:19.846646 <0.285.0> supervisor2:do_start_child({<0.285.0>,amqp_connection_sup}, {child,undefined,connection,
+    {amqp_gen_connection,start_link,
+        [<0.286.0>,
+         {amqp_params_direct,<<"vstation">>,
+             {plaintext,<<"vstation">>},
+             <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+    intrinsic,brutal_kill,worker,
+    [amqp_gen_connection]})
+
+0:49:19.846815 <0.285.0> supervisor2:do_start_child_i(amqp_gen_connection, start_link, [<0.286.0>,
+ {amqp_params_direct,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,'rabbit@centos7-mq',none,[]}])
+
+0:49:19.846970 <0.285.0> amqp_gen_connection:start_link(<0.286.0>, {amqp_params_direct,<<"vstation">>,
+                    {plaintext,<<"vstation">>},
+                    <<"vstation">>,'rabbit@centos7-mq',none,[]})
+
+0:49:19.847113 <0.287.0> amqp_gen_connection:init({<0.286.0>,
+ {amqp_params_direct,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,'rabbit@centos7-mq',none,[]}})
+
+0:49:19.847215 <0.287.0> amqp_gen_connection:init/1 --> {ok,{<0.286.0>,
+     {amqp_params_direct,<<"vstation">>,
+                         {plaintext,<<"vstation">>},
+                         <<"vstation">>,'rabbit@centos7-mq',none,[]}}}
+
+0:49:19.847337 <0.287.0>  '--> gen_server:init_it/2
+
+0:49:19.847390 <0.285.0> amqp_gen_connection:start_link/2 --> {ok,<0.287.0>}
+
+0:49:19.847448 <0.285.0>  '--> supervisor2:do_start_child_i/3
+
+0:49:19.847497 <0.285.0> supervisor2:do_start_child_i/3 --> {ok,<0.287.0>}
+
+0:49:19.847564 <0.285.0>  '--> supervisor2:do_start_child/2
+
+0:49:19.847664 <0.285.0> supervisor2:report_progress({child,<0.287.0>,connection,
+    {amqp_gen_connection,start_link,
+        [<0.286.0>,
+         {amqp_params_direct,<<"vstation">>,
+             {plaintext,<<"vstation">>},
+             <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+    intrinsic,brutal_kill,worker,
+    [amqp_gen_connection]}, {<0.285.0>,amqp_connection_sup})
+
+0:49:19.847873 <0.285.0> supervisor2:report_progress/2 --> ok
+
+0:49:19.847974 <0.285.0>  '--> supervisor2:do_start_child/2
+
+0:49:19.848034 <0.285.0> supervisor2:do_start_child/2 --> {ok,<0.287.0>}
+
+0:49:19.848150 <0.285.0>  '--> supervisor2:handle_start_child/2
+
+0:49:19.848266 <0.285.0> supervisor2:save_child({child,<0.287.0>,connection,
+    {amqp_gen_connection,start_link,
+        [<0.286.0>,
+         {amqp_params_direct,<<"vstation">>,
+             {plaintext,<<"vstation">>},
+             <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+    intrinsic,brutal_kill,worker,
+    [amqp_gen_connection]}, {state,{<0.285.0>,amqp_connection_sup},
+       one_for_all,
+       {[connection_type_sup],
+        #{connection_type_sup =>
+              {child,<0.286.0>,connection_type_sup,
+                     {amqp_connection_type_sup,start_link,[]},
+                     transient,infinity,supervisor,
+                     [amqp_connection_type_sup]}}},
+       undefined,0,1,[],0,amqp_connection_sup,[]})
+
+0:49:19.848615 <0.285.0> supervisor2:do_save_child({child,<0.287.0>,connection,
+    {amqp_gen_connection,start_link,
+        [<0.286.0>,
+         {amqp_params_direct,<<"vstation">>,
+             {plaintext,<<"vstation">>},
+             <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+    intrinsic,brutal_kill,worker,
+    [amqp_gen_connection]}, {state,{<0.285.0>,amqp_connection_sup},
+       one_for_all,
+       {[connection_type_sup],
+        #{connection_type_sup =>
+              {child,<0.286.0>,connection_type_sup,
+                     {amqp_connection_type_sup,start_link,[]},
+                     transient,infinity,supervisor,
+                     [amqp_connection_type_sup]}}},
+       undefined,0,1,[],0,amqp_connection_sup,[]})
+
+0:49:19.848982 <0.285.0> supervisor2:do_save_child/2 --> {state,
+    {<0.285.0>,amqp_connection_sup},
+    one_for_all,
+    {[connection,connection_type_sup],
+     #{connection =>
+           {child,<0.287.0>,connection,
+               {amqp_gen_connection,start_link,
+                   [<0.286.0>,
+                    {amqp_params_direct,<<"vstation">>,
+                        {plaintext,<<"vstation">>},
+                        <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+               intrinsic,brutal_kill,worker,
+               [amqp_gen_connection]},
+       connection_type_sup =>
+           {child,<0.286.0>,connection_type_sup,
+               {amqp_connection_type_sup,start_link,[]},
+               transient,infinity,supervisor,
+               [amqp_connection_type_sup]}}},
+    undefined,0,1,[],0,amqp_connection_sup,[]}
+
+0:49:19.849434 <0.285.0> supervisor2:save_child/2 --> {state,
+    {<0.285.0>,amqp_connection_sup},
+    one_for_all,
+    {[connection,connection_type_sup],
+     #{connection =>
+           {child,<0.287.0>,connection,
+               {amqp_gen_connection,start_link,
+                   [<0.286.0>,
+                    {amqp_params_direct,<<"vstation">>,
+                        {plaintext,<<"vstation">>},
+                        <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+               intrinsic,brutal_kill,worker,
+               [amqp_gen_connection]},
+       connection_type_sup =>
+           {child,<0.286.0>,connection_type_sup,
+               {amqp_connection_type_sup,start_link,[]},
+               transient,infinity,supervisor,
+               [amqp_connection_type_sup]}}},
+    undefined,0,1,[],0,amqp_connection_sup,[]}
+
+0:49:19.849789 <0.285.0>  '--> supervisor2:handle_start_child/2
+
+0:49:19.849893 <0.285.0> supervisor2:handle_start_child/2 --> {{ok,<0.287.0>},
+ {state,
+     {<0.285.0>,amqp_connection_sup},
+     one_for_all,
+     {[connection,connection_type_sup],
+      #{connection =>
+            {child,<0.287.0>,connection,
+                {amqp_gen_connection,start_link,
+                    [<0.286.0>,
+                     {amqp_params_direct,<<"vstation">>,
+                         {plaintext,<<"vstation">>},
+                         <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+                intrinsic,brutal_kill,worker,
+                [amqp_gen_connection]},
+        connection_type_sup =>
+            {child,<0.286.0>,connection_type_sup,
+                {amqp_connection_type_sup,start_link,[]},
+                transient,infinity,supervisor,
+                [amqp_connection_type_sup]}}},
+     undefined,0,1,[],0,amqp_connection_sup,[]}}
+
+0:49:19.850249 <0.285.0>  '--> supervisor2:handle_call/3
+
+0:49:19.850377 <0.285.0> supervisor2:handle_call/3 --> {reply,
+    {ok,<0.287.0>},
+    {state,
+        {<0.285.0>,amqp_connection_sup},
+        one_for_all,
+        {[connection,connection_type_sup],
+         #{connection =>
+               {child,<0.287.0>,connection,
+                   {amqp_gen_connection,start_link,
+                       [<0.286.0>,
+                        {amqp_params_direct,<<"vstation">>,
+                            {plaintext,<<"vstation">>},
+                            <<"vstation">>,'rabbit@centos7-mq',none,[]}]},
+                   intrinsic,brutal_kill,worker,
+                   [amqp_gen_connection]},
+           connection_type_sup =>
+               {child,<0.286.0>,connection_type_sup,
+                   {amqp_connection_type_sup,start_link,[]},
+                   transient,infinity,supervisor,
+                   [amqp_connection_type_sup]}}},
+        undefined,0,1,[],0,amqp_connection_sup,[]}}
+
+0:49:19.850856 <0.285.0>  '--> gen_server:try_handle_call/4
+
+0:49:19.850992 <0.256.0> supervisor2:call/2 --> {ok,<0.287.0>}
+
+0:49:19.851134 <0.256.0> supervisor2:start_child/2 --> {ok,<0.287.0>}
+
+0:49:19.851275 <0.256.0>  '--> amqp_connection_sup:start_link/1
+
+0:49:19.851656 <0.256.0> amqp_connection_sup:start_link/1 --> {ok,<0.285.0>,<0.287.0>}
+
+0:49:19.851824 <0.256.0>  '--> supervisor2:do_start_child_i/3
+
+0:49:19.852029 <0.256.0> supervisor2:do_start_child_i/3 --> {ok,<0.285.0>,<0.287.0>}
+
+0:49:19.852132 <0.256.0>  '--> supervisor2:handle_call/3
+
+0:49:19.852213 <0.256.0> supervisor2:dyn_store(<0.285.0>, [{amqp_params_direct,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,'rabbit@centos7-mq',none,[]}], {state,{local,amqp_sup},
+       simple_one_for_one,
+       {[connection_sup],
+        #{connection_sup =>
+              {child,undefined,connection_sup,
+                     {amqp_connection_sup,start_link,[]},
+                     temporary,infinity,supervisor,
+                     [amqp_connection_sup]}}},
+       {sets,{set,0,16,16,8,80,48,
+                  {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                  {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+       0,1,[],0,amqp_sup,[]})
+
+0:49:19.852594 <0.256.0> supervisor2:dyn_store/3 --> {state,{local,amqp_sup},
+       simple_one_for_one,
+       {[connection_sup],
+        #{connection_sup =>
+              {child,undefined,connection_sup,
+                     {amqp_connection_sup,start_link,[]},
+                     temporary,infinity,supervisor,
+                     [amqp_connection_sup]}}},
+       {sets,{set,1,16,16,8,80,48,
+                  {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                  {{[],[],[],[],[],[],
+                    [<0.285.0>],
+                    [],[],[],[],[],[],[],[],[]}}}},
+       0,1,[],0,amqp_sup,[]}
+
+0:49:19.852962 <0.256.0>  '--> supervisor2:handle_call/3
+
+0:49:19.853031 <0.256.0> supervisor2:handle_call/3 --> {reply,{ok,<0.285.0>,<0.287.0>},
+       {state,{local,amqp_sup},
+              simple_one_for_one,
+              {[connection_sup],
+               #{connection_sup =>
+                     {child,undefined,connection_sup,
+                            {amqp_connection_sup,start_link,[]},
+                            temporary,infinity,supervisor,
+                            [amqp_connection_sup]}}},
+              {sets,{set,1,16,16,8,80,48,
+                         {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                         {{[],[],[],[],[],[],
+                           [<0.285.0>],
+                           [],[],[],[],[],[],[],[],[]}}}},
+              0,1,[],0,amqp_sup,[]}}
+
+0:49:19.853429 <0.256.0>  '--> gen_server:try_handle_call/4
+
+0:49:19.853516 <0.227.0> supervisor2:call/2 --> {ok,<0.285.0>,<0.287.0>}
+
+0:49:19.853615 <0.227.0> supervisor2:start_child/2 --> {ok,<0.285.0>,<0.287.0>}
+
+0:49:19.853706 <0.227.0> amqp_sup:start_connection_sup/1 --> {ok,<0.285.0>,<0.287.0>}
+
+0:49:19.853818 <0.227.0>  '--> amqp_connection:start/2
+
+0:49:19.853902 <0.227.0> amqp_gen_connection:connect(<0.287.0>)
+
+0:49:19.854006 <0.287.0> amqp_gen_connection:handle_call(connect, {<0.227.0>,[alias|#Ref<0.3284298657.3391684610.209173>]}, {<0.286.0>,
+ {amqp_params_direct,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,'rabbit@centos7-mq',none,[]}})
+
+0:49:19.854163 <0.287.0> amqp_connection_type_sup:type_module({amqp_params_direct,<<"vstation">>,
+                    {plaintext,<<"vstation">>},
+                    <<"vstation">>,'rabbit@centos7-mq',none,[]})
+
+0:49:19.854311 <0.287.0> amqp_connection_type_sup:type_module/1 --> {direct,amqp_direct_connection}
+
+0:49:19.854378 <0.287.0>  '--> amqp_gen_connection:handle_call/3
+
+0:49:19.854423 <0.287.0> amqp_direct_connection:init()
+
+0:49:19.854488 <0.287.0> amqp_direct_connection:init/0 --> {ok,{state,undefined,undefined,undefined,undefined,undefined,undefined,
+           undefined,undefined}}
+
+0:49:19.854680 <0.287.0>  '--> amqp_gen_connection:handle_call/3
+
+0:49:19.854778 <0.287.0> amqp_connection_type_sup:start_infrastructure_fun(<0.286.0>, <0.287.0>, direct)
+
+0:49:19.854880 <0.287.0> amqp_connection_type_sup:start_infrastructure_fun/3 --> #Fun<amqp_connection_type_sup.1.83209754>
+
+0:49:19.855037 <0.287.0>  '--> amqp_gen_connection:handle_call/3
+
+0:49:19.855131 <0.287.0> amqp_direct_connection:connect({amqp_params_direct,<<"vstation">>,
+                    {plaintext,<<"vstation">>},
+                    <<"vstation">>,'rabbit@centos7-mq',none,[]}, #Fun<amqp_connection_type_sup.1.83209754>, <0.286.0>, {state,undefined,undefined,undefined,undefined,undefined,undefined,undefined,
+       undefined})
+
+0:49:19.855342 <0.287.0> amqp_direct_connection:ensure_adapter_info(none)
+
+0:49:19.855501 <0.287.0> amqp_direct_connection:ensure_adapter_info({amqp_adapter_info,unknown,unknown,unknown,unknown,unknown,unknown,[]})
+
+0:49:19.855617 <0.287.0> amqp_direct_connection:ensure_adapter_info({amqp_adapter_info,unknown,unknown,unknown,unknown,unknown,
+                   {'Direct',{0,9,1}},
+                   []})
+
+0:49:19.855751 <0.287.0> rabbit_misc:pid_to_string(<0.287.0>)
+
+0:49:19.855879 <0.287.0> rabbit_misc:decompose_pid(<0.287.0>)
+
+0:49:19.855965 <0.287.0> rabbit_misc:decompose_pid/1 --> {'test@centos7-dev',1674280132,287,0}
+
+0:49:19.856057 <0.287.0>  '--> rabbit_misc:pid_to_string/1
+
+0:49:19.856103 <0.287.0> rabbit_misc:format("<~s.~B.~B.~B>", ['test@centos7-dev',1674280132,287,0])
+
+0:49:19.856228 <0.287.0> rabbit_misc:format/2 --> "<test@centos7-dev.1674280132.287.0>"
+
+0:49:19.856309 <0.287.0> rabbit_misc:pid_to_string/1 --> "<test@centos7-dev.1674280132.287.0>"
+
+0:49:19.856391 <0.287.0>  '--> amqp_direct_connection:ensure_adapter_info/1
+
+0:49:19.856454 <0.287.0> amqp_direct_connection:ensure_adapter_info({amqp_adapter_info,unknown,unknown,unknown,unknown,
+                   <<"<test@centos7-dev.1674280132.287.0>">>,
+                   {'Direct',{0,9,1}},
+                   []})
+
+0:49:19.856623 <0.287.0> amqp_direct_connection:ensure_adapter_info/1 --> {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                   <<"<test@centos7-dev.1674280132.287.0>">>,
+                   {'Direct',{0,9,1}},
+                   []}
+
+0:49:19.856788 <0.287.0> amqp_direct_connection:ensure_adapter_info/1 --> {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                   <<"<test@centos7-dev.1674280132.287.0>">>,
+                   {'Direct',{0,9,1}},
+                   []}
+
+0:49:19.857006 <0.287.0> amqp_direct_connection:ensure_adapter_info/1 --> {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                   <<"<test@centos7-dev.1674280132.287.0>">>,
+                   {'Direct',{0,9,1}},
+                   []}
+
+0:49:19.857199 <0.287.0> amqp_direct_connection:ensure_adapter_info/1 --> {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                   <<"<test@centos7-dev.1674280132.287.0>">>,
+                   {'Direct',{0,9,1}},
+                   []}
+
+0:49:19.857443 <0.287.0>  '--> amqp_direct_connection:connect/4
+
+0:49:19.857536 <0.287.0> amqp_direct_connection:connection_info({state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.857865 <0.287.0> amqp_direct_connection:infos([pid,protocol,host,port,name,peer_host,peer_port,user,vhost,client_properties,
+ type,connected_at,node,user_who_performed_action], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.858242 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'([pid,protocol,host,port,name,peer_host,peer_port,user,vhost,client_properties,
+ type,connected_at,node,user_who_performed_action], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.858619 <0.287.0> amqp_direct_connection:i(pid, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.858951 <0.287.0> amqp_direct_connection:i/2 --> <0.287.0>
+
+0:49:19.859053 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.859162 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'([protocol,host,port,name,peer_host,peer_port,user,vhost,client_properties,
+ type,connected_at,node,user_who_performed_action], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.859484 <0.287.0> amqp_direct_connection:i(protocol, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.859704 <0.287.0> amqp_direct_connection:i/2 --> {'Direct',{0,9,1}}
+
+0:49:19.859823 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.859918 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'([host,port,name,peer_host,peer_port,user,vhost,client_properties,type,
+ connected_at,node,user_who_performed_action], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.860202 <0.287.0> amqp_direct_connection:i(host, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.860510 <0.287.0> amqp_direct_connection:i/2 --> unknown
+
+0:49:19.860614 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.860717 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'([port,name,peer_host,peer_port,user,vhost,client_properties,type,connected_at,
+ node,user_who_performed_action], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.861006 <0.287.0> amqp_direct_connection:i(port, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.861288 <0.287.0> amqp_direct_connection:i/2 --> unknown
+
+0:49:19.861402 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.861514 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'([name,peer_host,peer_port,user,vhost,client_properties,type,connected_at,node,
+ user_who_performed_action], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.861834 <0.287.0> amqp_direct_connection:i(name, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.862122 <0.287.0> amqp_direct_connection:i/2 --> <<"<test@centos7-dev.1674280132.287.0>">>
+
+0:49:19.862240 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.862341 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'([peer_host,peer_port,user,vhost,client_properties,type,connected_at,node,
+ user_who_performed_action], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.862653 <0.287.0> amqp_direct_connection:i(peer_host, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.862949 <0.287.0> amqp_direct_connection:i/2 --> unknown
+
+0:49:19.863072 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.863208 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'([peer_port,user,vhost,client_properties,type,connected_at,node,
+ user_who_performed_action], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.863907 <0.287.0> amqp_direct_connection:i(peer_port, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.864313 <0.287.0> amqp_direct_connection:i/2 --> unknown
+
+0:49:19.864431 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.864633 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'([user,vhost,client_properties,type,connected_at,node,
+ user_who_performed_action], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.864976 <0.287.0> amqp_direct_connection:i(user, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.865343 <0.287.0> amqp_direct_connection:i/2 --> <<"vstation">>
+
+0:49:19.865462 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.865562 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'([vhost,client_properties,type,connected_at,node,user_who_performed_action], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.865911 <0.287.0> amqp_direct_connection:i(vhost, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.866216 <0.287.0> amqp_direct_connection:i/2 --> <<"vstation">>
+
+0:49:19.866310 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.866411 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'([client_properties,type,connected_at,node,user_who_performed_action], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.866727 <0.287.0> amqp_direct_connection:i(client_properties, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.867022 <0.287.0> amqp_direct_connection:i/2 --> []
+
+0:49:19.867124 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.867231 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'([type,connected_at,node,user_who_performed_action], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.867501 <0.287.0> amqp_direct_connection:i(type, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.867740 <0.287.0> amqp_direct_connection:i/2 --> direct
+
+0:49:19.867853 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.867941 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'([connected_at,node,user_who_performed_action], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.868176 <0.287.0> amqp_direct_connection:i(connected_at, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.868412 <0.287.0> amqp_direct_connection:i/2 --> 1674280159809
+
+0:49:19.868506 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.868580 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'([node,user_who_performed_action], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.868814 <0.287.0> amqp_direct_connection:i(node, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.869105 <0.287.0> amqp_direct_connection:i/2 --> 'rabbit@centos7-mq'
+
+0:49:19.869267 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.869397 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'([user_who_performed_action], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.869774 <0.287.0> amqp_direct_connection:i(user_who_performed_action, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.870227 <0.287.0> amqp_direct_connection:i(user, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.870633 <0.287.0> amqp_direct_connection:i/2 --> <<"vstation">>
+
+0:49:19.870744 <0.287.0> amqp_direct_connection:i/2 --> <<"vstation">>
+
+0:49:19.870840 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.870984 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'([], {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.871358 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2 --> []
+
+0:49:19.871452 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.871632 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2 --> [{user_who_performed_action,<<"vstation">>}]
+
+0:49:19.871823 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.871985 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2 --> [{node,'rabbit@centos7-mq'},{user_who_performed_action,<<"vstation">>}]
+
+0:49:19.872179 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.872309 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2 --> [{connected_at,1674280159809},
+ {node,'rabbit@centos7-mq'},
+ {user_who_performed_action,<<"vstation">>}]
+
+0:49:19.872471 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.872587 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2 --> [{type,direct},
+ {connected_at,1674280159809},
+ {node,'rabbit@centos7-mq'},
+ {user_who_performed_action,<<"vstation">>}]
+
+0:49:19.872766 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.872914 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2 --> [{client_properties,[]},
+ {type,direct},
+ {connected_at,1674280159809},
+ {node,'rabbit@centos7-mq'},
+ {user_who_performed_action,<<"vstation">>}]
+
+0:49:19.873097 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.873203 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2 --> [{vhost,<<"vstation">>},
+ {client_properties,[]},
+ {type,direct},
+ {connected_at,1674280159809},
+ {node,'rabbit@centos7-mq'},
+ {user_who_performed_action,<<"vstation">>}]
+
+0:49:19.873360 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.873462 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2 --> [{user,<<"vstation">>},
+ {vhost,<<"vstation">>},
+ {client_properties,[]},
+ {type,direct},
+ {connected_at,1674280159809},
+ {node,'rabbit@centos7-mq'},
+ {user_who_performed_action,<<"vstation">>}]
+
+0:49:19.873627 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.873693 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2 --> [{peer_port,unknown},
+ {user,<<"vstation">>},
+ {vhost,<<"vstation">>},
+ {client_properties,[]},
+ {type,direct},
+ {connected_at,1674280159809},
+ {node,'rabbit@centos7-mq'},
+ {user_who_performed_action,<<"vstation">>}]
+
+0:49:19.873912 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.874021 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2 --> [{peer_host,unknown},
+ {peer_port,unknown},
+ {user,<<"vstation">>},
+ {vhost,<<"vstation">>},
+ {client_properties,[]},
+ {type,direct},
+ {connected_at,1674280159809},
+ {node,'rabbit@centos7-mq'},
+ {user_who_performed_action,<<"vstation">>}]
+
+0:49:19.874201 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.874266 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2 --> [{name,<<"<test@centos7-dev.1674280132.287.0>">>},
+ {peer_host,unknown},
+ {peer_port,unknown},
+ {user,<<"vstation">>},
+ {vhost,<<"vstation">>},
+ {client_properties,[]},
+ {type,direct},
+ {connected_at,1674280159809},
+ {node,'rabbit@centos7-mq'},
+ {user_who_performed_action,<<"vstation">>}]
+
+0:49:19.874456 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.874696 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2 --> [{port,unknown},
+ {name,<<"<test@centos7-dev.1674280132.287.0>">>},
+ {peer_host,unknown},
+ {peer_port,unknown},
+ {user,<<"vstation">>},
+ {vhost,<<"vstation">>},
+ {client_properties,[]},
+ {type,direct},
+ {connected_at,1674280159809},
+ {node,'rabbit@centos7-mq'},
+ {user_who_performed_action,<<"vstation">>}]
+
+0:49:19.874986 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.875058 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2 --> [{host,unknown},
+ {port,unknown},
+ {name,<<"<test@centos7-dev.1674280132.287.0>">>},
+ {peer_host,unknown},
+ {peer_port,unknown},
+ {user,<<"vstation">>},
+ {vhost,<<"vstation">>},
+ {client_properties,[]},
+ {type,direct},
+ {connected_at,1674280159809},
+ {node,'rabbit@centos7-mq'},
+ {user_who_performed_action,<<"vstation">>}]
+
+0:49:19.875294 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.875408 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2 --> [{protocol,{'Direct',{0,9,1}}},
+ {host,unknown},
+ {port,unknown},
+ {name,<<"<test@centos7-dev.1674280132.287.0>">>},
+ {peer_host,unknown},
+ {peer_port,unknown},
+ {user,<<"vstation">>},
+ {vhost,<<"vstation">>},
+ {client_properties,[]},
+ {type,direct},
+ {connected_at,1674280159809},
+ {node,'rabbit@centos7-mq'},
+ {user_who_performed_action,<<"vstation">>}]
+
+0:49:19.875678 <0.287.0>  '--> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2
+
+0:49:19.875868 <0.287.0> amqp_direct_connection:'-infos/2-lc$^0/1-0-'/2 --> [{pid,<0.287.0>},
+ {protocol,{'Direct',{0,9,1}}},
+ {host,unknown},
+ {port,unknown},
+ {name,<<"<test@centos7-dev.1674280132.287.0>">>},
+ {peer_host,unknown},
+ {peer_port,unknown},
+ {user,<<"vstation">>},
+ {vhost,<<"vstation">>},
+ {client_properties,[]},
+ {type,direct},
+ {connected_at,1674280159809},
+ {node,'rabbit@centos7-mq'},
+ {user_who_performed_action,<<"vstation">>}]
+
+0:49:19.876467 <0.287.0> amqp_direct_connection:infos/2 --> [{pid,<0.287.0>},
+ {protocol,{'Direct',{0,9,1}}},
+ {host,unknown},
+ {port,unknown},
+ {name,<<"<test@centos7-dev.1674280132.287.0>">>},
+ {peer_host,unknown},
+ {peer_port,unknown},
+ {user,<<"vstation">>},
+ {vhost,<<"vstation">>},
+ {client_properties,[]},
+ {type,direct},
+ {connected_at,1674280159809},
+ {node,'rabbit@centos7-mq'},
+ {user_who_performed_action,<<"vstation">>}]
+
+0:49:19.877333 <0.287.0>  '--> amqp_direct_connection:connection_info/1
+
+0:49:19.877485 <0.287.0> amqp_direct_connection:connection_info/1 --> [{pid,<0.287.0>},
+ {protocol,{'Direct',{0,9,1}}},
+ {host,unknown},
+ {port,unknown},
+ {name,<<"<test@centos7-dev.1674280132.287.0>">>},
+ {peer_host,unknown},
+ {peer_port,unknown},
+ {user,<<"vstation">>},
+ {vhost,<<"vstation">>},
+ {client_properties,[]},
+ {type,direct},
+ {connected_at,1674280159809},
+ {node,'rabbit@centos7-mq'},
+ {user_who_performed_action,<<"vstation">>}]
+
+0:49:19.878359 <0.287.0>  '--> amqp_direct_connection:connect/4
+
+0:49:19.878563 <0.287.0> amqp_direct_connection:i(name, {state,'rabbit@centos7-mq',undefined,<<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       undefined,undefined,1674280159809})
+
+0:49:19.878902 <0.287.0> amqp_direct_connection:i/2 --> <<"<test@centos7-dev.1674280132.287.0>">>
+
+0:49:19.879030 <0.287.0>  '--> amqp_direct_connection:connect/4
+
+0:49:19.879138 <0.287.0> amqp_connection_type_sup:'-start_infrastructure_fun/3-fun-1-'(<<"<test@centos7-dev.1674280132.287.0>">>, <0.286.0>, <0.287.0>)
+
+0:49:19.879278 <0.287.0> amqp_connection_type_sup:start_channels_manager(<0.286.0>, <0.287.0>, <<"<test@centos7-dev.1674280132.287.0>">>, direct)
+
+0:49:19.879412 <0.287.0> rabbit_misc:get_env(rabbit, supervisor_shutdown_timeout, infinity)
+
+0:49:19.879520 <0.287.0> rabbit_misc:get_env/3 --> infinity
+
+0:49:19.879734 <0.287.0>  '--> amqp_connection_type_sup:start_channels_manager/4
+
+0:49:19.879849 <0.287.0> supervisor2:start_child(<0.286.0>, {channel_sup_sup,
+    {amqp_channel_sup_sup,start_link,
+        [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]},
+    intrinsic,infinity,supervisor,
+    [amqp_channel_sup_sup]})
+
+0:49:19.880003 <0.287.0> supervisor2:call(<0.286.0>, {start_child,
+    {channel_sup_sup,
+        {amqp_channel_sup_sup,start_link,
+            [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]},
+        intrinsic,infinity,supervisor,
+        [amqp_channel_sup_sup]}})
+
+0:49:19.880166 <0.286.0> supervisor2:handle_call({start_child,
+    {channel_sup_sup,
+        {amqp_channel_sup_sup,start_link,
+            [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]},
+        intrinsic,infinity,supervisor,
+        [amqp_channel_sup_sup]}}, {<0.287.0>,#Ref<0.3284298657.3391619074.209218>}, {state,{<0.286.0>,amqp_connection_type_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.880532 <0.286.0> supervisor2:check_childspec({channel_sup_sup,
+    {amqp_channel_sup_sup,start_link,
+        [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]},
+    intrinsic,infinity,supervisor,
+    [amqp_channel_sup_sup]})
+
+0:49:19.880716 <0.286.0> supervisor2:check_childspec(#{id=>channel_sup_sup, modules=>[amqp_channel_sup_sup], restart=>intrinsic, shutdown=>infinity, start=>{amqp_channel_sup_sup,start_link,
+                      [direct,<0.287.0>,
+                       <<"<test@centos7-dev.1674280132.287.0>">>]}, type=>supervisor})
+
+0:49:19.880970 <0.286.0> supervisor2:do_check_childspec(#{id=>channel_sup_sup, modules=>[amqp_channel_sup_sup], restart=>intrinsic, shutdown=>infinity, start=>{amqp_channel_sup_sup,start_link,
+                      [direct,<0.287.0>,
+                       <<"<test@centos7-dev.1674280132.287.0>">>]}, type=>supervisor})
+
+0:49:19.881203 <0.286.0> supervisor2:validId(channel_sup_sup)
+
+0:49:19.881418 <0.286.0> supervisor2:validId/1 --> true
+
+0:49:19.881503 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.881586 <0.286.0> supervisor2:validFunc({amqp_channel_sup_sup,start_link,
+                      [direct,<0.287.0>,
+                       <<"<test@centos7-dev.1674280132.287.0>">>]})
+
+0:49:19.881684 <0.286.0> supervisor2:validFunc/1 --> true
+
+0:49:19.881839 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.881902 <0.286.0> supervisor2:validRestartType(intrinsic)
+
+0:49:19.882255 <0.286.0> supervisor2:validRestartType/1 --> true
+
+0:49:19.882429 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.882586 <0.286.0> supervisor2:validChildType(supervisor)
+
+0:49:19.882682 <0.286.0> supervisor2:validChildType/1 --> true
+
+0:49:19.882752 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.883050 <0.286.0> supervisor2:validShutdown(infinity)
+
+0:49:19.883163 <0.286.0> supervisor2:validShutdown/1 --> true
+
+0:49:19.883261 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.883353 <0.286.0> supervisor2:validMods([amqp_channel_sup_sup])
+
+0:49:19.883494 <0.286.0> supervisor2:'-validMods/1-fun-0-'(amqp_channel_sup_sup)
+
+0:49:19.883568 <0.286.0> supervisor2:'-validMods/1-fun-0-'/1 --> ok
+
+0:49:19.883638 <0.286.0>  '--> lists:foreach_1/2
+
+0:49:19.883685 <0.286.0> supervisor2:validMods/1 --> ok
+
+0:49:19.883765 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.883822 <0.286.0> supervisor2:do_check_childspec/1 --> {ok,{child,undefined,channel_sup_sup,
+           {amqp_channel_sup_sup,start_link,
+                                 [direct,<0.287.0>,
+                                  <<"<test@centos7-dev.1674280132.287.0>">>]},
+           intrinsic,infinity,supervisor,
+           [amqp_channel_sup_sup]}}
+
+0:49:19.883960 <0.286.0>  '--> supervisor2:check_childspec/1
+
+0:49:19.884011 <0.286.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,channel_sup_sup,
+           {amqp_channel_sup_sup,start_link,
+                                 [direct,<0.287.0>,
+                                  <<"<test@centos7-dev.1674280132.287.0>">>]},
+           intrinsic,infinity,supervisor,
+           [amqp_channel_sup_sup]}}
+
+0:49:19.884143 <0.286.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,channel_sup_sup,
+           {amqp_channel_sup_sup,start_link,
+                                 [direct,<0.287.0>,
+                                  <<"<test@centos7-dev.1674280132.287.0>">>]},
+           intrinsic,infinity,supervisor,
+           [amqp_channel_sup_sup]}}
+
+0:49:19.884386 <0.286.0>  '--> supervisor2:handle_call/3
+
+0:49:19.884494 <0.286.0> supervisor2:handle_start_child({child,undefined,channel_sup_sup,
+       {amqp_channel_sup_sup,start_link,
+                             [direct,<0.287.0>,
+                              <<"<test@centos7-dev.1674280132.287.0>">>]},
+       intrinsic,infinity,supervisor,
+       [amqp_channel_sup_sup]}, {state,{<0.286.0>,amqp_connection_type_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.885298 <0.286.0> supervisor2:internal_find_child(channel_sup_sup, {state,{<0.286.0>,amqp_connection_type_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.885469 <0.286.0> supervisor2:internal_find_child/2 --> error
+
+0:49:19.885577 <0.286.0>  '--> supervisor2:handle_start_child/2
+
+0:49:19.885852 <0.286.0> supervisor2:do_start_child({<0.286.0>,amqp_connection_type_sup}, {child,undefined,channel_sup_sup,
+       {amqp_channel_sup_sup,start_link,
+                             [direct,<0.287.0>,
+                              <<"<test@centos7-dev.1674280132.287.0>">>]},
+       intrinsic,infinity,supervisor,
+       [amqp_channel_sup_sup]})
+
+0:49:19.886084 <0.286.0> supervisor2:do_start_child_i(amqp_channel_sup_sup, start_link, [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>])
+
+0:49:19.886185 <0.286.0> amqp_channel_sup_sup:start_link(direct, <0.287.0>, <<"<test@centos7-dev.1674280132.287.0>">>)
+
+0:49:19.886494 <0.286.0> supervisor2:start_link(amqp_channel_sup_sup, [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>])
+
+0:49:19.886628 <0.291.0> supervisor2:init({self,amqp_channel_sup_sup,
+      [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]})
+
+0:49:19.886719 <0.291.0> amqp_channel_sup_sup:init([direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>])
+
+0:49:19.886789 <0.291.0> amqp_channel_sup_sup:init/1 --> {ok,{{simple_one_for_one,0,1},
+     [{channel_sup,{amqp_channel_sup,start_link,
+                                     [direct,<0.287.0>,
+                                      <<"<test@centos7-dev.1674280132.287.0>">>]},
+                   temporary,infinity,supervisor,
+                   [amqp_channel_sup]}]}}
+
+0:49:19.887174 <0.291.0>  '--> supervisor2:init/1
+
+0:49:19.887238 <0.291.0> supervisor2:init_state(self, {simple_one_for_one,0,1}, amqp_channel_sup_sup, [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>])
+
+0:49:19.887627 <0.291.0> supervisor2:supname(self, amqp_channel_sup_sup)
+
+0:49:19.887804 <0.291.0> supervisor2:supname/2 --> {<0.291.0>,amqp_channel_sup_sup}
+
+0:49:19.887877 <0.291.0>  '--> supervisor2:init_state/4
+
+0:49:19.887933 <0.291.0> supervisor2:set_flags({simple_one_for_one,0,1}, {state,{<0.291.0>,amqp_channel_sup_sup},
+       undefined,
+       {[],#{}},
+       undefined,undefined,undefined,[],0,amqp_channel_sup_sup,
+       [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]})
+
+0:49:19.888110 <0.291.0> supervisor2:check_flags({simple_one_for_one,0,1})
+
+0:49:19.888662 <0.291.0> supervisor2:check_flags(#{intensity=>0, period=>1, strategy=>simple_one_for_one})
+
+0:49:19.888814 <0.291.0> supervisor2:do_check_flags(#{intensity=>0, period=>1, strategy=>simple_one_for_one})
+
+0:49:19.888899 <0.291.0> supervisor2:validStrategy(simple_one_for_one)
+
+0:49:19.889027 <0.291.0> supervisor2:validStrategy/1 --> true
+
+0:49:19.889121 <0.291.0>  '--> supervisor2:do_check_flags/1
+
+0:49:19.889382 <0.291.0> supervisor2:validIntensity(0)
+
+0:49:19.889550 <0.291.0> supervisor2:validIntensity/1 --> true
+
+0:49:19.889630 <0.291.0>  '--> supervisor2:do_check_flags/1
+
+0:49:19.889676 <0.291.0> supervisor2:validPeriod(1)
+
+0:49:19.890044 <0.291.0> supervisor2:validPeriod/1 --> true
+
+0:49:19.890199 <0.291.0>  '--> supervisor2:do_check_flags/1
+
+0:49:19.890262 <0.291.0> supervisor2:do_check_flags/1 --> #{intensity=>0, period=>1, strategy=>simple_one_for_one}
+
+0:49:19.890365 <0.291.0> supervisor2:check_flags/1 --> #{intensity=>0, period=>1, strategy=>simple_one_for_one}
+
+0:49:19.890515 <0.291.0> supervisor2:check_flags/1 --> #{intensity=>0, period=>1, strategy=>simple_one_for_one}
+
+0:49:19.890650 <0.291.0>  '--> supervisor2:set_flags/2
+
+0:49:19.891328 <0.291.0> supervisor2:set_flags/2 --> {ok,{state,{<0.291.0>,amqp_channel_sup_sup},
+           simple_one_for_one,
+           {[],#{}},
+           undefined,0,1,[],0,amqp_channel_sup_sup,
+           [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]}}
+
+0:49:19.891518 <0.291.0> supervisor2:init_state/4 --> {ok,{state,{<0.291.0>,amqp_channel_sup_sup},
+           simple_one_for_one,
+           {[],#{}},
+           undefined,0,1,[],0,amqp_channel_sup_sup,
+           [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]}}
+
+0:49:19.891747 <0.291.0>  '--> supervisor2:init/1
+
+0:49:19.891843 <0.291.0> supervisor2:init_dynamic({state,{<0.291.0>,amqp_channel_sup_sup},
+       simple_one_for_one,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_channel_sup_sup,
+       [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]}, [{channel_sup,{amqp_channel_sup,start_link,
+                                [direct,<0.287.0>,
+                                 <<"<test@centos7-dev.1674280132.287.0>">>]},
+              temporary,infinity,supervisor,
+              [amqp_channel_sup]}])
+
+0:49:19.892386 <0.291.0> supervisor2:check_startspec([{channel_sup,{amqp_channel_sup,start_link,
+                                [direct,<0.287.0>,
+                                 <<"<test@centos7-dev.1674280132.287.0>">>]},
+              temporary,infinity,supervisor,
+              [amqp_channel_sup]}])
+
+0:49:19.892570 <0.291.0> supervisor2:check_startspec([{channel_sup,{amqp_channel_sup,start_link,
+                                [direct,<0.287.0>,
+                                 <<"<test@centos7-dev.1674280132.287.0>">>]},
+              temporary,infinity,supervisor,
+              [amqp_channel_sup]}], [], #{})
+
+0:49:19.892783 <0.291.0> supervisor2:check_childspec({channel_sup,{amqp_channel_sup,start_link,
+                               [direct,<0.287.0>,
+                                <<"<test@centos7-dev.1674280132.287.0>">>]},
+             temporary,infinity,supervisor,
+             [amqp_channel_sup]})
+
+0:49:19.892984 <0.291.0> supervisor2:check_childspec(#{id=>channel_sup, modules=>[amqp_channel_sup], restart=>temporary, shutdown=>infinity, start=>{amqp_channel_sup,start_link,
+                  [direct,<0.287.0>,
+                   <<"<test@centos7-dev.1674280132.287.0>">>]}, type=>supervisor})
+
+0:49:19.893202 <0.291.0> supervisor2:do_check_childspec(#{id=>channel_sup, modules=>[amqp_channel_sup], restart=>temporary, shutdown=>infinity, start=>{amqp_channel_sup,start_link,
+                  [direct,<0.287.0>,
+                   <<"<test@centos7-dev.1674280132.287.0>">>]}, type=>supervisor})
+
+0:49:19.893461 <0.291.0> supervisor2:validId(channel_sup)
+
+0:49:19.893541 <0.291.0> supervisor2:validId/1 --> true
+
+0:49:19.893610 <0.291.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.893712 <0.291.0> supervisor2:validFunc({amqp_channel_sup,start_link,
+                  [direct,<0.287.0>,
+                   <<"<test@centos7-dev.1674280132.287.0>">>]})
+
+0:49:19.893889 <0.291.0> supervisor2:validFunc/1 --> true
+
+0:49:19.894089 <0.291.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.894162 <0.291.0> supervisor2:validRestartType(temporary)
+
+0:49:19.894271 <0.291.0> supervisor2:validRestartType/1 --> true
+
+0:49:19.894365 <0.291.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.894474 <0.291.0> supervisor2:validChildType(supervisor)
+
+0:49:19.894572 <0.291.0> supervisor2:validChildType/1 --> true
+
+0:49:19.894656 <0.291.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.894796 <0.291.0> supervisor2:validShutdown(infinity)
+
+0:49:19.895507 <0.291.0> supervisor2:validShutdown/1 --> true
+
+0:49:19.895911 <0.291.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.895996 <0.291.0> supervisor2:validMods([amqp_channel_sup])
+
+0:49:19.896083 <0.291.0> supervisor2:'-validMods/1-fun-0-'(amqp_channel_sup)
+
+0:49:19.896147 <0.291.0> supervisor2:'-validMods/1-fun-0-'/1 --> ok
+
+0:49:19.896221 <0.291.0>  '--> lists:foreach_1/2
+
+0:49:19.896280 <0.291.0> supervisor2:validMods/1 --> ok
+
+0:49:19.896391 <0.291.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.896450 <0.291.0> supervisor2:do_check_childspec/1 --> {ok,{child,undefined,channel_sup,
+           {amqp_channel_sup,start_link,
+                             [direct,<0.287.0>,
+                              <<"<test@centos7-dev.1674280132.287.0>">>]},
+           temporary,infinity,supervisor,
+           [amqp_channel_sup]}}
+
+0:49:19.896616 <0.291.0>  '--> supervisor2:check_childspec/1
+
+0:49:19.896669 <0.291.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,channel_sup,
+           {amqp_channel_sup,start_link,
+                             [direct,<0.287.0>,
+                              <<"<test@centos7-dev.1674280132.287.0>">>]},
+           temporary,infinity,supervisor,
+           [amqp_channel_sup]}}
+
+0:49:19.896797 <0.291.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,channel_sup,
+           {amqp_channel_sup,start_link,
+                             [direct,<0.287.0>,
+                              <<"<test@centos7-dev.1674280132.287.0>">>]},
+           temporary,infinity,supervisor,
+           [amqp_channel_sup]}}
+
+0:49:19.897036 <0.291.0>  '--> supervisor2:check_startspec/3
+
+0:49:19.897112 <0.291.0> supervisor2:check_startspec([], [channel_sup], #{channel_sup=>{child,undefined,channel_sup,
+       {amqp_channel_sup,start_link,
+                         [direct,<0.287.0>,
+                          <<"<test@centos7-dev.1674280132.287.0>">>]},
+       temporary,infinity,supervisor,
+       [amqp_channel_sup]}})
+
+0:49:19.897294 <0.291.0> supervisor2:check_startspec/3 --> {ok,{[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+                  {amqp_channel_sup,start_link,
+                                    [direct,<0.287.0>,
+                                     <<"<test@centos7-dev.1674280132.287.0>">>]},
+                  temporary,infinity,supervisor,
+                  [amqp_channel_sup]}}}}
+
+0:49:19.897549 <0.291.0> supervisor2:check_startspec/3 --> {ok,{[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+                  {amqp_channel_sup,start_link,
+                                    [direct,<0.287.0>,
+                                     <<"<test@centos7-dev.1674280132.287.0>">>]},
+                  temporary,infinity,supervisor,
+                  [amqp_channel_sup]}}}}
+
+0:49:19.897778 <0.291.0> supervisor2:check_startspec/1 --> {ok,{[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+                  {amqp_channel_sup,start_link,
+                                    [direct,<0.287.0>,
+                                     <<"<test@centos7-dev.1674280132.287.0>">>]},
+                  temporary,infinity,supervisor,
+                  [amqp_channel_sup]}}}}
+
+0:49:19.898222 <0.291.0>  '--> supervisor2:init_dynamic/2
+
+0:49:19.898350 <0.291.0> supervisor2:dyn_init({state,
+    {<0.291.0>,amqp_channel_sup_sup},
+    simple_one_for_one,
+    {[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+               {amqp_channel_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               temporary,infinity,supervisor,
+               [amqp_channel_sup]}}},
+    undefined,0,1,[],0,amqp_channel_sup_sup,
+    [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]})
+
+0:49:19.898662 <0.291.0> supervisor2:get_dynamic_child({state,
+    {<0.291.0>,amqp_channel_sup_sup},
+    simple_one_for_one,
+    {[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+               {amqp_channel_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               temporary,infinity,supervisor,
+               [amqp_channel_sup]}}},
+    undefined,0,1,[],0,amqp_channel_sup_sup,
+    [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]})
+
+0:49:19.898980 <0.291.0> supervisor2:get_dynamic_child/1 --> {child,undefined,channel_sup,
+       {amqp_channel_sup,start_link,
+                         [direct,<0.287.0>,
+                          <<"<test@centos7-dev.1674280132.287.0>">>]},
+       temporary,infinity,supervisor,
+       [amqp_channel_sup]}
+
+0:49:19.899157 <0.291.0>  '--> supervisor2:dyn_init/1
+
+0:49:19.899220 <0.291.0> supervisor2:dyn_init({child,undefined,channel_sup,
+       {amqp_channel_sup,start_link,
+                         [direct,<0.287.0>,
+                          <<"<test@centos7-dev.1674280132.287.0>">>]},
+       temporary,infinity,supervisor,
+       [amqp_channel_sup]}, {state,
+    {<0.291.0>,amqp_channel_sup_sup},
+    simple_one_for_one,
+    {[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+               {amqp_channel_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               temporary,infinity,supervisor,
+               [amqp_channel_sup]}}},
+    undefined,0,1,[],0,amqp_channel_sup_sup,
+    [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]})
+
+0:49:19.899667 <0.291.0> supervisor2:dyn_init/2 --> {state,
+    {<0.291.0>,amqp_channel_sup_sup},
+    simple_one_for_one,
+    {[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+               {amqp_channel_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               temporary,infinity,supervisor,
+               [amqp_channel_sup]}}},
+    {sets,
+        {set,0,16,16,8,80,48,
+            {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+            {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+    0,1,[],0,amqp_channel_sup_sup,
+    [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]}
+
+0:49:19.900068 <0.291.0> supervisor2:dyn_init/1 --> {state,
+    {<0.291.0>,amqp_channel_sup_sup},
+    simple_one_for_one,
+    {[channel_sup],
+     #{channel_sup =>
+           {child,undefined,channel_sup,
+               {amqp_channel_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               temporary,infinity,supervisor,
+               [amqp_channel_sup]}}},
+    {sets,
+        {set,0,16,16,8,80,48,
+            {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+            {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+    0,1,[],0,amqp_channel_sup_sup,
+    [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]}
+
+0:49:19.900574 <0.291.0>  '--> supervisor2:init_dynamic/2
+
+0:49:19.900702 <0.291.0> supervisor2:init_dynamic/2 --> {ok,{state,
+        {<0.291.0>,amqp_channel_sup_sup},
+        simple_one_for_one,
+        {[channel_sup],
+         #{channel_sup =>
+               {child,undefined,channel_sup,
+                   {amqp_channel_sup,start_link,
+                       [direct,<0.287.0>,
+                        <<"<test@centos7-dev.1674280132.287.0>">>]},
+                   temporary,infinity,supervisor,
+                   [amqp_channel_sup]}}},
+        {sets,
+            {set,0,16,16,8,80,48,
+                {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+        0,1,[],0,amqp_channel_sup_sup,
+        [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]}}
+
+0:49:19.901237 <0.291.0> supervisor2:init/1 --> {ok,{state,
+        {<0.291.0>,amqp_channel_sup_sup},
+        simple_one_for_one,
+        {[channel_sup],
+         #{channel_sup =>
+               {child,undefined,channel_sup,
+                   {amqp_channel_sup,start_link,
+                       [direct,<0.287.0>,
+                        <<"<test@centos7-dev.1674280132.287.0>">>]},
+                   temporary,infinity,supervisor,
+                   [amqp_channel_sup]}}},
+        {sets,
+            {set,0,16,16,8,80,48,
+                {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+        0,1,[],0,amqp_channel_sup_sup,
+        [direct,<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>]}}
+
+0:49:19.901757 <0.291.0>  '--> gen_server:init_it/2
+
+0:49:19.901915 <0.286.0> supervisor2:start_link/2 --> {ok,<0.291.0>}
+
+0:49:19.902079 <0.286.0> amqp_channel_sup_sup:start_link/3 --> {ok,<0.291.0>}
+
+0:49:19.902253 <0.286.0>  '--> supervisor2:do_start_child_i/3
+
+0:49:19.902357 <0.286.0> supervisor2:do_start_child_i/3 --> {ok,<0.291.0>}
+
+0:49:19.902476 <0.286.0>  '--> supervisor2:do_start_child/2
+
+0:49:19.902587 <0.286.0> supervisor2:report_progress({child,<0.291.0>,channel_sup_sup,
+       {amqp_channel_sup_sup,start_link,
+                             [direct,<0.287.0>,
+                              <<"<test@centos7-dev.1674280132.287.0>">>]},
+       intrinsic,infinity,supervisor,
+       [amqp_channel_sup_sup]}, {<0.286.0>,amqp_connection_type_sup})
+
+0:49:19.902844 <0.286.0> supervisor2:report_progress/2 --> ok
+
+0:49:19.902982 <0.286.0>  '--> supervisor2:do_start_child/2
+
+0:49:19.903088 <0.286.0> supervisor2:do_start_child/2 --> {ok,<0.291.0>}
+
+0:49:19.903197 <0.286.0>  '--> supervisor2:handle_start_child/2
+
+0:49:19.903283 <0.286.0> supervisor2:save_child({child,<0.291.0>,channel_sup_sup,
+       {amqp_channel_sup_sup,start_link,
+                             [direct,<0.287.0>,
+                              <<"<test@centos7-dev.1674280132.287.0>">>]},
+       intrinsic,infinity,supervisor,
+       [amqp_channel_sup_sup]}, {state,{<0.286.0>,amqp_connection_type_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.903535 <0.286.0> supervisor2:do_save_child({child,<0.291.0>,channel_sup_sup,
+       {amqp_channel_sup_sup,start_link,
+                             [direct,<0.287.0>,
+                              <<"<test@centos7-dev.1674280132.287.0>">>]},
+       intrinsic,infinity,supervisor,
+       [amqp_channel_sup_sup]}, {state,{<0.286.0>,amqp_connection_type_sup},
+       one_for_all,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.903858 <0.286.0> supervisor2:do_save_child/2 --> {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+0:49:19.904160 <0.286.0> supervisor2:save_child/2 --> {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+0:49:19.904457 <0.286.0>  '--> supervisor2:handle_start_child/2
+
+0:49:19.904543 <0.286.0> supervisor2:handle_start_child/2 --> {{ok,<0.291.0>},
+ {state,
+     {<0.286.0>,amqp_connection_type_sup},
+     one_for_all,
+     {[channel_sup_sup],
+      #{channel_sup_sup =>
+            {child,<0.291.0>,channel_sup_sup,
+                {amqp_channel_sup_sup,start_link,
+                    [direct,<0.287.0>,
+                     <<"<test@centos7-dev.1674280132.287.0>">>]},
+                intrinsic,infinity,supervisor,
+                [amqp_channel_sup_sup]}}},
+     undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+0:49:19.904950 <0.286.0>  '--> supervisor2:handle_call/3
+
+0:49:19.905100 <0.286.0> supervisor2:handle_call/3 --> {reply,
+    {ok,<0.291.0>},
+    {state,
+        {<0.286.0>,amqp_connection_type_sup},
+        one_for_all,
+        {[channel_sup_sup],
+         #{channel_sup_sup =>
+               {child,<0.291.0>,channel_sup_sup,
+                   {amqp_channel_sup_sup,start_link,
+                       [direct,<0.287.0>,
+                        <<"<test@centos7-dev.1674280132.287.0>">>]},
+                   intrinsic,infinity,supervisor,
+                   [amqp_channel_sup_sup]}}},
+        undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+0:49:19.905493 <0.286.0>  '--> gen_server:try_handle_call/4
+
+0:49:19.905596 <0.287.0> supervisor2:call/2 --> {ok,<0.291.0>}
+
+0:49:19.905763 <0.287.0> supervisor2:start_child/2 --> {ok,<0.291.0>}
+
+0:49:19.905856 <0.287.0>  '--> amqp_connection_type_sup:start_channels_manager/4
+
+0:49:19.905974 <0.287.0> rabbit_misc:get_env(rabbit, worker_shutdown_timeout, 300000)
+
+0:49:19.906061 <0.287.0> rabbit_misc:get_env/3 --> 300000
+
+0:49:19.906149 <0.287.0>  '--> amqp_connection_type_sup:start_channels_manager/4
+
+0:49:19.906210 <0.287.0> supervisor2:start_child(<0.286.0>, {channels_manager,
+    {amqp_channels_manager,start_link,
+        [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,<0.291.0>]},
+    transient,300000,worker,
+    [amqp_channels_manager]})
+
+0:49:19.906374 <0.287.0> supervisor2:call(<0.286.0>, {start_child,
+    {channels_manager,
+        {amqp_channels_manager,start_link,
+            [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,<0.291.0>]},
+        transient,300000,worker,
+        [amqp_channels_manager]}})
+
+0:49:19.906579 <0.286.0> supervisor2:handle_call({start_child,
+    {channels_manager,
+        {amqp_channels_manager,start_link,
+            [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,<0.291.0>]},
+        transient,300000,worker,
+        [amqp_channels_manager]}}, {<0.287.0>,#Ref<0.3284298657.3391619073.214435>}, {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.906961 <0.286.0> supervisor2:check_childspec({channels_manager,
+    {amqp_channels_manager,start_link,
+        [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,<0.291.0>]},
+    transient,300000,worker,
+    [amqp_channels_manager]})
+
+0:49:19.907195 <0.286.0> supervisor2:check_childspec(#{id=>channels_manager, modules=>[amqp_channels_manager], restart=>transient, shutdown=>300000, start=>{amqp_channels_manager,start_link,
+                       [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                        <0.291.0>]}, type=>worker})
+
+0:49:19.907446 <0.286.0> supervisor2:do_check_childspec(#{id=>channels_manager, modules=>[amqp_channels_manager], restart=>transient, shutdown=>300000, start=>{amqp_channels_manager,start_link,
+                       [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                        <0.291.0>]}, type=>worker})
+
+0:49:19.907731 <0.286.0> supervisor2:validId(channels_manager)
+
+0:49:19.907837 <0.286.0> supervisor2:validId/1 --> true
+
+0:49:19.907934 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.908077 <0.286.0> supervisor2:validFunc({amqp_channels_manager,start_link,
+                       [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                        <0.291.0>]})
+
+0:49:19.908279 <0.286.0> supervisor2:validFunc/1 --> true
+
+0:49:19.908392 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.908480 <0.286.0> supervisor2:validRestartType(transient)
+
+0:49:19.908598 <0.286.0> supervisor2:validRestartType/1 --> true
+
+0:49:19.908703 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.908808 <0.286.0> supervisor2:validChildType(worker)
+
+0:49:19.908982 <0.286.0> supervisor2:validChildType/1 --> true
+
+0:49:19.909128 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.909242 <0.286.0> supervisor2:validShutdown(300000)
+
+0:49:19.909361 <0.286.0> supervisor2:validShutdown/1 --> true
+
+0:49:19.909458 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.909564 <0.286.0> supervisor2:validMods([amqp_channels_manager])
+
+0:49:19.909695 <0.286.0> supervisor2:'-validMods/1-fun-0-'(amqp_channels_manager)
+
+0:49:19.909789 <0.286.0> supervisor2:'-validMods/1-fun-0-'/1 --> ok
+
+0:49:19.909924 <0.286.0>  '--> lists:foreach_1/2
+
+0:49:19.910058 <0.286.0> supervisor2:validMods/1 --> ok
+
+0:49:19.910166 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.910229 <0.286.0> supervisor2:do_check_childspec/1 --> {ok,{child,undefined,channels_manager,
+           {amqp_channels_manager,start_link,
+                                  [<0.287.0>,
+                                   <<"<test@centos7-dev.1674280132.287.0>">>,
+                                   <0.291.0>]},
+           transient,300000,worker,
+           [amqp_channels_manager]}}
+
+0:49:19.910565 <0.286.0>  '--> supervisor2:check_childspec/1
+
+0:49:19.910638 <0.286.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,channels_manager,
+           {amqp_channels_manager,start_link,
+                                  [<0.287.0>,
+                                   <<"<test@centos7-dev.1674280132.287.0>">>,
+                                   <0.291.0>]},
+           transient,300000,worker,
+           [amqp_channels_manager]}}
+
+0:49:19.910912 <0.286.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,channels_manager,
+           {amqp_channels_manager,start_link,
+                                  [<0.287.0>,
+                                   <<"<test@centos7-dev.1674280132.287.0>">>,
+                                   <0.291.0>]},
+           transient,300000,worker,
+           [amqp_channels_manager]}}
+
+0:49:19.911232 <0.286.0>  '--> supervisor2:handle_call/3
+
+0:49:19.911345 <0.286.0> supervisor2:handle_start_child({child,undefined,channels_manager,
+       {amqp_channels_manager,start_link,
+                              [<0.287.0>,
+                               <<"<test@centos7-dev.1674280132.287.0>">>,
+                               <0.291.0>]},
+       transient,300000,worker,
+       [amqp_channels_manager]}, {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.911844 <0.286.0> supervisor2:internal_find_child(channels_manager, {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.912351 <0.286.0> supervisor2:internal_find_child/2 --> error
+
+0:49:19.912497 <0.286.0>  '--> supervisor2:handle_start_child/2
+
+0:49:19.912637 <0.286.0> supervisor2:do_start_child({<0.286.0>,amqp_connection_type_sup}, {child,undefined,channels_manager,
+       {amqp_channels_manager,start_link,
+                              [<0.287.0>,
+                               <<"<test@centos7-dev.1674280132.287.0>">>,
+                               <0.291.0>]},
+       transient,300000,worker,
+       [amqp_channels_manager]})
+
+0:49:19.912892 <0.286.0> supervisor2:do_start_child_i(amqp_channels_manager, start_link, [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,<0.291.0>])
+
+0:49:19.913088 <0.286.0> amqp_channels_manager:start_link(<0.287.0>, <<"<test@centos7-dev.1674280132.287.0>">>, <0.291.0>)
+
+0:49:19.913212 <0.292.0> amqp_channels_manager:init([<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,<0.291.0>])
+
+0:49:19.913310 <0.292.0> rabbit_misc:store_proc_name(amqp_channels_manager, <<"<test@centos7-dev.1674280132.287.0>">>)
+
+0:49:19.913392 <0.292.0> rabbit_misc:store_proc_name({amqp_channels_manager,<<"<test@centos7-dev.1674280132.287.0>">>})
+
+0:49:19.913494 <0.292.0> rabbit_misc:store_proc_name/1 --> undefined
+
+0:49:19.913565 <0.292.0> rabbit_misc:store_proc_name/2 --> undefined
+
+0:49:19.913664 <0.292.0>  '--> amqp_channels_manager:init/1
+
+0:49:19.913726 <0.292.0> amqp_channels_manager:init/1 --> {ok,{state,<0.287.0>,<0.291.0>,{0,nil},#{},65535,false}}
+
+0:49:19.913859 <0.292.0>  '--> gen_server:init_it/2
+
+0:49:19.913945 <0.286.0> amqp_channels_manager:start_link/3 --> {ok,<0.292.0>}
+
+0:49:19.914041 <0.286.0>  '--> supervisor2:do_start_child_i/3
+
+0:49:19.914147 <0.286.0> supervisor2:do_start_child_i/3 --> {ok,<0.292.0>}
+
+0:49:19.914223 <0.286.0>  '--> supervisor2:do_start_child/2
+
+0:49:19.914309 <0.286.0> supervisor2:report_progress({child,<0.292.0>,channels_manager,
+       {amqp_channels_manager,start_link,
+                              [<0.287.0>,
+                               <<"<test@centos7-dev.1674280132.287.0>">>,
+                               <0.291.0>]},
+       transient,300000,worker,
+       [amqp_channels_manager]}, {<0.286.0>,amqp_connection_type_sup})
+
+0:49:19.914505 <0.286.0> supervisor2:report_progress/2 --> ok
+
+0:49:19.914579 <0.286.0>  '--> supervisor2:do_start_child/2
+
+0:49:19.914630 <0.286.0> supervisor2:do_start_child/2 --> {ok,<0.292.0>}
+
+0:49:19.914702 <0.286.0>  '--> supervisor2:handle_start_child/2
+
+0:49:19.914755 <0.286.0> supervisor2:save_child({child,<0.292.0>,channels_manager,
+       {amqp_channels_manager,start_link,
+                              [<0.287.0>,
+                               <<"<test@centos7-dev.1674280132.287.0>">>,
+                               <0.291.0>]},
+       transient,300000,worker,
+       [amqp_channels_manager]}, {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.915142 <0.286.0> supervisor2:do_save_child({child,<0.292.0>,channels_manager,
+       {amqp_channels_manager,start_link,
+                              [<0.287.0>,
+                               <<"<test@centos7-dev.1674280132.287.0>">>,
+                               <0.291.0>]},
+       transient,300000,worker,
+       [amqp_channels_manager]}, {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.915439 <0.286.0> supervisor2:do_save_child/2 --> {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.292.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                    <0.291.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+0:49:19.915839 <0.286.0> supervisor2:save_child/2 --> {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.292.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                    <0.291.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+0:49:19.916206 <0.286.0>  '--> supervisor2:handle_start_child/2
+
+0:49:19.916300 <0.286.0> supervisor2:handle_start_child/2 --> {{ok,<0.292.0>},
+ {state,
+     {<0.286.0>,amqp_connection_type_sup},
+     one_for_all,
+     {[channels_manager,channel_sup_sup],
+      #{channel_sup_sup =>
+            {child,<0.291.0>,channel_sup_sup,
+                {amqp_channel_sup_sup,start_link,
+                    [direct,<0.287.0>,
+                     <<"<test@centos7-dev.1674280132.287.0>">>]},
+                intrinsic,infinity,supervisor,
+                [amqp_channel_sup_sup]},
+        channels_manager =>
+            {child,<0.292.0>,channels_manager,
+                {amqp_channels_manager,start_link,
+                    [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                     <0.291.0>]},
+                transient,300000,worker,
+                [amqp_channels_manager]}}},
+     undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+0:49:19.916623 <0.286.0>  '--> supervisor2:handle_call/3
+
+0:49:19.916708 <0.286.0> supervisor2:handle_call/3 --> {reply,
+    {ok,<0.292.0>},
+    {state,
+        {<0.286.0>,amqp_connection_type_sup},
+        one_for_all,
+        {[channels_manager,channel_sup_sup],
+         #{channel_sup_sup =>
+               {child,<0.291.0>,channel_sup_sup,
+                   {amqp_channel_sup_sup,start_link,
+                       [direct,<0.287.0>,
+                        <<"<test@centos7-dev.1674280132.287.0>">>]},
+                   intrinsic,infinity,supervisor,
+                   [amqp_channel_sup_sup]},
+           channels_manager =>
+               {child,<0.292.0>,channels_manager,
+                   {amqp_channels_manager,start_link,
+                       [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                        <0.291.0>]},
+                   transient,300000,worker,
+                   [amqp_channels_manager]}}},
+        undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+0:49:19.917195 <0.286.0>  '--> gen_server:try_handle_call/4
+
+0:49:19.917281 <0.287.0> supervisor2:call/2 --> {ok,<0.292.0>}
+
+0:49:19.917374 <0.287.0> supervisor2:start_child/2 --> {ok,<0.292.0>}
+
+0:49:19.917448 <0.287.0>  '--> amqp_connection_type_sup:start_channels_manager/4
+
+0:49:19.917508 <0.287.0> amqp_connection_type_sup:start_channels_manager/4 --> {ok,<0.292.0>}
+
+0:49:19.917597 <0.287.0>  '--> amqp_connection_type_sup:'-start_infrastructure_fun/3-fun-1-'/3
+
+0:49:19.917671 <0.287.0> rabbit_misc:get_env(rabbit, worker_shutdown_timeout, 300000)
+
+0:49:19.917743 <0.287.0> rabbit_misc:get_env/3 --> 300000
+
+0:49:19.917840 <0.287.0>  '--> amqp_connection_type_sup:'-start_infrastructure_fun/3-fun-1-'/3
+
+0:49:19.917937 <0.287.0> supervisor2:start_child(<0.286.0>, {collector,{rabbit_queue_collector,start_link,
+                                   [<<"<test@centos7-dev.1674280132.287.0>">>]},
+           transient,300000,worker,
+           [rabbit_queue_collector]})
+
+0:49:19.918093 <0.287.0> supervisor2:call(<0.286.0>, {start_child,
+    {collector,
+        {rabbit_queue_collector,start_link,
+            [<<"<test@centos7-dev.1674280132.287.0>">>]},
+        transient,300000,worker,
+        [rabbit_queue_collector]}})
+
+0:49:19.918244 <0.286.0> supervisor2:handle_call({start_child,
+    {collector,
+        {rabbit_queue_collector,start_link,
+            [<<"<test@centos7-dev.1674280132.287.0>">>]},
+        transient,300000,worker,
+        [rabbit_queue_collector]}}, {<0.287.0>,#Ref<0.3284298657.3391619073.214436>}, {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.292.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                    <0.291.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.918653 <0.286.0> supervisor2:check_childspec({collector,{rabbit_queue_collector,start_link,
+                                   [<<"<test@centos7-dev.1674280132.287.0>">>]},
+           transient,300000,worker,
+           [rabbit_queue_collector]})
+
+0:49:19.918848 <0.286.0> supervisor2:check_childspec(#{id=>collector, modules=>[rabbit_queue_collector], restart=>transient, shutdown=>300000, start=>{rabbit_queue_collector,start_link,
+                        [<<"<test@centos7-dev.1674280132.287.0>">>]}, type=>worker})
+
+0:49:19.919034 <0.286.0> supervisor2:do_check_childspec(#{id=>collector, modules=>[rabbit_queue_collector], restart=>transient, shutdown=>300000, start=>{rabbit_queue_collector,start_link,
+                        [<<"<test@centos7-dev.1674280132.287.0>">>]}, type=>worker})
+
+0:49:19.919208 <0.286.0> supervisor2:validId(collector)
+
+0:49:19.919280 <0.286.0> supervisor2:validId/1 --> true
+
+0:49:19.919336 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.919382 <0.286.0> supervisor2:validFunc({rabbit_queue_collector,start_link,
+                        [<<"<test@centos7-dev.1674280132.287.0>">>]})
+
+0:49:19.919474 <0.286.0> supervisor2:validFunc/1 --> true
+
+0:49:19.919559 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.919643 <0.286.0> supervisor2:validRestartType(transient)
+
+0:49:19.919715 <0.286.0> supervisor2:validRestartType/1 --> true
+
+0:49:19.919796 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.919851 <0.286.0> supervisor2:validChildType(worker)
+
+0:49:19.919947 <0.286.0> supervisor2:validChildType/1 --> true
+
+0:49:19.920019 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.920097 <0.286.0> supervisor2:validShutdown(300000)
+
+0:49:19.920157 <0.286.0> supervisor2:validShutdown/1 --> true
+
+0:49:19.920259 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.920334 <0.286.0> supervisor2:validMods([rabbit_queue_collector])
+
+0:49:19.920405 <0.286.0> supervisor2:'-validMods/1-fun-0-'(rabbit_queue_collector)
+
+0:49:19.920469 <0.286.0> supervisor2:'-validMods/1-fun-0-'/1 --> ok
+
+0:49:19.920522 <0.286.0>  '--> lists:foreach_1/2
+
+0:49:19.920573 <0.286.0> supervisor2:validMods/1 --> ok
+
+0:49:19.920625 <0.286.0>  '--> supervisor2:do_check_childspec/1
+
+0:49:19.920676 <0.286.0> supervisor2:do_check_childspec/1 --> {ok,{child,undefined,collector,
+           {rabbit_queue_collector,start_link,
+                                   [<<"<test@centos7-dev.1674280132.287.0>">>]},
+           transient,300000,worker,
+           [rabbit_queue_collector]}}
+
+0:49:19.920890 <0.286.0>  '--> supervisor2:check_childspec/1
+
+0:49:19.920963 <0.286.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,collector,
+           {rabbit_queue_collector,start_link,
+                                   [<<"<test@centos7-dev.1674280132.287.0>">>]},
+           transient,300000,worker,
+           [rabbit_queue_collector]}}
+
+0:49:19.921110 <0.286.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,collector,
+           {rabbit_queue_collector,start_link,
+                                   [<<"<test@centos7-dev.1674280132.287.0>">>]},
+           transient,300000,worker,
+           [rabbit_queue_collector]}}
+
+0:49:19.921275 <0.286.0>  '--> supervisor2:handle_call/3
+
+0:49:19.921367 <0.286.0> supervisor2:handle_start_child({child,undefined,collector,
+       {rabbit_queue_collector,start_link,
+                               [<<"<test@centos7-dev.1674280132.287.0>">>]},
+       transient,300000,worker,
+       [rabbit_queue_collector]}, {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.292.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                    <0.291.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.921858 <0.286.0> supervisor2:internal_find_child(collector, {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.292.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                    <0.291.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.922274 <0.286.0> supervisor2:internal_find_child/2 --> error
+
+0:49:19.922422 <0.286.0>  '--> supervisor2:handle_start_child/2
+
+0:49:19.926180 <0.286.0> supervisor2:do_start_child({<0.286.0>,amqp_connection_type_sup}, {child,undefined,collector,
+       {rabbit_queue_collector,start_link,
+                               [<<"<test@centos7-dev.1674280132.287.0>">>]},
+       transient,300000,worker,
+       [rabbit_queue_collector]})
+
+0:49:19.926624 <0.286.0> supervisor2:do_start_child_i(rabbit_queue_collector, start_link, [<<"<test@centos7-dev.1674280132.287.0>">>])
+
+0:49:19.926791 <0.293.0> rabbit_misc:store_proc_name(rabbit_queue_collector, <<"<test@centos7-dev.1674280132.287.0>">>)
+
+0:49:19.926970 <0.293.0> rabbit_misc:store_proc_name({rabbit_queue_collector,<<"<test@centos7-dev.1674280132.287.0>">>})
+
+0:49:19.927120 <0.293.0> rabbit_misc:store_proc_name/1 --> undefined
+
+0:49:19.927229 <0.293.0> rabbit_misc:store_proc_name/2 --> undefined
+
+0:49:19.927341 <0.293.0>  '--> rabbit_queue_collector:init/1
+
+0:49:19.927436 <0.286.0> supervisor2:do_start_child_i/3 --> {ok,<0.293.0>}
+
+0:49:19.927567 <0.286.0>  '--> supervisor2:do_start_child/2
+
+0:49:19.927672 <0.286.0> supervisor2:report_progress({child,<0.293.0>,collector,
+       {rabbit_queue_collector,start_link,
+                               [<<"<test@centos7-dev.1674280132.287.0>">>]},
+       transient,300000,worker,
+       [rabbit_queue_collector]}, {<0.286.0>,amqp_connection_type_sup})
+
+0:49:19.927857 <0.286.0> supervisor2:report_progress/2 --> ok
+
+0:49:19.927941 <0.286.0>  '--> supervisor2:do_start_child/2
+
+0:49:19.928048 <0.286.0> supervisor2:do_start_child/2 --> {ok,<0.293.0>}
+
+0:49:19.928145 <0.286.0>  '--> supervisor2:handle_start_child/2
+
+0:49:19.928221 <0.286.0> supervisor2:save_child({child,<0.293.0>,collector,
+       {rabbit_queue_collector,start_link,
+                               [<<"<test@centos7-dev.1674280132.287.0>">>]},
+       transient,300000,worker,
+       [rabbit_queue_collector]}, {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.292.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                    <0.291.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.928718 <0.286.0> supervisor2:do_save_child({child,<0.293.0>,collector,
+       {rabbit_queue_collector,start_link,
+                               [<<"<test@centos7-dev.1674280132.287.0>">>]},
+       transient,300000,worker,
+       [rabbit_queue_collector]}, {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.292.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                    <0.291.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]})
+
+0:49:19.929311 <0.286.0> supervisor2:do_save_child/2 --> {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[collector,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.292.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                    <0.291.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       collector =>
+           {child,<0.293.0>,collector,
+               {rabbit_queue_collector,start_link,
+                   [<<"<test@centos7-dev.1674280132.287.0>">>]},
+               transient,300000,worker,
+               [rabbit_queue_collector]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+0:49:19.929817 <0.286.0> supervisor2:save_child/2 --> {state,
+    {<0.286.0>,amqp_connection_type_sup},
+    one_for_all,
+    {[collector,channels_manager,channel_sup_sup],
+     #{channel_sup_sup =>
+           {child,<0.291.0>,channel_sup_sup,
+               {amqp_channel_sup_sup,start_link,
+                   [direct,<0.287.0>,
+                    <<"<test@centos7-dev.1674280132.287.0>">>]},
+               intrinsic,infinity,supervisor,
+               [amqp_channel_sup_sup]},
+       channels_manager =>
+           {child,<0.292.0>,channels_manager,
+               {amqp_channels_manager,start_link,
+                   [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                    <0.291.0>]},
+               transient,300000,worker,
+               [amqp_channels_manager]},
+       collector =>
+           {child,<0.293.0>,collector,
+               {rabbit_queue_collector,start_link,
+                   [<<"<test@centos7-dev.1674280132.287.0>">>]},
+               transient,300000,worker,
+               [rabbit_queue_collector]}}},
+    undefined,0,1,[],0,amqp_connection_type_sup,[]}
+
+0:49:19.930299 <0.286.0>  '--> supervisor2:handle_start_child/2
+
+0:49:19.930396 <0.286.0> supervisor2:handle_start_child/2 --> {{ok,<0.293.0>},
+ {state,
+     {<0.286.0>,amqp_connection_type_sup},
+     one_for_all,
+     {[collector,channels_manager,channel_sup_sup],
+      #{channel_sup_sup =>
+            {child,<0.291.0>,channel_sup_sup,
+                {amqp_channel_sup_sup,start_link,
+                    [direct,<0.287.0>,
+                     <<"<test@centos7-dev.1674280132.287.0>">>]},
+                intrinsic,infinity,supervisor,
+                [amqp_channel_sup_sup]},
+        channels_manager =>
+            {child,<0.292.0>,channels_manager,
+                {amqp_channels_manager,start_link,
+                    [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                     <0.291.0>]},
+                transient,300000,worker,
+                [amqp_channels_manager]},
+        collector =>
+            {child,<0.293.0>,collector,
+                {rabbit_queue_collector,start_link,
+                    [<<"<test@centos7-dev.1674280132.287.0>">>]},
+                transient,300000,worker,
+                [rabbit_queue_collector]}}},
+     undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+0:49:19.931020 <0.286.0>  '--> supervisor2:handle_call/3
+
+0:49:19.931118 <0.286.0> supervisor2:handle_call/3 --> {reply,
+    {ok,<0.293.0>},
+    {state,
+        {<0.286.0>,amqp_connection_type_sup},
+        one_for_all,
+        {[collector,channels_manager,channel_sup_sup],
+         #{channel_sup_sup =>
+               {child,<0.291.0>,channel_sup_sup,
+                   {amqp_channel_sup_sup,start_link,
+                       [direct,<0.287.0>,
+                        <<"<test@centos7-dev.1674280132.287.0>">>]},
+                   intrinsic,infinity,supervisor,
+                   [amqp_channel_sup_sup]},
+           channels_manager =>
+               {child,<0.292.0>,channels_manager,
+                   {amqp_channels_manager,start_link,
+                       [<0.287.0>,<<"<test@centos7-dev.1674280132.287.0>">>,
+                        <0.291.0>]},
+                   transient,300000,worker,
+                   [amqp_channels_manager]},
+           collector =>
+               {child,<0.293.0>,collector,
+                   {rabbit_queue_collector,start_link,
+                       [<<"<test@centos7-dev.1674280132.287.0>">>]},
+                   transient,300000,worker,
+                   [rabbit_queue_collector]}}},
+        undefined,0,1,[],0,amqp_connection_type_sup,[]}}
+
+0:49:19.931743 <0.286.0>  '--> gen_server:try_handle_call/4
+
+0:49:19.931894 <0.287.0> supervisor2:call/2 --> {ok,<0.293.0>}
+
+0:49:19.932026 <0.287.0> supervisor2:start_child/2 --> {ok,<0.293.0>}
+
+0:49:19.932169 <0.287.0>  '--> amqp_connection_type_sup:'-start_infrastructure_fun/3-fun-1-'/3
+
+0:49:19.932317 <0.287.0> amqp_connection_type_sup:'-start_infrastructure_fun/3-fun-1-'/3 --> {ok,<0.292.0>,<0.293.0>}
+
+0:49:19.932450 <0.287.0>  '--> amqp_direct_connection:connect/4
+
+0:49:19.932539 <0.287.0> amqp_direct_connection:connect/4 --> {ok,{[{<<"capabilities">>,table,
+       [{<<"publisher_confirms">>,bool,true},
+        {<<"exchange_exchange_bindings">>,bool,true},
+        {<<"basic.nack">>,bool,true},
+        {<<"consumer_cancel_notify">>,bool,true},
+        {<<"connection.blocked">>,bool,true},
+        {<<"consumer_priorities">>,bool,true},
+        {<<"authentication_failure_close">>,bool,true},
+        {<<"per_consumer_qos">>,bool,true},
+        {<<"direct_reply_to">>,bool,true}]},
+      {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+      {<<"copyright">>,longstr,
+       <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+      {<<"information">>,longstr,
+       <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+      {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+      {<<"product">>,longstr,<<"RabbitMQ">>},
+      {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+     0,<0.292.0>,
+     {state,'rabbit@centos7-mq',
+            {user,<<"vstation">>,
+                  [administrator],
+                  [{rabbit_auth_backend_internal,none}]},
+            <<"vstation">>,
+            {amqp_params_direct,<<"vstation">>,
+                                {plaintext,<<"vstation">>},
+                                <<"vstation">>,'rabbit@centos7-mq',none,[]},
+            {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                               <<"<test@centos7-dev.1674280132.287.0>">>,
+                               {'Direct',{0,9,1}},
+                               []},
+            <0.293.0>,undefined,1674280159809}}}
+
+0:49:19.933190 <0.287.0>  '--> amqp_gen_connection:handle_call/3
+
+0:49:19.933345 <0.287.0> amqp_gen_connection:after_connect({[{<<"capabilities">>,table,
+   [{<<"publisher_confirms">>,bool,true},
+    {<<"exchange_exchange_bindings">>,bool,true},
+    {<<"basic.nack">>,bool,true},
+    {<<"consumer_cancel_notify">>,bool,true},
+    {<<"connection.blocked">>,bool,true},
+    {<<"consumer_priorities">>,bool,true},
+    {<<"authentication_failure_close">>,bool,true},
+    {<<"per_consumer_qos">>,bool,true},
+    {<<"direct_reply_to">>,bool,true}]},
+  {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+  {<<"copyright">>,longstr,
+   <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+  {<<"information">>,longstr,
+   <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+  {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+  {<<"product">>,longstr,<<"RabbitMQ">>},
+  {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+ 0,<0.292.0>,
+ {state,'rabbit@centos7-mq',
+        {user,<<"vstation">>,
+              [administrator],
+              [{rabbit_auth_backend_internal,none}]},
+        <<"vstation">>,
+        {amqp_params_direct,<<"vstation">>,
+                            {plaintext,<<"vstation">>},
+                            <<"vstation">>,'rabbit@centos7-mq',none,[]},
+        {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                           <<"<test@centos7-dev.1674280132.287.0>">>,
+                           {'Direct',{0,9,1}},
+                           []},
+        <0.293.0>,undefined,1674280159809}}, {state,amqp_direct_connection,
+       {state,undefined,undefined,undefined,undefined,undefined,undefined,
+              undefined,undefined},
+       undefined,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       undefined,undefined,none,false})
+
+0:49:19.934169 <0.287.0> amqp_gen_connection:i(name, {state,amqp_direct_connection,
+       {state,'rabbit@centos7-mq',
+              {user,<<"vstation">>,
+                    [administrator],
+                    [{rabbit_auth_backend_internal,none}]},
+              <<"vstation">>,
+              {amqp_params_direct,<<"vstation">>,
+                                  {plaintext,<<"vstation">>},
+                                  <<"vstation">>,'rabbit@centos7-mq',none,[]},
+              {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                                 <<"<test@centos7-dev.1674280132.287.0>">>,
+                                 {'Direct',{0,9,1}},
+                                 []},
+              <0.293.0>,undefined,1674280159809},
+       <0.292.0>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       0,
+       [{<<"capabilities">>,table,
+         [{<<"publisher_confirms">>,bool,true},
+          {<<"exchange_exchange_bindings">>,bool,true},
+          {<<"basic.nack">>,bool,true},
+          {<<"consumer_cancel_notify">>,bool,true},
+          {<<"connection.blocked">>,bool,true},
+          {<<"consumer_priorities">>,bool,true},
+          {<<"authentication_failure_close">>,bool,true},
+          {<<"per_consumer_qos">>,bool,true},
+          {<<"direct_reply_to">>,bool,true}]},
+        {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+        {<<"copyright">>,longstr,
+         <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+        {<<"information">>,longstr,
+         <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+        {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+        {<<"product">>,longstr,<<"RabbitMQ">>},
+        {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+       none,false})
+
+0:49:19.934838 <0.287.0> amqp_direct_connection:i(name, {state,'rabbit@centos7-mq',
+       {user,<<"vstation">>,
+             [administrator],
+             [{rabbit_auth_backend_internal,none}]},
+       <<"vstation">>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                          <<"<test@centos7-dev.1674280132.287.0>">>,
+                          {'Direct',{0,9,1}},
+                          []},
+       <0.293.0>,undefined,1674280159809})
+
+0:49:19.935219 <0.287.0> amqp_direct_connection:i/2 --> <<"<test@centos7-dev.1674280132.287.0>">>
+
+0:49:19.935377 <0.287.0> amqp_gen_connection:i/2 --> <<"<test@centos7-dev.1674280132.287.0>">>
+
+0:49:19.935544 <0.287.0>  '--> amqp_gen_connection:after_connect/2
+
+0:49:19.935612 <0.287.0> rabbit_misc:store_proc_name(amqp_gen_connection, <<"<test@centos7-dev.1674280132.287.0>">>)
+
+0:49:19.935704 <0.287.0> rabbit_misc:store_proc_name({amqp_gen_connection,<<"<test@centos7-dev.1674280132.287.0>">>})
+
+0:49:19.935872 <0.287.0> rabbit_misc:store_proc_name/1 --> undefined
+
+0:49:19.935968 <0.287.0> rabbit_misc:store_proc_name/2 --> undefined
+
+0:49:19.936054 <0.287.0>  '--> amqp_gen_connection:after_connect/2
+
+0:49:19.936132 <0.287.0> amqp_gen_connection:after_connect/2 --> {state,amqp_direct_connection,
+       {state,'rabbit@centos7-mq',
+              {user,<<"vstation">>,
+                    [administrator],
+                    [{rabbit_auth_backend_internal,none}]},
+              <<"vstation">>,
+              {amqp_params_direct,<<"vstation">>,
+                                  {plaintext,<<"vstation">>},
+                                  <<"vstation">>,'rabbit@centos7-mq',none,[]},
+              {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                                 <<"<test@centos7-dev.1674280132.287.0>">>,
+                                 {'Direct',{0,9,1}},
+                                 []},
+              <0.293.0>,undefined,1674280159809},
+       <0.292.0>,
+       {amqp_params_direct,<<"vstation">>,
+                           {plaintext,<<"vstation">>},
+                           <<"vstation">>,'rabbit@centos7-mq',none,[]},
+       0,
+       [{<<"capabilities">>,table,
+         [{<<"publisher_confirms">>,bool,true},
+          {<<"exchange_exchange_bindings">>,bool,true},
+          {<<"basic.nack">>,bool,true},
+          {<<"consumer_cancel_notify">>,bool,true},
+          {<<"connection.blocked">>,bool,true},
+          {<<"consumer_priorities">>,bool,true},
+          {<<"authentication_failure_close">>,bool,true},
+          {<<"per_consumer_qos">>,bool,true},
+          {<<"direct_reply_to">>,bool,true}]},
+        {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+        {<<"copyright">>,longstr,
+         <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+        {<<"information">>,longstr,
+         <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+        {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+        {<<"product">>,longstr,<<"RabbitMQ">>},
+        {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+       none,false}
+
+0:49:19.937177 <0.287.0>  '--> amqp_gen_connection:handle_call/3
+
+0:49:19.937259 <0.287.0> amqp_gen_connection:handle_call/3 --> {reply,
+    {ok,<0.287.0>},
+    {state,amqp_direct_connection,
+        {state,'rabbit@centos7-mq',
+            {user,<<"vstation">>,
+                [administrator],
+                [{rabbit_auth_backend_internal,none}]},
+            <<"vstation">>,
+            {amqp_params_direct,<<"vstation">>,
+                {plaintext,<<"vstation">>},
+                <<"vstation">>,'rabbit@centos7-mq',none,[]},
+            {amqp_adapter_info,unknown,unknown,unknown,unknown,
+                <<"<test@centos7-dev.1674280132.287.0>">>,
+                {'Direct',{0,9,1}},
+                []},
+            <0.293.0>,undefined,1674280159809},
+        <0.292.0>,
+        {amqp_params_direct,<<"vstation">>,
+            {plaintext,<<"vstation">>},
+            <<"vstation">>,'rabbit@centos7-mq',none,[]},
+        0,
+        [{<<"capabilities">>,table,
+          [{<<"publisher_confirms">>,bool,true},
+           {<<"exchange_exchange_bindings">>,bool,true},
+           {<<"basic.nack">>,bool,true},
+           {<<"consumer_cancel_notify">>,bool,true},
+           {<<"connection.blocked">>,bool,true},
+           {<<"consumer_priorities">>,bool,true},
+           {<<"authentication_failure_close">>,bool,true},
+           {<<"per_consumer_qos">>,bool,true},
+           {<<"direct_reply_to">>,bool,true}]},
+         {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+         {<<"copyright">>,longstr,
+          <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+         {<<"information">>,longstr,
+          <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+         {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+         {<<"product">>,longstr,<<"RabbitMQ">>},
+         {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+        none,false}}
+
+0:49:19.937988 <0.287.0>  '--> gen_server:try_handle_call/4
+
+0:49:19.938126 <0.227.0> amqp_gen_connection:connect/1 --> {ok,<0.287.0>}
+
+0:49:19.938224 <0.227.0> amqp_connection:start/2 --> {ok,<0.287.0>}
+
+0:49:19.938364 <0.227.0> amqp_connection:start/1 --> {ok,<0.287.0>}
+
+0:49:19.938491 <0.227.0>  '--> amqp_direct:connect_amqp/0

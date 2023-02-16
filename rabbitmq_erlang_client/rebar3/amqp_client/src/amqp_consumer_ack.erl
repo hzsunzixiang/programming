@@ -93,14 +93,14 @@ close_connection(Connection) ->
 
 
 start() ->
-   Connection=amqp_example:connect_amqp(),
-   Channel=amqp_example:open_channel(Connection),
-   amqp_example:declare_exchange(Channel),
-   Q=amqp_example:declare_queue(Channel),
-   binding_queue(Q, Channel),
-   Tag=consumer_message(Channel, Q),
+   Connection=amqp_consumer_ack:connect_amqp(),
+   Channel=amqp_consumer_ack:open_channel(Connection),
+   amqp_consumer_ack:declare_exchange(Channel),
+   Q=amqp_consumer_ack:declare_queue(Channel),
+   amqp_consumer_ack:binding_queue(Q, Channel),
+   Tag=amqp_consumer_ack:consumer_message(Channel, Q),
    io:format("Tag:~p~n", [Tag]),
-   loop(Channel, Tag),
+   amqp_consumer_ack:loop(Channel, Tag),
    %close_channel(Channel),
    %close_connection(Connection),
    "Finish".

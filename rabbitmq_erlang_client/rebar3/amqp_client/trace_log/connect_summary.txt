@@ -1,0 +1,2512 @@
+==================================================
+# 接受请求
+
+3:56:29.054891 <0.219.0> amqp_connection:start({amqp_params_network,<<"vstation">>,<<"vstation">>,<<"vstation">>,
+                     "192.168.142.133",5672,2047,0,10,60000,none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]})
+
+
+3:56:29.055444 <0.219.0> amqp_connection:ensure_started()
+
+......
+3:56:29.061083 <0.219.0> amqp_connection:ensure_started/0 --> [ok,ok,ok,ok,ok,ok]
+3:56:29.061171 <0.219.0>  '--> amqp_connection:start/2
+
+
+# 开始启动各个 进程
+
+ amqp_sup 是一个module，也是一个服务注册名
+7> regs().
+** Registered procs on node nonode@nohost **
+Name        Pid        Initial Call          Reds Msgs
+amqp_sup    <0.248.0>  supervisor2:init/1    305    0
+
+3:56:29.063210 <0.219.0> amqp_sup:start_connection_sup({amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]})
+
+上面引用的 amqp_sup 就是在application启动阶段所启动并命名的
+start_link() ->
+    supervisor2:start_link({local, amqp_sup}, ?MODULE, []).
+
+这里涉及两个进程
+
+start_link(AMQPParams) ->
+    {ok, Sup} = supervisor2:start_link(?MODULE, []),
+    {ok, TypeSup}    = supervisor2:start_child(
+                         Sup, {connection_type_sup,
+                               {amqp_connection_type_sup, start_link, []},
+                               transient, ?SUPERVISOR_WAIT, supervisor,
+                               [amqp_connection_type_sup]}),
+    {ok, Connection} = supervisor2:start_child(
+                         Sup, {connection, {amqp_gen_connection, start_link,
+                                            [TypeSup, AMQPParams]},
+                               intrinsic, brutal_kill, worker,
+                               [amqp_gen_connection]}),
+    {ok, Sup, Connection}.
+
+<0.248.0> 对应的进程为 amqp_sup
+3:56:29.063425 <0.248.0> amqp_connection_sup:start_link({amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]})
+
+## amqp_connection_sup one_for_all 模式   返回一个进程  <0.299.0>
+3:56:29.063596 <0.299.0> amqp_connection_sup:init([])
+3:56:29.063644 <0.299.0> amqp_connection_sup:init/1 --> {ok,{{one_for_all,0,1},[]}}
+
+
+amqp_connection_type_sup one_for_all 模式
+
+
+3:56:29.063987 <0.300.0> amqp_connection_type_sup:init/1 --> {ok,{{one_for_all,0,1},[]}}
+
+返回一个进程号 <0.300.0> 
+3:56:29.064133 <0.299.0> amqp_connection_type_sup:start_link/0 --> {ok,<0.300.0>}
+
+
+# 这个进程号会传给 amqp_gen_connection 
+
+
+3:56:29.064228 <0.299.0> amqp_gen_connection:start_link(<0.300.0>, {amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]})
+
+start_link(TypeSup, AMQPParams) ->
+    gen_server:start_link(?MODULE, {TypeSup, AMQPParams}, []).
+
+
+
+3:56:29.064460 <0.301.0> amqp_gen_connection:init({<0.300.0>,
+ {amqp_params_network,<<"vstation">>,
+                      {plaintext,<<"vstation">>},
+                      <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
+                      none,
+                      [fun amqp_auth_mechanisms:plain/3,
+                       fun amqp_auth_mechanisms:amqplain/3],
+                      [],[]}})
+
+## amqp_gen_connection 的进程号为 <0.301.0>
+
+## 最后返回了  {ok,<0.299.0>,<0.301.0>}  {ok, _Sup, Connection} 也就是 amqp_connection_sup,amqp_connection_sup 
+而 amqp_connection_type_sup  是包含在 amqp_connection_sup 中的
+
+3:56:29.065001 <0.248.0> amqp_connection_sup:start_link/1 --> {ok,<0.299.0>,<0.301.0>}
+
+
+
+
+# 开始调用 amqp_gen_connection:connect(Connection).
+
+
+  注意这里又回到了进程 <0.219.0>  也就是shell进程中了，然后以 amqp_gen_connection 启动的进程作为参数
+
+3:56:29.065229 <0.219.0> amqp_gen_connection:connect(<0.301.0>)
+
+
+这里其实就是把请求发送给 amqp_gen_connection 这个Server的进程, 
+这里其实是一个gen_server 的server服务器，发送请求为connect
+connect(Pid) ->
+    gen_server:call(Pid, connect, amqp_util:call_timeout()).
+
+
+# 此时 amqp_gen_connection 这个Server <0.301.0> 开始响应 handle_call ， 进程来源为 <0.219.0> ，也就是shell，启动start的
+  里面存储着进程 amqp_connection_type_sup  <0.300.0>
+
+3:56:29.065517 <0.301.0> amqp_gen_connection:handle_call(connect, {<0.219.0>,[alias|#Ref<0.2468946279.4038656001.46754>]}, {<0.300.0>,
+ {amqp_params_network,<<"vstation">>,
+                      {plaintext,<<"vstation">>},
+                      <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
+                      none,
+                      [fun amqp_auth_mechanisms:plain/3,
+                       fun amqp_auth_mechanisms:amqplain/3],
+                      [],[]}})
+
+
+3:56:29.065903 <0.301.0> amqp_connection_type_sup:type_module/1 --> {network,amqp_network_connection}
+
+
+3:56:29.066092 <0.301.0> amqp_network_connection:init()
+3:56:29.066138 <0.301.0> amqp_network_connection:init/0 --> {ok,{state,undefined,undefined,undefined,undefined,undefined,undefined,
+           undefined,false}}
+
+%  SIF = amqp_connection_type_sup:start_infrastructure_fun(TypeSup, self(), Type),
+
+其实这里的 TypeSup <0.300.0> 对应的启动模块就是它本身 amqp_connection_type_sup
+这里有个知识点，就是闭包函数
+3:56:29.067007 <0.301.0> amqp_connection_type_sup:start_infrastructure_fun(<0.300.0>, <0.301.0>, network)
+3:56:29.067459 <0.301.0> amqp_connection_type_sup:start_infrastructure_fun/3 --> #Fun<amqp_connection_type_sup.0.83209754>
+
+
+
+%% connect(AmqpParams = #amqp_params_network{host = Host}, SIF, TypeSup, State) ->
+
+3:56:29.067713 <0.301.0> amqp_network_connection:connect({amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]}, #Fun<amqp_connection_type_sup.0.83209754>, <0.300.0>, {state,undefined,undefined,undefined,undefined,undefined,undefined,undefined,
+       false})
+
+3:56:29.067921 <0.301.0> amqp_network_connection:gethostaddr("192.168.142.133")
+3:56:29.068148 <0.301.0> amqp_network_connection:resolve_address("192.168.142.133", [inet,inet6])
+3:56:29.068195 <0.301.0> amqp_network_connection:resolve_address/2 --> {{192,168,142,133},inet}
+3:56:29.068318 <0.301.0> amqp_network_connection:gethostaddr/1 --> {{192,168,142,133},inet}
+
+3:56:29.068454 <0.301.0> amqp_network_connection:do_connect({{192,168,142,133},inet}, {amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]}, #Fun<amqp_connection_type_sup.0.83209754>, {state,undefined,undefined,undefined,undefined,undefined,<0.300.0>,undefined,
+       false})
+
+
+%% {ok, Sock}     -> try_handshake(AmqpParams, SIF,
+                                        State#state{sock = Sock});
+   在这里把Sock变量补充了进来
+3:56:29.069084 <0.301.0> amqp_network_connection:try_handshake({amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]}, #Fun<amqp_connection_type_sup.0.83209754>, {state,#Port<0.8>,undefined,undefined,undefined,undefined,<0.300.0>,undefined,
+       false})
+
+3:56:29.069367 <0.301.0> rabbit_net:connection_string(#Port<0.8>, outbound)
+
+3:56:29.069474 <0.301.0> rabbit_net:socket_ends(#Port<0.8>, outbound)
+
+3:56:29.069571 <0.301.0> rabbit_net:sock_funs(outbound)
+
+% 根据连接是 inbound还是outbound 用来获取本地Sock和  对端Sock
+  sock_funs(inbound)  -> {fun peername/1, fun sockname/1};
+  sock_funs(outbound) -> {fun sockname/1, fun peername/1}.
+ 
+最终获取到socket的本地端和源端
+3:56:29.070368 <0.301.0> rabbit_net:socket_ends/2 --> {ok,{{192,168,142,151},55332,{192,168,142,133},5672}}
+
+3:56:29.070480 <0.301.0>  '--> rabbit_net:connection_string/2
+
+3:56:29.070558 <0.301.0> rabbit_net:maybe_ntoab({192,168,142,151})
+
+3:56:29.070663 <0.301.0> rabbit_misc:ntoab({192,168,142,151})
+
+3:56:29.070726 <0.301.0> rabbit_misc:ntoa({192,168,142,151})
+
+3:56:29.070829 <0.301.0> rabbit_misc:ntoa/1 --> "192.168.142.151"
+
+3:56:29.070910 <0.301.0>  '--> rabbit_misc:ntoab/1
+
+3:56:29.070963 <0.301.0> rabbit_misc:ntoab/1 --> "192.168.142.151"
+
+3:56:29.071037 <0.301.0> rabbit_net:maybe_ntoab/1 --> "192.168.142.151"
+
+3:56:29.071088 <0.301.0>  '--> rabbit_net:connection_string/2
+
+3:56:29.071140 <0.301.0> rabbit_net:maybe_ntoab({192,168,142,133})
+
+3:56:29.071196 <0.301.0> rabbit_misc:ntoab({192,168,142,133})
+
+3:56:29.071267 <0.301.0> rabbit_misc:ntoa({192,168,142,133})
+
+3:56:29.071309 <0.301.0> rabbit_misc:ntoa/1 --> "192.168.142.133"
+
+3:56:29.071364 <0.301.0>  '--> rabbit_misc:ntoab/1
+
+3:56:29.071400 <0.301.0> rabbit_misc:ntoab/1 --> "192.168.142.133"
+
+3:56:29.071441 <0.301.0> rabbit_net:maybe_ntoab/1 --> "192.168.142.133"
+
+3:56:29.071494 <0.301.0>  '--> rabbit_net:connection_string/2
+
+转换成了字符串
+3:56:29.071577 <0.301.0> rabbit_misc:format("~s:~p -> ~s:~p", ["192.168.142.151",55332,"192.168.142.133",5672])
+最终转换成的样子：
+3:56:29.071687 <0.301.0> rabbit_misc:format/2 --> "192.168.142.151:55332 -> 192.168.142.133:5672"
+
+
+
+
+3:56:29.071791 <0.301.0> rabbit_net:connection_string/2 --> {ok,"192.168.142.151:55332 -> 192.168.142.133:5672"}
+
+3:56:29.071843 <0.301.0>  '--> amqp_network_connection:try_handshake/3
+
+%% 这里就成了二进制 
+3:56:29.071894 <0.301.0> amqp_network_connection:handshake({amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]}, #Fun<amqp_connection_type_sup.0.83209754>, {state,#Port<0.8>,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,
+       undefined,undefined,undefined,<0.300.0>,undefined,false})
+
+%% handshake(AmqpParams, SIF, State0 = #state{sock = Sock}) ->
+
+%% 先发送协议头
+ -define(PROTOCOL_HEADER, <<"AMQP", 0, 0, 9, 1>>).
+Advanced Message Queueing Protocol
+    Protocol: AMQP
+    Protocol ID Major: 0
+    Protocol ID Minor: 0
+    Version Major: 9
+    Version Minor: 1
+
+3:56:29.072125 <0.301.0> rabbit_net:send(#Port<0.8>, <<65,77,81,80,0,0,9,1>>)
+
+3:56:29.072317 <0.301.0> amqp_network_connection:start_infrastructure(#Fun<amqp_connection_type_sup.0.83209754>, {state,#Port<0.8>,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,
+       undefined,undefined,undefined,<0.300.0>,undefined,false})
+
+%% {ok, ChMgr} = start_channels_manager(Sup, Conn, ConnName, network),
+
+3:56:29.072561 <0.301.0> amqp_connection_type_sup:start_channels_manager(<0.300.0>, <0.301.0>, <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>, network)
+
+
+%% 派生一个新进程 <0.304.0> 
+%% 上面还是 <0.301.0>  再执行，这里就变成了 <0.300.0> 
+%% 看函数签名 #Fun<amqp_connection_type_sup.0.83209754> 也能知道 是 amqp_connection_type_sup 
+3:56:29.072846 <0.300.0> amqp_channel_sup_sup:start_link(network, <0.301.0>, <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>)
+
+%% 这里是进程  <0.304.0> 在执行
+3:56:29.072944 <0.304.0> amqp_channel_sup_sup:init([network,<0.301.0>,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>])
+
+%% 初始化的时候，里面保存着  Connection, 以及socket信息，访问类型
+3:56:29.073034 <0.304.0> amqp_channel_sup_sup:init/1 --> {ok,{{simple_one_for_one,0,1},
+     [{channel_sup,{amqp_channel_sup,start_link,
+                                     [network,<0.301.0>,
+                                      <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>]},
+                   temporary,infinity,supervisor,
+                   [amqp_channel_sup]}]}}
+
+3:56:29.073380 <0.300.0> amqp_channel_sup_sup:start_link/3 --> {ok,<0.304.0>}
+
+
+% 启动 amqp_channels_manager
+3:56:29.073832 <0.300.0> amqp_channels_manager:start_link(<0.301.0>, <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>, <0.304.0>)
+
+%% 一系列初始化之后，返回一个进程
+3:56:29.074710 <0.300.0> amqp_channels_manager:start_link/3 --> {ok,<0.305.0>}
+
+3:56:29.074807 <0.300.0>  '--> supervisor2:do_start_child_i/3
+
+3:56:29.074851 <0.301.0> amqp_connection_type_sup:start_channels_manager/4 --> {ok,<0.305.0>}
+
+start_infrastructure_fun 的一个函数结束 到这里结束 {ok, ChMgr} = start_channels_manager(Sup, Conn, ConnName, network),
+
+3:56:29.074897 <0.301.0>  '--> amqp_connection_type_sup:'-start_infrastructure_fun/3-fun-0-'/4
+
+%% 继续下一个 rabbit_command_assembler:init(?PROTOCOL),
+得到 AState
+ 
+3:56:29.074954 <0.301.0> rabbit_command_assembler:init(rabbit_framing_amqp_0_9_1)
+
+3:56:29.074996 <0.301.0> rabbit_command_assembler:init/1 --> {ok,{method,rabbit_framing_amqp_0_9_1}}
+
+{ok, Writer} =
+    supervisor2:start_child(
+      Sup,
+      {writer,
+       {rabbit_writer, start_link,
+        [Sock, 0, ?FRAME_MIN_SIZE, ?PROTOCOL, Conn, ConnName,
+         false, GCThreshold]},
+       transient, ?WORKER_WAIT, worker, [rabbit_writer]}),
+
+%% 上面还是 <0.301.0>  再执行，同样这里也变成了 <0.300.0>  amqp_connection_type_sup
+3:56:29.075330 <0.300.0> rabbit_writer:start_link(#Port<0.8>, 0, 4096, rabbit_framing_amqp_0_9_1, <0.301.0>, <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>, false, 1000000000)
+
+start_link(Sock, Channel, FrameMax, Protocol, ReaderPid, Identity, ReaderWantsStats, GCThreshold) ->
+
+3:56:29.075423 <0.300.0> rabbit_writer:initial_state(#Port<0.8>, 0, 4096, rabbit_framing_amqp_0_9_1, <0.301.0>, false, 1000000000)
+
+-record(wstate, {
+    %% socket (port)
+    sock,
+    %% channel number
+    channel,
+    %% connection-negotiated frame_max setting
+    frame_max,
+    %% see #connection.protocol in rabbit_reader
+    protocol,
+    %% connection (rabbit_reader) process
+    reader,
+    %% statistics emission timer
+    stats_timer,
+    %% data pending delivery (between socket
+    %% flushes)
+    pending,
+    %% defines how ofter gc will be executed
+    writer_gc_threshold
+}).
+
+
+3:56:29.075533 <0.300.0> rabbit_event:init_disabled_stats_timer({wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,undefined,[],
+        1000000000}, 7)
+
+3:56:29.075630 <0.300.0> rabbit_event:init_disabled_stats_timer/2 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+3:56:29.075761 <0.300.0> rabbit_writer:initial_state/7 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+% 返回一个进程 <0.306.0>  {ok, proc_lib:spawn_link(?MODULE, enter_mainloop, [Identity, State])}.
+ 
+3:56:29.075927 <0.300.0> rabbit_writer:start_link/8 --> {ok,<0.306.0>}
+
+
+3:56:29.076023 <0.306.0> rabbit_writer:enter_mainloop(<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+
+3:56:29.076493 <0.306.0> rabbit_writer:mainloop([], {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.076611 <0.306.0> rabbit_writer:mainloop1([], {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+
+%% 里面包含 connection: #Port<0.8> amqp_gen_connection <0.301.0>,  amqp_channels_manager <0.305.0>
+3:56:29.076947 <0.300.0> amqp_main_reader:start_link(#Port<0.8>, <0.301.0>, <0.305.0>, {method,rabbit_framing_amqp_0_9_1}, <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>)
+
+3:56:29.077095 <0.307.0> amqp_main_reader:init([#Port<0.8>,<0.301.0>,
+ <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,<0.305.0>,
+ {method,rabbit_framing_amqp_0_9_1}])
+
+
+% 生成进程 <0.307.0>
+3:56:29.077942 <0.300.0> amqp_main_reader:start_link/5 --> {ok,<0.307.0>}
+
+rabbit_net:controlling_process(Sock, Reader)
+Assigns a new controlling process Pid to Socket. The controlling process is the process that receives messages from the socket. 
+把Sock的控制进程设置为 Reader,  也就是 amqp_main_reader
+
+3:56:29.078070 <0.301.0> rabbit_net:controlling_process(#Port<0.8>, <0.307.0>)
+
+% 设置 Socket 属性
+3:56:29.078309 <0.301.0> amqp_main_reader:post_init(<0.307.0>)
+3:56:29.078373 <0.307.0> amqp_main_reader:handle_call(post_init, {<0.301.0>,[alias|#Ref<0.2468946279.4038656001.46806>]}, {state,#Port<0.8>,undefined,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+3:56:29.078548 <0.307.0> rabbit_net:setopts(#Port<0.8>, [{active,once}])
+
+
+3:56:29.078983 <0.307.0> amqp_main_reader:cancel_timeout({state,#Port<0.8>,undefined,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+3:56:29.079102 <0.307.0> amqp_main_reader:cancel_timeout/1 --> {state,#Port<0.8>,undefined,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none}
+
+3:56:29.079238 <0.307.0>  '--> amqp_main_reader:set_timeout/1
+
+3:56:29.079922 <0.307.0> amqp_main_reader:set_timeout/1 --> {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46807>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none}
+
+
+
+
+%% ok              -> {reply, ok, set_timeout(State)};
+
+3:56:29.080109 <0.307.0> amqp_main_reader:handle_call/3 --> {reply,ok,
+       {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46807>,<0.301.0>,
+              <0.305.0>,
+              {method,rabbit_framing_amqp_0_9_1},
+              none}}
+
+
+%% 到这里为止 amqp_network_connection:start_infrastructure 调用完毕
+3:56:29.080733 <0.301.0> amqp_network_connection:start_infrastructure/2 --> {ok,<0.305.0>,
+    {state,#Port<0.8>,
+           <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,
+           undefined,<0.306.0>,undefined,<0.300.0>,undefined,false}}
+
+%%% 开始发送 connection.start
+3:56:29.080993 <0.301.0> amqp_network_connection:network_handshake({amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]}, {<0.305.0>,
+ {state,#Port<0.8>,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,
+        undefined,<0.306.0>,undefined,<0.300.0>,undefined,false}})
+
+3:56:29.081255 <0.301.0> amqp_network_connection:handshake_recv('connection.start')
+
+%% 因为   amqp_main_reader接管了这个socket,  rabbit_net:controlling_process(Sock, Reader)
+
+%% handle_info({Tag, Sock, Data}, State = #state{sock = Sock})
+
+接受请求
+3:56:29.081375 <0.307.0> amqp_main_reader:handle_info({tcp,#Port<0.8>,
+     <<1,0,0,0,0,2,6,0,10,0,10,0,9,0,0,1,225,12,99,97,112,97,98,105,108,105,
+.......
+       78,32,80,76,65,73,78,0,0,0,5,101,110,95,85,83,206>>}, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46807>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+3:56:29.082671 <0.307.0> rabbit_net:setopts(#Port<0.8>, [{active,once}])
+
+%% 开始解析
+3:56:29.084259 <0.307.0> amqp_main_reader:handle_data(<<1,0,0,0,0,2,6,0,10,0,10,0,9,0,0,1,225,12,99,97,112,97,98,105,108,105,116,105,
+.....
+这里的 206 也就是 0xCE是结束符
+  65,73,78,32,80,76,65,73,78,0,0,0,5,101,110,95,85,83,206>>, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46810>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+根据 类型判断
+-define(FRAME_METHOD, 1).
+-define(FRAME_HEADER, 2).
+-define(FRAME_BODY, 3).
+-define(FRAME_HEARTBEAT, 8).
+
+3:56:29.084925 <0.307.0> amqp_main_reader:process_frame(1, 0, <<0,10,0,10,0,9,0,0,1,225,12,99,97,112,97,98,105,108,105,116,105,101,115,70,0,
+........
+  76,65,73,78,0,0,0,5,101,110,95,85,83>>, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46810>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+不能在0号channel 回复心跳
+    case rabbit_command_assembler:analyze_frame(Type, Payload, ?PROTOCOL) of
+        heartbeat when ChNumber /= 0 ->
+            amqp_gen_connection:server_misbehaved(
+                Connection,
+                #amqp_error{name        = command_invalid,
+                            explanation = "heartbeat on non-zero channel"}),
+
+3:56:29.085645 <0.307.0> rabbit_command_assembler:analyze_frame(1, <<0,10,0,10,0,9,0,0,1,225,12,99,97,112,97,98,105,108,105,116,105,101,115,70,0,
+........
+  76,65,73,78,0,0,0,5,101,110,95,85,83>>, rabbit_framing_amqp_0_9_1)
+
+3:56:29.086395 <0.307.0> rabbit_framing_amqp_0_9_1:lookup_method_name({10,10})
+
+3:56:29.086520 <0.307.0> rabbit_framing_amqp_0_9_1:lookup_method_name/1 --> 'connection.start'
+
+3:56:29.087493 <0.307.0> amqp_channels_manager:process_channel_frame({method,'connection.start',
+        <<0,9,0,0,1,225,12,99,97,112,97,98,105,108,105,116,105,101,115,70,0,0,
+........
+          73,78,0,0,0,5,101,110,95,85,83>>}, 0, <0.301.0>, {method,rabbit_framing_amqp_0_9_1})
+
+3:56:29.088100 <0.307.0> rabbit_command_assembler:process({method,'connection.start',
+        <<0,9,0,0,1,225,12,99,97,112,97,98,105,108,105,116,105,101,115,70,0,0,
+........
+          73,78,0,0,0,5,101,110,95,85,83>>}, {method,rabbit_framing_amqp_0_9_1})
+
+3:56:29.088648 <0.307.0> rabbit_framing_amqp_0_9_1:decode_method_fields('connection.start', <<0,9,0,0,1,225,12,99,97,112,97,98,105,108,105,116,105,101,115,70,0,0,0,199,18,
+...
+  0,0,0,5,101,110,95,85,83>>)
+
+%%% 注意这是十进制
+3:56:29.089159 <0.307.0> rabbit_binary_parser:parse_table(<<12,99,97,112,97,98,105,108,105,116,105,101,115,70,0,0,0,199,
+12 个字节 99,97,112,97,98,105,108,105,116,105,101,115
+Type: 70 = 0x46 = F
+0,0,0,199
+
+这里是个 递归解析
+18,112,117,98,
+  108,105,115,104,101,114,95,99,111,110,102,105,114,109,115,
+$t = 116,
+1,
+26,101,120,
+  99,104,97,110,103,101,95,101,120,99,104,97,110,103,101,95,98,105,110,100,105,
+  110,103,115,116,1,10,98,97,115,105,99,46,110,97,99,107,116,1,22,99,111,110,
+  115,117,109,101,114,95,99,97,110,99,101,108,95,110,111,116,105,102,121,116,1,
+  18,99,111,110,110,101,99,116,105,111,110,46,98,108,111,99,107,101,100,116,1,
+  19,99,111,110,115,117,109,101,114,95,112,114,105,111,114,105,116,105,101,115,
+  116,1,28,97,117,116,104,101,110,116,105,99,97,116,105,111,110,95,102,97,105,
+  108,117,114,101,95,99,108,111,115,101,116,1,16,112,101,114,95,99,111,110,115,
+  117,109,101,114,95,113,111,115,116,1,15,100,105,114,101,99,116,95,114,101,
+  112,108,121,95,116,111,116,1,12,99,108,117,115,116,101,114,95,110,97,109,101,
+  83,0,0,0,17,114,97,98,98,105,116,64,99,101,110,116,111,115,55,45,109,113,9,
+  99,111,112,121,114,105,103,104,116,83,0,0,0,55,67,111,112,121,114,105,103,
+  104,116,32,40,99,41,32,50,48,48,55,45,50,48,50,50,32,86,77,119,97,114,101,44,
+  32,73,110,99,46,32,111,114,32,105,116,115,32,97,102,102,105,108,105,97,116,
+  101,115,46,11,105,110,102,111,114,109,97,116,105,111,110,83,0,0,0,57,76,105,
+  99,101,110,115,101,100,32,117,110,100,101,114,32,116,104,101,32,77,80,76,32,
+  50,46,48,46,32,87,101,98,115,105,116,101,58,32,104,116,116,112,115,58,47,47,
+  114,97,98,98,105,116,109,113,46,99,111,109,8,112,108,97,116,102,111,114,109,
+  83,0,0,0,17,69,114,108,97,110,103,47,79,84,80,32,50,53,46,48,46,52,7,112,114,
+  111,100,117,99,116,83,0,0,0,8,82,97,98,98,105,116,77,81,7,118,101,114,115,
+  105,111,110,83,0,0,0,20,51,46,56,46,49,48,43,49,54,57,55,46,103,54,101,99,54,
+  56,99,98>>)
+
+3:56:29.089589 <0.307.0> rabbit_binary_parser:parse_table(<<18,112,117,98,108,105,115,104,101,114,95,99,111,110,102,105,114,109,115,116,
+  1,26,101,120,99,104,97,110,103,101,95,101,120,99,104,97,110,103,101,95,98,
+  105,110,100,105,110,103,115,116,1,10,98,97,115,105,99,46,110,97,99,107,116,1,
+  22,99,111,110,115,117,109,101,114,95,99,97,110,99,101,108,95,110,111,116,105,
+  102,121,116,1,18,99,111,110,110,101,99,116,105,111,110,46,98,108,111,99,107,
+  101,100,116,1,19,99,111,110,115,117,109,101,114,95,112,114,105,111,114,105,
+  116,105,101,115,116,1,28,97,117,116,104,101,110,116,105,99,97,116,105,111,
+  110,95,102,97,105,108,117,114,101,95,99,108,111,115,101,116,1,16,112,101,114,
+  95,99,111,110,115,117,109,101,114,95,113,111,115,116,1,15,100,105,114,101,99,
+  116,95,114,101,112,108,121,95,116,111,116,1>>)
+
+3:56:29.089930 <0.307.0> rabbit_binary_parser:parse_table(<<26,101,120,99,104,97,110,103,101,95,101,120,99,104,97,110,103,101,95,98,105,
+  110,100,105,110,103,115,116,1,10,98,97,115,105,99,46,110,97,99,107,116,1,22,
+  99,111,110,115,117,109,101,114,95,99,97,110,99,101,108,95,110,111,116,105,
+  102,121,116,1,18,99,111,110,110,101,99,116,105,111,110,46,98,108,111,99,107,
+  101,100,116,1,19,99,111,110,115,117,109,101,114,95,112,114,105,111,114,105,
+  116,105,101,115,116,1,28,97,117,116,104,101,110,116,105,99,97,116,105,111,
+  110,95,102,97,105,108,117,114,101,95,99,108,111,115,101,116,1,16,112,101,114,
+  95,99,111,110,115,117,109,101,114,95,113,111,115,116,1,15,100,105,114,101,99,
+  116,95,114,101,112,108,121,95,116,111,116,1>>)
+
+3:56:29.090154 <0.307.0> rabbit_binary_parser:parse_table(<<10,98,97,115,105,99,46,110,97,99,107,116,1,22,99,111,110,115,117,109,101,114,
+  95,99,97,110,99,101,108,95,110,111,116,105,102,121,116,1,18,99,111,110,110,
+  101,99,116,105,111,110,46,98,108,111,99,107,101,100,116,1,19,99,111,110,115,
+  117,109,101,114,95,112,114,105,111,114,105,116,105,101,115,116,1,28,97,117,
+  116,104,101,110,116,105,99,97,116,105,111,110,95,102,97,105,108,117,114,101,
+  95,99,108,111,115,101,116,1,16,112,101,114,95,99,111,110,115,117,109,101,114,
+  95,113,111,115,116,1,15,100,105,114,101,99,116,95,114,101,112,108,121,95,116,
+  111,116,1>>)
+
+3:56:29.090438 <0.307.0> rabbit_binary_parser:parse_table(<<22,99,111,110,115,117,109,101,114,95,99,97,110,99,101,108,95,110,111,116,105,
+  102,121,116,1,18,99,111,110,110,101,99,116,105,111,110,46,98,108,111,99,107,
+  101,100,116,1,19,99,111,110,115,117,109,101,114,95,112,114,105,111,114,105,
+  116,105,101,115,116,1,28,97,117,116,104,101,110,116,105,99,97,116,105,111,
+  110,95,102,97,105,108,117,114,101,95,99,108,111,115,101,116,1,16,112,101,114,
+  95,99,111,110,115,117,109,101,114,95,113,111,115,116,1,15,100,105,114,101,99,
+  116,95,114,101,112,108,121,95,116,111,116,1>>)
+
+3:56:29.090630 <0.307.0> rabbit_binary_parser:parse_table(<<18,99,111,110,110,101,99,116,105,111,110,46,98,108,111,99,107,101,100,116,1,
+  19,99,111,110,115,117,109,101,114,95,112,114,105,111,114,105,116,105,101,115,
+  116,1,28,97,117,116,104,101,110,116,105,99,97,116,105,111,110,95,102,97,105,
+  108,117,114,101,95,99,108,111,115,101,116,1,16,112,101,114,95,99,111,110,115,
+  117,109,101,114,95,113,111,115,116,1,15,100,105,114,101,99,116,95,114,101,
+  112,108,121,95,116,111,116,1>>)
+
+3:56:29.090791 <0.307.0> rabbit_binary_parser:parse_table(<<19,99,111,110,115,117,109,101,114,95,112,114,105,111,114,105,116,105,101,115,
+  116,1,28,97,117,116,104,101,110,116,105,99,97,116,105,111,110,95,102,97,105,
+  108,117,114,101,95,99,108,111,115,101,116,1,16,112,101,114,95,99,111,110,115,
+  117,109,101,114,95,113,111,115,116,1,15,100,105,114,101,99,116,95,114,101,
+  112,108,121,95,116,111,116,1>>)
+
+3:56:29.090977 <0.307.0> rabbit_binary_parser:parse_table(<<28,97,117,116,104,101,110,116,105,99,97,116,105,111,110,95,102,97,105,108,
+  117,114,101,95,99,108,111,115,101,116,1,16,112,101,114,95,99,111,110,115,117,
+  109,101,114,95,113,111,115,116,1,15,100,105,114,101,99,116,95,114,101,112,
+  108,121,95,116,111,116,1>>)
+
+3:56:29.091108 <0.307.0> rabbit_binary_parser:parse_table(<<16,112,101,114,95,99,111,110,115,117,109,101,114,95,113,111,115,116,1,15,100,
+  105,114,101,99,116,95,114,101,112,108,121,95,116,111,116,1>>)
+
+3:56:29.091243 <0.307.0> rabbit_binary_parser:parse_table(<<15,100,105,114,101,99,116,95,114,101,112,108,121,95,116,111,116,1>>)
+
+3:56:29.091350 <0.307.0> rabbit_binary_parser:parse_table(<<>>)
+
+3:56:29.091397 <0.307.0> rabbit_binary_parser:parse_table/1 --> []
+
+3:56:29.091438 <0.307.0>  '--> rabbit_binary_parser:parse_table/1
+
+%%%% -spec parse_table(binary()) -> rabbit_framing:amqp_table().
+
+
+%% 最终就解析出来了 "direct_reply_to" 这个字符串就是解析出来的内容
+3:56:29.091474 <0.307.0> rabbit_binary_parser:parse_table/1 --> [{<<"direct_reply_to">>,bool,true}]
+
+3:56:29.091567 <0.307.0> rabbit_binary_parser:parse_table/1 --> [{<<"per_consumer_qos">>,bool,true},{<<"direct_reply_to">>,bool,true}]
+
+3:56:29.091723 <0.307.0> rabbit_binary_parser:parse_table/1 --> [{<<"authentication_failure_close">>,bool,true},
+ {<<"per_consumer_qos">>,bool,true},
+ {<<"direct_reply_to">>,bool,true}]
+
+3:56:29.091899 <0.307.0> rabbit_binary_parser:parse_table/1 --> [{<<"consumer_priorities">>,bool,true},
+ {<<"authentication_failure_close">>,bool,true},
+ {<<"per_consumer_qos">>,bool,true},
+ {<<"direct_reply_to">>,bool,true}]
+3:56:29.092112 <0.307.0> rabbit_binary_parser:parse_table/1 --> [{<<"connection.blocked">>,bool,true},
+ {<<"consumer_priorities">>,bool,true},
+ {<<"authentication_failure_close">>,bool,true},
+ {<<"per_consumer_qos">>,bool,true},
+ {<<"direct_reply_to">>,bool,true}]
+3:56:29.092314 <0.307.0> rabbit_binary_parser:parse_table/1 --> [{<<"consumer_cancel_notify">>,bool,true},
+ {<<"connection.blocked">>,bool,true},
+ {<<"consumer_priorities">>,bool,true},
+ {<<"authentication_failure_close">>,bool,true},
+ {<<"per_consumer_qos">>,bool,true},
+ {<<"direct_reply_to">>,bool,true}]
+3:56:29.092539 <0.307.0> rabbit_binary_parser:parse_table/1 --> [{<<"basic.nack">>,bool,true},
+ {<<"consumer_cancel_notify">>,bool,true},
+ {<<"connection.blocked">>,bool,true},
+ {<<"consumer_priorities">>,bool,true},
+ {<<"authentication_failure_close">>,bool,true},
+ {<<"per_consumer_qos">>,bool,true},
+ {<<"direct_reply_to">>,bool,true}]
+3:56:29.092731 <0.307.0> rabbit_binary_parser:parse_table/1 --> [{<<"exchange_exchange_bindings">>,bool,true},
+ {<<"basic.nack">>,bool,true},
+ {<<"consumer_cancel_notify">>,bool,true},
+ {<<"connection.blocked">>,bool,true},
+ {<<"consumer_priorities">>,bool,true},
+ {<<"authentication_failure_close">>,bool,true},
+ {<<"per_consumer_qos">>,bool,true},
+ {<<"direct_reply_to">>,bool,true}]
+3:56:29.093017 <0.307.0> rabbit_binary_parser:parse_table/1 --> [{<<"publisher_confirms">>,bool,true},
+ {<<"exchange_exchange_bindings">>,bool,true},
+ {<<"basic.nack">>,bool,true},
+ {<<"consumer_cancel_notify">>,bool,true},
+ {<<"connection.blocked">>,bool,true},
+ {<<"consumer_priorities">>,bool,true},
+ {<<"authentication_failure_close">>,bool,true},
+ {<<"per_consumer_qos">>,bool,true},
+ {<<"direct_reply_to">>,bool,true}]
+
+%%到此解析了一部分
+Server-Properties
+    capabilities (field table)
+        publisher_confirms (boolean): true
+        exchange_exchange_bindings (boolean): true
+        basic.nack (boolean): true
+        consumer_cancel_notify (boolean): true
+        connection.blocked (boolean): true
+        consumer_priorities (boolean): true
+        authentication_failure_close (boolean): true
+        per_consumer_qos (boolean): true
+        direct_reply_to (boolean): true
+
+3:56:29.093263 <0.307.0> rabbit_binary_parser:parse_table(<<12,99,108,117,115,116,101,114,95,110,97,109,101,83,0,0,0,17,114,97,98,98,105,
+...... 继续解析
+  46,49,48,43,49,54,57,55,46,103,54,101,99,54,56,99,98>>)
+
+    cluster_name (string): rabbit@centos7-mq
+    copyright (string): Copyright (c) 2007-2022 VMware, Inc. or its affiliates.
+    information (string): Licensed under the MPL 2.0. Website: https://rabbitmq.com
+    platform (string): Erlang/OTP 25.0.4
+    product (string): RabbitMQ
+    version (string): 3.8.10+1697.g6ec68cb
+
+....
+3:56:29.096441 <0.307.0> rabbit_binary_parser:parse_table/1 --> [{<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+ {<<"copyright">>,longstr,
+  <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+ {<<"information">>,longstr,
+  <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+ {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+ {<<"product">>,longstr,<<"RabbitMQ">>},
+ {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}]
+
+%% 全部汇总起来
+3:56:29.096620 <0.307.0> rabbit_binary_parser:parse_table/1 --> [{<<"capabilities">>,table,
+  [{<<"publisher_confirms">>,bool,true},
+   {<<"exchange_exchange_bindings">>,bool,true},
+   {<<"basic.nack">>,bool,true},
+   {<<"consumer_cancel_notify">>,bool,true},
+   {<<"connection.blocked">>,bool,true},
+   {<<"consumer_priorities">>,bool,true},
+   {<<"authentication_failure_close">>,bool,true},
+   {<<"per_consumer_qos">>,bool,true},
+   {<<"direct_reply_to">>,bool,true}]},
+ {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+ {<<"copyright">>,longstr,
+  <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+ {<<"information">>,longstr,
+  <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+ {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+ {<<"product">>,longstr,<<"RabbitMQ">>},
+ {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}]
+
+3:56:29.096907 <0.307.0>  '--> rabbit_framing_amqp_0_9_1:decode_method_fields/2
+
+3:56:29.096963 <0.307.0> rabbit_framing_amqp_0_9_1:decode_method_fields/2 --> {'connection.start',0,9,
+                    [{<<"capabilities">>,table,
+                      [{<<"publisher_confirms">>,bool,true},
+                       {<<"exchange_exchange_bindings">>,bool,true},
+                       {<<"basic.nack">>,bool,true},
+                       {<<"consumer_cancel_notify">>,bool,true},
+                       {<<"connection.blocked">>,bool,true},
+                       {<<"consumer_priorities">>,bool,true},
+                       {<<"authentication_failure_close">>,bool,true},
+                       {<<"per_consumer_qos">>,bool,true},
+                       {<<"direct_reply_to">>,bool,true}]},
+                     {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+                     {<<"copyright">>,longstr,
+                      <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+                     {<<"information">>,longstr,
+                      <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+                     {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+                     {<<"product">>,longstr,<<"RabbitMQ">>},
+                     {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+                    <<"AMQPLAIN PLAIN">>,<<"en_US">>}
+
+
+3:56:29.097396 <0.307.0> rabbit_framing_amqp_0_9_1:method_has_content('connection.start')
+3:56:29.097501 <0.307.0> rabbit_framing_amqp_0_9_1:method_has_content/1 --> false
+
+%% 协议解析完毕
+3:56:29.097601 <0.307.0> rabbit_command_assembler:process/2 --> {ok,{'connection.start',0,9,
+                        [{<<"capabilities">>,table,
+                          [{<<"publisher_confirms">>,bool,true},
+                           {<<"exchange_exchange_bindings">>,bool,true},
+                           {<<"basic.nack">>,bool,true},
+                           {<<"consumer_cancel_notify">>,bool,true},
+                           {<<"connection.blocked">>,bool,true},
+                           {<<"consumer_priorities">>,bool,true},
+                           {<<"authentication_failure_close">>,bool,true},
+                           {<<"per_consumer_qos">>,bool,true},
+                           {<<"direct_reply_to">>,bool,true}]},
+                         {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+                         {<<"copyright">>,longstr,
+                          <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+                         {<<"information">>,longstr,
+                          <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+                         {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+                         {<<"product">>,longstr,<<"RabbitMQ">>},
+                         {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+                        <<"AMQPLAIN PLAIN">>,<<"en_US">>},
+    {method,rabbit_framing_amqp_0_9_1}}
+
+%%%% 返回 State#state{astate = amqp_channels_manager:process_channel_frame(
+                                   AnalyzedFrame, 0, Connection, AState)}
+
+3:56:29.098294 <0.307.0>  '--> amqp_channels_manager:process_channel_frame/4
+
+3:56:29.098640 <0.307.0> rabbit_channel_common:do(<0.301.0>, {'connection.start',0,9,
+                    [{<<"capabilities">>,table,
+                      [{<<"publisher_confirms">>,bool,true},
+                       {<<"exchange_exchange_bindings">>,bool,true},
+                       {<<"basic.nack">>,bool,true},
+                       {<<"consumer_cancel_notify">>,bool,true},
+                       {<<"connection.blocked">>,bool,true},
+                       {<<"consumer_priorities">>,bool,true},
+                       {<<"authentication_failure_close">>,bool,true},
+                       {<<"per_consumer_qos">>,bool,true},
+                       {<<"direct_reply_to">>,bool,true}]},
+                     {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+                     {<<"copyright">>,longstr,
+                      <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+                     {<<"information">>,longstr,
+                      <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+                     {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+                     {<<"product">>,longstr,<<"RabbitMQ">>},
+                     {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+                    <<"AMQPLAIN PLAIN">>,<<"en_US">>})
+
+3:56:29.099036 <0.307.0> rabbit_channel_common:do(<0.301.0>, {'connection.start',0,9,
+                    [{<<"capabilities">>,table,
+                      [{<<"publisher_confirms">>,bool,true},
+                       {<<"exchange_exchange_bindings">>,bool,true},
+                       {<<"basic.nack">>,bool,true},
+                       {<<"consumer_cancel_notify">>,bool,true},
+                       {<<"connection.blocked">>,bool,true},
+                       {<<"consumer_priorities">>,bool,true},
+                       {<<"authentication_failure_close">>,bool,true},
+                       {<<"per_consumer_qos">>,bool,true},
+                       {<<"direct_reply_to">>,bool,true}]},
+                     {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+                     {<<"copyright">>,longstr,
+                      <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+                     {<<"information">>,longstr,
+                      <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+                     {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+                     {<<"product">>,longstr,<<"RabbitMQ">>},
+                     {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+                    <<"AMQPLAIN PLAIN">>,<<"en_US">>}, none)
+
+%% 传给301 ，但是这里并没有接收进程 注意这里是 gen_server2 而非 gen_server
+3:56:29.099429 <0.307.0> gen_server2:cast(<0.301.0>, {method,{'connection.start',0,9,
+                            [{<<"capabilities">>,table,
+                              [{<<"publisher_confirms">>,bool,true},
+                               {<<"exchange_exchange_bindings">>,bool,true},
+                               {<<"basic.nack">>,bool,true},
+                               {<<"consumer_cancel_notify">>,bool,true},
+                               {<<"connection.blocked">>,bool,true},
+                               {<<"consumer_priorities">>,bool,true},
+                               {<<"authentication_failure_close">>,bool,true},
+                               {<<"per_consumer_qos">>,bool,true},
+                               {<<"direct_reply_to">>,bool,true}]},
+                             {<<"cluster_name">>,longstr,
+                              <<"rabbit@centos7-mq">>},
+                             {<<"copyright">>,longstr,
+                              <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+                             {<<"information">>,longstr,
+                              <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+                             {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+                             {<<"product">>,longstr,<<"RabbitMQ">>},
+                             {<<"version">>,longstr,
+                              <<"3.8.10+1697.g6ec68cb">>}],
+                            <<"AMQPLAIN PLAIN">>,<<"en_US">>},
+        none,noflow})
+
+3:56:29.100161 <0.307.0> amqp_main_reader:process_frame/4 --> {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46810>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none}
+
+
+%%%  socket 接管之后的返回
+3:56:29.101016 <0.301.0> amqp_network_connection:handshake_recv/1 --> {'connection.start',0,9,
+                    [{<<"capabilities">>,table,
+                      [{<<"publisher_confirms">>,bool,true},
+                       {<<"exchange_exchange_bindings">>,bool,true},
+                       {<<"basic.nack">>,bool,true},
+                       {<<"consumer_cancel_notify">>,bool,true},
+                       {<<"connection.blocked">>,bool,true},
+                       {<<"consumer_priorities">>,bool,true},
+                       {<<"authentication_failure_close">>,bool,true},
+                       {<<"per_consumer_qos">>,bool,true},
+                       {<<"direct_reply_to">>,bool,true}]},
+                     {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+                     {<<"copyright">>,longstr,
+                      <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+                     {<<"information">>,longstr,
+                      <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+                     {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+                     {<<"product">>,longstr,<<"RabbitMQ">>},
+                     {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+                    <<"AMQPLAIN PLAIN">>,<<"en_US">>}
+
+% ok = check_version(Start),
+3:56:29.101477 <0.301.0> amqp_network_connection:check_version({'connection.start',0,9,
+                    [{<<"capabilities">>,table,
+                      [{<<"publisher_confirms">>,bool,true},
+                       {<<"exchange_exchange_bindings">>,bool,true},
+                       {<<"basic.nack">>,bool,true},
+                       {<<"consumer_cancel_notify">>,bool,true},
+                       {<<"connection.blocked">>,bool,true},
+                       {<<"consumer_priorities">>,bool,true},
+                       {<<"authentication_failure_close">>,bool,true},
+                       {<<"per_consumer_qos">>,bool,true},
+                       {<<"direct_reply_to">>,bool,true}]},
+                     {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+                     {<<"copyright">>,longstr,
+                      <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+                     {<<"information">>,longstr,
+                      <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+                     {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+                     {<<"product">>,longstr,<<"RabbitMQ">>},
+                     {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+                    <<"AMQPLAIN PLAIN">>,<<"en_US">>})
+
+3:56:29.101834 <0.301.0> amqp_network_connection:check_version/1 --> ok
+
+3:56:29.101923 <0.301.0>  '--> amqp_network_connection:network_handshake/2
+
+3:56:29.101976 <0.301.0> amqp_network_connection:login({amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]}, <<"AMQPLAIN PLAIN">>, {state,#Port<0.8>,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,
+       undefined,<0.306.0>,undefined,<0.300.0>,undefined,false})
+
+
+3:56:29.106179 <0.301.0> amqp_auth_mechanisms:plain(none, {amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]}, [])
+
+3:56:29.106372 <0.301.0> amqp_auth_mechanisms:plain/3 --> {<<0,118,115,116,97,116,105,111,110,0,118,115,116,97,116,105,111,110>>,[]}
+
+3:56:29.106454 <0.301.0>  '--> amqp_network_connection:login/3
+
+3:56:29.106512 <0.301.0> amqp_network_connection:client_properties([])
+
+3:56:29.106559 <0.301.0> amqp_network_connection:client_properties/1 --> [{<<"product">>,longstr,<<"RabbitMQ">>},
+ {<<"version">>,longstr,<<"3.11.2">>},
+ {<<"platform">>,longstr,<<"Erlang">>},
+ {<<"copyright">>,longstr,
+  <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+ {<<"information">>,longstr,
+  <<"Licensed under the MPL.  See https://www.rabbitmq.com/">>},
+ {<<"capabilities">>,table,
+  [{<<"publisher_confirms">>,bool,true},
+   {<<"exchange_exchange_bindings">>,bool,true},
+   {<<"basic.nack">>,bool,true},
+   {<<"consumer_cancel_notify">>,bool,true},
+   {<<"connection.blocked">>,bool,true},
+   {<<"authentication_failure_close">>,bool,true}]}]
+
+%% do2(StartOk, State),
+
+3:56:29.107046 <0.301.0> amqp_network_connection:do2({'connection.start_ok',[{<<"product">>,longstr,<<"RabbitMQ">>},
+                        {<<"version">>,longstr,<<"3.11.2">>},
+                        {<<"platform">>,longstr,<<"Erlang">>},
+                        {<<"copyright">>,longstr,
+                         <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+                        {<<"information">>,longstr,
+                         <<"Licensed under the MPL.  See https://www.rabbitmq.com/">>},
+                        {<<"capabilities">>,table,
+                         [{<<"publisher_confirms">>,bool,true},
+                          {<<"exchange_exchange_bindings">>,bool,true},
+                          {<<"basic.nack">>,bool,true},
+                          {<<"consumer_cancel_notify">>,bool,true},
+                          {<<"connection.blocked">>,bool,true},
+                          {<<"authentication_failure_close">>,bool,true}]}],
+                       <<"PLAIN">>,
+                       <<0,118,115,116,97,116,105,111,110,0,118,115,116,97,116,
+                         105,111,110>>,
+                       <<"en_US">>}, {state,#Port<0.8>,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,
+       undefined,<0.306.0>,undefined,<0.300.0>,undefined,false})
+
+%% 客户端信息发到Server
+3:56:29.107536 <0.301.0> rabbit_writer:send_command_sync(<0.306.0>, {'connection.start_ok',[{<<"product">>,longstr,<<"RabbitMQ">>},
+                        {<<"version">>,longstr,<<"3.11.2">>},
+                        {<<"platform">>,longstr,<<"Erlang">>},
+                        {<<"copyright">>,longstr,
+                         <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+                        {<<"information">>,longstr,
+                         <<"Licensed under the MPL.  See https://www.rabbitmq.com/">>},
+                        {<<"capabilities">>,table,
+                         [{<<"publisher_confirms">>,bool,true},
+                          {<<"exchange_exchange_bindings">>,bool,true},
+                          {<<"basic.nack">>,bool,true},
+                          {<<"consumer_cancel_notify">>,bool,true},
+                          {<<"connection.blocked">>,bool,true},
+                          {<<"authentication_failure_close">>,bool,true}]}],
+                       <<"PLAIN">>,
+                       <<0,118,115,116,97,116,105,111,110,0,118,115,116,97,116,
+                         105,111,110>>,
+                       <<"en_US">>})
+
+
+
+
+3:56:29.107996 <0.301.0> rabbit_writer:call(<0.306.0>, {send_command_sync,
+    {'connection.start_ok',
+        [{<<"product">>,longstr,<<"RabbitMQ">>},
+         {<<"version">>,longstr,<<"3.11.2">>},
+         {<<"platform">>,longstr,<<"Erlang">>},
+         {<<"copyright">>,longstr,
+          <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+         {<<"information">>,longstr,
+          <<"Licensed under the MPL.  See https://www.rabbitmq.com/">>},
+         {<<"capabilities">>,table,
+          [{<<"publisher_confirms">>,bool,true},
+           {<<"exchange_exchange_bindings">>,bool,true},
+           {<<"basic.nack">>,bool,true},
+           {<<"consumer_cancel_notify">>,bool,true},
+           {<<"connection.blocked">>,bool,true},
+           {<<"authentication_failure_close">>,bool,true}]}],
+        <<"PLAIN">>,
+        <<0,118,115,116,97,116,105,111,110,0,118,115,116,97,116,105,111,110>>,
+        <<"en_US">>}})
+
+% 会调用  gen:call 这个是 OTP库中的函数
+call(Pid, Msg) ->
+    {ok, Res} = gen:call(Pid, '$gen_call', Msg, infinity),
+    Res.
+
+
+%% 因为在这里接收消息 handle_message
+mainloop1(Deb, State) ->
+    receive
+        Message -> {Deb1, State1} = handle_message(Deb, Message, State),
+                   ?MODULE:mainloop1(Deb1, State1)
+    after 0 ->
+            ?MODULE:mainloop1(Deb, internal_flush(State))
+    end.
+
+3:56:29.108371 <0.306.0> rabbit_writer:handle_message([], {'$gen_call',
+    {<0.301.0>,#Ref<0.2468946279.4038590465.46812>},
+    {send_command_sync,
+        {'connection.start_ok',
+            [{<<"product">>,longstr,<<"RabbitMQ">>},
+             {<<"version">>,longstr,<<"3.11.2">>},
+             {<<"platform">>,longstr,<<"Erlang">>},
+             {<<"copyright">>,longstr,
+              <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+             {<<"information">>,longstr,
+              <<"Licensed under the MPL.  See https://www.rabbitmq.com/">>},
+             {<<"capabilities">>,table,
+              [{<<"publisher_confirms">>,bool,true},
+               {<<"exchange_exchange_bindings">>,bool,true},
+               {<<"basic.nack">>,bool,true},
+               {<<"consumer_cancel_notify">>,bool,true},
+               {<<"connection.blocked">>,bool,true},
+               {<<"authentication_failure_close">>,bool,true}]}],
+            <<"PLAIN">>,
+            <<0,118,115,116,97,116,105,111,110,0,118,115,116,97,116,105,111,110>>,
+            <<"en_US">>}}}, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.109088 <0.306.0> rabbit_writer:handle_message({'$gen_call',
+    {<0.301.0>,#Ref<0.2468946279.4038590465.46812>},
+    {send_command_sync,
+        {'connection.start_ok',
+            [{<<"product">>,longstr,<<"RabbitMQ">>},
+             {<<"version">>,longstr,<<"3.11.2">>},
+             {<<"platform">>,longstr,<<"Erlang">>},
+             {<<"copyright">>,longstr,
+              <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+             {<<"information">>,longstr,
+              <<"Licensed under the MPL.  See https://www.rabbitmq.com/">>},
+             {<<"capabilities">>,table,
+              [{<<"publisher_confirms">>,bool,true},
+               {<<"exchange_exchange_bindings">>,bool,true},
+               {<<"basic.nack">>,bool,true},
+               {<<"consumer_cancel_notify">>,bool,true},
+               {<<"connection.blocked">>,bool,true},
+               {<<"authentication_failure_close">>,bool,true}]}],
+            <<"PLAIN">>,
+            <<0,118,115,116,97,116,105,111,110,0,118,115,116,97,116,105,111,110>>,
+            <<"en_US">>}}}, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.109528 <0.306.0> rabbit_writer:internal_send_command_async({'connection.start_ok',[{<<"product">>,longstr,<<"RabbitMQ">>},
+                        {<<"version">>,longstr,<<"3.11.2">>},
+                        {<<"platform">>,longstr,<<"Erlang">>},
+                        {<<"copyright">>,longstr,
+                         <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+                        {<<"information">>,longstr,
+                         <<"Licensed under the MPL.  See https://www.rabbitmq.com/">>},
+                        {<<"capabilities">>,table,
+                         [{<<"publisher_confirms">>,bool,true},
+                          {<<"exchange_exchange_bindings">>,bool,true},
+                          {<<"basic.nack">>,bool,true},
+                          {<<"consumer_cancel_notify">>,bool,true},
+                          {<<"connection.blocked">>,bool,true},
+                          {<<"authentication_failure_close">>,bool,true}]}],
+                       <<"PLAIN">>,
+                       <<0,118,115,116,97,116,105,111,110,0,118,115,116,97,116,
+                         105,111,110>>,
+                       <<"en_US">>}, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+%%%   Frame = assemble_frame(Channel, MethodRecord, Protocol),
+
+3:56:29.109982 <0.306.0> rabbit_writer:assemble_frame(0, {'connection.start_ok',[{<<"product">>,longstr,<<"RabbitMQ">>},
+                        {<<"version">>,longstr,<<"3.11.2">>},
+                        {<<"platform">>,longstr,<<"Erlang">>},
+                        {<<"copyright">>,longstr,
+                         <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+                        {<<"information">>,longstr,
+                         <<"Licensed under the MPL.  See https://www.rabbitmq.com/">>},
+                        {<<"capabilities">>,table,
+                         [{<<"publisher_confirms">>,bool,true},
+                          {<<"exchange_exchange_bindings">>,bool,true},
+                          {<<"basic.nack">>,bool,true},
+                          {<<"consumer_cancel_notify">>,bool,true},
+                          {<<"connection.blocked">>,bool,true},
+                          {<<"authentication_failure_close">>,bool,true}]}],
+                       <<"PLAIN">>,
+                       <<0,118,115,116,97,116,105,111,110,0,118,115,116,97,116,
+                         105,111,110>>,
+                       <<"en_US">>}, rabbit_framing_amqp_0_9_1)
+
+
+%% build_simple_method_frame(ChannelInt, MethodRecord, Protocol) ->
+ 
+3:56:29.110338 <0.306.0> rabbit_binary_generator:build_simple_method_frame(0, {'connection.start_ok',[{<<"product">>,longstr,<<"RabbitMQ">>},
+                        {<<"version">>,longstr,<<"3.11.2">>},
+                        {<<"platform">>,longstr,<<"Erlang">>},
+                        {<<"copyright">>,longstr,
+                         <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+                        {<<"information">>,longstr,
+                         <<"Licensed under the MPL.  See https://www.rabbitmq.com/">>},
+                        {<<"capabilities">>,table,
+                         [{<<"publisher_confirms">>,bool,true},
+                          {<<"exchange_exchange_bindings">>,bool,true},
+                          {<<"basic.nack">>,bool,true},
+                          {<<"consumer_cancel_notify">>,bool,true},
+                          {<<"connection.blocked">>,bool,true},
+                          {<<"authentication_failure_close">>,bool,true}]}],
+                       <<"PLAIN">>,
+                       <<0,118,115,116,97,116,105,111,110,0,118,115,116,97,116,
+                         105,111,110>>,
+                       <<"en_US">>}, rabbit_framing_amqp_0_9_1)
+
+3:56:29.110674 <0.306.0> rabbit_framing_amqp_0_9_1:encode_method_fields({'connection.start_ok',[{<<"product">>,longstr,<<"RabbitMQ">>},
+                        {<<"version">>,longstr,<<"3.11.2">>},
+                        {<<"platform">>,longstr,<<"Erlang">>},
+                        {<<"copyright">>,longstr,
+                         <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+                        {<<"information">>,longstr,
+                         <<"Licensed under the MPL.  See https://www.rabbitmq.com/">>},
+                        {<<"capabilities">>,table,
+                         [{<<"publisher_confirms">>,bool,true},
+                          {<<"exchange_exchange_bindings">>,bool,true},
+                          {<<"basic.nack">>,bool,true},
+                          {<<"consumer_cancel_notify">>,bool,true},
+                          {<<"connection.blocked">>,bool,true},
+                          {<<"authentication_failure_close">>,bool,true}]}],
+                       <<"PLAIN">>,
+                       <<0,118,115,116,97,116,105,111,110,0,118,115,116,97,116,
+                         105,111,110>>,
+                       <<"en_US">>})
+
+%% F0Tab = rabbit_binary_generator:generate_table(F0),
+
+3:56:29.111061 <0.306.0> rabbit_binary_generator:generate_table([{<<"product">>,longstr,<<"RabbitMQ">>},
+ {<<"version">>,longstr,<<"3.11.2">>},
+ {<<"platform">>,longstr,<<"Erlang">>},
+ {<<"copyright">>,longstr,
+  <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+ {<<"information">>,longstr,
+  <<"Licensed under the MPL.  See https://www.rabbitmq.com/">>},
+ {<<"capabilities">>,table,
+  [{<<"publisher_confirms">>,bool,true},
+   {<<"exchange_exchange_bindings">>,bool,true},
+   {<<"basic.nack">>,bool,true},
+   {<<"consumer_cancel_notify">>,bool,true},
+   {<<"connection.blocked">>,bool,true},
+   {<<"authentication_failure_close">>,bool,true}]}])
+
+3:56:29.111292 <0.306.0> rabbit_binary_generator:generate_table_iolist([{<<"product">>,longstr,<<"RabbitMQ">>},
+ {<<"version">>,longstr,<<"3.11.2">>},
+ {<<"platform">>,longstr,<<"Erlang">>},
+ {<<"copyright">>,longstr,
+  <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+ {<<"information">>,longstr,
+  <<"Licensed under the MPL.  See https://www.rabbitmq.com/">>},
+ {<<"capabilities">>,table,
+  [{<<"publisher_confirms">>,bool,true},
+   {<<"exchange_exchange_bindings">>,bool,true},
+   {<<"basic.nack">>,bool,true},
+   {<<"consumer_cancel_notify">>,bool,true},
+   {<<"connection.blocked">>,bool,true},
+   {<<"authentication_failure_close">>,bool,true}]}])
+
+%% 
+3:56:29.126373 <0.306.0> rabbit_binary_generator:generate_table/1 --> <<7,112,114,111,100,117,99,116,83,0,0,0,8,82,97,98,98,105,116,77,81,7,118,101,
+  114,115,105,111,110,83,0,0,0,6,51,46,49,49,46,50,8,112,108,97,116,102,111,
+  114,109,83,0,0,0,6,69,114,108,97,110,103,9,99,111,112,121,114,105,103,104,
+  116,83,0,0,0,55,67,111,112,121,114,105,103,104,116,32,40,99,41,32,50,48,48,
+  55,45,50,48,50,50,32,86,77,119,97,114,101,44,32,73,110,99,46,32,111,114,32,
+  105,116,115,32,97,102,102,105,108,105,97,116,101,115,46,11,105,110,102,111,
+  114,109,97,116,105,111,110,83,0,0,0,54,76,105,99,101,110,115,101,100,32,117,
+  110,100,101,114,32,116,104,101,32,77,80,76,46,32,32,83,101,101,32,104,116,
+  116,112,115,58,47,47,119,119,119,46,114,97,98,98,105,116,109,113,46,99,111,
+  109,47,12,99,97,112,97,98,105,108,105,116,105,101,115,70,0,0,0,140,18,112,
+  117,98,108,105,115,104,101,114,95,99,111,110,102,105,114,109,115,116,1,26,
+  101,120,99,104,97,110,103,101,95,101,120,99,104,97,110,103,101,95,98,105,110,
+  100,105,110,103,115,116,1,10,98,97,115,105,99,46,110,97,99,107,116,1,22,99,
+  111,110,115,117,109,101,114,95,99,97,110,99,101,108,95,110,111,116,105,102,
+  121,116,1,18,99,111,110,110,101,99,116,105,111,110,46,98,108,111,99,107,101,
+  100,116,1,28,97,117,116,104,101,110,116,105,99,97,116,105,111,110,95,102,97,
+  105,108,117,114,101,95,99,108,111,115,101,116,1>>
+
+3:56:29.127383 <0.306.0> rabbit_framing_amqp_0_9_1:encode_method_fields/1 --> <<0,0,1,103,7,112,114,111,100,117,99,116,83,0,0,0,8,82,97,98,98,105,116,77,81,
+  7,118,101,114,115,105,111,110,83,0,0,0,6,51,46,49,49,46,50,8,112,108,97,116,
+  102,111,114,109,83,0,0,0,6,69,114,108,97,110,103,9,99,111,112,121,114,105,
+  103,104,116,83,0,0,0,55,67,111,112,121,114,105,103,104,116,32,40,99,41,32,50,
+  48,48,55,45,50,48,50,50,32,86,77,119,97,114,101,44,32,73,110,99,46,32,111,
+  114,32,105,116,115,32,97,102,102,105,108,105,97,116,101,115,46,11,105,110,
+  102,111,114,109,97,116,105,111,110,83,0,0,0,54,76,105,99,101,110,115,101,100,
+  32,117,110,100,101,114,32,116,104,101,32,77,80,76,46,32,32,83,101,101,32,104,
+  116,116,112,115,58,47,47,119,119,119,46,114,97,98,98,105,116,109,113,46,99,
+  111,109,47,12,99,97,112,97,98,105,108,105,116,105,101,115,70,0,0,0,140,18,
+  112,117,98,108,105,115,104,101,114,95,99,111,110,102,105,114,109,115,116,1,
+  26,101,120,99,104,97,110,103,101,95,101,120,99,104,97,110,103,101,95,98,105,
+  110,100,105,110,103,115,116,1,10,98,97,115,105,99,46,110,97,99,107,116,1,22,
+  99,111,110,115,117,109,101,114,95,99,97,110,99,101,108,95,110,111,116,105,
+  102,121,116,1,18,99,111,110,110,101,99,116,105,111,110,46,98,108,111,99,107,
+  101,100,116,1,28,97,117,116,104,101,110,116,105,99,97,116,105,111,110,95,102,
+  97,105,108,117,114,101,95,99,108,111,115,101,116,1,5,80,76,65,73,78,0,0,0,18,
+  0,118,115,116,97,116,105,111,110,0,118,115,116,97,116,105,111,110,5,101,110,
+  95,85,83>>
+
+
+%%% 上面转换成二进制完毕
+
+3:56:29.127924 <0.306.0> rabbit_misc:method_record_type({'connection.start_ok',[{<<"product">>,longstr,<<"RabbitMQ">>},
+                        {<<"version">>,longstr,<<"3.11.2">>},
+                        {<<"platform">>,longstr,<<"Erlang">>},
+                        {<<"copyright">>,longstr,
+                         <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+                        {<<"information">>,longstr,
+                         <<"Licensed under the MPL.  See https://www.rabbitmq.com/">>},
+                        {<<"capabilities">>,table,
+                         [{<<"publisher_confirms">>,bool,true},
+                          {<<"exchange_exchange_bindings">>,bool,true},
+                          {<<"basic.nack">>,bool,true},
+                          {<<"consumer_cancel_notify">>,bool,true},
+                          {<<"connection.blocked">>,bool,true},
+                          {<<"authentication_failure_close">>,bool,true}]}],
+                       <<"PLAIN">>,
+                       <<0,118,115,116,97,116,105,111,110,0,118,115,116,97,116,
+                         105,111,110>>,
+                       <<"en_US">>})
+
+3:56:29.128264 <0.306.0> rabbit_misc:method_record_type/1 --> 'connection.start_ok'
+
+3:56:29.128366 <0.306.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+3:56:29.128439 <0.306.0> rabbit_framing_amqp_0_9_1:method_id('connection.start_ok')
+
+3:56:29.128534 <0.306.0> rabbit_framing_amqp_0_9_1:method_id/1 --> {10,11}
+
+3:56:29.128601 <0.306.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+%%  create_frame(1, ChannelInt, [<<ClassId:16, MethodId:16>>, MethodFields]).
+
+
+3:56:29.129060 <0.306.0> rabbit_binary_generator:create_frame(1, 0, [<<0,10,0,11>>,
+ <<0,0,1,103,7,112,114,111,100,117,99,116,83,0,0,0,8,82,97,98,98,105,116,77,
+   81,7,118,101,114,115,105,111,110,83,0,0,0,6,51,46,49,49,46,50,8,112,108,97,
+   116,102,111,114,109,83,0,0,0,6,69,114,108,97,110,103,9,99,111,112,121,114,
+   105,103,104,116,83,0,0,0,55,67,111,112,121,114,105,103,104,116,32,40,99,41,
+   32,50,48,48,55,45,50,48,50,50,32,86,77,119,97,114,101,44,32,73,110,99,46,
+   32,111,114,32,105,116,115,32,97,102,102,105,108,105,97,116,101,115,46,11,
+   105,110,102,111,114,109,97,116,105,111,110,83,0,0,0,54,76,105,99,101,110,
+   115,101,100,32,117,110,100,101,114,32,116,104,101,32,77,80,76,46,32,32,83,
+   101,101,32,104,116,116,112,115,58,47,47,119,119,119,46,114,97,98,98,105,
+   116,109,113,46,99,111,109,47,12,99,97,112,97,98,105,108,105,116,105,101,
+   115,70,0,0,0,140,18,112,117,98,108,105,115,104,101,114,95,99,111,110,102,
+   105,114,109,115,116,1,26,101,120,99,104,97,110,103,101,95,101,120,99,104,
+   97,110,103,101,95,98,105,110,100,105,110,103,115,116,1,10,98,97,115,105,99,
+   46,110,97,99,107,116,1,22,99,111,110,115,117,109,101,114,95,99,97,110,99,
+   101,108,95,110,111,116,105,102,121,116,1,18,99,111,110,110,101,99,116,105,
+   111,110,46,98,108,111,99,107,101,100,116,1,28,97,117,116,104,101,110,116,
+   105,99,97,116,105,111,110,95,102,97,105,108,117,114,101,95,99,108,111,115,
+   101,116,1,5,80,76,65,73,78,0,0,0,18,0,118,115,116,97,116,105,111,110,0,118,
+   115,116,97,116,105,111,110,5,101,110,95,85,83>>])
+
+3:56:29.129613 <0.306.0> rabbit_binary_generator:create_frame/3 --> [<<1,0,0,0,0,1,145>>,
+ [<<0,10,0,11>>,
+  <<0,0,1,103,7,112,114,111,100,117,99,116,83,0,0,0,8,82,97,98,98,105,116,77,
+    81,7,118,101,114,115,105,111,110,83,0,0,0,6,51,46,49,49,46,50,8,112,108,
+    97,116,102,111,114,109,83,0,0,0,6,69,114,108,97,110,103,9,99,111,112,121,
+    114,105,103,104,116,83,0,0,0,55,67,111,112,121,114,105,103,104,116,32,40,
+    99,41,32,50,48,48,55,45,50,48,50,50,32,86,77,119,97,114,101,44,32,73,110,
+    99,46,32,111,114,32,105,116,115,32,97,102,102,105,108,105,97,116,101,115,
+    46,11,105,110,102,111,114,109,97,116,105,111,110,83,0,0,0,54,76,105,99,
+    101,110,115,101,100,32,117,110,100,101,114,32,116,104,101,32,77,80,76,46,
+    32,32,83,101,101,32,104,116,116,112,115,58,47,47,119,119,119,46,114,97,98,
+    98,105,116,109,113,46,99,111,109,47,12,99,97,112,97,98,105,108,105,116,
+    105,101,115,70,0,0,0,140,18,112,117,98,108,105,115,104,101,114,95,99,111,
+    110,102,105,114,109,115,116,1,26,101,120,99,104,97,110,103,101,95,101,120,
+    99,104,97,110,103,101,95,98,105,110,100,105,110,103,115,116,1,10,98,97,
+    115,105,99,46,110,97,99,107,116,1,22,99,111,110,115,117,109,101,114,95,99,
+    97,110,99,101,108,95,110,111,116,105,102,121,116,1,18,99,111,110,110,101,
+    99,116,105,111,110,46,98,108,111,99,107,101,100,116,1,28,97,117,116,104,
+    101,110,116,105,99,97,116,105,111,110,95,102,97,105,108,117,114,101,95,99,
+    108,111,115,101,116,1,5,80,76,65,73,78,0,0,0,18,0,118,115,116,97,116,105,
+    111,110,0,118,115,116,97,116,105,111,110,5,101,110,95,85,83>>],
+ 206]
+
+3:56:29.130120 <0.306.0> rabbit_binary_generator:build_simple_method_frame/3 --> [<<1,0,0,0,0,1,145>>,
+ [<<0,10,0,11>>,
+  <<0,0,1,103,7,112,114,111,100,117,99,116,83,0,0,0,8,82,97,98,98,105,116,77,
+    81,7,118,101,114,115,105,111,110,83,0,0,0,6,51,46,49,49,46,50,8,112,108,
+    97,116,102,111,114,109,83,0,0,0,6,69,114,108,97,110,103,9,99,111,112,121,
+    114,105,103,104,116,83,0,0,0,55,67,111,112,121,114,105,103,104,116,32,40,
+    99,41,32,50,48,48,55,45,50,48,50,50,32,86,77,119,97,114,101,44,32,73,110,
+    99,46,32,111,114,32,105,116,115,32,97,102,102,105,108,105,97,116,101,115,
+    46,11,105,110,102,111,114,109,97,116,105,111,110,83,0,0,0,54,76,105,99,
+    101,110,115,101,100,32,117,110,100,101,114,32,116,104,101,32,77,80,76,46,
+    32,32,83,101,101,32,104,116,116,112,115,58,47,47,119,119,119,46,114,97,98,
+    98,105,116,109,113,46,99,111,109,47,12,99,97,112,97,98,105,108,105,116,
+    105,101,115,70,0,0,0,140,18,112,117,98,108,105,115,104,101,114,95,99,111,
+    110,102,105,114,109,115,116,1,26,101,120,99,104,97,110,103,101,95,101,120,
+    99,104,97,110,103,101,95,98,105,110,100,105,110,103,115,116,1,10,98,97,
+    115,105,99,46,110,97,99,107,116,1,22,99,111,110,115,117,109,101,114,95,99,
+    97,110,99,101,108,95,110,111,116,105,102,121,116,1,18,99,111,110,110,101,
+    99,116,105,111,110,46,98,108,111,99,107,101,100,116,1,28,97,117,116,104,
+    101,110,116,105,99,97,116,105,111,110,95,102,97,105,108,117,114,101,95,99,
+    108,111,115,101,116,1,5,80,76,65,73,78,0,0,0,18,0,118,115,116,97,116,105,
+    111,110,0,118,115,116,97,116,105,111,110,5,101,110,95,85,83>>],
+ 206]
+
+3:56:29.130536 <0.306.0> rabbit_writer:assemble_frame/3 --> [<<1,0,0,0,0,1,145>>,
+ [<<0,10,0,11>>,
+  <<0,0,1,103,7,112,114,111,100,117,99,116,83,0,0,0,8,82,97,98,98,105,116,77,
+    81,7,118,101,114,115,105,111,110,83,0,0,0,6,51,46,49,49,46,50,8,112,108,
+    97,116,102,111,114,109,83,0,0,0,6,69,114,108,97,110,103,9,99,111,112,121,
+    114,105,103,104,116,83,0,0,0,55,67,111,112,121,114,105,103,104,116,32,40,
+    99,41,32,50,48,48,55,45,50,48,50,50,32,86,77,119,97,114,101,44,32,73,110,
+    99,46,32,111,114,32,105,116,115,32,97,102,102,105,108,105,97,116,101,115,
+    46,11,105,110,102,111,114,109,97,116,105,111,110,83,0,0,0,54,76,105,99,
+    101,110,115,101,100,32,117,110,100,101,114,32,116,104,101,32,77,80,76,46,
+    32,32,83,101,101,32,104,116,116,112,115,58,47,47,119,119,119,46,114,97,98,
+    98,105,116,109,113,46,99,111,109,47,12,99,97,112,97,98,105,108,105,116,
+    105,101,115,70,0,0,0,140,18,112,117,98,108,105,115,104,101,114,95,99,111,
+    110,102,105,114,109,115,116,1,26,101,120,99,104,97,110,103,101,95,101,120,
+    99,104,97,110,103,101,95,98,105,110,100,105,110,103,115,116,1,10,98,97,
+    115,105,99,46,110,97,99,107,116,1,22,99,111,110,115,117,109,101,114,95,99,
+    97,110,99,101,108,95,110,111,116,105,102,121,116,1,18,99,111,110,110,101,
+    99,116,105,111,110,46,98,108,111,99,107,101,100,116,1,28,97,117,116,104,
+    101,110,116,105,99,97,116,105,111,110,95,102,97,105,108,117,114,101,95,99,
+    108,111,115,101,116,1,5,80,76,65,73,78,0,0,0,18,0,118,115,116,97,116,105,
+    111,110,0,118,115,116,97,116,105,111,110,5,101,110,95,85,83>>],
+ 206]
+
+
+%% 内容是一串二进制数组 
+3:56:29.131041 <0.306.0> rabbit_writer:maybe_flush({wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [[<<1,0,0,0,0,1,145>>,
+          [<<0,10,0,11>>,
+           <<0,0,1,103,7,112,114,111,100,117,99,116,83,0,0,0,8,82,97,98,98,
+........
+             0,0,0,18,0,118,115,116,97,116,105,111,110,0,118,115,116,97,116,
+             105,111,110,5,101,110,95,85,83>>],
+          206]],
+        1000000000})
+
+3:56:29.131645 <0.306.0> rabbit_writer:maybe_flush/1 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [[<<1,0,0,0,0,1,145>>,
+          [<<0,10,0,11>>,
+           <<0,0,1,103,7,112,114,111,100,117,99,116,83,0,0,0,8,82,97,98,98,
+........
+             105,111,110,5,101,110,95,85,83>>],
+          206]],
+        1000000000}
+
+
+3:56:29.132788 <0.306.0> rabbit_writer:internal_flush({wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [[<<1,0,0,0,0,1,145>>,
+          [<<0,10,0,11>>,
+           <<0,0,1,103,7,112,114,111,100,117,99,116,83,0,0,0,8,82,97,98,98,
+........
+             105,111,110,5,101,110,95,85,83>>],
+          206]],
+        1000000000})
+
+3:56:29.133320 <0.306.0> rabbit_writer:port_cmd(#Port<0.8>, [[<<1,0,0,0,0,1,145>>,
+  [<<0,10,0,11>>,
+   <<0,0,1,103,7,112,114,111,100,117,99,116,83,0,0,0,8,82,97,98,98,105,116,77,
+........
+     116,97,116,105,111,110,0,118,115,116,97,116,105,111,110,5,101,110,95,85,
+     83>>],
+  206]])
+
+%% 最终调用 erlang:port_command(Sock, Data).
+
+3:56:29.133811 <0.306.0> rabbit_net:port_command(#Port<0.8>, [[<<1,0,0,0,0,1,145>>,
+  [<<0,10,0,11>>,
+   <<0,0,1,103,7,112,114,111,100,117,99,116,83,0,0,0,8,82,97,98,98,105,116,77,
+........
+     116,97,116,105,111,110,0,118,115,116,97,116,105,111,110,5,101,110,95,85,
+     83>>],
+  206]])
+
+3:56:29.134331 <0.306.0> rabbit_net:port_command/2 --> true
+
+3:56:29.134411 <0.306.0>  '--> rabbit_writer:port_cmd/2
+
+3:56:29.134478 <0.306.0> rabbit_writer:port_cmd/2 --> ok
+
+3:56:29.134566 <0.306.0>  '--> rabbit_writer:internal_flush/1
+
+3:56:29.134645 <0.306.0> rabbit_writer:internal_flush/1 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+3:56:29.134789 <0.306.0>  '--> rabbit_writer:handle_message/2
+
+3:56:29.134857 <0.306.0> rabbit_writer:handle_message/2 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+3:56:29.134975 <0.306.0>  '--> rabbit_writer:handle_message/3
+
+3:56:29.135043 <0.306.0> rabbit_writer:handle_message/3 --> {[],
+ {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+         {state,none,0,undefined},
+         [],1000000000}}
+
+3:56:29.135179 <0.306.0>  '--> rabbit_writer:mainloop1/2
+
+%% 到此为止，函数返回，发送成功
+
+
+
+%% 然后继续调用   ?MODULE:mainloop1 
+mainloop1(Deb, State) ->
+    receive
+        Message -> {Deb1, State1} = handle_message(Deb, Message, State),
+                   ?MODULE:mainloop1(Deb1, State1)
+    after 0 ->
+            ?MODULE:mainloop1(Deb, internal_flush(State))
+    end.
+
+internal_flush(State = #wstate{sock = Sock, pending = Pending}) ->
+    ok = port_cmd(Sock, lists:reverse(Pending)),
+    State#wstate{pending = []}.
+
+%% 这里 pending已经为空
+3:56:29.135247 <0.306.0> rabbit_writer:mainloop1([], {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.135367 <0.306.0> rabbit_writer:handle_message([], {inet_reply,#Port<0.8>,ok}, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+%%% 发送之后收到的响应, 接收到了响应
+%% gen_tcp:send/2 does a selective receive of {inet_reply, Sock,
+%% Status} to obtain the result. That is bad when it is called from
+%% the writer since it requires scanning of the writers possibly quite
+%% large message queue.
+
+https://blog.yufeng.info/archives/336
+
+
+362    try erlang:port_command(S, Data, OptList) of     <strong>%推给底层的port模块来处理</strong>
+363        false -> % Port busy and nosuspend option passed
+364            ?DBG_FORMAT("prim_inet:send() -> {error,busy}~n", []),
+365            {error,busy};
+366        true -> <strong>% Port模块接受数据</strong>
+367            receive
+368                {inet_reply,S,Status} ->  <strong>%阻塞, 等待回应</strong>
+369                    ?DBG_FORMAT("prim_inet:send() -> ~p~n", [Status]),
+370                    Status
+371            end
+
+这里是TCP的原生接口
+3:56:29.135503 <0.306.0> rabbit_writer:handle_message({inet_reply,#Port<0.8>,ok}, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.135666 <0.306.0> rabbit_event:ensure_stats_timer({wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}, 7, emit_stats)
+
+3:56:29.135891 <0.306.0> rabbit_event:ensure_stats_timer/3 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+%% 到这里全部处理完毕
+
+
+继续执行 login_loop(Mech, MState1, Params, State);
+ 
+3:56:29.137020 <0.301.0> amqp_network_connection:login_loop(fun amqp_auth_mechanisms:plain/3, [], {amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]}, {state,#Port<0.8>,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,
+       undefined,<0.306.0>,undefined,<0.300.0>,undefined,false})
+
+%% case handshake_recv('connection.tune') of
+3:56:29.137248 <0.301.0> amqp_network_connection:handshake_recv('connection.tune')
+
+%% amqp_main_reader 继续处理接收 connection.tune
+3:56:29.137380 <0.307.0> amqp_main_reader:handle_info({tcp,#Port<0.8>,<<1,0,0,0,0,0,12,0,10,0,30,7,255,0,2,0,0,0,60,206>>}, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46810>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+3:56:29.137536 <0.307.0> rabbit_net:setopts(#Port<0.8>, [{active,once}])
+
+3:56:29.137632 <0.307.0> rabbit_net:setopts/2 --> ok
+.....
+
+
+%% expecting_header
+handle_data(Data,
+            #state{message = {expecting_header, Old}} = State) ->
+    handle_data(<<Old/binary, Data/binary>>, State#state{message = none});
+
+3:56:29.138641 <0.307.0> amqp_main_reader:handle_data(<<1,0,0,0,0,0,12,0,10,0,30,7,255,0,2,0,0,0,60,206>>, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46817>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+%% 
+handle_data(<<Type:8, Channel:16, Length:32, Payload:Length/binary, ?FRAME_END,
+              More/binary>>,
+            #state{message = none} = State) when
+      Type =:= ?FRAME_METHOD; Type =:= ?FRAME_HEADER;
+      Type =:= ?FRAME_BODY;   Type =:= ?FRAME_HEARTBEAT ->
+    %% Optimisation for the direct match
+    handle_data(
+      More, process_frame(Type, Channel, Payload, State#state{message = none}));
+
+3:56:29.138778 <0.307.0> amqp_main_reader:handle_data(<<1,0,0,0,0,0,12,0,10,0,30,7,255,0,2,0,0,0,60,206>>, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46817>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+3:56:29.138971 <0.307.0> amqp_main_reader:process_frame(1, 0, <<0,10,0,30,7,255,0,2,0,0,0,60>>, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46817>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+3:56:29.139110 <0.307.0> rabbit_command_assembler:analyze_frame(1, <<0,10,0,30,7,255,0,2,0,0,0,60>>, rabbit_framing_amqp_0_9_1)
+
+.......
+
+3:56:29.139502 <0.307.0> rabbit_command_assembler:analyze_frame/3 --> {method,'connection.tune',<<7,255,0,2,0,0,0,60>>}
+
+
+%% 
+    AnalyzedFrame ->
+        State#state{astate = amqp_channels_manager:process_channel_frame(
+                               AnalyzedFrame, 0, Connection, AState)}
+
+
+3:56:29.139696 <0.307.0> amqp_channels_manager:process_channel_frame({method,'connection.tune',<<7,255,0,2,0,0,0,60>>}, 0, <0.301.0>, {method,rabbit_framing_amqp_0_9_1})
+
+3:56:29.139822 <0.307.0> rabbit_command_assembler:process({method,'connection.tune',<<7,255,0,2,0,0,0,60>>}, {method,rabbit_framing_amqp_0_9_1})
+
+3:56:29.139959 <0.307.0> rabbit_framing_amqp_0_9_1:decode_method_fields('connection.tune', <<7,255,0,2,0,0,0,60>>)
+
+3:56:29.140050 <0.307.0> rabbit_framing_amqp_0_9_1:decode_method_fields/2 --> {'connection.tune',2047,131072,60}
+
+%%
+
+3:56:29.140225 <0.307.0> rabbit_framing_amqp_0_9_1:method_has_content('connection.tune')
+
+3:56:29.140433 <0.307.0> rabbit_command_assembler:process/2 --> {ok,{'connection.tune',2047,131072,60},{method,rabbit_framing_amqp_0_9_1}}
+
+3:56:29.140512 <0.307.0>  '--> amqp_channels_manager:process_channel_frame/4
+
+3:56:29.140599 <0.307.0> rabbit_channel_common:do(<0.301.0>, {'connection.tune',2047,131072,60})
+
+3:56:29.140696 <0.307.0> rabbit_channel_common:do(<0.301.0>, {'connection.tune',2047,131072,60}, none)
+
+%% 同样 传给301 ，但是这里并没有接收进程  gen_server2 发送不过去?
+3:56:29.140792 <0.307.0> gen_server2:cast(<0.301.0>, {method,{'connection.tune',2047,131072,60},none,noflow})
+
+
+%%%% 到此接收并解析成功，开始 发送响应给服务端
+3:56:29.141375 <0.307.0> amqp_main_reader:process_frame/4 --> {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46817>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none}
+
+
+%%% 继续向下 
+network_handshake(AmqpParams = #amqp_params_network{virtual_host = VHost},
+                  {ChMgr, State0}) ->
+    Start = #'connection.start'{server_properties = ServerProperties,
+                                mechanisms = Mechanisms} =
+        handshake_recv('connection.start'),
+    ok = check_version(Start),
+    case login(AmqpParams, Mechanisms, State0) of
+        {closing, #amqp_error{}, _Error} = Err ->
+            do(#'connection.close_ok'{}, State0),
+            Err;
+        Tune ->
+            {TuneOk, ChannelMax, State1} = tune(Tune, AmqpParams, State0),
+            do2(TuneOk, State1),
+            do2(#'connection.open'{virtual_host = VHost}, State1),
+            Params = {ServerProperties, ChannelMax, ChMgr, State1},
+            case handshake_recv('connection.open_ok') of
+                #'connection.open_ok'{}                     -> {ok, Params};
+                {closing, #amqp_error{} = AmqpError, Error} -> {closing, Params,
+                                                                AmqpError, Error}
+            end
+    end.
+
+
+3:56:29.142863 <0.301.0> amqp_network_connection:tune({'connection.tune',2047,131072,60}, {amqp_params_network,<<"vstation">>,
+                     {plaintext,<<"vstation">>},
+                     <<"vstation">>,"192.168.142.133",5672,2047,0,10,60000,
+                     none,
+                     [fun amqp_auth_mechanisms:plain/3,
+                      fun amqp_auth_mechanisms:amqplain/3],
+                     [],[]}, {state,#Port<0.8>,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,
+       undefined,<0.306.0>,undefined,<0.300.0>,undefined,false})
+
+
+%%% 真正开始 启动 heartbeat, 这时候还没有处理 connection.tune_ok, tune 包发送之前
+start_heartbeat(#state{sock      = Sock,
+                       name      = Name,
+                       heartbeat = Heartbeat,
+                       type_sup  = Sup}) ->
+    Frame = rabbit_binary_generator:build_heartbeat_frame(),
+    SendFun = fun () -> catch rabbit_net:send(Sock, Frame) end,
+    Connection = self(),
+    ReceiveFun = fun () -> Connection ! heartbeat_timeout end,
+    rabbit_heartbeat:start(
+      Sup, Sock, Name, Heartbeat, SendFun, Heartbeat, ReceiveFun).
+
+3:56:29.143767 <0.301.0> amqp_network_connection:start_heartbeat({state,#Port<0.8>,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,
+       10,<0.306.0>,131072,<0.300.0>,undefined,false})
+
+3:56:29.143885 <0.301.0> rabbit_binary_generator:build_heartbeat_frame()
+
+3:56:29.143958 <0.301.0> rabbit_binary_generator:create_frame(8, 0, <<>>)
+
+3:56:29.144109 <0.301.0> rabbit_binary_generator:create_frame/3 --> [<<8,0,0,0,0,0,0>>,<<>>,206]
+
+3:56:29.144195 <0.301.0> rabbit_binary_generator:build_heartbeat_frame/0 --> [<<8,0,0,0,0,0,0>>,<<>>,206]
+
+%%  开始开启进程 , 
+
+
+3:56:29.144385 <0.301.0> rabbit_heartbeat:start(<0.300.0>, #Port<0.8>, <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>, 10, #Fun<amqp_network_connection.2.53417588>, 10, #Fun<amqp_network_connection.3.53417588>)
+
+3:56:29.144539 <0.301.0> rabbit_heartbeat:start_heartbeater(10, <0.300.0>, #Port<0.8>, #Fun<amqp_network_connection.2.53417588>, heartbeat_sender, start_heartbeat_sender, <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>)
+
+
+3:56:29.144936 <0.300.0> rabbit_heartbeat:start_heartbeat_sender(#Port<0.8>, 10, #Fun<amqp_network_connection.2.53417588>, {heartbeat_sender,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>})
+
+3:56:29.145063 <0.300.0> rabbit_heartbeat:heartbeater({#Port<0.8>,5000,send_oct,0,#Fun<rabbit_heartbeat.0.58237509>}, {heartbeat_sender,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>})
+
+3:56:29.145857 <0.300.0> rabbit_heartbeat:heartbeater/2 --> {ok,<0.308.0>}
+
+3:56:29.146350 <0.300.0> rabbit_heartbeat:start_heartbeat_sender/4 --> {ok,<0.308.0>}
+
+3:56:29.146524 <0.300.0>  '--> supervisor2:do_start_child_i/3
+
+%% 开启 <0.308.0> 进程
+3:56:29.146642 <0.308.0> rabbit_heartbeat:'-heartbeater/2-fun-0-'({#Port<0.8>,5000,send_oct,0,#Fun<rabbit_heartbeat.0.58237509>}, {heartbeat_sender,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>}, [])
+
+3:56:29.146778 <0.308.0> rabbit_misc:store_proc_name({heartbeat_sender,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>})
+
+3:56:29.146883 <0.308.0> rabbit_misc:store_proc_name/1 --> undefined
+
+3:56:29.146971 <0.308.0>  '--> rabbit_heartbeat:'-heartbeater/2-fun-0-'/3
+
+3:56:29.147050 <0.308.0> rabbit_heartbeat:heartbeater({#Port<0.8>,5000,send_oct,0,#Fun<rabbit_heartbeat.0.58237509>}, [], {0,0})
+
+
+%% 又回到  <0.301.0>
+3:56:29.147239 <0.301.0> rabbit_heartbeat:start_heartbeater/7 --> {ok,<0.308.0>}
+
+
+%% 开始 heartbeat_receiver
+3:56:29.147346 <0.301.0> rabbit_heartbeat:start_heartbeater(10, <0.300.0>, #Port<0.8>, #Fun<amqp_network_connection.3.53417588>, heartbeat_receiver, start_heartbeat_receiver, <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>)
+
+
+3:56:29.147674 <0.300.0> rabbit_heartbeat:start_heartbeat_receiver(#Port<0.8>, 10, #Fun<amqp_network_connection.3.53417588>, {heartbeat_receiver,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>})
+
+3:56:29.147783 <0.300.0> rabbit_heartbeat:heartbeater({#Port<0.8>,10000,recv_oct,1,#Fun<rabbit_heartbeat.1.58237509>}, {heartbeat_receiver,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>})
+
+%% 生成进程 <0.309.0>
+3:56:29.147908 <0.300.0> rabbit_heartbeat:heartbeater/2 --> {ok,<0.309.0>}
+
+
+
+%% 在进程  <0.309.0> 中运行
+3:56:29.148213 <0.309.0> rabbit_heartbeat:'-heartbeater/2-fun-0-'({#Port<0.8>,10000,recv_oct,1,#Fun<rabbit_heartbeat.1.58237509>}, {heartbeat_receiver,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>}, [])
+
+3:56:29.148329 <0.309.0> rabbit_misc:store_proc_name({heartbeat_receiver,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>})
+
+3:56:29.148429 <0.309.0> rabbit_misc:store_proc_name/1 --> undefined
+
+3:56:29.148494 <0.309.0>  '--> rabbit_heartbeat:'-heartbeater/2-fun-0-'/3
+
+3:56:29.148575 <0.309.0> rabbit_heartbeat:heartbeater({#Port<0.8>,10000,recv_oct,1,#Fun<rabbit_heartbeat.1.58237509>}, [], {0,0})
+
+
+%% 回到 <0.301.0> 
+3:56:29.148667 <0.301.0> rabbit_heartbeat:start_heartbeater/7 --> {ok,<0.309.0>}
+
+3:56:29.148820 <0.301.0> rabbit_heartbeat:start/7 --> {<0.308.0>,<0.309.0>}
+
+3:56:29.148907 <0.301.0> amqp_network_connection:start_heartbeat/1 --> {<0.308.0>,<0.309.0>}
+
+
+%%% 返回一个 tune_ok 的包
+
+3:56:29.149038 <0.301.0> amqp_network_connection:tune/3 --> {{'connection.tune_ok',2047,131072,10},
+ 2047,
+ {state,#Port<0.8>,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,
+        10,<0.306.0>,131072,<0.300.0>,undefined,false}}
+
+
+%% 继续 
+3:56:29.149254 <0.301.0> amqp_network_connection:do2({'connection.tune_ok',2047,131072,10}, {state,#Port<0.8>,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,
+       10,<0.306.0>,131072,<0.300.0>,undefined,false})
+
+3:56:29.149371 <0.301.0> rabbit_writer:send_command_sync(<0.306.0>, {'connection.tune_ok',2047,131072,10})
+
+3:56:29.149461 <0.301.0> rabbit_writer:call(<0.306.0>, {send_command_sync,{'connection.tune_ok',2047,131072,10}})
+
+
+%%%  <0.306.0>  rabbit_writer 开始响应
+
+3:56:29.149566 <0.306.0> rabbit_writer:handle_message([], {'$gen_call',{<0.301.0>,#Ref<0.2468946279.4038590465.46820>},
+             {send_command_sync,{'connection.tune_ok',2047,131072,10}}}, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.149711 <0.306.0> rabbit_writer:handle_message({'$gen_call',{<0.301.0>,#Ref<0.2468946279.4038590465.46820>},
+             {send_command_sync,{'connection.tune_ok',2047,131072,10}}}, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.149852 <0.306.0> rabbit_writer:internal_send_command_async({'connection.tune_ok',2047,131072,10}, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.149984 <0.306.0> rabbit_writer:assemble_frame(0, {'connection.tune_ok',2047,131072,10}, rabbit_framing_amqp_0_9_1)
+
+%% 把包构建出来
+3:56:29.150080 <0.306.0> rabbit_binary_generator:build_simple_method_frame(0, {'connection.tune_ok',2047,131072,10}, rabbit_framing_amqp_0_9_1)
+
+3:56:29.150219 <0.306.0> rabbit_framing_amqp_0_9_1:encode_method_fields({'connection.tune_ok',2047,131072,10})
+
+3:56:29.150313 <0.306.0> rabbit_framing_amqp_0_9_1:encode_method_fields/1 --> <<7,255,0,2,0,0,0,10>>
+
+3:56:29.150407 <0.306.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+3:56:29.150474 <0.306.0> rabbit_misc:method_record_type({'connection.tune_ok',2047,131072,10})
+
+3:56:29.150568 <0.306.0> rabbit_misc:method_record_type/1 --> 'connection.tune_ok'
+
+3:56:29.150646 <0.306.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+3:56:29.150720 <0.306.0> rabbit_framing_amqp_0_9_1:method_id('connection.tune_ok')
+
+3:56:29.150789 <0.306.0> rabbit_framing_amqp_0_9_1:method_id/1 --> {10,31}
+
+3:56:29.150864 <0.306.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+3:56:29.150946 <0.306.0> rabbit_binary_generator:create_frame(1, 0, [<<0,10,0,31>>,<<7,255,0,2,0,0,0,10>>])
+
+3:56:29.151049 <0.306.0> rabbit_binary_generator:create_frame/3 --> [<<1,0,0,0,0,0,12>>,[<<0,10,0,31>>,<<7,255,0,2,0,0,0,10>>],206]
+
+3:56:29.151183 <0.306.0> rabbit_binary_generator:build_simple_method_frame/3 --> [<<1,0,0,0,0,0,12>>,[<<0,10,0,31>>,<<7,255,0,2,0,0,0,10>>],206]
+
+3:56:29.151281 <0.306.0> rabbit_writer:assemble_frame/3 --> [<<1,0,0,0,0,0,12>>,[<<0,10,0,31>>,<<7,255,0,2,0,0,0,10>>],206]
+
+3:56:29.151381 <0.306.0>  '--> rabbit_writer:internal_send_command_async/2
+
+3:56:29.151450 <0.306.0> rabbit_writer:maybe_flush({wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [[<<1,0,0,0,0,0,12>>,[<<0,10,0,31>>,<<7,255,0,2,0,0,0,10>>],206]],
+        1000000000})
+
+3:56:29.151590 <0.306.0> rabbit_writer:maybe_flush/1 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [[<<1,0,0,0,0,0,12>>,[<<0,10,0,31>>,<<7,255,0,2,0,0,0,10>>],206]],
+        1000000000}
+
+3:56:29.151713 <0.306.0> rabbit_writer:internal_send_command_async/2 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [[<<1,0,0,0,0,0,12>>,[<<0,10,0,31>>,<<7,255,0,2,0,0,0,10>>],206]],
+        1000000000}
+
+3:56:29.151840 <0.306.0>  '--> rabbit_writer:handle_message/2
+
+3:56:29.151898 <0.306.0> rabbit_writer:internal_flush({wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [[<<1,0,0,0,0,0,12>>,[<<0,10,0,31>>,<<7,255,0,2,0,0,0,10>>],206]],
+        1000000000})
+
+3:56:29.152026 <0.306.0> rabbit_writer:port_cmd(#Port<0.8>, [[<<1,0,0,0,0,0,12>>,[<<0,10,0,31>>,<<7,255,0,2,0,0,0,10>>],206]])
+
+3:56:29.152157 <0.306.0> rabbit_net:port_command(#Port<0.8>, [[<<1,0,0,0,0,0,12>>,[<<0,10,0,31>>,<<7,255,0,2,0,0,0,10>>],206]])
+
+3:56:29.152268 <0.306.0> rabbit_net:port_command/2 --> true
+
+3:56:29.152377 <0.306.0>  '--> rabbit_writer:port_cmd/2
+
+3:56:29.152473 <0.306.0> rabbit_writer:port_cmd/2 --> ok
+
+3:56:29.152549 <0.306.0>  '--> rabbit_writer:internal_flush/1
+
+3:56:29.152593 <0.306.0> rabbit_writer:internal_flush/1 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+3:56:29.152704 <0.306.0>  '--> rabbit_writer:handle_message/2
+
+3:56:29.152769 <0.306.0> rabbit_writer:handle_message/2 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+3:56:29.152875 <0.306.0>  '--> rabbit_writer:handle_message/3
+
+3:56:29.152925 <0.306.0> rabbit_writer:handle_message/3 --> {[],
+ {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+         {state,none,0,undefined},
+         [],1000000000}}
+
+3:56:29.153027 <0.306.0>  '--> rabbit_writer:mainloop1/2
+
+3:56:29.153090 <0.306.0> rabbit_writer:mainloop1([], {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+%% 来自tcp的响应
+3:56:29.153250 <0.306.0> rabbit_writer:handle_message([], {inet_reply,#Port<0.8>,ok}, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.153388 <0.306.0> rabbit_writer:handle_message({inet_reply,#Port<0.8>,ok}, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.153525 <0.306.0> rabbit_event:ensure_stats_timer({wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}, 7, emit_stats)
+
+3:56:29.153644 <0.306.0> rabbit_event:ensure_stats_timer/3 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+3:56:29.153741 <0.306.0> rabbit_writer:handle_message/2 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+3:56:29.153851 <0.306.0>  '--> rabbit_writer:handle_message/3
+
+3:56:29.153913 <0.306.0> rabbit_writer:handle_message/3 --> {[],
+ {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+         {state,none,0,undefined},
+         [],1000000000}}
+
+3:56:29.154030 <0.306.0>  '--> rabbit_writer:mainloop1/2
+
+3:56:29.154102 <0.306.0> rabbit_writer:mainloop1([], {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.154225 <0.301.0> rabbit_writer:call/2 --> ok
+
+3:56:29.154296 <0.301.0> rabbit_writer:send_command_sync/2 --> ok
+
+3:56:29.154362 <0.301.0>  '--> amqp_network_connection:do2/2
+
+3:56:29.154445 <0.301.0> amqp_network_connection:do2/2 --> ok
+
+3:56:29.154515 <0.301.0>  '--> amqp_network_connection:network_handshake/2
+
+
+%% 继续 connection.open  这个是客户端主动发起的
+3:56:29.154575 <0.301.0> amqp_network_connection:do2({'connection.open',<<"vstation">>,<<>>,false}, {state,#Port<0.8>,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,
+       10,<0.306.0>,131072,<0.300.0>,undefined,false})
+
+3:56:29.154692 <0.301.0> rabbit_writer:send_command_sync(<0.306.0>, {'connection.open',<<"vstation">>,<<>>,false})
+
+3:56:29.154800 <0.301.0> rabbit_writer:call(<0.306.0>, {send_command_sync,{'connection.open',<<"vstation">>,<<>>,false}})
+
+3:56:29.154908 <0.306.0> rabbit_writer:handle_message([], {'$gen_call',
+    {<0.301.0>,#Ref<0.2468946279.4038590465.46821>},
+    {send_command_sync,{'connection.open',<<"vstation">>,<<>>,false}}}, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.155115 <0.306.0> rabbit_writer:handle_message({'$gen_call',
+    {<0.301.0>,#Ref<0.2468946279.4038590465.46821>},
+    {send_command_sync,{'connection.open',<<"vstation">>,<<>>,false}}}, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.155309 <0.306.0> rabbit_writer:internal_send_command_async({'connection.open',<<"vstation">>,<<>>,false}, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.155490 <0.306.0> rabbit_writer:assemble_frame(0, {'connection.open',<<"vstation">>,<<>>,false}, rabbit_framing_amqp_0_9_1)
+
+3:56:29.155610 <0.306.0> rabbit_binary_generator:build_simple_method_frame(0, {'connection.open',<<"vstation">>,<<>>,false}, rabbit_framing_amqp_0_9_1)
+
+3:56:29.155720 <0.306.0> rabbit_framing_amqp_0_9_1:encode_method_fields({'connection.open',<<"vstation">>,<<>>,false})
+
+3:56:29.155825 <0.306.0> rabbit_framing_amqp_0_9_1:shortstr_size(<<"vstation">>)
+
+3:56:29.155959 <0.306.0> rabbit_framing_amqp_0_9_1:shortstr_size/1 --> 8
+
+3:56:29.156025 <0.306.0>  '--> rabbit_framing_amqp_0_9_1:encode_method_fields/1
+
+3:56:29.156085 <0.306.0> rabbit_framing_amqp_0_9_1:shortstr_size(<<>>)
+
+3:56:29.156188 <0.306.0> rabbit_framing_amqp_0_9_1:shortstr_size/1 --> 0
+
+3:56:29.156280 <0.306.0>  '--> rabbit_framing_amqp_0_9_1:encode_method_fields/1
+
+3:56:29.156392 <0.306.0> rabbit_framing_amqp_0_9_1:bitvalue(false)
+
+3:56:29.156462 <0.306.0> rabbit_framing_amqp_0_9_1:bitvalue/1 --> 0
+
+3:56:29.156529 <0.306.0>  '--> rabbit_framing_amqp_0_9_1:encode_method_fields/1
+
+3:56:29.156592 <0.306.0> rabbit_framing_amqp_0_9_1:encode_method_fields/1 --> <<8,118,115,116,97,116,105,111,110,0,0>>
+
+3:56:29.156702 <0.306.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+3:56:29.156787 <0.306.0> rabbit_misc:method_record_type({'connection.open',<<"vstation">>,<<>>,false})
+
+3:56:29.156910 <0.306.0> rabbit_misc:method_record_type/1 --> 'connection.open'
+
+3:56:29.156976 <0.306.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+3:56:29.157062 <0.306.0> rabbit_framing_amqp_0_9_1:method_id('connection.open')
+
+3:56:29.157175 <0.306.0> rabbit_framing_amqp_0_9_1:method_id/1 --> {10,40}
+
+3:56:29.157264 <0.306.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+3:56:29.157337 <0.306.0> rabbit_binary_generator:create_frame(1, 0, [<<0,10,0,40>>,<<8,118,115,116,97,116,105,111,110,0,0>>])
+
+3:56:29.157445 <0.306.0> rabbit_binary_generator:create_frame/3 --> [<<1,0,0,0,0,0,15>>,
+ [<<0,10,0,40>>,<<8,118,115,116,97,116,105,111,110,0,0>>],
+ 206]
+
+3:56:29.157566 <0.306.0> rabbit_binary_generator:build_simple_method_frame/3 --> [<<1,0,0,0,0,0,15>>,
+ [<<0,10,0,40>>,<<8,118,115,116,97,116,105,111,110,0,0>>],
+ 206]
+
+3:56:29.157715 <0.306.0> rabbit_writer:assemble_frame/3 --> [<<1,0,0,0,0,0,15>>,
+ [<<0,10,0,40>>,<<8,118,115,116,97,116,105,111,110,0,0>>],
+ 206]
+
+3:56:29.157840 <0.306.0>  '--> rabbit_writer:internal_send_command_async/2
+
+3:56:29.157963 <0.306.0> rabbit_writer:maybe_flush({wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [[<<1,0,0,0,0,0,15>>,
+          [<<0,10,0,40>>,<<8,118,115,116,97,116,105,111,110,0,0>>],
+          206]],
+        1000000000})
+
+3:56:29.158137 <0.306.0> rabbit_writer:maybe_flush/1 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [[<<1,0,0,0,0,0,15>>,
+          [<<0,10,0,40>>,<<8,118,115,116,97,116,105,111,110,0,0>>],
+          206]],
+        1000000000}
+
+3:56:29.158311 <0.306.0> rabbit_writer:internal_send_command_async/2 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [[<<1,0,0,0,0,0,15>>,
+          [<<0,10,0,40>>,<<8,118,115,116,97,116,105,111,110,0,0>>],
+          206]],
+        1000000000}
+
+3:56:29.158493 <0.306.0>  '--> rabbit_writer:handle_message/2
+
+3:56:29.158591 <0.306.0> rabbit_writer:internal_flush({wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [[<<1,0,0,0,0,0,15>>,
+          [<<0,10,0,40>>,<<8,118,115,116,97,116,105,111,110,0,0>>],
+          206]],
+        1000000000})
+
+3:56:29.158750 <0.306.0> rabbit_writer:port_cmd(#Port<0.8>, [[<<1,0,0,0,0,0,15>>,
+  [<<0,10,0,40>>,<<8,118,115,116,97,116,105,111,110,0,0>>],
+  206]])
+
+3:56:29.158896 <0.306.0> rabbit_net:port_command(#Port<0.8>, [[<<1,0,0,0,0,0,15>>,
+  [<<0,10,0,40>>,<<8,118,115,116,97,116,105,111,110,0,0>>],
+  206]])
+
+3:56:29.158983 <0.306.0> rabbit_net:port_command/2 --> true
+
+3:56:29.159086 <0.306.0>  '--> rabbit_writer:port_cmd/2
+
+3:56:29.159988 <0.306.0> rabbit_writer:port_cmd/2 --> ok
+
+3:56:29.160371 <0.306.0>  '--> rabbit_writer:internal_flush/1
+
+3:56:29.160563 <0.306.0> rabbit_writer:internal_flush/1 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+3:56:29.160711 <0.306.0>  '--> rabbit_writer:handle_message/2
+
+3:56:29.160800 <0.306.0> rabbit_writer:handle_message/2 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+3:56:29.160938 <0.306.0>  '--> rabbit_writer:handle_message/3
+
+3:56:29.161040 <0.306.0> rabbit_writer:handle_message/3 --> {[],
+ {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+         {state,none,0,undefined},
+         [],1000000000}}
+
+3:56:29.161166 <0.306.0>  '--> rabbit_writer:mainloop1/2
+
+3:56:29.161271 <0.306.0> rabbit_writer:mainloop1([], {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.161360 <0.306.0> rabbit_writer:handle_message([], {inet_reply,#Port<0.8>,ok}, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.161493 <0.306.0> rabbit_writer:handle_message({inet_reply,#Port<0.8>,ok}, {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+3:56:29.161650 <0.306.0> rabbit_event:ensure_stats_timer({wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}, 7, emit_stats)
+
+3:56:29.161802 <0.306.0> rabbit_event:ensure_stats_timer/3 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+3:56:29.161932 <0.306.0> rabbit_writer:handle_message/2 --> {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+3:56:29.162053 <0.306.0>  '--> rabbit_writer:handle_message/3
+
+3:56:29.162154 <0.306.0> rabbit_writer:handle_message/3 --> {[],
+ {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+         {state,none,0,undefined},
+         [],1000000000}}
+
+3:56:29.162287 <0.306.0>  '--> rabbit_writer:mainloop1/2
+
+3:56:29.162365 <0.306.0> rabbit_writer:mainloop1([], {wstate,#Port<0.8>,0,4096,rabbit_framing_amqp_0_9_1,<0.301.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+%% 到这里 connection.open 发送完毕
+
+开始接受来自服务端的响应
+
+3:56:29.162876 <0.301.0> amqp_network_connection:handshake_recv('connection.open_ok')
+
+3:56:29.162988 <0.307.0> amqp_main_reader:handle_info({tcp,#Port<0.8>,<<1,0,0,0,0,0,5,0,10,0,41,0,206>>}, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46817>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+....
+
+3:56:29.164340 <0.307.0> amqp_main_reader:handle_data(<<1,0,0,0,0,0,5,0,10,0,41,0,206>>, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46822>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+3:56:29.164482 <0.307.0> amqp_main_reader:handle_data(<<1,0,0,0,0,0,5,0,10,0,41,0,206>>, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46822>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+3:56:29.164613 <0.307.0> amqp_main_reader:process_frame(1, 0, <<0,10,0,41,0>>, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46822>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+3:56:29.164764 <0.307.0> rabbit_command_assembler:analyze_frame(1, <<0,10,0,41,0>>, rabbit_framing_amqp_0_9_1)
+
+3:56:29.164834 <0.307.0> rabbit_framing_amqp_0_9_1:lookup_method_name({10,41})
+
+3:56:29.164884 <0.307.0> rabbit_framing_amqp_0_9_1:lookup_method_name/1 --> 'connection.open_ok'
+
+3:56:29.164970 <0.307.0>  '--> rabbit_command_assembler:analyze_frame/3
+
+3:56:29.165054 <0.307.0> rabbit_command_assembler:analyze_frame/3 --> {method,'connection.open_ok',<<0>>}
+
+3:56:29.165201 <0.307.0>  '--> amqp_main_reader:process_frame/4
+
+3:56:29.165250 <0.307.0> amqp_channels_manager:process_channel_frame({method,'connection.open_ok',<<0>>}, 0, <0.301.0>, {method,rabbit_framing_amqp_0_9_1})
+
+3:56:29.165345 <0.307.0> rabbit_command_assembler:process({method,'connection.open_ok',<<0>>}, {method,rabbit_framing_amqp_0_9_1})
+
+3:56:29.165438 <0.307.0> rabbit_framing_amqp_0_9_1:decode_method_fields('connection.open_ok', <<0>>)
+
+3:56:29.165529 <0.307.0> rabbit_binary_parser:assert_utf8(<<>>)
+
+3:56:29.165614 <0.307.0> rabbit_binary_parser:validate_utf8(<<>>)
+
+3:56:29.165675 <0.307.0> rabbit_binary_parser:validate_utf8/1 --> ok
+
+3:56:29.165754 <0.307.0>  '--> rabbit_binary_parser:assert_utf8/1
+
+3:56:29.165818 <0.307.0> rabbit_binary_parser:assert_utf8/1 --> ok
+
+3:56:29.165903 <0.307.0>  '--> rabbit_framing_amqp_0_9_1:decode_method_fields/2
+
+3:56:29.165990 <0.307.0> rabbit_framing_amqp_0_9_1:decode_method_fields/2 --> {'connection.open_ok',<<>>}
+
+3:56:29.166158 <0.307.0>  '--> rabbit_command_assembler:process/2
+
+3:56:29.166244 <0.307.0> rabbit_framing_amqp_0_9_1:method_has_content('connection.open_ok')
+
+3:56:29.166319 <0.307.0> rabbit_framing_amqp_0_9_1:method_has_content/1 --> false
+
+3:56:29.166387 <0.307.0>  '--> rabbit_command_assembler:process/2
+
+3:56:29.166453 <0.307.0> rabbit_command_assembler:process/2 --> {ok,{'connection.open_ok',<<>>},{method,rabbit_framing_amqp_0_9_1}}
+
+3:56:29.166555 <0.307.0>  '--> amqp_channels_manager:process_channel_frame/4
+
+3:56:29.166622 <0.307.0> rabbit_channel_common:do(<0.301.0>, {'connection.open_ok',<<>>})
+
+3:56:29.166714 <0.307.0> rabbit_channel_common:do(<0.301.0>, {'connection.open_ok',<<>>}, none)
+
+3:56:29.166922 <0.307.0> gen_server2:cast(<0.301.0>, {method,{'connection.open_ok',<<>>},none,noflow})
+
+3:56:29.167021 <0.307.0> gen_server2:cast/2 --> ok
+
+3:56:29.167108 <0.307.0> rabbit_channel_common:do/3 --> ok
+
+3:56:29.167180 <0.307.0> rabbit_channel_common:do/2 --> ok
+
+3:56:29.167235 <0.307.0>  '--> amqp_channels_manager:process_channel_frame/4
+
+3:56:29.167283 <0.307.0> amqp_channels_manager:process_channel_frame/4 --> {method,rabbit_framing_amqp_0_9_1}
+
+3:56:29.167361 <0.307.0>  '--> amqp_main_reader:process_frame/4
+
+3:56:29.167449 <0.307.0> amqp_main_reader:process_frame/4 --> {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46822>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none}
+
+%% 到此为止，也已经接受了服务端也已经响应
+
+
+3:56:29.168454 <0.301.0> amqp_network_connection:handshake_recv/1 --> {'connection.open_ok',<<>>}
+
+
+%% network_handshake 的整体返回值
+3:56:29.168617 <0.301.0> amqp_network_connection:network_handshake/2 --> {ok,{[{<<"capabilities">>,table,
+       [{<<"publisher_confirms">>,bool,true},
+        {<<"exchange_exchange_bindings">>,bool,true},
+        {<<"basic.nack">>,bool,true},
+        {<<"consumer_cancel_notify">>,bool,true},
+        {<<"connection.blocked">>,bool,true},
+        {<<"consumer_priorities">>,bool,true},
+        {<<"authentication_failure_close">>,bool,true},
+        {<<"per_consumer_qos">>,bool,true},
+        {<<"direct_reply_to">>,bool,true}]},
+      {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+      {<<"copyright">>,longstr,
+       <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+      {<<"information">>,longstr,
+       <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+      {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+      {<<"product">>,longstr,<<"RabbitMQ">>},
+      {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+     2047,<0.305.0>,
+     {state,#Port<0.8>,
+            <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,10,
+            <0.306.0>,131072,<0.300.0>,undefined,false}}}
+
+%%% 
+
+3:56:29.170880 <0.301.0> amqp_gen_connection:after_connect({[{<<"capabilities">>,table,
+   [{<<"publisher_confirms">>,bool,true},
+    {<<"exchange_exchange_bindings">>,bool,true},
+    {<<"basic.nack">>,bool,true},
+    {<<"consumer_cancel_notify">>,bool,true},
+    {<<"connection.blocked">>,bool,true},
+    {<<"consumer_priorities">>,bool,true},
+    {<<"authentication_failure_close">>,bool,true},
+    {<<"per_consumer_qos">>,bool,true},
+    {<<"direct_reply_to">>,bool,true}]},
+  {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+  {<<"copyright">>,longstr,
+   <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+  {<<"information">>,longstr,
+   <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+  {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+  {<<"product">>,longstr,<<"RabbitMQ">>},
+  {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+ 2047,<0.305.0>,
+ {state,#Port<0.8>,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,
+        10,<0.306.0>,131072,<0.300.0>,undefined,false}}, {state,amqp_network_connection,
+       {state,undefined,undefined,undefined,undefined,undefined,undefined,
+              undefined,false},
+       undefined,
+       {amqp_params_network,<<"vstation">>,
+                            {plaintext,<<"vstation">>},
+                            <<"vstation">>,"192.168.142.133",5672,2047,0,10,
+                            60000,none,
+                            [fun amqp_auth_mechanisms:plain/3,
+                             fun amqp_auth_mechanisms:amqplain/3],
+                            [],[]},
+       undefined,undefined,none,false})
+
+3:56:29.171449 <0.301.0> amqp_channels_manager:set_channel_max(<0.305.0>, 2047)
+
+3:56:29.171542 <0.301.0> amqp_channels_manager:set_channel_max/2 --> ok
+
+3:56:29.171595 <0.301.0>  '--> amqp_gen_connection:after_connect/2
+
+3:56:29.171635 <0.301.0> amqp_gen_connection:i(name, {state,amqp_network_connection,
+       {state,#Port<0.8>,
+              <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,10,
+              <0.306.0>,131072,<0.300.0>,undefined,false},
+       <0.305.0>,
+       {amqp_params_network,<<"vstation">>,
+                            {plaintext,<<"vstation">>},
+                            <<"vstation">>,"192.168.142.133",5672,2047,0,10,
+                            60000,none,
+                            [fun amqp_auth_mechanisms:plain/3,
+                             fun amqp_auth_mechanisms:amqplain/3],
+                            [],[]},
+       2047,
+       [{<<"capabilities">>,table,
+         [{<<"publisher_confirms">>,bool,true},
+          {<<"exchange_exchange_bindings">>,bool,true},
+          {<<"basic.nack">>,bool,true},
+          {<<"consumer_cancel_notify">>,bool,true},
+          {<<"connection.blocked">>,bool,true},
+          {<<"consumer_priorities">>,bool,true},
+          {<<"authentication_failure_close">>,bool,true},
+          {<<"per_consumer_qos">>,bool,true},
+          {<<"direct_reply_to">>,bool,true}]},
+        {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+        {<<"copyright">>,longstr,
+         <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+        {<<"information">>,longstr,
+         <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+        {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+        {<<"product">>,longstr,<<"RabbitMQ">>},
+        {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+       none,false})
+
+%%% rabbit_misc:store_proc_name(?MODULE, i(name, State1)),
+
+3:56:29.172119 <0.301.0> amqp_network_connection:i(name, {state,#Port<0.8>,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,
+       10,<0.306.0>,131072,<0.300.0>,undefined,false})
+
+3:56:29.172241 <0.301.0> amqp_network_connection:i/2 --> <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>
+
+3:56:29.172353 <0.301.0> amqp_gen_connection:i/2 --> <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>
+
+3:56:29.172434 <0.301.0>  '--> amqp_gen_connection:after_connect/2
+
+3:56:29.172493 <0.301.0> rabbit_misc:store_proc_name(amqp_gen_connection, <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>)
+
+3:56:29.172580 <0.301.0> rabbit_misc:store_proc_name({amqp_gen_connection,<<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>})
+
+3:56:29.172676 <0.301.0> rabbit_misc:store_proc_name/1 --> undefined
+
+3:56:29.172746 <0.301.0> rabbit_misc:store_proc_name/2 --> undefined
+
+3:56:29.172828 <0.301.0>  '--> amqp_gen_connection:after_connect/2
+
+3:56:29.172886 <0.301.0> amqp_gen_connection:after_connect/2 --> {state,amqp_network_connection,
+       {state,#Port<0.8>,
+              <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,10,
+              <0.306.0>,131072,<0.300.0>,undefined,false},
+       <0.305.0>,
+       {amqp_params_network,<<"vstation">>,
+                            {plaintext,<<"vstation">>},
+                            <<"vstation">>,"192.168.142.133",5672,2047,0,10,
+                            60000,none,
+                            [fun amqp_auth_mechanisms:plain/3,
+                             fun amqp_auth_mechanisms:amqplain/3],
+                            [],[]},
+       2047,
+       [{<<"capabilities">>,table,
+         [{<<"publisher_confirms">>,bool,true},
+          {<<"exchange_exchange_bindings">>,bool,true},
+          {<<"basic.nack">>,bool,true},
+          {<<"consumer_cancel_notify">>,bool,true},
+          {<<"connection.blocked">>,bool,true},
+          {<<"consumer_priorities">>,bool,true},
+          {<<"authentication_failure_close">>,bool,true},
+          {<<"per_consumer_qos">>,bool,true},
+          {<<"direct_reply_to">>,bool,true}]},
+        {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+        {<<"copyright">>,longstr,
+         <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+        {<<"information">>,longstr,
+         <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+        {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+        {<<"product">>,longstr,<<"RabbitMQ">>},
+        {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+       none,false}
+
+3:56:29.173402 <0.301.0>  '--> amqp_gen_connection:handle_call/3
+
+%% 连接返回
+3:56:29.173493 <0.301.0> amqp_gen_connection:handle_call/3 --> {reply,{ok,<0.301.0>},
+       {state,amqp_network_connection,
+              {state,#Port<0.8>,
+                     <<"client 192.168.142.151:55332 -> 192.168.142.133:5672">>,
+                     10,<0.306.0>,131072,<0.300.0>,undefined,false},
+              <0.305.0>,
+              {amqp_params_network,<<"vstation">>,
+                                   {plaintext,<<"vstation">>},
+                                   <<"vstation">>,"192.168.142.133",5672,2047,
+                                   0,10,60000,none,
+                                   [fun amqp_auth_mechanisms:plain/3,
+                                    fun amqp_auth_mechanisms:amqplain/3],
+                                   [],[]},
+              2047,
+              [{<<"capabilities">>,table,
+                [{<<"publisher_confirms">>,bool,true},
+                 {<<"exchange_exchange_bindings">>,bool,true},
+                 {<<"basic.nack">>,bool,true},
+                 {<<"consumer_cancel_notify">>,bool,true},
+                 {<<"connection.blocked">>,bool,true},
+                 {<<"consumer_priorities">>,bool,true},
+                 {<<"authentication_failure_close">>,bool,true},
+                 {<<"per_consumer_qos">>,bool,true},
+                 {<<"direct_reply_to">>,bool,true}]},
+               {<<"cluster_name">>,longstr,<<"rabbit@centos7-mq">>},
+               {<<"copyright">>,longstr,
+                <<"Copyright (c) 2007-2022 VMware, Inc. or its affiliates.">>},
+               {<<"information">>,longstr,
+                <<"Licensed under the MPL 2.0. Website: https://rabbitmq.com">>},
+               {<<"platform">>,longstr,<<"Erlang/OTP 25.0.4">>},
+               {<<"product">>,longstr,<<"RabbitMQ">>},
+               {<<"version">>,longstr,<<"3.8.10+1697.g6ec68cb">>}],
+              none,false}}
+
+3:56:29.173975 <0.301.0>  '--> gen_server:try_handle_call/4
+
+% 开始处理  <0.305.0> amqp_channels_manager 
+set_channel_max(ChMgr, ChannelMax) ->
+    gen_server:cast(ChMgr, {set_channel_max, ChannelMax}).
+
+3:56:29.174090 <0.305.0> amqp_channels_manager:handle_cast({set_channel_max,2047}, {state,<0.301.0>,<0.304.0>,{0,nil},#{},65535,false})
+
+3:56:29.174216 <0.305.0> amqp_channels_manager:handle_cast/2 --> {noreply,{state,<0.301.0>,<0.304.0>,{0,nil},#{},2047,false}}
+
+3:56:29.174333 <0.305.0>  '--> gen_server:try_dispatch/4
+
+3:56:29.174446 <0.219.0> amqp_gen_connection:connect/1 --> {ok,<0.301.0>}
+
+3:56:29.174519 <0.219.0> amqp_connection:start/2 --> {ok,<0.301.0>}
+
+3:56:29.174590 <0.219.0> amqp_connection:start/1 --> {ok,<0.301.0>}
+
+3:56:29.174698 <0.219.0>  '--> amqp_example:connect_amqp/0
+
+%%% 以上最终返回
+
+
+%% 开始处理心跳, 周期性动作
+3:56:34.013982 <0.307.0> amqp_main_reader:handle_info({tcp,#Port<0.8>,<<8,0,0,0,0,0,0,206>>}, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46822>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+3:56:34.014486 <0.307.0> rabbit_net:setopts(#Port<0.8>, [{active,once}])
+
+3:56:34.014730 <0.307.0> rabbit_net:setopts/2 --> ok
+
+3:56:34.014866 <0.307.0>  '--> amqp_main_reader:handle_info/2
+
+3:56:34.014974 <0.307.0> amqp_main_reader:set_timeout({state,#Port<0.8>,#Ref<0.2468946279.4038590465.46822>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+3:56:34.015092 <0.307.0> amqp_main_reader:cancel_timeout({state,#Port<0.8>,#Ref<0.2468946279.4038590465.46822>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+3:56:34.015326 <0.307.0> amqp_main_reader:cancel_timeout/1 --> {state,#Port<0.8>,undefined,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}}
+
+3:56:34.015463 <0.307.0>  '--> amqp_main_reader:set_timeout/1
+
+3:56:34.015572 <0.307.0> amqp_util:call_timeout()
+
+3:56:34.015862 <0.307.0> amqp_util:call_timeout/0 --> 70000
+
+3:56:34.015979 <0.307.0>  '--> amqp_main_reader:set_timeout/1
+
+3:56:34.016076 <0.307.0> amqp_main_reader:set_timeout/1 --> {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46896>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}}
+
+3:56:34.016190 <0.307.0>  '--> amqp_main_reader:handle_info/2
+
+3:56:34.016298 <0.307.0> amqp_main_reader:handle_data(<<8,0,0,0,0,0,0,206>>, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46896>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       {expecting_header,<<>>}})
+
+3:56:34.016456 <0.307.0> amqp_main_reader:handle_data(<<8,0,0,0,0,0,0,206>>, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46896>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+3:56:34.016553 <0.307.0> amqp_main_reader:process_frame(8, 0, <<>>, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46896>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+3:56:34.016679 <0.307.0> rabbit_command_assembler:analyze_frame(8, <<>>, rabbit_framing_amqp_0_9_1)
+
+3:56:34.016792 <0.307.0> rabbit_command_assembler:analyze_frame/3 --> heartbeat
+
+3:56:34.016908 <0.307.0>  '--> amqp_main_reader:process_frame/4
+
+3:56:34.017003 <0.307.0> amqp_main_reader:process_frame/4 --> {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46896>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none}
+
+3:56:34.017174 <0.307.0>  '--> amqp_main_reader:handle_data/2
+
+3:56:34.017263 <0.307.0> amqp_main_reader:handle_data(<<>>, {state,#Port<0.8>,#Ref<0.2468946279.4038590465.46896>,<0.301.0>,<0.305.0>,
+       {method,rabbit_framing_amqp_0_9_1},
+       none})
+
+3:56:34.017448 <0.307.0> amqp_main_reader:handle_data/2 --> {noreply,{state,#Port<0.8>,#Ref<0.2468946279.4038590465.46896>,<0.301.0>,
+                <0.305.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+3:56:34.017636 <0.307.0> amqp_main_reader:handle_data/2 --> {noreply,{state,#Port<0.8>,#Ref<0.2468946279.4038590465.46896>,<0.301.0>,
+                <0.305.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+3:56:34.017797 <0.307.0> amqp_main_reader:handle_data/2 --> {noreply,{state,#Port<0.8>,#Ref<0.2468946279.4038590465.46896>,<0.301.0>,
+                <0.305.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+3:56:34.017933 <0.307.0> amqp_main_reader:handle_info/2 --> {noreply,{state,#Port<0.8>,#Ref<0.2468946279.4038590465.46896>,<0.301.0>,
+                <0.305.0>,
+                {method,rabbit_framing_amqp_0_9_1},
+                {expecting_header,<<>>}}}
+
+3:56:34.018030 <0.307.0>  '--> gen_server:try_dispatch/4
+
+3:56:34.061970 <0.308.0> rabbit_heartbeat:get_sock_stats(#Port<0.8>, send_oct, #Fun<rabbit_heartbeat.4.58237509>)
+
+3:56:34.062417 <0.308.0> rabbit_net:getstat(#Port<0.8>, [send_oct])
+
+3:56:34.062566 <0.308.0> rabbit_net:getstat/2 --> {ok,[{send_oct,460}]}
+
+3:56:34.062652 <0.308.0>  '--> rabbit_heartbeat:get_sock_stats/3
+
+3:56:34.062774 <0.308.0> rabbit_heartbeat:'-heartbeater/3-fun-2-'(460, 0, send_oct, 0, 0)
+
+3:56:34.062924 <0.308.0> rabbit_heartbeat:'-heartbeater/3-fun-2-'/5 --> {run_handler,{460,0}}
+
+3:56:34.063033 <0.308.0> rabbit_heartbeat:get_sock_stats/3 --> {run_handler,{460,0}}
+
+3:56:34.063145 <0.308.0>  '--> rabbit_heartbeat:heartbeater/3
+
+3:56:34.063261 <0.308.0> rabbit_heartbeat:handle_get_sock_stats({run_handler,{460,0}}, #Port<0.8>, send_oct, #Fun<rabbit_heartbeat.3.58237509>, #Fun<rabbit_heartbeat.0.58237509>)
+
+3:56:34.063433 <0.308.0> rabbit_heartbeat:'-start_heartbeat_sender/4-fun-0-'(#Fun<amqp_network_connection.2.53417588>)
+
+3:56:34.063585 <0.308.0> amqp_network_connection:'-start_heartbeat/1-fun-0-'(#Port<0.8>, [<<8,0,0,0,0,0,0>>,<<>>,206])
+
+3:56:34.063712 <0.308.0> rabbit_net:send(#Port<0.8>, [<<8,0,0,0,0,0,0>>,<<>>,206])
+
+3:56:34.063860 <0.308.0> rabbit_net:send/2 --> ok
+
+3:56:34.063979 <0.308.0>  '--> amqp_network_connection:'-start_heartbeat/1-fun-0-'/2
+
+3:56:34.064072 <0.308.0> amqp_network_connection:'-start_heartbeat/1-fun-0-'/2 --> ok
+
+3:56:34.064238 <0.308.0>  '--> rabbit_heartbeat:'-start_heartbeat_sender/4-fun-0-'/1
+
+3:56:34.064309 <0.308.0> rabbit_heartbeat:'-start_heartbeat_sender/4-fun-0-'/1 --> continue
+
+3:56:34.064453 <0.308.0>  '--> rabbit_heartbeat:handle_get_sock_stats/5
+
+3:56:34.064570 <0.308.0> rabbit_heartbeat:get_sock_stats(#Port<0.8>, send_oct, #Fun<rabbit_heartbeat.5.58237509>)
+
+3:56:34.064675 <0.308.0> rabbit_net:getstat(#Port<0.8>, [send_oct])
+
+3:56:34.064809 <0.308.0> rabbit_net:getstat/2 --> {ok,[{send_oct,468}]}
+
+3:56:34.064927 <0.308.0>  '--> rabbit_heartbeat:get_sock_stats/3
+
+3:56:34.065018 <0.308.0> rabbit_heartbeat:'-handle_get_sock_stats/5-fun-0-'(468, 0)
+
+3:56:34.065134 <0.308.0> rabbit_heartbeat:'-handle_get_sock_stats/5-fun-0-'/2 --> {recurse,{468,0}}
+
+3:56:34.065247 <0.308.0> rabbit_heartbeat:get_sock_stats/3 --> {recurse,{468,0}}
+
+3:56:34.065335 <0.308.0>  '--> rabbit_heartbeat:handle_get_sock_stats/5
+
+3:56:34.065442 <0.308.0> rabbit_heartbeat:handle_get_sock_stats({recurse,{468,0}}, #Port<0.8>, send_oct, #Fun<rabbit_heartbeat.3.58237509>, #Fun<rabbit_heartbeat.0.58237509>)
+
+3:56:34.065553 <0.308.0> rabbit_heartbeat:'-heartbeater/3-fun-0-'({468,0}, {#Port<0.8>,5000,send_oct,0,#Fun<rabbit_heartbeat.0.58237509>}, [])
+
+3:56:34.065673 <0.308.0> rabbit_heartbeat:heartbeater({#Port<0.8>,5000,send_oct,0,#Fun<rabbit_heartbeat.0.58237509>}, [], {468,0})

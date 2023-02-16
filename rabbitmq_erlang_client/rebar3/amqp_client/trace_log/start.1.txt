@@ -1,0 +1,457 @@
+
+21:42:11.601224 <0.248.0> supervisor2:terminate(shutdown, {state,{local,amqp_sup},
+       simple_one_for_one,
+       {[connection_sup],
+        #{connection_sup =>
+              {child,undefined,connection_sup,
+                     {amqp_connection_sup,start_link,[]},
+                     temporary,infinity,supervisor,
+                     [amqp_connection_sup]}}},
+       {sets,{set,0,16,16,8,80,48,
+                  {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                  {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+       0,1,[],0,amqp_sup,[]})
+
+21:42:11.602039 <0.248.0> supervisor2:terminate_dynamic_children({state,{local,amqp_sup},
+       simple_one_for_one,
+       {[connection_sup],
+        #{connection_sup =>
+              {child,undefined,connection_sup,
+                     {amqp_connection_sup,start_link,[]},
+                     temporary,infinity,supervisor,
+                     [amqp_connection_sup]}}},
+       {sets,{set,0,16,16,8,80,48,
+                  {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                  {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+       0,1,[],0,amqp_sup,[]})
+
+21:42:11.602372 <0.248.0> supervisor2:get_dynamic_child({state,{local,amqp_sup},
+       simple_one_for_one,
+       {[connection_sup],
+        #{connection_sup =>
+              {child,undefined,connection_sup,
+                     {amqp_connection_sup,start_link,[]},
+                     temporary,infinity,supervisor,
+                     [amqp_connection_sup]}}},
+       {sets,{set,0,16,16,8,80,48,
+                  {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                  {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+       0,1,[],0,amqp_sup,[]})
+
+21:42:11.602694 <0.248.0> supervisor2:get_dynamic_child/1 --> {child,undefined,connection_sup,
+       {amqp_connection_sup,start_link,[]},
+       temporary,infinity,supervisor,
+       [amqp_connection_sup]}
+
+21:42:11.602846 <0.248.0>  '--> supervisor2:terminate_dynamic_children/1
+
+21:42:11.602897 <0.248.0> supervisor2:monitor_dynamic_children({child,undefined,connection_sup,
+       {amqp_connection_sup,start_link,[]},
+       temporary,infinity,supervisor,
+       [amqp_connection_sup]}, {state,{local,amqp_sup},
+       simple_one_for_one,
+       {[connection_sup],
+        #{connection_sup =>
+              {child,undefined,connection_sup,
+                     {amqp_connection_sup,start_link,[]},
+                     temporary,infinity,supervisor,
+                     [amqp_connection_sup]}}},
+       {sets,{set,0,16,16,8,80,48,
+                  {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                  {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+       0,1,[],0,amqp_sup,[]})
+
+21:42:11.603139 <0.248.0> supervisor2:dyn_fold(#Fun<supervisor2.13.106196900>, {{set,0,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}},
+ {dict,0,16,16,8,80,48,
+       {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+       {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}}, {state,{local,amqp_sup},
+       simple_one_for_one,
+       {[connection_sup],
+        #{connection_sup =>
+              {child,undefined,connection_sup,
+                     {amqp_connection_sup,start_link,[]},
+                     temporary,infinity,supervisor,
+                     [amqp_connection_sup]}}},
+       {sets,{set,0,16,16,8,80,48,
+                  {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                  {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+       0,1,[],0,amqp_sup,[]})
+
+21:42:11.603442 <0.248.0> supervisor2:dyn_fold/3 --> {{set,0,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}},
+ {dict,0,16,16,8,80,48,
+       {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+       {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}}
+
+21:42:11.603594 <0.248.0> supervisor2:monitor_dynamic_children/2 --> {{set,0,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}},
+ {dict,0,16,16,8,80,48,
+       {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+       {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}}
+
+21:42:11.603750 <0.248.0>  '--> supervisor2:terminate_dynamic_children/1
+
+21:42:11.603809 <0.248.0> supervisor2:wait_dynamic_children({child,undefined,connection_sup,
+       {amqp_connection_sup,start_link,[]},
+       temporary,infinity,supervisor,
+       [amqp_connection_sup]}, {set,0,16,16,8,80,48,
+     {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+     {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}, 0, undefined, {dict,0,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}})
+
+21:42:11.604009 <0.248.0> supervisor2:wait_dynamic_children/5 --> {dict,0,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}
+
+21:42:11.604147 <0.248.0>  '--> supervisor2:terminate_dynamic_children/1
+
+21:42:11.604193 <0.248.0> supervisor2:terminate_dynamic_children/1 --> ok
+
+21:42:11.604234 <0.248.0> supervisor2:terminate/2 --> ok
+
+21:42:11.604274 <0.248.0>  '--> gen_server:try_terminate/3
+
+21:42:11.604309 <0.247.0> amqp_client:stop([])
+
+21:42:11.604361 <0.247.0> amqp_client:stop/1 --> ok
+
+21:42:11.604434 <0.247.0>  '--> application_master:loop_it/4
+
+21:42:32.199508 <0.482.0> amqp_client:start(normal, [])
+
+21:42:32.199722 <0.482.0> amqp_sup:start_link()
+
+21:42:32.199843 <0.482.0> supervisor2:start_link({local,amqp_sup}, amqp_sup, [])
+
+21:42:32.200002 <0.483.0> supervisor2:init({{local,amqp_sup},amqp_sup,[]})
+
+21:42:32.200176 <0.483.0> amqp_sup:init([])
+
+21:42:32.200297 <0.483.0> rabbit_misc:get_env(rabbit, supervisor_shutdown_timeout, infinity)
+
+21:42:32.200452 <0.483.0> rabbit_misc:get_env/3 --> infinity
+
+21:42:32.200617 <0.483.0>  '--> amqp_sup:init/1
+
+21:42:32.200713 <0.483.0> amqp_sup:init/1 --> {ok,{{simple_one_for_one,0,1},
+     [{connection_sup,{amqp_connection_sup,start_link,[]},
+                      temporary,infinity,supervisor,
+                      [amqp_connection_sup]}]}}
+
+21:42:32.200918 <0.483.0>  '--> supervisor2:init/1
+
+21:42:32.201030 <0.483.0> supervisor2:init_state({local,amqp_sup}, {simple_one_for_one,0,1}, amqp_sup, [])
+
+21:42:32.201170 <0.483.0> supervisor2:supname({local,amqp_sup}, amqp_sup)
+
+21:42:32.201306 <0.483.0> supervisor2:supname/2 --> {local,amqp_sup}
+
+21:42:32.201445 <0.483.0>  '--> supervisor2:init_state/4
+
+21:42:32.201591 <0.483.0> supervisor2:set_flags({simple_one_for_one,0,1}, {state,{local,amqp_sup},
+       undefined,
+       {[],#{}},
+       undefined,undefined,undefined,[],0,amqp_sup,[]})
+
+21:42:32.201794 <0.483.0> supervisor2:check_flags({simple_one_for_one,0,1})
+
+21:42:32.201938 <0.483.0> supervisor2:check_flags(#{intensity=>0, period=>1, strategy=>simple_one_for_one})
+
+21:42:32.202093 <0.483.0> supervisor2:do_check_flags(#{intensity=>0, period=>1, strategy=>simple_one_for_one})
+
+21:42:32.202253 <0.483.0> supervisor2:validStrategy(simple_one_for_one)
+
+21:42:32.202386 <0.483.0> supervisor2:validStrategy/1 --> true
+
+21:42:32.202482 <0.483.0>  '--> supervisor2:do_check_flags/1
+
+21:42:32.202613 <0.483.0> supervisor2:validIntensity(0)
+
+21:42:32.202769 <0.483.0> supervisor2:validIntensity/1 --> true
+
+21:42:32.202921 <0.483.0>  '--> supervisor2:do_check_flags/1
+
+21:42:32.203001 <0.483.0> supervisor2:validPeriod(1)
+
+21:42:32.203125 <0.483.0> supervisor2:validPeriod/1 --> true
+
+21:42:32.203253 <0.483.0>  '--> supervisor2:do_check_flags/1
+
+21:42:32.203356 <0.483.0> supervisor2:do_check_flags/1 --> #{intensity=>0, period=>1, strategy=>simple_one_for_one}
+
+21:42:32.203477 <0.483.0> supervisor2:check_flags/1 --> #{intensity=>0, period=>1, strategy=>simple_one_for_one}
+
+21:42:32.204086 <0.483.0> supervisor2:check_flags/1 --> #{intensity=>0, period=>1, strategy=>simple_one_for_one}
+
+21:42:32.204431 <0.483.0>  '--> supervisor2:set_flags/2
+
+21:42:32.204595 <0.483.0> supervisor2:set_flags/2 --> {ok,{state,{local,amqp_sup},
+           simple_one_for_one,
+           {[],#{}},
+           undefined,0,1,[],0,amqp_sup,[]}}
+
+21:42:32.204755 <0.483.0> supervisor2:init_state/4 --> {ok,{state,{local,amqp_sup},
+           simple_one_for_one,
+           {[],#{}},
+           undefined,0,1,[],0,amqp_sup,[]}}
+
+21:42:32.204916 <0.483.0>  '--> supervisor2:init/1
+
+21:42:32.205053 <0.483.0> supervisor2:init_dynamic({state,{local,amqp_sup},
+       simple_one_for_one,
+       {[],#{}},
+       undefined,0,1,[],0,amqp_sup,[]}, [{connection_sup,{amqp_connection_sup,start_link,[]},
+                 temporary,infinity,supervisor,
+                 [amqp_connection_sup]}])
+
+21:42:32.205247 <0.483.0> supervisor2:check_startspec([{connection_sup,{amqp_connection_sup,start_link,[]},
+                 temporary,infinity,supervisor,
+                 [amqp_connection_sup]}])
+
+21:42:32.205387 <0.483.0> supervisor2:check_startspec([{connection_sup,{amqp_connection_sup,start_link,[]},
+                 temporary,infinity,supervisor,
+                 [amqp_connection_sup]}], [], #{})
+
+21:42:32.205552 <0.483.0> supervisor2:check_childspec({connection_sup,{amqp_connection_sup,start_link,[]},
+                temporary,infinity,supervisor,
+                [amqp_connection_sup]})
+
+21:42:32.205720 <0.483.0> supervisor2:check_childspec(#{id=>connection_sup, modules=>[amqp_connection_sup], restart=>temporary, shutdown=>infinity, start=>{amqp_connection_sup,start_link,[]}, type=>supervisor})
+
+21:42:32.205879 <0.483.0> supervisor2:do_check_childspec(#{id=>connection_sup, modules=>[amqp_connection_sup], restart=>temporary, shutdown=>infinity, start=>{amqp_connection_sup,start_link,[]}, type=>supervisor})
+
+21:42:32.206040 <0.483.0> supervisor2:validId(connection_sup)
+
+21:42:32.206104 <0.483.0> supervisor2:validId/1 --> true
+
+21:42:32.206168 <0.483.0>  '--> supervisor2:do_check_childspec/1
+
+21:42:32.206229 <0.483.0> supervisor2:validFunc({amqp_connection_sup,start_link,[]})
+
+21:42:32.206343 <0.483.0> supervisor2:validFunc/1 --> true
+
+21:42:32.206404 <0.483.0>  '--> supervisor2:do_check_childspec/1
+
+21:42:32.206465 <0.483.0> supervisor2:validRestartType(temporary)
+
+21:42:32.206550 <0.483.0> supervisor2:validRestartType/1 --> true
+
+21:42:32.206651 <0.483.0>  '--> supervisor2:do_check_childspec/1
+
+21:42:32.206936 <0.483.0> supervisor2:validChildType(supervisor)
+
+21:42:32.207077 <0.483.0> supervisor2:validChildType/1 --> true
+
+21:42:32.207178 <0.483.0>  '--> supervisor2:do_check_childspec/1
+
+21:42:32.207235 <0.483.0> supervisor2:validShutdown(infinity)
+
+21:42:32.207297 <0.483.0> supervisor2:validShutdown/1 --> true
+
+21:42:32.207379 <0.483.0>  '--> supervisor2:do_check_childspec/1
+
+21:42:32.207440 <0.483.0> supervisor2:validMods([amqp_connection_sup])
+
+21:42:32.207519 <0.483.0> supervisor2:'-validMods/1-fun-0-'(amqp_connection_sup)
+
+21:42:32.207628 <0.483.0> supervisor2:'-validMods/1-fun-0-'/1 --> ok
+
+21:42:32.207709 <0.483.0>  '--> lists:foreach_1/2
+
+21:42:32.207763 <0.483.0> supervisor2:validMods/1 --> ok
+
+21:42:32.207830 <0.483.0>  '--> supervisor2:do_check_childspec/1
+
+21:42:32.207934 <0.483.0> supervisor2:do_check_childspec/1 --> {ok,{child,undefined,connection_sup,
+           {amqp_connection_sup,start_link,[]},
+           temporary,infinity,supervisor,
+           [amqp_connection_sup]}}
+
+21:42:32.208087 <0.483.0>  '--> supervisor2:check_childspec/1
+
+21:42:32.208150 <0.483.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,connection_sup,
+           {amqp_connection_sup,start_link,[]},
+           temporary,infinity,supervisor,
+           [amqp_connection_sup]}}
+
+21:42:32.208291 <0.483.0> supervisor2:check_childspec/1 --> {ok,{child,undefined,connection_sup,
+           {amqp_connection_sup,start_link,[]},
+           temporary,infinity,supervisor,
+           [amqp_connection_sup]}}
+
+21:42:32.208433 <0.483.0>  '--> supervisor2:check_startspec/3
+
+21:42:32.208500 <0.483.0> supervisor2:check_startspec([], [connection_sup], #{connection_sup=>{child,undefined,connection_sup,
+       {amqp_connection_sup,start_link,[]},
+       temporary,infinity,supervisor,
+       [amqp_connection_sup]}})
+
+21:42:32.208680 <0.483.0> supervisor2:check_startspec/3 --> {ok,{[connection_sup],
+     #{connection_sup =>
+           {child,undefined,connection_sup,
+                  {amqp_connection_sup,start_link,[]},
+                  temporary,infinity,supervisor,
+                  [amqp_connection_sup]}}}}
+
+21:42:32.208859 <0.483.0> supervisor2:check_startspec/3 --> {ok,{[connection_sup],
+     #{connection_sup =>
+           {child,undefined,connection_sup,
+                  {amqp_connection_sup,start_link,[]},
+                  temporary,infinity,supervisor,
+                  [amqp_connection_sup]}}}}
+
+21:42:32.209063 <0.483.0> supervisor2:check_startspec/1 --> {ok,{[connection_sup],
+     #{connection_sup =>
+           {child,undefined,connection_sup,
+                  {amqp_connection_sup,start_link,[]},
+                  temporary,infinity,supervisor,
+                  [amqp_connection_sup]}}}}
+
+21:42:32.209242 <0.483.0>  '--> supervisor2:init_dynamic/2
+
+21:42:32.209313 <0.483.0> supervisor2:dyn_init({state,{local,amqp_sup},
+       simple_one_for_one,
+       {[connection_sup],
+        #{connection_sup =>
+              {child,undefined,connection_sup,
+                     {amqp_connection_sup,start_link,[]},
+                     temporary,infinity,supervisor,
+                     [amqp_connection_sup]}}},
+       undefined,0,1,[],0,amqp_sup,[]})
+
+21:42:32.209504 <0.483.0> supervisor2:get_dynamic_child({state,{local,amqp_sup},
+       simple_one_for_one,
+       {[connection_sup],
+        #{connection_sup =>
+              {child,undefined,connection_sup,
+                     {amqp_connection_sup,start_link,[]},
+                     temporary,infinity,supervisor,
+                     [amqp_connection_sup]}}},
+       undefined,0,1,[],0,amqp_sup,[]})
+
+21:42:32.209730 <0.483.0> supervisor2:get_dynamic_child/1 --> {child,undefined,connection_sup,
+       {amqp_connection_sup,start_link,[]},
+       temporary,infinity,supervisor,
+       [amqp_connection_sup]}
+
+21:42:32.210237 <0.483.0>  '--> supervisor2:dyn_init/1
+
+21:42:32.210309 <0.483.0> supervisor2:dyn_init({child,undefined,connection_sup,
+       {amqp_connection_sup,start_link,[]},
+       temporary,infinity,supervisor,
+       [amqp_connection_sup]}, {state,{local,amqp_sup},
+       simple_one_for_one,
+       {[connection_sup],
+        #{connection_sup =>
+              {child,undefined,connection_sup,
+                     {amqp_connection_sup,start_link,[]},
+                     temporary,infinity,supervisor,
+                     [amqp_connection_sup]}}},
+       undefined,0,1,[],0,amqp_sup,[]})
+
+21:42:32.210602 <0.483.0> supervisor2:dyn_init/2 --> {state,{local,amqp_sup},
+       simple_one_for_one,
+       {[connection_sup],
+        #{connection_sup =>
+              {child,undefined,connection_sup,
+                     {amqp_connection_sup,start_link,[]},
+                     temporary,infinity,supervisor,
+                     [amqp_connection_sup]}}},
+       {sets,{set,0,16,16,8,80,48,
+                  {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                  {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+       0,1,[],0,amqp_sup,[]}
+
+21:42:32.210872 <0.483.0> supervisor2:dyn_init/1 --> {state,{local,amqp_sup},
+       simple_one_for_one,
+       {[connection_sup],
+        #{connection_sup =>
+              {child,undefined,connection_sup,
+                     {amqp_connection_sup,start_link,[]},
+                     temporary,infinity,supervisor,
+                     [amqp_connection_sup]}}},
+       {sets,{set,0,16,16,8,80,48,
+                  {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                  {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+       0,1,[],0,amqp_sup,[]}
+
+21:42:32.211133 <0.483.0>  '--> supervisor2:init_dynamic/2
+
+21:42:32.211204 <0.483.0> supervisor2:init_dynamic/2 --> {ok,{state,{local,amqp_sup},
+           simple_one_for_one,
+           {[connection_sup],
+            #{connection_sup =>
+                  {child,undefined,connection_sup,
+                         {amqp_connection_sup,start_link,[]},
+                         temporary,infinity,supervisor,
+                         [amqp_connection_sup]}}},
+           {sets,{set,0,16,16,8,80,48,
+                      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                      {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+           0,1,[],0,amqp_sup,[]}}
+
+21:42:32.211486 <0.483.0> supervisor2:init/1 --> {ok,{state,{local,amqp_sup},
+           simple_one_for_one,
+           {[connection_sup],
+            #{connection_sup =>
+                  {child,undefined,connection_sup,
+                         {amqp_connection_sup,start_link,[]},
+                         temporary,infinity,supervisor,
+                         [amqp_connection_sup]}}},
+           {sets,{set,0,16,16,8,80,48,
+                      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                      {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+           0,1,[],0,amqp_sup,[]}}
+
+21:42:32.211739 <0.483.0>  '--> gen_server:init_it/2
+
+21:42:32.211809 <0.482.0> supervisor2:start_link/3 --> {ok,<0.483.0>}
+
+21:42:32.211933 <0.482.0> amqp_sup:start_link/0 --> {ok,<0.483.0>}
+
+21:42:32.212021 <0.482.0> amqp_client:start/2 --> {ok,<0.483.0>}
+
+21:42:32.212120 <0.482.0>  '--> application_master:start_it_old/4
+
+21:53:12.957041 <0.11910.0> supervisor2:module_info(attributes)
+
+21:53:12.957265 <0.11910.0> supervisor2:module_info/1 --> [{vsn,[269241130088521702902247982664745986033]},{behaviour,[gen_server]}]
+
+21:53:12.957881 <0.11910.0>  '--> erpc:execute_call/3
+
+21:53:12.957946 <0.483.0> supervisor2:format_status(normal, [[{'$initial_call',{supervisor2,init,1}},{'$ancestors',[<0.482.0>]}],
+ {state,{local,amqp_sup},
+        simple_one_for_one,
+        {[connection_sup],
+         #{connection_sup =>
+               {child,undefined,connection_sup,
+                      {amqp_connection_sup,start_link,[]},
+                      temporary,infinity,supervisor,
+                      [amqp_connection_sup]}}},
+        {sets,{set,0,16,16,8,80,48,
+                   {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                   {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}},
+        0,1,[],0,amqp_sup,[]}])
+
+21:53:12.958190 <0.483.0> supervisor2:format_status/2 --> [{data,[{"State",
+         {state,{local,amqp_sup},
+                simple_one_for_one,
+                {[connection_sup],
+                 #{connection_sup =>
+                       {child,undefined,connection_sup,
+                              {amqp_connection_sup,start_link,[]},
+                              temporary,infinity,supervisor,
+                              [amqp_connection_sup]}}},
+                {sets,{set,0,16,16,8,80,48,
+                           {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                           {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                             []}}}},
+                0,1,[],0,amqp_sup,[]}}]},
+ {supervisor,[{"Callback",amqp_sup}]}]
+
+21:53:12.958559 <0.483.0>  '--> gen:format_status/4

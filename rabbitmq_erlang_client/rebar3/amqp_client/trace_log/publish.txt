@@ -1,0 +1,648 @@
+
+2:4:23.919314 <0.267.0> amqp_channel:cast(<0.315.0>, {'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false}, {amqp_msg,{'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                     undefined,undefined,undefined,undefined,undefined,
+                     undefined,undefined,undefined},
+          <<"foobar">>})
+
+2:4:23.920199 <0.267.0> amqp_channel:cast/3 --> ok
+
+2:4:23.920321 <0.267.0>  '--> erl_eval:do_apply/7
+
+2:4:23.920446 <0.315.0> amqp_channel:handle_cast({cast,{'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false},
+      {amqp_msg,{'P_basic',undefined,undefined,undefined,2,undefined,
+                           undefined,undefined,undefined,undefined,undefined,
+                           undefined,undefined,undefined,undefined},
+                <<"foobar">>},
+      <0.267.0>,noflow}, {state,1,<0.304.0>,<0.314.0>,network,
+       {[],[]},
+       false,<0.316.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+2:4:23.920691 <0.315.0> amqp_channel:handle_method_to_server({'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false}, {amqp_msg,{'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                     undefined,undefined,undefined,undefined,undefined,
+                     undefined,undefined,undefined},
+          <<"foobar">>}, none, <0.267.0>, noflow, {state,1,<0.304.0>,<0.314.0>,network,
+       {[],[]},
+       false,<0.316.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+2:4:23.921031 <0.315.0> amqp_channel:check_invalid_method({'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false})
+
+2:4:23.921139 <0.315.0> amqp_channel:is_connection_method({'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false})
+
+2:4:23.921254 <0.315.0> rabbit_framing_amqp_0_9_1:method_id('basic.publish')
+
+2:4:23.921329 <0.315.0> rabbit_framing_amqp_0_9_1:method_id/1 --> {60,40}
+
+2:4:23.921428 <0.315.0>  '--> amqp_channel:is_connection_method/1
+
+2:4:23.921495 <0.315.0> rabbit_framing_amqp_0_9_1:lookup_class_name(60)
+
+2:4:23.921572 <0.315.0> rabbit_framing_amqp_0_9_1:lookup_class_name/1 --> basic
+
+2:4:23.921679 <0.315.0>  '--> amqp_channel:is_connection_method/1
+
+2:4:23.921740 <0.315.0> amqp_channel:is_connection_method/1 --> false
+
+2:4:23.921830 <0.315.0>  '--> amqp_channel:check_invalid_method/1
+
+2:4:23.921892 <0.315.0> amqp_channel:check_invalid_method/1 --> ok
+
+2:4:23.921965 <0.315.0>  '--> amqp_channel:handle_method_to_server/6
+
+2:4:23.922106 <0.315.0> amqp_channel:check_block({'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false}, {amqp_msg,{'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                     undefined,undefined,undefined,undefined,undefined,
+                     undefined,undefined,undefined},
+          <<"foobar">>}, {state,1,<0.304.0>,<0.314.0>,network,
+       {[],[]},
+       false,<0.316.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+2:4:23.922375 <0.315.0> amqp_channel:check_block/3 --> ok
+
+2:4:23.922447 <0.315.0>  '--> amqp_channel:handle_method_to_server/6
+
+2:4:23.922508 <0.315.0> amqp_channel:build_content({amqp_msg,{'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                     undefined,undefined,undefined,undefined,undefined,
+                     undefined,undefined,undefined},
+          <<"foobar">>})
+
+2:4:23.922659 <0.315.0> rabbit_basic_common:build_content({'P_basic',undefined,undefined,undefined,2,undefined,undefined,undefined,
+           undefined,undefined,undefined,undefined,undefined,undefined,
+           undefined}, <<"foobar">>)
+
+2:4:23.922808 <0.315.0> rabbit_basic_common:build_content({'P_basic',undefined,undefined,undefined,2,undefined,undefined,undefined,
+           undefined,undefined,undefined,undefined,undefined,undefined,
+           undefined}, [<<"foobar">>])
+
+2:4:23.922933 <0.315.0> rabbit_framing_amqp_0_9_1:method_id('basic.publish')
+
+2:4:23.923001 <0.315.0> rabbit_framing_amqp_0_9_1:method_id/1 --> {60,40}
+
+2:4:23.923072 <0.315.0>  '--> rabbit_basic_common:build_content/2
+
+2:4:23.923161 <0.315.0> rabbit_basic_common:build_content/2 --> {content,60,
+         {'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                    undefined,undefined,undefined,undefined,undefined,
+                    undefined,undefined,undefined},
+         none,none,
+         [<<"foobar">>]}
+
+2:4:23.923322 <0.315.0> rabbit_basic_common:build_content/2 --> {content,60,
+         {'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                    undefined,undefined,undefined,undefined,undefined,
+                    undefined,undefined,undefined},
+         none,none,
+         [<<"foobar">>]}
+
+2:4:23.923859 <0.315.0> amqp_channel:build_content/1 --> {content,60,
+         {'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                    undefined,undefined,undefined,undefined,undefined,
+                    undefined,undefined,undefined},
+         none,none,
+         [<<"foobar">>]}
+
+2:4:23.924290 <0.315.0>  '--> amqp_channel:handle_method_to_server/6
+
+2:4:23.924446 <0.315.0> amqp_channel:rpc_top_half({'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false}, {content,60,
+         {'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                    undefined,undefined,undefined,undefined,undefined,
+                    undefined,undefined,undefined},
+         none,none,
+         [<<"foobar">>]}, none, <0.267.0>, noflow, {state,1,<0.304.0>,<0.314.0>,network,
+       {[],[]},
+       false,<0.316.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+2:4:23.924759 <0.315.0> amqp_channel:do_rpc({state,1,<0.304.0>,<0.314.0>,network,
+       {[{none,<0.267.0>,
+               {'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,
+                                false},
+               {content,60,
+                        {'P_basic',undefined,undefined,undefined,2,undefined,
+                                   undefined,undefined,undefined,undefined,
+                                   undefined,undefined,undefined,undefined,
+                                   undefined},
+                        none,none,
+                        [<<"foobar">>]},
+               noflow}],
+        []},
+       false,<0.316.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+2:4:23.925070 <0.315.0> amqp_channel:pre_do({'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false}, {content,60,
+         {'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                    undefined,undefined,undefined,undefined,undefined,
+                    undefined,undefined,undefined},
+         none,none,
+         [<<"foobar">>]}, <0.267.0>, {state,1,<0.304.0>,<0.314.0>,network,
+       {[{none,<0.267.0>,
+               {'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,
+                                false},
+               {content,60,
+                        {'P_basic',undefined,undefined,undefined,2,undefined,
+                                   undefined,undefined,undefined,undefined,
+                                   undefined,undefined,undefined,undefined,
+                                   undefined},
+                        none,none,
+                        [<<"foobar">>]},
+               noflow}],
+        []},
+       false,<0.316.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+2:4:23.925501 <0.315.0> amqp_channel:pre_do/4 --> {state,1,<0.304.0>,<0.314.0>,network,
+       {[{none,<0.267.0>,
+               {'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,
+                                false},
+               {content,60,
+                        {'P_basic',undefined,undefined,undefined,2,undefined,
+                                   undefined,undefined,undefined,undefined,
+                                   undefined,undefined,undefined,undefined,
+                                   undefined},
+                        none,none,
+                        [<<"foobar">>]},
+               noflow}],
+        []},
+       false,<0.316.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false}
+
+2:4:23.925810 <0.315.0>  '--> amqp_channel:do_rpc/1
+
+2:4:23.925865 <0.315.0> amqp_channel:do({'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false}, {content,60,
+         {'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                    undefined,undefined,undefined,undefined,undefined,
+                    undefined,undefined,undefined},
+         none,none,
+         [<<"foobar">>]}, noflow, {state,1,<0.304.0>,<0.314.0>,network,
+       {[{none,<0.267.0>,
+               {'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,
+                                false},
+               {content,60,
+                        {'P_basic',undefined,undefined,undefined,2,undefined,
+                                   undefined,undefined,undefined,undefined,
+                                   undefined,undefined,undefined,undefined,
+                                   undefined},
+                        none,none,
+                        [<<"foobar">>]},
+               noflow}],
+        []},
+       false,<0.316.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+2:4:23.926217 <0.315.0> rabbit_writer:send_command(<0.316.0>, {'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false}, {content,60,
+         {'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                    undefined,undefined,undefined,undefined,undefined,
+                    undefined,undefined,undefined},
+         none,none,
+         [<<"foobar">>]})
+
+2:4:23.926447 <0.315.0> rabbit_writer:send_command/3 --> ok
+
+2:4:23.926511 <0.315.0>  '--> amqp_channel:do/4
+
+2:4:23.926552 <0.315.0> amqp_channel:do/4 --> ok
+
+2:4:23.926596 <0.315.0>  '--> amqp_channel:do_rpc/1
+
+2:4:23.926632 <0.315.0> rabbit_framing_amqp_0_9_1:is_method_synchronous({'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false})
+
+2:4:23.926738 <0.315.0> rabbit_framing_amqp_0_9_1:is_method_synchronous/1 --> false
+
+2:4:23.926808 <0.315.0>  '--> amqp_channel:do_rpc/1
+
+2:4:23.926859 <0.315.0> amqp_channel:do_rpc({state,1,<0.304.0>,<0.314.0>,network,
+       {[],[]},
+       false,<0.316.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false})
+
+2:4:23.926970 <0.315.0> amqp_channel:do_rpc/1 --> {state,1,<0.304.0>,<0.314.0>,network,
+       {[],[]},
+       false,<0.316.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false}
+
+2:4:23.927092 <0.315.0> amqp_channel:do_rpc/1 --> {state,1,<0.304.0>,<0.314.0>,network,
+       {[],[]},
+       false,<0.316.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false}
+
+2:4:23.927200 <0.315.0> amqp_channel:rpc_top_half/6 --> {state,1,<0.304.0>,<0.314.0>,network,
+       {[],[]},
+       false,<0.316.0>,none,none,0,true,none,
+       {0,nil},
+       {0,nil},
+       true,false}
+
+2:4:23.927314 <0.315.0>  '--> amqp_channel:handle_method_to_server/6
+
+2:4:23.927393 <0.315.0> amqp_channel:handle_method_to_server/6 --> {noreply,{state,1,<0.304.0>,<0.314.0>,network,
+                {[],[]},
+                false,<0.316.0>,none,none,0,true,none,
+                {0,nil},
+                {0,nil},
+                true,false}}
+
+2:4:23.927523 <0.315.0> amqp_channel:handle_cast/2 --> {noreply,{state,1,<0.304.0>,<0.314.0>,network,
+                {[],[]},
+                false,<0.316.0>,none,none,0,true,none,
+                {0,nil},
+                {0,nil},
+                true,false}}
+
+2:4:23.927673 <0.315.0>  '--> gen_server:try_dispatch/4
+
+%% 处理这个请求 2:4:23.926217 <0.315.0> rabbit_writer:send_command(<0.316.0>, {'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false}, {content,60,
+2:4:23.927734 <0.316.0> rabbit_writer:mainloop([], {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+2:4:23.927850 <0.316.0> rabbit_writer:mainloop1([], {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+2:4:23.927967 <0.316.0> rabbit_writer:handle_message([], {send_command,{'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,
+                               false},
+              {content,60,
+                       {'P_basic',undefined,undefined,undefined,2,undefined,
+                                  undefined,undefined,undefined,undefined,
+                                  undefined,undefined,undefined,undefined,
+                                  undefined},
+                       none,none,
+                       [<<"foobar">>]}}, {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+2:4:23.928228 <0.316.0> rabbit_writer:handle_message({send_command,{'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,
+                               false},
+              {content,60,
+                       {'P_basic',undefined,undefined,undefined,2,undefined,
+                                  undefined,undefined,undefined,undefined,
+                                  undefined,undefined,undefined,undefined,
+                                  undefined},
+                       none,none,
+                       [<<"foobar">>]}}, {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+2:4:23.928496 <0.316.0> rabbit_writer:internal_send_command_async({'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false}, {content,60,
+         {'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                    undefined,undefined,undefined,undefined,undefined,
+                    undefined,undefined,undefined},
+         none,none,
+         [<<"foobar">>]}, {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+2:4:23.928757 <0.316.0> rabbit_writer:assemble_frames(1, {'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false}, {content,60,
+         {'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                    undefined,undefined,undefined,undefined,undefined,
+                    undefined,undefined,undefined},
+         none,none,
+         [<<"foobar">>]}, 131072, rabbit_framing_amqp_0_9_1)
+
+2:4:23.928961 <0.316.0> rabbit_misc:method_record_type({'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false})
+
+2:4:23.929068 <0.316.0> rabbit_misc:method_record_type/1 --> 'basic.publish'
+
+2:4:23.929133 <0.316.0>  '--> rabbit_writer:assemble_frames/5
+
+2:4:23.929198 <0.316.0> rabbit_framing_amqp_0_9_1:method_has_content('basic.publish')
+
+2:4:23.929272 <0.316.0> rabbit_framing_amqp_0_9_1:method_has_content/1 --> true
+
+2:4:23.929348 <0.316.0>  '--> rabbit_writer:assemble_frames/5
+
+2:4:23.929428 <0.316.0> rabbit_binary_generator:build_simple_method_frame(1, {'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false}, rabbit_framing_amqp_0_9_1)
+
+2:4:23.929546 <0.316.0> rabbit_framing_amqp_0_9_1:encode_method_fields({'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false})
+
+2:4:23.929665 <0.316.0> rabbit_framing_amqp_0_9_1:shortstr_size(<<"vstation_test">>)
+
+2:4:23.929735 <0.316.0> rabbit_framing_amqp_0_9_1:shortstr_size/1 --> 13
+
+2:4:23.929792 <0.316.0>  '--> rabbit_framing_amqp_0_9_1:encode_method_fields/1
+
+2:4:23.929850 <0.316.0> rabbit_framing_amqp_0_9_1:shortstr_size(<<"FLOW_TEST">>)
+
+2:4:23.929922 <0.316.0> rabbit_framing_amqp_0_9_1:shortstr_size/1 --> 9
+
+2:4:23.929987 <0.316.0>  '--> rabbit_framing_amqp_0_9_1:encode_method_fields/1
+
+2:4:23.930072 <0.316.0> rabbit_framing_amqp_0_9_1:bitvalue(false)
+
+2:4:23.930118 <0.316.0> rabbit_framing_amqp_0_9_1:bitvalue/1 --> 0
+
+2:4:23.930179 <0.316.0>  '--> rabbit_framing_amqp_0_9_1:encode_method_fields/1
+
+2:4:23.930245 <0.316.0> rabbit_framing_amqp_0_9_1:bitvalue(false)
+
+2:4:23.930326 <0.316.0> rabbit_framing_amqp_0_9_1:bitvalue/1 --> 0
+
+2:4:23.930387 <0.316.0>  '--> rabbit_framing_amqp_0_9_1:encode_method_fields/1
+
+2:4:23.930428 <0.316.0> rabbit_framing_amqp_0_9_1:encode_method_fields/1 --> <<0,0,13,118,115,116,97,116,105,111,110,95,116,101,115,116,9,70,76,79,87,95,84,
+  69,83,84,0>>
+
+2:4:23.930544 <0.316.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+2:4:23.930605 <0.316.0> rabbit_misc:method_record_type({'basic.publish',0,<<"vstation_test">>,<<"FLOW_TEST">>,false,false})
+
+2:4:23.930709 <0.316.0> rabbit_misc:method_record_type/1 --> 'basic.publish'
+
+2:4:23.930777 <0.316.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+2:4:23.930839 <0.316.0> rabbit_framing_amqp_0_9_1:method_id('basic.publish')
+
+2:4:23.930904 <0.316.0> rabbit_framing_amqp_0_9_1:method_id/1 --> {60,40}
+
+2:4:23.930973 <0.316.0>  '--> rabbit_binary_generator:build_simple_method_frame/3
+
+2:4:23.931040 <0.316.0> rabbit_binary_generator:create_frame(1, 1, [<<0,60,0,40>>,
+ <<0,0,13,118,115,116,97,116,105,111,110,95,116,101,115,116,9,70,76,79,87,95,
+   84,69,83,84,0>>])
+
+2:4:23.931160 <0.316.0> rabbit_binary_generator:create_frame/3 --> [<<1,0,1,0,0,0,31>>,
+ [<<0,60,0,40>>,
+  <<0,0,13,118,115,116,97,116,105,111,110,95,116,101,115,116,9,70,76,79,87,95,
+    84,69,83,84,0>>],
+ 206]
+
+2:4:23.931287 <0.316.0> rabbit_binary_generator:build_simple_method_frame/3 --> [<<1,0,1,0,0,0,31>>,
+ [<<0,60,0,40>>,
+  <<0,0,13,118,115,116,97,116,105,111,110,95,116,101,115,116,9,70,76,79,87,95,
+    84,69,83,84,0>>],
+ 206]
+
+2:4:23.931432 <0.316.0>  '--> rabbit_writer:assemble_frames/5
+
+2:4:23.931496 <0.316.0> rabbit_binary_generator:build_simple_content_frames(1, {content,60,
+         {'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                    undefined,undefined,undefined,undefined,undefined,
+                    undefined,undefined,undefined},
+         none,none,
+         [<<"foobar">>]}, 131072, rabbit_framing_amqp_0_9_1)
+
+2:4:23.931697 <0.316.0> rabbit_binary_generator:ensure_content_encoded({content,60,
+         {'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                    undefined,undefined,undefined,undefined,undefined,
+                    undefined,undefined,undefined},
+         none,none,
+         [<<"foobar">>]}, rabbit_framing_amqp_0_9_1)
+
+2:4:23.931850 <0.316.0> rabbit_framing_amqp_0_9_1:encode_properties({'P_basic',undefined,undefined,undefined,2,undefined,undefined,undefined,
+           undefined,undefined,undefined,undefined,undefined,undefined,
+           undefined})
+
+2:4:23.931975 <0.316.0> rabbit_framing_amqp_0_9_1:encode_properties/1 --> <<16,0,2>>
+
+2:4:23.932066 <0.316.0>  '--> rabbit_binary_generator:ensure_content_encoded/2
+
+2:4:23.932131 <0.316.0> rabbit_binary_generator:ensure_content_encoded/2 --> {content,60,
+         {'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                    undefined,undefined,undefined,undefined,undefined,
+                    undefined,undefined,undefined},
+         <<16,0,2>>,
+         rabbit_framing_amqp_0_9_1,
+         [<<"foobar">>]}
+
+2:4:23.932315 <0.316.0>  '--> rabbit_binary_generator:build_simple_content_frames/4
+
+2:4:23.932391 <0.316.0> rabbit_binary_generator:build_content_frames([<<"foobar">>], 131072, 1)
+
+2:4:23.932504 <0.316.0> rabbit_binary_generator:build_content_frames(0, [], 131064, [], [<<"foobar">>], 131064, 1)
+
+2:4:23.932628 <0.316.0> rabbit_binary_generator:build_content_frames(0, [], 131058, [<<"foobar">>], [], 131064, 1)
+
+2:4:23.932751 <0.316.0> rabbit_binary_generator:create_frame(3, 1, [<<"foobar">>])
+
+2:4:23.932832 <0.316.0> rabbit_binary_generator:create_frame/3 --> [<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]
+
+2:4:23.932944 <0.316.0>  '--> rabbit_binary_generator:build_content_frames/7
+
+2:4:23.933012 <0.316.0> rabbit_binary_generator:build_content_frames(6, [[<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]], 131064, [], [], 131064, 1)
+
+2:4:23.933138 <0.316.0> rabbit_binary_generator:build_content_frames/7 --> {6,[[<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]]}
+
+2:4:23.933253 <0.316.0> rabbit_binary_generator:build_content_frames/7 --> {6,[[<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]]}
+
+2:4:23.933401 <0.316.0> rabbit_binary_generator:build_content_frames/7 --> {6,[[<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]]}
+
+2:4:23.933495 <0.316.0> rabbit_binary_generator:build_content_frames/3 --> {6,[[<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]]}
+
+2:4:23.933597 <0.316.0>  '--> rabbit_binary_generator:build_simple_content_frames/4
+
+2:4:23.933664 <0.316.0> rabbit_binary_generator:create_frame(2, 1, [<<0,60,0,0,0,0,0,0,0,0,0,6>>,<<16,0,2>>])
+
+2:4:23.933772 <0.316.0> rabbit_binary_generator:create_frame/3 --> [<<2,0,1,0,0,0,15>>,[<<0,60,0,0,0,0,0,0,0,0,0,6>>,<<16,0,2>>],206]
+
+2:4:23.933875 <0.316.0>  '--> rabbit_binary_generator:build_simple_content_frames/4
+
+2:4:23.933945 <0.316.0> rabbit_binary_generator:build_simple_content_frames/4 --> [[<<2,0,1,0,0,0,15>>,[<<0,60,0,0,0,0,0,0,0,0,0,6>>,<<16,0,2>>],206],
+ [<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]]
+
+2:4:23.934095 <0.316.0>  '--> rabbit_writer:assemble_frames/5
+
+2:4:23.934163 <0.316.0> rabbit_writer:assemble_frames/5 --> [[<<1,0,1,0,0,0,31>>,
+  [<<0,60,0,40>>,
+   <<0,0,13,118,115,116,97,116,105,111,110,95,116,101,115,116,9,70,76,79,87,
+     95,84,69,83,84,0>>],
+  206],
+ [<<2,0,1,0,0,0,15>>,[<<0,60,0,0,0,0,0,0,0,0,0,6>>,<<16,0,2>>],206],
+ [<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]]
+
+2:4:23.934337 <0.316.0>  '--> rabbit_writer:internal_send_command_async/3
+
+2:4:23.934405 <0.316.0> rabbit_writer:maybe_gc_large_msg({content,60,
+         {'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                    undefined,undefined,undefined,undefined,undefined,
+                    undefined,undefined,undefined},
+         none,none,
+         [<<"foobar">>]}, 1000000000)
+
+2:4:23.934573 <0.316.0> rabbit_writer:msg_size({content,60,
+         {'P_basic',undefined,undefined,undefined,2,undefined,undefined,
+                    undefined,undefined,undefined,undefined,undefined,
+                    undefined,undefined,undefined},
+         none,none,
+         [<<"foobar">>]})
+
+2:4:23.934731 <0.316.0> rabbit_writer:msg_size/1 --> 6
+
+2:4:23.934800 <0.316.0>  '--> rabbit_writer:maybe_gc_large_msg/2
+
+2:4:23.934870 <0.316.0> rabbit_writer:maybe_gc_large_msg/2 --> 6
+
+2:4:23.934936 <0.316.0>  '--> rabbit_writer:internal_send_command_async/3
+
+2:4:23.935002 <0.316.0> rabbit_writer:maybe_flush({wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [[[<<1,0,1,0,0,0,31>>,
+           [<<0,60,0,40>>,
+            <<0,0,13,118,115,116,97,116,105,111,110,95,116,101,115,116,9,70,
+              76,79,87,95,84,69,83,84,0>>],
+           206],
+          [<<2,0,1,0,0,0,15>>,[<<0,60,0,0,0,0,0,0,0,0,0,6>>,<<16,0,2>>],206],
+          [<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]]],
+        1000000000})
+
+2:4:23.935214 <0.316.0> rabbit_writer:maybe_flush/1 --> {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [[[<<1,0,1,0,0,0,31>>,
+           [<<0,60,0,40>>,
+            <<0,0,13,118,115,116,97,116,105,111,110,95,116,101,115,116,9,70,
+              76,79,87,95,84,69,83,84,0>>],
+           206],
+          [<<2,0,1,0,0,0,15>>,[<<0,60,0,0,0,0,0,0,0,0,0,6>>,<<16,0,2>>],206],
+          [<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]]],
+        1000000000}
+
+2:4:23.935506 <0.316.0> rabbit_writer:internal_send_command_async/3 --> {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [[[<<1,0,1,0,0,0,31>>,
+           [<<0,60,0,40>>,
+            <<0,0,13,118,115,116,97,116,105,111,110,95,116,101,115,116,9,70,
+              76,79,87,95,84,69,83,84,0>>],
+           206],
+          [<<2,0,1,0,0,0,15>>,[<<0,60,0,0,0,0,0,0,0,0,0,6>>,<<16,0,2>>],206],
+          [<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]]],
+        1000000000}
+
+2:4:23.935795 <0.316.0> rabbit_writer:handle_message/2 --> {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [[[<<1,0,1,0,0,0,31>>,
+           [<<0,60,0,40>>,
+            <<0,0,13,118,115,116,97,116,105,111,110,95,116,101,115,116,9,70,
+              76,79,87,95,84,69,83,84,0>>],
+           206],
+          [<<2,0,1,0,0,0,15>>,[<<0,60,0,0,0,0,0,0,0,0,0,6>>,<<16,0,2>>],206],
+          [<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]]],
+        1000000000}
+
+2:4:23.936063 <0.316.0>  '--> rabbit_writer:handle_message/3
+
+2:4:23.936125 <0.316.0> rabbit_writer:handle_message/3 --> {[],
+ {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+         {state,none,0,undefined},
+         [[[<<1,0,1,0,0,0,31>>,
+            [<<0,60,0,40>>,
+             <<0,0,13,118,115,116,97,116,105,111,110,95,116,101,115,116,9,70,
+               76,79,87,95,84,69,83,84,0>>],
+            206],
+           [<<2,0,1,0,0,0,15>>,[<<0,60,0,0,0,0,0,0,0,0,0,6>>,<<16,0,2>>],206],
+           [<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]]],
+         1000000000}}
+
+2:4:23.936382 <0.316.0>  '--> rabbit_writer:mainloop1/2
+
+2:4:23.936445 <0.316.0> rabbit_writer:mainloop1([], {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [[[<<1,0,1,0,0,0,31>>,
+           [<<0,60,0,40>>,
+            <<0,0,13,118,115,116,97,116,105,111,110,95,116,101,115,116,9,70,
+              76,79,87,95,84,69,83,84,0>>],
+           206],
+          [<<2,0,1,0,0,0,15>>,[<<0,60,0,0,0,0,0,0,0,0,0,6>>,<<16,0,2>>],206],
+          [<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]]],
+        1000000000})
+
+2:4:23.936705 <0.316.0> rabbit_writer:internal_flush({wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [[[<<1,0,1,0,0,0,31>>,
+           [<<0,60,0,40>>,
+            <<0,0,13,118,115,116,97,116,105,111,110,95,116,101,115,116,9,70,
+              76,79,87,95,84,69,83,84,0>>],
+           206],
+          [<<2,0,1,0,0,0,15>>,[<<0,60,0,0,0,0,0,0,0,0,0,6>>,<<16,0,2>>],206],
+          [<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]]],
+        1000000000})
+
+2:4:23.936958 <0.316.0> rabbit_writer:port_cmd(#Port<0.8>, [[[<<1,0,1,0,0,0,31>>,
+   [<<0,60,0,40>>,
+    <<0,0,13,118,115,116,97,116,105,111,110,95,116,101,115,116,9,70,76,79,87,
+      95,84,69,83,84,0>>],
+   206],
+  [<<2,0,1,0,0,0,15>>,[<<0,60,0,0,0,0,0,0,0,0,0,6>>,<<16,0,2>>],206],
+  [<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]]])
+
+2:4:23.937123 <0.316.0> rabbit_net:port_command(#Port<0.8>, [[[<<1,0,1,0,0,0,31>>,
+   [<<0,60,0,40>>,
+    <<0,0,13,118,115,116,97,116,105,111,110,95,116,101,115,116,9,70,76,79,87,
+      95,84,69,83,84,0>>],
+   206],
+  [<<2,0,1,0,0,0,15>>,[<<0,60,0,0,0,0,0,0,0,0,0,6>>,<<16,0,2>>],206],
+  [<<3,0,1,0,0,0,6>>,[<<"foobar">>],206]]])
+
+2:4:23.937293 <0.316.0> rabbit_net:port_command/2 --> true
+
+2:4:23.937370 <0.316.0>  '--> rabbit_writer:port_cmd/2
+
+2:4:23.937443 <0.316.0> rabbit_writer:port_cmd/2 --> ok
+
+2:4:23.937508 <0.316.0>  '--> rabbit_writer:internal_flush/1
+
+2:4:23.937579 <0.316.0> rabbit_writer:internal_flush/1 --> {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+2:4:23.937691 <0.316.0>  '--> rabbit_writer:mainloop1/2
+
+2:4:23.937746 <0.316.0> rabbit_writer:mainloop1([], {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+2:4:23.937858 <0.316.0> rabbit_writer:handle_message([], {inet_reply,#Port<0.8>,ok}, {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+2:4:23.938006 <0.316.0> rabbit_writer:handle_message({inet_reply,#Port<0.8>,ok}, {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+2:4:23.938144 <0.316.0> rabbit_event:ensure_stats_timer({wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [],1000000000}, 7, emit_stats)
+
+2:4:23.938280 <0.316.0> rabbit_event:ensure_stats_timer/3 --> {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+2:4:23.938414 <0.316.0> rabbit_writer:handle_message/2 --> {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [],1000000000}
+
+2:4:23.938537 <0.316.0>  '--> rabbit_writer:handle_message/3
+
+2:4:23.938622 <0.316.0> rabbit_writer:handle_message/3 --> {[],
+ {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+         {state,none,0,undefined},
+         [],1000000000}}
+
+2:4:23.938753 <0.316.0>  '--> rabbit_writer:mainloop1/2
+
+2:4:23.938810 <0.316.0> rabbit_writer:mainloop1([], {wstate,#Port<0.8>,1,131072,rabbit_framing_amqp_0_9_1,<0.315.0>,
+        {state,none,0,undefined},
+        [],1000000000})
+
+publish 之后不服务端没有专门的响应包，除非有 confirm 机制

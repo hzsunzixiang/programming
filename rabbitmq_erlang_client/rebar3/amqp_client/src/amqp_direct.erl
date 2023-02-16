@@ -1,18 +1,8 @@
 -module(amqp_direct).
 
-%-include("amqp_client/include/amqp_client.hrl").
--include_lib("amqp_client/include/amqp_client.hrl").
+-include("amqp_info.hrl").
 -compile([export_all]).
 -compile(nowarn_export_all).
-
-% 这里必须是二进制
-% 而且需要设置相应的权限 start_up.sh 脚本中有
--define(RABBIT_USERNAME, <<"vstation">>).
--define(RABBIT_PASSWORD, <<"vstation">>).
--define(VHOST, <<"vstation">>).
--define(EXCHANGE, <<"vstation">>). 
--define(QUEUE_NAME, <<"FLOW">>). 
--define(NODE, 'rabbit@centos7-mq'). 
 
 % 连接
 %-record(amqp_params_direct, {username          = none,
