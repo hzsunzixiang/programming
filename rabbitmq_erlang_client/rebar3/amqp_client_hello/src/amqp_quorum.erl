@@ -82,6 +82,7 @@ start() ->
 
 % Arg = [{<<"x-queue-type">>,   longstr, <<"quorum">>}]
 %% 这个格式是这样的
+%% /_build/default/lib/rabbit_common/src/rabbit_binary_generator.erl,
 %% table_field_to_binary({FName, T, V}) ->
 %%     [short_string_to_binary(FName) | field_value_to_binary(T, V)].
 %% 
