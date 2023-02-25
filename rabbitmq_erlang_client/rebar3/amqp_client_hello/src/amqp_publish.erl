@@ -1,22 +1,9 @@
 -module(amqp_publish).
 
-%-include("amqp_client/include/amqp_client.hrl").
--include_lib("amqp_client/include/amqp_client.hrl").
+%-include_lib("amqp_client/include/amqp_client.hrl").
+-include_lib("amqp_info.hrl").
 -compile([export_all]).
 -compile(nowarn_export_all).
-
--define(HOST, "192.168.142.130"). 
-
-
-% 这里必须是二进制
-% 而且需要设置相应的权限 start_up.sh 脚本中有
--define(RABBIT_USERNAME, <<"vstation">>).
--define(RABBIT_PASSWORD, <<"vstation">>).
--define(VHOST, <<"vstation">>).
-
--define(EXCHANGE, <<"vstation">>). 
--define(QUEUE_NAME, <<"FLOW">>). 
--define(PORT, 5672). 
 
 % 连接
 connect_amqp() ->
@@ -47,12 +34,17 @@ declare_exchange(Channel) ->
 declare_queue(Channel) ->
     % 如果不写队列的名字，默认是这种, <<"amq.gen-tRkmLkwbpU3NxwaRMH0eAw">>
     Declare = #'queue.declare'{
-      queue = ?QUEUE_NAME,   % 这里是二进制
+      queue = ?QUEUE_NAME_CLASSIC,   % 这里是二进制
       durable = true
     },
     #'queue.declare_ok'{queue = Q} = amqp_channel:call(Channel, Declare),
     io:format("return Q: ~p~n", [Q]),
     Q.  % 这里的返回和声明一致，如果没有声明，则是一个随机的队列
+
+delete_queue(Channel) ->
+    Delete = #'queue.delete'{queue = ?QUEUE_NAME_CLASSIC}, 
+    #'queue.delete_ok'{} = amqp_channel:call(Channel, Delete),
+    ok.
 
 binding_queue(Q, Channel)->
     Binding = #'queue.bind'{queue       = Q,
@@ -61,7 +53,7 @@ binding_queue(Q, Channel)->
     #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding).
 
 publish_message(Channel, Q) ->
-	%%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = ?QUEUE_NAME,
+	%%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = ?QUEUE_NAME_CLASSIC,
     %% Publish a message
     Payload = <<"foobar">>,
 	% Here is an example of unrouteable message handling:

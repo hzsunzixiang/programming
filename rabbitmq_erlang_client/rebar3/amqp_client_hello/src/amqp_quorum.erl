@@ -39,7 +39,7 @@ declare_queue(Channel) ->
     Arg = [{<<"x-queue-type">>, longstr, <<"quorum">>}],
     % Arg = [{<<"x-queue-type">>, binary, <<"quorum">>}], % error
     Declare = #'queue.declare'{
-      queue = ?QUEUE_NAME,   % 这里是二进制
+      queue = ?QUEUE_NAME_QUORUM,   % 这里是二进制
       durable = true,
 	  arguments = Arg
     },
@@ -48,7 +48,7 @@ declare_queue(Channel) ->
     Q.  % 这里的返回和声明一致，如果没有声明，则是一个随机的队列
 
 delete_queue(Channel) ->
-    Delete = #'queue.delete'{queue = ?QUEUE_NAME}, 
+    Delete = #'queue.delete'{queue = ?QUEUE_NAME_QUORUM}, 
     #'queue.delete_ok'{} = amqp_channel:call(Channel, Delete),
     ok.
 
@@ -106,20 +106,20 @@ start() ->
 %% field_value_to_binary(void,     _V) -> [$V].
 
 
-ericksun@centos7-mq1:~/program/rabbitmq-server (ericksun/debug)$ rabbitmq-queues quorum_status --vhost vstation FLOW_QUORUM
-warning: :logger has be set to :warn in config files, please use :warning instead
-  (logger 1.15.0-dev) lib/logger/app.ex:92: Logger.App.add_elixir_handler/2
-  (logger 1.15.0-dev) lib/logger/app.ex:26: Logger.App.start/2
-  (kernel 8.4.2) application_master.erl:293: :application_master.start_it_old/4
-
-Status of quorum queue FLOW_QUORUM on node rabbit@centos7-mq1 ...
-┌────────────────────┬────────────┬───────────┬──────────────┬────────────────┬──────┬─────────────────┐
-│ Node Name          │ Raft State │ Log Index │ Commit Index │ Snapshot Index │ Term │ Machine Version │
-├────────────────────┼────────────┼───────────┼──────────────┼────────────────┼──────┼─────────────────┤
-│ rabbit@centos7-mq1 │ leader     │ 2         │ 2            │ undefined      │ 1    │ 3               │
-├────────────────────┼────────────┼───────────┼──────────────┼────────────────┼──────┼─────────────────┤
-│ rabbit@centos7-mq2 │ follower   │ 2         │ 2            │ undefined      │ 1    │ 3               │
-├────────────────────┼────────────┼───────────┼──────────────┼────────────────┼──────┼─────────────────┤
-│ rabbit@centos7-mq3 │ follower   │ 2         │ 2            │ undefined      │ 1    │ 3               │
-└────────────────────┴────────────┴───────────┴──────────────┴────────────────┴──────┴─────────────────┘
+% ericksun@centos7-mq1:~/program/rabbitmq-server (ericksun/debug)$ rabbitmq-queues quorum_status --vhost vstation FLOW_QUORUM
+% warning: :logger has be set to :warn in config files, please use :warning instead
+%   (logger 1.15.0-dev) lib/logger/app.ex:92: Logger.App.add_elixir_handler/2
+%   (logger 1.15.0-dev) lib/logger/app.ex:26: Logger.App.start/2
+%   (kernel 8.4.2) application_master.erl:293: :application_master.start_it_old/4
+% 
+% Status of quorum queue FLOW_QUORUM on node rabbit@centos7-mq1 ...
+% ┌────────────────────┬────────────┬───────────┬──────────────┬────────────────┬──────┬─────────────────┐
+% │ Node Name          │ Raft State │ Log Index │ Commit Index │ Snapshot Index │ Term │ Machine Version │
+% ├────────────────────┼────────────┼───────────┼──────────────┼────────────────┼──────┼─────────────────┤
+% │ rabbit@centos7-mq1 │ leader     │ 2         │ 2            │ undefined      │ 1    │ 3               │
+% ├────────────────────┼────────────┼───────────┼──────────────┼────────────────┼──────┼─────────────────┤
+% │ rabbit@centos7-mq2 │ follower   │ 2         │ 2            │ undefined      │ 1    │ 3               │
+% ├────────────────────┼────────────┼───────────┼──────────────┼────────────────┼──────┼─────────────────┤
+% │ rabbit@centos7-mq3 │ follower   │ 2         │ 2            │ undefined      │ 1    │ 3               │
+% └────────────────────┴────────────┴───────────┴──────────────┴────────────────┴──────┴─────────────────┘
 

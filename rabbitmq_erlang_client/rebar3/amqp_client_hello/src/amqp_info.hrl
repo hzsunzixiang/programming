@@ -10,7 +10,9 @@
 -define(RABBIT_PASSWORD, <<"vstation">>).
 -define(VHOST, <<"vstation">>).
 -define(EXCHANGE, <<"vstation">>). 
--define(QUEUE_NAME, <<"FLOW_QUORUM">>). 
+-define(QUEUE_NAME, <<"FLOW">>). 
+-define(QUEUE_NAME_QUORUM, <<"FLOW_QUORUM">>). 
+-define(QUEUE_NAME_CLASSIC, <<"FLOW_CLASSIC">>). 
 -define(PORT, 5672). 
 
 

@@ -1,28 +1,14 @@
 -module(amqp_example).
-
 %-include("amqp_client/include/amqp_client.hrl").
--include_lib("amqp_client/include/amqp_client.hrl").
+-include_lib("amqp_info.hrl").
 -compile([export_all]).
 -compile(nowarn_export_all).
-
--define(HOST, "192.168.142.130"). 
-
-
-% 这里必须是二进制
-% 而且需要设置相应的权限 start_up.sh 脚本中有
--define(RABBIT_USERNAME, <<"vstation">>).
--define(RABBIT_PASSWORD, <<"vstation">>).
--define(VHOST, <<"vstation">>).
-
--define(EXCHANGE, <<"vstation">>). 
--define(QUEUE_NAME, <<"FLOW">>). 
--define(PORT, 5672). 
 
 % 连接
 connect_amqp() ->
     %% Start a network connection
     RabbitParams=#amqp_params_network{host=?HOST, username=?RABBIT_USERNAME,
-                      password=?RABBIT_PASSWORD, virtual_host=?VHOST, port=?PORT},
+                      password=?RABBIT_PASSWORD, virtual_host=?VHOST, port=?PORT, heartbeat=0},
     %RabbitParams=#amqp_params_network{host="192.168.142.130", username=<<"vstation">>, password=<<"vstation">>, virtual_host=<<"vstation">>, port=5672},
     io:format("amqp_connection:start begin ~n"),
     {ok, Connection} = amqp_connection:start(RabbitParams),
@@ -90,36 +76,13 @@ close_connection(Connection) ->
 
 
 start() ->
-   Connection=connect_amqp(),
-   Channel=open_channel(Connection),
-   declare_exchange(Channel),
-   Q=declare_queue(Channel),
-   binding_queue(Q, Channel),
+   Connection=amqp_example:connect_amqp(),
+   Channel=amqp_example:open_channel(Connection),
+   amqp_example:declare_exchange(Channel),
+   Q=amqp_example:declare_queue(Channel),
+   amqp_example:binding_queue(Q, Channel),
    %publish_message(Channel, Q),
    %close_channel(Channel),
    %close_connection(Connection),
    "Finish".
-
-%=WARNING REPORT==== 17-Jan-2023::03:15:44.818199 ===
-%Channel (<0.313.0>): received {{'basic.return',312,<<"NO_ROUTE">>,
-%                                   <<"vstation">>,<<"FLOW">>}, {amqp_msg,
-%                                                                {'P_basic',
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined,
-%                                                                 undefined},
-%                                                                <<"foobar">>}} but there is no return handler registered
-%** exception error: no match of right hand side value {'basic.get_empty',<<>>}
-%     in function  publish_message/2 (/home/ericksun/programming/rabbitmq_erlang_client/rebar3/amqp_client_hello/src/amqp_example.erl, line 60)
-%     in call from start/0 (/home/ericksun/programming/rabbitmq_erlang_client/rebar3/amqp_client_hello/src/amqp_example.erl, line 82)
 

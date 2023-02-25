@@ -1,0 +1,33 @@
+-module(trace_classic_gm).
+
+-compile([export_all]).
+-compile(nowarn_export_all).
+
+start() ->
+    %%%%%%%%%%%%%%% 重定向到文件中，去掉supervisor2 
+    %% 加载所有的模块,这里加载的还不够， common模块没被加载？
+    LP = fun() -> [code:ensure_loaded(list_to_atom(filename:rootname(filename:basename(F)))) || P <- code:get_path(), F <- filelib:wildcard(P ++ "/*.beam")] end,
+    %%%spawn(LP),  %% 这里是异步加载
+    LP(),  %% 改成同步
+    %%% 踩了一个坑， 注意这里的大小，不然会被截断而且很奇怪
+    %% 这里要停顿下，因为加载是异步的，
+    %% 加载所有的模块
+    File="trace_classic_gm.txt",
+    Path="/home/ericksun/programming/rabbitmq_server/trace_log/",
+    FileName= string:concat(Path, File),
+    file:delete(FileName),
+    file:make_dir(Path),
+    Dirs=["/home/ericksun/program/rabbitmq-server/deps/rabbit/ebin","/home/ericksun/program/rabbitmq-server/deps/rabbit_common/ebin"],
+        
+    %ListModTmp=[list_to_atom(filename:rootname(filename:basename(F))) || P <- Dirs, F <- filelib:wildcard(P ++ "/*.beam")],
+    %ListMod=lists:delete(supervisor2,ListModTmp),
+    ListMod=[gm,rabbit_table, rabbit_mirror_queue_slave, rabbit_mirror_queue_master, rabbit_mirror_queue_misc, rabbit_mirror_queue_coordinator],
+
+    DbgList = lists:foldl(fun(X, Sum) -> [{X, '_', fun(_) -> return_trace() end}] ++ Sum end, [], ListMod),
+    {ok, Dev} = file:open(FileName,[write]),
+    recon_trace:calls(DbgList, 30000, [return_to, {scope, local}, {io_server, Dev}]),
+
+    %recon_trace:calls(DbgList, 20000, [return_to, {scope, local}]),
+    ok.
+
+
