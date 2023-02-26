@@ -39,3 +39,26 @@ apps/webchat/
 │   └── webchat_sup.erl
 └── webchat.d
 
+* 此时不用做任何配置，
+  make的时候就能编译默认的apps目录下的工程
+* 运行
+ericksun@centos7-mq1:~/programming/erlang/my_erlang/erlang.mk/hello_erlang_deps (master)$ erl -pa ebin/ apps/webchat/ebin/
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> application:ensure_all_started(hello_erlang_deps).
+{ok,[hello_erlang_deps]}
+2> application:ensure_all_started(webchat).
+{ok,[webchat]}
+3> application:which_applications().
+[{webchat,"New project","0.1.0"},
+ {hello_erlang_deps,"New project","0.1.0"},
+ {stdlib,"ERTS  CXC 138 10","4.0.1"},
+ {kernel,"ERTS  CXC 138 10","8.4.2"}]
+
+
+* 此时还没有依赖
+ericksun@centos7-mq1:~/programming/erlang/my_erlang/erlang.mk/hello_erlang_deps (master)$ make list-deps
+
+
+* 添加依赖
