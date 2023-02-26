@@ -3,7 +3,7 @@
 #wget -O erlang_mk https://raw.githubusercontent.com/ninenines/erlang.mk/master/etc/bash_completion
 #source ~/.bash_completion
 
-
+# https://ninenines.eu/docs/en/cowboy/2.7/guide/getting_started/
 wget https://erlang.mk/erlang.mk
 make -f erlang.mk bootstrap bootstrap-rel
 
