@@ -7,19 +7,20 @@ make -f erlang.mk bootstrap
 
 
 
-* 添加外部依赖 rabbit 
-  手工创建 deps/rabbit
+* 添加外部依赖 myproject 
+  手工创建 deps/myproject
 
 * 自动初始化工程 Makefile
-  ericksun@centos7-mq1:~/programming/erlang/my_erlang/erlang.mk/apps_dir_deps_out_project/deps/rabbit (master)$ make -f ../../erlang.mk bootstrap
+  ericksun@centos7-mq1:~/programming/erlang/my_erlang/erlang.mk/apps_dir_deps_out_project/deps/myproject (master)$ make -f ../../erlang.mk bootstrap
 
 
-* 修改deps/rabbit 里面的Makefile:替换 include 路径
+
+* 修改 deps/myproject 里面的Makefile:替换 include 路径
   #include erlang.mk
   include ../../erlang.mk
 
 * 外层 添加依赖
-  DPES = rabbit
+  DPES = myproject 
   这时候 make 就能把 所依赖的部分也进行了编译
 
 * 添加 一个 第二层的依赖   等依赖声明，放到 rabbitmq-components.mk
@@ -37,7 +38,11 @@ make -f erlang.mk bootstrap
 
   # make new-app in=webchat
   ericksun@centos7-mq1:~/programming/erlang/my_erlang/erlang.mk/apps_dir_deps_out_project/deps/rabbit (master)$ make -f ../../erlang.mk new-app in=webchat
+
 * 加一个依赖 
+  到现在为止, 最顶层，无法编译 apps这一层
+
+
   
 
 

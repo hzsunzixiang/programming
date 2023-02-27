@@ -1,4 +1,4 @@
--module(rabbit_sup).
+-module(myproject_sup).
 -behaviour(supervisor).
 
 -export([start_link/0]).

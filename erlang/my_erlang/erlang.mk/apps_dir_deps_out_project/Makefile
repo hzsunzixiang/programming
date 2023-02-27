@@ -4,8 +4,9 @@ PROJECT_VERSION = 0.1.0
 
 
 #DEPS = rabbit cowboy cowlib ranch recon
-DEPS = rabbit 
-LOCAL_DEPS = webchat
+#DPES = myproject
+LOCAL_DEPS = myproject 
+
 
 include rabbitmq-components.mk
 include erlang.mk
