@@ -141,6 +141,9 @@ Eshell V13.0.4  (abort with ^G)
  {kernel,"ERTS  CXC 138 10","8.4.2"}]
 
 
+* 请求
+ ericksun@centos7-mq1:~/programming/erlang/my_erlang/rebar3/hellorebar3 (master)$ curl  http://localhost:8080
+ Hello Erlang!
 
 ericksun@centos7-mq1:~/programming/erlang/my_erlang/erlang.mk/hello_apps_dir_deps_out (master)$ make list-deps
 erlang.mk:30: Please upgrade to GNU Make 4 or later: https://erlang.mk/guide/installation.html
