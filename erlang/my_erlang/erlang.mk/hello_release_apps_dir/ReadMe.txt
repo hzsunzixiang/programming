@@ -64,6 +64,7 @@ Bootstrap targets:
                  "webchat.app"}}}
 
 * Makefile中加了这一行， 就可以了LOCAL_DEPS = webchat
+  apps 服务就会自动启动起来
  {webchat,"New project","0.1.0"},
 
 (hello_release_apps_dir@127.0.0.1)1> application:which_applications().
