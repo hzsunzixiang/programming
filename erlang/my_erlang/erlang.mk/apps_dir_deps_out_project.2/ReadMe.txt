@@ -118,6 +118,28 @@ init(Req0, State) ->
         Req0),
     {ok, Req, State}.
 
+* 运行
+ericksun@centos7-mq1:~/programming/erlang/my_erlang/erlang.mk/apps_dir_deps_out_project.2 (master)$ erl -pa ./deps/myproject/apps/webchat/ebin ./deps/myproject/ebin ./deps/cowboy/ebin ./deps/cowlib/ebin ./deps/ranch/ebin
+Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V13.0.4  (abort with ^G)
+1> application:ensure_all_started(myproject).
+{ok,[webchat,crypto,cowlib,asn1,public_key,ssl,ranch,cowboy,
+     myproject]}
+2> application:which_applications().
+[{myproject,"New project","0.1.0"},
+ {cowboy,"Small, fast, modern HTTP server.","2.7.0"},
+ {ranch,"Socket acceptor pool for TCP protocols.","1.7.1"},
+ {ssl,"Erlang/OTP SSL application","10.8.3"},
+ {public_key,"Public key infrastructure","1.13"},
+ {asn1,"The Erlang ASN1 compiler version 5.0.19","5.0.19"},
+ {cowlib,"Support library for manipulating Web protocols.",
+         "2.8.0"},
+ {crypto,"CRYPTO","5.1.1"},
+ {webchat,"New project","0.1.0"},
+ {stdlib,"ERTS  CXC 138 10","4.0.1"},
+ {kernel,"ERTS  CXC 138 10","8.4.2"}]
+
 
 
 
