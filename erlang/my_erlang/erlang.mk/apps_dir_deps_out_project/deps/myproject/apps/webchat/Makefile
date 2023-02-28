@@ -4,7 +4,7 @@ PROJECT_VERSION = 0.1.0
 
 # Make sure we know where the applications are located.
 ROOT_DIR ?= ../../../..
-APPS_DIR ?= ..
+APPS_DIR ?= ..  # 这一行不是很关键
 DEPS_DIR ?= ../../deps
 
 #DEPS = cowboy
