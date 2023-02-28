@@ -7,7 +7,7 @@ ROOT_DIR ?= ../../../..
 APPS_DIR ?= ..
 DEPS_DIR ?= ../../deps
 
-DEPS = cowboy
+#DEPS = cowboy
 
 include ../../../../rabbitmq-components.mk
 include ../../../../erlang.mk

@@ -1,5 +1,5 @@
 
-RABBITMQ_COMPONENTS = rabbit 
+RABBITMQ_COMPONENTS = rabbit myproject
 # Erlang.mk does not rebuild dependencies by default, once they were
 # compiled once, except for those listed in the `$(FORCE_REBUILD)`
 # variable.
