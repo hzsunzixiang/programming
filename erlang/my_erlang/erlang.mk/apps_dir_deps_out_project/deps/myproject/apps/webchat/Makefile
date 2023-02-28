@@ -9,7 +9,10 @@ DEPS_DIR ?= ../../deps
 
 DEPS = cowboy
 
-include $(ROOT_DIR)/erlang.mk
-include $(ROOT_DIR)/rabbitmq-components.mk
+include ../../../../rabbitmq-components.mk
+include ../../../../erlang.mk
+
+#include $(ROOT_DIR)/erlang.mk
+#include $(ROOT_DIR)/rabbitmq-components.mk
 
 

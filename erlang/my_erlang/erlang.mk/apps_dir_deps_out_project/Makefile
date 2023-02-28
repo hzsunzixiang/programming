@@ -5,7 +5,7 @@ PROJECT_VERSION = 0.1.0
 
 #DEPS = rabbit cowboy cowlib ranch recon
 #DPES = myproject
-LOCAL_DEPS = myproject 
+LOCAL_DEPS = myproject
 
 
 include rabbitmq-components.mk
