@@ -13,7 +13,7 @@ DEP_PLUGINS = cowboy
 
 
 # 本地依赖
-#LOCAL_DEPS = webchat
+LOCAL_DEPS = webchat
 
 
 
