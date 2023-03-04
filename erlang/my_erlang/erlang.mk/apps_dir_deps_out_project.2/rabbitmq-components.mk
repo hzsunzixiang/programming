@@ -24,20 +24,28 @@ possible_deps_dir_1 = $(abspath ..)
 possible_deps_dir_2 = $(abspath ../../..)
 
 ifeq ($(notdir $(possible_deps_dir_1)),deps)
-ifneq ($(wildcard $(possible_deps_dir_1)/../rabbitmq-components.mk),)
-deps_dir_overriden = 1
-DEPS_DIR ?= $(possible_deps_dir_1)
-DISABLE_DISTCLEAN = 1
-endif
+    ifneq ($(wildcard $(possible_deps_dir_1)/../rabbitmq-components.mk),)
+        deps_dir_overriden = 1
+        DEPS_DIR ?= $(possible_deps_dir_1)
+        DISABLE_DISTCLEAN = 1
+    endif
 endif
 
 ifeq ($(deps_dir_overriden),)
-ifeq ($(notdir $(possible_deps_dir_2)),deps)
-ifneq ($(wildcard $(possible_deps_dir_2)/../rabbitmq-components.mk),)
-deps_dir_overriden = 1
-DEPS_DIR ?= $(possible_deps_dir_2)
-DISABLE_DISTCLEAN = 1
+    ifeq ($(notdir $(possible_deps_dir_2)),deps)
+        ifneq ($(wildcard $(possible_deps_dir_2)/../rabbitmq-components.mk),)
+            deps_dir_overriden = 1
+            DEPS_DIR ?= $(possible_deps_dir_2)
+            DISABLE_DISTCLEAN = 1
+        endif
+    endif
 endif
-endif
+
+# We disable `make distclean` so $(DEPS_DIR) is not accidentally removed.
+
+ifeq ($(DISABLE_DISTCLEAN),1)
+     ifneq ($(filter distclean distclean-deps,$(MAKECMDGOALS)),)
+         SKIP_DEPS = 1
+     endif
 endif
 
