@@ -62,7 +62,10 @@ start() ->
     alarm_handler:clear_alarm(100),
     'this is an end'.
 
-
-
-
-
+% 
+% Then the new event handler Handler2 is added and initiated by calling Module2:init({Args2,Term}), where Module2 is the callback module of Handler2 and Term is the return value of Module1:terminate/2. This makes it possible to transfer information from Handler1 to Handler2.
+% 
+% otp/lib/sasl/src/alarm_handler.erl: 
+% terminate(swap, Alarms) ->
+%     {alarm_handler, Alarms};
+% 
