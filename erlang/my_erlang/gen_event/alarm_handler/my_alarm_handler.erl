@@ -50,7 +50,19 @@ start() ->
     % The alarm handler process is a gen_event event manager process that receives alarms in the system. 
     alarm_handler:set_alarm({100,tooHot}),
     gen_event:swap_handler(alarm_handler, {alarm_handler, swap}, {my_alarm_handler, 0}),
+	% swap_handler(EventMgrRef, {Handler1,Args1}, {Handler2,Args2}) 
+    % 结合这里的参数 init({Args, {alarm_handler, Alarms}})
+	% 第一个 alarm_handler参数 是 EventMgrRef
+	% 第二个 alarm_handler参数 是 Handler1 
+	% init 中的Args 是 Args2
+	% init 中的 Alarms 是 已经产生的事件
+	% in init here call  {Args:0, {alarm_handler, Alarms:[tooHot,tooHot]}}
     %alarm_handler:get_alarms(),
     alarm_handler:set_alarm({100, tooHot}),
     alarm_handler:clear_alarm(100),
     'this is an end'.
+
+
+
+
+
