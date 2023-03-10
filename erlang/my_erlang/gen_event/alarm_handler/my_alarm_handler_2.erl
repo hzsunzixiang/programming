@@ -23,7 +23,7 @@ handle_event({set_alarm, tooHot}, N) ->
     {ok, N+1};
 handle_event({clear_alarm, tooHot}, N) ->
     error_logger:error_msg("*** Danger over. Turn off the fan~n"),
-    {ok, N};
+    {ok, N-1};
 handle_event(Event, N) ->
     io:format("*** unmatched event:~p~n",[Event]),
     {ok, N}.
