@@ -1,0 +1,15 @@
+{application, ticktime,
+ [{description, "net_ticktime in erlang node"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, {ticktime_app, []}},
+  {applications,
+   [kernel,
+    stdlib
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {licenses, ["Apache-2.0"]},
+  {links, []}
+ ]}.
