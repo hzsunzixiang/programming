@@ -10,7 +10,9 @@ lexer.o:lexer.c
 	gcc -c lexer.c
 lexer.c:lexer.l
 	flex -t lexer.l>lexer.c
-.PHONY:clean
+.PHONY:clean install_flex
 clean:
 	rm -f *.o lexer.c
 
+install_flex:
+	sudo yum install flex-devel.x86_64 flex.x86_64
