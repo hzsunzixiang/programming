@@ -767,29 +767,6 @@ $(PROJECT).d:: $(ASN1_FILES)
 	$(if $(strip $?),$(call compile_asn1,$?))
 endif
 
-# SNMP MIB files.
-
-ifneq ($(wildcard mibs/),)
-MIB_FILES = $(sort $(call core_find,mibs/,*.mib))
-
-$(PROJECT).d:: $(COMPILE_MIB_FIRST_PATHS) $(MIB_FILES)
-	$(verbose) mkdir -p include/ priv/mibs/
-	$(mib_verbose) erlc -v $(ERLC_MIB_OPTS) -o priv/mibs/ -I priv/mibs/ $?
-	$(mib_verbose) erlc -o include/ -- $(addprefix priv/mibs/,$(patsubst %.mib,%.bin,$(notdir $?)))
-endif
-
-# Leex and Yecc files.
-
-XRL_FILES := $(filter %.xrl,$(ALL_SRC_FILES))
-XRL_ERL_FILES = $(addprefix src/,$(patsubst %.xrl,%.erl,$(notdir $(XRL_FILES))))
-ERL_FILES += $(XRL_ERL_FILES)
-
-YRL_FILES := $(filter %.yrl,$(ALL_SRC_FILES))
-YRL_ERL_FILES = $(addprefix src/,$(patsubst %.yrl,%.erl,$(notdir $(YRL_FILES))))
-ERL_FILES += $(YRL_ERL_FILES)
-
-$(PROJECT).d:: $(XRL_FILES) $(YRL_FILES)
-	$(if $(strip $?),$(xyrl_verbose) erlc -v -o src/ $(YRL_ERLC_OPTS) $?)
 
 # Erlang and Core Erlang files.
 
@@ -1004,46 +981,5 @@ clean-app:
 		$(addprefix include/,$(patsubst %.asn1,%.asn1db,$(notdir $(ASN1_FILES)))) \
 		$(addprefix src/,$(patsubst %.asn1,%.erl,$(notdir $(ASN1_FILES))))
 
-endif
-
-# Copyright (c) 2016, Loïc Hoguin <essen@ninenines.eu>
-# Copyright (c) 2015, Viktor Söderqvist <viktor@zuiderkwast.se>
-# This file is part of erlang.mk and subject to the terms of the ISC License.
-
-.PHONY: docs-deps
-
-# Configuration.
-
-ALL_DOC_DEPS_DIRS = $(addprefix $(DEPS_DIR)/,$(DOC_DEPS))
-
-# Targets.
-
-$(foreach dep,$(DOC_DEPS),$(eval $(call dep_target,$(dep))))
-
-ifneq ($(SKIP_DEPS),)
-doc-deps:
-else
-doc-deps: $(ALL_DOC_DEPS_DIRS)
-	$(verbose) set -e; for dep in $(ALL_DOC_DEPS_DIRS) ; do $(MAKE) -C $$dep IS_DEP=1; done
-endif
-
-# Copyright (c) 2015-2016, Loïc Hoguin <essen@ninenines.eu>
-# This file is part of erlang.mk and subject to the terms of the ISC License.
-
-.PHONY: rel-deps
-
-# Configuration.
-
-ALL_REL_DEPS_DIRS = $(addprefix $(DEPS_DIR)/,$(REL_DEPS))
-
-# Targets.
-
-$(foreach dep,$(REL_DEPS),$(eval $(call dep_target,$(dep))))
-
-ifneq ($(SKIP_DEPS),)
-rel-deps:
-else
-rel-deps: $(ALL_REL_DEPS_DIRS)
-	$(verbose) set -e; for dep in $(ALL_REL_DEPS_DIRS) ; do $(MAKE) -C $$dep; done
 endif
 
