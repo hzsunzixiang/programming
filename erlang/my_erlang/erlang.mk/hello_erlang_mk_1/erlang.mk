@@ -514,10 +514,6 @@ ifneq ($(ALL_APPS_DIRS_TO_BUILD),)
 	done
 endif
 
-clean-tmp-deps.log:
-ifeq ($(IS_APP)$(IS_DEP),)
-	$(verbose) rm -f $(ERLANG_MK_TMP)/apps.log $(ERLANG_MK_TMP)/deps.log
-endif
 
 # Erlang.mk does not rebuild dependencies after they were compiled
 # once. If a developer is working on the top-level project and some
@@ -564,57 +560,6 @@ endif
 
 
 
-
-define dep_target
-$(DEPS_DIR)/$(call dep_name,$1): | $(ERLANG_MK_TMP)
-	$(eval DEP_NAME := $(call dep_name,$1))
-	$(eval DEP_STR := $(if $(filter $1,$(DEP_NAME)),$1,"$1 ($(DEP_NAME))"))
-	$(verbose) if test -d $(APPS_DIR)/$(DEP_NAME); then \
-		echo "Error: Dependency" $(DEP_STR) "conflicts with application found in $(APPS_DIR)/$(DEP_NAME)." >&2; \
-		exit 17; \
-	fi
-	$(verbose) mkdir -p $(DEPS_DIR)
-	$(dep_verbose) $(call dep_fetch_$(strip $(call dep_fetch,$(1))),$(1))
-	$(verbose) if [ -f $(DEPS_DIR)/$(1)/configure.ac -o -f $(DEPS_DIR)/$(1)/configure.in ] \
-			&& [ ! -f $(DEPS_DIR)/$(1)/configure ]; then \
-		echo " AUTO  " $(DEP_STR); \
-		cd $(DEPS_DIR)/$(1) && autoreconf -Wall -vif -I m4; \
-	fi
-	- $(verbose) if [ -f $(DEPS_DIR)/$(DEP_NAME)/configure ]; then \
-		echo " CONF  " $(DEP_STR); \
-		cd $(DEPS_DIR)/$(DEP_NAME) && ./configure; \
-	fi
-ifeq ($(filter $(1),$(NO_AUTOPATCH)),)
-	$(verbose) $$(MAKE) --no-print-directory autopatch-$(DEP_NAME)
-endif
-
-.PHONY: autopatch-$(call dep_name,$1)
-
-autopatch-$(call dep_name,$1)::
-	$(verbose) if [ "$(1)" = "amqp_client" -a "$(RABBITMQ_CLIENT_PATCH)" ]; then \
-		if [ ! -d $(DEPS_DIR)/rabbitmq-codegen ]; then \
-			echo " PATCH  Downloading rabbitmq-codegen"; \
-			git clone https://github.com/rabbitmq/rabbitmq-codegen.git $(DEPS_DIR)/rabbitmq-codegen; \
-		fi; \
-		if [ ! -d $(DEPS_DIR)/rabbitmq-server ]; then \
-			echo " PATCH  Downloading rabbitmq-server"; \
-			git clone https://github.com/rabbitmq/rabbitmq-server.git $(DEPS_DIR)/rabbitmq-server; \
-		fi; \
-		ln -s $(DEPS_DIR)/amqp_client/deps/rabbit_common-0.0.0 $(DEPS_DIR)/rabbit_common; \
-	elif [ "$(1)" = "rabbit" -a "$(RABBITMQ_SERVER_PATCH)" ]; then \
-		if [ ! -d $(DEPS_DIR)/rabbitmq-codegen ]; then \
-			echo " PATCH  Downloading rabbitmq-codegen"; \
-			git clone https://github.com/rabbitmq/rabbitmq-codegen.git $(DEPS_DIR)/rabbitmq-codegen; \
-		fi \
-	elif [ "$1" = "elixir" -a "$(ELIXIR_PATCH)" ]; then \
-		ln -s lib/elixir/ebin $(DEPS_DIR)/elixir/; \
-	else \
-		$$(call dep_autopatch,$(call dep_name,$1)) \
-	fi
-endef
-
-$(foreach dep,$(BUILD_DEPS) $(DEPS),$(eval $(call dep_target,$(dep))))
-
 ifndef IS_APP
 clean:: clean-apps
 
@@ -638,20 +583,6 @@ distclean-deps:
 	$(gen_verbose) rm -rf $(DEPS_DIR)
 endif
 
-# Forward-declare variables used in core/deps-tools.mk. This is required
-# in case plugins use them.
-
-ERLANG_MK_RECURSIVE_DEPS_LIST = $(ERLANG_MK_TMP)/recursive-deps-list.log
-ERLANG_MK_RECURSIVE_DOC_DEPS_LIST = $(ERLANG_MK_TMP)/recursive-doc-deps-list.log
-ERLANG_MK_RECURSIVE_REL_DEPS_LIST = $(ERLANG_MK_TMP)/recursive-rel-deps-list.log
-ERLANG_MK_RECURSIVE_TEST_DEPS_LIST = $(ERLANG_MK_TMP)/recursive-test-deps-list.log
-ERLANG_MK_RECURSIVE_SHELL_DEPS_LIST = $(ERLANG_MK_TMP)/recursive-shell-deps-list.log
-
-ERLANG_MK_QUERY_DEPS_FILE = $(ERLANG_MK_TMP)/query-deps.log
-ERLANG_MK_QUERY_DOC_DEPS_FILE = $(ERLANG_MK_TMP)/query-doc-deps.log
-ERLANG_MK_QUERY_REL_DEPS_FILE = $(ERLANG_MK_TMP)/query-rel-deps.log
-ERLANG_MK_QUERY_TEST_DEPS_FILE = $(ERLANG_MK_TMP)/query-test-deps.log
-ERLANG_MK_QUERY_SHELL_DEPS_FILE = $(ERLANG_MK_TMP)/query-shell-deps.log
 
 # Copyright (c) 2013-2016, Loïc Hoguin <essen@ninenines.eu>
 # This file is part of erlang.mk and subject to the terms of the ISC License.
