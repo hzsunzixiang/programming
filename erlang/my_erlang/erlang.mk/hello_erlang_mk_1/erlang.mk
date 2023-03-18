@@ -1,18 +1,4 @@
-# Copyright (c) 2013-2016, Loïc Hoguin <essen@ninenines.eu>
-#
-# Permission to use, copy, modify, and/or distribute this software for any
-# purpose with or without fee is hereby granted, provided that the above
-# copyright notice and this permission notice appear in all copies.
-#
-# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
-# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
-# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
-# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
-# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
-# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-
-.PHONY: all app apps deps search rel relup docs install-docs check tests clean distclean help erlang-mk
+.PHONY: all app apps deps clean distclean 
 
 ERLANG_MK_FILENAME := $(realpath $(lastword $(MAKEFILE_LIST)))
 export ERLANG_MK_FILENAME
@@ -69,38 +55,12 @@ export ERLANG_MK_TMP
 ERL = erl +A1 -noinput -boot no_dot_erlang
 
 # Platform detection.
-
-ifeq ($(PLATFORM),)
-UNAME_S := $(shell uname -s)
-
-ifeq ($(UNAME_S),Linux)
 PLATFORM = linux
-else ifeq ($(UNAME_S),Darwin)
-PLATFORM = darwin
-else ifeq ($(UNAME_S),SunOS)
-PLATFORM = solaris
-else ifeq ($(UNAME_S),GNU)
-PLATFORM = gnu
-else ifeq ($(UNAME_S),FreeBSD)
-PLATFORM = freebsd
-else ifeq ($(UNAME_S),NetBSD)
-PLATFORM = netbsd
-else ifeq ($(UNAME_S),OpenBSD)
-PLATFORM = openbsd
-else ifeq ($(UNAME_S),DragonFly)
-PLATFORM = dragonfly
-else ifeq ($(shell uname -o),Msys)
-PLATFORM = msys2
-else
-$(error Unable to detect platform. Please open a ticket with the output of uname -a.)
-endif
-
 export PLATFORM
-endif
 
 # Core targets.
 
-all:: deps app rel
+all:: deps app 
 
 
 clean:: clean-crashdump
