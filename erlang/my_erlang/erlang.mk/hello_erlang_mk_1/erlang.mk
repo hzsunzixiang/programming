@@ -6,16 +6,6 @@ export ERLANG_MK_FILENAME
 ERLANG_MK_VERSION = 063a24a
 ERLANG_MK_WITHOUT = 
 
-# Make 3.81 and 3.82 are deprecated.
-
-ifeq ($(MAKELEVEL)$(MAKE_VERSION),03.81)
-$(warning Please upgrade to GNU Make 4 or later: https://erlang.mk/guide/installation.html)
-endif
-
-ifeq ($(MAKELEVEL)$(MAKE_VERSION),03.82)
-$(warning Please upgrade to GNU Make 4 or later: https://erlang.mk/guide/installation.html)
-endif
-
 # Core configuration.
 
 PROJECT ?= $(notdir $(CURDIR))
@@ -151,29 +141,7 @@ define core_render
 	printf -- '$(subst $(newline),\n,$(subst %,%%,$(subst ','\'',$(subst $(tab),$(WS),$(call $(1))))))\n' > $(2)
 endef
 
-# Automated update.
 
-ERLANG_MK_REPO ?= https://github.com/ninenines/erlang.mk
-ERLANG_MK_COMMIT ?=
-ERLANG_MK_BUILD_CONFIG ?= build.config
-ERLANG_MK_BUILD_DIR ?= .erlang.mk.build
-
-erlang-mk: WITHOUT ?= $(ERLANG_MK_WITHOUT)
-erlang-mk:
-ifdef ERLANG_MK_COMMIT
-	$(verbose) git clone $(ERLANG_MK_REPO) $(ERLANG_MK_BUILD_DIR)
-	$(verbose) cd $(ERLANG_MK_BUILD_DIR) && git checkout $(ERLANG_MK_COMMIT)
-else
-	$(verbose) git clone --depth 1 $(ERLANG_MK_REPO) $(ERLANG_MK_BUILD_DIR)
-endif
-	$(verbose) if [ -f $(ERLANG_MK_BUILD_CONFIG) ]; then cp $(ERLANG_MK_BUILD_CONFIG) $(ERLANG_MK_BUILD_DIR)/build.config; fi
-	$(gen_verbose) $(MAKE) --no-print-directory -C $(ERLANG_MK_BUILD_DIR) WITHOUT='$(strip $(WITHOUT))' UPGRADE=1
-	$(verbose) cp $(ERLANG_MK_BUILD_DIR)/erlang.mk ./erlang.mk
-	$(verbose) rm -rf $(ERLANG_MK_BUILD_DIR)
-	$(verbose) rm -rf $(ERLANG_MK_TMP)
-
-# The erlang.mk package index is bundled in the default erlang.mk build.
-# Search for the string "copyright" to skip to the rest of the code.
 
 # Copyright (c) 2015-2017, Loïc Hoguin <essen@ninenines.eu>
 # This file is part of erlang.mk and subject to the terms of the ISC License.
@@ -266,41 +234,7 @@ endif
 endif
 endif
 
-PACKAGES += aberth
-pkg_aberth_name = aberth
-pkg_aberth_description = Generic BERT-RPC server in Erlang
-pkg_aberth_homepage = https://github.com/a13x/aberth
-pkg_aberth_fetch = git
-pkg_aberth_repo = https://github.com/a13x/aberth
-pkg_aberth_commit = master
 
-
-# Copyright (c) 2015-2016, Loïc Hoguin <essen@ninenines.eu>
-# This file is part of erlang.mk and subject to the terms of the ISC License.
-
-.PHONY: search
-
-define pkg_print
-	$(verbose) printf "%s\n" \
-		$(if $(call core_eq,$(1),$(pkg_$(1)_name)),,"Pkg name:    $(1)") \
-		"App name:    $(pkg_$(1)_name)" \
-		"Description: $(pkg_$(1)_description)" \
-		"Home page:   $(pkg_$(1)_homepage)" \
-		"Fetch with:  $(pkg_$(1)_fetch)" \
-		"Repository:  $(pkg_$(1)_repo)" \
-		"Commit:      $(pkg_$(1)_commit)" \
-		""
-
-endef
-
-search:
-ifdef q
-	$(foreach p,$(PACKAGES), \
-		$(if $(findstring $(call core_lc,$(q)),$(call core_lc,$(pkg_$(p)_name) $(pkg_$(p)_description))), \
-			$(call pkg_print,$(p))))
-else
-	$(foreach p,$(PACKAGES),$(call pkg_print,$(p)))
-endif
 
 # Copyright (c) 2013-2016, Loïc Hoguin <essen@ninenines.eu>
 # This file is part of erlang.mk and subject to the terms of the ISC License.
@@ -497,17 +431,10 @@ erlc_verbose_0 = @echo " ERLC  " $(filter-out $(patsubst %,%.erl,$(ERLC_EXCLUDE)
 erlc_verbose_2 = set -x;
 erlc_verbose = $(erlc_verbose_$(V))
 
-xyrl_verbose_0 = @echo " XYRL  " $(filter %.xrl %.yrl,$(?F));
-xyrl_verbose_2 = set -x;
-xyrl_verbose = $(xyrl_verbose_$(V))
 
 asn1_verbose_0 = @echo " ASN1  " $(filter %.asn1,$(?F));
 asn1_verbose_2 = set -x;
 asn1_verbose = $(asn1_verbose_$(V))
-
-mib_verbose_0 = @echo " MIB   " $(filter %.bin %.mib,$(?F));
-mib_verbose_2 = set -x;
-mib_verbose = $(mib_verbose_$(V))
 
 ifneq ($(wildcard src/),)
 
