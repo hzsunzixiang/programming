@@ -3,6 +3,12 @@
 ERLANG_MK_FILENAME := $(realpath $(lastword $(MAKEFILE_LIST)))
 export ERLANG_MK_FILENAME
 
+TEST_1:
+	@echo $(ERLANG_MK_FILENAME)
+	@echo $(MAKEFILE_LIST)
+	@echo $(lastword $(MAKEFILE_LIST))
+	@echo $(realpath $(lastword $(MAKEFILE_LIST)))
+
 ERLANG_MK_VERSION = 063a24a
 ERLANG_MK_WITHOUT = 
 
@@ -30,10 +36,6 @@ endif
 gen_verbose_0 = @echo " GEN   " $@;
 gen_verbose_2 = set -x;
 gen_verbose = $(gen_verbose_$(V))
-
-gen_verbose_esc_0 = @echo " GEN   " $$@;
-gen_verbose_esc_2 = set -x;
-gen_verbose_esc = $(gen_verbose_esc_$(V))
 
 # Temporary files directory.
 
@@ -135,16 +137,11 @@ ifdef OTP_DEPS
 $(warning The variable OTP_DEPS is deprecated in favor of LOCAL_DEPS.)
 endif
 
-IGNORE_DEPS ?=
-export IGNORE_DEPS
-
 APPS_DIR ?= $(CURDIR)/apps
 export APPS_DIR
 
 DEPS_DIR ?= $(CURDIR)/deps
 export DEPS_DIR
-
-
 
 
 # When we are calling an app directly we don't want to include it here
