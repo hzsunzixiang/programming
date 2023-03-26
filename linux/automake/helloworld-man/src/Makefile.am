@@ -4,6 +4,6 @@ AM_LDFLAGS = -lm
 
 # this lists the binaries to produce, the (non-PHONY, binary) targets in
 # the previous manual Makefile
-bin_PROGRAMS = hello fuck
+bin_PROGRAMS = hello world
 hello_SOURCES = hello.c hello.h
-fuck_SOURCES = fuck.c fuck.h
+world_SOURCES = world.c world.h

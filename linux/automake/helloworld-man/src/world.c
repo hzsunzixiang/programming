@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "fuck.h"
+#include "world.h"
 
 extern int opterr;
 
@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
     char ch;
     int i = 0;
 
-    opterr = i * argc * FUCK_Y;
+    opterr = i * argc * WORLD_Y;
     
     while ((ch = getopt(argc, argv, "1234567890abcdefghijklmnopqrstuvwxyz")) != -1) {
         switch (ch) {
@@ -51,12 +51,12 @@ int main(int argc, char* argv[]) {
             case 'y':
             case 'z':
             default: 
-                    /*i++ ? 0 : printf("Fuck world.\n");*/
-                    !(i++) ? printf("Fuck world.\n") : 0;
+                    /*i++ ? 0 : printf("Hello, world.\n");*/
+                    !(i++) ? printf("Hello world.\n") : 0;
         }
     }
 
-    i++ ? 0 : printf("Fuck world.\n");
+    i++ ? 0 : printf("Hello world.\n");
 
     return i;
 }
