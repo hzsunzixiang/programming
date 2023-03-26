@@ -13,7 +13,9 @@ AC_SUBST([PERCENT_SIGN],[%])
 # If you are using Automake 1.11 or newer, for newlines in values you might want to consider using AM_SUBST_NOTMAKE to prevent automake from adding a line variable = @variable@ to the Makefile.in files (see Automake).
 # https://www.gnu.org/software/autoconf/manual/autoconf-2.69/html_node/Setting-Output-Variables.html
 
-AM_SUBST_NOTMAKE ([EXCLAMATION_SIGN],[!])
+#AM_SUBST_NOTMAKE ([EXCLAMATION_SIGN],[!])
+AC_SUBST([EXCLAMATION_SIGN],[!])
+
 
 AC_CONFIG_FILES([
  Makefile
