@@ -9,7 +9,9 @@ AC_CONFIG_HEADERS([config.h])
 
 # --with-python[=DIR]     build Python bindings if found
 # AC_ARG_WITH(python, [  --with-python[[=DIR]]     build Python bindings if found])
-AC_ARG_ENABLE(debug, [ --enable-debug turn on debug], CXXFLAGS="$CXXFLAGS -g3 -D_DEBUG=1")
+# CXX 是 C++的
+# AC_ARG_ENABLE(debug, [ --enable-debug turn on debug], CXXFLAGS="$CXXFLAGS -g3 -D_DEBUG=1")
+AC_ARG_ENABLE(debug, [ --enable-debug turn on debug], CFLAGS="$CFLAGS -g3 -D_DEBUG=1")
 
 
 AC_CONFIG_FILES([
