@@ -1,0 +1,22 @@
+ericksun@centos7-mq1:~/programming/linux/automake/ac_subst/ac_subst (master)$ export MY_BACKSLASH=TEATBACKSLASH
+ericksun@centos7-mq1:~/programming/linux/automake/ac_subst/ac_subst (master)$ autoreconf -iv
+ericksun@centos7-mq1:~/programming/linux/automake/ac_subst/ac_subst (master)$ ./configure
+
+
+
+ericksun@centos7-mq1:~/programming/linux/automake/ac_subst/ac_subst (master)$ grep MY_BACKSLASH * -R
+autom4te.cache/traces.0:m4trace:configure.ac:30: -1- m4_pattern_allow([^MY_BACKSLASH$])
+autom4te.cache/output.0:MY_BACKSLASH
+autom4te.cache/traces.1:m4trace:configure.ac:30: -1- AC_SUBST([MY_BACKSLASH])
+autom4te.cache/traces.1:m4trace:configure.ac:30: -1- AC_SUBST_TRACE([MY_BACKSLASH])
+autom4te.cache/traces.1:m4trace:configure.ac:30: -1- m4_pattern_allow([^MY_BACKSLASH$])
+autom4te.cache/output.1:MY_BACKSLASH
+config.log:MY_BACKSLASH='TEATBACKSLASH'
+config.status:S["MY_BACKSLASH"]="TEATBACKSLASH"
+configure:MY_BACKSLASH
+configure.ac:AC_SUBST([MY_BACKSLASH])
+Makefile:MY_BACKSLASH = TEATBACKSLASH
+Makefile.in:MY_BACKSLASH = @MY_BACKSLASH@
+src/Makefile.in:MY_BACKSLASH = @MY_BACKSLASH@
+src/Makefile:MY_BACKSLASH = TEATBACKSLASH
+
