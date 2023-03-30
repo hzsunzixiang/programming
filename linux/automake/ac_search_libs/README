@@ -1,0 +1,14 @@
+
+
+If a user’s system is missing the pthread.h header file, for instance, they’d
+see different output. To emulate this for testing purposes, we can use a trick
+involving Autoconf cache variables. By presetting the cache variable that
+represents the presence of the pthread.h header to no, we can trick configure
+into not even looking for pthread.h because it assumes the search has already
+been done if the cache variable is already set. Let’s try it out:
+
+./configure ac_cv_header_pthread_h=no
+
+
+— Macro: AC_CHECK_HEADERS (header-file..., [action-if-found], [action-if-not-found], [includes])
+This macro caches its result in the ac_cv_header_header-file variable, with characters not suitable for a variable name mapped to underscores.

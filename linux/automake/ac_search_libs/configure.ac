@@ -12,10 +12,33 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_PROG_CC
 
 # Checks for libraries.
-AC_SEARCH_LIBS([pthread_create], [pthread])
-
+have_pthreads=no
+AC_SEARCH_LIBS([pthread_create], [pthread], [have_pthreads=yes])
 # Checks for header files.
 AC_CHECK_HEADERS([stdlib.h])
+if test "x${have_pthreads}" = xyes; then
+AC_CHECK_HEADERS([pthread.h], [], [have_pthreads=no])
+fi
+if test "x${have_pthreads}" = xno; then
+AC_MSG_ERROR([
+------------------------------------------
+The pthread library and header files are
+required to build jupiter. Stopping...
+Check 'config.log' for more information.
+------------------------------------------])
+fi
+
+#AC_MSG_WARN([
+#------------------------------------------
+#Unable to find pthreads on this system.
+#Building a single-threaded version.
+#------------------------------------------])
+#fi
+
+
+
+# Checks for header files.
+AC_CHECK_HEADERS([stdlib.h pthread.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 
