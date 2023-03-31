@@ -8,15 +8,11 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_PROG_CC
 AC_CONFIG_HEADERS([config.h])
 
-#AC_DEFINE(HELLO,)
 
-#MY_VERSION="0.1.1.1"
-# Checks for command line options
-AC_ARG_ENABLE([async-exec],
-[  --disable-async-exec disable async execution feature],
-[MY_VERSION=${enableval}], [MY_VERSION=yes])
+## 如果出错，就用方括号
+AC_DEFINE(HELLO,[], [test hello])
+AC_DEFINE(MY_VERSION, ["5.6.7.8.9"], [test the varable])
 
-AC_DEFINE(MY_VERSION, "5.6.7.8.9")
 
 
 AC_DEFINE(VERSION, "5.6.7.8.9")

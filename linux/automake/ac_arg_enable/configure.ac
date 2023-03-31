@@ -18,11 +18,11 @@ AC_CHECK_HEADERS([stdlib.h])
 # Checks for command line options
 AC_ARG_ENABLE([async-exec],
 [  --disable-async-exec disable async execution feature],
-[async_exec=${enableval}], [async_exec=yes])
+[async_execxxxxxx=${enableval}], [async_execxxxxxx=yes])
 
 
 
-if test "x${async_exec}" = xyes; then
+if test "x${async_execxxxxxx}" = xyes; then
     # Checks for libraries.
     have_pthreads=no
     AC_SEARCH_LIBS([pthread_create], [pthread], [have_pthreads=yes])
@@ -32,24 +32,25 @@ if test "x${async_exec}" = xyes; then
     fi
     
     if test "x${have_pthreads}" = xno; then
-        if test "x${async_exec}" = xyes; then
+        if test "x${async_execxxxxxx}" = xyes; then
             AC_MSG_WARN([
             ------------------------------------------
             Unable to find pthreads on this system.
             Building a single-threaded version.
             ------------------------------------------])
         fi
-        async_exec=no
+        async_execxxxxxx=no
         fi
 fi
     
-if test "x${async_exec}" = xyes; then
-    AC_DEFINE([ASYNC_EXEC], [1], [async execution enabled])
+if test "x${async_execxxxxxx}" = xyes; then
+    AC_DEFINE([async_execxxxxxx], [1], [async execution enabled])
 fi
 
 #AC_MSG_WARN([
 #------------------------------------------
 #Unable to find pthreads on this system.
+    AC_DEFINE([async_execxxxxxx], [1], [async execution enabled])
 #Building a single-threaded version.
 #------------------------------------------])
 #fi
