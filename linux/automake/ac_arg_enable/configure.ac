@@ -16,8 +16,13 @@ AC_CHECK_HEADERS([stdlib.h])
 
 
 # Checks for command line options
+#AC_ARG_ENABLE([async-exec],
+#[  --disable-async-exec disable async execution feature],
+#[async_exec=${enableval}], [async_exec=yes])
+
 AC_ARG_ENABLE([async-exec],
-[  --disable-async-exec disable async execution feature],
+[AS_HELP_STRING([--disable-async-exec],
+[disable asynchronous execution @<:@default: no@:>@])],
 [async_exec=${enableval}], [async_exec=yes])
 
 
@@ -71,9 +76,17 @@ AC_CONFIG_FILES([
 
 AC_OUTPUT
 
-
-#S["LIBS"]="-lpthread "
-#hello$(EXEEXT): $(hello_OBJECTS) $(hello_DEPENDENCIES) $(EXTRA_hello_DEPENDENCIES)
-#    @rm -f hello$(EXEEXT)
-#    $(AM_V_CCLD)$(LINK) $(hello_OBJECTS) $(hello_LDADD) $(LIBS)
+cat << EOF
+-------------------------------------------------
+${PACKAGE_NAME} Version ${PACKAGE_VERSION}
+Prefix: '${prefix}'.
+Compiler: '${CC} ${CFLAGS} ${CPPFLAGS}'
+Package features:
+Async Execution: ${async_exec}
+Now type 'make @<:@<target>@:>@'
+where the optional <target> is:
+all - build all binaries
+install - install everything
+--------------------------------------------------
+EOF
 
