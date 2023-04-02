@@ -10,7 +10,7 @@ AC_CHECK_HEADERS([stdio.h stdlib.h], [break])
 
 AC_PROG_CC
 AM_PROG_LEX
-#AC_PROG_YACC
+AC_PROG_YACC
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT

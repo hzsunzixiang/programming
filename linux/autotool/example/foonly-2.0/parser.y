@@ -1,5 +1,5 @@
 %{
-#include "stdlib.h"
+#include <stdio.h>
 %}
 %%
 x : '\n' ;
@@ -7,4 +7,5 @@ x : '\n' ;
 yyerror (s)
      char *s;
 {
+	fprintf (stderr, "%s\n", s);
 }
