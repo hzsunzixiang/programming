@@ -25,3 +25,5 @@ bin_PROGRAMS = foonly
 foonly_SOURCES = main.c foo.c foo.h nly.c scanner.l parser.y
 foonly_LDADD = @LEXLIB@
 ## @end 1
+
+CLEANFILES =  parser.c scanner.c
