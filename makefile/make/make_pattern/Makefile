@@ -15,7 +15,7 @@ lexer.o:lexer.h
 
 .PHONY:clean
 clean:
-	rm -f *.o lexer.c 
+	rm -f *.o lexer.c  count_words
 
 #lexer.c: lexer.l
 #	flex -t $< >$@ 
