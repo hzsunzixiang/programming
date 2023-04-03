@@ -1,0 +1,26 @@
+# 本代码演示如何使用VPATH变量
+# 此时不用指定源文件的目录了
+
+VPATH= src include
+
+CPPFLAGS = -I include
+
+# 因为用的不是默认规则，这里需要把 CPPFLAGS 显式的写到命令中
+count_words: count_words.o counter.o lexer.o -lfl
+	gcc $(CPPFLAGS) $^ -o $@
+
+count_words.o: count_words.c counter.h
+	gcc $(CPPFLAGS) -c $< 
+
+counter.o: counter.c counter.h lexer.h
+	gcc $(CPPFLAGS) -c $< -o $@
+
+lexer.o: lexer.c lexer.h
+	gcc $(CPPFLAGS) -c $< -o $@ 
+
+lexer.c: lexer.l
+	flex -t $< >$@ 
+
+.PHONY:clean
+clean:
+	rm -f *.o src/lexer.c count_words
