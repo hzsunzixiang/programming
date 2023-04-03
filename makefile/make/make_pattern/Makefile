@@ -1,16 +1,28 @@
 
-# 本代码是最原始的代码，应该是首先要演示的，一个完整的代码
-count_words:count_words.o counter.o lexer.o -lfl
-	gcc $^ -o $@
-count_words.o:src/count_words.c include/counter.h
-	gcc -c $< -o $@
-counter.o:src/counter.c include/counter.h include/lexer.h
-	gcc -c $< -o $@
-lexer.o:src/lexer.c include/lexer.h
-	gcc -c $< -o $@ 
-lexer.c:src/lexer.l
-	flex -t $< >$@ 
+
+VPATH=src include
+
+CPPFLAGS=-I inlcude
+
+count_words:counter.o lexer.o -lfl
+
+count_words.o:counter.h
+
+counter.o:counter.h lexer.h
+
+lexer.o:lexer.h
+
+
 .PHONY:clean
 clean:
-	rm -f *.o src/lexer.c count_words
+	rm -f *.o lexer.c 
+
+#lexer.c: lexer.l
+#	flex -t $< >$@ 
+
+## 默认规则中就有 所以上面的规则可以省略
+#%.c: %.l
+##  recipe to execute (built-in):
+#	@$(RM) $@ 
+#	 $(LEX.l) $< > $@
 
