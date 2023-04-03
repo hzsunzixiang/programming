@@ -1,5 +1,5 @@
-#include"../include/lexer.h"
-#include"../include/counter.h"
+#include "lexer.h"
+#include "counter.h"
 void counter(int counts[4])
 {
 	while( yylex() )

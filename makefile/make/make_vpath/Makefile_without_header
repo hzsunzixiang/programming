@@ -1,16 +1,18 @@
 VPATH=src include
 
+CPPFLAGS = -I include
+#
 count_words: count_words.o counter.o lexer.o -lfl
-	gcc $^ -o $@
+	gcc $(CPPFLAGS) $^ -o $@
 
 count_words.o: count_words.c 
-	gcc -c $< 
+	gcc $(CPPFLAGS) -c $< 
 
-counter.o: counter.c counter.h 
-	gcc -c $< -o $@
+counter.o: counter.c  
+	gcc $(CPPFLAGS) -c $< -o $@
 
 lexer.o: lexer.c 
-	gcc -c $< -o $@ 
+	gcc $(CPPFLAGS) -c $< -o $@ 
 
 lexer.c: lexer.l
 	flex -t $< >$@ 
