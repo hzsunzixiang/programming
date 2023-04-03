@@ -1,14 +1,20 @@
-count_words:count_words.o counter.o lexer.o -lfl
+
+
+count_words: count_words.o counter.o lexer.o -lfl
 	gcc $^ -o $@
-count_words.o:src/count_words.c include/counter.h
-#gcc -c $< -o $@
+
+count_words.o: src/count_words.c include/counter.h
 	gcc -c $< 
-counter.o:src/counter.c include/counter.h include/lexer.h
+
+counter.o: src/counter.c include/counter.h include/lexer.h
 	gcc -c $< -o $@
-lexer.o:src/lexer.c include/lexer.h
+
+lexer.o: src/lexer.c include/lexer.h
 	gcc -c $< -o $@ 
-lexer.c:src/lexer.l
+
+lexer.c: src/lexer.l
 	flex -t $< >$@ 
+
 .PHONY:clean
 clean:
 	rm -f count_words *.o *.so src/lexer.c

@@ -1,0 +1,20 @@
+
+count_words: count_words.o counter.o lexer.o -lfl
+	gcc $^ -o $@
+
+count_words.o: src/count_words.c 
+	gcc -c $< 
+
+counter.o: src/counter.c
+	gcc -c $< 
+
+lexer.o: src/lexer.c
+	gcc -c $< 
+
+lexer.c:src/lexer.l
+	flex -t $< >$@ 
+
+.PHONY:clean
+clean:
+	rm -f *.o src/lexer.c
+
