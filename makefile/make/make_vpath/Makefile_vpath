@@ -1,7 +1,4 @@
-
-# 每一行只能一个，不能合并 比如 vpath %.l %.c src 
-vpath %.l src
-vpath %.c src
+vpath %.l %.c src
 vpath %.h include
 
 CPPFLAGS = -I include
