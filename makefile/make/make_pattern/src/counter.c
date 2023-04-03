@@ -1,4 +1,6 @@
-#include<stdio.h>
+#include <stdio.h>
+#include "lexer.h"
+#include "counter.h"
 
 /*extern int fee_count,fie_count,foe_count;*/
 extern int fee_count,fie_count,foe_count; /*depend on counter.h*/

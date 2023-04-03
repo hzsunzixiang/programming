@@ -1,8 +1,8 @@
 
 
-VPATH=src include
+VPATH = src include
 
-CPPFLAGS=-I inlcude
+CPPFLAGS = -I include
 
 count_words:counter.o lexer.o -lfl
 
