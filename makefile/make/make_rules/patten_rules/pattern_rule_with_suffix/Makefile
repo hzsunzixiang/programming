@@ -1,26 +1,30 @@
 VPATH=lib
 objects = foo.so bar.o lib/zoo.o
 
-CFLAGS=-Wall -g
-%.o: %.cpp
-	# CPP是预编译处理器 这里只是做区分，不去深入探讨工具
-	$(CPP) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+CPPFLAGS=-Wall -g
 
 %.so : %.c
-	$(CC) -c -shared -fPIC $(CFLAGS) $(CPPFLAGS) $< -o $@
-
-lib/%.o: lib/%.c
-	$(CC) -fPIC -c $(CFLAGS) $(CPPFLAGS) $< -o $@
-
-# 关于静态模式匹配参看另外章节
-#$(objects): %.o: %.c
-#	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c -shared -fPIC $(CPPFLAGS) $< -o $@
 
 all: $(objects)
 
 .PHONEY:clean
 clean:
 	rm  -f *.o *.so lib/*.o foo
+
+# .o 方面的规则有隐含规则，会自动生成
+
+
+#%.o: %.cpp
+#	# CPP是预编译处理器 这里只是做区分，不去深入探讨工具
+#	$(CPP) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+
+#lib/%.o: lib/%.c
+#	$(CC) -fPIC -c $(CFLAGS) $(CPPFLAGS) $< -o $@
+
+# 关于静态模式匹配参看另外章节
+#$(objects): %.o: %.c
+#	$(CC) -c $(CFLAGS) $< -o $@
 
 
 #root@debian:~/programming/makefile/make/make_pattern/patten_rules/pattern_rule_double# make

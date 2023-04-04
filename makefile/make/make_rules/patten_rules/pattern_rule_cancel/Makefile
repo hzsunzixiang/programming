@@ -1,12 +1,12 @@
 VPATH=lib
 objects = foo.o bar.o lib/zoo.o
 
-#CFLAGS=-Wall -g
+CPPFLAGS=-Wall -g
 
 
 #覆盖默认规则  
 %.o : %.c
-	$(CC)  $(CFLAGS) $(CPPFLAGS) $< -o $@
+	$(CC)  $(CPPFLAGS) $< -o $@
 # 如果注释掉上面这一行就会报错 表示取消默认规则 
 
 #StephenSun@debian-1:~/programming/makefile/make/make_pattern/patten_rules/pattern_rule_cancel$ make 
@@ -17,7 +17,7 @@ all: $(objects)
 
 .PHONEY:clean
 clean:
-	rm  -f foo.o bar.o lib/zoo.o
+	rm  -f $(objects)
 
 
 
