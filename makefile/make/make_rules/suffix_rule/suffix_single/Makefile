@@ -1,20 +1,20 @@
 
 # 演示 后缀规则
-CFLAGS_TMP = -g -Wall
-files = foo
+CPPFLAGS = -g -Wall
+files = foo lose
 
 #A single-suffix rule is defined by a single suffix, which is the source suffix. It matches any file name, and the corresponding implicit prerequisite name is made by appending the source suffix. A single-suffix rule whose source suffix is ‘.c’ is equivalent to the pattern rule ‘% : %.c’.
 # 下面两行注释掉， 看下结果中没有 -g
 # 单后缀规则,表示由 .c 文件 , 隐含生成可执行文件的规则 
 .c:
-	$(CC)  $(CFLAGS_TMP) $(CPPFLAGS) -o $@ $^
+	$(CC) $(CPPFLAGS) -o $@ $^
 
 all: $(files)
 
 
 .PHONEY:clean
 clean:
-	rm  -f *.x *.o *.so foo
+	rm  -f *.x *.o *.so $(files) 
 
 #%.o: %.c 
 #	$(CC) -c $(CFLAGS) $(CPPFLAGS) -o $@ $<

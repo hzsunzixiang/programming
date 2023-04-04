@@ -1,12 +1,13 @@
 
 # 演示 后缀规则
-CFLAGS_TMP = -g -Wall
+CPPFLAGS = -g -Wall
 files = foo.o bar.o lose.o
 
 #A double-suffix rule is defined by a pair of suffixes: the target suffix and the source suffix. It matches any file whose name ends with the target suffix. The corresponding implicit prerequisite is made by replacing the target suffix with the source suffix in the file name. A two-suffix rule whose target and source suffixes are ‘.o’ and ‘.c’ is equivalent to the pattern rule ‘%.o : %.c’.
 # 下面两行注释掉， 看下结果中没有 -g
 .c.o:
-	$(CC) -c $(CFLAGS_TMP) $(CPPFLAGS) -o $@ $<
+	$(CC) -c $(CPPFLAGS) -o $@ $<
+
 all: $(files)
 
 

@@ -1,11 +1,11 @@
 
 # 演示 取消后缀规则
-CFLAGS_TMP = -g -Wall
+CPPFLAGS = -g -Wall
 files = foo.o bar.o lose.o
 
 
 #Suffix rules with no recipe are also meaningless. They do not remove previous rules as do pattern rules with no recipe (see Canceling Implicit Rules). They simply enter the suffix or pair of suffixes concatenated as a target in the data base.
-# 如上上所述 这样是取消不了后缀规则的
+# 如上所述 这样是取消不了后缀规则的
 #必须用下面这种
 #.SUFFIXES:            # Delete the default suffixes
 

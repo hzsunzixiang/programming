@@ -5,13 +5,15 @@ files = foo.so bar.o lose.o
 all: $(files)
 
 CFLAGS = -g
-CFLAGS1 = -shared -fPIC
+CFPPLAGS = -g -shared -fPIC
+
 $(filter %.o,$(files)): %.o: %.c
 	@echo $(filter %.o,$(files))
 	$(CC) -c $(CFLAGS) $< -o $@
+
 $(filter %.so,$(files)): %.so: %.c
 	@echo $(filter %.so,$(files))
-	$(CC) -c $(CFLAGS1) $< -o $@
+	$(CC) -c $(CPPFLAGS) $< -o $@
 
 
 .PHONEY:clean

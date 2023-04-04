@@ -1,10 +1,10 @@
 
 # 演示 取消后缀规则
-CFLAGS_TMP = -g -Wall
+CPPFLAGS = -g -Wall
 files = foo.o bar.o lose.o
 
 #.c.o:
-#	$(CC) -c $(CFLAGS_TMP) $(CPPFLAGS) -o $@ $<
+#	$(CC) -c $(CPPFLAGS) $(CPPFLAGS) -o $@ $<
 
 # 如果取消后缀规则，则会出现如下错误
 #root@debian:~/programming/makefile/make/make_pattern/suffix_rule/suffix_cancel# make
@@ -16,10 +16,10 @@ files = foo.o bar.o lose.o
 .SUFFIXES: .c .o .h   # Define our suffix list
 
 
-# 后缀规则和后缀变量是不一样的o
+# 后缀规则和后缀变量是不一样的
 # 取消后缀规则，后缀变量SUFFIXES是不变的
 
-#The variable SUFFIXES is defined to the default list of suffixes before make reads any makefiles. You can change the list of suffixes with a rule for the special target .SUFFIXES, but that does not alter this variable.
+# The variable SUFFIXES is defined to the default list of suffixes before make reads any makefiles. You can change the list of suffixes with a rule for the special target .SUFFIXES, but that does not alter this variable.
 all: $(files)
 	echo $(SUFFIXES)
 

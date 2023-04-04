@@ -1,6 +1,6 @@
 
 # 演示 取消后缀规则
-CFLAGS_TMP = -g -Wall
+CPPFLAGS = -g -Wall
 files = foo.o bar.o lose.o
 
 #.c.o:

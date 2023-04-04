@@ -2,6 +2,13 @@ objects = foo.o bar.o
 
 all: $(objects)
 
+#foo.o bar.o: %.o: %.c
+$(objects): %.o: %.c
+	$(CC) -c $(CFLAGS) $< -o $@
+
+.PHONEY:clean
+clean:
+	rm  -f *.o foo
 
 #Here ‘$<’ is the automatic variable that holds the name of the prerequisite and ‘$@’ is the automatic variable that holds the name of the target; see Automatic Variables.
 
@@ -11,14 +18,6 @@ all: $(objects)
 #        recipe
 #		        …
 
-
-#foo.o bar.o: %.o: %.c
-$(objects): %.o: %.c
-	$(CC) -c $(CFLAGS) $< -o $@
-
-.PHONEY:clean
-clean:
-	rm  -f *.o foo
 
 #https://www.gnu.org/software/make/manual/html_node/Static-Usage.html#Static-Usage	
 
