@@ -8,8 +8,8 @@
 # root@debian:~/programming/makefile/make/make_archive# gcc  -Wall count_words.o  libcounter.a   -lfl -o count_words
 
 
+VPATH=src common include
 CPPFLAGS=-I inlcude
-VPATH=src include
 
 count_words:libcounter.a  -lfl
 
