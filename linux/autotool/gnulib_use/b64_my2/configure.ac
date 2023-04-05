@@ -8,7 +8,6 @@ AC_CONFIG_SRCDIR([src/b64.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIRS([m4])
 
-AC_CONFIG_FILES([Makefile lib/Makefile])
 # Checks for programs.
 AC_PROG_CC
 gl_EARLY
@@ -23,5 +22,7 @@ gl_INIT
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
+
+AC_CONFIG_FILES([Makefile lib/Makefile])
 
 AC_OUTPUT
