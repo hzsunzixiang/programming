@@ -99,5 +99,15 @@ $ file b64.exe
 b64.exe: PE32 executable (console) Intel 80386, for MS Windows, 18 sections
 
 
+# 三种代码均能在 cygwin下面运行
+ericksun@ericksun-NB1 /cygdrive/f/programming/linux/autotool/cygwin/b64_cygin_mingw32/src
+$ ./b64 < ../Makefile.am
+QUNMT0NBTF9BTUZMQUdTID0gLUkgbTQKRVhUUkFfRElTVCA9IG00L2dudWxpYi1jYWNoZS5tNApTVUJESVJTID0gbGliCgpiaW5fUFJPR1JBTVMgPSBzcmMvYjY0CnNyY19iNjRfU09VUkNFUyA9IHNyYy9iNjQuYwpzcmNfYjY0X0NQUEZMQUdTID0gLUkkKHRvcF9idWlsZGRpcikvbGliIC1JJCh0b3Bfc3JjZGlyKS9saWIKc3JjX2I2NF9MREFERCA9IGxpYi9saWJnbnUuYQo=
 
+sun@ericksun-NB1 /cygdrive/f/programming/linux/autotool/cygwin/b64_cygin/src
+$ ./b64 < ../Makefile.am
+QUNMT0NBTF9BTUZMQUdTID0gLUkgbTQKRVhUUkFfRElTVCA9IG00L2dudWxpYi1jYWNoZS5tNApTVUJESVJTID0gbGliCgpiaW5fUFJPR1JBTVMgPSBzcmMvYjY0CnNyY19iNjRfU09VUkNFUyA9IHNyYy9iNjQuYwpzcmNfYjY0X0NQUEZMQUdTID0gLUkkKHRvcF9idWlsZGRpcikvbGliIC1JJCh0b3Bfc3JjZGlyKS9saWIKc3JjX2I2NF9MREFERCA9IGxpYi9saWJnbnUuYQo=
 
+ericksun@ericksun-NB1 /cygdrive/f/programming/linux/autotool/cygwin/b64_cygin/src
+$ ./b64 < ../Makefile.am
+QUNMT0NBTF9BTUZMQUdTID0gLUkgbTQKRVhUUkFfRElTVCA9IG00L2dudWxpYi1jYWNoZS5tNApTVUJESVJTID0gbGliCgpiaW5fUFJPR1JBTVMgPSBzcmMvYjY0CnNyY19iNjRfU09VUkNFUyA9IHNyYy9iNjQuYwpzcmNfYjY0X0NQUEZMQUdTID0gLUkkKHRvcF9idWlsZGRpcikvbGliIC1JJCh0b3Bfc3JjZGlyKS9saWIKc3JjX2I2NF9MREFERCA9IGxpYi9saWJnbnUuYQo=
