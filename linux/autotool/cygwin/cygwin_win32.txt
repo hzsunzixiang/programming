@@ -1,0 +1,16 @@
+# 32位 windows 
+./configure --build=x86_64-unknown-cygwin --host=i686-w64-mingw32
+
+
+ericksun@ericksun-NB1 /cygdrive/f/programming/linux/autotool/cygwin/b64_cygin_mingw32/src
+$ cygcheck ./b64.exe
+F:\programming\linux\autotool\cygwin\b64_cygin_mingw32\src\b64.exe
+
+
+ericksun@ericksun-NB1 /cygdrive/f/programming/linux/autotool/cygwin/b64_cygin_mingw32/src
+$ file b64.exe
+b64.exe: PE32 executable (console) Intel 80386, for MS Windows, 18 sections
+
+
+
+
