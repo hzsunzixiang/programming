@@ -5501,7 +5501,7 @@ $as_echo "$gl_cv_next_string_h" >&6; }
 
 
 
-    for gl_func in ffsl ffsll memmem mempcpy memrchr rawmemchr stpcpy stpncpy strchrnul      strdup strncat strndup strnlen strpbrk strsep strcasestr strtok_r      strerror_r strsignal strverscmp; do
+    for gl_func in ffsl ffsll memmem mempcpy memrchr rawmemchr stpcpy stpncpy strchrnul      strdup strncat strndup strnlen strpbrk strsep strcasestr strtok_r      strerror_r strsignal strverscmp; do
     as_gl_Symbol=`$as_echo "gl_cv_have_raw_decl_$gl_func" | $as_tr_sh`
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $gl_func is declared without a macro" >&5
 $as_echo_n "checking whether $gl_func is declared without a macro... " >&6; }

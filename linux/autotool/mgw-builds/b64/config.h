@@ -2,173 +2,173 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Define to the number of bits in type 'ptrdiff_t'. */
-#define BITSIZEOF_PTRDIFF_T 64
+#undef BITSIZEOF_PTRDIFF_T
 
 /* Define to the number of bits in type 'sig_atomic_t'. */
-#define BITSIZEOF_SIG_ATOMIC_T 32
+#undef BITSIZEOF_SIG_ATOMIC_T
 
 /* Define to the number of bits in type 'size_t'. */
-#define BITSIZEOF_SIZE_T 64
+#undef BITSIZEOF_SIZE_T
 
 /* Define to the number of bits in type 'wchar_t'. */
-#define BITSIZEOF_WCHAR_T 32
+#undef BITSIZEOF_WCHAR_T
 
 /* Define to the number of bits in type 'wint_t'. */
-#define BITSIZEOF_WINT_T 32
+#undef BITSIZEOF_WINT_T
 
 /* Define to a C preprocessor expression that evaluates to 1 or 0, depending
    whether the gnulib module reallocarray shall be considered present. */
-#define GNULIB_REALLOCARRAY 1
+#undef GNULIB_REALLOCARRAY
 
 /* Define to 1 when the gnulib module calloc-gnu should be tested. */
-#define GNULIB_TEST_CALLOC_GNU 1
+#undef GNULIB_TEST_CALLOC_GNU
 
 /* Define to 1 when the gnulib module calloc-posix should be tested. */
-#define GNULIB_TEST_CALLOC_POSIX 1
+#undef GNULIB_TEST_CALLOC_POSIX
 
 /* Define to 1 when the gnulib module free-posix should be tested. */
-#define GNULIB_TEST_FREE_POSIX 1
+#undef GNULIB_TEST_FREE_POSIX
 
 /* Define to 1 when the gnulib module malloc-gnu should be tested. */
-#define GNULIB_TEST_MALLOC_GNU 1
+#undef GNULIB_TEST_MALLOC_GNU
 
 /* Define to 1 when the gnulib module malloc-posix should be tested. */
-#define GNULIB_TEST_MALLOC_POSIX 1
+#undef GNULIB_TEST_MALLOC_POSIX
 
 /* Define to 1 when the gnulib module memchr should be tested. */
-#define GNULIB_TEST_MEMCHR 1
+#undef GNULIB_TEST_MEMCHR
 
 /* Define to 1 when the gnulib module reallocarray should be tested. */
-#define GNULIB_TEST_REALLOCARRAY 1
+#undef GNULIB_TEST_REALLOCARRAY
 
 /* Define to 1 when the gnulib module realloc-gnu should be tested. */
-#define GNULIB_TEST_REALLOC_GNU 1
+#undef GNULIB_TEST_REALLOC_GNU
 
 /* Define to 1 when the gnulib module realloc-posix should be tested. */
-#define GNULIB_TEST_REALLOC_POSIX 1
+#undef GNULIB_TEST_REALLOC_POSIX
 
 /* Define to 1 if you have the <bp-sym.h> header file. */
-/* #undef HAVE_BP_SYM_H */
+#undef HAVE_BP_SYM_H
 
 /* Define to 1 if you have the <crtdefs.h> header file. */
-/* #undef HAVE_CRTDEFS_H */
+#undef HAVE_CRTDEFS_H
 
 /* Define to 1 if bool, true and false work as per C2023. */
-/* #undef HAVE_C_BOOL */
+#undef HAVE_C_BOOL
 
 /* Define to 1 if you have the declaration of `ecvt', and to 0 if you don't.
    */
-#define HAVE_DECL_ECVT 1
+#undef HAVE_DECL_ECVT
 
 /* Define to 1 if you have the declaration of `execvpe', and to 0 if you
    don't. */
-#define HAVE_DECL_EXECVPE 1
+#undef HAVE_DECL_EXECVPE
 
 /* Define to 1 if you have the declaration of `fcvt', and to 0 if you don't.
    */
-#define HAVE_DECL_FCVT 1
+#undef HAVE_DECL_FCVT
 
 /* Define to 1 if you have the declaration of `gcvt', and to 0 if you don't.
    */
-#define HAVE_DECL_GCVT 1
+#undef HAVE_DECL_GCVT
 
 /* Define to 1 if you have the declaration of `wcsdup', and to 0 if you don't.
    */
-#define HAVE_DECL_WCSDUP 1
+#undef HAVE_DECL_WCSDUP
 
 /* Define to 1 if you have the <features.h> header file. */
-#define HAVE_FEATURES_H 1
+#undef HAVE_FEATURES_H
 
 /* Define if the 'free' function is guaranteed to preserve errno. */
-/* #undef HAVE_FREE_POSIX */
+#undef HAVE_FREE_POSIX
 
 /* Define to 1 if you have the <inttypes.h> header file. */
-#define HAVE_INTTYPES_H 1
+#undef HAVE_INTTYPES_H
 
 /* Define to 1 if you have the <limits.h> header file. */
-#define HAVE_LIMITS_H 1
+#undef HAVE_LIMITS_H
 
 /* Define to 1 if the system has the type 'long long int'. */
-#define HAVE_LONG_LONG_INT 1
+#undef HAVE_LONG_LONG_INT
 
 /* Define if malloc, realloc, and calloc set errno on allocation failure. */
-#define HAVE_MALLOC_POSIX 1
+#undef HAVE_MALLOC_POSIX
 
 /* Define to 1 if mmap()'s MAP_ANONYMOUS flag is available after including
    config.h and <sys/mman.h>. */
-#define HAVE_MAP_ANONYMOUS 1
+#undef HAVE_MAP_ANONYMOUS
 
 /* Define to 1 if you have the <memory.h> header file. */
-#define HAVE_MEMORY_H 1
+#undef HAVE_MEMORY_H
 
 /* Define to 1 if you have the <minix/config.h> header file. */
-/* #undef HAVE_MINIX_CONFIG_H */
+#undef HAVE_MINIX_CONFIG_H
 
 /* Define to 1 if you have the `mprotect' function. */
-#define HAVE_MPROTECT 1
+#undef HAVE_MPROTECT
 
 /* Define to 1 if you have the `reallocarray' function. */
-/* #undef HAVE_REALLOCARRAY */
+#undef HAVE_REALLOCARRAY
 
 /* Define to 1 if 'sig_atomic_t' is a signed integer type. */
-#define HAVE_SIGNED_SIG_ATOMIC_T 1
+#undef HAVE_SIGNED_SIG_ATOMIC_T
 
 /* Define to 1 if 'wchar_t' is a signed integer type. */
-#define HAVE_SIGNED_WCHAR_T 1
+#undef HAVE_SIGNED_WCHAR_T
 
 /* Define to 1 if 'wint_t' is a signed integer type. */
-/* #undef HAVE_SIGNED_WINT_T */
+#undef HAVE_SIGNED_WINT_T
 
 /* Define to 1 if you have the <stdbool.h> header file. */
-#define HAVE_STDBOOL_H 1
+#undef HAVE_STDBOOL_H
 
 /* Define to 1 if you have the <stdckdint.h> header file. */
-/* #undef HAVE_STDCKDINT_H */
+#undef HAVE_STDCKDINT_H
 
 /* Define to 1 if you have the <stdint.h> header file. */
-#define HAVE_STDINT_H 1
+#undef HAVE_STDINT_H
 
 /* Define to 1 if you have the <stdlib.h> header file. */
-#define HAVE_STDLIB_H 1
+#undef HAVE_STDLIB_H
 
 /* Define to 1 if you have the <strings.h> header file. */
-#define HAVE_STRINGS_H 1
+#undef HAVE_STRINGS_H
 
 /* Define to 1 if you have the <string.h> header file. */
-#define HAVE_STRING_H 1
+#undef HAVE_STRING_H
 
 /* Define to 1 if you have the <sys/bitypes.h> header file. */
-#define HAVE_SYS_BITYPES_H 1
+#undef HAVE_SYS_BITYPES_H
 
 /* Define to 1 if you have the <sys/inttypes.h> header file. */
-/* #undef HAVE_SYS_INTTYPES_H */
+#undef HAVE_SYS_INTTYPES_H
 
 /* Define to 1 if you have the <sys/mman.h> header file. */
-#define HAVE_SYS_MMAN_H 1
+#undef HAVE_SYS_MMAN_H
 
 /* Define to 1 if you have the <sys/stat.h> header file. */
-#define HAVE_SYS_STAT_H 1
+#undef HAVE_SYS_STAT_H
 
 /* Define to 1 if you have the <sys/types.h> header file. */
-#define HAVE_SYS_TYPES_H 1
+#undef HAVE_SYS_TYPES_H
 
 /* Define to 1 if you have the <unistd.h> header file. */
-#define HAVE_UNISTD_H 1
+#undef HAVE_UNISTD_H
 
 /* Define to 1 if the system has the type 'unsigned long long int'. */
-#define HAVE_UNSIGNED_LONG_LONG_INT 1
+#undef HAVE_UNSIGNED_LONG_LONG_INT
 
 /* Define to 1 if you have the <wchar.h> header file. */
-#define HAVE_WCHAR_H 1
+#undef HAVE_WCHAR_H
 
 /* Define if you have the 'wchar_t' type. */
-#define HAVE_WCHAR_T 1
+#undef HAVE_WCHAR_T
 
 /* Define if you have the 'wint_t' type. */
-#define HAVE_WINT_T 1
+#undef HAVE_WINT_T
 
 /* Define to 1 if ctype.h defines __header_inline. */
-/* #undef HAVE___HEADER_INLINE */
+#undef HAVE___HEADER_INLINE
 
 /* Please see the Gnulib manual for how to use these macros.
 
@@ -276,146 +276,146 @@
 #endif
 
 /* Define to a substitute value for mmap()'s MAP_ANONYMOUS flag. */
-/* #undef MAP_ANONYMOUS */
+#undef MAP_ANONYMOUS
 
 /* Name of package */
-#define PACKAGE "b64"
+#undef PACKAGE
 
 /* Define to the address where bug reports for this package should be sent. */
-#define PACKAGE_BUGREPORT "b64-bugs@example.com"
+#undef PACKAGE_BUGREPORT
 
 /* Define to the full name of this package. */
-#define PACKAGE_NAME "b64"
+#undef PACKAGE_NAME
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "b64 1.0"
+#undef PACKAGE_STRING
 
 /* Define to the one symbol short name of this package. */
-#define PACKAGE_TARNAME "b64"
+#undef PACKAGE_TARNAME
 
 /* Define to the home page for this package. */
-#define PACKAGE_URL ""
+#undef PACKAGE_URL
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "1.0"
+#undef PACKAGE_VERSION
 
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'ptrdiff_t'. */
-#define PTRDIFF_T_SUFFIX l
+#undef PTRDIFF_T_SUFFIX
 
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'sig_atomic_t'. */
-#define SIG_ATOMIC_T_SUFFIX 
+#undef SIG_ATOMIC_T_SUFFIX
 
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'size_t'. */
-#define SIZE_T_SUFFIX ul
+#undef SIZE_T_SUFFIX
 
 /* Define to 1 if you have the ANSI C header files. */
-#define STDC_HEADERS 1
+#undef STDC_HEADERS
 
 /* Enable extensions on AIX 3, Interix.  */
 #ifndef _ALL_SOURCE
-# define _ALL_SOURCE 1
+# undef _ALL_SOURCE
 #endif
 /* Enable general extensions on macOS.  */
 #ifndef _DARWIN_C_SOURCE
-# define _DARWIN_C_SOURCE 1
+# undef _DARWIN_C_SOURCE
 #endif
 /* Enable general extensions on Solaris.  */
 #ifndef __EXTENSIONS__
-# define __EXTENSIONS__ 1
+# undef __EXTENSIONS__
 #endif
 /* Enable GNU extensions on systems that have them.  */
 #ifndef _GNU_SOURCE
-# define _GNU_SOURCE 1
+# undef _GNU_SOURCE
 #endif
 /* Enable X/Open compliant socket functions that do not require linking
    with -lxnet on HP-UX 11.11.  */
 #ifndef _HPUX_ALT_XOPEN_SOCKET_API
-# define _HPUX_ALT_XOPEN_SOCKET_API 1
+# undef _HPUX_ALT_XOPEN_SOCKET_API
 #endif
 /* Identify the host operating system as Minix.
    This macro does not affect the system headers' behavior.
    A future release of Autoconf may stop defining this macro.  */
 #ifndef _MINIX
-/* # undef _MINIX */
+# undef _MINIX
 #endif
 /* Enable general extensions on NetBSD.
    Enable NetBSD compatibility extensions on Minix.  */
 #ifndef _NETBSD_SOURCE
-# define _NETBSD_SOURCE 1
+# undef _NETBSD_SOURCE
 #endif
 /* Enable OpenBSD compatibility extensions on NetBSD.
    Oddly enough, this does nothing on OpenBSD.  */
 #ifndef _OPENBSD_SOURCE
-# define _OPENBSD_SOURCE 1
+# undef _OPENBSD_SOURCE
 #endif
 /* Define to 1 if needed for POSIX-compatible behavior.  */
 #ifndef _POSIX_SOURCE
-/* # undef _POSIX_SOURCE */
+# undef _POSIX_SOURCE
 #endif
 /* Define to 2 if needed for POSIX-compatible behavior.  */
 #ifndef _POSIX_1_SOURCE
-/* # undef _POSIX_1_SOURCE */
+# undef _POSIX_1_SOURCE
 #endif
 /* Enable POSIX-compatible threading on Solaris.  */
 #ifndef _POSIX_PTHREAD_SEMANTICS
-# define _POSIX_PTHREAD_SEMANTICS 1
+# undef _POSIX_PTHREAD_SEMANTICS
 #endif
 /* Enable extensions specified by ISO/IEC TS 18661-5:2014.  */
 #ifndef __STDC_WANT_IEC_60559_ATTRIBS_EXT__
-# define __STDC_WANT_IEC_60559_ATTRIBS_EXT__ 1
+# undef __STDC_WANT_IEC_60559_ATTRIBS_EXT__
 #endif
 /* Enable extensions specified by ISO/IEC TS 18661-1:2014.  */
 #ifndef __STDC_WANT_IEC_60559_BFP_EXT__
-# define __STDC_WANT_IEC_60559_BFP_EXT__ 1
+# undef __STDC_WANT_IEC_60559_BFP_EXT__
 #endif
 /* Enable extensions specified by ISO/IEC TS 18661-2:2015.  */
 #ifndef __STDC_WANT_IEC_60559_DFP_EXT__
-# define __STDC_WANT_IEC_60559_DFP_EXT__ 1
+# undef __STDC_WANT_IEC_60559_DFP_EXT__
 #endif
 /* Enable extensions specified by C23 Annex F.  */
 #ifndef __STDC_WANT_IEC_60559_EXT__
-# define __STDC_WANT_IEC_60559_EXT__ 1
+# undef __STDC_WANT_IEC_60559_EXT__
 #endif
 /* Enable extensions specified by ISO/IEC TS 18661-4:2015.  */
 #ifndef __STDC_WANT_IEC_60559_FUNCS_EXT__
-# define __STDC_WANT_IEC_60559_FUNCS_EXT__ 1
+# undef __STDC_WANT_IEC_60559_FUNCS_EXT__
 #endif
 /* Enable extensions specified by C23 Annex H and ISO/IEC TS 18661-3:2015.  */
 #ifndef __STDC_WANT_IEC_60559_TYPES_EXT__
-# define __STDC_WANT_IEC_60559_TYPES_EXT__ 1
+# undef __STDC_WANT_IEC_60559_TYPES_EXT__
 #endif
 /* Enable extensions specified by ISO/IEC TR 24731-2:2010.  */
 #ifndef __STDC_WANT_LIB_EXT2__
-# define __STDC_WANT_LIB_EXT2__ 1
+# undef __STDC_WANT_LIB_EXT2__
 #endif
 /* Enable extensions specified by ISO/IEC 24747:2009.  */
 #ifndef __STDC_WANT_MATH_SPEC_FUNCS__
-# define __STDC_WANT_MATH_SPEC_FUNCS__ 1
+# undef __STDC_WANT_MATH_SPEC_FUNCS__
 #endif
 /* Enable extensions on HP NonStop.  */
 #ifndef _TANDEM_SOURCE
-# define _TANDEM_SOURCE 1
+# undef _TANDEM_SOURCE
 #endif
 /* Enable X/Open extensions.  Define to 500 only if necessary
    to make mbstate_t available.  */
 #ifndef _XOPEN_SOURCE
-/* # undef _XOPEN_SOURCE */
+# undef _XOPEN_SOURCE
 #endif
 
 
 /* Version number of package */
-#define VERSION "1.0"
+#undef VERSION
 
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'wchar_t'. */
-#define WCHAR_T_SUFFIX 
+#undef WCHAR_T_SUFFIX
 
 /* Define to l, ll, u, ul, ull, etc., as suitable for constants of type
    'wint_t'. */
-#define WINT_T_SUFFIX u
+#undef WINT_T_SUFFIX
 
 /* True if the compiler says it groks GNU C version MAJOR.MINOR.  */
 #if defined __GNUC__ && defined __GNUC_MINOR__
@@ -427,7 +427,7 @@
 
 
 /* Define to enable the declarations of ISO C 11 types and functions. */
-/* #undef _ISOC11_SOURCE */
+#undef _ISOC11_SOURCE
 
 /* The _Noreturn keyword of C11.  */
 #ifndef _Noreturn
@@ -466,13 +466,13 @@
 
 
 /* For standard stat data types on VMS. */
-#define _USE_STD_STAT 1
+#undef _USE_STD_STAT
 
 /* Define to 1 if the system <stdint.h> predates C++11. */
-/* #undef __STDC_CONSTANT_MACROS */
+#undef __STDC_CONSTANT_MACROS
 
 /* Define to 1 if the system <stdint.h> predates C++11. */
-/* #undef __STDC_LIMIT_MACROS */
+#undef __STDC_LIMIT_MACROS
 
 /* The _GL_ASYNC_SAFE marker should be attached to functions that are
    signal handlers (for signals other than SIGABRT, SIGPIPE) or can be
@@ -984,15 +984,15 @@
 
 
 /* Define to `int' if <sys/types.h> does not define. */
-/* #undef mode_t */
+#undef mode_t
 
 /* Define as a signed integer type capable of holding a process identifier. */
-/* #undef pid_t */
+#undef pid_t
 
 /* Define to the equivalent of the C99 'restrict' keyword, or to
    nothing if this is not supported.  Do not define if restrict is
    supported only directly.  */
-#define restrict __restrict__
+#undef restrict
 /* Work around a bug in older versions of Sun C++, which did not
    #define __restrict__ or support _Restrict or __restrict__
    even though the corresponding Sun C compiler ended up with
@@ -1005,7 +1005,7 @@
 #endif
 
 /* Define as a signed type of the same size as size_t. */
-/* #undef ssize_t */
+#undef ssize_t
 
 #ifndef HAVE_C_BOOL
 # if !defined __cplusplus && !defined __bool_true_false_are_defined

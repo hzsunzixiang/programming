@@ -101,8 +101,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = x86_64-unknown-linux-gnu
-host_triplet = x86_64-unknown-linux-gnu
+build_triplet = i686-pc-mingw32
+host_triplet = i686-pc-mingw32
 subdir = lib
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/depcomp $(noinst_HEADERS)
@@ -252,8 +252,8 @@ DEPDIR = .deps
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 
-EGREP = /usr/bin/grep -E
-EXEEXT = 
+EGREP = /bin/grep -E
+EXEEXT = .exe
 GNULIB_EXPLICIT_BZERO = 0
 GNULIB_FFSL = 0
 GNULIB_FFSLL = 0
@@ -292,7 +292,7 @@ GNULIB_STRSIGNAL = 0
 GNULIB_STRSTR = 0
 GNULIB_STRTOK_R = 0
 GNULIB_STRVERSCMP = 0
-GREP = /usr/bin/grep
+GREP = /bin/grep
 HAVE_DECL_MEMMEM = 1
 HAVE_DECL_MEMRCHR = 1
 HAVE_DECL_STRDUP = 1
@@ -304,7 +304,7 @@ HAVE_DECL_STRTOK_R = 1
 HAVE_EXPLICIT_BZERO = 1
 HAVE_FFSL = 1
 HAVE_FFSLL = 1
-HAVE_MAX_ALIGN_T = 0
+HAVE_MAX_ALIGN_T = 1
 HAVE_MBSLEN = 0
 HAVE_MEMCHR = 1
 HAVE_MEMPCPY = 1
@@ -320,7 +320,7 @@ HAVE_WCHAR_T = 1
 HAVE__BOOL = 1
 INCLUDE_NEXT = include_next
 INCLUDE_NEXT_AS_FIRST_DIRECTIVE = include_next
-INSTALL = /usr/bin/install -c
+INSTALL = /bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
@@ -332,10 +332,10 @@ LIBOBJS =
 LIBS = 
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/ericksun/programming/linux/autotool/MinGW2/b64/missing makeinfo
-MKDIR_P = /usr/bin/mkdir -p
-NEXT_AS_FIRST_DIRECTIVE_STDDEF_H = <stddef.h>
+MKDIR_P = /bin/mkdir -p
+NEXT_AS_FIRST_DIRECTIVE_STDDEF_H = 
 NEXT_AS_FIRST_DIRECTIVE_STRING_H = <string.h>
-NEXT_STDDEF_H = <stddef.h>
+NEXT_STDDEF_H = 
 NEXT_STRING_H = <string.h>
 OBJEXT = o
 PACKAGE = b64
@@ -367,7 +367,7 @@ REPLACE_STRTOK_R = 0
 SET_MAKE = 
 SHELL = /bin/sh
 STDBOOL_H = 
-STDDEF_H = stddef.h
+STDDEF_H = 
 STRIP = 
 UNDEFINE_STRTOK_R = 0
 VERSION = 1.0
@@ -382,11 +382,11 @@ am__quote =
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
-build = x86_64-unknown-linux-gnu
+build = i686-pc-mingw32
 build_alias = 
-build_cpu = x86_64
-build_os = linux-gnu
-build_vendor = unknown
+build_cpu = i686
+build_os = mingw32
+build_vendor = pc
 builddir = .
 datadir = ${datarootdir}
 datarootdir = ${prefix}/share
@@ -398,11 +398,11 @@ gl_LTLIBOBJS =
 gltests_LIBOBJS = 
 gltests_LTLIBOBJS = 
 gltests_WITNESS = IN_B64_GNULIB_TESTS
-host = x86_64-unknown-linux-gnu
+host = i686-pc-mingw32
 host_alias = 
-host_cpu = x86_64
-host_os = linux-gnu
-host_vendor = unknown
+host_cpu = i686
+host_os = mingw32
+host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
@@ -846,22 +846,22 @@ stdbool.h: $(top_builddir)/config.status
 
 # We need the following in order to create <stddef.h> when the system
 # doesn't have one that works with the given compiler.
-stddef.h: stddef.in.h $(top_builddir)/config.status
-	$(AM_V_GEN)rm -f $@-t $@ && \
-	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
-	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
-	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
-	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
-	      -e 's|@''PRAGMA_COLUMNS''@||g' \
-	      -e 's|@''NEXT_STDDEF_H''@|$(NEXT_STDDEF_H)|g' \
-	      -e 's|@''HAVE_MAX_ALIGN_T''@|$(HAVE_MAX_ALIGN_T)|g' \
-	      -e 's|@''HAVE_WCHAR_T''@|$(HAVE_WCHAR_T)|g' \
-	      -e 's|@''REPLACE_NULL''@|$(REPLACE_NULL)|g' \
-	      < $(srcdir)/stddef.in.h; \
-	} > $@-t && \
-	mv $@-t $@
-#stddef.h: $(top_builddir)/config.status
-#	rm -f $@
+#stddef.h: stddef.in.h $(top_builddir)/config.status
+#	$(AM_V_GEN)rm -f $@-t $@ && \
+#	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
+#	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
+#	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+#	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|#pragma GCC system_header|g' \
+#	      -e 's|@''PRAGMA_COLUMNS''@||g' \
+#	      -e 's|@''NEXT_STDDEF_H''@|$(NEXT_STDDEF_H)|g' \
+#	      -e 's|@''HAVE_MAX_ALIGN_T''@|$(HAVE_MAX_ALIGN_T)|g' \
+#	      -e 's|@''HAVE_WCHAR_T''@|$(HAVE_WCHAR_T)|g' \
+#	      -e 's|@''REPLACE_NULL''@|$(REPLACE_NULL)|g' \
+#	      < $(srcdir)/stddef.in.h; \
+#	} > $@-t && \
+#	mv $@-t $@
+stddef.h: $(top_builddir)/config.status
+	rm -f $@
 
 # We need the following in order to create <string.h> when the system
 # doesn't have one that works with the given compiler.

@@ -1,5 +1,4 @@
-vpath %.l %.c src
-vpath %.h include
+VPATH=src include
 
 CPPFLAGS = -I include
 #
