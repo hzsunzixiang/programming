@@ -39,16 +39,3 @@ lexer.o:lexer.h
 clean:
 	rm -f *.o src/lexer.c  count_words *.a
 
-#root@debian:~/programming/makefile/make/make_archive# make
-#cc  -I inlcude  -c -o count_words.o src/count_words.c
-#lex  -t src/lexer.l > lexer.c
-#cc  -I inlcude  -c -o lexer.o lexer.c
-#ar rv libcounter.a lexer.o
-#r - lexer.o
-#cc  -I inlcude  -c -o counter.o src/counter.c
-#ar rv libcounter.a counter.o
-#r - counter.o
-#cc   count_words.o libcounter.a /usr/lib/libfl.so   -o count_words
-#rm lexer.c
-#
-#
