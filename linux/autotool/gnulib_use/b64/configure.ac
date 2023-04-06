@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.69])
 AC_INIT([b64], [1.0], [b64-bugs@example.com])
-AM_INIT_AUTOMAKE([subdir-objects])
+AM_INIT_AUTOMAKE([subdir-objects foreign])
 AC_CONFIG_SRCDIR([src/b64.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIRS([m4])
