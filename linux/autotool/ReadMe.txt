@@ -4,3 +4,13 @@ The upstream Gnulib project doesn’t do releases but rather simply incorporates
 
 
 gnulib-tool --import base64
+
+
+## 一下4个都可以在windows下 做 Makefile 
+但是 mgw-builds 这个最新版本gnulib不能使用 autoreconf
+
+mgw-builds   :  只能Makefile 不能使用 autoreconf
+MinGW      : 很简单的程序 不适用gnulib
+MinGW2     :  使用gnulib 可以编译过， 而且可以在 MinGW 环境下 做 ./configure
+MinGW3     : 保存了tar 包的形式
+
