@@ -14,3 +14,4 @@ MinGW      : 很简单的程序 不适用gnulib
 MinGW2     :  使用gnulib 可以编译过， 而且可以在 MinGW 环境下 做 ./configure
 MinGW3     : 保存了tar 包的形式
 
+
