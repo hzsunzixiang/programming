@@ -36,3 +36,9 @@ F:\programming\linux\autotool\cygwin\b64_cygin\src\b64.exe
       C:\WINDOWS\system32\api-ms-win-core-file-l2-1-0.dll
       C:\WINDOWS\system32\api-ms-win-core-console-l1-1-0.dll
       D:\Program Files\Java\jdk-16.0.1\bin\api-ms-win-core-console-l1-2-0.dll
+
+# run in windows failed
+ericksun@ericksun-NB1 MINGW64 /f/programming/linux/autotool/cygwin/b64_cygin/src (master)
+$ ./b64.exe < ../Makefile.am
+F:/programming/linux/autotool/cygwin/b64_cygin/src/b64.exe: error while loading shared libraries: cygwin1.dll: cannot open shared object file: No such file or directory
+

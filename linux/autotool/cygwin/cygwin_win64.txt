@@ -37,3 +37,22 @@ F:\programming\linux\autotool\cygwin\b64_cygin_mingw64\src\b64.exe
     D:\Program Files\Java\jdk-16.0.1\bin\api-ms-win-core-console-l1-2-0.dll
   C:\WINDOWS\system32\msvcrt.dll
 
+
+# run in windows
+ericksun@ericksun-NB1 MINGW64 /f/programming/linux/autotool/cygwin/b64_cygin_mingw64/src (master)
+$ ./b64.exe  <  ../Makefile.am
+QUNMT0NBTF9BTUZMQUdTID0gLUkgbTQKRVhUUkFfRElTVCA9IG00L2dudWxpYi1jYWNoZS5tNApTVUJESVJTID0gbGliCgpiaW5fUFJPR1JBTVMgPSBzcmMvYjY0CnNyY19iNjRfU09VUkNFUyA9IHNyYy9iNjQuYwpzcmNfYjY0X0NQUEZMQUdTID0gLUkkKHRvcF9idWlsZGRpcikvbGliIC1JJCh0b3Bfc3JjZGlyKS9saWIKc3JjX2I2NF9MREFERCA9IGxpYi9saWJnbnUuYQo=
+ericksun@ericksun-NB1 MINGW64 /f/programming/linux/autotool/cygwin/b64_cygin_mingw64/src (master)
+$ echo -n QUNMT0NBTF9BTUZMQUdTID0gLUkgbTQKRVhUUkFfRElTVCA9IG00L2dudWxpYi1jYWNoZS5tNApTVUJESVJTID0gbGliCgpiaW5fUFJPR1JBTVMgPSBzcmMvYjY0CnNyY19iNjRfU09VUkNFUyA9IHNyYy9iNjQuYwpzcmNfYjY0X0NQUEZMQUdTID0gLUkkKHRvcF9idWlsZGRpcikvbGliIC1JJCh0b3Bfc3JjZGlyKS9saWIKc3JjX2I2NF9MREFERCA9IGxpYi9saWJnbnUuYQo=
+QUNMT0NBTF9BTUZMQUdTID0gLUkgbTQKRVhUUkFfRElTVCA9IG00L2dudWxpYi1jYWNoZS5tNApTVUJESVJTID0gbGliCgpiaW5fUFJPR1JBTVMgPSBzcmMvYjY0CnNyY19iNjRfU09VUkNFUyA9IHNyYy9iNjQuYwpzcmNfYjY0X0NQUEZMQUdTID0gLUkkKHRvcF9idWlsZGRpcikvbGliIC1JJCh0b3Bfc3JjZGlyKS9saWIKc3JjX2I2NF9MREFERCA9IGxpYi9saWJnbnUuYQo=
+ericksun@ericksun-NB1 MINGW64 /f/programming/linux/autotool/cygwin/b64_cygin_mingw64/src (master)
+ACLOCAL_AMFLAGS = -I m4
+EXTRA_DIST = m4/gnulib-cache.m4
+SUBDIRS = lib
+
+bin_PROGRAMS = src/b64
+src_b64_SOURCES = src/b64.c
+src_b64_CPPFLAGS = -I$(top_builddir)/lib -I$(top_srcdir)/lib
+src_b64_LDADD = lib/libgnu.a
+
+

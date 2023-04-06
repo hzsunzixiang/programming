@@ -12,7 +12,7 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-
+MAKE=make
 
 
 am__is_gnu_make = test -n '$(MAKEFILE_LIST)' && test -n '$(MAKELEVEL)'
@@ -76,8 +76,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-build_triplet = i686-pc-mingw32
-host_triplet = i686-pc-mingw32
+build_triplet = x86_64-pc-mingw64
+host_triplet = x86_64-pc-mingw64
 bin_PROGRAMS = src/b64$(EXEEXT)
 subdir = .
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
@@ -110,36 +110,36 @@ am__dirstamp = $(am__leading_dot)dirstamp
 am_src_b64_OBJECTS = src/src_b64-b64.$(OBJEXT)
 src_b64_OBJECTS = $(am_src_b64_OBJECTS)
 src_b64_DEPENDENCIES = lib/libgnu.a
-AM_V_P = $(am__v_P_$(V))
-am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
+AM_V_P = $(am__v_P_1)
+am__v_P_ = $(am__v_P_1)
 am__v_P_0 = false
 am__v_P_1 = :
-AM_V_GEN = $(am__v_GEN_$(V))
-am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))
+AM_V_GEN = $(am__v_GEN_1)
+am__v_GEN_ = $(am__v_GEN_1)
 am__v_GEN_0 = @echo "  GEN     " $@;
 am__v_GEN_1 = 
-AM_V_at = $(am__v_at_$(V))
-am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))
+AM_V_at = $(am__v_at_1)
+am__v_at_ = $(am__v_at_1)
 am__v_at_0 = @
 am__v_at_1 = 
 DEFAULT_INCLUDES = -I.
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
-AM_V_lt = $(am__v_lt_$(V))
-am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
+AM_V_lt = $(am__v_lt_1)
+am__v_lt_ = $(am__v_lt_1)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
-AM_V_CC = $(am__v_CC_$(V))
-am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))
+AM_V_CC = $(am__v_CC_1)
+am__v_CC_ = $(am__v_CC_1)
 am__v_CC_0 = @echo "  CC      " $@;
 am__v_CC_1 = 
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-AM_V_CCLD = $(am__v_CCLD_$(V))
-am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
+AM_V_CCLD = $(am__v_CCLD_1)
+am__v_CCLD_ = $(am__v_CCLD_1)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
 SOURCES = $(src_b64_SOURCES)
@@ -229,27 +229,27 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/ericksun/programming/linux/autotool/MinGW2/b64/missing aclocal-1.14
+ACLOCAL = ${SHELL} /f/programming/linux/autotool/MinGW2/b64/missing aclocal-1.14
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
 AR = ar
 ARFLAGS = cr
-AUTOCONF = ${SHELL} /home/ericksun/programming/linux/autotool/MinGW2/b64/missing autoconf
-AUTOHEADER = ${SHELL} /home/ericksun/programming/linux/autotool/MinGW2/b64/missing autoheader
-AUTOMAKE = ${SHELL} /home/ericksun/programming/linux/autotool/MinGW2/b64/missing automake-1.14
+AUTOCONF = ${SHELL} /f/programming/linux/autotool/MinGW2/b64/missing autoconf
+AUTOHEADER = ${SHELL} /f/programming/linux/autotool/MinGW2/b64/missing autoheader
+AUTOMAKE = ${SHELL} /f/programming/linux/autotool/MinGW2/b64/missing automake-1.14
 AWK = gawk
 CC = gcc
-CCDEPMODE = depmode=gcc3
+CCDEPMODE = depmode=none
 CFLAGS = -g -O2
 CPP = gcc -E
 CPPFLAGS = 
-CYGPATH_W = echo
+CYGPATH_W = cygpath -w
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 
-EGREP = /bin/grep -E
+EGREP = /usr/bin/grep -E
 EXEEXT = .exe
 GNULIB_EXPLICIT_BZERO = 0
 GNULIB_FFSL = 0
@@ -289,7 +289,7 @@ GNULIB_STRSIGNAL = 0
 GNULIB_STRSTR = 0
 GNULIB_STRTOK_R = 0
 GNULIB_STRVERSCMP = 0
-GREP = /bin/grep
+GREP = /usr/bin/grep
 HAVE_DECL_MEMMEM = 1
 HAVE_DECL_MEMRCHR = 1
 HAVE_DECL_STRDUP = 1
@@ -317,7 +317,7 @@ HAVE_WCHAR_T = 1
 HAVE__BOOL = 1
 INCLUDE_NEXT = include_next
 INCLUDE_NEXT_AS_FIRST_DIRECTIVE = include_next
-INSTALL = /bin/install -c
+INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}
@@ -328,8 +328,8 @@ LIBGNU_LTLIBDEPS =
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/ericksun/programming/linux/autotool/MinGW2/b64/missing makeinfo
-MKDIR_P = /bin/mkdir -p
+MAKEINFO = ${SHELL} /f/programming/linux/autotool/MinGW2/b64/missing makeinfo
+MKDIR_P = /usr/bin/mkdir -p
 NEXT_AS_FIRST_DIRECTIVE_STDDEF_H = 
 NEXT_AS_FIRST_DIRECTIVE_STRING_H = <string.h>
 NEXT_STDDEF_H = 
@@ -361,28 +361,28 @@ REPLACE_STRNLEN = 0
 REPLACE_STRSIGNAL = 0
 REPLACE_STRSTR = 0
 REPLACE_STRTOK_R = 0
-SET_MAKE = 
+SET_MAKE = MAKE=make
 SHELL = /bin/sh
 STDBOOL_H = 
 STDDEF_H = 
 STRIP = 
 UNDEFINE_STRTOK_R = 0
 VERSION = 1.0
-abs_builddir = /home/ericksun/programming/linux/autotool/MinGW2/b64
-abs_srcdir = /home/ericksun/programming/linux/autotool/MinGW2/b64
-abs_top_builddir = /home/ericksun/programming/linux/autotool/MinGW2/b64
-abs_top_srcdir = /home/ericksun/programming/linux/autotool/MinGW2/b64
+abs_builddir = /f/programming/linux/autotool/MinGW2/b64
+abs_srcdir = /f/programming/linux/autotool/MinGW2/b64
+abs_top_builddir = /f/programming/linux/autotool/MinGW2/b64
+abs_top_srcdir = /f/programming/linux/autotool/MinGW2/b64
 ac_ct_CC = gcc
-am__include = include
+am__include = #
 am__leading_dot = .
 am__quote = 
 am__tar = $${TAR-tar} chof - "$$tardir"
 am__untar = $${TAR-tar} xf -
 bindir = ${exec_prefix}/bin
-build = i686-pc-mingw32
+build = x86_64-pc-mingw64
 build_alias = 
-build_cpu = i686
-build_os = mingw32
+build_cpu = x86_64
+build_os = mingw64
 build_vendor = pc
 builddir = .
 datadir = ${datarootdir}
@@ -395,15 +395,15 @@ gl_LTLIBOBJS =
 gltests_LIBOBJS = 
 gltests_LTLIBOBJS = 
 gltests_WITNESS = IN_B64_GNULIB_TESTS
-host = i686-pc-mingw32
+host = x86_64-pc-mingw64
 host_alias = 
-host_cpu = i686
-host_os = mingw32
+host_cpu = x86_64
+host_os = mingw64
 host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/ericksun/programming/linux/autotool/MinGW2/b64/install-sh
+install_sh = ${SHELL} /f/programming/linux/autotool/MinGW2/b64/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -545,37 +545,37 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-include src/$(DEPDIR)/src_b64-b64.Po
+# src/$(DEPDIR)/src_b64-b64.Po
 
 .c.o:
-	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
-	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
-	$(am__mv) $$depbase.Tpo $$depbase.Po
-#	$(AM_V_CC)source='$<' object='$@' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(COMPILE) -c -o $@ $<
+#	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
+#	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+#	$(am__mv) $$depbase.Tpo $$depbase.Po
+	$(AM_V_CC)source='$<' object='$@' libtool=no \
+	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+	$(AM_V_CC_no)$(COMPILE) -c -o $@ $<
 
 .c.obj:
-	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
-	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
-	$(am__mv) $$depbase.Tpo $$depbase.Po
-#	$(AM_V_CC)source='$<' object='$@' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+#	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
+#	$(COMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
+#	$(am__mv) $$depbase.Tpo $$depbase.Po
+	$(AM_V_CC)source='$<' object='$@' libtool=no \
+	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+	$(AM_V_CC_no)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 src/src_b64-b64.o: src/b64.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_b64_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/src_b64-b64.o -MD -MP -MF src/$(DEPDIR)/src_b64-b64.Tpo -c -o src/src_b64-b64.o `test -f 'src/b64.c' || echo '$(srcdir)/'`src/b64.c
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/src_b64-b64.Tpo src/$(DEPDIR)/src_b64-b64.Po
-#	$(AM_V_CC)source='src/b64.c' object='src/src_b64-b64.o' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_b64_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/src_b64-b64.o `test -f 'src/b64.c' || echo '$(srcdir)/'`src/b64.c
+#	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_b64_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/src_b64-b64.o -MD -MP -MF src/$(DEPDIR)/src_b64-b64.Tpo -c -o src/src_b64-b64.o `test -f 'src/b64.c' || echo '$(srcdir)/'`src/b64.c
+#	$(AM_V_at)$(am__mv) src/$(DEPDIR)/src_b64-b64.Tpo src/$(DEPDIR)/src_b64-b64.Po
+	$(AM_V_CC)source='src/b64.c' object='src/src_b64-b64.o' libtool=no \
+	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_b64_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/src_b64-b64.o `test -f 'src/b64.c' || echo '$(srcdir)/'`src/b64.c
 
 src/src_b64-b64.obj: src/b64.c
-	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_b64_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/src_b64-b64.obj -MD -MP -MF src/$(DEPDIR)/src_b64-b64.Tpo -c -o src/src_b64-b64.obj `if test -f 'src/b64.c'; then $(CYGPATH_W) 'src/b64.c'; else $(CYGPATH_W) '$(srcdir)/src/b64.c'; fi`
-	$(AM_V_at)$(am__mv) src/$(DEPDIR)/src_b64-b64.Tpo src/$(DEPDIR)/src_b64-b64.Po
-#	$(AM_V_CC)source='src/b64.c' object='src/src_b64-b64.obj' libtool=no \
-#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
-#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_b64_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/src_b64-b64.obj `if test -f 'src/b64.c'; then $(CYGPATH_W) 'src/b64.c'; else $(CYGPATH_W) '$(srcdir)/src/b64.c'; fi`
+#	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_b64_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/src_b64-b64.obj -MD -MP -MF src/$(DEPDIR)/src_b64-b64.Tpo -c -o src/src_b64-b64.obj `if test -f 'src/b64.c'; then $(CYGPATH_W) 'src/b64.c'; else $(CYGPATH_W) '$(srcdir)/src/b64.c'; fi`
+#	$(AM_V_at)$(am__mv) src/$(DEPDIR)/src_b64-b64.Tpo src/$(DEPDIR)/src_b64-b64.Po
+	$(AM_V_CC)source='src/b64.c' object='src/src_b64-b64.obj' libtool=no \
+	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(src_b64_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/src_b64-b64.obj `if test -f 'src/b64.c'; then $(CYGPATH_W) 'src/b64.c'; else $(CYGPATH_W) '$(srcdir)/src/b64.c'; fi`
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run 'make' without going through this Makefile.
