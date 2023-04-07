@@ -12,3 +12,8 @@ aarch64-unknown-linux-gnu
 
 
 
+
+x86_64-w64-mingw32-gcc -DHAVE_CONFIG_H -I. -I..     -g -O2 -MT src/b64.o -MD -MP -MF $depbase.Tpo -c -o src/b64.o ../src/b64.c &&\
+mv -f $depbase.Tpo $depbase.Po
+x86_64-w64-mingw32-gcc  -g -O2   -o src/b64.exe src/b64.o
+
