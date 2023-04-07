@@ -12,7 +12,7 @@
 
 /* Define to 1 if mmap()'s MAP_ANONYMOUS flag is available after including
    config.h and <sys/mman.h>. */
-/* #undef HAVE_MAP_ANONYMOUS */
+#define HAVE_MAP_ANONYMOUS 1
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
@@ -20,59 +20,65 @@
 /* Define to 1 if you have the `mprotect' function. */
 #define HAVE_MPROTECT 1
 
-/* Define to 1 if ffsl is declared even after undefining macros. */
-/* #undef HAVE_RAW_DECL_FFSL */
+/* Define to 1 if ffsl is declared even after undefining macros. */
+#define HAVE_RAW_DECL_FFSL 1
 
-/* Define to 1 if ffsll is declared even after undefining macros. */
-/* #undef HAVE_RAW_DECL_FFSLL */
+/* Define to 1 if ffsll is declared even after undefining macros. */
+#define HAVE_RAW_DECL_FFSLL 1
 
-/* Define to 1 if memmem is declared even after undefining macros. */
-/* #undef HAVE_RAW_DECL_MEMMEM */
+/* Define to 1 if memmem is declared even after undefining macros. */
+#define HAVE_RAW_DECL_MEMMEM 1
 
-/* Define to 1 if mempcpy is declared even after undefining macros. */
-/* #undef HAVE_RAW_DECL_MEMPCPY */
+/* Define to 1 if mempcpy is declared even after undefining macros. */
+#define HAVE_RAW_DECL_MEMPCPY 1
 
-/* Define to 1 if memrchr is declared even after undefining macros. */
-/* #undef HAVE_RAW_DECL_MEMRCHR */
+/* Define to 1 if memrchr is declared even after undefining macros. */
+#define HAVE_RAW_DECL_MEMRCHR 1
 
-/* Define to 1 if rawmemchr is declared even after undefining macros. */
-/* #undef HAVE_RAW_DECL_RAWMEMCHR */
+/* Define to 1 if rawmemchr is declared even after undefining macros. */
+#define HAVE_RAW_DECL_RAWMEMCHR 1
 
-/* Define to 1 if stpcpy is declared even after undefining macros. */
-/* #undef HAVE_RAW_DECL_STPCPY */
+/* Define to 1 if stpcpy is declared even after undefining macros. */
+#define HAVE_RAW_DECL_STPCPY 1
 
-/* Define to 1 if stpncpy is declared even after undefining macros. */
-/* #undef HAVE_RAW_DECL_STPNCPY */
+/* Define to 1 if stpncpy is declared even after undefining macros. */
+#define HAVE_RAW_DECL_STPNCPY 1
 
-/* Define to 1 if strcasestr is declared even after undefining macros. */
-/* #undef HAVE_RAW_DECL_STRCASESTR */
+/* Define to 1 if strcasestr is declared even after undefining macros. */
+#define HAVE_RAW_DECL_STRCASESTR 1
 
-/* Define to 1 if strdup is declared even after undefining macros. */
+/* Define to 1 if strchrnul is declared even after undefining macros. */
+#define HAVE_RAW_DECL_STRCHRNUL 1
+
+/* Define to 1 if strdup is declared even after undefining macros. */
 #define HAVE_RAW_DECL_STRDUP 1
 
-/* Define to 1 if strerror_r is declared even after undefining macros. */
+/* Define to 1 if strerror_r is declared even after undefining macros. */
 #define HAVE_RAW_DECL_STRERROR_R 1
 
-/* Define to 1 if strncat is declared even after undefining macros. */
+/* Define to 1 if strncat is declared even after undefining macros. */
 #define HAVE_RAW_DECL_STRNCAT 1
 
-/* Define to 1 if strndup is declared even after undefining macros. */
-/* #undef HAVE_RAW_DECL_STRNDUP */
+/* Define to 1 if strndup is declared even after undefining macros. */
+#define HAVE_RAW_DECL_STRNDUP 1
 
-/* Define to 1 if strnlen is declared even after undefining macros. */
+/* Define to 1 if strnlen is declared even after undefining macros. */
 #define HAVE_RAW_DECL_STRNLEN 1
 
-/* Define to 1 if strpbrk is declared even after undefining macros. */
+/* Define to 1 if strpbrk is declared even after undefining macros. */
 #define HAVE_RAW_DECL_STRPBRK 1
 
-/* Define to 1 if strsep is declared even after undefining macros. */
-/* #undef HAVE_RAW_DECL_STRSEP */
+/* Define to 1 if strsep is declared even after undefining macros. */
+#define HAVE_RAW_DECL_STRSEP 1
 
-/* Define to 1 if strsignal is declared even after undefining macros. */
-/* #undef HAVE_RAW_DECL_STRSIGNAL */
+/* Define to 1 if strsignal is declared even after undefining macros. */
+#define HAVE_RAW_DECL_STRSIGNAL 1
 
-/* Define to 1 if strverscmp is declared even after undefining macros. */
-/* #undef HAVE_RAW_DECL_STRVERSCMP */
+/* Define to 1 if strtok_r is declared even after undefining macros. */
+#define HAVE_RAW_DECL_STRTOK_R 1
+
+/* Define to 1 if strverscmp is declared even after undefining macros. */
+#define HAVE_RAW_DECL_STRVERSCMP 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #define HAVE_STDINT_H 1
@@ -87,7 +93,7 @@
 #define HAVE_STRING_H 1
 
 /* Define to 1 if you have the <sys/mman.h> header file. */
-/* #undef HAVE_SYS_MMAN_H */
+#define HAVE_SYS_MMAN_H 1
 
 /* Define to 1 if you have the <sys/stat.h> header file. */
 #define HAVE_SYS_STAT_H 1
@@ -227,12 +233,11 @@
 #endif
 
 
-/* Define to 2 if the system does not provide POSIX.1 features except with
+/* Define to 2 if the system does not provide POSIX.1 features except with
    this defined. */
 /* #undef _POSIX_1_SOURCE */
 
-/* Define to 1 if you need to in order for 'stat' and other things to work.
-   */
+/* Define to 1 if you need to in order for 'stat' and other things to work. */
 /* #undef _POSIX_SOURCE */
 
 /* Please see the Gnulib manual for how to use these macros.
