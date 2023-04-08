@@ -1,0 +1,53 @@
+FROM  debian
+RUN apt-get update
+RUN apt-cache search aptitude
+RUN apt-get -y install aptitude
+RUN aptitude install -y autotools-dev  automake git  file  locate gcc-x86-64-linux-gnu sudo iproute2 iputils-ping build-essential vim mingw-w64 
+RUN echo "set mouse-=a" >> ~/.vimrc
+RUN git config --global user.email  "haichengsun123@163.com"
+RUN git config --global user.name   haichengsun123
+
+# https://stackoverflow.com/questions/54397706/how-to-output-a-multiline-string-in-dockerfile-with-a-single-command
+RUN mkdir ~/.ssh
+#RUN echo $' \n\
+RUN echo '-----BEGIN RSA PRIVATE KEY-----\n\
+MIIEogIBAAKCAQEAvHw0yBZ6BBrPofwwmv8/yeJUglR8lpqtoTefUYWGA9t9KZNB\n\
+g7kCVEnGQVoqDTIPe/ohMwCJLp+3g69BNusjt5pm0+hMZOLOKk5TBLuKH3f9EvIO\n\
+262MQpcwMKWSVG90BvW48IIbSE5hdBp2IMAa8hPq2UbEaRBukJlZKd8udG9WEtxZ\n\
+Sj5Tq/tHoXualRJZ9mJbV5k70cssKWu2ucHyXos6lSuxTS+v7N2X/h6rL6Ciwmkc\n\
+y5uy8seOCpTA0OQTOWpl0T8pjtALCGNOWMWaB6vo+xHJYh9jwvBCLdonbnwcbrAs\n\
+uO9f9yMzpoD9SbqkD3iwVe+mXGkDH9cb+l2wPQIDAQABAoIBAG1scjwDCH0fj5EL\n\
+1q/1JXQvyD4NjHLmg4yHvR9XtBDDOOuNCMjO/HIwjj9cd/NHL8Qa13FDi2Cc6q4x\n\
+bVvTsN2jbrTxNICRR306EWo68hoIz8xS6JtSKo5yNVDYnpYUSjjMKLy/29TjZCJC\n\
+RngG7t3BAGN5eQdBud6KmD/9yHthNGLMbZfNkvfG2cAkrItu1BmXPBkZsLp/ezvH\n\
+O7aZP0/u34s0jga721JO9RaslCZT1hS7Si1kMWLlYLrytu/X8C9alQnOugjfvJfU\n\
+4+1tCCsKu4n2WYS6J/vmqSJiU2bcnFsDVWpynQ0UctbXYkWajG6I7umLMQzDqj7r\n\
+7TwzOgUCgYEA4bNiJNfaGazUiuE2RqeOGjtUsvlzmWZ0PSmFbxuopg3dToMWy4vO\n\
+1fmRqvn3woYJ2unpxY/NjCpRtYqAG7/GkRbVO5sfWPFTUHNluCsOWc4dOZ6IkSqN\n\
+EpdPfcnDBfcGXdx+FMqftODifEYMvA/mAAJMCPa9nz9ZL0C9/rlxdz8CgYEA1cnX\n\
+0qcpg9i4H6WaUxl2+8NY7M0g7q+Qu78pSuHNLBdPjuTAPNjvh33Cy8J2tBtLWeeS\n\
+08D1z5ZqSeMbpmN8lQbc3IIClleXx/RYCi0XINevWtOOu9cBipyFgMFumKChtQTk\n\
+YgbevzbIJgTDWQgPm/15bg/U8ruuj2C/sPGalYMCgYBjIpmvOShRMrrArZ9bdWlT\n\
+WFAhtLPz4y6XVs+HOAzhsyFLxQSULzqQfehfwx/yT1Gw2CGYZ0uPj18IcGdIyPl8\n\
+7RyH6+De/lDr+2PoevD4vTHVBy9RI/GHAvMleyOwUQp428p9c2qm1khk8ZfSWuFZ\n\
+i6i+HzK26epQeQ16/xU5nQKBgDCPRkx817sw8LGPhfw2HoaVGo+/ECnnCvL6OsDd\n\
+hSLssI9+egPYKqAV+rcZlqjWQklLhlg+zha2zbG2ukMS+etHwcb8aOYJQ1qRr6Ww\n\
+FD7LfvMcdqFH9vurDc/vH9XfNpvNXqq9cL7yDIhGMLD6WcFO09QiGHaCFuZOTXw9\n\
+hKVNAoGAYLFseXw/VaViUBDJWmjgZxpExKA/edT9O20OLi8852ya/Y4Q0/qMHUz1\n\
+dwV6Q6xJcELetw1D/xeu1N8DYGvDIJSvfwoGGMQeLcDrDJukSiyEaj0DtZEa3bjI\n\
+NSZLsLZ7rrm8xVVVQNXR6pdPji6YkEzAxDZRt3pCs2zuZ3QlbFk=\n\
+-----END RSA PRIVATE KEY-----' >> ~/.ssh/id_rsa
+
+RUN chmod 700 ~/.ssh
+RUN chmod 600 ~/.ssh/id_rsa 
+RUN ls -lhd ~/.ssh
+RUN ls -lhd ~/.ssh/id_rsa 
+RUN cat ~/.ssh/id_rsa
+RUN md5sum ~/.ssh/id_rsa
+RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
+RUN git clone git@github.com:hzsunzixiang/programming.git
+
+#docker build -t ericksun/debian:1.0 -f debian-1  .
+#ENV GOROOT=/usr/local/services/goroot
+#ENV PATH=$PATH:$GOROOT/bin
+#ENV GOPATH=/usr/local/services/go_1.13.5
