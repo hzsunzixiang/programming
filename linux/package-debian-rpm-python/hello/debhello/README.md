@@ -1,33 +1,19 @@
-Debian (.deb) package for C application automate example
-====
+# debhello
+debian source packaging basic example
 
-# About
-.deb package "Chapter 4. Simple Example" automation 
-[Chapter 4. Simple Example](https://www.debian.org/doc/manuals/debmake-doc/ch04.en.html)  
+This is an example of a simple educational purpose for Debian packaging.
+Reference documents and sites are noted below. Please refer to the details there.
 
-# Usage
-```
-sudo apt-get install debmake -y
-bash deploy/packaging_deb.sh
-```
+If you need the source used in the example, feel free to use it.
 
-# Detail
-packaging automation. 
- * make linux application source package of .tar.gz
- * default debian package setting files and overwrite
- * make .deb package
+You can find the process of creating a Debian package in Korean at the site below.
+> https://fave-code.tistory.com/11 
 
-# Output
-.tar.gz : `object/deb_object/debhello-0.0.tar.gz`  
-            (show: `tar -tzf debhello-0.0.tar.gz`)  
-.deb    : `object/deb_object/debhello_0.0-1_amd64.deb`  
-            (show: `dpkg -c debhello_0.0-1_amd64.deb`)  
+Reference Site : https://www.debian.org/doc/manuals/debmake-doc/ <br>
+Reference Documents : Guide for Debian Maintainers
 
-# Reference
-[Chapter 4. Simple Example](https://www.debian.org/doc/manuals/debmake-doc/ch04.en.html)  
-[(ja)第4章 debian/ ディレクトリー以下に無くてはならないファイル](https://www.debian.org/doc/manuals/maint-guide/dreq.ja.html)  
 
-# Contact
-mail: [michinari.nukazawa@gmail.com](mailto:michinari.nukazawa@gmail.com)  
-twitter: [@MNukazawa](https://twitter.com/MNukazawa)  
+# 下载方式
+https://github.com/jullee96/debhello.git
 
+git clone https://github.com/jullee96/debhello.git
