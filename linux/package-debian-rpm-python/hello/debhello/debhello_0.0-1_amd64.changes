@@ -1,0 +1,38 @@
+Format: 1.8
+Date: Mon, 10 Apr 2023 07:20:33 +0000
+Source: debhello
+Binary: debhello debhello-dbgsym
+Architecture: source amd64
+Version: 0.0-1
+Distribution: UNRELEASED
+Urgency: low
+Maintainer: root <>
+Changed-By: root <>
+Description:
+ debhello   - auto-generated package by debmake
+Changes:
+ debhello (0.0-1) UNRELEASED; urgency=low
+ .
+   * Initial release. Closes: #nnnn
+     <nnnn is the bug number of your ITP>
+Checksums-Sha1:
+ ceb9f6997b64d22b1c69be8b687bcbdd8370c459 788 debhello_0.0-1.dsc
+ 5ea492dc706ec7775cb50129a74e481dccaa755f 501 debhello_0.0.orig.tar.gz
+ 580975ffba4cdee7e86921727d665002d6271dac 1372 debhello_0.0-1.debian.tar.xz
+ a40b390ae519bc0c1099c4f2dd62e6d0d06c834d 3032 debhello-dbgsym_0.0-1_amd64.deb
+ e387949fc8d1e1201d91ada5750aedb8960d8d4a 5213 debhello_0.0-1_amd64.buildinfo
+ 57cc62a2a214c46df84136888a7205ba1880d148 3308 debhello_0.0-1_amd64.deb
+Checksums-Sha256:
+ 2d9f0cc9485e792a41bac1077b70f100d3e71390f6bf4cf056e4ecdf3ce09867 788 debhello_0.0-1.dsc
+ 83648c6778575a3f2954304267a6b4d6385cecd9638a2c144cd6f48464a8ec2e 501 debhello_0.0.orig.tar.gz
+ 000abca6dae05ba5717a2498a83237a906c7d541644f3435b6bc103189cacce9 1372 debhello_0.0-1.debian.tar.xz
+ f730dd4041a2d3786e07d0fbb9737ebbbaa9426f4f247cd88e577f8319a949dc 3032 debhello-dbgsym_0.0-1_amd64.deb
+ d1d267cc9946ce6532f25c759c932557a69f1167956f4c37b2fc845ee2aa41e2 5213 debhello_0.0-1_amd64.buildinfo
+ bcc9d6bc1a3f92c963b0db375237783af3a1d64d4bf1bfc5bdc5f5041310c819 3308 debhello_0.0-1_amd64.deb
+Files:
+ e78f7e8624d7321dc743df4a917617ec 788 unknown optional debhello_0.0-1.dsc
+ c684cc5c6115b85298dfa251d62f4c88 501 unknown optional debhello_0.0.orig.tar.gz
+ 60d71f9e6ba49bb603b275648b122ad2 1372 unknown optional debhello_0.0-1.debian.tar.xz
+ 6d453e4ddf1c33bbb55199c5326912fe 3032 debug optional debhello-dbgsym_0.0-1_amd64.deb
+ 8469836aa617b0bcee01de283c91b535 5213 unknown optional debhello_0.0-1_amd64.buildinfo
+ d4592dda80f35b26823011601eb8d490 3308 unknown optional debhello_0.0-1_amd64.deb

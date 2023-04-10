@@ -1,0 +1,12 @@
+Package: debhello-dbgsym
+Source: debhello
+Version: 0.0-1
+Auto-Built-Package: debug-symbols
+Architecture: amd64
+Maintainer: root <>
+Installed-Size: 17
+Depends: debhello (= 0.0-1)
+Section: debug
+Priority: optional
+Description: debug symbols for debhello
+Build-Ids: e8afd656dac867ab654c24d5773883e04495d4ad
