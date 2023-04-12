@@ -1,0 +1,7 @@
+gui.o: MYCPPFLAGS += -DUSE_NEW_MALLOC=1
+gui.o: gui.c
+	gcc -c $(MYCPPFLAGS) $< -o $@
+
+
+clean:
+	rm -rf gui.o

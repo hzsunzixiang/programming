@@ -1,0 +1,28 @@
+
+OUTPUT_DIR := /tmp
+
+$(OUTPUT_DIR)/very_big_file:
+	$(free-space)
+
+
+define free-space
+	$(PRINTF) "Free disk space "
+	$(DF) . | $(AWK) 'NR == 2 { print $$4 }'
+endef
+
+
+BIN := /usr/bin
+PRINTF := $(BIN)/printf
+DF := $(BIN)/df
+AWK := $(BIN)/awk
+
+
+# makefile (from `Makefile', line 14)
+# makefile (from `Makefile', line 1)
+# makefile (from `Makefile', line 17)
+# makefile (from `Makefile', line 16)
+# makefile (from `Makefile', line 2)
+# makefile (from `Makefile', line 8)
+# makefile (from `Makefile', line 15)
+#  recipe to execute (from `Makefile', line 5):
+

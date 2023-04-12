@@ -1,0 +1,12 @@
+define create-jar
+	@echo Creating $@...
+	touch test.file
+	#rm test.file
+endef
+all:
+	$(create-jar)
+
+
+# 即使有 # 注释， 也会背展开, 注释只能注释一行
+test
+	#@echo $(create-jar)

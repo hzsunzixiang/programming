@@ -1,0 +1,7 @@
+
+simple := first
+simple := $(simple) new stuff
+recursive = $(recursive) new stuff
+all:
+	@echo $(simple)
+#@echo $(recursive)

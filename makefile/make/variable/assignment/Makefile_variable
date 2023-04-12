@@ -1,0 +1,25 @@
+CCXXXX = g++xxxx
+MAKE_DEPEND := $(CC) -M
+MAKE_DEPEND_R = $(CC) -M
+MAKE_DEPEND_Q ?= $(CCXXXX) -M
+
+
+all:
+	@echo $(MAKE_DEPEND)
+	@echo $(MAKE_DEPEND_R)
+	@echo $(MAKE_DEPEND_Q)
+
+CC = gcc 
+CCXXXX = gccxxxx
+
+
+
+
+# makefile (from `Makefile_variable', line 1)
+# makefile (from `Makefile_variable', line 12)
+# makefile (from `Makefile_variable', line 4)
+# makefile (from `Makefile_variable', line 3)
+# makefile (from `Makefile_variable', line 13)
+# makefile (from `Makefile_variable', line 2)
+#  recipe to execute (from `Makefile_variable', line 8):
+
