@@ -5,11 +5,11 @@
 #    $(AR) $(ARFLAGS) $@ $<
 
 
+VPATH=src common include
 CPPFLAGS=-I inlcude
-VPATH=src include
 
 #count_words:-lcounter  -lfl
-count_words:-lcounter  -lfl
+count_words: libcounter.a -lfl
 libcounter.a:libcounter.a(lexer.o) libcounter.a(counter.o)
 count_words.o:counter.h
 counter.o:counter.h lexer.h

@@ -12,9 +12,21 @@ VPATH=src common include
 CPPFLAGS=-I inlcude
 
 count_words:libcounter.a  -lfl
-
+# count_words: -lcounter  -lfl
+# make: *** No rule to make target `-lcounter', needed by `count_words'.  Stop.
 # 此时不能使用 -lcounter , 因为libcounter作为目标出现了  ??
-#count_words: -lcounter  -lfl
+# Unfortunately, there is a small wrinkle. If a makefile specifies a library file target, it
+# cannot use the -l option for that file in a prerequisite. For instance, the following
+# makefile:
+# count_words: count_words.o -lcounter -lfl
+# $(CC) $^ -o $@
+# libcounter.a: libcounter.a(lexer.o) libcounter.a(counter.o)
+# fails with the error:
+# No rule to make target `-lcounter', needed by `count_words'
+# It appears that this error occurs because make does not expand -lcounter to
+# libcounter.a and search for a target, but instead does a straight library search. So for
+# libraries built within the makefile, the filename form must be used.
+#
 
 libcounter.a:libcounter.a(lexer.o) libcounter.a(counter.o)
 
