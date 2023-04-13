@@ -1,0 +1,19 @@
+# make CFLAGS=-g CPPFLAGS='-DBSD -DDEBUG'
+# override LDFLAGS = -EB
+# --environment-overrides (or -e)
+#
+#
+#
+TEST_CFLAGS =  CFLAGS_IN_MAKEFILE
+TEST_CPPFLAGS=  CPPFLAGS_IN_MAKFILE
+override TEST_LDFLAGS =  LDFLAGS_IN_MAKEFILE
+override TEST_OBJCFLAGS = OBJFLAGS_IN_MAKEFILE
+
+all:
+	@echo $(TEST_CFLAGS)
+	@echo $(TEST_CPPFLAGS)
+	@echo $(TEST_LDFLAGS)
+	@echo $(TEST_OBJCFLAGS)
+
+
+
