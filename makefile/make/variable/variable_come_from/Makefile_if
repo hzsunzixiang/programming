@@ -1,0 +1,22 @@
+
+all:
+ifeq (a, a)
+	@echo "a equal"	
+# These are equal
+endif
+
+ifeq ( b, b )
+	# These are not equal - ' b' != 'b '
+	@echo "b equal"	
+else
+	@echo "b inequal"	
+endif
+
+ifeq "a" "a"
+# These are equal
+	@echo "a equal"	
+endif
+ifeq 'b' 'b'
+# So are these
+	@echo "b equal"	
+endif

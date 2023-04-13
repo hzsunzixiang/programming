@@ -1,0 +1,4 @@
+.PHONY: dummy
+Makefile_loop: dummy
+	touch $@
+	@echo "loop"
