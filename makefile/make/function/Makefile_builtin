@@ -1,0 +1,12 @@
+words := he the hen other the%
+get-the:
+	@echo he matches: $(filter he, $(words))
+	@echo %he matches: $(filter %he, $(words))
+	@echo he% matches: $(filter he%, $(words))
+	@echo %he% matches: $(filter %he%, $(words))
+
+all_source := count_words.c counter.c lexer.l counter.h lexer.h
+to_compile := $(filter-out %.h, $(all_source))
+get-this:
+	@echo $(to_compile)
+	
