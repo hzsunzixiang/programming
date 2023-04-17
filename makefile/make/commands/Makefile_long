@@ -1,0 +1,11 @@
+
+.INTERMEDIATE: file_list
+file_list:
+	for d in logic; \
+	do                 \
+		echo $$d/*.java;   \
+	done > $@
+
+COMPILATION_DIRS=logic
+file_list_1:
+	echo $(addsuffix /*.java,$(COMPILATION_DIRS)) > $@
