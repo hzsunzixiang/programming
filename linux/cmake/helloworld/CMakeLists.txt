@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.10)
 PROJECT(HELLO)  
 SET(SRC_LIST helloworld.c)  
 MESSAGE(STATUS "THIS IS BINARY DIR " ${HELLO_BINARY_DIR})  
