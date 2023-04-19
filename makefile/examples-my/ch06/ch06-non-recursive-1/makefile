@@ -60,7 +60,8 @@ ifneq "$(MAKECMDGOALS)" "clean"
 endif
 
 %.c %.h: %.y
-	$(YACC.y) --defines $<
+	#$(YACC.y) --defines $<
+	$(YACC.y) -d $<
 	$(MV) y.tab.c $*.c
 	$(MV) y.tab.h $*.h
 
