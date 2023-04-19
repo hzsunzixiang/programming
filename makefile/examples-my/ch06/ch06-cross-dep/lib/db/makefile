@@ -22,7 +22,8 @@ clean:
 	$(RM) $(lib_db) $(objects) $(dependencies) $(sources) playlist.h
 
 %.c %.h: %.y
-	$(YACC.y) --defines $<
+	#$(YACC.y) --defines $<
+	$(YACC.y) -d $<
 	mv -f y.tab.c $*.c
 	mv -f y.tab.h $*.h
 
