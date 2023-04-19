@@ -1,1 +1,2 @@
-play_mp3.o play_mp3.d:  play_mp3.c ../../include/player/play_mp3.h
+play_mp3.o play_mp3.d:  play_mp3.c /usr/include/stdc-predef.h \
+ ../../include/player/play_mp3.h
