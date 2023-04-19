@@ -10,7 +10,7 @@ $(eval $(compile-rules))
 $(local_dir)/scanner.d: $(local_dir)/playlist.d
 
 $(local_dir)/%.c $(local_dir)/%.h: $(subdirectory)/%.y
-	$(YACC.y) --defines $<
+	$(YACC.y) -d $<
 	$(MV) y.tab.c $(dir $@)$*.c
 	$(MV) y.tab.h $(dir $@)$*.h
 

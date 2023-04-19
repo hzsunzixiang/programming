@@ -1,5 +1,8 @@
-SOURCE_DIR := /c/home/mecklen/book/examples/ch07-separate-binaries-1
-BINARY_DIR := /c/home/mecklen/book/out/mp3_player_out
+#SOURCE_DIR := /c/home/mecklen/book/examples/ch07-separate-binaries-1
+#BINARY_DIR := /c/home/mecklen/book/out/mp3_player_out
+
+SOURCE_DIR := $(PWD)
+BINARY_DIR := $(PWD)/output
 
 # $(call source-dir-to-binary-dir, directory-list)
 source-dir-to-binary-dir = $(addprefix $(BINARY_DIR)/, $1)
