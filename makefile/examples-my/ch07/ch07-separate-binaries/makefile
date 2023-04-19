@@ -64,14 +64,14 @@ libraries: $(libraries)
 
 .PHONY: clean
 clean:
-	$(RM) -r *
+	$(RM) $(objects) $(programs) $(libraries) $(dependencies) 
 
 ifneq "$(MAKECMDGOALS)" "clean"
   include $(dependencies)
 endif
 
 %.c %.h: %.y
-	$(YACC.y) --defines $<
+	$(YACC.y) -d $<
 	$(MV) y.tab.c $*.c
 	$(MV) y.tab.h $*.h
 
