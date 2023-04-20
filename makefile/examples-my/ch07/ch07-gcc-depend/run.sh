@@ -1,6 +1,5 @@
 #! /bin/bash
 
-#SOURCE_DIR=../
 OUTPUT_DIR=mp3_player_out
 if [[ ! -d $OUTPUT_DIR ]]
 then
@@ -14,6 +13,7 @@ cd $OUTPUT_DIR
 #make --file=$SOURCE_DIR/makefile "$@"
 
 # 把 SOURCE_DIR  覆盖到 makefile中的变量
+SOURCE_DIR=../
 make SOURCE_DIR=../ --file=$SOURCE_DIR/makefile  "$@"
 
 
