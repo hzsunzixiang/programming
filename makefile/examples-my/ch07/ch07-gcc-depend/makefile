@@ -1,6 +1,7 @@
 #SOURCE_DIR := ../ch07-separate-binaries
-#SOURCE_DIR := ch07-gcc-depend
-SOURCE_DIR := ../
+SOURCE_DIR := ../ch07-gcc-depend
+#SOURCE_DIR := .
+#SOURCE_DIR := ../
 
 # $(call source-to-object, source-file-list)
 source-to-object = $(subst .c,.o,$(filter %.c,$1)) \
