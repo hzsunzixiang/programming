@@ -1,7 +1,11 @@
 #SOURCE_DIR := ../ch07-separate-binaries
 SOURCE_DIR := ../ch07-gcc-depend
-#SOURCE_DIR := .
+#SOURCE_DIR := ./
 #SOURCE_DIR := ../
+
+
+# makefile:6: *** Please run the makefile from the binary tree..  Stop.
+# $(if $(filter $(notdir $(SOURCE_DIR)),$(notdir $(CURDIR))), $(error Please run the makefile from the binary tree.))
 
 # $(call source-to-object, source-file-list)
 source-to-object = $(subst .c,.o,$(filter %.c,$1)) \
