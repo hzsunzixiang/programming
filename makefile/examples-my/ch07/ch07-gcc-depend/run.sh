@@ -12,7 +12,10 @@ then
 fi
 cd $OUTPUT_DIR
 #make --file=$SOURCE_DIR/makefile "$@"
-make --file=$SOURCE_DIR/makefile 
+make --file=$SOURCE_DIR/makefile  "$@"
 
 
 #make --file=../makefile
+
+# run.sh
+# run.sh clean
