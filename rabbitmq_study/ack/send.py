@@ -11,10 +11,11 @@ password = 'vstation'
 #queue_name =  'TEST_ACK'
 queue_name =  'FLOW'
 
+host_name = 'localhost'
 credentials = pika.PlainCredentials(user, password)
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-			               host='9.134.165.238',
+			               host=host_name,
                            virtual_host=vhost,
 						   credentials=credentials))
 
@@ -23,7 +24,7 @@ channel = connection.channel()
 result = channel.queue_declare(queue=queue_name, durable=True)  
 
 queue_name = result.method.queue
-print 'queue_name:' + queue_name
+print('queue_name:' + queue_name)
 
 channel.exchange_declare(exchange=exchange, exchange_type='direct', durable=True)
 
@@ -42,7 +43,7 @@ channel.basic_publish(exchange=exchange, routing_key=queue_name,
 channel.basic_publish(exchange=exchange, routing_key=queue_name,
                            body="Hello World!", properties=properties)
 
-print " [x] Sent 'Hello World!'"
+print(" [x] Sent 'Hello World!'")
 connection.close()  
 
 
