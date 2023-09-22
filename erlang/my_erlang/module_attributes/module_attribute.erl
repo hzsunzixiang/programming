@@ -12,6 +12,10 @@ start() ->
     finish.
 
 
+%
+% Any module attribute can be specified. 
+% The attributes are stored in the compiled code and can be retrieved by calling Module:module_info(attributes), 
+% or by using the module beam_lib(3) in STDLIB.
 
 %2> module_attribute:module_info().
 %[{module,module_attribute},
@@ -24,4 +28,3 @@ start() ->
 %           {source,"/home/ericksun/programming/erlang/my_erlang/module_attributes/module_attribute.erl"}]},
 % {md5,<<118,185,218,204,110,124,15,162,223,162,71,152,
 %        238,250,149,170>>}]
-%
