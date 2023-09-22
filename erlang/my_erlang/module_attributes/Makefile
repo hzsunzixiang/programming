@@ -9,7 +9,9 @@ ERL = erl -boot start_clean
 
 MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 
-RUN_BIN=module_attribute 
+#RUN_BIN=module_attribute 
+RUN_BIN=rabbit
+#RUN_BIN=test
 all:compile
 	erl  -sname test -noshell -s $(RUN_BIN) start -s init stop
 	#erl -noshell -run $(RUN_BIN) start -s init stop
