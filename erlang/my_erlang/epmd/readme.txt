@@ -1,3 +1,47 @@
+# 2023.09.22 更新
+
+
+之前犯了一个很错误
+
+
+hosts的配置应该是这种:
+
+192.168.142.135  centos-1
+192.168.142.136  centos-2
+
+
+或者这种同时支持 长域名的
+192.168.142.135  centos-1 centos-1.example.com
+192.168.142.136  centos-2 centos-2.example.com
+
+而非这种：
+
+192.168.142.135  apple@centos-1
+192.168.142.136  pear@centos-2
+这样就能work了
+
+
+ericksun@centos7-mq2:~$ erl -sname world
+Erlang/OTP 26 [erts-14.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V14.1 (press Ctrl+G to abort, type help(). for help)
+(world@centos7-mq2)1> net_kernel:connect_node('hello@centos7-mq1').
+true
+
+
+使用 remsh
+ericksun@centos7-mq2:~$ erl -sname world -remsh 'hello@centos7-mq1'
+Erlang/OTP 26 [erts-14.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V14.1 (press Ctrl+G to abort, type help(). for help)
+(hello@centos7-mq1)1>
+
+
+或者使用 ctrl + G 命令
+
+================================================================================================================
+
+
 # 2023.01.18 更新
 
 1. erlang版本一致

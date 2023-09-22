@@ -47,3 +47,20 @@ start1() ->
 %      {version,"1.0"},
 %      {vsn,[222772051176411506668136247394978656499]}]}]
 
+
+% 找到响应的模块之后 
+% run_step(Attributes, AttributeName) ->
+%     [begin
+%         rabbit_log:debug("Applying MFA: M = ~ts, F = ~ts, A = ~tp",
+%                         [M, F, A]),
+%         case apply(M,F,A) of
+%             ok              ->
+%                 rabbit_log:debug("Finished MFA: M = ~ts, F = ~ts, A = ~tp",
+%                                  [M, F, A]);
+%             {error, Reason} -> exit({error, Reason})
+%         end
+%      end
+%       || {Key, {M,F,A}} <- Attributes,
+%           Key =:= AttributeName],
+%     ok.
+
