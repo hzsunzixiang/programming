@@ -31,9 +31,9 @@ channel.exchange_declare(exchange=exchange, exchange_type='direct', durable=True
 channel.queue_bind(exchange=exchange, queue=queue_name)
 
 # 加上这个属性才能做到真正的持久化
-#properties = pika.BasicProperties(delivery_mode=2,
-#                                  expiration='10000000')
-properties = pika.BasicProperties(delivery_mode=2, kv['headers'] = {"x-delay": 1000 * delay_time_s})
+properties = pika.BasicProperties(delivery_mode=2,
+                                  expiration='10000000')
+#properties = pika.BasicProperties(delivery_mode=2, kv['headers'] = {"x-delay": 1000 * delay_time_s})
 channel.basic_publish(exchange=exchange, routing_key=queue_name,
                            body="Hello World!", properties=properties)
 
