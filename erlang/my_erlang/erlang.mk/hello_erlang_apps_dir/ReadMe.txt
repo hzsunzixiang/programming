@@ -55,19 +55,25 @@ apps/webchat/
 
 * 运行
 
-ericksun@centos7-mq1:~/programming/erlang/my_erlang/erlang.mk/hello_erlang_apps_dir (master)$ erl -pa ebin/ apps/webchat/ebin/
-Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
 
-Eshell V13.0.4  (abort with ^G)
-1> application:ensure_all_started(hello_erlang_deps).
-{error,{hello_erlang_deps,{"no such file or directory",
-                           "hello_erlang_deps.app"}}}
-2> application:ensure_all_started(webchat).
+
+ericksun@centos7-mq1:~/programming/erlang/my_erlang/erlang.mk/hello_erlang_apps_dir (master)$ erl -pa ebin/ apps/webchat/ebin/
+Erlang/OTP 26 [erts-14.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+
+Eshell V14.1 (press Ctrl+G to abort, type help(). for help)
+1> application:ensure_all_started(hello_erlang_apps_dir).
+{ok,[hello_erlang_apps_dir]}
+2> application:which_applications().
+[{hello_erlang_apps_dir,"New project","0.1.0"},
+ {stdlib,"ERTS  CXC 138 10","5.1"},
+ {kernel,"ERTS  CXC 138 10","9.1"}]
+3> application:ensure_all_started(webchat).
 {ok,[webchat]}
-3> application:which_applications().
+4> application:which_applications().
 [{webchat,"New project","0.1.0"},
- {stdlib,"ERTS  CXC 138 10","4.0.1"},
- {kernel,"ERTS  CXC 138 10","8.4.2"}]
+ {hello_erlang_apps_dir,"New project","0.1.0"},
+ {stdlib,"ERTS  CXC 138 10","5.1"},
+ {kernel,"ERTS  CXC 138 10","9.1"}]
 
 
 
