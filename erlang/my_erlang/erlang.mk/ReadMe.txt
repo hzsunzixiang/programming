@@ -1,0 +1,14 @@
+Date:   Sun Feb 26 05:19:34 2023 -0500 hello_joe
+Date:   Sun Feb 26 06:04:38 2023 -0500 hello_erlang_apps_dir
+Date:   Sun Feb 26 06:05:03 2023 -0500 hello_erlang_deps
+Date:   Sun Feb 26 11:02:46 2023 -0500 hello_release
+Date:   Sun Feb 26 11:02:46 2023 -0500 hello_erlang
+Date:   Sun Feb 26 11:03:32 2023 -0500 hello_release_cowboy
+Date:   Mon Feb 27 06:58:00 2023 -0500 hello_release_apps_dir
+Date:   Tue Feb 28 04:48:15 2023 -0500 rabbit-server-project
+Date:   Tue Feb 28 05:21:48 2023 -0500 rabbit-server-project-1
+Date:   Tue Feb 28 07:25:56 2023 -0500 apps_dir_deps_out_project
+Date:   Thu Mar 2  02:01:44 2023 -0500 hello_apps_dir_deps_out_release
+Date:   Fri Mar 3  19:09:26 2023 -0500 apps_dir_deps_out_project.2
+Date:   Sun Mar 19 04:21:45 2023 -0400 hello_erlang_mk_1
+Date:   Sun Mar 19 09:22:03 2023 -0400 hello_apps_dir_deps_out
