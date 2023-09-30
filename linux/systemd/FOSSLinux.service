@@ -1,0 +1,9 @@
+[Unit]
+Description=FOSSLinux Service
+
+[Service]
+Type=notify
+ExecStart=/usr/local/bin/Hello_FOSSLinux.sh
+
+[Install]
+WantedBy=multi-user.target
