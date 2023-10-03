@@ -4,6 +4,7 @@ Description=FOSSLinux Service
 [Service]
 Type=notify
 ExecStart=/usr/local/bin/Hello_FOSSLinux.sh
+#Environment=NOTIFY_SOCKET=/run/systemd/notify.ericksun
 
 [Install]
 WantedBy=multi-user.target

@@ -10,6 +10,7 @@ fi
 systemd-notify --ready --status="Waiting for data…"
 
 while : ; do
+        echo "NOTIFY_SOCKET:$NOTIFY_SOCKET" > /tmp/notify.txt
         read -r a < /tmp/waldo    # 本进程读取，
         systemd-notify --status="Processing $a"   
  
