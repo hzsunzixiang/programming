@@ -36,6 +36,10 @@ start() ->
 
 	PrimaryConfig = logger:get_primary_config(),
 	io:format("PrimaryConfig:~n~p~n", [PrimaryConfig]),
+
+	Config = logger:get_config(),
+	io:format("Config:~n~p~n", [Config]),
+
     logger:notice("[My log with foo]."),
     'this is an end'.
 
