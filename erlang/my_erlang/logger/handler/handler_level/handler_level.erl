@@ -1,6 +1,6 @@
 -include_lib("kernel/include/logger.hrl").
 
--module(metadata).
+-module(handler_level).
 -compile([export_all]).
 -compile(nowarn_export_all).
 
@@ -12,10 +12,11 @@ start() ->
     %set_handler_config(HandlerId, Key :: formatter, Formatter) ->
     %                  Return
 
+
     Formatter = {logger_formatter,#{template => [time," ",file,", ",mfa,":",line," ",pid," ", gl," ",level,": ","{{[", foo ,"]}}\t",msg, "\n"]}},
 	logger:set_handler_config(default, formatter, Formatter),
 
-
+    logger:set_handler_config(default, level, debug),
     Metadata=
         #{pid => self(),
           gl => group_leader(), 
@@ -39,11 +40,10 @@ start() ->
     'this is an end'.
 
 
-
 %ProcessMeta:
-%#{line => 22,pid => <0.9.0>,time => 1697690963141359,file => "metadata.erl",
-%  gl => <0.70.0>,
-%  mfa => {metadata,start,0},
+%#{line => 26,pid => <0.9.0>,time => 1697696065004109,
+%  file => "handler_level.erl",gl => <0.70.0>,
+%  mfa => {handler_level,start,0},
 %  foo => foobar}
 %HandlerConfig:
 %[#{id => default,module => logger_std_h,
@@ -54,18 +54,18 @@ start() ->
 %         burst_limit_window_time => 1000,overload_kill_enable => false,
 %         overload_kill_mem_size => 3000000,overload_kill_qlen => 20000,
 %         filesync_repeat_interval => no_repeat},
-%   level => all,
+%   level => debug,
 %   filters =>
 %       [{remote_gl,{fun logger_filters:remote_gl/2,stop}},
 %        {domain,{fun logger_filters:domain/2,{log,super,[otp,sasl]}}},
 %        {no_domain,{fun logger_filters:domain/2,{log,undefined,[]}}}],
+%   filter_default => stop,
 %   formatter =>
 %       {logger_formatter,#{template =>
 %                               [time," ",file,", ",mfa,":",line," ",pid," ",
 %                                gl," ",level,": ","{{[",foo,"]}}\t",msg,
-%                                "\n"]}},
-%   filter_default => stop}]
+%                                "\n"]}}}]
 %PrimaryConfig:
-%#{level => notice,metadata => #{},filters => [],filter_default => log}
-%2023-10-19T00:49:23.141359-04:00 metadata.erl, metadata:start/0:22 <0.9.0> <0.70.0> notice: {{[foobar]}}        [My log with foo].
+%#{level => notice,filters => [],filter_default => log,metadata => #{}}
+%2023-10-19T02:14:25.004109-04:00 handler_level.erl, handler_level:start/0:26 <0.9.0> <0.70.0> notice: {{[foobar]}}      [My log with foo].
 

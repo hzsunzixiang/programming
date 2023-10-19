@@ -9,7 +9,7 @@ ERL = erl -boot start_clean
 
 MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 
-RUN_BIN=handler_formatter
+RUN_BIN=handler_level
 all:compile
 	erl -noshell -s $(RUN_BIN) start -s init stop
 	#erl -noshell -config sys_metadata -s $(RUN_BIN) start -s init stop
