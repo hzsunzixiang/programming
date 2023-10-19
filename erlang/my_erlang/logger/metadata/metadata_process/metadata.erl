@@ -23,16 +23,20 @@ start() ->
 	HandlerConfig = logger:get_handler_config(),
 	io:format("HandlerConfig:~n~p~n", [HandlerConfig]),
 
-    logger:notice("[My log with foo].", #{foo => bar}),
+    logger:notice("[My log with foo]."),
+
+
+    MetadataUpdate = #{foo => baz},
+	logger:update_process_metadata(MetadataUpdate),
+    logger:notice("[My log with foo]."),
     'this is an end'.
 
 
 %ProcessMeta:
-%#{line => 15,pid => <0.9.0>,time => 1697624063945712,file => "metadata.erl",
+%#{line => 15,pid => <0.9.0>,time => 1697681563658640,file => "metadata.erl",
 %  gl => <0.70.0>,
 %  mfa => {metadata,start,0},
 %  foo => bar}
-
 %HandlerConfig:
 %[#{id => default,module => logger_std_h,
 %   config =>
@@ -52,5 +56,6 @@ start() ->
 %                               [time," ",file,", ",mfa,":",line," ",pid," ",
 %                                gl," ",level,": ","{{",foo,"}}\t",msg,
 %                                "\n"]}}}]
-%2023-10-18T06:14:23.945712-04:00 metadata.erl, metadata:start/0:15 <0.9.0> <0.70.0> notice: {{bar}}     [My log with foo].
+%2023-10-18T22:12:43.658640-04:00 metadata.erl, metadata:start/0:15 <0.9.0> <0.70.0> notice: {{bar}}     [My log with foo].
+%2023-10-18T22:12:43.658640-04:00 metadata.erl, metadata:start/0:15 <0.9.0> <0.70.0> notice: {{baz}}     [My log with foo].
 

@@ -45,3 +45,12 @@ Subsequent calls to this function overwrites previous data set. To update existi
 %                                "\n"]}}}]
 %2023-10-18T06:07:38.378949-04:00 metadata.erl, metadata:start/0:15 <0.9.0> <0.70.0> notice: {{bar}}     [My log with foo].
 
+update_process_metadata(Meta) when is_map(Meta) ->
+    case get_process_metadata() of
+        undefined ->
+            set_process_metadata(Meta);
+        Meta0 when is_map(Meta0) ->
+            set_process_metadata(maps:merge(Meta0,Meta)),
+            ok
+    end;
+
