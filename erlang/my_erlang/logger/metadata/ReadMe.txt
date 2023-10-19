@@ -20,3 +20,7 @@ setting process metadata with set_process_metadata/1 or update_process_metadata/
 方式四: kernel configuration parameter logger_metadata
 
 metadata_configure  
+
+方式五:  不通过配置文件，通过API设置 logger_formatter
+
+metadata_api
