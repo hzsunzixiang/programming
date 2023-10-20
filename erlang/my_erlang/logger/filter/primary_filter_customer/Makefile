@@ -9,7 +9,7 @@ ERL = erl -boot start_clean
 
 MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 
-RUN_BIN=handler_filter_level
+RUN_BIN=primary_filter_customer
 all:compile
 	erl -noshell -s $(RUN_BIN) start -s init stop
 

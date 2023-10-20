@@ -1,6 +1,6 @@
 -include_lib("kernel/include/logger.hrl").
 
--module(handler_filter_log_event).
+-module(primary_filter_log_event).
 -compile([export_all]).
 -compile(nowarn_export_all).
 

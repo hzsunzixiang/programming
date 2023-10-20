@@ -9,7 +9,7 @@ ERL = erl -boot start_clean
 
 MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 
-RUN_BIN=handler_filter_log_event
+RUN_BIN=primary_filter_log_event_error_logger
 all:compile
 	erl -noshell -kernel logger_sasl_compatible true -s $(RUN_BIN) start -s init stop
 
