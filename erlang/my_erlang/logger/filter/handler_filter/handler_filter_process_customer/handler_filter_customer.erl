@@ -33,8 +33,6 @@ start() ->
 	HandlerConfig = logger:get_config(),
 	io:format("HandlerConfig:~n~p~n", [HandlerConfig]),
 
-
-    % 这里比较便利的地方在于，可以对于某条日志设置 domain
     logger:debug("Logging: configured log handlers are now ACTIVE"),
     %logger:notice("Logging: configured log handlers are now ACTIVE"),
     'this is an end'.

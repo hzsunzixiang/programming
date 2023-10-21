@@ -84,3 +84,28 @@ HandlerConfig:
              {rabbit_logger_text_fmt,#{single_line => false,
                                        use_colors => false}}}],
   module_levels => []}
+
+
+
+
+
+#{id => rabbit_logger_std_h_rmq_1_file_1,module => logger_h_common,
+  mode => async,idle => false,burst_limit_enable => false,
+  drop_mode_qlen => 200,flush_qlen => 1000,sync_mode_qlen => 10,
+  burst_msg_count => 0,burst_win_ts => -576460725422029,
+  cb_state =>
+      #{id => rmq_1_file_1,module => rabbit_logger_std_h,
+        filesync_repeat_interval => 5000,ctrl_sync_count => 7,
+        handler_state =>
+            #{type => file,file => "/var/log/rabbitmq/rabbit@centos7-mq1.log",
+              file_ctrl_pid => <0.245.0>,compress_on_rotate => false,
+              file_check => 0,max_no_bytes => infinity,max_no_files => 0,
+              modes => [delayed_write,raw,append],
+              rotate_on_date => false},
+        last_op => write,
+        rep_sync_tref => #Ref<0.4115148612.1324351490.180749>},
+  last_load_ts => -576460652766293,last_qlen => 0,
+  mode_ref => {logger_olp,rabbit_logger_std_h_rmq_1_file_1},
+  overload_kill_restart_after => 5000,burst_limit_max_count => 500,
+  burst_limit_window_time => 1000,overload_kill_enable => false,
+  overload_kill_mem_size => 3000000,overload_kill_qlen => 20000}
