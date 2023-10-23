@@ -4,11 +4,13 @@ CFLAGS=-Wall -g
 
 LIB_DIR=$(shell echo `erl -noshell -eval 'io:format(code:lib_dir()),erlang:halt()'`)
 
-#/home/ericksun/program/otp-25.0.4/lib/erlang/lib
 
-INCLUDE = -I$(LIB_DIR)/erl_interface-5.3/include -I../../../yajl_install/include/ 
+# 注意这里的路径，根据环境不同，有差异
+#
+ERL_INT_VERSION=5.4
+INCLUDE = -I$(LIB_DIR)/erl_interface-$(ERL_INT_VERSION)/include -I../../../yajl_install/include/ 
 
-LIB = -L$(LIB_DIR)/erl_interface-5.3/lib/ -L../../../yajl_install//lib/ -lei_st -lyajl
+LIB = -L$(LIB_DIR)/erl_interface-$(ERL_INT_VERSION)/lib/ -L../../../yajl_install//lib/ -lei_st -lyajl
 
 
 BIN=jp_prog

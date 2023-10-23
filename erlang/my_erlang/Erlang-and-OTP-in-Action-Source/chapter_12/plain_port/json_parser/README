@@ -29,6 +29,7 @@ ok
 {ok,{undefined,true,[{<<"int">>,42},{<<"float">>,3.14}]}}
 3> 
 
+######################################################################
 # yajl的下载方式
 https://github.com/lloyd/yajl.git
 
@@ -38,17 +39,42 @@ https://github.com/lloyd/yajl.git
 ./configure --prefix /home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/yajl_install
 
 
-# 运行
+# 运行 运行之前一定要先export 动态链接库
 ericksun@centos7-dev:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/(master)$ export LD_LIBRARY_PATH=/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/yajl_install/lib/
-ericksun@centos7-dev:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/(master)$ erl -pa ../json_parser/ebin  -pa priv/
-Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+ericksun@centos7-mq1:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/plain_port/json_parser (master)$ export LD_LIBRARY_PATH=/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/yajl_install/lib/
+ericksun@centos7-mq1:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/plain_port/json_parser (master)$ erl -pa ../json_parser/ebin  -pa priv/
+Erlang/OTP 26 [erts-14.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
 
-Eshell V13.0.4  (abort with ^G)
-1> application:start(j
-jp_app         jp_server      jp_sup         json_parser
+Eshell V14.1 (press Ctrl+G to abort, type help(). for help)
 1> application:start(json_parser).
 ok
-2> json_parser:parse_document(<<"[null,true,{\"int\":42,\"float\":3.14}]">>).
+2> observer:start().
+ok
+3> json_parser:parse_document(<<"[null,true,{\"int\":42,\"float\":3.14}]">>).
 {ok,{undefined,true,[{<<"int">>,42},{<<"float">>,3.14}]}}
-3>
+4>
+
+
+# 这里启动了一个新的独立进程
+ericksun@centos7-mq1:~/program/rabbitmq-server-debug (main)$ ps aux|grep jp |grep -v grep
+ericksun  40262  0.0  0.0   6376   372 ?        Ss   02:57   0:00 ../json_parser/priv/jp_prog
+
+
+ericksun@centos7-mq1:~/program/rabbitmq-server-debug (main)$ lsof -p 40262
+COMMAND   PID     USER   FD   TYPE DEVICE SIZE/OFF     NODE NAME
+jp_prog 40262 ericksun  cwd    DIR  253,0      113 75892486 /home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/plain_port/json_parser
+jp_prog 40262 ericksun  rtd    DIR  253,0      258       64 /
+jp_prog 40262 ericksun  txt    REG  253,0   114176  5340514 /home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/plain_port/json_parser/priv/jp_prog
+jp_prog 40262 ericksun  mem    REG  253,0  2156592     1390 /usr/lib64/libc-2.17.so
+jp_prog 40262 ericksun  mem    REG  253,0    35616 38324914 /home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/yajl_install/lib/libyajl.so.1.0.9
+jp_prog 40262 ericksun  mem    REG  253,0   163312     5436 /usr/lib64/ld-2.17.so
+jp_prog 40262 ericksun    0r  FIFO    0,9      0t0   166264 pipe
+jp_prog 40262 ericksun    1w  FIFO    0,9      0t0   166263 pipe
+jp_prog 40262 ericksun    2u   CHR 136,14      0t0       17 /dev/pts/14
+
+ericksun@centos7-mq1:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/plain_port (master)$ export LD_LIBRARY_PATH=/home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/yajl_install/lib/
+ericksun@centos7-mq1:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/plain_port (master)$ ldd json_parser/priv/jp_prog                      linux-vdso.so.1 =>  (0x00007fff20f36000)
+        libyajl.so.1 => /home/ericksun/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_12/yajl_install/lib/libyajl.so.1 (0x00007f809be3d000)
+        libc.so.6 => /lib64/libc.so.6 (0x00007f809ba6f000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007f809c045000)
 
