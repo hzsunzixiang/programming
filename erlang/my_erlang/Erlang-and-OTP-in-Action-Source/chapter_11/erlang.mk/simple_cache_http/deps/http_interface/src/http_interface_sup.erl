@@ -1,4 +1,4 @@
--module(hi_sup).
+-module(http_interface_sup).
 
 -behaviour(supervisor).
 

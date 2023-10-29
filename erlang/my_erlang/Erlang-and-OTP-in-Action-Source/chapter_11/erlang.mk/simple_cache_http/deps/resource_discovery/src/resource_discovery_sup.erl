@@ -1,4 +1,4 @@
--module(rd_sup).
+-module(resource_discovery_sup).
 
 -behaviour(supervisor).
 

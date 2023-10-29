@@ -1,4 +1,4 @@
--module(hi_app).
+-module(http_interface_app).
 
 -behaviour(application).
 

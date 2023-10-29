@@ -1,4 +1,4 @@
--module(rd_app).
+-module(resource_discovery_app).
 
 -behaviour(application).
 
