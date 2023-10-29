@@ -1,4 +1,4 @@
--module(sc_element_sup).
+-module(simple_cache_sup).
 
 -behaviour(supervisor).
 
