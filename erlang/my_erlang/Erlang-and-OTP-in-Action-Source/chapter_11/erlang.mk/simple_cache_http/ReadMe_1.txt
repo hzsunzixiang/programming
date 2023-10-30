@@ -30,6 +30,11 @@ lookup(123)
 
 {ok,abc}
 
+
+
+##  加上配置文件
+erl -config config/sys  -sname mynode3  -pa deps/gen_web_server/ebin -pa deps/http_interface/ebin -pa deps/recon/ebin -pa deps/resource_discovery/ebin -pa deps/simple_cache/ebin
+
 (mynode3@centos7-mq1)7> application:ensure_all_started(http_interface).
 {ok,[gen_web_server,http_interface]}
 
@@ -37,4 +42,20 @@ ericksun@centos7-mq1:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Sou
 ericksun@centos7-mq1:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_11 (master)$ curl -T put.txt http://localhost:1156/xyzzy
 ericksun@centos7-mq1:~/programming/erlang/my_erlang/Erlang-and-OTP-in-Action-Source/chapter_11 (master)$ curl http://localhost:1156/xyzzy
 Erlang
+
+Eshell V14.1 (press Ctrl+G to abort, type help(). for help)
+(mynode3@centos7-mq1)1> application:ensure_all_started(http_interface).
+{ok,[gen_web_server,resource_discovery,simple_cache,
+     http_interface]}
+=INFO REPORT==== 30-Oct-2023::02:33:36.982682 ===
+create(<<120,121,122,122,121>>, <<69,114,108,97,110,103,10>>)
+
+=INFO REPORT==== 30-Oct-2023::02:33:38.416392 ===
+lookup(<<120,121,122,122,121>>)
+
+=INFO REPORT==== 30-Oct-2023::02:33:59.476064 ===
+replace(<<120,121,122,122,121>>, <<69,114,108,97,110,103,50,54,10>>)
+
+=INFO REPORT==== 30-Oct-2023::02:34:07.643158 ===
+lookup(<<120,121,122,122,121>>)
 
