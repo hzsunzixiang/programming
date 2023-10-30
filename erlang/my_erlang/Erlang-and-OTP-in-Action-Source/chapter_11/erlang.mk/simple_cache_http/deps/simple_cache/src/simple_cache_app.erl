@@ -4,7 +4,7 @@
 
 -export([start/2, stop/1]).
 
--define(WAIT_FOR_RESOURCES, 2500).
+-define(WAIT_FOR_RESOURCES, 10000).
 
 start(_StartType, _StartArgs) ->
     ok = ensure_contact(),
