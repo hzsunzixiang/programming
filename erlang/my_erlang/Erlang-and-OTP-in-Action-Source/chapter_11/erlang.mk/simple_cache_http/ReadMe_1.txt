@@ -33,6 +33,11 @@ lookup(123)
 
 
 ##  加上配置文件
+先启动节点
+erl -sname contact1
+erl -sname contact2
+
+
 erl -config config/sys  -sname mynode3  -pa deps/gen_web_server/ebin -pa deps/http_interface/ebin -pa deps/recon/ebin -pa deps/resource_discovery/ebin -pa deps/simple_cache/ebin
 
 (mynode3@centos7-mq1)7> application:ensure_all_started(http_interface).

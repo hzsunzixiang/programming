@@ -1,0 +1,1679 @@
+
+2:54:11.088778 <0.126.0> resource_discovery_app:start(normal, [])
+
+2:54:11.089019 <0.126.0> resource_discovery_sup:start_link()
+
+2:54:11.089176 <0.127.0> resource_discovery_sup:init([])
+
+2:54:11.089292 <0.127.0> resource_discovery_sup:init/1 --> {ok,{{one_for_one,0,1},
+     [{rd_server,{rd_server,start_link,[]},
+                 permanent,2000,worker,
+                 [rd_server]}]}}
+
+2:54:11.089436 <0.127.0>  '--> supervisor:init/1
+
+2:54:11.089604 <0.127.0> rd_server:start_link()
+
+2:54:11.089719 <0.128.0> rd_server:init([])
+
+2:54:11.089786 <0.128.0> rd_server:init/1 --> {ok,{state,[],
+           {dict,0,16,16,8,80,48,
+                 {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                 {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}},
+           {dict,0,16,16,8,80,48,
+                 {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                 {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}}}
+
+2:54:11.090094 <0.128.0>  '--> gen_server:init_it/2
+
+2:54:11.090172 <0.127.0> rd_server:start_link/0 --> {ok,<0.128.0>}
+
+2:54:11.090251 <0.127.0>  '--> supervisor:do_start_child_i/3
+
+2:54:11.090366 <0.126.0> resource_discovery_sup:start_link/0 --> {ok,<0.127.0>}
+
+2:54:11.090456 <0.126.0>  '--> resource_discovery_app:start/2
+
+2:54:11.090513 <0.126.0> resource_discovery_app:start/2 --> {ok,<0.127.0>}
+
+2:54:11.090594 <0.126.0>  '--> application_master:start_it_old/4
+
+2:54:11.090647 <0.131.0> simple_cache_app:start(normal, [])
+
+2:54:11.090697 <0.131.0> simple_cache_app:ensure_contact()
+
+2:54:11.090737 <0.131.0> simple_cache_app:get_env(simple_cache, contact_nodes, ['contact1@centos7-mq1','contact2@centos7-mq1'])
+
+2:54:11.090809 <0.131.0> simple_cache_app:get_env/3 --> ['contact1@centos7-mq1','contact2@centos7-mq1']
+
+2:54:11.090938 <0.131.0>  '--> simple_cache_app:ensure_contact/0
+
+2:54:11.091009 <0.131.0> simple_cache_app:ensure_contact(['contact1@centos7-mq1','contact2@centos7-mq1'])
+
+2:54:11.091133 <0.131.0> simple_cache_app:'-ensure_contact/1-lc$^0/1-0-'(['contact1@centos7-mq1','contact2@centos7-mq1'])
+
+2:54:11.091241 <0.131.0> net_adm:ping('contact1@centos7-mq1')
+
+2:54:11.092432 <0.134.0> gen_tcp:connect({192,168,142,137}, 4369, [inet], infinity)
+
+2:54:11.092856 <0.134.0> gen_tcp:connect1({192,168,142,137}, 4369, [inet], false)
+
+2:54:11.092995 <0.134.0> gen_tcp:try_connect([{192,168,142,137}], 4369, [], false, inet_tcp, {error,einval})
+
+2:54:11.093089 <0.134.0> gen_tcp:try_connect/6 --> {ok,#Port<0.7>}
+
+2:54:11.093198 <0.134.0> gen_tcp:connect1/4 --> {ok,#Port<0.7>}
+
+2:54:11.093256 <0.134.0>  '--> gen_tcp:connect/4
+
+2:54:11.093295 <0.134.0> gen_tcp:connect/4 --> {ok,#Port<0.7>}
+
+2:54:11.093373 <0.134.0>  '--> erl_epmd:get_port/3
+
+2:54:11.093436 <0.134.0> gen_tcp:send(#Port<0.7>, [[0,9],122,"contact1"])
+
+2:54:11.093516 <0.134.0> gen_tcp:send/2 --> ok
+
+2:54:11.093585 <0.134.0>  '--> erl_epmd:get_port/3
+
+2:54:11.095476 <0.131.0> net_adm:ping/1 --> pong
+
+2:54:11.095626 <0.131.0>  '--> simple_cache_app:'-ensure_contact/1-lc$^0/1-0-'/1
+
+2:54:11.095701 <0.131.0> simple_cache_app:'-ensure_contact/1-lc$^0/1-0-'(['contact2@centos7-mq1'])
+
+2:54:11.095796 <0.131.0> net_adm:ping('contact2@centos7-mq1')
+
+2:54:11.096395 <0.137.0> gen_tcp:connect({192,168,142,137}, 4369, [inet], infinity)
+
+2:54:11.097725 <0.137.0> gen_tcp:connect1({192,168,142,137}, 4369, [inet], false)
+
+2:54:11.097891 <0.137.0> gen_tcp:try_connect([{192,168,142,137}], 4369, [], false, inet_tcp, {error,einval})
+
+2:54:11.098015 <0.137.0> gen_tcp:try_connect/6 --> {ok,#Port<0.10>}
+
+2:54:11.098080 <0.137.0> gen_tcp:connect1/4 --> {ok,#Port<0.10>}
+
+2:54:11.098190 <0.137.0>  '--> gen_tcp:connect/4
+
+2:54:11.098247 <0.137.0> gen_tcp:connect/4 --> {ok,#Port<0.10>}
+
+2:54:11.098318 <0.137.0>  '--> erl_epmd:get_port/3
+
+2:54:11.098391 <0.137.0> gen_tcp:send(#Port<0.10>, [[0,9],122,"contact2"])
+
+2:54:11.098467 <0.137.0> gen_tcp:send/2 --> ok
+
+2:54:11.098527 <0.137.0>  '--> erl_epmd:get_port/3
+
+2:54:11.099907 <0.131.0> net_adm:ping/1 --> pong
+
+2:54:11.100104 <0.131.0>  '--> simple_cache_app:'-ensure_contact/1-lc$^0/1-0-'/1
+
+2:54:11.100211 <0.131.0> simple_cache_app:'-ensure_contact/1-lc$^0/1-0-'([])
+
+2:54:11.100301 <0.131.0> simple_cache_app:'-ensure_contact/1-lc$^0/1-0-'/1 --> []
+
+2:54:11.100360 <0.131.0>  '--> simple_cache_app:'-ensure_contact/1-lc$^0/1-0-'/1
+
+2:54:11.100435 <0.131.0> simple_cache_app:'-ensure_contact/1-lc$^0/1-0-'/1 --> ['contact2@centos7-mq1']
+
+2:54:11.100517 <0.131.0>  '--> simple_cache_app:'-ensure_contact/1-lc$^0/1-0-'/1
+
+2:54:11.100589 <0.131.0> simple_cache_app:'-ensure_contact/1-lc$^0/1-0-'/1 --> ['contact1@centos7-mq1','contact2@centos7-mq1']
+
+2:54:11.100671 <0.131.0>  '--> simple_cache_app:ensure_contact/1
+
+2:54:11.100743 <0.131.0> simple_cache_app:get_env(simple_cache, wait_time, 6000)
+
+2:54:11.100818 <0.131.0> simple_cache_app:get_env/3 --> 6000
+
+2:54:11.100890 <0.131.0>  '--> simple_cache_app:ensure_contact/1
+
+2:54:11.100950 <0.131.0> simple_cache_app:wait_for_nodes(2, 6000)
+
+2:54:11.101016 <0.131.0> simple_cache_app:wait_for_nodes(2, 600, 10)
+
+2:54:11.700886 <0.131.0> simple_cache_app:wait_for_nodes(2, 600, 9)
+
+2:54:12.301603 <0.131.0> simple_cache_app:wait_for_nodes(2, 600, 8)
+
+2:54:12.902592 <0.131.0> simple_cache_app:wait_for_nodes(2, 600, 7)
+
+2:54:13.503859 <0.131.0> simple_cache_app:wait_for_nodes(2, 600, 6)
+
+2:54:14.104815 <0.131.0> simple_cache_app:wait_for_nodes(2, 600, 5)
+
+2:54:14.705944 <0.131.0> simple_cache_app:wait_for_nodes(2, 600, 4)
+
+2:54:15.306778 <0.131.0> simple_cache_app:wait_for_nodes(2, 600, 3)
+
+2:54:15.907785 <0.131.0> simple_cache_app:wait_for_nodes(2, 600, 2)
+
+2:54:16.508568 <0.131.0> simple_cache_app:wait_for_nodes(2, 600, 1)
+
+2:54:17.110328 <0.131.0> simple_cache_app:wait_for_nodes(2, 600, 0)
+
+2:54:17.110590 <0.131.0> simple_cache_app:wait_for_nodes/3 --> ok
+
+2:54:17.110655 <0.131.0> simple_cache_app:wait_for_nodes/3 --> ok
+
+2:54:17.110700 <0.131.0> simple_cache_app:wait_for_nodes/3 --> ok
+
+2:54:17.110758 <0.131.0> simple_cache_app:wait_for_nodes/3 --> ok
+
+2:54:17.110805 <0.131.0> simple_cache_app:wait_for_nodes/3 --> ok
+
+2:54:17.110845 <0.131.0> simple_cache_app:wait_for_nodes/3 --> ok
+
+2:54:17.110894 <0.131.0> simple_cache_app:wait_for_nodes/3 --> ok
+
+2:54:17.110938 <0.131.0> simple_cache_app:wait_for_nodes/3 --> ok
+
+2:54:17.111000 <0.131.0> simple_cache_app:wait_for_nodes/3 --> ok
+
+2:54:17.111055 <0.131.0> simple_cache_app:wait_for_nodes/3 --> ok
+
+2:54:17.111097 <0.131.0> simple_cache_app:wait_for_nodes/3 --> ok
+
+2:54:17.111136 <0.131.0> simple_cache_app:wait_for_nodes/2 --> ok
+
+2:54:17.111182 <0.131.0> simple_cache_app:ensure_contact/1 --> ok
+
+2:54:17.111224 <0.131.0> simple_cache_app:ensure_contact/0 --> ok
+
+2:54:17.111265 <0.131.0>  '--> simple_cache_app:start/2
+
+2:54:17.111305 <0.131.0> resource_discovery:add_local_resource(simple_cache, 'mynode3@centos7-mq1')
+
+2:54:17.111352 <0.131.0> rd_server:add_local_resource(simple_cache, 'mynode3@centos7-mq1')
+
+2:54:17.111401 <0.131.0> rd_server:add_local_resource/2 --> ok
+
+2:54:17.111445 <0.131.0> resource_discovery:add_local_resource/2 --> ok
+
+2:54:17.111485 <0.131.0>  '--> simple_cache_app:start/2
+
+2:54:17.111524 <0.131.0> resource_discovery:add_target_resource_type(simple_cache)
+
+2:54:17.111571 <0.131.0> rd_server:add_target_resource_type(simple_cache)
+
+2:54:17.111612 <0.131.0> rd_server:add_target_resource_type/1 --> ok
+
+2:54:17.111655 <0.131.0> resource_discovery:add_target_resource_type/1 --> ok
+
+2:54:17.111708 <0.131.0>  '--> simple_cache_app:start/2
+
+2:54:17.111747 <0.131.0> resource_discovery:trade_resources()
+
+2:54:17.111792 <0.131.0> rd_server:trade_resources()
+
+2:54:17.111844 <0.131.0> rd_server:trade_resources/0 --> ok
+
+2:54:17.111893 <0.131.0> resource_discovery:trade_resources/0 --> ok
+
+2:54:17.111939 <0.131.0>  '--> simple_cache_app:start/2
+
+2:54:17.112001 <0.128.0> rd_server:handle_cast({add_local_resource,{simple_cache,'mynode3@centos7-mq1'}}, {state,[],
+       {dict,0,16,16,8,80,48,
+             {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+             {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}},
+       {dict,0,16,16,8,80,48,
+             {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+             {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}})
+
+2:54:17.112209 <0.128.0> rd_server:add_resource(simple_cache, 'mynode3@centos7-mq1', {dict,0,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}})
+
+2:54:17.112299 <0.128.0> rd_server:add_resource/3 --> {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}}
+
+2:54:17.112401 <0.128.0>  '--> rd_server:handle_cast/2
+
+2:54:17.112440 <0.128.0> rd_server:handle_cast/2 --> {noreply,{state,[],
+                {dict,1,16,16,8,80,48,
+                      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                      {{[],[],[],[],[],
+                        [[simple_cache,'mynode3@centos7-mq1']],
+                        [],[],[],[],[],[],[],[],[],[]}}},
+                {dict,0,16,16,8,80,48,
+                      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                      {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}}}
+
+2:54:17.112633 <0.128.0>  '--> gen_server:try_handle_cast/3
+
+2:54:17.112686 <0.128.0> rd_server:handle_cast({add_target_resource_type,simple_cache}, {state,[],
+       {dict,1,16,16,8,80,48,
+             {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+             {{[],[],[],[],[],
+               [[simple_cache,'mynode3@centos7-mq1']],
+               [],[],[],[],[],[],[],[],[],[]}}},
+       {dict,0,16,16,8,80,48,
+             {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+             {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}})
+
+2:54:17.112866 <0.128.0> rd_server:handle_cast/2 --> {noreply,{state,[simple_cache],
+                {dict,1,16,16,8,80,48,
+                      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                      {{[],[],[],[],[],
+                        [[simple_cache,'mynode3@centos7-mq1']],
+                        [],[],[],[],[],[],[],[],[],[]}}},
+                {dict,0,16,16,8,80,48,
+                      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                      {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}}}
+
+2:54:17.113067 <0.128.0>  '--> gen_server:try_handle_cast/3
+
+2:54:17.113122 <0.128.0> rd_server:handle_cast(trade_resources, {state,[simple_cache],
+       {dict,1,16,16,8,80,48,
+             {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+             {{[],[],[],[],[],
+               [[simple_cache,'mynode3@centos7-mq1']],
+               [],[],[],[],[],[],[],[],[],[]}}},
+       {dict,0,16,16,8,80,48,
+             {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+             {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}})
+
+2:54:17.113285 <0.128.0> rd_server:'-handle_cast/2-fun-0-'('mynode3@centos7-mq1', {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}})
+
+2:54:17.113433 <0.128.0> rd_server:'-handle_cast/2-fun-0-'/2 --> ok
+
+2:54:17.113495 <0.128.0>  '--> lists:foreach_1/2
+
+2:54:17.113538 <0.128.0> rd_server:'-handle_cast/2-fun-0-'('contact1@centos7-mq1', {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}})
+
+2:54:17.113639 <0.128.0> rd_server:'-handle_cast/2-fun-0-'/2 --> ok
+
+2:54:17.113683 <0.128.0>  '--> lists:foreach_1/2
+
+2:54:17.113723 <0.128.0> rd_server:'-handle_cast/2-fun-0-'('contact2@centos7-mq1', {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}})
+
+2:54:17.113837 <0.128.0> rd_server:'-handle_cast/2-fun-0-'/2 --> ok
+
+2:54:17.113879 <0.128.0>  '--> lists:foreach_1/2
+
+2:54:17.113917 <0.128.0> rd_server:handle_cast/2 --> {noreply,{state,[simple_cache],
+                {dict,1,16,16,8,80,48,
+                      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                      {{[],[],[],[],[],
+                        [[simple_cache,'mynode3@centos7-mq1']],
+                        [],[],[],[],[],[],[],[],[],[]}}},
+                {dict,0,16,16,8,80,48,
+                      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                      {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}}}
+
+2:54:17.114110 <0.128.0>  '--> gen_server:try_handle_cast/3
+
+2:54:17.114170 <0.128.0> rd_server:handle_cast({trade_resources,
+    {'mynode3@centos7-mq1',
+        {dict,1,16,16,8,80,48,
+            {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+            {{[],[],[],[],[],
+              [[simple_cache,'mynode3@centos7-mq1']],
+              [],[],[],[],[],[],[],[],[],[]}}}}}, {state,[simple_cache],
+       {dict,1,16,16,8,80,48,
+             {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+             {{[],[],[],[],[],
+               [[simple_cache,'mynode3@centos7-mq1']],
+               [],[],[],[],[],[],[],[],[],[]}}},
+       {dict,0,16,16,8,80,48,
+             {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+             {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}}})
+
+2:54:17.114404 <0.128.0> rd_server:resources_for_types([simple_cache], {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}})
+
+2:54:17.114520 <0.128.0> rd_server:'-resources_for_types/2-fun-1-'(simple_cache, [], {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}})
+
+2:54:17.114613 <0.128.0> rd_server:'-resources_for_types/2-lc$^0/1-0-'(['mynode3@centos7-mq1'], [], simple_cache)
+
+2:54:17.114675 <0.128.0> rd_server:'-resources_for_types/2-lc$^0/1-0-'([], [], simple_cache)
+
+2:54:17.114729 <0.128.0> rd_server:'-resources_for_types/2-lc$^0/1-0-'/3 --> []
+
+2:54:17.114779 <0.128.0>  '--> rd_server:'-resources_for_types/2-lc$^0/1-0-'/3
+
+2:54:17.114821 <0.128.0> rd_server:'-resources_for_types/2-lc$^0/1-0-'/3 --> [{simple_cache,'mynode3@centos7-mq1'}]
+
+2:54:17.114879 <0.128.0> rd_server:'-resources_for_types/2-fun-1-'/3 --> [{simple_cache,'mynode3@centos7-mq1'}]
+
+2:54:17.114936 <0.128.0>  '--> lists:foldl/3
+
+2:54:17.114987 <0.128.0> rd_server:resources_for_types/2 --> [{simple_cache,'mynode3@centos7-mq1'}]
+
+2:54:17.115054 <0.128.0>  '--> rd_server:handle_cast/2
+
+2:54:17.115101 <0.128.0> rd_server:add_resources([{simple_cache,'mynode3@centos7-mq1'}], {dict,0,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}})
+
+2:54:17.115187 <0.128.0> rd_server:add_resource(simple_cache, 'mynode3@centos7-mq1', {dict,0,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]}}})
+
+2:54:17.115268 <0.128.0> rd_server:add_resource/3 --> {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}}
+
+2:54:17.115361 <0.128.0>  '--> rd_server:add_resources/2
+
+2:54:17.115410 <0.128.0> rd_server:add_resources([], {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}})
+
+2:54:17.115497 <0.128.0> rd_server:add_resources/2 --> {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}}
+
+2:54:17.115588 <0.128.0> rd_server:add_resources/2 --> {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}}
+
+2:54:17.115691 <0.128.0>  '--> rd_server:handle_cast/2
+
+2:54:17.115731 <0.128.0> rd_server:handle_cast/2 --> {noreply,{state,[simple_cache],
+                {dict,1,16,16,8,80,48,
+                      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                      {{[],[],[],[],[],
+                        [[simple_cache,'mynode3@centos7-mq1']],
+                        [],[],[],[],[],[],[],[],[],[]}}},
+                {dict,1,16,16,8,80,48,
+                      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                      {{[],[],[],[],[],
+                        [[simple_cache,'mynode3@centos7-mq1']],
+                        [],[],[],[],[],[],[],[],[],[]}}}}}
+
+2:54:17.115951 <0.128.0>  '--> gen_server:try_handle_cast/3
+
+2:54:17.116015 <0.128.0> rd_server:handle_cast({trade_resources,{noreply,{dict,1,16,16,8,80,48,
+                                {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                                 []},
+                                {{[],[],[],[],[],
+                                  [[simple_cache,'mynode3@centos7-mq1']],
+                                  [],[],[],[],[],[],[],[],[],[]}}}}}, {state,[simple_cache],
+       {dict,1,16,16,8,80,48,
+             {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+             {{[],[],[],[],[],
+               [[simple_cache,'mynode3@centos7-mq1']],
+               [],[],[],[],[],[],[],[],[],[]}}},
+       {dict,1,16,16,8,80,48,
+             {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+             {{[],[],[],[],[],
+               [[simple_cache,'mynode3@centos7-mq1']],
+               [],[],[],[],[],[],[],[],[],[]}}}})
+
+2:54:17.116289 <0.128.0> rd_server:resources_for_types([simple_cache], {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}})
+
+2:54:17.116415 <0.128.0> rd_server:'-resources_for_types/2-fun-1-'(simple_cache, [], {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}})
+
+2:54:17.116516 <0.128.0> rd_server:'-resources_for_types/2-lc$^0/1-0-'(['mynode3@centos7-mq1'], [], simple_cache)
+
+2:54:17.116579 <0.128.0> rd_server:'-resources_for_types/2-lc$^0/1-0-'([], [], simple_cache)
+
+2:54:17.116634 <0.128.0> rd_server:'-resources_for_types/2-lc$^0/1-0-'/3 --> []
+
+2:54:17.116678 <0.128.0>  '--> rd_server:'-resources_for_types/2-lc$^0/1-0-'/3
+
+2:54:17.116726 <0.128.0> rd_server:'-resources_for_types/2-lc$^0/1-0-'/3 --> [{simple_cache,'mynode3@centos7-mq1'}]
+
+2:54:17.116782 <0.128.0> rd_server:'-resources_for_types/2-fun-1-'/3 --> [{simple_cache,'mynode3@centos7-mq1'}]
+
+2:54:17.116833 <0.128.0>  '--> lists:foldl/3
+
+2:54:17.116875 <0.128.0> rd_server:resources_for_types/2 --> [{simple_cache,'mynode3@centos7-mq1'}]
+
+2:54:17.116932 <0.128.0>  '--> rd_server:handle_cast/2
+
+2:54:17.116985 <0.128.0> rd_server:add_resources([{simple_cache,'mynode3@centos7-mq1'}], {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}})
+
+2:54:17.117097 <0.128.0> rd_server:add_resource(simple_cache, 'mynode3@centos7-mq1', {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}})
+
+2:54:17.117197 <0.128.0> rd_server:add_resource/3 --> {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}}
+
+2:54:17.117291 <0.128.0>  '--> rd_server:add_resources/2
+
+2:54:17.117329 <0.128.0> rd_server:add_resources([], {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}})
+
+2:54:17.117410 <0.128.0> rd_server:add_resources/2 --> {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}}
+
+2:54:17.117517 <0.128.0> rd_server:add_resources/2 --> {dict,1,16,16,8,80,48,
+      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+      {{[],[],[],[],[],
+        [[simple_cache,'mynode3@centos7-mq1']],
+        [],[],[],[],[],[],[],[],[],[]}}}
+
+2:54:17.117605 <0.128.0>  '--> rd_server:handle_cast/2
+
+2:54:17.117645 <0.128.0> rd_server:handle_cast/2 --> {noreply,{state,[simple_cache],
+                {dict,1,16,16,8,80,48,
+                      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                      {{[],[],[],[],[],
+                        [[simple_cache,'mynode3@centos7-mq1']],
+                        [],[],[],[],[],[],[],[],[],[]}}},
+                {dict,1,16,16,8,80,48,
+                      {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                      {{[],[],[],[],[],
+                        [[simple_cache,'mynode3@centos7-mq1']],
+                        [],[],[],[],[],[],[],[],[],[]}}}}}
+
+2:54:17.117848 <0.128.0>  '--> gen_server:try_handle_cast/3
+
+2:54:19.610708 <0.131.0> sc_store:init()
+
+2:54:19.610969 <0.131.0> mnesia:stop()
+
+2:54:19.611078 <0.131.0> mnesia:stop/0 --> stopped
+
+2:54:19.611146 <0.131.0>  '--> sc_store:init/0
+
+2:54:19.611190 <0.131.0> mnesia:delete_schema(['mynode3@centos7-mq1'])
+
+2:54:19.612395 <0.131.0> mnesia:system_info(is_running)
+
+2:54:19.612476 <0.131.0> mnesia:system_info2(is_running)
+
+2:54:19.612569 <0.131.0> mnesia:system_info2/1 --> no
+
+2:54:19.612644 <0.131.0>  '--> mnesia:system_info/1
+
+2:54:19.612741 <0.131.0> mnesia:system_info/1 --> no
+
+2:54:19.612842 <0.131.0>  '--> mnesia_schema:read_schema/2
+
+2:54:19.613247 <0.131.0> mnesia:delete_schema/1 --> ok
+
+2:54:19.613377 <0.131.0>  '--> sc_store:init/0
+
+2:54:19.613569 <0.131.0> mnesia:start()
+
+2:54:19.613691 <0.131.0> mnesia:start([])
+
+2:54:19.613841 <0.131.0> mnesia:patched_start([])
+
+2:54:19.613935 <0.131.0> mnesia:start_()
+
+2:54:19.614062 <0.147.0> mnesia:system_info(version)
+
+2:54:19.614157 <0.147.0> mnesia:system_info2(version)
+
+2:54:19.614240 <0.147.0> mnesia:system_info2/1 --> "4.22.1"
+
+2:54:19.614335 <0.147.0>  '--> mnesia:system_info/1
+
+2:54:19.614482 <0.147.0> mnesia:system_info/1 --> "4.22.1"
+
+2:54:19.615020 <0.147.0>  '--> mnesia_monitor:init/1
+
+2:54:19.615232 <0.151.0> mnesia:system_info(is_running)
+
+2:54:19.615575 <0.151.0> mnesia:system_info2(is_running)
+
+2:54:19.615817 <0.151.0> mnesia:system_info2/1 --> starting
+
+2:54:19.616119 <0.151.0>  '--> mnesia:system_info/1
+
+2:54:19.616305 <0.151.0> mnesia:system_info/1 --> starting
+
+2:54:19.616481 <0.151.0>  '--> mnesia_schema:read_schema/2
+
+2:54:19.616647 <0.151.0> mnesia:system_info(db_nodes)
+
+2:54:19.616795 <0.151.0> mnesia:system_info2(db_nodes)
+
+2:54:19.616955 <0.151.0> mnesia:system_info2/1 --> ['mynode3@centos7-mq1']
+
+2:54:19.617163 <0.151.0>  '--> mnesia:system_info/1
+
+2:54:19.617310 <0.151.0> mnesia:system_info/1 --> ['mynode3@centos7-mq1']
+
+2:54:19.617558 <0.151.0>  '--> mnesia_lib:all_nodes/0
+
+2:54:19.617741 <0.151.0> mnesia:system_info(extra_db_nodes)
+
+2:54:19.617815 <0.151.0> mnesia:system_info2(extra_db_nodes)
+
+2:54:19.617909 <0.151.0> mnesia:system_info2/1 --> []
+
+2:54:19.617997 <0.151.0>  '--> mnesia:system_info/1
+
+2:54:19.618066 <0.151.0> mnesia:system_info/1 --> []
+
+2:54:19.618141 <0.151.0>  '--> mnesia_lib:all_nodes/0
+
+2:54:19.618219 <0.154.0> mnesia:system_info(db_nodes)
+
+2:54:19.618311 <0.154.0> mnesia:system_info2(db_nodes)
+
+2:54:19.618410 <0.154.0> mnesia:system_info2/1 --> ['mynode3@centos7-mq1']
+
+2:54:19.618519 <0.154.0>  '--> mnesia:system_info/1
+
+2:54:19.618588 <0.154.0> mnesia:system_info/1 --> ['mynode3@centos7-mq1']
+
+2:54:19.618673 <0.154.0>  '--> mnesia_lib:all_nodes/0
+
+2:54:19.618755 <0.154.0> mnesia:system_info(extra_db_nodes)
+
+2:54:19.618822 <0.154.0> mnesia:system_info2(extra_db_nodes)
+
+2:54:19.618886 <0.154.0> mnesia:system_info2/1 --> []
+
+2:54:19.618947 <0.154.0>  '--> mnesia:system_info/1
+
+2:54:19.619014 <0.154.0> mnesia:system_info/1 --> []
+
+2:54:19.619080 <0.154.0>  '--> mnesia_lib:all_nodes/0
+
+2:54:19.619141 <0.155.0> mnesia:system_info(db_nodes)
+
+2:54:19.619218 <0.155.0> mnesia:system_info2(db_nodes)
+
+2:54:19.619288 <0.155.0> mnesia:system_info2/1 --> ['mynode3@centos7-mq1']
+
+2:54:19.619391 <0.155.0>  '--> mnesia:system_info/1
+
+2:54:19.619461 <0.155.0> mnesia:system_info/1 --> ['mynode3@centos7-mq1']
+
+2:54:19.619560 <0.155.0>  '--> mnesia_lib:all_nodes/0
+
+2:54:19.619631 <0.155.0> mnesia:system_info(extra_db_nodes)
+
+2:54:19.619695 <0.155.0> mnesia:system_info2(extra_db_nodes)
+
+2:54:19.619759 <0.155.0> mnesia:system_info2/1 --> []
+
+2:54:19.619829 <0.155.0>  '--> mnesia:system_info/1
+
+2:54:19.619900 <0.155.0> mnesia:system_info/1 --> []
+
+2:54:19.619968 <0.155.0>  '--> mnesia_lib:all_nodes/0
+
+2:54:19.620033 <0.156.0> mnesia:transaction(#Fun<mnesia_schema.60.69755646>)
+
+2:54:19.620105 <0.156.0> mnesia:transaction(undefined, #Fun<mnesia_schema.60.69755646>, [], infinity, mnesia, async)
+
+2:54:19.620193 <0.156.0> mnesia:transaction/6 --> {atomic,not_merged}
+
+2:54:19.620267 <0.156.0> mnesia:transaction/1 --> {atomic,not_merged}
+
+2:54:19.620343 <0.156.0>  '--> mnesia_schema:schema_coordinator/3
+
+2:54:19.620424 <0.155.0> mnesia:transaction(#Fun<mnesia_controller.0.115926952>)
+
+2:54:19.620518 <0.155.0> mnesia:transaction(undefined, #Fun<mnesia_controller.0.115926952>, [], infinity, mnesia, async)
+
+2:54:19.620597 <0.155.0> mnesia:lock({global,mnesia_late_disc_load,['mynode3@centos7-mq1']}, write)
+
+2:54:19.620681 <0.155.0> mnesia:lock({tid,2,<0.155.0>}, {tidstore,#Ref<0.2979857852.837943297.66110>,[],1}, {global,mnesia_late_disc_load,['mynode3@centos7-mq1']}, write)
+
+2:54:19.620789 <0.155.0> mnesia:global_lock({tid,2,<0.155.0>}, {tidstore,#Ref<0.2979857852.837943297.66110>,[],1}, mnesia_late_disc_load, write, ['mynode3@centos7-mq1'])
+
+2:54:19.620889 <0.155.0> mnesia:good_global_nodes(['mynode3@centos7-mq1'])
+
+2:54:19.620969 <0.155.0> mnesia:val(recover_nodes)
+
+2:54:19.621038 <0.155.0> mnesia:val/1 --> []
+
+2:54:19.621103 <0.155.0>  '--> mnesia:good_global_nodes/1
+
+2:54:19.621171 <0.155.0> mnesia:good_global_nodes/1 --> ['mynode3@centos7-mq1']
+
+2:54:19.621241 <0.155.0>  '--> mnesia:global_lock/5
+
+2:54:19.621304 <0.155.0> mnesia:global_lock/5 --> ['mynode3@centos7-mq1']
+
+2:54:19.621386 <0.155.0> mnesia:lock/4 --> ['mynode3@centos7-mq1']
+
+2:54:19.621462 <0.155.0> mnesia:lock/2 --> ['mynode3@centos7-mq1']
+
+2:54:19.621544 <0.155.0>  '--> mnesia_controller:'-try_schedule_late_disc_load/3-fun-0-'/3
+
+2:54:19.621619 <0.155.0> mnesia:transaction/6 --> {atomic,done}
+
+2:54:19.621697 <0.155.0> mnesia:transaction/1 --> {atomic,done}
+
+2:54:19.621773 <0.155.0>  '--> mnesia_controller:try_schedule_late_disc_load/3
+
+2:54:19.621839 <0.131.0> mnesia:start_/0 --> ok
+
+2:54:19.621909 <0.131.0> mnesia:patched_start/1 --> ok
+
+2:54:19.621976 <0.131.0> mnesia:start/1 --> ok
+
+2:54:19.622046 <0.131.0> mnesia:start/0 --> ok
+
+2:54:19.622118 <0.131.0>  '--> sc_store:init/0
+
+2:54:19.622177 <0.131.0> resource_discovery:fetch_resources(simple_cache)
+
+2:54:19.622253 <0.131.0> rd_server:fetch_resources(simple_cache)
+
+2:54:19.622322 <0.128.0> rd_server:handle_call({fetch_resources,simple_cache}, {<0.131.0>,[alias|#Ref<0.0.16771.2979857852.837877761.66124>]}, {state,[simple_cache],
+       {dict,1,16,16,8,80,48,
+             {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+             {{[],[],[],[],[],
+               [[simple_cache,'mynode3@centos7-mq1']],
+               [],[],[],[],[],[],[],[],[],[]}}},
+       {dict,1,16,16,8,80,48,
+             {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+             {{[],[],[],[],[],
+               [[simple_cache,'mynode3@centos7-mq1']],
+               [],[],[],[],[],[],[],[],[],[]}}}})
+
+2:54:19.622645 <0.128.0> rd_server:handle_call/3 --> {reply,{ok,['mynode3@centos7-mq1']},
+       {state,[simple_cache],
+              {dict,1,16,16,8,80,48,
+                    {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                    {{[],[],[],[],[],
+                      [[simple_cache,'mynode3@centos7-mq1']],
+                      [],[],[],[],[],[],[],[],[],[]}}},
+              {dict,1,16,16,8,80,48,
+                    {[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]},
+                    {{[],[],[],[],[],
+                      [[simple_cache,'mynode3@centos7-mq1']],
+                      [],[],[],[],[],[],[],[],[],[]}}}}}
+
+2:54:19.622935 <0.128.0>  '--> gen_server:try_handle_call/4
+
+2:54:19.623009 <0.131.0> rd_server:fetch_resources/1 --> {ok,['mynode3@centos7-mq1']}
+
+2:54:19.623069 <0.131.0> resource_discovery:fetch_resources/1 --> {ok,['mynode3@centos7-mq1']}
+
+2:54:19.623131 <0.131.0>  '--> sc_store:init/0
+
+2:54:19.623188 <0.131.0> sc_store:dynamic_db_init([])
+
+2:54:19.623257 <0.131.0> mnesia:create_table(key_to_pid, [{index,[pid]},{attributes,[key,pid]}])
+
+2:54:19.623359 <0.157.0> mnesia:transaction(#Fun<mnesia_schema.23.69755646>)
+
+2:54:19.623424 <0.157.0> mnesia:transaction(undefined, #Fun<mnesia_schema.23.69755646>, [], infinity, mnesia, async)
+
+2:54:19.623518 <0.157.0> mnesia:transaction/6 --> {atomic,ok}
+
+2:54:19.623597 <0.157.0> mnesia:transaction/1 --> {atomic,ok}
+
+2:54:19.623661 <0.157.0>  '--> mnesia_schema:schema_coordinator/3
+
+2:54:19.623723 <0.131.0> mnesia:create_table/2 --> {atomic,ok}
+
+2:54:19.623781 <0.131.0> sc_store:dynamic_db_init/1 --> {atomic,ok}
+
+2:54:19.623831 <0.131.0> sc_store:init/0 --> {atomic,ok}
+
+2:54:19.623880 <0.131.0>  '--> simple_cache_app:start/2
+
+2:54:19.623935 <0.131.0> simple_cache_sup:start_link()
+
+2:54:19.623998 <0.158.0> simple_cache_sup:init([])
+
+2:54:19.624066 <0.158.0> simple_cache_sup:init/1 --> {ok,{{one_for_one,4,3600},
+     [{sc_element_sup,{sc_element_sup,start_link,[]},
+                      permanent,2000,supervisor,
+                      [sc_element]},
+      {sc_event,{sc_event,start_link,[]},permanent,2000,worker,[sc_event]}]}}
+
+2:54:19.624216 <0.158.0>  '--> supervisor:init/1
+
+2:54:19.624291 <0.158.0> sc_element_sup:start_link()
+
+2:54:19.624360 <0.159.0> sc_element_sup:init([])
+
+2:54:19.624415 <0.159.0> sc_element_sup:init/1 --> {ok,{{simple_one_for_one,0,1},
+     [{sc_element,{sc_element,start_link,[]},
+                  temporary,brutal_kill,worker,
+                  [sc_element]}]}}
+
+2:54:19.624535 <0.159.0>  '--> supervisor:init/1
+
+2:54:19.624591 <0.158.0> sc_element_sup:start_link/0 --> {ok,<0.159.0>}
+
+2:54:19.624663 <0.158.0>  '--> supervisor:do_start_child_i/3
+
+2:54:19.624729 <0.158.0> sc_event:start_link()
+
+2:54:19.624782 <0.158.0> sc_event:start_link/0 --> {ok,<0.160.0>}
+
+2:54:19.624829 <0.158.0>  '--> supervisor:do_start_child_i/3
+
+2:54:19.624886 <0.131.0> simple_cache_sup:start_link/0 --> {ok,<0.158.0>}
+
+2:54:19.624958 <0.131.0>  '--> simple_cache_app:start/2
+
+2:54:19.625028 <0.131.0> sc_event_logger:add_handler()
+
+2:54:19.625076 <0.131.0> sc_event:add_handler(sc_event_logger, [])
+
+2:54:19.625119 <0.160.0> sc_event_logger:init([])
+
+2:54:19.625159 <0.160.0> sc_event_logger:init/1 --> {ok,{state}}
+
+2:54:19.625231 <0.160.0>  '--> gen_event:server_add_handler/4
+
+2:54:19.625295 <0.131.0> sc_event:add_handler/2 --> ok
+
+2:54:19.625374 <0.131.0> sc_event_logger:add_handler/0 --> ok
+
+2:54:19.625433 <0.131.0>  '--> simple_cache_app:start/2
+
+2:54:19.625503 <0.131.0> simple_cache_app:start/2 --> {ok,<0.158.0>}
+
+2:54:19.625559 <0.131.0>  '--> application_master:start_it_old/4
+
+2:54:19.625619 <0.163.0> http_interface_app:start(normal, [])
+
+2:54:19.625689 <0.163.0> http_interface_sup:start_link(1156)
+
+2:54:19.625760 <0.164.0> http_interface_sup:init([1156])
+
+2:54:19.625830 <0.164.0> http_interface_sup:init/1 --> {ok,{{one_for_one,0,1},
+     [{hi_server,{hi_server,start_link,[1156]},
+                 permanent,2000,worker,
+                 [hi_server]}]}}
+
+2:54:19.625943 <0.164.0>  '--> supervisor:init/1
+
+2:54:19.626008 <0.164.0> hi_server:start_link(1156)
+
+2:54:19.626067 <0.164.0> gen_web_server:start_link(hi_server, 1156, [])
+
+2:54:19.626135 <0.164.0> gen_web_server:start_link(hi_server, undefined, 1156, [])
+
+2:54:19.626218 <0.164.0> gws_connection_sup:start_link(hi_server, undefined, 1156, [])
+
+2:54:19.626294 <0.165.0> gws_connection_sup:init([hi_server,undefined,1156,[]])
+
+2:54:19.626377 <0.165.0> gen_tcp:listen(1156, [binary,{active,false},{packet,http_bin},{reuseaddr,true}])
+
+2:54:19.626460 <0.165.0> gen_tcp:listen/2 --> {ok,#Port<0.13>}
+
+2:54:19.626540 <0.165.0>  '--> gws_connection_sup:init/1
+
+2:54:19.626606 <0.165.0> gws_connection_sup:init/1 --> {ok,{{simple_one_for_one,1000,3600},
+     [{gws_server,{gws_server,start_link,[hi_server,#Port<0.13>,[]]},
+                  temporary,brutal_kill,worker,
+                  [gws_server]}]}}
+
+2:54:19.626725 <0.165.0>  '--> supervisor:init/1
+
+2:54:19.626785 <0.164.0> gws_connection_sup:start_child(<0.165.0>)
+
+2:54:19.626858 <0.165.0> gws_server:start_link(hi_server, #Port<0.13>, [])
+
+2:54:19.626927 <0.166.0> gws_server:init([hi_server,#Port<0.13>,[],<0.165.0>])
+
+2:54:19.627003 <0.166.0> hi_server:init([])
+
+2:54:19.627067 <0.166.0> hi_server:init/1 --> {ok,[]}
+
+2:54:19.627140 <0.166.0>  '--> gws_server:init/1
+
+2:54:19.627196 <0.166.0> gws_server:init/1 --> {ok,{state,#Port<0.13>,undefined,undefined,[],<<>>,0,hi_server,[],<0.165.0>},
+    0}
+
+2:54:19.627284 <0.166.0>  '--> gen_server:init_it/2
+
+2:54:19.627342 <0.166.0> gws_server:handle_info(timeout, {state,#Port<0.13>,undefined,undefined,[],<<>>,0,hi_server,[],<0.165.0>})
+
+2:54:19.627426 <0.166.0> gen_tcp:accept(#Port<0.13>)
+
+2:54:19.627554 <0.165.0> gws_server:start_link/3 --> {ok,<0.166.0>}
+
+2:54:19.627624 <0.165.0>  '--> supervisor:do_start_child_i/3
+
+2:54:19.627683 <0.164.0> gws_connection_sup:start_child/1 --> {ok,<0.166.0>}
+
+2:54:19.627751 <0.164.0>  '--> gws_connection_sup:start_link/4
+
+2:54:19.627800 <0.164.0> gws_connection_sup:start_link/4 --> {ok,<0.165.0>}
+
+2:54:19.627861 <0.164.0> gen_web_server:start_link/4 --> {ok,<0.165.0>}
+
+2:54:19.627930 <0.164.0> gen_web_server:start_link/3 --> {ok,<0.165.0>}
+
+2:54:19.628001 <0.164.0> hi_server:start_link/1 --> {ok,<0.165.0>}
+
+2:54:19.628053 <0.164.0>  '--> supervisor:do_start_child_i/3
+
+2:54:19.628090 <0.163.0> http_interface_sup:start_link/1 --> {ok,<0.164.0>}
+
+2:54:19.628158 <0.163.0>  '--> http_interface_app:start/2
+
+2:54:19.628219 <0.163.0> http_interface_app:start/2 --> {ok,<0.164.0>}
+
+2:54:19.628286 <0.163.0>  '--> application_master:start_it_old/4
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+2:54:29.836002 <0.166.0> gen_tcp:accept/1 --> {ok,#Port<0.14>}
+
+2:54:29.836481 <0.166.0>  '--> gws_server:handle_info/2
+
+2:54:29.836665 <0.166.0> gws_connection_sup:start_child(<0.165.0>)
+
+2:54:29.837037 <0.165.0> gws_server:start_link(hi_server, #Port<0.13>, [])
+
+2:54:29.837131 <0.168.0> gws_server:init([hi_server,#Port<0.13>,[],<0.165.0>])
+
+2:54:29.837204 <0.168.0> hi_server:init([])
+
+2:54:29.837294 <0.168.0> hi_server:init/1 --> {ok,[]}
+
+2:54:29.837416 <0.168.0>  '--> gws_server:init/1
+
+2:54:29.837475 <0.168.0> gws_server:init/1 --> {ok,{state,#Port<0.13>,undefined,undefined,[],<<>>,0,hi_server,[],<0.165.0>},
+    0}
+
+2:54:29.837575 <0.168.0>  '--> gen_server:init_it/2
+
+2:54:29.837639 <0.168.0> gws_server:handle_info(timeout, {state,#Port<0.13>,undefined,undefined,[],<<>>,0,hi_server,[],<0.165.0>})
+
+2:54:29.837738 <0.168.0> gen_tcp:accept(#Port<0.13>)
+
+2:54:29.837790 <0.165.0> gws_server:start_link/3 --> {ok,<0.168.0>}
+
+2:54:29.837864 <0.165.0>  '--> supervisor:do_start_child_i/3
+
+accept 始终是新的进程， 原来的进程用来处理消息 handle_info/2
+
+2:54:29.837925 <0.166.0> gws_connection_sup:start_child/1 --> {ok,<0.168.0>}
+
+2:54:29.837987 <0.166.0>  '--> gws_server:handle_info/2
+
+2:54:29.838031 <0.166.0> gws_server:handle_info/2 --> {noreply,{state,#Port<0.13>,#Port<0.14>,undefined,[],<<>>,0,hi_server,[],
+                <0.165.0>}}
+
+2:54:29.838107 <0.166.0>  '--> gen_server:try_handle_info/3
+
+%% 设置了 inet:setopts(Socket,[{active,once}])  然后自动接收消息
+
+
+2:54:29.838154 <0.166.0> gws_server:handle_info({http,#Port<0.14>,{http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}}}, {state,#Port<0.13>,#Port<0.14>,undefined,[],<<>>,0,hi_server,[],<0.165.0>})
+
+2:54:29.838236 <0.166.0> gws_server:handle_info/2 --> {noreply,{state,#Port<0.13>,#Port<0.14>,
+                {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+                [],<<>>,0,hi_server,[],<0.165.0>}}
+
+2:54:29.838339 <0.166.0>  '--> gen_server:try_handle_info/3
+
+2:54:29.838392 <0.166.0> gws_server:handle_info({http,#Port<0.14>,
+      {http_header,24,'User-Agent',<<"User-Agent">>,<<"curl/7.29.0">>}}, {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [],<<>>,0,hi_server,[],<0.165.0>})
+
+2:54:29.838506 <0.166.0> gws_server:header('User-Agent', <<"curl/7.29.0">>, {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [],<<>>,0,hi_server,[],<0.165.0>})
+
+2:54:29.838616 <0.166.0> gws_server:header/3 --> {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>}
+
+2:54:29.838725 <0.166.0>  '--> gws_server:handle_info/2
+
+2:54:29.838776 <0.166.0> gws_server:handle_info/2 --> {noreply,{state,#Port<0.13>,#Port<0.14>,
+                {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+                [{'User-Agent',<<"curl/7.29.0">>}],
+                <<>>,0,hi_server,[],<0.165.0>}}
+
+2:54:29.838914 <0.166.0>  '--> gen_server:try_handle_info/3
+
+2:54:29.838981 <0.166.0> gws_server:handle_info({http,#Port<0.14>,{http_header,14,'Host',<<"Host">>,<<"localhost:1156">>}}, {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>})
+
+2:54:29.839149 <0.166.0> gws_server:header('Host', <<"localhost:1156">>, {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>})
+
+2:54:29.839291 <0.166.0> gws_server:header/3 --> {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Host',<<"localhost:1156">>},{'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>}
+
+2:54:29.839394 <0.166.0>  '--> gws_server:handle_info/2
+
+2:54:29.839467 <0.166.0> gws_server:handle_info/2 --> {noreply,{state,#Port<0.13>,#Port<0.14>,
+                {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+                [{'Host',<<"localhost:1156">>},
+                 {'User-Agent',<<"curl/7.29.0">>}],
+                <<>>,0,hi_server,[],<0.165.0>}}
+
+2:54:29.839636 <0.166.0>  '--> gen_server:try_handle_info/3
+
+2:54:29.839694 <0.166.0> gws_server:handle_info({http,#Port<0.14>,{http_header,8,'Accept',<<"Accept">>,<<"*/*">>}}, {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Host',<<"localhost:1156">>},{'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>})
+
+2:54:29.839830 <0.166.0> gws_server:header('Accept', <<"*/*">>, {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Host',<<"localhost:1156">>},{'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>})
+
+2:54:29.839974 <0.166.0> gws_server:header/3 --> {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>}
+
+2:54:29.840108 <0.166.0>  '--> gws_server:handle_info/2
+
+2:54:29.840178 <0.166.0> gws_server:handle_info/2 --> {noreply,{state,#Port<0.13>,#Port<0.14>,
+                {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+                [{'Accept',<<"*/*">>},
+                 {'Host',<<"localhost:1156">>},
+                 {'User-Agent',<<"curl/7.29.0">>}],
+                <<>>,0,hi_server,[],<0.165.0>}}
+
+2:54:29.840357 <0.166.0>  '--> gen_server:try_handle_info/3
+
+2:54:29.840445 <0.166.0> gws_server:handle_info({http,#Port<0.14>,
+      {http_header,38,'Content-Length',<<"Content-Length">>,<<"9">>}}, {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>})
+
+2:54:29.840622 <0.166.0> gws_server:header('Content-Length', <<"9">>, {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>})
+
+2:54:29.840776 <0.166.0> gws_server:header/3 --> {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Content-Length',<<"9">>},
+        {'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,9,hi_server,[],<0.165.0>}
+
+2:54:29.840938 <0.166.0>  '--> gws_server:handle_info/2
+
+2:54:29.841003 <0.166.0> gws_server:handle_info/2 --> {noreply,{state,#Port<0.13>,#Port<0.14>,
+                {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+                [{'Content-Length',<<"9">>},
+                 {'Accept',<<"*/*">>},
+                 {'Host',<<"localhost:1156">>},
+                 {'User-Agent',<<"curl/7.29.0">>}],
+                <<>>,9,hi_server,[],<0.165.0>}}
+
+2:54:29.841171 <0.166.0>  '--> gen_server:try_handle_info/3
+
+2:54:29.841260 <0.166.0> gws_server:handle_info({http,#Port<0.14>,
+      {http_header,0,<<"Expect">>,<<"Expect">>,<<"100-continue">>}}, {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Content-Length',<<"9">>},
+        {'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,9,hi_server,[],<0.165.0>})
+
+2:54:29.841429 <0.166.0> gws_server:header(<<"Expect">>, <<"100-continue">>, {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Content-Length',<<"9">>},
+        {'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,9,hi_server,[],<0.165.0>})
+
+2:54:29.841613 <0.166.0> gen_web_server:http_reply(100)
+
+2:54:29.841699 <0.166.0> gen_web_server:http_reply(100, <<>>)
+
+2:54:29.841760 <0.166.0> gen_web_server:http_reply(100, [{"Content-Type","text/html"}], <<>>)
+
+2:54:29.841838 <0.166.0> gen_web_server:response(100)
+
+2:54:29.841918 <0.166.0> gen_web_server:response/1 --> "100 Continue"
+
+2:54:29.841990 <0.166.0>  '--> gen_web_server:http_reply/3
+
+2:54:29.842044 <0.166.0> gen_web_server:headers([{"Content-Type","text/html"}])
+
+2:54:29.842094 <0.166.0> gen_web_server:headers([])
+
+2:54:29.842142 <0.166.0> gen_web_server:headers/1 --> []
+
+2:54:29.842207 <0.166.0>  '--> gen_web_server:headers/1
+
+2:54:29.842252 <0.166.0> gen_web_server:headers/1 --> [["Content-Type",58,32,"text/html",13,10]]
+
+2:54:29.842311 <0.166.0>  '--> gen_web_server:http_reply/3
+
+2:54:29.842351 <0.166.0> gen_web_server:http_reply/3 --> [[72,84,84,80,47,49,46,49,32,"100 Continue",13,10,
+  [["Content-Type",58,32,"text/html",13,10]],
+  67,111,110,116,101,110,116,45,76,101,110,103,116,104,58,32,"0",13,10,13,10],
+ <<>>]
+
+2:54:29.842449 <0.166.0> gen_web_server:http_reply/2 --> [[72,84,84,80,47,49,46,49,32,"100 Continue",13,10,
+  [["Content-Type",58,32,"text/html",13,10]],
+  67,111,110,116,101,110,116,45,76,101,110,103,116,104,58,32,"0",13,10,13,10],
+ <<>>]
+
+2:54:29.842544 <0.166.0> gen_web_server:http_reply/1 --> [[72,84,84,80,47,49,46,49,32,"100 Continue",13,10,
+  [["Content-Type",58,32,"text/html",13,10]],
+  67,111,110,116,101,110,116,45,76,101,110,103,116,104,58,32,"0",13,10,13,10],
+ <<>>]
+
+2:54:29.842641 <0.166.0>  '--> gws_server:header/3
+
+2:54:29.842713 <0.166.0> gen_tcp:send(#Port<0.14>, [[72,84,84,80,47,49,46,49,32,"100 Continue",13,10,
+  [["Content-Type",58,32,"text/html",13,10]],
+  67,111,110,116,101,110,116,45,76,101,110,103,116,104,58,32,"0",13,10,13,10],
+ <<>>])
+
+2:54:29.842830 <0.166.0> gen_tcp:send/2 --> ok
+
+2:54:29.842905 <0.166.0>  '--> gws_server:header/3
+
+2:54:29.842984 <0.166.0> gws_server:header/3 --> {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{<<"Expect">>,<<"100-continue">>},
+        {'Content-Length',<<"9">>},
+        {'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,9,hi_server,[],<0.165.0>}
+
+2:54:29.843200 <0.166.0>  '--> gws_server:handle_info/2
+
+2:54:29.843261 <0.166.0> gws_server:handle_info/2 --> {noreply,{state,#Port<0.13>,#Port<0.14>,
+                {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+                [{<<"Expect">>,<<"100-continue">>},
+                 {'Content-Length',<<"9">>},
+                 {'Accept',<<"*/*">>},
+                 {'Host',<<"localhost:1156">>},
+                 {'User-Agent',<<"curl/7.29.0">>}],
+                <<>>,9,hi_server,[],<0.165.0>}}
+
+2:54:29.843464 <0.166.0>  '--> gen_server:try_handle_info/3
+
+2:54:29.843535 <0.166.0> gws_server:handle_info({http,#Port<0.14>,http_eoh}, {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{<<"Expect">>,<<"100-continue">>},
+        {'Content-Length',<<"9">>},
+        {'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,9,hi_server,[],<0.165.0>})
+
+2:54:29.843683 <0.166.0> gws_server:handle_info/2 --> {noreply,{state,#Port<0.13>,#Port<0.14>,
+                {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+                [{<<"Expect">>,<<"100-continue">>},
+                 {'Content-Length',<<"9">>},
+                 {'Accept',<<"*/*">>},
+                 {'Host',<<"localhost:1156">>},
+                 {'User-Agent',<<"curl/7.29.0">>}],
+                <<>>,9,hi_server,[],<0.165.0>}}
+
+2:54:29.843831 <0.166.0>  '--> gen_server:try_handle_info/3
+
+2:54:29.843955 <0.166.0> gws_server:handle_info({tcp,#Port<0.14>,<<"Erlang26\n">>}, {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{<<"Expect">>,<<"100-continue">>},
+        {'Content-Length',<<"9">>},
+        {'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,9,hi_server,[],<0.165.0>})
+
+2:54:29.844131 <0.166.0> gws_server:handle_http_request({state,#Port<0.13>,#Port<0.14>,
+
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{<<"Expect">>,<<"100-continue">>},
+        {'Content-Length',<<"9">>},
+        {'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<"Erlang26\n">>,0,hi_server,[],<0.165.0>})
+
+2:54:29.844289 <0.166.0> gws_server:dispatch('PUT', {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}}, [{<<"Expect">>,<<"100-continue">>},
+ {'Content-Length',<<"9">>},
+ {'Accept',<<"*/*">>},
+ {'Host',<<"localhost:1156">>},
+ {'User-Agent',<<"curl/7.29.0">>}], <<"Erlang26\n">>, hi_server, [])
+
+2:54:29.844443 <0.166.0> hi_server:put({http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}}, [{<<"Expect">>,<<"100-continue">>},
+ {'Content-Length',<<"9">>},
+ {'Accept',<<"*/*">>},
+ {'Host',<<"localhost:1156">>},
+ {'User-Agent',<<"curl/7.29.0">>}], <<"Erlang26\n">>, [])
+
+2:54:29.844594 <0.166.0> simple_cache:insert(<<"xyzzy">>, <<"Erlang26\n">>)
+
+2:54:29.844665 <0.166.0> sc_store:lookup(<<"xyzzy">>)
+
+2:54:29.844718 <0.166.0> mnesia:dirty_read(key_to_pid, <<"xyzzy">>)
+
+2:54:29.844767 <0.166.0> mnesia:dirty_rpc(key_to_pid, mnesia_lib, db_get, [key_to_pid,<<"xyzzy">>])
+
+2:54:29.844828 <0.166.0> mnesia:val({key_to_pid,where_to_read})
+
+2:54:29.844902 <0.166.0> mnesia:val/1 --> 'mynode3@centos7-mq1'
+
+2:54:29.844989 <0.166.0>  '--> mnesia:dirty_rpc/4
+
+2:54:29.845052 <0.166.0> mnesia:do_dirty_rpc(key_to_pid, 'mynode3@centos7-mq1', mnesia_lib, db_get, [key_to_pid,<<"xyzzy">>])
+
+2:54:29.845131 <0.166.0> mnesia:do_dirty_rpc/5 --> []
+
+2:54:29.845204 <0.166.0> mnesia:dirty_rpc/4 --> []
+
+2:54:29.845270 <0.166.0> mnesia:dirty_read/2 --> []
+
+2:54:29.845338 <0.166.0>  '--> sc_store:lookup/1
+
+2:54:29.845408 <0.166.0> sc_store:lookup/1 --> {error,not_found}
+
+2:54:29.845479 <0.166.0>  '--> simple_cache:insert/2
+
+2:54:29.845524 <0.166.0> sc_element:create(<<"Erlang26\n">>)
+
+2:54:29.845589 <0.166.0> sc_element:create(<<"Erlang26\n">>, 86400)
+
+2:54:29.845657 <0.166.0> sc_element_sup:start_child(<<"Erlang26\n">>, 86400)
+
+2:54:29.845732 <0.159.0> sc_element:start_link(<<"Erlang26\n">>, 86400)
+
+2:54:29.845798 <0.169.0> sc_element:init([<<"Erlang26\n">>,86400])
+
+2:54:29.845865 <0.169.0> sc_element:time_left(63865853669, 86400)
+
+2:54:29.845948 <0.169.0> sc_element:time_left/2 --> 86400000
+
+2:54:29.845997 <0.169.0>  '--> sc_element:init/1
+
+2:54:29.846041 <0.169.0> sc_element:init/1 --> {ok,{state,<<"Erlang26\n">>,86400,63865853669},86400000}
+
+2:54:29.846098 <0.169.0>  '--> gen_server:init_it/2
+
+2:54:29.846163 <0.159.0> sc_element:start_link/2 --> {ok,<0.169.0>}
+
+2:54:29.846216 <0.159.0>  '--> supervisor:do_start_child_i/3
+
+2:54:29.846259 <0.166.0> sc_element_sup:start_child/2 --> {ok,<0.169.0>}
+
+2:54:29.846309 <0.166.0> sc_element:create/2 --> {ok,<0.169.0>}
+
+2:54:29.846384 <0.166.0> sc_element:create/1 --> {ok,<0.169.0>}
+
+2:54:29.846453 <0.166.0>  '--> simple_cache:insert/2
+
+2:54:29.846519 <0.166.0> sc_store:insert(<<"xyzzy">>, <0.169.0>)
+
+2:54:29.846593 <0.166.0> mnesia:dirty_write({key_to_pid,<<"xyzzy">>,<0.169.0>})
+
+2:54:29.846668 <0.166.0> mnesia:dirty_write(key_to_pid, {key_to_pid,<<"xyzzy">>,<0.169.0>})
+
+2:54:29.846747 <0.166.0> mnesia:do_dirty_write(async_dirty, key_to_pid, {key_to_pid,<<"xyzzy">>,<0.169.0>})
+
+2:54:29.846826 <0.166.0> mnesia:do_dirty_write/3 --> ok
+
+2:54:29.846935 <0.166.0> mnesia:dirty_write/2 --> ok
+
+2:54:29.847014 <0.166.0> mnesia:dirty_write/1 --> ok
+
+2:54:29.847080 <0.166.0> sc_store:insert/2 --> ok
+
+2:54:29.847151 <0.166.0>  '--> simple_cache:insert/2
+
+2:54:29.847210 <0.166.0> sc_event:create(<<"xyzzy">>, <<"Erlang26\n">>)
+
+2:54:29.847283 <0.166.0> sc_event:create/2 --> ok
+
+2:54:29.847341 <0.166.0> simple_cache:insert/2 --> ok
+
+2:54:29.847414 <0.166.0>  '--> hi_server:put/4
+
+2:54:29.847476 <0.166.0> gen_web_server:http_reply(200)
+
+2:54:29.847542 <0.166.0> gen_web_server:http_reply(200, <<>>)
+
+2:54:29.847609 <0.166.0> gen_web_server:http_reply(200, [{"Content-Type","text/html"}], <<>>)
+
+2:54:29.847683 <0.166.0> gen_web_server:response(200)
+
+2:54:29.847745 <0.166.0> gen_web_server:response/1 --> "200 OK"
+
+2:54:29.847815 <0.160.0> sc_event_logger:handle_event({create,{<<"xyzzy">>,<<"Erlang26\n">>}}, {state})
+
+2:54:29.847908 <0.166.0>  '--> gen_web_server:http_reply/3
+
+2:54:29.847974 <0.166.0> gen_web_server:headers([{"Content-Type","text/html"}])
+
+2:54:29.848046 <0.166.0> gen_web_server:headers([])
+
+2:54:29.848112 <0.166.0> gen_web_server:headers/1 --> []
+
+2:54:29.848179 <0.166.0>  '--> gen_web_server:headers/1
+
+2:54:29.848244 <0.166.0> gen_web_server:headers/1 --> [["Content-Type",58,32,"text/html",13,10]]
+
+2:54:29.848312 <0.166.0>  '--> gen_web_server:http_reply/3
+
+2:54:29.848381 <0.166.0> gen_web_server:http_reply/3 --> [[72,84,84,80,47,49,46,49,32,"200 OK",13,10,
+  [["Content-Type",58,32,"text/html",13,10]],
+  67,111,110,116,101,110,116,45,76,101,110,103,116,104,58,32,"0",13,10,13,10],
+ <<>>]
+
+2:54:29.848598 <0.166.0> gen_web_server:http_reply/2 --> [[72,84,84,80,47,49,46,49,32,"200 OK",13,10,
+  [["Content-Type",58,32,"text/html",13,10]],
+  67,111,110,116,101,110,116,45,76,101,110,103,116,104,58,32,"0",13,10,13,10],
+ <<>>]
+
+2:54:29.848709 <0.166.0> gen_web_server:http_reply/1 --> [[72,84,84,80,47,49,46,49,32,"200 OK",13,10,
+  [["Content-Type",58,32,"text/html",13,10]],
+  67,111,110,116,101,110,116,45,76,101,110,103,116,104,58,32,"0",13,10,13,10],
+ <<>>]
+
+2:54:29.848826 <0.166.0> hi_server:put/4 --> [[72,84,84,80,47,49,46,49,32,"200 OK",13,10,
+  [["Content-Type",58,32,"text/html",13,10]],
+  67,111,110,116,101,110,116,45,76,101,110,103,116,104,58,32,"0",13,10,13,10],
+ <<>>]
+
+2:54:29.848987 <0.166.0> gws_server:dispatch/6 --> [[72,84,84,80,47,49,46,49,32,"200 OK",13,10,
+  [["Content-Type",58,32,"text/html",13,10]],
+  67,111,110,116,101,110,116,45,76,101,110,103,116,104,58,32,"0",13,10,13,10],
+ <<>>]
+
+2:54:29.849094 <0.166.0>  '--> gws_server:handle_http_request/1
+
+2:54:29.849155 <0.166.0> gen_tcp:send(#Port<0.14>, [[72,84,84,80,47,49,46,49,32,"200 OK",13,10,
+  [["Content-Type",58,32,"text/html",13,10]],
+  67,111,110,116,101,110,116,45,76,101,110,103,116,104,58,32,"0",13,10,13,10],
+ <<>>])
+
+2:54:29.849266 <0.166.0> gen_tcp:send/2 --> ok
+
+2:54:29.849332 <0.166.0>  '--> gws_server:handle_http_request/1
+
+2:54:29.849403 <0.166.0> gws_server:handle_http_request/1 --> {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{<<"Expect">>,<<"100-continue">>},
+        {'Content-Length',<<"9">>},
+        {'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<"Erlang26\n">>,0,hi_server,[],<0.165.0>}
+
+2:54:29.849583 <0.166.0>  '--> gws_server:handle_info/2
+
+2:54:29.849653 <0.166.0> gws_server:handle_info/2 --> {stop,normal,
+      {state,#Port<0.13>,#Port<0.14>,
+             {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+             [{<<"Expect">>,<<"100-continue">>},
+              {'Content-Length',<<"9">>},
+              {'Accept',<<"*/*">>},
+              {'Host',<<"localhost:1156">>},
+              {'User-Agent',<<"curl/7.29.0">>}],
+             <<"Erlang26\n">>,0,hi_server,[],<0.165.0>}}
+
+2:54:29.849827 <0.166.0>  '--> gen_server:try_handle_info/3
+
+2:54:29.849924 <0.166.0> gws_server:terminate(normal, {state,#Port<0.13>,#Port<0.14>,
+       {http_request,'PUT',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{<<"Expect">>,<<"100-continue">>},
+        {'Content-Length',<<"9">>},
+        {'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<"Erlang26\n">>,0,hi_server,[],<0.165.0>})
+
+2:54:29.851560 <0.166.0> gws_server:terminate/2 --> ok
+
+2:54:29.852197 <0.166.0>  '--> gen_server:try_terminate/3
+
+2:54:29.852372 <0.160.0> sc_event_logger:handle_event/2 --> {ok,{state}}
+
+2:54:29.852454 <0.160.0>  '--> gen_event:server_update/4
+
+
+%%%%%%%%%%%%%%%%%
+这里处理完毕 insert
+
+2:54:31.240125 <0.168.0> gen_tcp:accept/1 --> {ok,#Port<0.15>}
+
+2:54:31.240343 <0.168.0>  '--> gws_server:handle_info/2
+
+2:54:31.240522 <0.168.0> gws_connection_sup:start_child(<0.165.0>)
+
+2:54:31.240598 <0.165.0> gws_server:start_link(hi_server, #Port<0.13>, [])
+
+2:54:31.240682 <0.170.0> gws_server:init([hi_server,#Port<0.13>,[],<0.165.0>])
+
+2:54:31.240766 <0.170.0> hi_server:init([])
+
+2:54:31.240810 <0.170.0> hi_server:init/1 --> {ok,[]}
+
+2:54:31.240855 <0.170.0>  '--> gws_server:init/1
+
+2:54:31.240905 <0.170.0> gws_server:init/1 --> {ok,{state,#Port<0.13>,undefined,undefined,[],<<>>,0,hi_server,[],<0.165.0>},
+    0}
+
+2:54:31.240993 <0.170.0>  '--> gen_server:init_it/2
+
+2:54:31.241058 <0.170.0> gws_server:handle_info(timeout, {state,#Port<0.13>,undefined,undefined,[],<<>>,0,hi_server,[],<0.165.0>})
+
+2:54:31.241124 <0.170.0> gen_tcp:accept(#Port<0.13>)
+
+2:54:31.241259 <0.165.0> gws_server:start_link/3 --> {ok,<0.170.0>}
+
+2:54:31.241321 <0.165.0>  '--> supervisor:do_start_child_i/3
+
+2:54:31.241366 <0.168.0> gws_connection_sup:start_child/1 --> {ok,<0.170.0>}
+
+2:54:31.241445 <0.168.0>  '--> gws_server:handle_info/2
+
+2:54:31.241504 <0.168.0> gws_server:handle_info/2 --> {noreply,{state,#Port<0.13>,#Port<0.15>,undefined,[],<<>>,0,hi_server,[],
+                <0.165.0>}}
+
+2:54:31.241600 <0.168.0>  '--> gen_server:try_handle_info/3
+
+%% 上面的步骤跟put操作一样，这里是GET
+2:54:31.241712 <0.168.0> gws_server:handle_info({http,#Port<0.15>,{http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}}}, {state,#Port<0.13>,#Port<0.15>,undefined,[],<<>>,0,hi_server,[],<0.165.0>})
+
+2:54:31.241829 <0.168.0> gws_server:handle_info/2 --> {noreply,{state,#Port<0.13>,#Port<0.15>,
+                {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+                [],<<>>,0,hi_server,[],<0.165.0>}}
+
+2:54:31.241932 <0.168.0>  '--> gen_server:try_handle_info/3
+
+2:54:31.241990 <0.168.0> gws_server:handle_info({http,#Port<0.15>,
+      {http_header,24,'User-Agent',<<"User-Agent">>,<<"curl/7.29.0">>}}, {state,#Port<0.13>,#Port<0.15>,
+       {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+       [],<<>>,0,hi_server,[],<0.165.0>})
+
+2:54:31.242095 <0.168.0> gws_server:header('User-Agent', <<"curl/7.29.0">>, {state,#Port<0.13>,#Port<0.15>,
+       {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+       [],<<>>,0,hi_server,[],<0.165.0>})
+
+2:54:31.242183 <0.168.0> gws_server:header/3 --> {state,#Port<0.13>,#Port<0.15>,
+       {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>}
+
+2:54:31.242265 <0.168.0>  '--> gws_server:handle_info/2
+
+2:54:31.242308 <0.168.0> gws_server:handle_info/2 --> {noreply,{state,#Port<0.13>,#Port<0.15>,
+                {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+                [{'User-Agent',<<"curl/7.29.0">>}],
+                <<>>,0,hi_server,[],<0.165.0>}}
+
+2:54:31.242413 <0.168.0>  '--> gen_server:try_handle_info/3
+
+2:54:31.242457 <0.168.0> gws_server:handle_info({http,#Port<0.15>,{http_header,14,'Host',<<"Host">>,<<"localhost:1156">>}}, {state,#Port<0.13>,#Port<0.15>,
+       {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>})
+
+2:54:31.242550 <0.168.0> gws_server:header('Host', <<"localhost:1156">>, {state,#Port<0.13>,#Port<0.15>,
+       {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>})
+
+2:54:31.242715 <0.168.0> gws_server:header/3 --> {state,#Port<0.13>,#Port<0.15>,
+       {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Host',<<"localhost:1156">>},{'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>}
+
+2:54:31.243565 <0.168.0>  '--> gws_server:handle_info/2
+
+2:54:31.244122 <0.168.0> gws_server:handle_info/2 --> {noreply,{state,#Port<0.13>,#Port<0.15>,
+                {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+                [{'Host',<<"localhost:1156">>},
+                 {'User-Agent',<<"curl/7.29.0">>}],
+                <<>>,0,hi_server,[],<0.165.0>}}
+
+2:54:31.244393 <0.168.0>  '--> gen_server:try_handle_info/3
+
+2:54:31.244463 <0.168.0> gws_server:handle_info({http,#Port<0.15>,{http_header,8,'Accept',<<"Accept">>,<<"*/*">>}}, {state,#Port<0.13>,#Port<0.15>,
+       {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Host',<<"localhost:1156">>},{'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>})
+
+2:54:31.244726 <0.168.0> gws_server:header('Accept', <<"*/*">>, {state,#Port<0.13>,#Port<0.15>,
+       {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Host',<<"localhost:1156">>},{'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>})
+
+2:54:31.244933 <0.168.0> gws_server:header/3 --> {state,#Port<0.13>,#Port<0.15>,
+       {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>}
+
+2:54:31.245125 <0.168.0>  '--> gws_server:handle_info/2
+
+2:54:31.245195 <0.168.0> gws_server:handle_info/2 --> {noreply,{state,#Port<0.13>,#Port<0.15>,
+                {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+                [{'Accept',<<"*/*">>},
+                 {'Host',<<"localhost:1156">>},
+                 {'User-Agent',<<"curl/7.29.0">>}],
+                <<>>,0,hi_server,[],<0.165.0>}}
+
+2:54:31.245459 <0.168.0>  '--> gen_server:try_handle_info/3
+
+2:54:31.245546 <0.168.0> gws_server:handle_info({http,#Port<0.15>,http_eoh}, {state,#Port<0.13>,#Port<0.15>,
+       {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>})
+
+2:54:31.245793 <0.168.0> gws_server:handle_http_request({state,#Port<0.13>,#Port<0.15>,
+       {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>})
+
+2:54:31.246018 <0.168.0> gws_server:dispatch('GET', {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}}, [{'Accept',<<"*/*">>},
+ {'Host',<<"localhost:1156">>},
+ {'User-Agent',<<"curl/7.29.0">>}], <<>>, hi_server, [])
+
+2:54:31.246244 <0.168.0> hi_server:get({http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}}, [{'Accept',<<"*/*">>},
+ {'Host',<<"localhost:1156">>},
+ {'User-Agent',<<"curl/7.29.0">>}], [])
+
+2:54:31.246422 <0.168.0> simple_cache:lookup(<<"xyzzy">>)
+
+2:54:31.246537 <0.168.0> sc_event:lookup(<<"xyzzy">>)
+
+2:54:31.246638 <0.168.0> sc_event:lookup/1 --> ok
+
+2:54:31.246724 <0.168.0>  '--> simple_cache:lookup/1
+
+2:54:31.246794 <0.168.0> sc_store:lookup(<<"xyzzy">>)
+
+2:54:31.246864 <0.168.0> mnesia:dirty_read(key_to_pid, <<"xyzzy">>)
+
+2:54:31.246940 <0.160.0> sc_event_logger:handle_event({lookup,<<"xyzzy">>}, {state})
+
+2:54:31.247018 <0.168.0> mnesia:dirty_rpc(key_to_pid, mnesia_lib, db_get, [key_to_pid,<<"xyzzy">>])
+
+2:54:31.247090 <0.168.0> mnesia:val({key_to_pid,where_to_read})
+
+2:54:31.247147 <0.168.0> mnesia:val/1 --> 'mynode3@centos7-mq1'
+
+2:54:31.247215 <0.168.0>  '--> mnesia:dirty_rpc/4
+
+2:54:31.247278 <0.168.0> mnesia:do_dirty_rpc(key_to_pid, 'mynode3@centos7-mq1', mnesia_lib, db_get, [key_to_pid,<<"xyzzy">>])
+
+2:54:31.247373 <0.168.0> mnesia:do_dirty_rpc/5 --> [{key_to_pid,<<"xyzzy">>,<0.169.0>}]
+
+2:54:31.247438 <0.168.0> mnesia:dirty_rpc/4 --> [{key_to_pid,<<"xyzzy">>,<0.169.0>}]
+
+2:54:31.247494 <0.168.0> mnesia:dirty_read/2 --> [{key_to_pid,<<"xyzzy">>,<0.169.0>}]
+
+2:54:31.247577 <0.168.0>  '--> sc_store:lookup/1
+
+2:54:31.247644 <0.168.0> sc_store:is_pid_alive(<0.169.0>)
+
+2:54:31.247734 <0.168.0> sc_store:is_pid_alive/1 --> true
+
+2:54:31.247814 <0.168.0>  '--> sc_store:lookup/1
+
+2:54:31.247880 <0.168.0> sc_store:lookup/1 --> {ok,<0.169.0>}
+
+2:54:31.247962 <0.168.0>  '--> simple_cache:lookup/1
+
+2:54:31.248024 <0.168.0> sc_element:fetch(<0.169.0>)
+
+2:54:31.248086 <0.169.0> sc_element:handle_call(fetch, {<0.168.0>,[alias|#Ref<0.0.21507.2979857852.837877761.66447>]}, {state,<<"Erlang26\n">>,86400,63865853669})
+
+2:54:31.248188 <0.169.0> sc_element:time_left(63865853669, 86400)
+
+2:54:31.248263 <0.169.0> sc_element:time_left/2 --> 86398000
+
+2:54:31.248324 <0.169.0>  '--> sc_element:handle_call/3
+
+2:54:31.248403 <0.169.0> sc_element:handle_call/3 --> {reply,{ok,<<"Erlang26\n">>},
+       {state,<<"Erlang26\n">>,86400,63865853669},
+       86398000}
+
+2:54:31.248509 <0.169.0>  '--> gen_server:try_handle_call/4
+
+2:54:31.248572 <0.168.0> sc_element:fetch/1 --> {ok,<<"Erlang26\n">>}
+
+2:54:31.248667 <0.168.0>  '--> simple_cache:lookup/1
+
+2:54:31.248732 <0.168.0> simple_cache:lookup/1 --> {ok,<<"Erlang26\n">>}
+
+2:54:31.248801 <0.168.0>  '--> hi_server:get/3
+
+2:54:31.248860 <0.168.0> gen_web_server:http_reply(200, [], <<"Erlang26\n">>)
+
+2:54:31.248934 <0.168.0> gen_web_server:response(200)
+
+2:54:31.249003 <0.168.0> gen_web_server:response/1 --> "200 OK"
+
+2:54:31.249233 <0.168.0>  '--> gen_web_server:http_reply/3
+
+2:54:31.249303 <0.168.0> gen_web_server:headers([])
+
+2:54:31.249379 <0.168.0> gen_web_server:headers/1 --> []
+
+2:54:31.249459 <0.168.0>  '--> gen_web_server:http_reply/3
+
+2:54:31.249516 <0.168.0> gen_web_server:http_reply/3 --> [[72,84,84,80,47,49,46,49,32,"200 OK",13,10,[],67,111,110,116,101,110,116,45,
+  76,101,110,103,116,104,58,32,"9",13,10,13,10],
+ <<"Erlang26\n">>]
+
+2:54:31.249646 <0.168.0> hi_server:get/3 --> [[72,84,84,80,47,49,46,49,32,"200 OK",13,10,[],67,111,110,116,101,110,116,45,
+  76,101,110,103,116,104,58,32,"9",13,10,13,10],
+ <<"Erlang26\n">>]
+
+2:54:31.249784 <0.168.0> gws_server:dispatch/6 --> [[72,84,84,80,47,49,46,49,32,"200 OK",13,10,[],67,111,110,116,101,110,116,45,
+  76,101,110,103,116,104,58,32,"9",13,10,13,10],
+ <<"Erlang26\n">>]
+
+2:54:31.249893 <0.168.0>  '--> gws_server:handle_http_request/1
+
+2:54:31.249964 <0.168.0> gen_tcp:send(#Port<0.15>, [[72,84,84,80,47,49,46,49,32,"200 OK",13,10,[],67,111,110,116,101,110,116,45,
+  76,101,110,103,116,104,58,32,"9",13,10,13,10],
+ <<"Erlang26\n">>])
+
+2:54:31.250071 <0.160.0> sc_event_logger:handle_event/2 --> {ok,{state}}
+
+2:54:31.250145 <0.160.0>  '--> gen_event:server_update/4
+
+2:54:31.250198 <0.168.0> gen_tcp:send/2 --> ok
+
+2:54:31.250256 <0.168.0>  '--> gws_server:handle_http_request/1
+
+2:54:31.250317 <0.168.0> gws_server:handle_http_request/1 --> {state,#Port<0.13>,#Port<0.15>,
+       {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>}
+
+2:54:31.250452 <0.168.0>  '--> gws_server:handle_info/2
+
+2:54:31.250533 <0.168.0> gws_server:handle_info/2 --> {stop,normal,
+      {state,#Port<0.13>,#Port<0.15>,
+             {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+             [{'Accept',<<"*/*">>},
+              {'Host',<<"localhost:1156">>},
+              {'User-Agent',<<"curl/7.29.0">>}],
+             <<>>,0,hi_server,[],<0.165.0>}}
+
+2:54:31.250706 <0.168.0>  '--> gen_server:try_handle_info/3
+
+2:54:31.250768 <0.168.0> gws_server:terminate(normal, {state,#Port<0.13>,#Port<0.15>,
+       {http_request,'GET',{abs_path,<<"/xyzzy">>},{1,1}},
+       [{'Accept',<<"*/*">>},
+        {'Host',<<"localhost:1156">>},
+        {'User-Agent',<<"curl/7.29.0">>}],
+       <<>>,0,hi_server,[],<0.165.0>})
+
+2:54:31.250895 <0.168.0> gws_server:terminate/2 --> ok
+
+2:54:31.250963 <0.168.0>  '--> gen_server:try_terminate/3

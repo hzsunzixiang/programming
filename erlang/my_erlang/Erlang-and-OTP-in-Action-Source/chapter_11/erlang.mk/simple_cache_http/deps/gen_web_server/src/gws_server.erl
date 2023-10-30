@@ -23,6 +23,10 @@ start_link(Callback, LSock, UserArgs) -> % Callback是行为模式实现模块�
 %%%===================================================================
 %%% gen_server callbacks
 
+%% 
+%2:54:19.626858 <0.165.0> gws_server:start_link(hi_server, #Port<0.13>, [])
+%2:54:19.626927 <0.166.0> gws_server:init([hi_server,#Port<0.13>,[],<0.165.0>])
+
 init([Callback, LSock, UserArgs, Parent]) ->
     {ok, UserData} = Callback:init(UserArgs), % 在 回调模块中
     State = #state{lsock = LSock, callback = Callback,
@@ -60,6 +64,11 @@ handle_info({tcp, _Sock, Data}, State) when is_binary(Data) ->  % 开始接受bo
     end;
 handle_info({tcp_closed, _Sock}, State) ->
     {stop, normal, State};
+
+
+%accept 始终是新的进程， 原来的进程用来处理消息 handle_info/2
+%设置了 inet:setopts(Socket,[{active,once}])  然后本进程自动接收消息
+
 handle_info(timeout, #state{lsock = LSock, parent = Parent} = State) ->  % 在这里处理超时
     {ok, Socket} = gen_tcp:accept(LSock),
     gws_connection_sup:start_child(Parent), % 可以多次调用 start_child 第一个参数是监督这的进程信息
