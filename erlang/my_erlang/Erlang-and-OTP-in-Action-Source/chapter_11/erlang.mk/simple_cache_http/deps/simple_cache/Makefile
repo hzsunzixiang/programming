@@ -21,7 +21,7 @@ ifeq ($(deps_dir_overriden),)
     endif
 endif
 
-DEPS =  simple_cache
+DEPS = resource_discovery 
 include ../../erlang.mk
 
 
