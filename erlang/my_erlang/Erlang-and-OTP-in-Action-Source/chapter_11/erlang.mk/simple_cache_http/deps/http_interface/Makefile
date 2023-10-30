@@ -19,7 +19,7 @@ ifeq ($(deps_dir_overriden),)
     endif
 endif
 
-DEPS =  gen_web_server  resource_discovery  simple_cache
+DEPS =  gen_web_server  simple_cache  resource_discovery  
 
 
 include ../../erlang.mk
