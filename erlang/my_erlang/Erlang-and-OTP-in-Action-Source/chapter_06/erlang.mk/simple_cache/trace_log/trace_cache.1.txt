@@ -1,0 +1,1151 @@
+
+6:10:40.707932 <0.125.0> simple_cache_app:start(normal, [])
+
+6:10:40.708223 <0.125.0> sc_store:init()
+
+6:10:40.708327 <0.125.0> sc_store:init/0 --> ok
+
+6:10:40.708548 <0.125.0>  '--> simple_cache_app:start/2
+
+6:10:40.708643 <0.125.0> simple_cache_sup:start_link()
+
+6:10:40.708727 <0.126.0> simple_cache_sup:init([])
+
+6:10:40.708884 <0.126.0> simple_cache_sup:init/1 --> {ok,{{simple_one_for_one,0,1},
+     [{sc_element,{sc_element,start_link,[]},
+                  temporary,brutal_kill,worker,
+                  [sc_element]}]}}
+
+6:10:40.709068 <0.126.0>  '--> supervisor:init/1
+
+6:10:40.709184 <0.125.0> simple_cache_sup:start_link/0 --> {ok,<0.126.0>}
+
+6:10:40.709306 <0.125.0>  '--> simple_cache_app:start/2
+
+6:10:40.709410 <0.125.0> simple_cache_app:start/2 --> {ok,<0.126.0>}
+
+6:10:40.709502 <0.125.0>  '--> application_master:start_it_old/4
+
+%%% simple_one_for_one 不会真正启动，要等到请求过来
+
+%% 开始插入
+
+6:10:40.709589 <0.92.0> simple_cache:insert(abc, def)
+
+6:10:40.709744 <0.92.0> sc_store:lookup(abc)
+
+6:10:40.709860 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.710023 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.710106 <0.92.0> sc_element:create(def)
+
+6:10:40.710284 <0.92.0> sc_element:create(def, 86400)
+
+
+%%  sc_element 调用 simple_cache_sup ， simple_cache_sup 再调用 sc_element启动 一个新的进程存储value
+
+6:10:40.710376 <0.92.0> simple_cache_sup:start_child(def, 86400)
+
+6:10:40.710464 <0.126.0> sc_element:start_link(def, 86400)
+
+6:10:40.710642 <0.128.0> sc_element:init([def,86400])
+
+6:10:40.710792 <0.128.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.710901 <0.128.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.710972 <0.128.0>  '--> sc_element:init/1
+
+6:10:40.711130 <0.128.0> sc_element:init/1 --> {ok,{state,def,86400,63865951840},86400000}
+
+6:10:40.711241 <0.128.0>  '--> gen_server:init_it/2
+
+6:10:40.711310 <0.126.0> sc_element:start_link/2 --> {ok,<0.128.0>}
+
+6:10:40.711373 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.711427 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.128.0>}
+
+6:10:40.711554 <0.92.0> sc_element:create/2 --> {ok,<0.128.0>}
+
+6:10:40.711624 <0.92.0> sc_element:create/1 --> {ok,<0.128.0>}
+
+6:10:40.711758 <0.92.0>  '--> simple_cache:insert/2
+
+
+
+%% 到此返回
+6:10:40.711872 <0.92.0> sc_store:insert(abc, <0.128.0>)
+
+6:10:40.712043 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.712142 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.712211 <0.92.0>  '--> erl_eval:do_apply/7
+
+6:10:40.712251 <0.92.0> simple_cache:insert(ab, de)
+
+6:10:40.712296 <0.92.0> sc_store:lookup(ab)
+
+6:10:40.712435 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.712512 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.712565 <0.92.0> sc_element:create(de)
+
+6:10:40.712605 <0.92.0> sc_element:create(de, 86400)
+
+6:10:40.712672 <0.92.0> simple_cache_sup:start_child(de, 86400)
+
+6:10:40.712790 <0.126.0> sc_element:start_link(de, 86400)
+
+6:10:40.712886 <0.130.0> sc_element:init([de,86400])
+
+6:10:40.712956 <0.130.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.713003 <0.130.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.713079 <0.130.0>  '--> sc_element:init/1
+
+6:10:40.713159 <0.130.0> sc_element:init/1 --> {ok,{state,de,86400,63865951840},86400000}
+
+6:10:40.713302 <0.130.0>  '--> gen_server:init_it/2
+
+6:10:40.713416 <0.126.0> sc_element:start_link/2 --> {ok,<0.130.0>}
+
+6:10:40.713500 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.713613 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.130.0>}
+
+6:10:40.713709 <0.92.0> sc_element:create/2 --> {ok,<0.130.0>}
+
+6:10:40.713884 <0.92.0> sc_element:create/1 --> {ok,<0.130.0>}
+
+6:10:40.714014 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.714062 <0.92.0> sc_store:insert(ab, <0.130.0>)
+
+6:10:40.714157 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.714219 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.714300 <0.92.0>  '--> erl_eval:do_apply/7
+
+6:10:40.714348 <0.92.0> simple_cache:insert(a, d)
+
+6:10:40.714410 <0.92.0> sc_store:lookup(a)
+
+6:10:40.714563 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.714646 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.714719 <0.92.0> sc_element:create(d)
+
+6:10:40.714763 <0.92.0> sc_element:create(d, 86400)
+
+6:10:40.714821 <0.92.0> simple_cache_sup:start_child(d, 86400)
+
+6:10:40.714895 <0.126.0> sc_element:start_link(d, 86400)
+
+6:10:40.714982 <0.132.0> sc_element:init([d,86400])
+
+6:10:40.715061 <0.132.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.715126 <0.132.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.715284 <0.132.0>  '--> sc_element:init/1
+
+6:10:40.715368 <0.132.0> sc_element:init/1 --> {ok,{state,d,86400,63865951840},86400000}
+
+6:10:40.715455 <0.132.0>  '--> gen_server:init_it/2
+
+6:10:40.715518 <0.126.0> sc_element:start_link/2 --> {ok,<0.132.0>}
+
+6:10:40.715594 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.715669 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.132.0>}
+
+6:10:40.715754 <0.92.0> sc_element:create/2 --> {ok,<0.132.0>}
+
+6:10:40.715821 <0.92.0> sc_element:create/1 --> {ok,<0.132.0>}
+
+6:10:40.715926 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.715985 <0.92.0> sc_store:insert(a, <0.132.0>)
+
+6:10:40.716060 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.716119 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.716198 <0.92.0>  '--> erl_eval:do_apply/7
+
+6:10:40.716265 <0.92.0> simple_cache:insert(a, a)
+
+6:10:40.716345 <0.92.0> sc_store:lookup(a)
+
+6:10:40.716402 <0.92.0> sc_store:lookup/1 --> {ok,<0.132.0>}
+
+6:10:40.716486 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.716557 <0.92.0> sc_element:replace(<0.132.0>, a)
+
+6:10:40.716639 <0.92.0> sc_element:replace/2 --> ok
+
+6:10:40.716706 <0.92.0> simple_cache:insert/2 --> ok
+
+6:10:40.716806 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.716906 <0.92.0> simple_cache:insert(b, b)
+
+6:10:40.716986 <0.92.0> sc_store:lookup(b)
+
+6:10:40.717081 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.717190 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.717295 <0.132.0> sc_element:handle_cast({replace,a}, {state,d,86400,63865951840})
+
+6:10:40.717397 <0.132.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.717470 <0.92.0> sc_element:create(b)
+
+6:10:40.717549 <0.132.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.717629 <0.92.0> sc_element:create(b, 86400)
+
+6:10:40.717693 <0.132.0>  '--> sc_element:handle_cast/2
+
+6:10:40.717756 <0.92.0> simple_cache_sup:start_child(b, 86400)
+
+6:10:40.717843 <0.132.0> sc_element:handle_cast/2 --> {noreply,{state,a,86400,63865951840},86400000}
+
+6:10:40.717930 <0.132.0>  '--> gen_server:try_handle_cast/3
+
+6:10:40.718006 <0.126.0> sc_element:start_link(b, 86400)
+
+6:10:40.718076 <0.136.0> sc_element:init([b,86400])
+
+6:10:40.718163 <0.136.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.718236 <0.136.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.718316 <0.136.0>  '--> sc_element:init/1
+
+6:10:40.718372 <0.136.0> sc_element:init/1 --> {ok,{state,b,86400,63865951840},86400000}
+
+6:10:40.718473 <0.136.0>  '--> gen_server:init_it/2
+
+6:10:40.718537 <0.126.0> sc_element:start_link/2 --> {ok,<0.136.0>}
+
+6:10:40.718617 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.718678 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.136.0>}
+
+6:10:40.718761 <0.92.0> sc_element:create/2 --> {ok,<0.136.0>}
+
+6:10:40.718828 <0.92.0> sc_element:create/1 --> {ok,<0.136.0>}
+
+6:10:40.718909 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.718992 <0.92.0> sc_store:insert(b, <0.136.0>)
+
+6:10:40.719053 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.719121 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.719167 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.719233 <0.92.0> simple_cache:insert(c, c)
+
+6:10:40.719313 <0.92.0> sc_store:lookup(c)
+
+6:10:40.719388 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.719466 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.719533 <0.92.0> sc_element:create(c)
+
+6:10:40.719598 <0.92.0> sc_element:create(c, 86400)
+
+6:10:40.719668 <0.92.0> simple_cache_sup:start_child(c, 86400)
+
+6:10:40.719716 <0.126.0> sc_element:start_link(c, 86400)
+
+6:10:40.719781 <0.137.0> sc_element:init([c,86400])
+
+6:10:40.719877 <0.137.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.719954 <0.137.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.720057 <0.137.0>  '--> sc_element:init/1
+
+6:10:40.720137 <0.137.0> sc_element:init/1 --> {ok,{state,c,86400,63865951840},86400000}
+
+6:10:40.720224 <0.137.0>  '--> gen_server:init_it/2
+
+6:10:40.720309 <0.126.0> sc_element:start_link/2 --> {ok,<0.137.0>}
+
+6:10:40.720433 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.720537 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.137.0>}
+
+6:10:40.720621 <0.92.0> sc_element:create/2 --> {ok,<0.137.0>}
+
+6:10:40.720702 <0.92.0> sc_element:create/1 --> {ok,<0.137.0>}
+
+6:10:40.720806 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.720895 <0.92.0> sc_store:insert(c, <0.137.0>)
+
+6:10:40.721000 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.721064 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.721148 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.721214 <0.92.0> simple_cache:insert(d, d)
+
+6:10:40.721285 <0.92.0> sc_store:lookup(d)
+
+6:10:40.721334 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.721394 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.721498 <0.92.0> sc_element:create(d)
+
+6:10:40.721583 <0.92.0> sc_element:create(d, 86400)
+
+6:10:40.721644 <0.92.0> simple_cache_sup:start_child(d, 86400)
+
+6:10:40.721741 <0.126.0> sc_element:start_link(d, 86400)
+
+6:10:40.721811 <0.138.0> sc_element:init([d,86400])
+
+6:10:40.721872 <0.138.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.721946 <0.138.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.722016 <0.138.0>  '--> sc_element:init/1
+
+6:10:40.722081 <0.138.0> sc_element:init/1 --> {ok,{state,d,86400,63865951840},86400000}
+
+6:10:40.722175 <0.138.0>  '--> gen_server:init_it/2
+
+6:10:40.722247 <0.126.0> sc_element:start_link/2 --> {ok,<0.138.0>}
+
+6:10:40.722326 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.722384 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.138.0>}
+
+6:10:40.722480 <0.92.0> sc_element:create/2 --> {ok,<0.138.0>}
+
+6:10:40.722568 <0.92.0> sc_element:create/1 --> {ok,<0.138.0>}
+
+6:10:40.722649 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.722718 <0.92.0> sc_store:insert(d, <0.138.0>)
+
+6:10:40.722780 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.722857 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.722903 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.722953 <0.92.0> simple_cache:insert(e, e)
+
+6:10:40.723027 <0.92.0> sc_store:lookup(e)
+
+6:10:40.723091 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.723163 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.723229 <0.92.0> sc_element:create(e)
+
+6:10:40.723307 <0.92.0> sc_element:create(e, 86400)
+
+6:10:40.723385 <0.92.0> simple_cache_sup:start_child(e, 86400)
+
+6:10:40.723466 <0.126.0> sc_element:start_link(e, 86400)
+
+6:10:40.723530 <0.139.0> sc_element:init([e,86400])
+
+6:10:40.723624 <0.139.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.723706 <0.139.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.723784 <0.139.0>  '--> sc_element:init/1
+
+6:10:40.723842 <0.139.0> sc_element:init/1 --> {ok,{state,e,86400,63865951840},86400000}
+
+6:10:40.723934 <0.139.0>  '--> gen_server:init_it/2
+
+6:10:40.723993 <0.126.0> sc_element:start_link/2 --> {ok,<0.139.0>}
+
+6:10:40.724068 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.724127 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.139.0>}
+
+6:10:40.724216 <0.92.0> sc_element:create/2 --> {ok,<0.139.0>}
+
+6:10:40.724314 <0.92.0> sc_element:create/1 --> {ok,<0.139.0>}
+
+6:10:40.724396 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.724477 <0.92.0> sc_store:insert(e, <0.139.0>)
+
+6:10:40.724550 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.724610 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.724692 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.724767 <0.92.0> simple_cache:insert(f, f)
+
+6:10:40.724833 <0.92.0> sc_store:lookup(f)
+
+6:10:40.724910 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.725895 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.726408 <0.92.0> sc_element:create(f)
+
+6:10:40.726807 <0.92.0> sc_element:create(f, 86400)
+
+6:10:40.727145 <0.92.0> simple_cache_sup:start_child(f, 86400)
+
+6:10:40.727467 <0.126.0> sc_element:start_link(f, 86400)
+
+6:10:40.727627 <0.140.0> sc_element:init([f,86400])
+
+6:10:40.727820 <0.140.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.727921 <0.140.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.727983 <0.140.0>  '--> sc_element:init/1
+
+6:10:40.728060 <0.140.0> sc_element:init/1 --> {ok,{state,f,86400,63865951840},86400000}
+
+6:10:40.728163 <0.140.0>  '--> gen_server:init_it/2
+
+6:10:40.728238 <0.126.0> sc_element:start_link/2 --> {ok,<0.140.0>}
+
+6:10:40.728326 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.728384 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.140.0>}
+
+6:10:40.728494 <0.92.0> sc_element:create/2 --> {ok,<0.140.0>}
+
+6:10:40.728572 <0.92.0> sc_element:create/1 --> {ok,<0.140.0>}
+
+6:10:40.728665 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.728712 <0.92.0> sc_store:insert(f, <0.140.0>)
+
+6:10:40.728771 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.728852 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.728912 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.728983 <0.92.0> simple_cache:insert(g, g)
+
+6:10:40.729056 <0.92.0> sc_store:lookup(g)
+
+6:10:40.729149 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.729239 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.729300 <0.92.0> sc_element:create(g)
+
+6:10:40.729377 <0.92.0> sc_element:create(g, 86400)
+
+6:10:40.729442 <0.92.0> simple_cache_sup:start_child(g, 86400)
+
+6:10:40.729531 <0.126.0> sc_element:start_link(g, 86400)
+
+6:10:40.729609 <0.141.0> sc_element:init([g,86400])
+
+6:10:40.729691 <0.141.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.729752 <0.141.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.729841 <0.141.0>  '--> sc_element:init/1
+
+6:10:40.729903 <0.141.0> sc_element:init/1 --> {ok,{state,g,86400,63865951840},86400000}
+
+6:10:40.730002 <0.141.0>  '--> gen_server:init_it/2
+
+6:10:40.730084 <0.126.0> sc_element:start_link/2 --> {ok,<0.141.0>}
+
+6:10:40.730166 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.730239 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.141.0>}
+
+6:10:40.730343 <0.92.0> sc_element:create/2 --> {ok,<0.141.0>}
+
+6:10:40.730431 <0.92.0> sc_element:create/1 --> {ok,<0.141.0>}
+
+6:10:40.730500 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.730586 <0.92.0> sc_store:insert(g, <0.141.0>)
+
+6:10:40.730659 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.730747 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.730811 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.730866 <0.92.0> simple_cache:insert(70, 70)
+
+6:10:40.730938 <0.92.0> sc_store:lookup(70)
+
+6:10:40.730987 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.731051 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.731123 <0.92.0> sc_element:create(70)
+
+6:10:40.731190 <0.92.0> sc_element:create(70, 86400)
+
+6:10:40.731299 <0.92.0> simple_cache_sup:start_child(70, 86400)
+
+6:10:40.731372 <0.126.0> sc_element:start_link(70, 86400)
+
+6:10:40.731435 <0.144.0> sc_element:init([70,86400])
+
+6:10:40.731538 <0.144.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.731599 <0.144.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.731673 <0.144.0>  '--> sc_element:init/1
+
+6:10:40.731728 <0.144.0> sc_element:init/1 --> {ok,{state,70,86400,63865951840},86400000}
+
+6:10:40.731819 <0.144.0>  '--> gen_server:init_it/2
+
+6:10:40.731880 <0.126.0> sc_element:start_link/2 --> {ok,<0.144.0>}
+
+6:10:40.731967 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.732024 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.144.0>}
+
+6:10:40.732109 <0.92.0> sc_element:create/2 --> {ok,<0.144.0>}
+
+6:10:40.732173 <0.92.0> sc_element:create/1 --> {ok,<0.144.0>}
+
+6:10:40.732255 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.732351 <0.92.0> sc_store:insert(70, <0.144.0>)
+
+6:10:40.732412 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.732490 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.732549 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.732629 <0.92.0> simple_cache:insert(65, 65)
+
+6:10:40.732675 <0.92.0> sc_store:lookup(65)
+
+6:10:40.732711 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.732774 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.732854 <0.92.0> sc_element:create(65)
+
+6:10:40.732919 <0.92.0> sc_element:create(65, 86400)
+
+6:10:40.732992 <0.92.0> simple_cache_sup:start_child(65, 86400)
+
+6:10:40.733058 <0.126.0> sc_element:start_link(65, 86400)
+
+6:10:40.733160 <0.145.0> sc_element:init([65,86400])
+
+6:10:40.733236 <0.145.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.733338 <0.145.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.733425 <0.145.0>  '--> sc_element:init/1
+
+6:10:40.733480 <0.145.0> sc_element:init/1 --> {ok,{state,65,86400,63865951840},86400000}
+
+6:10:40.733564 <0.145.0>  '--> gen_server:init_it/2
+
+6:10:40.733619 <0.126.0> sc_element:start_link/2 --> {ok,<0.145.0>}
+
+6:10:40.733705 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.733766 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.145.0>}
+
+6:10:40.733846 <0.92.0> sc_element:create/2 --> {ok,<0.145.0>}
+
+6:10:40.733928 <0.92.0> sc_element:create/1 --> {ok,<0.145.0>}
+
+6:10:40.734029 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.734124 <0.92.0> sc_store:insert(65, <0.145.0>)
+
+6:10:40.734197 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.734257 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.734337 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.734397 <0.92.0> simple_cache:insert(60, 60)
+
+6:10:40.734480 <0.92.0> sc_store:lookup(60)
+
+6:10:40.734530 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.734597 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.734668 <0.92.0> sc_element:create(60)
+
+6:10:40.734751 <0.92.0> sc_element:create(60, 86400)
+
+6:10:40.735195 <0.92.0> simple_cache_sup:start_child(60, 86400)
+
+6:10:40.735675 <0.126.0> sc_element:start_link(60, 86400)
+
+6:10:40.736169 <0.146.0> sc_element:init([60,86400])
+
+6:10:40.736581 <0.146.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.736707 <0.146.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.736962 <0.146.0>  '--> sc_element:init/1
+
+6:10:40.737078 <0.146.0> sc_element:init/1 --> {ok,{state,60,86400,63865951840},86400000}
+
+6:10:40.737196 <0.146.0>  '--> gen_server:init_it/2
+
+6:10:40.737283 <0.126.0> sc_element:start_link/2 --> {ok,<0.146.0>}
+
+6:10:40.737376 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.737463 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.146.0>}
+
+6:10:40.737572 <0.92.0> sc_element:create/2 --> {ok,<0.146.0>}
+
+6:10:40.737662 <0.92.0> sc_element:create/1 --> {ok,<0.146.0>}
+
+6:10:40.737757 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.737823 <0.92.0> sc_store:insert(60, <0.146.0>)
+
+6:10:40.737901 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.737966 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.738047 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.738108 <0.92.0> simple_cache:insert(55, 55)
+
+6:10:40.738179 <0.92.0> sc_store:lookup(55)
+
+6:10:40.738257 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.738353 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.738422 <0.92.0> sc_element:create(55)
+
+6:10:40.738503 <0.92.0> sc_element:create(55, 86400)
+
+6:10:40.738578 <0.92.0> simple_cache_sup:start_child(55, 86400)
+
+6:10:40.738663 <0.126.0> sc_element:start_link(55, 86400)
+
+6:10:40.738752 <0.147.0> sc_element:init([55,86400])
+
+6:10:40.738838 <0.147.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.738920 <0.147.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.739010 <0.147.0>  '--> sc_element:init/1
+
+6:10:40.739073 <0.147.0> sc_element:init/1 --> {ok,{state,55,86400,63865951840},86400000}
+
+6:10:40.739163 <0.147.0>  '--> gen_server:init_it/2
+
+6:10:40.739240 <0.126.0> sc_element:start_link/2 --> {ok,<0.147.0>}
+
+6:10:40.739320 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.739389 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.147.0>}
+
+6:10:40.739501 <0.92.0> sc_element:create/2 --> {ok,<0.147.0>}
+
+6:10:40.739596 <0.92.0> sc_element:create/1 --> {ok,<0.147.0>}
+
+6:10:40.739699 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.739762 <0.92.0> sc_store:insert(55, <0.147.0>)
+
+6:10:40.739856 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.739949 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.740040 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.740116 <0.92.0> simple_cache:insert(50, 50)
+
+6:10:40.740174 <0.92.0> sc_store:lookup(50)
+
+6:10:40.740217 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.740321 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.740387 <0.92.0> sc_element:create(50)
+
+6:10:40.740500 <0.92.0> sc_element:create(50, 86400)
+
+6:10:40.740590 <0.92.0> simple_cache_sup:start_child(50, 86400)
+
+6:10:40.740660 <0.126.0> sc_element:start_link(50, 86400)
+
+6:10:40.740781 <0.148.0> sc_element:init([50,86400])
+
+6:10:40.740909 <0.148.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.740996 <0.148.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.741077 <0.148.0>  '--> sc_element:init/1
+
+6:10:40.741178 <0.148.0> sc_element:init/1 --> {ok,{state,50,86400,63865951840},86400000}
+
+6:10:40.741289 <0.148.0>  '--> gen_server:init_it/2
+
+6:10:40.741368 <0.126.0> sc_element:start_link/2 --> {ok,<0.148.0>}
+
+6:10:40.741479 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.741543 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.148.0>}
+
+6:10:40.741638 <0.92.0> sc_element:create/2 --> {ok,<0.148.0>}
+
+6:10:40.741798 <0.92.0> sc_element:create/1 --> {ok,<0.148.0>}
+
+6:10:40.741885 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.741953 <0.92.0> sc_store:insert(50, <0.148.0>)
+
+6:10:40.742036 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.742133 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.742215 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.742278 <0.92.0> simple_cache:insert(45, 45)
+
+6:10:40.742363 <0.92.0> sc_store:lookup(45)
+
+6:10:40.742543 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.742690 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.742795 <0.92.0> sc_element:create(45)
+
+6:10:40.742909 <0.92.0> sc_element:create(45, 86400)
+
+6:10:40.743025 <0.92.0> simple_cache_sup:start_child(45, 86400)
+
+6:10:40.743149 <0.126.0> sc_element:start_link(45, 86400)
+
+6:10:40.743248 <0.149.0> sc_element:init([45,86400])
+
+6:10:40.743340 <0.149.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.743428 <0.149.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.743523 <0.149.0>  '--> sc_element:init/1
+
+6:10:40.743592 <0.149.0> sc_element:init/1 --> {ok,{state,45,86400,63865951840},86400000}
+
+6:10:40.743692 <0.149.0>  '--> gen_server:init_it/2
+
+6:10:40.743784 <0.126.0> sc_element:start_link/2 --> {ok,<0.149.0>}
+
+6:10:40.743897 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.743962 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.149.0>}
+
+6:10:40.744055 <0.92.0> sc_element:create/2 --> {ok,<0.149.0>}
+
+6:10:40.744158 <0.92.0> sc_element:create/1 --> {ok,<0.149.0>}
+
+6:10:40.744282 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.744346 <0.92.0> sc_store:insert(45, <0.149.0>)
+
+6:10:40.744427 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.744553 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.744624 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.744706 <0.92.0> simple_cache:insert(40, 40)
+
+6:10:40.744757 <0.92.0> sc_store:lookup(40)
+
+6:10:40.744802 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.744885 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.744977 <0.92.0> sc_element:create(40)
+
+6:10:40.745044 <0.92.0> sc_element:create(40, 86400)
+
+6:10:40.745131 <0.92.0> simple_cache_sup:start_child(40, 86400)
+
+6:10:40.745251 <0.126.0> sc_element:start_link(40, 86400)
+
+6:10:40.745334 <0.150.0> sc_element:init([40,86400])
+
+6:10:40.745419 <0.150.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.745467 <0.150.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.745520 <0.150.0>  '--> sc_element:init/1
+
+6:10:40.745560 <0.150.0> sc_element:init/1 --> {ok,{state,40,86400,63865951840},86400000}
+
+6:10:40.745621 <0.150.0>  '--> gen_server:init_it/2
+
+6:10:40.745662 <0.126.0> sc_element:start_link/2 --> {ok,<0.150.0>}
+
+6:10:40.745718 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.745776 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.150.0>}
+
+6:10:40.746430 <0.92.0> sc_element:create/2 --> {ok,<0.150.0>}
+
+6:10:40.746852 <0.92.0> sc_element:create/1 --> {ok,<0.150.0>}
+
+6:10:40.747075 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.747382 <0.92.0> sc_store:insert(40, <0.150.0>)
+
+6:10:40.747570 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.747740 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.747858 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.747931 <0.92.0> simple_cache:insert(35, 35)
+
+6:10:40.748045 <0.92.0> sc_store:lookup(35)
+
+6:10:40.748105 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.748198 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.748284 <0.92.0> sc_element:create(35)
+
+6:10:40.748385 <0.92.0> sc_element:create(35, 86400)
+
+6:10:40.748494 <0.92.0> simple_cache_sup:start_child(35, 86400)
+
+6:10:40.748583 <0.126.0> sc_element:start_link(35, 86400)
+
+6:10:40.748696 <0.151.0> sc_element:init([35,86400])
+
+6:10:40.748793 <0.151.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.748871 <0.151.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.748941 <0.151.0>  '--> sc_element:init/1
+
+6:10:40.749038 <0.151.0> sc_element:init/1 --> {ok,{state,35,86400,63865951840},86400000}
+
+6:10:40.749138 <0.151.0>  '--> gen_server:init_it/2
+
+6:10:40.749200 <0.126.0> sc_element:start_link/2 --> {ok,<0.151.0>}
+
+6:10:40.749308 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.749377 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.151.0>}
+
+6:10:40.749480 <0.92.0> sc_element:create/2 --> {ok,<0.151.0>}
+
+6:10:40.749581 <0.92.0> sc_element:create/1 --> {ok,<0.151.0>}
+
+6:10:40.749682 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.749752 <0.92.0> sc_store:insert(35, <0.151.0>)
+
+6:10:40.749838 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.749924 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.749993 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.750059 <0.92.0> simple_cache:insert(30, 30)
+
+6:10:40.750156 <0.92.0> sc_store:lookup(30)
+
+6:10:40.750208 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.750306 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.750371 <0.92.0> sc_element:create(30)
+
+6:10:40.750459 <0.92.0> sc_element:create(30, 86400)
+
+6:10:40.750557 <0.92.0> simple_cache_sup:start_child(30, 86400)
+
+6:10:40.750655 <0.126.0> sc_element:start_link(30, 86400)
+
+6:10:40.750747 <0.152.0> sc_element:init([30,86400])
+
+6:10:40.750860 <0.152.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.750933 <0.152.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.751027 <0.152.0>  '--> sc_element:init/1
+
+6:10:40.751097 <0.152.0> sc_element:init/1 --> {ok,{state,30,86400,63865951840},86400000}
+
+6:10:40.751202 <0.152.0>  '--> gen_server:init_it/2
+
+6:10:40.751319 <0.126.0> sc_element:start_link/2 --> {ok,<0.152.0>}
+
+6:10:40.751430 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.751496 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.152.0>}
+
+6:10:40.751595 <0.92.0> sc_element:create/2 --> {ok,<0.152.0>}
+
+6:10:40.751694 <0.92.0> sc_element:create/1 --> {ok,<0.152.0>}
+
+6:10:40.751790 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.751857 <0.92.0> sc_store:insert(30, <0.152.0>)
+
+6:10:40.751942 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.752042 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.752124 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.752195 <0.92.0> simple_cache:insert(25, 25)
+
+6:10:40.752284 <0.92.0> sc_store:lookup(25)
+
+6:10:40.752349 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.752457 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.752526 <0.92.0> sc_element:create(25)
+
+6:10:40.752618 <0.92.0> sc_element:create(25, 86400)
+
+6:10:40.752706 <0.92.0> simple_cache_sup:start_child(25, 86400)
+
+6:10:40.752779 <0.126.0> sc_element:start_link(25, 86400)
+
+6:10:40.752868 <0.153.0> sc_element:init([25,86400])
+
+6:10:40.752982 <0.153.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.753064 <0.153.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.753144 <0.153.0>  '--> sc_element:init/1
+
+6:10:40.753251 <0.153.0> sc_element:init/1 --> {ok,{state,25,86400,63865951840},86400000}
+
+6:10:40.753362 <0.153.0>  '--> gen_server:init_it/2
+
+6:10:40.753456 <0.126.0> sc_element:start_link/2 --> {ok,<0.153.0>}
+
+6:10:40.753559 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.753638 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.153.0>}
+
+6:10:40.753737 <0.92.0> sc_element:create/2 --> {ok,<0.153.0>}
+
+6:10:40.753843 <0.92.0> sc_element:create/1 --> {ok,<0.153.0>}
+
+6:10:40.753930 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.754001 <0.92.0> sc_store:insert(25, <0.153.0>)
+
+6:10:40.754124 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.754204 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.754311 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.754397 <0.92.0> simple_cache:insert(20, 20)
+
+6:10:40.754465 <0.92.0> sc_store:lookup(20)
+
+6:10:40.754563 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.754680 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.754749 <0.92.0> sc_element:create(20)
+
+6:10:40.754828 <0.92.0> sc_element:create(20, 86400)
+
+6:10:40.754898 <0.92.0> simple_cache_sup:start_child(20, 86400)
+
+6:10:40.754990 <0.126.0> sc_element:start_link(20, 86400)
+
+6:10:40.755091 <0.154.0> sc_element:init([20,86400])
+
+6:10:40.755162 <0.154.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.755265 <0.154.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.755356 <0.154.0>  '--> sc_element:init/1
+
+6:10:40.755428 <0.154.0> sc_element:init/1 --> {ok,{state,20,86400,63865951840},86400000}
+
+6:10:40.755539 <0.154.0>  '--> gen_server:init_it/2
+
+6:10:40.755605 <0.126.0> sc_element:start_link/2 --> {ok,<0.154.0>}
+
+6:10:40.755705 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.755796 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.154.0>}
+
+6:10:40.755893 <0.92.0> sc_element:create/2 --> {ok,<0.154.0>}
+
+6:10:40.755970 <0.92.0> sc_element:create/1 --> {ok,<0.154.0>}
+
+6:10:40.756048 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.756129 <0.92.0> sc_store:insert(20, <0.154.0>)
+
+6:10:40.756230 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.756361 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.756467 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.756542 <0.92.0> simple_cache:insert(15, 15)
+
+6:10:40.756589 <0.92.0> sc_store:lookup(15)
+
+6:10:40.756633 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.756705 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.756788 <0.92.0> sc_element:create(15)
+
+6:10:40.756852 <0.92.0> sc_element:create(15, 86400)
+
+6:10:40.756947 <0.92.0> simple_cache_sup:start_child(15, 86400)
+
+6:10:40.757046 <0.126.0> sc_element:start_link(15, 86400)
+
+6:10:40.757158 <0.155.0> sc_element:init([15,86400])
+
+6:10:40.757252 <0.155.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.757403 <0.155.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.757487 <0.155.0>  '--> sc_element:init/1
+
+6:10:40.757553 <0.155.0> sc_element:init/1 --> {ok,{state,15,86400,63865951840},86400000}
+
+6:10:40.757648 <0.155.0>  '--> gen_server:init_it/2
+
+6:10:40.757718 <0.126.0> sc_element:start_link/2 --> {ok,<0.155.0>}
+
+6:10:40.757866 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.758004 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.155.0>}
+
+6:10:40.758106 <0.92.0> sc_element:create/2 --> {ok,<0.155.0>}
+
+6:10:40.758234 <0.92.0> sc_element:create/1 --> {ok,<0.155.0>}
+
+6:10:40.758334 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.758451 <0.92.0> sc_store:insert(15, <0.155.0>)
+
+6:10:40.758552 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.758670 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.758749 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.758833 <0.92.0> simple_cache:insert(10, 10)
+
+6:10:40.758906 <0.92.0> sc_store:lookup(10)
+
+6:10:40.759010 <0.92.0> sc_store:lookup/1 --> {error,not_found}
+
+6:10:40.759123 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.759242 <0.92.0> sc_element:create(10)
+
+6:10:40.759329 <0.92.0> sc_element:create(10, 86400)
+
+6:10:40.759480 <0.92.0> simple_cache_sup:start_child(10, 86400)
+
+6:10:40.759594 <0.126.0> sc_element:start_link(10, 86400)
+
+6:10:40.759704 <0.156.0> sc_element:init([10,86400])
+
+6:10:40.759818 <0.156.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.759933 <0.156.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.760028 <0.156.0>  '--> sc_element:init/1
+
+6:10:40.760104 <0.156.0> sc_element:init/1 --> {ok,{state,10,86400,63865951840},86400000}
+
+6:10:40.760224 <0.156.0>  '--> gen_server:init_it/2
+
+6:10:40.760325 <0.126.0> sc_element:start_link/2 --> {ok,<0.156.0>}
+
+6:10:40.760424 <0.126.0>  '--> supervisor:do_start_child_i/3
+
+6:10:40.760500 <0.92.0> simple_cache_sup:start_child/2 --> {ok,<0.156.0>}
+
+6:10:40.760616 <0.92.0> sc_element:create/2 --> {ok,<0.156.0>}
+
+6:10:40.760713 <0.92.0> sc_element:create/1 --> {ok,<0.156.0>}
+
+6:10:40.760815 <0.92.0>  '--> simple_cache:insert/2
+
+6:10:40.760896 <0.92.0> sc_store:insert(10, <0.156.0>)
+
+6:10:40.760972 <0.92.0> sc_store:insert/2 --> true
+
+6:10:40.761065 <0.92.0> simple_cache:insert/2 --> true
+
+6:10:40.761166 <0.92.0>  '--> lists:foreach_1/2
+
+6:10:40.761262 <0.92.0> simple_cache:lookup(abc)
+
+6:10:40.761369 <0.92.0> sc_store:lookup(abc)
+
+6:10:40.761443 <0.92.0> sc_store:lookup/1 --> {ok,<0.128.0>}
+
+6:10:40.761537 <0.92.0>  '--> simple_cache:lookup/1
+
+6:10:40.761609 <0.92.0> sc_element:fetch(<0.128.0>)
+
+6:10:40.761692 <0.128.0> sc_element:handle_call(fetch, {<0.92.0>,[alias|#Ref<0.0.11779.2136534694.555286530.15134>]}, {state,def,86400,63865951840})
+
+6:10:40.761807 <0.128.0> sc_element:time_left(63865951840, 86400)
+
+6:10:40.761894 <0.128.0> sc_element:time_left/2 --> 86400000
+
+6:10:40.761986 <0.128.0>  '--> sc_element:handle_call/3
+
+6:10:40.762074 <0.128.0> sc_element:handle_call/3 --> {reply,{ok,def},{state,def,86400,63865951840},86400000}
+
+6:10:40.762177 <0.128.0>  '--> gen_server:try_handle_call/4
+
+6:10:40.762258 <0.92.0> sc_element:fetch/1 --> {ok,def}
+
+6:10:40.762346 <0.92.0>  '--> simple_cache:lookup/1
+
+6:10:40.762412 <0.92.0> simple_cache:lookup/1 --> {ok,def}
+
+6:10:40.762501 <0.92.0>  '--> erl_eval:do_apply/7

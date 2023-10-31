@@ -19,6 +19,6 @@ ifeq ($(deps_dir_overriden),)
     endif
 endif
 
-DEPS = recon 
+DEPS = 
 
 include ../../erlang.mk
