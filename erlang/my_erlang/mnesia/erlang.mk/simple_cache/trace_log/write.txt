@@ -1,0 +1,35 @@
+
+storeDB(NodeName,Comment)->
+    AF=fun()->
+        {CreatedOn, _}=calendar:universal_time(),
+        mnesia:write(#factorial{nodeName=NodeName,comment=Comment,createdOn=CreatedOn})
+    end,
+    mnesia:transaction(AF).
+
+5:26:41.868579 <0.92.0> mnesia:transaction(#Fun<database_logic_debug.0.66526109>)
+
+5:26:41.868835 <0.92.0> mnesia:transaction(undefined, #Fun<database_logic_debug.0.66526109>, [], infinity, mnesia, async)
+
+5:26:41.868963 <0.92.0> mnesia:write({factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}})
+
+5:26:41.869071 <0.92.0> mnesia:write(factorial, {factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}}, write)
+
+5:26:41.869200 <0.92.0> mnesia:write({tid,5,<0.92.0>}, {tidstore,#Ref<0.2169306403.2648047617.190078>,[],1}, factorial, {factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}}, write)
+
+5:26:41.869345 <0.92.0> mnesia:write_to_store(factorial, #Ref<0.2169306403.2648047617.190078>, {factorial,'mynodex@centos7-mq1'}, {factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}})
+
+5:26:41.869457 <0.92.0> mnesia:write_to_store/4 --> ok
+
+5:26:41.869600 <0.92.0> mnesia:write/5 --> ok
+
+5:26:41.869768 <0.92.0> mnesia:write/3 --> ok
+
+5:26:41.869848 <0.92.0> mnesia:write/1 --> ok
+
+5:26:41.869911 <0.92.0>  '--> mnesia_tm:apply_fun/3
+
+5:26:41.869947 <0.92.0> mnesia:transaction/6 --> {atomic,ok}
+
+5:26:41.869991 <0.92.0> mnesia:transaction/1 --> {atomic,ok}
+
+5:26:41.870032 <0.92.0>  '--> erl_eval:do_apply/7

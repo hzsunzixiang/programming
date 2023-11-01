@@ -1,0 +1,471 @@
+
+5:18:15.741990 <0.92.0> mnesia:delete_schema(['mynodex@centos7-mq1'])
+
+5:18:15.743393 <0.92.0> mnesia:system_info(is_running)
+
+5:18:15.743511 <0.92.0> mnesia:system_info2(is_running)
+
+5:18:15.743587 <0.92.0> mnesia:system_info2/1 --> no
+
+5:18:15.743641 <0.92.0>  '--> mnesia:system_info/1
+
+5:18:15.743688 <0.92.0> mnesia:system_info/1 --> no
+
+5:18:15.743741 <0.92.0>  '--> mnesia_schema:read_schema/2
+
+5:18:15.743953 <0.92.0> mnesia:delete_schema/1 --> ok
+
+5:18:15.744061 <0.92.0>  '--> database_logic_debug:deleteScheme/1
+
+%% 
+
+5:18:15.744120 <0.92.0> mnesia:create_schema(['mynodex@centos7-mq1'])
+
+5:18:15.744178 <0.92.0> mnesia:create_schema(['mynodex@centos7-mq1'], [])
+
+5:18:15.744234 <0.92.0> mnesia:system_info(is_running)
+
+5:18:15.744340 <0.92.0> mnesia:system_info2(is_running)
+
+5:18:15.744430 <0.92.0> mnesia:system_info2/1 --> no
+
+5:18:15.744483 <0.92.0>  '--> mnesia:system_info/1
+
+5:18:15.744523 <0.92.0> mnesia:system_info/1 --> no
+
+5:18:15.744590 <0.92.0>  '--> mnesia_schema:read_schema/2
+
+5:18:15.745150 <0.92.0> mnesia:system_info(version)
+
+5:18:15.745266 <0.92.0> mnesia:system_info2(version)
+
+5:18:15.745352 <0.92.0> mnesia:system_info2/1 --> "4.22.1"
+
+5:18:15.745430 <0.92.0>  '--> mnesia:system_info/1
+
+5:18:15.745495 <0.92.0> mnesia:system_info/1 --> "4.22.1"
+
+5:18:15.745622 <0.92.0>  '--> mnesia_log:log_header/2
+
+5:18:15.746043 <0.1431.0> mnesia:system_info(version)
+
+5:18:15.746117 <0.1431.0> mnesia:system_info2(version)
+
+5:18:15.746189 <0.1431.0> mnesia:system_info2/1 --> "4.22.1"
+
+5:18:15.746295 <0.1431.0>  '--> mnesia:system_info/1
+
+5:18:15.746350 <0.1431.0> mnesia:system_info/1 --> "4.22.1"
+
+5:18:15.746424 <0.1431.0>  '--> mnesia_log:log_header/2
+
+5:18:15.746487 <0.1431.0> mnesia:system_info(version)
+
+5:18:15.746536 <0.1431.0> mnesia:system_info2(version)
+
+5:18:15.746578 <0.1431.0> mnesia:system_info2/1 --> "4.22.1"
+
+5:18:15.746628 <0.1431.0>  '--> mnesia:system_info/1
+
+5:18:15.746674 <0.1431.0> mnesia:system_info/1 --> "4.22.1"
+
+5:18:15.746725 <0.1431.0>  '--> mnesia_log:log_header/2
+
+5:18:15.746833 <0.1431.0> mnesia:system_info(version)
+
+5:18:15.746901 <0.1431.0> mnesia:system_info2(version)
+
+5:18:15.746969 <0.1431.0> mnesia:system_info2/1 --> "4.22.1"
+
+5:18:15.747069 <0.1431.0>  '--> mnesia:system_info/1
+
+5:18:15.747186 <0.1431.0> mnesia:system_info/1 --> "4.22.1"
+
+5:18:15.747293 <0.1431.0>  '--> mnesia_log:log_header/2
+
+5:18:15.747411 <0.1434.0> mnesia:system_info(schema_location)
+
+5:18:15.747510 <0.1434.0> mnesia:system_info2(schema_location)
+
+5:18:15.747635 <0.1434.0> mnesia:load_mnesia_or_abort()
+
+5:18:15.747700 <0.1434.0> mnesia:load_mnesia_or_abort/0 --> ok
+
+5:18:15.747822 <0.1434.0>  '--> mnesia:system_info2/1
+
+5:18:15.747889 <0.1434.0> mnesia:system_info2/1 --> opt_disc
+
+5:18:15.748001 <0.1434.0>  '--> mnesia:system_info/1
+
+5:18:15.748072 <0.1434.0> mnesia:system_info/1 --> opt_disc
+
+5:18:15.748149 <0.1434.0>  '--> mnesia_bup:check_fallback_dir/1
+
+5:18:15.748539 <0.92.0> mnesia:create_schema/2 --> ok
+
+5:18:15.748642 <0.92.0> mnesia:create_schema/1 --> ok
+
+5:18:15.748761 <0.92.0>  '--> database_logic_debug:initDB/0
+
+%% 
+5:18:15.748863 <0.92.0> mnesia:start()
+
+5:18:15.749021 <0.92.0> mnesia:start([])
+
+5:18:15.749116 <0.92.0> mnesia:patched_start([])
+
+5:18:15.749284 <0.92.0> mnesia:start_()
+
+5:18:15.749352 <0.1444.0> mnesia:system_info(version)
+
+5:18:15.749425 <0.1444.0> mnesia:system_info2(version)
+
+5:18:15.749569 <0.1444.0> mnesia:system_info2/1 --> "4.22.1"
+
+5:18:15.749709 <0.1444.0>  '--> mnesia:system_info/1
+
+5:18:15.749816 <0.1444.0> mnesia:system_info/1 --> "4.22.1"
+
+5:18:15.749934 <0.1444.0>  '--> mnesia_monitor:init/1
+
+5:18:15.750181 <0.1448.0> mnesia:system_info(version)
+
+5:18:15.750271 <0.1448.0> mnesia:system_info2(version)
+
+5:18:15.750332 <0.1448.0> mnesia:system_info2/1 --> "4.22.1"
+
+5:18:15.750422 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.750548 <0.1448.0> mnesia:system_info/1 --> "4.22.1"
+
+5:18:15.750687 <0.1448.0>  '--> mnesia_log:log_header/2
+
+5:18:15.750781 <0.1448.0> mnesia:system_info(version)
+
+5:18:15.750870 <0.1448.0> mnesia:system_info2(version)
+
+5:18:15.750939 <0.1448.0> mnesia:system_info2/1 --> "4.22.1"
+
+5:18:15.751070 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.751201 <0.1448.0> mnesia:system_info/1 --> "4.22.1"
+
+5:18:15.751297 <0.1448.0>  '--> mnesia_log:log_header/2
+
+5:18:15.751374 <0.1448.0> mnesia:system_info(is_running)
+
+5:18:15.751514 <0.1448.0> mnesia:system_info2(is_running)
+
+5:18:15.751647 <0.1448.0> mnesia:system_info2/1 --> starting
+
+5:18:15.751838 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.751925 <0.1448.0> mnesia:system_info/1 --> starting
+
+5:18:15.752081 <0.1448.0>  '--> mnesia_schema:read_schema/2
+
+5:18:15.752198 <0.1448.0> mnesia:system_info(is_running)
+
+5:18:15.752296 <0.1448.0> mnesia:system_info2(is_running)
+
+5:18:15.752401 <0.1448.0> mnesia:system_info2/1 --> starting
+
+5:18:15.752524 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.752620 <0.1448.0> mnesia:system_info/1 --> starting
+
+5:18:15.752705 <0.1448.0>  '--> mnesia_schema:read_disc_schema/2
+
+5:18:15.752789 <0.1448.0> mnesia:system_info(version)
+
+5:18:15.752872 <0.1448.0> mnesia:system_info2(version)
+
+5:18:15.752947 <0.1448.0> mnesia:system_info2/1 --> "4.22.1"
+
+5:18:15.753088 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.753197 <0.1448.0> mnesia:system_info/1 --> "4.22.1"
+
+5:18:15.753284 <0.1448.0>  '--> mnesia_log:log_header/2
+
+5:18:15.753366 <0.1448.0> mnesia:system_info(version)
+
+5:18:15.753476 <0.1448.0> mnesia:system_info2(version)
+
+5:18:15.753567 <0.1448.0> mnesia:system_info2/1 --> "4.22.1"
+
+5:18:15.753697 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.753809 <0.1448.0> mnesia:system_info/1 --> "4.22.1"
+
+5:18:15.753877 <0.1448.0>  '--> mnesia_log:log_header/2
+
+5:18:15.753964 <0.1448.0> mnesia:system_info(is_running)
+
+5:18:15.754052 <0.1448.0> mnesia:system_info2(is_running)
+
+5:18:15.754121 <0.1448.0> mnesia:system_info2/1 --> starting
+
+5:18:15.754217 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.754373 <0.1448.0> mnesia:system_info/1 --> starting
+
+5:18:15.754486 <0.1448.0>  '--> mnesia_schema:read_schema/2
+
+5:18:15.754605 <0.1448.0> mnesia:system_info(is_running)
+
+5:18:15.754701 <0.1448.0> mnesia:system_info2(is_running)
+
+5:18:15.754802 <0.1448.0> mnesia:system_info2/1 --> starting
+
+5:18:15.754873 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.754942 <0.1448.0> mnesia:system_info/1 --> starting
+
+5:18:15.755024 <0.1448.0>  '--> mnesia_schema:read_disc_schema/2
+
+5:18:15.755136 <0.1448.0> mnesia:system_info(version)
+
+5:18:15.755214 <0.1448.0> mnesia:system_info2(version)
+
+5:18:15.755403 <0.1448.0> mnesia:system_info2/1 --> "4.22.1"
+
+5:18:15.755498 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.756807 <0.1448.0> mnesia:system_info/1 --> "4.22.1"
+
+5:18:15.757338 <0.1448.0>  '--> mnesia_log:log_header/2
+
+5:18:15.757554 <0.1448.0> mnesia:system_info(version)
+
+5:18:15.757650 <0.1448.0> mnesia:system_info2(version)
+
+5:18:15.757979 <0.1448.0> mnesia:system_info2/1 --> "4.22.1"
+
+5:18:15.758098 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.758240 <0.1448.0> mnesia:system_info/1 --> "4.22.1"
+
+5:18:15.758340 <0.1448.0>  '--> mnesia_log:log_header/2
+
+5:18:15.758432 <0.1448.0> mnesia:system_info(is_running)
+
+5:18:15.758543 <0.1448.0> mnesia:system_info2(is_running)
+
+5:18:15.758659 <0.1448.0> mnesia:system_info2/1 --> starting
+
+5:18:15.758797 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.758909 <0.1448.0> mnesia:system_info/1 --> starting
+
+5:18:15.759049 <0.1448.0>  '--> mnesia_schema:read_schema/2
+
+5:18:15.759122 <0.1448.0> mnesia:system_info(is_running)
+
+5:18:15.759278 <0.1448.0> mnesia:system_info2(is_running)
+
+5:18:15.759410 <0.1448.0> mnesia:system_info2/1 --> starting
+
+5:18:15.759474 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.759546 <0.1448.0> mnesia:system_info/1 --> starting
+
+5:18:15.759613 <0.1448.0>  '--> mnesia_schema:read_disc_schema/2
+
+5:18:15.759673 <0.1448.0> mnesia:system_info(db_nodes)
+
+5:18:15.759758 <0.1448.0> mnesia:system_info2(db_nodes)
+
+5:18:15.759828 <0.1448.0> mnesia:system_info2/1 --> ['mynodex@centos7-mq1']
+
+5:18:15.760017 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.760102 <0.1448.0> mnesia:system_info/1 --> ['mynodex@centos7-mq1']
+
+5:18:15.760176 <0.1448.0>  '--> mnesia_lib:all_nodes/0
+
+5:18:15.760236 <0.1448.0> mnesia:system_info(extra_db_nodes)
+
+5:18:15.760321 <0.1448.0> mnesia:system_info2(extra_db_nodes)
+
+5:18:15.760384 <0.1448.0> mnesia:system_info2/1 --> []
+
+5:18:15.760446 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.760517 <0.1448.0> mnesia:system_info/1 --> []
+
+5:18:15.760599 <0.1448.0>  '--> mnesia_lib:all_nodes/0
+
+5:18:15.760679 <0.1448.0> mnesia:system_info(version)
+
+5:18:15.760763 <0.1448.0> mnesia:system_info2(version)
+
+5:18:15.760839 <0.1448.0> mnesia:system_info2/1 --> "4.22.1"
+
+5:18:15.760923 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.761023 <0.1448.0> mnesia:system_info/1 --> "4.22.1"
+
+5:18:15.761114 <0.1448.0>  '--> mnesia_log:log_header/2
+
+5:18:15.761210 <0.1448.0> mnesia:system_info(is_running)
+
+5:18:15.761317 <0.1448.0> mnesia:system_info2(is_running)
+
+5:18:15.761417 <0.1448.0> mnesia:system_info2/1 --> starting
+
+5:18:15.761518 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.761596 <0.1448.0> mnesia:system_info/1 --> starting
+
+5:18:15.761702 <0.1448.0>  '--> mnesia_schema:read_schema/2
+
+5:18:15.761865 <0.1448.0> mnesia:system_info(is_running)
+
+5:18:15.762038 <0.1448.0> mnesia:system_info2(is_running)
+
+5:18:15.762164 <0.1448.0> mnesia:system_info2/1 --> starting
+
+5:18:15.762339 <0.1448.0>  '--> mnesia:system_info/1
+
+5:18:15.762402 <0.1448.0> mnesia:system_info/1 --> starting
+
+5:18:15.762508 <0.1448.0>  '--> mnesia_schema:read_disc_schema/2
+
+5:18:15.762637 <0.1470.0> mnesia:system_info(db_nodes)
+
+5:18:15.762791 <0.1470.0> mnesia:system_info2(db_nodes)
+
+5:18:15.762872 <0.1470.0> mnesia:system_info2/1 --> ['mynodex@centos7-mq1']
+
+5:18:15.762967 <0.1470.0>  '--> mnesia:system_info/1
+
+5:18:15.763069 <0.1470.0> mnesia:system_info/1 --> ['mynodex@centos7-mq1']
+
+5:18:15.763309 <0.1470.0>  '--> mnesia_lib:all_nodes/0
+
+5:18:15.763430 <0.1470.0> mnesia:system_info(extra_db_nodes)
+
+5:18:15.763486 <0.1470.0> mnesia:system_info2(extra_db_nodes)
+
+5:18:15.763588 <0.1470.0> mnesia:system_info2/1 --> []
+
+5:18:15.763687 <0.1470.0>  '--> mnesia:system_info/1
+
+5:18:15.763768 <0.1470.0> mnesia:system_info/1 --> []
+
+5:18:15.763838 <0.1470.0>  '--> mnesia_lib:all_nodes/0
+
+5:18:15.763933 <0.1471.0> mnesia:system_info(db_nodes)
+
+5:18:15.764031 <0.1471.0> mnesia:system_info2(db_nodes)
+
+5:18:15.764144 <0.1471.0> mnesia:system_info2/1 --> ['mynodex@centos7-mq1']
+
+5:18:15.764303 <0.1471.0>  '--> mnesia:system_info/1
+
+5:18:15.764399 <0.1471.0> mnesia:system_info/1 --> ['mynodex@centos7-mq1']
+
+5:18:15.764543 <0.1471.0>  '--> mnesia_lib:all_nodes/0
+
+5:18:15.764644 <0.1471.0> mnesia:system_info(extra_db_nodes)
+
+5:18:15.764839 <0.1471.0> mnesia:system_info2(extra_db_nodes)
+
+5:18:15.764928 <0.1471.0> mnesia:system_info2/1 --> []
+
+5:18:15.764997 <0.1471.0>  '--> mnesia:system_info/1
+
+5:18:15.765058 <0.1471.0> mnesia:system_info/1 --> []
+
+5:18:15.765162 <0.1471.0>  '--> mnesia_lib:all_nodes/0
+
+5:18:15.765254 <0.1472.0> mnesia:transaction(#Fun<mnesia_schema.60.69755646>)
+
+5:18:15.765333 <0.1472.0> mnesia:transaction(undefined, #Fun<mnesia_schema.60.69755646>, [], infinity, mnesia, async)
+
+5:18:15.765438 <0.1472.0> mnesia:transaction/6 --> {atomic,not_merged}
+
+5:18:15.765538 <0.1472.0> mnesia:transaction/1 --> {atomic,not_merged}
+
+5:18:15.765656 <0.1472.0>  '--> mnesia_schema:schema_coordinator/3
+
+5:18:15.765727 <0.1471.0> mnesia:transaction(#Fun<mnesia_controller.0.115926952>)
+
+5:18:15.765810 <0.1471.0> mnesia:transaction(undefined, #Fun<mnesia_controller.0.115926952>, [], infinity, mnesia, async)
+
+5:18:15.765918 <0.1471.0> mnesia:lock({global,mnesia_late_disc_load,['mynodex@centos7-mq1']}, write)
+
+5:18:15.766022 <0.1471.0> mnesia:lock({tid,2,<0.1471.0>}, {tidstore,#Ref<0.2169306403.2648047617.158731>,[],1}, {global,mnesia_late_disc_load,['mynodex@centos7-mq1']}, write)
+
+5:18:15.766159 <0.1471.0> mnesia:global_lock({tid,2,<0.1471.0>}, {tidstore,#Ref<0.2169306403.2648047617.158731>,[],1}, mnesia_late_disc_load, write, ['mynodex@centos7-mq1'])
+
+5:18:15.766310 <0.1471.0> mnesia:good_global_nodes(['mynodex@centos7-mq1'])
+
+5:18:15.766396 <0.1471.0> mnesia:val(recover_nodes)
+
+5:18:15.766463 <0.1471.0> mnesia:val/1 --> []
+
+5:18:15.766531 <0.1471.0>  '--> mnesia:good_global_nodes/1
+
+5:18:15.766613 <0.1471.0> mnesia:good_global_nodes/1 --> ['mynodex@centos7-mq1']
+
+5:18:15.766686 <0.1471.0>  '--> mnesia:global_lock/5
+
+5:18:15.766759 <0.1471.0> mnesia:global_lock/5 --> ['mynodex@centos7-mq1']
+
+5:18:15.766851 <0.1471.0> mnesia:lock/4 --> ['mynodex@centos7-mq1']
+
+5:18:15.766922 <0.1471.0> mnesia:lock/2 --> ['mynodex@centos7-mq1']
+
+5:18:15.767006 <0.1471.0>  '--> mnesia_controller:'-try_schedule_late_disc_load/3-fun-0-'/3
+
+5:18:15.767113 <0.1471.0> mnesia:transaction/6 --> {atomic,done}
+
+5:18:15.767203 <0.1471.0> mnesia:transaction/1 --> {atomic,done}
+
+5:18:15.767299 <0.1471.0>  '--> mnesia_controller:try_schedule_late_disc_load/3
+
+5:18:15.767350 <0.92.0> mnesia:start_/0 --> ok
+
+5:18:15.767417 <0.92.0> mnesia:patched_start/1 --> ok
+
+5:18:15.767485 <0.92.0> mnesia:start/1 --> ok
+
+5:18:15.767563 <0.92.0> mnesia:start/0 --> ok
+
+5:18:15.767646 <0.92.0>  '--> database_logic_debug:initDB/0
+
+
+%%
+
+5:18:15.767718 <0.92.0> mnesia:table_info(factorial, type)
+
+5:18:15.767808 <0.92.0> mnesia:any_table_info(factorial, type)
+
+5:18:15.767878 <0.92.0> mnesia:abort({no_exists,factorial,type})
+
+5:18:15.767996 <0.92.0>  '--> database_logic_debug:initDB/0
+
+%% 
+
+5:18:15.768069 <0.92.0> mnesia:create_table(factorial, [{attributes,[nodeName,comment,createdOn]},
+ {type,bag},
+ {disc_copies,['mynodex@centos7-mq1']}])
+
+5:18:15.768199 <0.1473.0> mnesia:transaction(#Fun<mnesia_schema.23.69755646>)
+
+5:18:15.768268 <0.1473.0> mnesia:transaction(undefined, #Fun<mnesia_schema.23.69755646>, [], infinity, mnesia, async)
+
+5:18:15.768368 <0.1473.0> mnesia:transaction/6 --> {atomic,ok}
+
+5:18:15.768457 <0.1473.0> mnesia:transaction/1 --> {atomic,ok}
+
+5:18:15.768526 <0.1473.0>  '--> mnesia_schema:schema_coordinator/3
+
+5:18:15.768583 <0.92.0> mnesia:create_table/2 --> {atomic,ok}
+
+5:18:15.768671 <0.92.0>  '--> database_logic_debug:initDB/0
+
+
+%%

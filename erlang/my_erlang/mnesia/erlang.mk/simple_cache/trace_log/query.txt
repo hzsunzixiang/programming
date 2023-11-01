@@ -1,0 +1,304 @@
+
+5:31:16.115265 <0.92.0> mnesia:transaction(#Fun<database_logic_debug.1.66526109>)
+
+5:31:16.115604 <0.92.0> mnesia:transaction(undefined, #Fun<database_logic_debug.1.66526109>, [], infinity, mnesia, async)
+
+5:31:16.115768 <0.92.0> mnesia:table(factorial)
+
+5:31:16.115912 <0.92.0> mnesia:table(factorial, [])
+
+5:31:16.116052 <0.92.0> mnesia:qlc_opts([], [{traverse,select},{lock,read},{n_objects,100}])
+
+5:31:16.116182 <0.92.0> mnesia:qlc_opts([], [{traverse,select},{lock,read},{n_objects,100}], [])
+
+5:31:16.116352 <0.92.0> mnesia:qlc_opts([], [{lock,read},{n_objects,100}], [select])
+
+5:31:16.116647 <0.92.0> mnesia:qlc_opts([], [{n_objects,100}], [read,select])
+
+5:31:16.116747 <0.92.0> mnesia:qlc_opts([], [], [100,read,select])
+
+5:31:16.116841 <0.92.0> mnesia:qlc_opts/3 --> {[select,read,100],[]}
+
+5:31:16.116945 <0.92.0> mnesia:qlc_opts/3 --> {[select,read,100],[]}
+
+5:31:16.117037 <0.92.0> mnesia:qlc_opts/3 --> {[select,read,100],[]}
+
+5:31:16.117151 <0.92.0> mnesia:qlc_opts/3 --> {[select,read,100],[]}
+
+5:31:16.117253 <0.92.0> mnesia:qlc_opts/2 --> {[select,read,100],[]}
+
+5:31:16.117358 <0.92.0>  '--> mnesia:table/2
+
+5:31:16.117453 <0.92.0> mnesia:table/2 --> {qlc_handle,{qlc_table,#Fun<mnesia.23.102023884>,true,
+                       #Fun<mnesia.24.102023884>,#Fun<mnesia.25.102023884>,
+                       #Fun<mnesia.26.102023884>,#Fun<mnesia.29.102023884>,
+                       #Fun<mnesia.28.102023884>,#Fun<mnesia.27.102023884>,
+                       '=:=',undefined,no_match_spec}}
+
+5:31:16.117607 <0.92.0> mnesia:table/1 --> {qlc_handle,{qlc_table,#Fun<mnesia.23.102023884>,true,
+                       #Fun<mnesia.24.102023884>,#Fun<mnesia.25.102023884>,
+                       #Fun<mnesia.26.102023884>,#Fun<mnesia.29.102023884>,
+                       #Fun<mnesia.28.102023884>,#Fun<mnesia.27.102023884>,
+                       '=:=',undefined,no_match_spec}}
+
+5:31:16.117754 <0.92.0>  '--> qlc:eval_le/2
+
+5:31:16.117822 <0.92.0> mnesia:'-table/2-fun-4-'(is_sorted_key, factorial)
+
+5:31:16.117921 <0.92.0> mnesia:qlc_info(factorial, is_sorted_key)
+
+5:31:16.118019 <0.92.0> mnesia:qlc_info/2 --> undefined
+
+5:31:16.118117 <0.92.0> mnesia:'-table/2-fun-4-'/2 --> undefined
+
+5:31:16.118214 <0.92.0>  '--> qlc:call/4
+
+5:31:16.118299 <0.92.0> mnesia:'-table/2-fun-4-'(is_unique_objects, factorial)
+
+5:31:16.118380 <0.92.0> mnesia:qlc_info(factorial, is_unique_objects)
+
+5:31:16.118493 <0.92.0> mnesia:qlc_info/2 --> true
+
+5:31:16.118550 <0.92.0> mnesia:'-table/2-fun-4-'/2 --> true
+
+5:31:16.118595 <0.92.0>  '--> qlc:grd/2
+
+5:31:16.118628 <0.92.0> mnesia:'-table/2-fun-4-'(keypos, factorial)
+
+5:31:16.118678 <0.92.0> mnesia:qlc_info(factorial, keypos)
+
+5:31:16.118720 <0.92.0> mnesia:qlc_info/2 --> 2
+
+5:31:16.118758 <0.92.0> mnesia:'-table/2-fun-4-'/2 --> 2
+
+5:31:16.118806 <0.92.0>  '--> qlc:call/4
+
+5:31:16.118841 <0.92.0> mnesia:'-table/2-fun-5-'()
+
+5:31:16.118879 <0.92.0> mnesia:get_activity_id()
+
+5:31:16.118914 <0.92.0> mnesia:get_activity_id/0 --> {mnesia,{tid,6,<0.92.0>},{tidstore,#Ref<0.2169306403.2648047617.195956>,[],1}}
+
+5:31:16.119024 <0.92.0>  '--> mnesia:'-table/2-fun-5-'/0
+
+5:31:16.119118 <0.92.0> mnesia:'-table/2-fun-5-'/0 --> {mnesia_activity,{mnesia,{tid,6,<0.92.0>},
+                         {tidstore,#Ref<0.2169306403.2648047617.195956>,[],
+                                   1}}}
+
+5:31:16.119253 <0.92.0>  '--> qlc:table_handle/3
+
+5:31:16.119343 <0.92.0> mnesia:'-table/2-fun-2-'([{parent_value,
+     {mnesia_activity,
+         {mnesia,
+             {tid,6,<0.92.0>},
+             {tidstore,#Ref<0.2169306403.2648047617.195956>,[],1}}}},
+ {stop_fun,undefined}], factorial)
+
+5:31:16.119502 <0.92.0> mnesia:pre_qlc([{parent_value,
+     {mnesia_activity,
+         {mnesia,
+             {tid,6,<0.92.0>},
+             {tidstore,#Ref<0.2169306403.2648047617.195956>,[],1}}}},
+ {stop_fun,undefined}], factorial)
+
+5:31:16.119644 <0.92.0> mnesia:pre_qlc/2 --> ok
+
+5:31:16.119720 <0.92.0> mnesia:'-table/2-fun-2-'/2 --> ok
+
+5:31:16.119792 <0.92.0>  '--> qlc:call/4
+
+5:31:16.119836 <0.92.0> mnesia:'-table/2-fun-8-'(2, ['mynodex@centos7-mq1'], factorial, read)
+
+5:31:16.119912 <0.92.0> mnesia:'-table/2-fun-6-'('mynodex@centos7-mq1', factorial, read)
+
+5:31:16.120008 <0.92.0> mnesia:read(factorial, 'mynodex@centos7-mq1', read)
+
+5:31:16.120095 <0.92.0> mnesia:read({tid,6,<0.92.0>}, {tidstore,#Ref<0.2169306403.2648047617.195956>,[],1}, factorial, 'mynodex@centos7-mq1', read)
+
+5:31:16.120202 <0.92.0> mnesia:add_written([], factorial, #Fun<mnesia.0.102023884>, read)
+
+5:31:16.120312 <0.92.0> mnesia:'-read/5-fun-0-'({tid,6,<0.92.0>}, factorial, read, #Ref<0.2169306403.2648047617.195956>, {factorial,'mynodex@centos7-mq1'})
+
+5:31:16.120421 <0.92.0> mnesia:'-read/5-fun-0-'/5 --> [{factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}}]
+
+5:31:16.120528 <0.92.0> mnesia:add_written/4 --> [{factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}}]
+
+5:31:16.120632 <0.92.0> mnesia:read/5 --> [{factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}}]
+
+5:31:16.120734 <0.92.0> mnesia:read/3 --> [{factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}}]
+
+5:31:16.120829 <0.92.0> mnesia:'-table/2-fun-6-'/3 --> [{factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}}]
+
+5:31:16.120935 <0.92.0>  '--> lists:flatmap_1/2
+
+5:31:16.120996 <0.92.0> mnesia:'-table/2-fun-8-'/4 --> [{factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}}]
+
+5:31:16.121085 <0.92.0>  '--> qlc:setup_le/3
+
+5:31:16.121140 <0.92.0> mnesia:'-table/2-fun-3-'(factorial)
+
+5:31:16.121203 <0.92.0> mnesia:post_qlc(factorial)
+
+5:31:16.121261 <0.92.0> mnesia:post_qlc/1 --> ok
+
+5:31:16.121298 <0.92.0> mnesia:'-table/2-fun-3-'/1 --> ok
+
+5:31:16.121336 <0.92.0>  '--> qlc:'-local_post/1-fun-0-'/1
+
+5:31:16.121371 <0.92.0> mnesia:transaction/6 --> {atomic,["This is my first Mnesia"]}
+
+5:31:16.121436 <0.92.0> mnesia:transaction/1 --> {atomic,["This is my first Mnesia"]}
+
+5:31:16.121515 <0.92.0>  '--> database_logic_debug:getDB/1
+
+5:32:41.652381 <0.92.0> mnesia:transaction(#Fun<database_logic_debug.2.66526109>)
+
+5:32:41.653434 <0.92.0> mnesia:transaction(undefined, #Fun<database_logic_debug.2.66526109>, [], infinity, mnesia, async)
+
+5:32:41.653834 <0.92.0> mnesia:table(factorial)
+
+5:32:41.653998 <0.92.0> mnesia:table(factorial, [])
+
+5:32:41.654169 <0.92.0> mnesia:qlc_opts([], [{traverse,select},{lock,read},{n_objects,100}])
+
+5:32:41.654410 <0.92.0> mnesia:qlc_opts([], [{traverse,select},{lock,read},{n_objects,100}], [])
+
+5:32:41.654556 <0.92.0> mnesia:qlc_opts([], [{lock,read},{n_objects,100}], [select])
+
+5:32:41.654660 <0.92.0> mnesia:qlc_opts([], [{n_objects,100}], [read,select])
+
+5:32:41.654833 <0.92.0> mnesia:qlc_opts([], [], [100,read,select])
+
+5:32:41.654981 <0.92.0> mnesia:qlc_opts/3 --> {[select,read,100],[]}
+
+5:32:41.655094 <0.92.0> mnesia:qlc_opts/3 --> {[select,read,100],[]}
+
+5:32:41.655214 <0.92.0> mnesia:qlc_opts/3 --> {[select,read,100],[]}
+
+5:32:41.655332 <0.92.0> mnesia:qlc_opts/3 --> {[select,read,100],[]}
+
+5:32:41.655460 <0.92.0> mnesia:qlc_opts/2 --> {[select,read,100],[]}
+
+5:32:41.655648 <0.92.0>  '--> mnesia:table/2
+
+5:32:41.655761 <0.92.0> mnesia:table/2 --> {qlc_handle,{qlc_table,#Fun<mnesia.23.102023884>,true,
+                       #Fun<mnesia.24.102023884>,#Fun<mnesia.25.102023884>,
+                       #Fun<mnesia.26.102023884>,#Fun<mnesia.29.102023884>,
+                       #Fun<mnesia.28.102023884>,#Fun<mnesia.27.102023884>,
+                       '=:=',undefined,no_match_spec}}
+
+5:32:41.655972 <0.92.0> mnesia:table/1 --> {qlc_handle,{qlc_table,#Fun<mnesia.23.102023884>,true,
+                       #Fun<mnesia.24.102023884>,#Fun<mnesia.25.102023884>,
+                       #Fun<mnesia.26.102023884>,#Fun<mnesia.29.102023884>,
+                       #Fun<mnesia.28.102023884>,#Fun<mnesia.27.102023884>,
+                       '=:=',undefined,no_match_spec}}
+
+5:32:41.656206 <0.92.0>  '--> qlc:eval_le/2
+
+5:32:41.656305 <0.92.0> mnesia:'-table/2-fun-4-'(is_sorted_key, factorial)
+
+5:32:41.656442 <0.92.0> mnesia:qlc_info(factorial, is_sorted_key)
+
+5:32:41.656558 <0.92.0> mnesia:qlc_info/2 --> undefined
+
+5:32:41.656653 <0.92.0> mnesia:'-table/2-fun-4-'/2 --> undefined
+
+5:32:41.656779 <0.92.0>  '--> qlc:call/4
+
+5:32:41.656870 <0.92.0> mnesia:'-table/2-fun-4-'(is_unique_objects, factorial)
+
+5:32:41.656964 <0.92.0> mnesia:qlc_info(factorial, is_unique_objects)
+
+5:32:41.657148 <0.92.0> mnesia:qlc_info/2 --> true
+
+5:32:41.657240 <0.92.0> mnesia:'-table/2-fun-4-'/2 --> true
+
+5:32:41.657376 <0.92.0>  '--> qlc:grd/2
+
+5:32:41.657419 <0.92.0> mnesia:'-table/2-fun-4-'(keypos, factorial)
+
+5:32:41.657483 <0.92.0> mnesia:qlc_info(factorial, keypos)
+
+5:32:41.657560 <0.92.0> mnesia:qlc_info/2 --> 2
+
+5:32:41.657657 <0.92.0> mnesia:'-table/2-fun-4-'/2 --> 2
+
+5:32:41.657709 <0.92.0>  '--> qlc:call/4
+
+5:32:41.657746 <0.92.0> mnesia:'-table/2-fun-5-'()
+
+5:32:41.657785 <0.92.0> mnesia:get_activity_id()
+
+5:32:41.657943 <0.92.0> mnesia:get_activity_id/0 --> {mnesia,{tid,7,<0.92.0>},{tidstore,#Ref<0.2169306403.2648047617.197827>,[],1}}
+
+5:32:41.658064 <0.92.0>  '--> mnesia:'-table/2-fun-5-'/0
+
+5:32:41.658147 <0.92.0> mnesia:'-table/2-fun-5-'/0 --> {mnesia_activity,{mnesia,{tid,7,<0.92.0>},
+                         {tidstore,#Ref<0.2169306403.2648047617.197827>,[],
+                                   1}}}
+
+5:32:41.658327 <0.92.0>  '--> qlc:table_handle/3
+
+5:32:41.658412 <0.92.0> mnesia:'-table/2-fun-2-'([{parent_value,
+     {mnesia_activity,
+         {mnesia,
+             {tid,7,<0.92.0>},
+             {tidstore,#Ref<0.2169306403.2648047617.197827>,[],1}}}},
+ {stop_fun,undefined}], factorial)
+
+5:32:41.658631 <0.92.0> mnesia:pre_qlc([{parent_value,
+     {mnesia_activity,
+         {mnesia,
+             {tid,7,<0.92.0>},
+             {tidstore,#Ref<0.2169306403.2648047617.197827>,[],1}}}},
+ {stop_fun,undefined}], factorial)
+
+5:32:41.658857 <0.92.0> mnesia:pre_qlc/2 --> ok
+
+5:32:41.658948 <0.92.0> mnesia:'-table/2-fun-2-'/2 --> ok
+
+5:32:41.658994 <0.92.0>  '--> qlc:call/4
+
+5:32:41.659039 <0.92.0> mnesia:'-table/2-fun-8-'(2, ['mynodex@centos7-mq1'], factorial, read)
+
+5:32:41.659170 <0.92.0> mnesia:'-table/2-fun-6-'('mynodex@centos7-mq1', factorial, read)
+
+5:32:41.659313 <0.92.0> mnesia:read(factorial, 'mynodex@centos7-mq1', read)
+
+5:32:41.659397 <0.92.0> mnesia:read({tid,7,<0.92.0>}, {tidstore,#Ref<0.2169306403.2648047617.197827>,[],1}, factorial, 'mynodex@centos7-mq1', read)
+
+5:32:41.659586 <0.92.0> mnesia:add_written([], factorial, #Fun<mnesia.0.102023884>, read)
+
+5:32:41.659686 <0.92.0> mnesia:'-read/5-fun-0-'({tid,7,<0.92.0>}, factorial, read, #Ref<0.2169306403.2648047617.197827>, {factorial,'mynodex@centos7-mq1'})
+
+5:32:41.659798 <0.92.0> mnesia:'-read/5-fun-0-'/5 --> [{factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}}]
+
+5:32:41.659928 <0.92.0> mnesia:add_written/4 --> [{factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}}]
+
+5:32:41.660020 <0.92.0> mnesia:read/5 --> [{factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}}]
+
+5:32:41.660112 <0.92.0> mnesia:read/3 --> [{factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}}]
+
+5:32:41.660238 <0.92.0> mnesia:'-table/2-fun-6-'/3 --> [{factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}}]
+
+5:32:41.660337 <0.92.0>  '--> lists:flatmap_1/2
+
+5:32:41.660383 <0.92.0> mnesia:'-table/2-fun-8-'/4 --> [{factorial,'mynodex@centos7-mq1',"This is my first Mnesia",{2023,11,1}}]
+
+5:32:41.660515 <0.92.0>  '--> qlc:setup_le/3
+
+5:32:41.660558 <0.92.0> mnesia:'-table/2-fun-3-'(factorial)
+
+5:32:41.660599 <0.92.0> mnesia:post_qlc(factorial)
+
+5:32:41.660634 <0.92.0> mnesia:post_qlc/1 --> ok
+
+5:32:41.660793 <0.92.0> mnesia:'-table/2-fun-3-'/1 --> ok
+
+5:32:41.660848 <0.92.0>  '--> qlc:'-local_post/1-fun-0-'/1
+
+5:32:41.660917 <0.92.0> mnesia:transaction/6 --> {atomic,[{"This is my first Mnesia",{2023,11,1}}]}
+
+5:32:41.661010 <0.92.0> mnesia:transaction/1 --> {atomic,[{"This is my first Mnesia",{2023,11,1}}]}
+
+5:32:41.661100 <0.92.0>  '--> database_logic_debug:getDBTwo/1
