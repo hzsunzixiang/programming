@@ -11,6 +11,7 @@
 init() ->
     mnesia:stop(),
     mnesia:delete_schema([node()]),
+	%ok = mnesia:create_schema([node()]),
     mnesia:start(),
     mnesia:delete_table(key_to_pid),
     CacheNodes = ['apple@centos7-mq1', 'apple@centos7-mq2'],
@@ -42,9 +43,12 @@ dynamic_db_init(CacheNodes) ->
     add_extra_nodes(CacheNodes).
 
 add_extra_nodes([Node|T]) ->
+    %% 这里只能是RAM模式的，需要 change_table_copy_type 改为disc_copies 模式的
     case mnesia:change_config(extra_db_nodes, [Node]) of
         {ok, [Node]} ->
             %mnesia:add_table_copy(key_to_pid, node(), ram_copies),
+			mnesia:change_table_copy_type(schema, node(), disc_copies),
+			% 必须先改 scheme，不然这一句不生效
             mnesia:add_table_copy(key_to_pid, node(), disc_copies),
 
             Tables = mnesia:system_info(tables),
