@@ -1,4 +1,4 @@
--module(sc_store).
+-module(mnesia_cluster).
 
 -compile(export_all).
 -compile(nowarn_export_all).
@@ -15,25 +15,18 @@ init() ->
     CacheNodes = ['apple@centos7-mq1', 'apple@centos7-mq2'],
     dynamic_db_init(lists:delete(node(), CacheNodes)).
 
-insert(Key, Pid) ->
-    mnesia:dirty_write(#key_to_pid{key = Key, pid = Pid}).
 
-lookup(Key) ->
-    case mnesia:dirty_read(key_to_pid, Key) of
-        [{key_to_pid, Key, Pid}] ->
-		{ok, Pid};
-        [] ->
-	    {error, not_found}
-    end.
-
-delete(Pid) ->
-    case mnesia:dirty_index_read(key_to_pid, Pid, #key_to_pid.pid) of
-        [#key_to_pid{} = Record] ->
-            mnesia:dirty_delete_object(Record);
-        _ ->
-            ok
-    end.
-
+%2:22:58.079266 <0.130.0> rd_server:fetch_resources/1 --> {ok,['contactx@centos7-mq1','contactx@centos7-mq2']}
+%
+%2:22:58.079351 <0.130.0> resource_discovery:fetch_resources/1 --> {ok,['contactx@centos7-mq1','contactx@centos7-mq2']}
+%
+%2:22:58.079431 <0.130.0>  '--> sc_store:init/0
+%
+%2:22:58.079484 <0.130.0> sc_store:dynamic_db_init(['contactx@centos7-mq1'])
+%
+%2:22:58.079563 <0.130.0> sc_store:add_extra_nodes(['contactx@centos7-mq1'])
+%
+%2:22:58.079684 <0.130.0> mnesia:change_config(extra_db_nodes, ['contactx@centos7-mq1'])
 
 %% Internal Functions
 
@@ -58,3 +51,23 @@ add_extra_nodes([Node|T]) ->
             add_extra_nodes(T)
     end.
 
+
+
+insert(Key, Pid) ->
+    mnesia:dirty_write(#key_to_pid{key = Key, pid = Pid}).
+
+lookup(Key) ->
+    case mnesia:dirty_read(key_to_pid, Key) of
+        [{key_to_pid, Key, Pid}] ->
+		{ok, Pid};
+        [] ->
+	    {error, not_found}
+    end.
+
+delete(Pid) ->
+    case mnesia:dirty_index_read(key_to_pid, Pid, #key_to_pid.pid) of
+        [#key_to_pid{} = Record] ->
+            mnesia:dirty_delete_object(Record);
+        _ ->
+            ok
+    end.

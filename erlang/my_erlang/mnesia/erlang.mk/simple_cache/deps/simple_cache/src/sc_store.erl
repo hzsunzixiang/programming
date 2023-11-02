@@ -16,7 +16,7 @@ init() ->
     mnesia:stop(),
     mnesia:delete_schema([node()]),
     mnesia:start(),
-    CacheNodes  = ['apple@centos7-mq1', 'apple@centos7-mq2'],
+    {ok, CacheNodes} = resource_discovery:fetch_resources(simple_cache),
     dynamic_db_init(lists:delete(node(), CacheNodes)).
 
 insert(Key, Pid) ->
@@ -25,7 +25,10 @@ insert(Key, Pid) ->
 lookup(Key) ->
     case mnesia:dirty_read(key_to_pid, Key) of
         [{key_to_pid, Key, Pid}] ->
-		{ok, Pid};
+	    case is_pid_alive(Pid) of
+		true -> {ok, Pid};
+		false -> {error, not_found}
+	    end;
         [] ->
 	    {error, not_found}
     end.
@@ -59,3 +62,21 @@ add_extra_nodes([Node|T]) ->
         _ ->
             add_extra_nodes(T)
     end.
+
+is_pid_alive(Pid) when node(Pid) =:= node() ->
+    is_process_alive(Pid);
+is_pid_alive(Pid) ->
+    case lists:member(node(Pid), nodes()) of
+	false ->
+	    false;
+	true ->
+	    case rpc:call(node(Pid), erlang, is_process_alive, [Pid]) of
+		true ->
+		    true;
+		false ->
+		    false;
+		{badrpc, _Reason} ->
+		    false
+	    end
+    end.
+    
