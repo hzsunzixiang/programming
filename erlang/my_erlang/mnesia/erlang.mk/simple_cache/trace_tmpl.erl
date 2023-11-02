@@ -12,7 +12,7 @@ FileName= string:concat(LogDir, LogFileName).  %LogPath = LogDir ++ LogFileName.
 file:delete(FileName).
 file:make_dir(LogDir).
 
-DirTmp=[resource_discovery, simple_cache].
+DirTmp=[resource_discovery, simple_cache, mnesia_test].
 
 DirDel=[].
 

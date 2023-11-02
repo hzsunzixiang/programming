@@ -1,4 +1,4 @@
--module(mnesia_cluster).
+-module(mnesia_cluster_disk).
 
 -compile(export_all).
 -compile(nowarn_export_all).
@@ -43,8 +43,8 @@ dynamic_db_init(CacheNodes) ->
 add_extra_nodes([Node|T]) ->
     case mnesia:change_config(extra_db_nodes, [Node]) of
         {ok, [Node]} ->
-            mnesia:add_table_copy(key_to_pid, node(), ram_copies),
-            %mnesia:add_table_copy(key_to_pid, node(), disc_copies),
+            %mnesia:add_table_copy(key_to_pid, node(), ram_copies),
+            mnesia:add_table_copy(key_to_pid, node(), disc_copies),
 
             Tables = mnesia:system_info(tables),
             mnesia:wait_for_tables(Tables, ?WAIT_FOR_TABLES);

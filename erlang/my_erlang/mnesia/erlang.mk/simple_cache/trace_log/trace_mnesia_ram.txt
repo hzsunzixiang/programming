@@ -1,0 +1,364 @@
+
+3:9:19.377483 <0.92.0> mnesia_cluster:init()
+
+3:9:19.377821 <0.92.0> mnesia:stop()
+
+3:9:19.377933 <0.92.0> mnesia:stop/0 --> stopped
+
+3:9:19.378018 <0.92.0>  '--> mnesia_cluster:init/0
+
+3:9:19.378095 <0.92.0> mnesia:delete_schema(['apple@centos7-mq1'])
+
+3:9:19.380463 <0.92.0> mnesia:system_info(is_running)
+
+3:9:19.380576 <0.92.0> mnesia:system_info2(is_running)
+
+3:9:19.380677 <0.92.0> mnesia:system_info2/1 --> no
+
+3:9:19.380760 <0.92.0>  '--> mnesia:system_info/1
+
+3:9:19.380825 <0.92.0> mnesia:system_info/1 --> no
+
+3:9:19.380899 <0.92.0>  '--> mnesia_schema:read_schema/2
+
+3:9:19.381353 <0.92.0> mnesia:delete_schema/1 --> ok
+
+3:9:19.381458 <0.92.0>  '--> mnesia_cluster:init/0
+
+3:9:19.381570 <0.92.0> mnesia:start()
+
+3:9:19.381670 <0.92.0> mnesia:start([])
+
+3:9:19.381817 <0.92.0> mnesia:patched_start([])
+
+3:9:19.381909 <0.92.0> mnesia:start_()
+
+3:9:19.381956 <0.134.0> mnesia:system_info(version)
+
+3:9:19.382093 <0.134.0> mnesia:system_info2(version)
+
+3:9:19.382212 <0.134.0> mnesia:system_info2/1 --> "4.22.1"
+
+3:9:19.382299 <0.134.0>  '--> mnesia:system_info/1
+
+3:9:19.382369 <0.134.0> mnesia:system_info/1 --> "4.22.1"
+
+3:9:19.382485 <0.134.0>  '--> mnesia_monitor:init/1
+
+3:9:19.382934 <0.138.0> mnesia:system_info(is_running)
+
+3:9:19.383163 <0.138.0> mnesia:system_info2(is_running)
+
+3:9:19.383296 <0.138.0> mnesia:system_info2/1 --> starting
+
+3:9:19.383382 <0.138.0>  '--> mnesia:system_info/1
+
+3:9:19.383498 <0.138.0> mnesia:system_info/1 --> starting
+
+3:9:19.383628 <0.138.0>  '--> mnesia_schema:read_schema/2
+
+3:9:19.383756 <0.138.0> mnesia:system_info(db_nodes)
+
+3:9:19.383810 <0.138.0> mnesia:system_info2(db_nodes)
+
+3:9:19.383950 <0.138.0> mnesia:system_info2/1 --> ['apple@centos7-mq1']
+
+3:9:19.384060 <0.138.0>  '--> mnesia:system_info/1
+
+3:9:19.384181 <0.138.0> mnesia:system_info/1 --> ['apple@centos7-mq1']
+
+3:9:19.384298 <0.138.0>  '--> mnesia_lib:all_nodes/0
+
+3:9:19.384409 <0.138.0> mnesia:system_info(extra_db_nodes)
+
+3:9:19.384486 <0.138.0> mnesia:system_info2(extra_db_nodes)
+
+3:9:19.384547 <0.138.0> mnesia:system_info2/1 --> []
+
+3:9:19.384607 <0.138.0>  '--> mnesia:system_info/1
+
+3:9:19.384692 <0.138.0> mnesia:system_info/1 --> []
+
+3:9:19.384778 <0.138.0>  '--> mnesia_lib:all_nodes/0
+
+3:9:19.384835 <0.141.0> mnesia:system_info(db_nodes)
+
+3:9:19.384916 <0.141.0> mnesia:system_info2(db_nodes)
+
+3:9:19.384992 <0.141.0> mnesia:system_info2/1 --> ['apple@centos7-mq1']
+
+3:9:19.385049 <0.141.0>  '--> mnesia:system_info/1
+
+3:9:19.385238 <0.141.0> mnesia:system_info/1 --> ['apple@centos7-mq1']
+
+3:9:19.385360 <0.141.0>  '--> mnesia_lib:all_nodes/0
+
+3:9:19.385453 <0.141.0> mnesia:system_info(extra_db_nodes)
+
+3:9:19.385566 <0.141.0> mnesia:system_info2(extra_db_nodes)
+
+3:9:19.385720 <0.141.0> mnesia:system_info2/1 --> []
+
+3:9:19.385815 <0.141.0>  '--> mnesia:system_info/1
+
+3:9:19.386425 <0.141.0> mnesia:system_info/1 --> []
+
+3:9:19.387017 <0.141.0>  '--> mnesia_lib:all_nodes/0
+
+3:9:19.388054 <0.142.0> mnesia:system_info(db_nodes)
+
+3:9:19.388580 <0.142.0> mnesia:system_info2(db_nodes)
+
+3:9:19.388785 <0.142.0> mnesia:system_info2/1 --> ['apple@centos7-mq1']
+
+3:9:19.388942 <0.142.0>  '--> mnesia:system_info/1
+
+3:9:19.389087 <0.142.0> mnesia:system_info/1 --> ['apple@centos7-mq1']
+
+3:9:19.389185 <0.142.0>  '--> mnesia_lib:all_nodes/0
+
+3:9:19.389394 <0.142.0> mnesia:system_info(extra_db_nodes)
+
+3:9:19.389550 <0.142.0> mnesia:system_info2(extra_db_nodes)
+
+3:9:19.389966 <0.142.0> mnesia:system_info2/1 --> []
+
+3:9:19.390038 <0.142.0>  '--> mnesia:system_info/1
+
+3:9:19.390106 <0.142.0> mnesia:system_info/1 --> []
+
+3:9:19.390202 <0.142.0>  '--> mnesia_lib:all_nodes/0
+
+3:9:19.390266 <0.143.0> mnesia:transaction(#Fun<mnesia_schema.60.69755646>)
+
+3:9:19.390346 <0.143.0> mnesia:transaction(undefined, #Fun<mnesia_schema.60.69755646>, [], infinity, mnesia, async)
+
+3:9:19.390437 <0.143.0> mnesia:transaction/6 --> {atomic,not_merged}
+
+3:9:19.390525 <0.143.0> mnesia:transaction/1 --> {atomic,not_merged}
+
+3:9:19.390666 <0.143.0>  '--> mnesia_schema:schema_coordinator/3
+
+3:9:19.390748 <0.142.0> mnesia:transaction(#Fun<mnesia_controller.0.115926952>)
+
+3:9:19.390847 <0.142.0> mnesia:transaction(undefined, #Fun<mnesia_controller.0.115926952>, [], infinity, mnesia, async)
+
+3:9:19.390972 <0.142.0> mnesia:lock({global,mnesia_late_disc_load,['apple@centos7-mq1']}, write)
+
+3:9:19.391091 <0.142.0> mnesia:lock({tid,2,<0.142.0>}, {tidstore,#Ref<0.1469577579.3657302018.180656>,[],1}, {global,mnesia_late_disc_load,['apple@centos7-mq1']}, write)
+
+3:9:19.391248 <0.142.0> mnesia:global_lock({tid,2,<0.142.0>}, {tidstore,#Ref<0.1469577579.3657302018.180656>,[],1}, mnesia_late_disc_load, write, ['apple@centos7-mq1'])
+
+3:9:19.391383 <0.142.0> mnesia:good_global_nodes(['apple@centos7-mq1'])
+
+3:9:19.391480 <0.142.0> mnesia:val(recover_nodes)
+
+3:9:19.391529 <0.142.0> mnesia:val/1 --> []
+
+3:9:19.391575 <0.142.0>  '--> mnesia:good_global_nodes/1
+
+3:9:19.391615 <0.142.0> mnesia:good_global_nodes/1 --> ['apple@centos7-mq1']
+
+3:9:19.391663 <0.142.0>  '--> mnesia:global_lock/5
+
+3:9:19.391701 <0.142.0> mnesia:global_lock/5 --> ['apple@centos7-mq1']
+
+3:9:19.391753 <0.142.0> mnesia:lock/4 --> ['apple@centos7-mq1']
+
+3:9:19.391797 <0.142.0> mnesia:lock/2 --> ['apple@centos7-mq1']
+
+3:9:19.391849 <0.142.0>  '--> mnesia_controller:'-try_schedule_late_disc_load/3-fun-0-'/3
+
+3:9:19.391900 <0.142.0> mnesia:transaction/6 --> {atomic,done}
+
+3:9:19.391949 <0.142.0> mnesia:transaction/1 --> {atomic,done}
+
+3:9:19.391996 <0.142.0>  '--> mnesia_controller:try_schedule_late_disc_load/3
+
+3:9:19.392039 <0.92.0> mnesia:start_/0 --> ok
+
+3:9:19.392085 <0.92.0> mnesia:patched_start/1 --> ok
+
+3:9:19.392187 <0.92.0> mnesia:start/1 --> ok
+
+3:9:19.392258 <0.92.0> mnesia:start/0 --> ok
+
+3:9:19.392303 <0.92.0>  '--> mnesia_cluster:init/0
+
+3:9:19.392344 <0.92.0> mnesia:delete_table(key_to_pid)
+
+3:9:19.392388 <0.144.0> mnesia:transaction(#Fun<mnesia_schema.27.69755646>)
+
+3:9:19.392432 <0.144.0> mnesia:transaction(undefined, #Fun<mnesia_schema.27.69755646>, [], infinity, mnesia, async)
+
+3:9:19.392537 <0.144.0> mnesia:abort({no_exists,key_to_pid})
+
+3:9:19.392623 <0.144.0> mnesia:transaction/6 --> {aborted,{no_exists,key_to_pid}}
+
+3:9:19.392717 <0.144.0> mnesia:transaction/1 --> {aborted,{no_exists,key_to_pid}}
+
+3:9:19.392845 <0.144.0>  '--> mnesia_schema:schema_coordinator/3
+
+3:9:19.392930 <0.92.0> mnesia:delete_table/1 --> {aborted,{no_exists,key_to_pid}}
+
+3:9:19.393016 <0.92.0>  '--> mnesia_cluster:init/0
+
+3:9:19.393067 <0.92.0> mnesia_cluster:dynamic_db_init(['apple@centos7-mq2'])
+
+3:9:19.393191 <0.92.0> mnesia_cluster:add_extra_nodes(['apple@centos7-mq2'])
+
+3:9:19.393276 <0.92.0> mnesia:change_config(extra_db_nodes, ['apple@centos7-mq2'])
+
+3:9:19.393375 <0.92.0> mnesia:system_info(is_running)
+
+3:9:19.393453 <0.92.0> mnesia:system_info2(is_running)
+
+3:9:19.393543 <0.92.0> mnesia:system_info2/1 --> yes
+
+3:9:19.393624 <0.92.0>  '--> mnesia:system_info/1
+
+3:9:19.393671 <0.92.0> mnesia:system_info/1 --> yes
+
+3:9:19.393717 <0.92.0>  '--> mnesia_controller:connect_nodes/2
+
+3:9:19.393760 <0.146.0> mnesia:system_info(version)
+
+3:9:19.393805 <0.146.0> mnesia:system_info2(version)
+
+3:9:19.393848 <0.146.0> mnesia:system_info2/1 --> "4.22.1"
+
+3:9:19.393893 <0.146.0>  '--> mnesia:system_info/1
+
+3:9:19.393930 <0.146.0> mnesia:system_info/1 --> "4.22.1"
+
+3:9:19.393973 <0.146.0>  '--> mnesia_monitor:negotiate_protocol_impl/2
+
+3:9:19.394015 <0.147.0> mnesia:transaction(#Fun<mnesia_schema.60.69755646>)
+
+3:9:19.394060 <0.147.0> mnesia:transaction(undefined, #Fun<mnesia_schema.60.69755646>, [], infinity, mnesia, async)
+
+3:9:19.394191 <0.147.0> mnesia:transaction/6 --> {atomic,{merged,['apple@centos7-mq1'],['apple@centos7-mq2']}}
+
+3:9:19.394285 <0.147.0> mnesia:transaction/1 --> {atomic,{merged,['apple@centos7-mq1'],['apple@centos7-mq2']}}
+
+3:9:19.394416 <0.147.0>  '--> mnesia_schema:schema_coordinator/3
+
+3:9:19.394473 <0.145.0> mnesia:system_info(db_nodes)
+
+3:9:19.394515 <0.145.0> mnesia:system_info2(db_nodes)
+
+3:9:19.394557 <0.145.0> mnesia:system_info2/1 --> ['apple@centos7-mq2','apple@centos7-mq1']
+
+3:9:19.394609 <0.145.0>  '--> mnesia:system_info/1
+
+3:9:19.394649 <0.145.0> mnesia:system_info/1 --> ['apple@centos7-mq2','apple@centos7-mq1']
+
+3:9:19.394699 <0.145.0>  '--> mnesia_lib:all_nodes/0
+
+3:9:19.394739 <0.145.0> mnesia:system_info(extra_db_nodes)
+
+3:9:19.394783 <0.145.0> mnesia:system_info2(extra_db_nodes)
+
+3:9:19.394823 <0.145.0> mnesia:system_info2/1 --> []
+
+3:9:19.394865 <0.145.0>  '--> mnesia:system_info/1
+
+3:9:19.394902 <0.145.0> mnesia:system_info/1 --> []
+
+3:9:19.394946 <0.145.0>  '--> mnesia_lib:all_nodes/0
+
+3:9:19.394984 <0.148.0> mnesia:transaction(#Fun<mnesia_schema.60.69755646>)
+
+3:9:19.395029 <0.148.0> mnesia:transaction(undefined, #Fun<mnesia_schema.60.69755646>, [], infinity, mnesia, async)
+
+3:9:19.395119 <0.149.0> mnesia:transaction(#Fun<mnesia_loader.0.131790533>, 20)
+
+3:9:19.395219 <0.149.0> mnesia:transaction(undefined, #Fun<mnesia_loader.0.131790533>, [], 20, mnesia, async)
+
+3:9:19.395317 <0.148.0> mnesia:transaction/6 --> {atomic,not_merged}
+
+3:9:19.395426 <0.148.0> mnesia:transaction/1 --> {atomic,not_merged}
+
+3:9:19.395607 <0.148.0>  '--> mnesia_schema:schema_coordinator/3
+
+3:9:19.395718 <0.92.0> mnesia:change_config/2 --> {ok,['apple@centos7-mq2']}
+
+3:9:19.395829 <0.92.0>  '--> mnesia_cluster:add_extra_nodes/1
+
+3:9:19.395935 <0.92.0> mnesia:add_table_copy(key_to_pid, 'apple@centos7-mq1', ram_copies)
+
+3:9:19.396026 <0.152.0> mnesia:transaction(#Fun<mnesia_schema.29.69755646>)
+
+3:9:19.396120 <0.152.0> mnesia:transaction(undefined, #Fun<mnesia_schema.29.69755646>, [], infinity, mnesia, async)
+
+3:9:19.396241 <0.152.0> mnesia:abort({already_exists,key_to_pid,'apple@centos7-mq1'})
+
+3:9:19.396330 <0.152.0> mnesia:transaction/6 --> {aborted,{already_exists,key_to_pid,'apple@centos7-mq1'}}
+
+3:9:19.396426 <0.152.0> mnesia:transaction/1 --> {aborted,{already_exists,key_to_pid,'apple@centos7-mq1'}}
+
+3:9:19.396600 <0.152.0>  '--> mnesia_schema:schema_coordinator/3
+
+3:9:19.396685 <0.92.0> mnesia:add_table_copy/3 --> {aborted,{already_exists,key_to_pid,'apple@centos7-mq1'}}
+
+3:9:19.396800 <0.92.0>  '--> mnesia_cluster:add_extra_nodes/1
+
+3:9:19.396882 <0.92.0> mnesia:system_info(tables)
+
+3:9:19.396933 <0.92.0> mnesia:system_info2(tables)
+
+3:9:19.396980 <0.92.0> mnesia:val({schema,tables})
+
+3:9:19.397026 <0.92.0> mnesia:val/1 --> [schema,key_to_pid]
+
+3:9:19.397074 <0.92.0> mnesia:system_info2/1 --> [schema,key_to_pid]
+
+3:9:19.397156 <0.92.0>  '--> mnesia:system_info/1
+
+3:9:19.397228 <0.92.0> mnesia:system_info/1 --> [schema,key_to_pid]
+
+3:9:19.397307 <0.92.0>  '--> mnesia_cluster:add_extra_nodes/1
+
+3:9:19.397355 <0.92.0> mnesia:wait_for_tables([schema,key_to_pid], 5000)
+
+3:9:19.397407 <0.149.0> mnesia:transaction/6 --> {atomic,ok}
+
+3:9:19.397455 <0.149.0> mnesia:transaction/2 --> {atomic,ok}
+
+3:9:19.397499 <0.149.0>  '--> mnesia_loader:init_receiver/5
+
+3:9:19.397557 <0.92.0> mnesia:wait_for_tables/2 --> ok
+
+3:9:19.397602 <0.92.0> mnesia_cluster:add_extra_nodes/1 --> ok
+
+3:9:19.397648 <0.92.0> mnesia_cluster:dynamic_db_init/1 --> ok
+
+3:9:19.397690 <0.92.0> mnesia_cluster:init/0 --> ok
+
+3:9:19.397737 <0.92.0>  '--> erl_eval:do_apply/7
+
+3:12:03.962628 <0.92.0> mnesia_cluster:lookup(xxxxx)
+
+3:12:03.964685 <0.92.0> mnesia:dirty_read(key_to_pid, xxxxx)
+
+3:12:03.964955 <0.92.0> mnesia:dirty_rpc(key_to_pid, mnesia_lib, db_get, [key_to_pid,xxxxx])
+
+3:12:03.965379 <0.92.0> mnesia:val({key_to_pid,where_to_read})
+
+3:12:03.966024 <0.92.0> mnesia:val/1 --> 'apple@centos7-mq1'
+
+3:12:03.966387 <0.92.0>  '--> mnesia:dirty_rpc/4
+
+3:12:03.966662 <0.92.0> mnesia:do_dirty_rpc(key_to_pid, 'apple@centos7-mq1', mnesia_lib, db_get, [key_to_pid,xxxxx])
+
+3:12:03.967626 <0.92.0> mnesia:do_dirty_rpc/5 --> [{key_to_pid,xxxxx,yyyyy}]
+
+3:12:03.968314 <0.92.0> mnesia:dirty_rpc/4 --> [{key_to_pid,xxxxx,yyyyy}]
+
+3:12:03.969114 <0.92.0> mnesia:dirty_read/2 --> [{key_to_pid,xxxxx,yyyyy}]
+
+3:12:03.971905 <0.92.0>  '--> mnesia_cluster:lookup/1
+
+3:12:03.972671 <0.92.0> mnesia_cluster:lookup/1 --> {ok,yyyyy}
+
+3:12:03.973433 <0.92.0>  '--> erl_eval:do_apply/7
