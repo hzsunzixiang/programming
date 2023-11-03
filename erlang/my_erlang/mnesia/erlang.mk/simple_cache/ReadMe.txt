@@ -4,6 +4,21 @@
 wget https://erlang.mk/erlang.mk
 make -f erlang.mk bootstrap 
 
+## 第一次加入
+
+mnesia:start().
+%mnesia:delete_table(key_to_pid).
+mnesia:change_config(extra_db_nodes, ['apple@centos7-mq2']).
+[{T, mnesia:table_info(T, where_to_commit)} || T <- mnesia:system_info(tables)].
+
+mnesia:change_table_copy_type(schema, node(), disc_copies).
+[{T, mnesia:table_info(T, where_to_commit)} || T <- mnesia:system_info(tables)].
+
+mnesia:add_table_copy(key_to_pid, node(), disc_copies).
+[{T, mnesia:table_info(T, where_to_commit)} || T <- mnesia:system_info(tables)].
+
+
+Tables = mnesia:system_info(tables).
 
 
 ## 获取所有的表

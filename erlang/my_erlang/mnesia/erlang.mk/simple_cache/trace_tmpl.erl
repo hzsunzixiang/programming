@@ -1,8 +1,8 @@
-
+% erl -sname apple  -pa deps/recon/ebin   
 f().
 %% load all the modules
 {ok, CurrentDir} = file:get_cwd().
-LogFileName = "/trace_mnesia1102.1.txt".
+LogFileName = "/trace_mnesia1103.2.txt".
 LogDir = CurrentDir ++ "/trace_log".
 %LogPath="/home/ericksun/program/rabbitmq-server-debug/rabbitmq_prelaunch-sup-dist/trace_log/".
 LogNum=500000,
@@ -12,7 +12,7 @@ FileName= string:concat(LogDir, LogFileName).  %LogPath = LogDir ++ LogFileName.
 file:delete(FileName).
 file:make_dir(LogDir).
 
-DirTmp=[resource_discovery, simple_cache, mnesia_test].
+DirTmp=[mnesia_test, mnesia, gen_tcp, net_adm].
 
 DirDel=[].
 
