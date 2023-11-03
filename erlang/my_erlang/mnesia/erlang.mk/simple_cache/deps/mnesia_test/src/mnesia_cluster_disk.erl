@@ -11,9 +11,12 @@
 init() ->
     mnesia:stop(),
     mnesia:delete_schema([node()]),
+    
 	%ok = mnesia:create_schema([node()]),
     mnesia:start(),
     mnesia:delete_table(key_to_pid),
+    %% 第一个启动的节点不需要链接
+    %% CacheNodes = ['apple@centos7-mq2'],
     CacheNodes = ['apple@centos7-mq1', 'apple@centos7-mq2'],
     dynamic_db_init(lists:delete(node(), CacheNodes)).
 

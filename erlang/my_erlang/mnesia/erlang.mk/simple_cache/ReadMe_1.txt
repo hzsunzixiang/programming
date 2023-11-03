@@ -1,3 +1,8 @@
+
+
+
+
+
 erl -config config/sys  -sname mynode3  -pa deps/recon/ebin -pa deps/resource_discovery/ebin -pa deps/simple_cache/ebin
 
 (mynode3@centos7-mq1)22> application:ensure_all_started(simple_cache).
