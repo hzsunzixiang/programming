@@ -7,3 +7,7 @@
 
 code:load_file(code_lock).
 recon_trace:calls([{code_lock, '_', fun(_) -> return_trace() end}], 10000, [return_to,{scope, local}]).
+
+
+* 第一版： statem_state
+

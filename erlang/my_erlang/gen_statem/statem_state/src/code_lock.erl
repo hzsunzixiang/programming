@@ -13,11 +13,13 @@ start_link(Code) ->
 button(Button) ->
     gen_statem:cast(?NAME, {button,Button}).
 
+% do_lock() and Clear Buttons
 init(Code) ->
     do_lock(),
     Data = #{code => Code, length => length(Code), buttons => []},
     {ok, locked, Data}.
 
+%% state_functions  : each state has got its own handler function:
 callback_mode() ->
     state_functions.
 
@@ -37,7 +39,11 @@ locked(cast, {button,Button}, #{code := Code, length := Length, buttons := Butto
             {next_state, locked, Data#{buttons := NewButtons}}
     end.
 
+%[{state_timeout,10000,lock}] % Time in milliseconds
+% lock 为 EventContent
 %{state_timeout, Time :: state_timeout(), EventContent :: event_content()}
+
+% Module:StateName(EventType, EventContent, Data) -> StateFunctionResult
 
 open(state_timeout, lock,  Data) ->
     do_lock(),

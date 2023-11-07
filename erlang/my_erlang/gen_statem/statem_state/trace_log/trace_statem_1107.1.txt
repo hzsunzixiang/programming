@@ -1,0 +1,111 @@
+
+start_link(Code) ->
+    gen_statem:start_link({local,?NAME}, ?MODULE, Code, []).
+
+7:14:29.405449 <0.92.0> code_lock:start_link([a,b,c])
+
+
+
+% do_lock() and Clear Buttons
+init(Code) ->
+    do_lock(),
+    Data = #{code => Code, length => length(Code), buttons => []},
+    {ok, locked, Data}.
+
+7:14:29.405654 <0.125.0> code_lock:init([a,b,c])
+
+7:14:29.405797 <0.125.0> code_lock:do_lock()
+
+7:14:29.405947 <0.125.0> code_lock:do_lock/0 --> ok
+
+7:14:29.406077 <0.125.0>  '--> code_lock:init/1
+
+%% 返回的状态 为 locked
+7:14:29.406154 <0.125.0> code_lock:init/1 --> {ok,locked,#{code => [a,b,c],length => 3,buttons => []}}
+
+7:14:29.406326 <0.125.0>  '--> gen_statem:init_it/6
+
+%% 调用 callback_mode
+callback_mode() ->
+    state_functions.
+
+7:14:29.406530 <0.125.0> code_lock:callback_mode()
+
+7:14:29.406623 <0.125.0> code_lock:callback_mode/0 --> state_functions
+
+7:14:29.406737 <0.125.0>  '--> gen_statem:get_callback_mode/2
+
+7:14:29.406846 <0.92.0> code_lock:start_link/1 --> {ok,<0.125.0>}
+
+7:14:29.406946 <0.92.0>  '--> erl_eval:do_apply/7
+
+
+%% 
+7:14:33.311384 <0.92.0> code_lock:button(a)
+
+7:14:33.311551 <0.92.0> code_lock:button/1 --> ok
+
+7:14:33.311680 <0.92.0>  '--> erl_eval:do_apply/7
+
+
+
+% 当前的state 是 locked ，所以调用 locked函数  {ok,locked,#{code => [a,b,c],length => 3,buttons => []}}
+% 事件为 {button,a}
+
+7:14:33.311775 <0.125.0> code_lock:locked(cast, {button,a}, #{code=>[a,b,c], length=>3, buttons=>[]})
+
+
+%% 下一个状态仍然是 locked
+7:14:33.311921 <0.125.0> code_lock:locked/3 --> {next_state,locked,#{code => [a,b,c],length => 3,buttons => [a]}}
+7:14:33.312070 <0.125.0>  '--> gen_statem:loop_state_callback/11
+
+%% 
+7:14:36.754450 <0.92.0> code_lock:button(b)
+
+7:14:36.754668 <0.92.0> code_lock:button/1 --> ok
+
+7:14:36.754750 <0.92.0>  '--> erl_eval:do_apply/7
+
+7:14:36.754853 <0.125.0> code_lock:locked(cast, {button,b}, #{code=>[a,b,c], length=>3, buttons=>[a]})
+
+7:14:36.755080 <0.125.0> code_lock:locked/3 --> {next_state,locked,#{code => [a,b,c],length => 3,buttons => [a,b]}}
+
+7:14:36.755228 <0.125.0>  '--> gen_statem:loop_state_callback/11
+
+%% 继续
+
+7:14:41.737839 <0.92.0> code_lock:button(c)
+
+7:14:41.738097 <0.92.0> code_lock:button/1 --> ok
+
+7:14:41.738178 <0.92.0>  '--> erl_eval:do_apply/7
+
+7:14:41.738237 <0.125.0> code_lock:locked(cast, {button,c}, #{code=>[a,b,c], length=>3, buttons=>[a,b]})
+
+7:14:41.738381 <0.125.0> code_lock:do_unlock()
+
+7:14:41.738527 <0.125.0> code_lock:do_unlock/0 --> ok
+
+7:14:41.738633 <0.125.0>  '--> code_lock:locked/3
+
+
+%% 此时开锁 open
+            同时 [{state_timeout,10000,lock}]}
+7:14:41.738698 <0.125.0> code_lock:locked/3 --> {next_state,open,
+            #{code => [a,b,c],length => 3,buttons => []},
+            [{state_timeout,10000,lock}]}
+
+7:14:41.738863 <0.125.0>  '--> gen_statem:loop_state_callback/11
+
+%% 超时之后
+7:14:51.739802 <0.125.0> code_lock:open(state_timeout, lock, #{code=>[a,b,c], length=>3, buttons=>[]})
+
+7:14:51.740028 <0.125.0> code_lock:do_lock()
+
+7:14:51.740087 <0.125.0> code_lock:do_lock/0 --> ok
+
+7:14:51.740136 <0.125.0>  '--> code_lock:open/3
+
+7:14:51.740175 <0.125.0> code_lock:open/3 --> {next_state,locked,#{code => [a,b,c],length => 3,buttons => []}}
+
+7:14:51.740268 <0.125.0>  '--> gen_statem:loop_state_callback/11
