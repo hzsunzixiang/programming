@@ -16,3 +16,12 @@ code_lock:button(a).
 code_lock:button(b).
 code_lock:button(c).
 
+
+
+ erl -pa ./_build/default/lib/recon/ebin -pa ./_build/default/lib/statem_1/ebin
+
+ code_lock:start_link([a,b,c]).
+ code_lock:button(a).
+ code_lock:button(b).
+ code_lock:button(c).
+
