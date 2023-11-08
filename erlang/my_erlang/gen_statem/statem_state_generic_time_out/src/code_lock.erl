@@ -23,11 +23,6 @@ init(Code) ->
 callback_mode() ->
     state_functions.
 
-% It is ordered by the transition action {timeout,Time,EventContent}, or just an integer Time, 
-% even without the enclosing actions list (the latter is a form inherited from gen_fsm.
-% 2:41:51.553172 <0.119.0> code_lock:locked(timeout, 20000, #{code=>[a,b,c], length=>3, buttons=>[a,b]})
-locked(timeout, _, Data) ->
-    {next_state, locked, Data#{buttons := []}};
 locked(cast, {button,Button}, #{code := Code, length := Length, buttons := Buttons} = Data) ->
     NewButtons =
         if
@@ -39,13 +34,14 @@ locked(cast, {button,Button}, #{code := Code, length := Length, buttons := Butto
     if
         NewButtons =:= Code -> % Correct
 	        do_unlock(),
-            {next_state, open, Data#{buttons := []}, [{state_timeout,10000,lock}]}; % Time in milliseconds
+            %{next_state, open, Data#{buttons := []}, [{state_timeout,10000,lock}]}; % Time in milliseconds
+            %{{timeout, Name}, Time, EventContent}
+            %{{timeout, Name}, Time, EventContent, Opts}
+            %{{timeout, Name}, update, EventContent}
+            {next_state, open, Data#{buttons := []}, [{{timeout,open},10000,lock}]}; % Time in milliseconds
 	    true -> % Incomplete | Incorrect
-                {next_state, locked, Data#{buttons := NewButtons}, 20000} % Time in milliseconds
+            {next_state, locked, Data#{buttons := NewButtons}}
     end.
-% {next_state,NextState,NewData,Time}
-%A time-out feature inherited from gen_statem's predecessor gen_fsm, is an event time-out, 
-%that is, if an event arrives the timer is cancelled. You get either an event or a time-out, but not both
 
 %[{state_timeout,10000,lock}] % Time in milliseconds
 % lock 为 EventContent
@@ -53,10 +49,14 @@ locked(cast, {button,Button}, #{code := Code, length := Length, buttons := Butto
 
 % Module:StateName(EventType, EventContent, Data) -> StateFunctionResult
 
-open(state_timeout, lock,  Data) ->
-    do_lock(),
-    {next_state, locked, Data};
+%open(state_timeout, lock,  Data) ->
+%    do_lock(),
+%    {next_state, locked, Data};
 
+% 2:51:27.039387 <0.119.0> code_lock:open({timeout,open}, lock, #{code=>[a,b,c], length=>3, buttons=>[]})
+open({timeout,open}, lock, Data) ->
+    do_lock(),
+    {next_state,locked,Data};
 open(cast, {button,_}, Data) ->
     {next_state, open, Data}.
 

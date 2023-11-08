@@ -24,9 +24,26 @@ recon_trace:calls([{code_lock, '_', fun(_) -> return_trace() end}], 10000, [retu
 
 * 4. statem_handle_event_stop
     3.16  Stopping
-
 In a Supervision Tree
 Standalone gen_statem
+
+
+* statem_state_event_time_out
+   3.17  Event Time-Outs
+
+* statem_state_generic_time_out
+3.18  Generic Time-Outs
+
+*	statem_state_enter
+
+
+3.21  State Enter Actions 每当有状态变化时 whenever it does a state change.
+
+Say you have a state machine specification that uses state enter actions. Although you can code this using inserted events (described in the next section), especially if just one or a few states has got state enter actions, this is a perfect use case for the built in state enter calls.
+
+You return a list containing state_enter from your callback_mode/0 function and the gen_statem engine will call your state callback once with an event (enter, OldState, ...) whenever it does a state change. Then you just need to handle these event-like calls in all states.
+
+
 
 
 * statem_state_2
