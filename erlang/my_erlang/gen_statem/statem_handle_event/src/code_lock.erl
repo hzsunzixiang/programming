@@ -18,6 +18,8 @@ init(Code) ->
     Data = #{code => Code, length => length(Code), buttons => []},
     {ok, locked, Data}.
 
+% If callback mode handle_event_function is used, all events are handled in Module:handle_event/4 
+% and we can (but do not have to) use an event-centered approach where we first branch depending on event and then depending on state:
 callback_mode() ->
     handle_event_function.
 
@@ -37,6 +39,7 @@ code_length() ->
     gen_statem:call(?NAME, code_length).
 
 %%% 
+%%% 先 event 匹配 ，再state 匹配
 handle_event(cast, {button,Button}, State, #{code := Code} = Data) ->
     case State of
 	locked ->

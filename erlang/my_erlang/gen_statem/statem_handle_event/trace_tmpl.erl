@@ -1,7 +1,7 @@
 f().
 %% load all the modules
 {ok, CurrentDir} = file:get_cwd().
-LogFileName = "/trace_statem_1106.1.txt".
+LogFileName = "/trace_statem_event_1108.1.txt".
 LogDir = CurrentDir ++ "/trace_log".
 %LogPath="/home/ericksun/program/rabbitmq-server-debug/rabbitmq_prelaunch-sup-dist/trace_log/".
 LogNum=50000,
@@ -22,7 +22,8 @@ DirsNoPrefix=DirTmp--DirDel.
 Prefix = CurrentDir ++ "/_build/default/lib/".
 DirsDeps = [Prefix++atom_to_list(P) || P <- DirsNoPrefix].
 
-Dirs = [ CurrentDir | DirsDeps].
+%Dirs = [ CurrentDir | DirsDeps].
+Dirs = DirsDeps.
 
 ListModAll=[list_to_atom(filename:rootname(filename:basename(F))) || P <- Dirs, F <- filelib:wildcard(P ++ "/ebin/*.beam")].
 
