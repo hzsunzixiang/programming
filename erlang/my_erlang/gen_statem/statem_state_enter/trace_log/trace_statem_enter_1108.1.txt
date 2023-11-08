@@ -1,0 +1,113 @@
+
+2:18:39.607281 <0.86.0> code_lock:start_link([a,b,c])
+
+2:18:39.607635 <0.119.0> code_lock:init([a,b,c])
+
+2:18:39.607777 <0.119.0> code_lock:init/1 --> {ok,locked,#{code => [a,b,c],length => 3}}
+
+2:18:39.608013 <0.119.0>  '--> gen_statem:init_it/6
+
+2:18:39.608207 <0.119.0> code_lock:callback_mode()
+
+2:18:39.608286 <0.119.0> code_lock:callback_mode/0 --> [state_functions,state_enter]
+
+2:18:39.608464 <0.119.0>  '--> gen_statem:get_callback_mode/2
+
+
+%% 状态变化 进入
+2:18:39.608531 <0.119.0> code_lock:locked(enter, locked, #{code=>[a,b,c], length=>3})
+
+2:18:39.608631 <0.119.0> code_lock:do_lock()
+
+2:18:39.608683 <0.86.0> code_lock:start_link/1 --> {ok,<0.119.0>}
+
+2:18:39.608750 <0.86.0>  '--> erl_eval:do_apply/7
+
+2:18:39.608798 <0.119.0> code_lock:do_lock/0 --> ok
+
+2:18:39.608857 <0.119.0>  '--> code_lock:locked/3
+
+2:18:39.608913 <0.119.0> code_lock:locked/3 --> {keep_state,#{code => [a,b,c],length => 3,buttons => []}}
+
+2:18:39.609008 <0.119.0>  '--> gen_statem:loop_state_callback/11
+
+
+
+%%%
+2:18:42.516878 <0.86.0> code_lock:button(a)
+
+2:18:42.517052 <0.86.0> code_lock:button/1 --> ok
+
+2:18:42.517243 <0.86.0>  '--> erl_eval:do_apply/7
+
+2:18:42.517367 <0.119.0> code_lock:locked(cast, {button,a}, #{code=>[a,b,c], length=>3, buttons=>[]})
+
+2:18:42.517574 <0.119.0> code_lock:locked/3 --> {next_state,locked,#{code => [a,b,c],length => 3,buttons => [a]}}
+
+2:18:42.517760 <0.119.0>  '--> gen_statem:loop_state_callback/11
+
+2:18:42.518024 <0.86.0> code_lock:button(b)
+
+2:18:42.518182 <0.86.0> code_lock:button/1 --> ok
+
+2:18:42.518324 <0.86.0>  '--> erl_eval:do_apply/7
+
+2:18:42.518385 <0.119.0> code_lock:locked(cast, {button,b}, #{code=>[a,b,c], length=>3, buttons=>[a]})
+
+2:18:42.518530 <0.119.0> code_lock:locked/3 --> {next_state,locked,#{code => [a,b,c],length => 3,buttons => [a,b]}}
+
+2:18:42.518667 <0.119.0>  '--> gen_statem:loop_state_callback/11
+
+2:18:42.961325 <0.86.0> code_lock:button(c)
+
+2:18:42.961508 <0.86.0> code_lock:button/1 --> ok
+
+2:18:42.961587 <0.86.0>  '--> erl_eval:do_apply/7
+
+2:18:42.961650 <0.119.0> code_lock:locked(cast, {button,c}, #{code=>[a,b,c], length=>3, buttons=>[a,b]})
+
+2:18:42.962004 <0.119.0> code_lock:locked/3 --> {next_state,open,#{code => [a,b,c],length => 3,buttons => [a,b]}}
+
+2:18:42.962140 <0.119.0>  '--> gen_statem:loop_state_callback/11
+
+%% 状态变化 进入 不会再进入 open(cast, {button,_}, Data) ->
+
+2:18:42.962202 <0.119.0> code_lock:open(enter, locked, #{code=>[a,b,c], length=>3, buttons=>[a,b]})
+
+2:18:42.962295 <0.119.0> code_lock:do_unlock()
+
+2:18:42.962347 <0.119.0> code_lock:do_unlock/0 --> ok
+
+2:18:42.962605 <0.119.0>  '--> code_lock:open/3
+
+2:18:42.962696 <0.119.0> code_lock:open/3 --> {keep_state_and_data,[{state_timeout,10000,lock}]}
+
+2:18:42.962788 <0.119.0>  '--> gen_statem:loop_state_callback/11
+
+
+%% 超时
+2:18:52.962254 <0.119.0> code_lock:open(state_timeout, lock, #{code=>[a,b,c], length=>3, buttons=>[a,b]})
+
+2:18:52.962463 <0.119.0> code_lock:do_lock()
+
+2:18:52.962533 <0.119.0> code_lock:do_lock/0 --> ok
+
+2:18:52.962598 <0.119.0>  '--> code_lock:open/3
+
+2:18:52.962692 <0.119.0> code_lock:open/3 --> {next_state,locked,#{code => [a,b,c],length => 3,buttons => [a,b]}}
+
+2:18:52.962790 <0.119.0>  '--> gen_statem:loop_state_callback/11
+
+%% 状态变化 
+
+2:18:52.962858 <0.119.0> code_lock:locked(enter, open, #{code=>[a,b,c], length=>3, buttons=>[a,b]})
+
+2:18:52.962945 <0.119.0> code_lock:do_lock()
+
+2:18:52.962987 <0.119.0> code_lock:do_lock/0 --> ok
+
+2:18:52.963028 <0.119.0>  '--> code_lock:locked/3
+
+2:18:52.963124 <0.119.0> code_lock:locked/3 --> {keep_state,#{code => [a,b,c],length => 3,buttons => []}}
+
+2:18:52.963228 <0.119.0>  '--> gen_statem:loop_state_callback/11
