@@ -22,6 +22,13 @@ recon_trace:calls([{code_lock, '_', fun(_) -> return_trace() end}], 10000, [retu
 
 	 If callback mode handle_event_function is used, all events are handled in Module:handle_event/4 and we can (but do not have to) use an event-centered approach where we first branch depending on event and then depending on state:
 
+* 4. statem_handle_event_stop
+    3.16  Stopping
+
+In a Supervision Tree
+Standalone gen_statem
+
+
 * statem_state_2
   state_enter
 
