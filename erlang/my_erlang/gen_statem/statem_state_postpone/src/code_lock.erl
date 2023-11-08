@@ -34,13 +34,7 @@ locked(cast, {button,Button}, #{code := Code, length := Length, buttons := Butto
     if
         NewButtons =:= Code -> % Correct
 	        do_unlock(),
-            %{next_state, open, Data#{buttons := []}, [{state_timeout,10000,lock}]}; % Time in milliseconds
-            %{{timeout, Name}, Time, EventContent}
-            %{{timeout, Name}, Time, EventContent, Opts}
-            %{{timeout, Name}, update, EventContent}
-            %{next_state, open, Data#{buttons := []}, [{{timeout,open},10000,lock}]}; % Time in milliseconds
-            Tref = erlang:start_timer(10000, self(), lock), % Time in milliseconds
-            {next_state, open, Data#{buttons := [], timer => Tref}};
+            {next_state, open, Data#{buttons := []}, [{state_timeout,10000,lock}]}; % Time in milliseconds
 	    true -> % Incomplete | Incorrect
             {next_state, locked, Data#{buttons := NewButtons}}
     end.
@@ -51,22 +45,16 @@ locked(cast, {button,Button}, #{code := Code, length := Length, buttons := Butto
 
 % Module:StateName(EventType, EventContent, Data) -> StateFunctionResult
 
-%open(state_timeout, lock,  Data) ->
-%    do_lock(),
-%    {next_state, locked, Data};
-
-% 2:51:27.039387 <0.119.0> code_lock:open({timeout,open}, lock, #{code=>[a,b,c], length=>3, buttons=>[]})
-%open({timeout,open}, lock, Data) ->
-%    do_lock(),
-%    {next_state,locked,Data};
-
-%2:58:02.934438 <0.119.0> code_lock:open(info, {timeout,#Ref<0.3791089385.2319450113.9732>,lock}, #{code=>[a,b,c], length=>3, timer=>#Ref<0.3791089385.2319450113.9732>, buttons=>[]})
-
-open(info, {timeout,Tref,lock}, #{timer := Tref} = Data) ->
+%%%%% open状态的继续输入在超时后之后得到了体现
+open(state_timeout, lock,  Data) ->
     do_lock(),
-    {next_state,locked,maps:remove(timer, Data)};
+    {next_state, locked, Data};
+
+%open(cast, {button,_}, Data) ->
+%    {next_state, open, Data}.
+%
 open(cast, {button,_}, Data) ->
-    {next_state, open, Data}.
+    {keep_state,Data,[postpone]}.
 
 do_lock() ->
     io:format("Lock~n", []).

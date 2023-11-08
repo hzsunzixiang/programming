@@ -1,7 +1,7 @@
 f().
 %% load all the modules
 {ok, CurrentDir} = file:get_cwd().
-LogFileName = "/trace_statem_erlang_timers1107.1.txt".
+LogFileName = "/trace_statem_postpone1107.1.txt".
 LogDir = CurrentDir ++ "/trace_log".
 %LogPath="/home/ericksun/program/rabbitmq-server-debug/rabbitmq_prelaunch-sup-dist/trace_log/".
 LogNum=50000,

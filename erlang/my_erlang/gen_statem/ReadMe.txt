@@ -34,9 +34,15 @@ Standalone gen_statem
 * statem_state_generic_time_out
 3.18  Generic Time-Outs
 
+
+* statem_erlang_timers
+3.19  Erlang Timers
+
+* statem_state_postpone
+
+3.20  Postponing Events
+
 *	statem_state_enter
-
-
 3.21  State Enter Actions 每当有状态变化时 whenever it does a state change.
 
 Say you have a state machine specification that uses state enter actions. Although you can code this using inserted events (described in the next section), especially if just one or a few states has got state enter actions, this is a perfect use case for the built in state enter calls.
