@@ -1,0 +1,54 @@
+
+4:21:03.298666 <0.86.0> code_lock:start_link([a,b,c])
+
+4:21:03.299126 <0.86.0> code_lock:start_link/1 --> <0.119.0>
+
+4:21:03.299363 <0.86.0>  '--> erl_eval:do_apply/7
+
+4:21:03.299510 <0.119.0> code_lock:'-start_link/1-fun-0-'([a,b,c])
+
+4:21:03.299706 <0.119.0> code_lock:do_lock()
+
+4:21:03.300143 <0.119.0> code_lock:do_lock/0 --> ok
+
+4:21:03.300327 <0.119.0>  '--> code_lock:'-start_link/1-fun-0-'/1
+
+4:21:03.305264 <0.119.0> code_lock:locked([a,b,c], 3, [])
+
+4:21:10.288878 <0.86.0> code_lock:button(a)
+
+4:21:10.289173 <0.86.0> code_lock:button/1 --> {button,a}
+
+4:21:10.289296 <0.86.0>  '--> erl_eval:do_apply/7
+
+4:21:10.289538 <0.119.0> code_lock:locked([a,b,c], 3, [a])
+
+4:21:10.289864 <0.86.0> code_lock:button(b)
+
+4:21:10.290029 <0.86.0> code_lock:button/1 --> {button,b}
+
+4:21:10.290175 <0.86.0>  '--> erl_eval:do_apply/7
+
+4:21:10.290380 <0.119.0> code_lock:locked([a,b,c], 3, [a,b])
+
+4:21:11.257989 <0.86.0> code_lock:button(c)
+
+4:21:11.258260 <0.86.0> code_lock:button/1 --> {button,c}
+
+4:21:11.258515 <0.86.0>  '--> erl_eval:do_apply/7
+
+4:21:11.259207 <0.119.0> code_lock:do_unlock()
+
+4:21:11.259465 <0.119.0> code_lock:do_unlock/0 --> ok
+
+4:21:11.259631 <0.119.0>  '--> code_lock:locked/3
+
+4:21:11.260346 <0.119.0> code_lock:open([a,b,c], 3)
+
+4:21:21.259128 <0.119.0> code_lock:do_lock()
+
+4:21:21.259313 <0.119.0> code_lock:do_lock/0 --> ok
+
+4:21:21.259415 <0.119.0>  '--> code_lock:open/2
+
+4:21:21.259480 <0.119.0> code_lock:locked([a,b,c], 3, [])
