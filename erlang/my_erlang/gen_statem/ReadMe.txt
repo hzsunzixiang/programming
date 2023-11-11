@@ -55,3 +55,19 @@ You return a list containing state_enter from your callback_mode/0 function and 
 * statem_state_2
   state_enter
 
+* statem_handle_event_2
+
+* statem_handle_event_complex
+
+statem_erlang_timers
+statem_handle_event
+statem_handle_event_stop
+statem_state
+statem_state_2
+statem_state_common
+statem_state_enter
+statem_state_event_time_out
+statem_state_generic_time_out
+statem_state_postpone
+statem_state_selective_receive
+
