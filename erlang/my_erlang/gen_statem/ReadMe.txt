@@ -53,9 +53,12 @@ You return a list containing state_enter from your callback_mode/0 function and 
 
 
 * statem_state_2
+先 down, 然后再 up
   state_enter
 
 * statem_handle_event_2
+
+This section describes what to change in the example to use one handle_event/4 function. The previously used approach to first branch depending on event does not work that well here because of the state enter calls, so this example first branches depending on state
 
 * statem_handle_event_complex
 

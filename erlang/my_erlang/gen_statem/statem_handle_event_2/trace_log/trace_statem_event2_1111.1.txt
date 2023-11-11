@@ -1,0 +1,351 @@
+
+8:55:33.398361 <0.121.0> statem_1_app:start(normal, [])
+
+8:55:33.398670 <0.121.0> statem_1_sup:start_link()
+
+8:55:33.398870 <0.122.0> statem_1_sup:init([])
+
+8:55:33.399009 <0.122.0> statem_1_sup:child(code_lock)
+
+8:55:33.399192 <0.122.0> statem_1_sup:child/1 --> {code_lock,{code_lock,start_link,[[a,b,c]]},permanent,2000,worker,[code_lock]}
+
+8:55:33.399326 <0.122.0>  '--> statem_1_sup:init/1
+
+8:55:33.399493 <0.122.0> statem_1_sup:init/1 --> {ok,{#{intensity => 0,period => 1,strategy => one_for_all},
+     [{code_lock,{code_lock,start_link,[[a,b,c]]},
+                 permanent,2000,worker,
+                 [code_lock]}]}}
+
+8:55:33.399688 <0.122.0>  '--> supervisor:init/1
+
+8:55:33.399778 <0.122.0> code_lock:start_link([a,b,c])
+
+8:55:33.399851 <0.123.0> code_lock:init([a,b,c])
+
+8:55:33.399955 <0.123.0> code_lock:init/1 --> {ok,locked,#{code => [a,b,c],length => 3,buttons => []}}
+
+8:55:33.400067 <0.123.0>  '--> gen_statem:init_it/6
+
+8:55:33.400152 <0.123.0> code_lock:callback_mode()
+
+8:55:33.400237 <0.123.0> code_lock:callback_mode/0 --> [handle_event_function,state_enter]
+
+8:55:33.400362 <0.123.0>  '--> gen_statem:get_callback_mode/2
+
+8:55:33.400477 <0.123.0> code_lock:handle_event(enter, locked, locked, #{code=>[a,b,c], length=>3, buttons=>[]})
+
+8:55:33.400647 <0.123.0> code_lock:do_lock()
+
+8:55:33.400769 <0.122.0> code_lock:start_link/1 --> {ok,<0.123.0>}
+
+8:55:33.400866 <0.122.0>  '--> supervisor:do_start_child_i/3
+
+8:55:33.400968 <0.121.0> statem_1_sup:start_link/0 --> {ok,<0.122.0>}
+
+8:55:33.401059 <0.121.0> statem_1_app:start/2 --> {ok,<0.122.0>}
+
+8:55:33.401247 <0.121.0>  '--> application_master:start_it_old/4
+
+8:55:33.401351 <0.123.0> code_lock:do_lock/0 --> ok
+
+8:55:33.401458 <0.123.0>  '--> code_lock:handle_event/4
+
+8:55:33.401546 <0.123.0> code_lock:handle_event/4 --> {keep_state,#{code => [a,b,c],length => 3,buttons => []}}
+
+8:55:33.401689 <0.123.0>  '--> gen_statem:loop_state_callback/11
+
+
+
+8:57:11.211272 <0.86.0> code_lock:down(a)
+
+8:57:11.211385 <0.86.0> code_lock:down/1 --> ok
+
+8:57:11.211494 <0.86.0>  '--> erl_eval:do_apply/7
+
+
+8:57:11.211660 <0.123.0> code_lock:handle_event(cast, {down,a}, locked, #{code=>[a,b,c], length=>3, buttons=>[]})
+
+8:57:11.211787 <0.123.0> code_lock:handle_event/4 --> {keep_state,#{code => [a,b,c],length => 3,buttons => [],button => a}}
+
+8:57:11.211891 <0.123.0>  '--> gen_statem:loop_state_callback/11
+
+
+
+8:57:11.211967 <0.86.0> code_lock:up(a)
+
+8:57:11.212033 <0.86.0> code_lock:up/1 --> ok
+
+8:57:11.212122 <0.86.0>  '--> erl_eval:do_apply/7
+
+8:57:11.212185 <0.123.0> code_lock:handle_event(cast, {up,a}, locked, #{code=>[a,b,c], length=>3, buttons=>[], button=>a})
+
+8:57:11.212339 <0.123.0> code_lock:handle_event/4 --> {keep_state,#{code => [a,b,c],length => 3,buttons => []},
+            [{next_event,internal,{button,a}},{state_timeout,30000,button}]}
+
+8:57:11.213946 <0.123.0>  '--> gen_statem:loop_state_callback/11
+
+8:57:11.214029 <0.123.0> code_lock:handle_event(internal, {button,a}, locked, #{code=>[a,b,c], length=>3, buttons=>[]})
+
+8:57:11.214176 <0.123.0> code_lock:handle_event/4 --> {keep_state,#{code => [a,b,c],length => 3,buttons => [a]},
+            [{state_timeout,30000,button}]}
+
+8:57:11.214304 <0.123.0>  '--> gen_statem:loop_state_callback/11
+
+
+
+8:57:11.214403 <0.86.0> code_lock:down(b)
+
+8:57:11.214477 <0.86.0> code_lock:down/1 --> ok
+
+8:57:11.214525 <0.86.0>  '--> erl_eval:do_apply/7
+
+8:57:11.214564 <0.123.0> code_lock:handle_event(cast, {down,b}, locked, #{code=>[a,b,c], length=>3, buttons=>[a]})
+
+8:57:11.214679 <0.123.0> code_lock:handle_event/4 --> {keep_state,#{code => [a,b,c],length => 3,buttons => [a],button => b}}
+
+8:57:11.214791 <0.123.0>  '--> gen_statem:loop_state_callback/11
+
+8:57:11.221370 <0.86.0> code_lock:up(b)
+
+8:57:11.221498 <0.86.0> code_lock:up/1 --> ok
+
+8:57:11.221667 <0.86.0>  '--> erl_eval:do_apply/7
+
+8:57:11.221796 <0.123.0> code_lock:handle_event(cast, {up,b}, locked, #{code=>[a,b,c], length=>3, buttons=>[a], button=>b})
+
+8:57:11.221916 <0.123.0> code_lock:handle_event/4 --> {keep_state,#{code => [a,b,c],length => 3,buttons => [a]},
+            [{next_event,internal,{button,b}},{state_timeout,30000,button}]}
+
+8:57:11.222083 <0.123.0>  '--> gen_statem:loop_state_callback/11
+
+8:57:11.222177 <0.123.0> code_lock:handle_event(internal, {button,b}, locked, #{code=>[a,b,c], length=>3, buttons=>[a]})
+
+8:57:11.222313 <0.123.0> code_lock:handle_event/4 --> {keep_state,#{code => [a,b,c],length => 3,buttons => [a,b]},
+            [{state_timeout,30000,button}]}
+
+8:57:11.222453 <0.123.0>  '--> gen_statem:loop_state_callback/11
+
+
+8:57:11.222593 <0.86.0> code_lock:down(c)
+
+8:57:11.222643 <0.86.0> code_lock:down/1 --> ok
+
+8:57:11.222685 <0.86.0>  '--> erl_eval:do_apply/7
+
+8:57:11.222725 <0.123.0> code_lock:handle_event(cast, {down,c}, locked, #{code=>[a,b,c], length=>3, buttons=>[a,b]})
+
+8:57:11.223126 <0.123.0> code_lock:handle_event/4 --> {keep_state,#{code => [a,b,c],length => 3,buttons => [a,b],button => c}}
+
+8:57:11.223268 <0.123.0>  '--> gen_statem:loop_state_callback/11
+
+8:57:12.197499 <0.86.0> code_lock:up(c)
+
+8:57:12.197700 <0.86.0> code_lock:up/1 --> ok
+
+8:57:12.197831 <0.86.0>  '--> erl_eval:do_apply/7
+
+8:57:12.198018 <0.123.0> code_lock:handle_event(cast, {up,c}, locked, #{code=>[a,b,c], length=>3, buttons=>[a,b], button=>c})
+
+8:57:12.198192 <0.123.0> code_lock:handle_event/4 --> {keep_state,#{code => [a,b,c],length => 3,buttons => [a,b]},
+            [{next_event,internal,{button,c}},{state_timeout,30000,button}]}
+
+8:57:12.198321 <0.123.0>  '--> gen_statem:loop_state_callback/11
+
+8:57:12.198364 <0.123.0> code_lock:handle_event(internal, {button,c}, locked, #{code=>[a,b,c], length=>3, buttons=>[a,b]})
+
+8:57:12.198473 <0.123.0> code_lock:handle_event/4 --> {next_state,open,#{code => [a,b,c],length => 3,buttons => [a,b]}}
+
+8:57:12.198574 <0.123.0>  '--> gen_statem:loop_state_callback/11
+
+8:57:12.198637 <0.123.0> code_lock:handle_event(enter, locked, open, #{code=>[a,b,c], length=>3, buttons=>[a,b]})
+
+8:57:12.198741 <0.123.0> code_lock:do_unlock()
+
+8:57:12.198800 <0.123.0> code_lock:do_unlock/0 --> ok
+
+8:57:12.198860 <0.123.0>  '--> code_lock:handle_event/4
+
+8:57:12.198927 <0.123.0> code_lock:handle_event/4 --> {keep_state_and_data,[{state_timeout,10000,lock}]}
+
+8:57:12.199017 <0.123.0>  '--> gen_statem:loop_state_callback/11
+
+
+
+8:57:17.077531 <0.71.0> code_lock:module_info(exports)
+
+8:57:17.077970 <0.71.0> code_lock:module_info/1 --> [{start_link,1},
+ {stop,0},
+ {down,1},
+ {up,1},
+ {code_length,0},
+ {init,1},
+ {callback_mode,0},
+ {handle_event,4},
+ {terminate,3},
+ {module_info,0},
+ {module_info,1}]
+
+8:57:17.078200 <0.71.0>  '--> edlin_expand:expand_function_name/4
+
+8:57:17.921653 <0.71.0> code_lock:module_info(exports)
+
+8:57:17.922056 <0.71.0> code_lock:module_info/1 --> [{start_link,1},
+ {stop,0},
+ {down,1},
+ {up,1},
+ {code_length,0},
+ {init,1},
+ {callback_mode,0},
+ {handle_event,4},
+ {terminate,3},
+ {module_info,0},
+ {module_info,1}]
+
+8:57:17.922225 <0.71.0>  '--> edlin_expand:expand_function_name/4
+
+8:57:18.057004 <0.71.0> code_lock:module_info(exports)
+
+8:57:18.057416 <0.71.0> code_lock:module_info/1 --> [{start_link,1},
+ {stop,0},
+ {down,1},
+ {up,1},
+ {code_length,0},
+ {init,1},
+ {callback_mode,0},
+ {handle_event,4},
+ {terminate,3},
+ {module_info,0},
+ {module_info,1}]
+
+8:57:18.057650 <0.71.0>  '--> edlin_expand:expand_function_name/4
+
+8:57:18.184084 <0.71.0> code_lock:module_info(exports)
+
+8:57:18.184534 <0.71.0> code_lock:module_info/1 --> [{start_link,1},
+ {stop,0},
+ {down,1},
+ {up,1},
+ {code_length,0},
+ {init,1},
+ {callback_mode,0},
+ {handle_event,4},
+ {terminate,3},
+ {module_info,0},
+ {module_info,1}]
+
+8:57:18.184866 <0.71.0>  '--> edlin_expand:expand_function_name/4
+
+8:57:19.021811 <0.71.0> code_lock:module_info(exports)
+
+8:57:19.022201 <0.71.0> code_lock:module_info/1 --> [{start_link,1},
+ {stop,0},
+ {down,1},
+ {up,1},
+ {code_length,0},
+ {init,1},
+ {callback_mode,0},
+ {handle_event,4},
+ {terminate,3},
+ {module_info,0},
+ {module_info,1}]
+
+8:57:19.022364 <0.71.0>  '--> edlin_expand:expand_function_name/4
+
+8:57:19.182510 <0.71.0> code_lock:module_info(exports)
+
+8:57:19.182937 <0.71.0> code_lock:module_info/1 --> [{start_link,1},
+ {stop,0},
+ {down,1},
+ {up,1},
+ {code_length,0},
+ {init,1},
+ {callback_mode,0},
+ {handle_event,4},
+ {terminate,3},
+ {module_info,0},
+ {module_info,1}]
+
+8:57:19.183161 <0.71.0>  '--> edlin_expand:expand_function_name/4
+
+8:57:19.345931 <0.71.0> code_lock:module_info(exports)
+
+8:57:19.346352 <0.71.0> code_lock:module_info/1 --> [{start_link,1},
+ {stop,0},
+ {down,1},
+ {up,1},
+ {code_length,0},
+ {init,1},
+ {callback_mode,0},
+ {handle_event,4},
+ {terminate,3},
+ {module_info,0},
+ {module_info,1}]
+
+8:57:19.346699 <0.71.0>  '--> edlin_expand:expand_function_name/4
+
+8:57:19.822423 <0.71.0> code_lock:module_info(exports)
+
+8:57:19.823003 <0.71.0> code_lock:module_info/1 --> [{start_link,1},
+ {stop,0},
+ {down,1},
+ {up,1},
+ {code_length,0},
+ {init,1},
+ {callback_mode,0},
+ {handle_event,4},
+ {terminate,3},
+ {module_info,0},
+ {module_info,1}]
+
+8:57:19.823158 <0.71.0>  '--> edlin_expand:expand_function_name/4
+
+8:57:19.967366 <0.71.0> code_lock:module_info(exports)
+
+8:57:19.968087 <0.71.0> code_lock:module_info/1 --> [{start_link,1},
+ {stop,0},
+ {down,1},
+ {up,1},
+ {code_length,0},
+ {init,1},
+ {callback_mode,0},
+ {handle_event,4},
+ {terminate,3},
+ {module_info,0},
+ {module_info,1}]
+
+8:57:19.968702 <0.71.0>  '--> edlin_expand:expand_function_name/4
+
+
+
+8:57:22.198625 <0.123.0> code_lock:handle_event(state_timeout, lock, open, #{code=>[a,b,c], length=>3, buttons=>[a,b]})
+
+8:57:22.198866 <0.123.0> code_lock:handle_event/4 --> {next_state,locked,#{code => [a,b,c],length => 3,buttons => [a,b]}}
+
+8:57:22.199068 <0.123.0>  '--> gen_statem:loop_state_callback/11
+
+8:57:22.199120 <0.123.0> code_lock:handle_event(enter, open, locked, #{code=>[a,b,c], length=>3, buttons=>[a,b]})
+
+8:57:22.199232 <0.123.0> code_lock:do_lock()
+
+8:57:22.199292 <0.123.0> code_lock:do_lock/0 --> ok
+
+8:57:22.199371 <0.123.0>  '--> code_lock:handle_event/4
+
+8:57:22.199434 <0.123.0> code_lock:handle_event/4 --> {keep_state,#{code => [a,b,c],length => 3,buttons => []}}
+
+8:57:22.199546 <0.123.0>  '--> gen_statem:loop_state_callback/11
+
+
+
+8:57:47.560013 <0.86.0> code_lock:code_length()
+
+8:57:47.560304 <0.123.0> code_lock:handle_event({call,{<0.86.0>,#Ref<0.1929608343.2239234050.126354>}}, code_length, locked, #{code=>[a,b,c], length=>3, buttons=>[]})
+
+8:57:47.560583 <0.123.0> code_lock:handle_event/4 --> {keep_state_and_data,[{reply,{<0.86.0>,#Ref<0.1929608343.2239234050.126354>},
+                             3}]}
+
+8:57:47.560758 <0.123.0>  '--> gen_statem:loop_state_callback/11
+
+8:57:47.560821 <0.86.0> code_lock:code_length/0 --> 3
+
+8:57:47.560900 <0.86.0>  '--> erl_eval:do_apply/7
