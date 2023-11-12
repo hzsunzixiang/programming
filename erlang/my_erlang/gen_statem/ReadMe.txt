@@ -62,15 +62,12 @@ This section describes what to change in the example to use one handle_event/4 f
 
 * statem_handle_event_complex
 
-statem_erlang_timers
-statem_handle_event
+The callback mode handle_event_function enables using a non-atom state as described in section Callback Modes, for example, a complex state term like a tuple.
+We define the state as {StateName,LockButton}, where StateName is as before and LockButton is the current lock button:
+ 定义复杂状态 {StateName,LockButton}  ,加了一个按钮可以迅速锁住
+
+
 statem_handle_event_stop
-statem_state
-statem_state_2
-statem_state_common
-statem_state_enter
 statem_state_event_time_out
 statem_state_generic_time_out
-statem_state_postpone
-statem_state_selective_receive
 

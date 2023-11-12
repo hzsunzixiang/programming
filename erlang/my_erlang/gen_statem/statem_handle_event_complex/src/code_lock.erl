@@ -42,6 +42,7 @@ handle_event(enter, _OldState, {locked,_}, Data) ->
     {keep_state, Data#{buttons := []}};
 handle_event(state_timeout, button, {locked,_}, Data) ->
     {keep_state, Data#{buttons := []}};
+%% 在 {locked,LockButton} 状态下收到  {button,Button} 表示在按解锁按钮
 handle_event(cast, {button,Button}, {locked,LockButton}, #{code := Code, length := Length, buttons := Buttons} = Data) ->
     NewButtons =
         if
@@ -62,16 +63,23 @@ handle_event(cast, {button,Button}, {locked,LockButton}, #{code := Code, length 
 handle_event(enter, _OldState, {open,_}, _Data) ->
     do_unlock(),
     {keep_state_and_data, [{state_timeout,10000,lock}]}; % Time in milliseconds
+%%超时只有在 {open,LockButton} 这个状态下才会触发。 locked,LockButton} 会被{button,LockButton} 触发， 于是就取消了超时
 handle_event(state_timeout, lock, {open,LockButton}, Data) ->
     {next_state, {locked,LockButton}, Data};
 %6:22:31.929709 <0.162.0> code_lock:handle_event(cast, {button,x}, {open,x}, #{buttons=>[a,b], code=>[a,b,c], length=>3})
 %% 这里是精髓， 直接匹配 LockButton , 
+%%  如果在 {open,LockButton} 状态下，收到 {button,LockButton}
+%%  在lock状态下收到没有用, 只能在  {open,LockButton} 状态下生效
+%%  只有在{open,LockButton} 状态下，{button,LockButton} 表示要进行锁住了
 handle_event(cast, {button,LockButton}, {open,LockButton}, Data) ->
     {next_state, {locked,LockButton}, Data};
 handle_event(cast, {button,_}, {open,_}, _Data) ->
     {keep_state_and_data,[postpone]};
 %%
 %% Common events
+%% 重新设置新的LockButton, 返回 OldLockButton
+%% 在 lock 或者open状态下都可以 执行 set  
+%% 此时状态相当于 {StateName,LockButton}
 handle_event({call,From}, {set_lock_button,NewLockButton}, {StateName,OldLockButton}, Data) ->
     {next_state, {StateName,NewLockButton}, Data, [{reply,From,OldLockButton}]}.
 
