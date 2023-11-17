@@ -1,0 +1,58 @@
+
+title  基于国密的镜像的完整性校验方案-验证完整性
+participant 用户        as A
+participant CVM         as B
+participant CBS         as C
+
+par: 用户创建虚拟机
+    A->+B: 创建虚拟机
+	
+    par: 获取MD5值列表
+        B->+C: 向CBS请求镜像的MD5值的列表
+        note right of A
+        1. 这个操作是异步的
+        2. CBS会返回一个taskId供查询
+    	3. CBS把所有的MD5值的列表放到某个地方
+    	4. CVM后续会从同样的这个地方获取
+        end note
+    	C-->-B: CBS返回TaskId
+    	loop: 循环直到成功
+          	B->+C: 以TaskId请求CBS，是否导出MD5列表成功，
+            note right of B
+            1. 导出的MD5列表放到某个公共的CVM也能够访问的存储上
+            2. 一旦CBS指明返回成功，就去相应的存储上导出MD5列表
+    	    end note
+    	    C-->-B: CBS指示MD5列表导出成功， 
+        end
+    
+    end
+    
+    par: 计算HMAC-SM3值，验证完整性
+        B->+B: 国密验证完整性
+        note right of A
+        1. CVM从如上协商的存储位置获取MD5值列表
+    	2. 同时会有一个预制的密钥：secret_key
+        3. 使用MD5值列表和secret_key计算HMAC-SM3 
+    	   hmac.new(key, msg, hashlib.sm3).hexdigest()  
+    	4. 从数据库中取出对应的HMAC-SM3，跟本次的计算作对比
+    	   如果一致，说明是完整的，否则就不完整
+        end note
+    	B-->-B:  国密验证完整性结束
+    end	
+	
+    par: 创建虚拟机的其他步骤
+        B->+B: 创建虚拟机其他步骤
+        note left of B
+        1. 只有镜像的完整性校验通过才能继续
+		2. 否则直接失败返回
+        end note
+        B-->-B:  创建虚拟机其他步骤成功
+    end	
+	
+	
+    B-->-A: 创建虚拟机成功返回
+
+end
+
+
+

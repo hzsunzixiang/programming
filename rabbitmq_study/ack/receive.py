@@ -7,12 +7,13 @@ exchange = 'vstation'
 vhost = 'vstation'
 user =  'vstation'
 password = 'vstation'
-queue_name =  'FLOW'
+queue_name =  'FLOW_TEST_BY_ERICKSUN'
 
+host_name = 'localhost'
 credentials = pika.PlainCredentials(user, password)
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-			               host='9.134.165.238',
+			               host=host_name,
                            virtual_host=vhost,
 						   credentials=credentials))
 
@@ -21,7 +22,7 @@ channel = connection.channel()
 result = channel.queue_declare(queue=queue_name, durable=True)  
 
 queue_name = result.method.queue
-print 'queue_name:' + queue_name
+print('queue_name:' + queue_name)
 
 # 指定exchange
 channel.exchange_declare(exchange=exchange, exchange_type='direct', durable=True)
@@ -30,16 +31,16 @@ channel.exchange_declare(exchange=exchange, exchange_type='direct', durable=True
 channel.queue_bind(exchange=exchange, queue=queue_name)
 
 
-print ' [*] Waiting for messages. To exit press CTRL+C'
+print(' [*] Waiting for messages. To exit press CTRL+C')
 
 def callback(ch, method, properties, body):
     #print " [x] Received %r, ch:%s method:%s, properties:%s" % (body, ch, method, properties)
-    print " [x] Received %r" % (body, )
+    print(" [x] Received %r" % (body, ))
     ch.basic_ack(delivery_tag = method.delivery_tag)
     #ch.basic_ack(delivery_tag = method.delivery_tag, multiple=True)
     #ch.basic_ack(delivery_tag = 0, multiple=True)
     #pika.exceptions.ChannelClosedByBroker: (406, 'PRECONDITION_FAILED - unknown delivery tag 1')
-    ch.basic_ack(delivery_tag = 1, multiple=True)
+    #ch.basic_ack(delivery_tag = 2, multiple=True)
 
 channel.basic_consume(queue_name,
 	       	          callback,
