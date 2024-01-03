@@ -47,7 +47,7 @@ print("properties:" + str(properties))
 dt_string = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 print("date and time =", dt_string)
 
-for num in range(0, 1):
+for num in range(0, 10000):
     channel.basic_publish(exchange=delay_exchange, routing_key=queue_name,
                                body="Hello World!"+dt_string, properties=properties)
 
