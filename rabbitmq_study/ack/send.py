@@ -25,10 +25,10 @@ connection = pika.BlockingConnection(pika.ConnectionParameters(
 channel = connection.channel()
 channel.exchange_declare(exchange=exchange, exchange_type='direct', durable=True)
 
-for x in range(30):
-    time.sleep(1)
-    sys.stdout.write('.' + str(x))
-    sys.stdout.flush()
+#for x in range(30):
+#    time.sleep(1)
+#    sys.stdout.write('.' + str(x))
+#    sys.stdout.flush()
 
 # datetime object containing current date and time
 now = datetime.now()
@@ -42,7 +42,7 @@ result = channel.queue_declare(queue=queue_name, durable=True)
 queue_name = result.method.queue
 print('queue_name:' + queue_name)
 
-time.sleep(10000000)
+#time.sleep(10000000)
 
 
 # 这一句很重要，否则不生效 
