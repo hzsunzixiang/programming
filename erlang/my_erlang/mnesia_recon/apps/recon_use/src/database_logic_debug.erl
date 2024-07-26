@@ -15,10 +15,10 @@
 
 -record(factorial, {nodeName, comment, createdOn}).
 
-#We have to define the record in the shell in order to be able use the record syntax in the examples:
-#
-#> rd(factorial, {nodeName, comment, createdOn}).
-#person
+%We have to define the record in the shell in order to be able use the record syntax in the examples:
+%
+%> rd(factorial, {nodeName, comment, createdOn}).
+%person
 
 %% Initialise Database
 initDB()->
