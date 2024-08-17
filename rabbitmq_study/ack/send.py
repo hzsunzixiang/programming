@@ -56,11 +56,33 @@ channel.queue_bind(exchange=exchange, queue=queue_name)
 properties = pika.BasicProperties(delivery_mode=2)
 channel.basic_publish(exchange=exchange, routing_key=queue_name,
                            body="Hello World!", properties=properties)
+import random
+import string
 
-#time.sleep(1000)
+def generate_random_text(file_size_kb):
+    file_size_bytes = file_size_kb * 1024 * 1024
+    chars_per_word = random.randint(3, 10)
+    num_words = file_size_bytes // (chars_per_word * 2)  # 假设平均每个英文单词占用两个字节
 
-channel.basic_publish(exchange=exchange, routing_key=queue_name,
-                           body="Hello World!", properties=properties)
+    text = ""
+    for _ in range(num_words):
+        word_length = random.randint(3, chars_per_word)
+        word = ''.join(random.choices(string.ascii_letters + string.digits, k=word_length))
+        text += word + " "
+        if _ % 10 == 0 and _ != 0:
+            text += "\n"
+
+    return text
+
+
+for x in range(30000):
+    time.sleep(1)
+    sys.stdout.write('.' + str(x))
+    sys.stdout.flush()
+    Body = generate_random_text(4)
+    channel.basic_publish(exchange=exchange, routing_key=queue_name,
+                               body=Body, properties=properties)
+    print(" [x] Sent 'Hello World!'")
 
 print(" [x] Sent 'Hello World!'")
 connection.close()  

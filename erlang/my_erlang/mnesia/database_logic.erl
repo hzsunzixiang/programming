@@ -45,6 +45,7 @@ getDB(NodeName) ->
     {atomic,Comments}=mnesia:transaction(AF), 
     Comments.
 
+
 getDBTwo(NodeName)->
     AF = fun()->
         Query = qlc:q([X || X<- mnesia:table(factorial), X#factorial.nodeName =:= NodeName]), 
