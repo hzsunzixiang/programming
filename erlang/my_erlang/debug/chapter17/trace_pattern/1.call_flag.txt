@@ -1,8 +1,6 @@
 
 
 # 对于函数做追踪时， trace和trace_pattern 必须结合使用,缺一不可
-
-
 ##  单纯只使用trace , flag置为 call, 但是不使用trace_pattern, 是不生效的
 
 Eshell V13.0.4  (abort with ^G)
@@ -21,8 +19,6 @@ Error in process <0.87.0> with exit value:
 
 5> flush().
 ok
-
-
 
 
 ## 这里如果不使用 trace, 直接使用 trace_pattern  是不生效的
@@ -109,7 +105,7 @@ Shell got {trace,<0.86.0>,call,{ping,loop,[]}}
 Shell got {trace,<0.86.0>,call,{ping,loop,[]}}
 ok
 
-## 必须现load模块，再 使用 trace_pattern 不然返回值为0
+## 必须先load模块，再 使用 trace_pattern 不然返回值为0
 Eshell V13.0.4  (abort with ^G)
 1> erlang:trace(all, true, [call]).
 40
