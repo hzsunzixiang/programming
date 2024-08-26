@@ -32,24 +32,23 @@ Using call and return_to trace together makes it possible to know exactly in whi
   Shell got {trace,<0.86.0>,return_to,{flag_return_to_test,loop,0}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
+Erlang/OTP 26 [erts-14.2.5.1] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1] [jit]
 
-Eshell V13.0.4  (abort with ^G)
-1> l(flag_return_to_test).
+Eshell V14.2.5.1 (press Ctrl+G to abort, type help(). for help)
+	(apple@rabbitmq-1)1> l(flag_return_to_test).
 {module,flag_return_to_test}
-2> erlang:trace(all, true, [call, return_to]).
-40
-3> erlang:trace_pattern({flag_return_to_test, '_', '_'}, true, [local]).
+(apple@rabbitmq-1)2> erlang:trace(all, true, [call, return_to]).
+49
+(apple@rabbitmq-1)3> erlang:trace_pattern({flag_return_to_test, '_', '_'}, true, [local]).
 6
-4> Pid = flag_return_to_test:start().
-<0.86.0>
-5> flag_return_to_test:send(Pid).
+(apple@rabbitmq-1)4> Pid = flag_return_to_test:start().
+<0.97.0>
+(apple@rabbitmq-1)5> flag_return_to_test:send(Pid).
 hello,world
 pong
-6> flush().
-Shell got {trace,<0.86.0>,call,{flag_return_to_test,loop,[]}}
-Shell got {trace,<0.86.0>,call,{flag_return_to_test,inner_fun,[]}}
-Shell got {trace,<0.86.0>,return_to,{flag_return_to_test,loop,0}}
-Shell got {trace,<0.86.0>,call,{flag_return_to_test,loop,[]}}
+(apple@rabbitmq-1)6> flush().
+Shell got {trace,<0.97.0>,call,{flag_return_to_test,loop,[]}}
+Shell got {trace,<0.97.0>,call,{flag_return_to_test,inner_fun,[]}}
+Shell got {trace,<0.97.0>,return_to,{flag_return_to_test,loop,0}}
+Shell got {trace,<0.97.0>,call,{flag_return_to_test,loop,[]}}
 ok
-

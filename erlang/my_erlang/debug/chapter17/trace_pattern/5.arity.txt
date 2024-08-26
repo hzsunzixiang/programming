@@ -9,6 +9,14 @@ Pid = flag_arity_test:start().
 flag_arity_test:send(Pid).
 flush().
 
+
+l(flag_arity_test).
+erlang:trace(all, true, [call, return_to]).
+erlang:trace_pattern({flag_arity_test, '_', '_'}, [{'_', [], [{return_trace}]}], [local]).
+Pid = flag_arity_test:start().
+flag_arity_test:send(Pid).
+flush().
+
 %%%% 返回 arity
 
 Erlang/OTP 25 [erts-13.0.4] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:1]
@@ -32,7 +40,7 @@ Shell got {trace,<0.85.0>,return_to,{flag_arity_test,loop,0}}
 Shell got {trace,<0.85.0>,call,{flag_arity_test,loop,0}}
 ok
 
-%%%% 返回 返回的是参数
+%%%% 不使用arity, 返回的是参数
 
 Eshell V13.0.4  (abort with ^G)
 1> l(flag_arity_test).

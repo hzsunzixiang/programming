@@ -2,7 +2,7 @@
 
 * If argument MFA is the atom on_load, the match specification and flag list are used on all modules that are newly loaded.
 
-  如果MFA是 on_load , 新加载loaded的模块才回被跟踪
+  如果MFA是 on_load , 新加载loaded的模块才会被跟踪
 
 
 %%% case 1 : on_load 标志为之后没有被加载，则不会有跟踪消息

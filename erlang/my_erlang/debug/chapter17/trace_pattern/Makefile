@@ -9,7 +9,7 @@ ERL = erl -boot start_clean
 
 MODS := $(patsubst %.erl,%, $(wildcard *.erl))
 
-RUN_BIN= flag_arity_test  flag_return_to_test  flag_return_trace_test  ping
+RUN_BIN= flag_global_local flag_arity_test  flag_return_to_test  flag_return_trace_test  ping
 all:compile
     #erl -noshell -s $(RUN_BIN) start -s init stop
 	#erl -noshell -run $(RUN_BIN) start -s init stop

@@ -21,7 +21,7 @@ Error in process <0.87.0> with exit value:
 ok
 
 
-## 这里如果不使用 trace, 直接使用 trace_pattern  是不生效的
+## 这里如果不使用 trace, 直接使用 trace_pattern  也是不生效的
 Eshell V13.0.4  (abort with ^G)
 1> l(ping).
 {module,ping}
