@@ -51,7 +51,8 @@ delete_queue(Channel) ->
     #'queue.delete_ok'{} = amqp_channel:call(Channel, Delete),
     io:format("amqp_channel:call queue.delete ok ~n"),
     ok.
-
+% -record('queue.bind', {ticket = 0, queue = <<"">>, exchange, routing_key = <<"">>, nowait = false, arguments = []}).
+% -record('queue.bind_ok', {}).
 binding_queue(Q, Channel)->
     Binding = #'queue.bind'{queue       = Q,
                             exchange    = ?EXCHANGE,
