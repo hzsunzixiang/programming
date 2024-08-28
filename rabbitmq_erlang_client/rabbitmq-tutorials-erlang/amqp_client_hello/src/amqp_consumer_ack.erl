@@ -27,7 +27,12 @@ open_channel(Connection) ->
 % 声明一个exchange
 declare_exchange(Channel) ->
     Declare = #'exchange.declare'{exchange = ?EXCHANGE, durable = true},
-    #'exchange.declare_ok'{} = amqp_channel:call(Channel, Declare).
+    %% Declare = #'exchange.declare'{exchange = ?EXCHANGE, type = <<"direct">>,}, %% type 默认值为 <<"direct">> 模式，一对一
+	%% -record('exchange.declare', {ticket = 0, exchange, type = <<"direct">>, passive = false, durable = false, auto_delete = false, internal = false, nowait = false, arguments = []}).
+	%%
+    #'exchange.declare_ok'{} = amqp_channel:call(Channel, Declare),
+    io:format("amqp_channel:call exchange.declare ok ~n"),
+	ok.
 
 % 声明一个队列
 declare_queue(Channel) ->
