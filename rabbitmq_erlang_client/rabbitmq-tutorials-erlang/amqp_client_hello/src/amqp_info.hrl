@@ -4,7 +4,7 @@
 
 -include_lib("amqp_client/include/amqp_client.hrl").
 
--define(HOST, "192.168.142.137"). 
+-define(HOST, "172.16.117.133"). 
 % 这里必须是二进制  而且需要设置相应的权限 start_up.sh 脚本中有
 -define(RABBIT_USERNAME, <<"vstation">>).
 -define(RABBIT_PASSWORD, <<"vstation">>).

@@ -26,9 +26,13 @@ open_channel(Connection) ->
 
 % 声明一个exchange
 declare_exchange(Channel) ->
-    Declare = #'exchange.declare'{exchange = ?EXCHANGE},
+    Declare = #'exchange.declare'{exchange = ?EXCHANGE, durable = true},
     %% Declare = #'exchange.declare'{exchange = ?EXCHANGE, type = <<"direct">>,}, %% type 默认值为 <<"direct">> 模式，一对一
-    #'exchange.declare_ok'{} = amqp_channel:call(Channel, Declare).
+	%% -record('exchange.declare', {ticket = 0, exchange, type = <<"direct">>, passive = false, durable = false, auto_delete = false, internal = false, nowait = false, arguments = []}).
+	%%
+    #'exchange.declare_ok'{} = amqp_channel:call(Channel, Declare),
+    io:format("amqp_channel:call exchange.declare ok ~n"),
+	ok.
 
 % 声明一个队列
 declare_queue(Channel) ->
@@ -39,18 +43,22 @@ declare_queue(Channel) ->
     },
     #'queue.declare_ok'{queue = Q} = amqp_channel:call(Channel, Declare),
     io:format("return Q: ~p~n", [Q]),
+    io:format("amqp_channel:call queue.declare ok ~n"),
     Q.  % 这里的返回和声明一致，如果没有声明，则是一个随机的队列
 
 delete_queue(Channel) ->
     Delete = #'queue.delete'{queue = ?QUEUE_NAME_CLASSIC}, 
     #'queue.delete_ok'{} = amqp_channel:call(Channel, Delete),
+    io:format("amqp_channel:call queue.delete ok ~n"),
     ok.
 
 binding_queue(Q, Channel)->
     Binding = #'queue.bind'{queue       = Q,
                             exchange    = ?EXCHANGE,
                             routing_key = Q},  %%%% 这里有个routing_key bind 那个就发往哪个
-    #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding).
+    #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding),
+    io:format("amqp_channel:call queue.bind ok ~n"),
+	ok.
 
 publish_message(Channel, Q) ->
 	%%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = ?QUEUE_NAME_CLASSIC,
@@ -61,24 +69,30 @@ publish_message(Channel, Q) ->
 	Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = Q},
 	Props = #'P_basic'{delivery_mode = 2}, %% persistent message
     Msg = #amqp_msg{props = Props, payload = Payload},
-    amqp_channel:cast(Channel, Publish, Msg).
+    amqp_channel:cast(Channel, Publish, Msg),
+    io:format("amqp_channel:cast basic.publish ok ~n"),
+	ok.
 
 close_channel(Channel) ->
     % Close the channel
-    amqp_channel:close(Channel).
+    amqp_channel:close(Channel),
+    io:format("amqp_channel:close ok ~n"),
+    ok.
 
 close_connection(Connection) ->
     % Close the connection
-    amqp_connection:close(Connection).
+    amqp_connection:close(Connection),
+    io:format("amqp_connection:close ok ~n"),
+    ok.
 
 
 start() ->
-   Connection=connect_amqp(),
-   Channel=open_channel(Connection),
-   declare_exchange(Channel),
-   Q=declare_queue(Channel),
-   binding_queue(Q, Channel),
-   publish_message(Channel, Q),
-   %close_channel(Channel),
-   %close_connection(Connection), 
+   Connection=amqp_publish:connect_amqp(),
+   Channel=amqp_publish:open_channel(Connection),
+   amqp_publish:declare_exchange(Channel),
+   Q=amqp_publish:declare_queue(Channel),
+   amqp_publish:binding_queue(Q, Channel),
+   amqp_publish:publish_message(Channel, Q),
+   amqp_publish:close_channel(Channel),
+   amqp_publish:close_connection(Connection), 
    "Finish".  
