@@ -1,22 +1,8 @@
 -module(amqp_consumer).
 
-%-include("amqp_client/include/amqp_client.hrl").
--include_lib("amqp_client/include/amqp_client.hrl").
+-include_lib("amqp_info.hrl").
 -compile([export_all]).
 -compile(nowarn_export_all).
-
--define(HOST, "192.168.142.130"). 
-
-
-% 这里必须是二进制
-% 而且需要设置相应的权限 start_up.sh 脚本中有
--define(RABBIT_USERNAME, <<"vstation">>).
--define(RABBIT_PASSWORD, <<"vstation">>).
--define(VHOST, <<"vstation">>).
-
--define(EXCHANGE, <<"vstation">>). 
--define(QUEUE_NAME, <<"FLOW">>). 
--define(PORT, 5672). 
 
 % 连接
 connect_amqp() ->
@@ -39,14 +25,19 @@ open_channel(Connection) ->
 
 % 声明一个exchange
 declare_exchange(Channel) ->
-    Declare = #'exchange.declare'{exchange = ?EXCHANGE},
-    #'exchange.declare_ok'{} = amqp_channel:call(Channel, Declare).
+    Declare = #'exchange.declare'{exchange = ?EXCHANGE, durable = true},
+    %% Declare = #'exchange.declare'{exchange = ?EXCHANGE, type = <<"direct">>,}, %% type 默认值为 <<"direct">> 模式，一对一
+	%% -record('exchange.declare', {ticket = 0, exchange, type = <<"direct">>, passive = false, durable = false, auto_delete = false, internal = false, nowait = false, arguments = []}).
+	%%
+    #'exchange.declare_ok'{} = amqp_channel:call(Channel, Declare),
+    io:format("amqp_channel:call exchange.declare ok ~n"),
+	ok.
 
 % 声明一个队列
 declare_queue(Channel) ->
     % 如果不写队列的名字，默认是这种, <<"amq.gen-tRkmLkwbpU3NxwaRMH0eAw">>
     Declare = #'queue.declare'{
-      queue = ?QUEUE_NAME,   % 这里是二进制
+      queue = ?QUEUE_NAME_CLASSIC,   % 这里是二进制
       durable = true
     },
     #'queue.declare_ok'{queue = Q} = amqp_channel:call(Channel, Declare),
@@ -56,9 +47,11 @@ declare_queue(Channel) ->
 binding_queue(Q, Channel)->
     Binding = #'queue.bind'{queue       = Q,
                             exchange    = ?EXCHANGE,
-                            routing_key = ?EXCHANGE},
+                            routing_key = Q},
     #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding).
 
+%-record('basic.consume', {ticket = 0, queue = <<"">>, consumer_tag = <<"">>, no_local = false, no_ack = false, exclusive = false, nowait = false, arguments = []}).
+%-record('basic.consume_ok', {consumer_tag}).
 consumer_message(Channel, Q) ->
     %process (`self()`),
     #'basic.consume_ok'{consumer_tag = Tag} = amqp_channel:subscribe(Channel, #'basic.consume'{queue = Q, no_ack = true}, self()),
@@ -70,7 +63,7 @@ loop(Channel, Tag) ->
     receive
         %% This is the first message received
         #'basic.consume_ok'{} ->
-            %io:format("in basic.consume_ok....~n"),
+            io:format("in basic.consume_ok....~n"),
             loop(Channel, Tag);
 
         %% This is received when the subscription is cancelled
