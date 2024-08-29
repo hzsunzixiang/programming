@@ -1,18 +1,8 @@
 -module(amqp_direct).
 
-%-include("amqp_client/include/amqp_client.hrl").
--include_lib("amqp_client/include/amqp_client.hrl").
+-include_lib("amqp_info.hrl").
 -compile([export_all]).
 -compile(nowarn_export_all).
-
-% 这里必须是二进制
-% 而且需要设置相应的权限 start_up.sh 脚本中有
--define(RABBIT_USERNAME, <<"vstation">>).
--define(RABBIT_PASSWORD, <<"vstation">>).
--define(VHOST, <<"vstation">>).
--define(EXCHANGE, <<"vstation">>). 
--define(QUEUE_NAME, <<"FLOW">>). 
--define(NODE, 'rabbit@centos7-mq'). 
 
 % 连接
 %-record(amqp_params_direct, {username          = none,
@@ -23,11 +13,11 @@
 %                             client_properties = []}).
 connect_amqp() ->
     %% Start a network connection
-    RabbitParams=#amqp_params_direct{virtual_host=?VHOST, node=?NODE},
-    %RabbitParams=#amqp_params_direct{username=?RABBIT_USERNAME,
-    %                  password=?RABBIT_PASSWORD, virtual_host=?VHOST, node='rabbit@centos7-mq'},
+    RabbitParams=#amqp_params_direct{username=?RABBIT_USERNAME,
+                      password=?RABBIT_PASSWORD, virtual_host=?VHOST, node=?NODE },
+
     io:format("amqp_connection:start begin ~n"),
-    Connection = amqp_connection:start(RabbitParams),
+    {ok, Connection} = amqp_connection:start(RabbitParams),
     io:format("amqp_connection:start result: ~p~n", [Connection]),
     Connection.
 
@@ -41,15 +31,19 @@ open_channel(Connection) ->
 
 % 声明一个exchange
 declare_exchange(Channel) ->
-    Declare = #'exchange.declare'{exchange = ?EXCHANGE},
+    Declare = #'exchange.declare'{exchange = ?EXCHANGE, durable = true},
     %% Declare = #'exchange.declare'{exchange = ?EXCHANGE, type = <<"direct">>,}, %% type 默认值为 <<"direct">> 模式，一对一
-    #'exchange.declare_ok'{} = amqp_channel:call(Channel, Declare).
+	%% -record('exchange.declare', {ticket = 0, exchange, type = <<"direct">>, passive = false, durable = false, auto_delete = false, internal = false, nowait = false, arguments = []}).
+	%%
+    #'exchange.declare_ok'{} = amqp_channel:call(Channel, Declare),
+    io:format("amqp_channel:call exchange.declare ok ~n"),
+	ok.
 
 % 声明一个队列
 declare_queue(Channel) ->
     % 如果不写队列的名字，默认是这种, <<"amq.gen-tRkmLkwbpU3NxwaRMH0eAw">>
     Declare = #'queue.declare'{
-      queue = ?QUEUE_NAME,   % 这里是二进制
+      queue = ?QUEUE_NAME_CLASSIC,   % 这里是二进制
       durable = true
     },
     #'queue.declare_ok'{queue = Q} = amqp_channel:call(Channel, Declare),
@@ -63,7 +57,6 @@ binding_queue(Q, Channel)->
     #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding).
 
 publish_message(Channel, Q) ->
-	%%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = ?QUEUE_NAME,
     %% Publish a message
     Payload = <<"foobar">>,
 	% Here is an example of unrouteable message handling:
@@ -83,12 +76,12 @@ close_connection(Connection) ->
 
 
 start() ->
-   Connection=connect_amqp(),
-   Channel=open_channel(Connection),
-   declare_exchange(Channel),
-   Q=declare_queue(Channel),
-   binding_queue(Q, Channel),
-   publish_message(Channel, Q),
-   %close_channel(Channel),
-   %close_connection(Connection), 
+   Connection=amqp_direct:connect_amqp(),
+   Channel=amqp_direct:open_channel(Connection),
+   amqp_direct:declare_exchange(Channel),
+   Q=amqp_direct:declare_queue(Channel),
+   amqp_direct:binding_queue(Q, Channel),
+   amqp_direct:publish_message(Channel, Q),
+   amqp_direct:close_channel(Channel),
+   amqp_direct:close_connection(Connection), 
    "Finish".  
