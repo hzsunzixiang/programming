@@ -19,4 +19,5 @@ loop() ->
 
 
 inner_fun() ->
-    io:format("hello,world~n").
+    io:format("hello,world~n"),
+	"Hello,World".
