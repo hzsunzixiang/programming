@@ -73,17 +73,14 @@ loop(Channel, Tag) ->
         #'basic.cancel_ok'{} ->
             io:format("in basic.cancel_ok....~n"),
             ok;
-%
-%decode_method_fields('basic.deliver', <<F0Len:8/unsigned, F0:F0Len/binary, F1:64/unsigned, F2Bits:8, F3Len:8/unsigned, F3:F3Len/binary, F4Len:8/unsigned, F4:F4Len/binary>>) ->
-%  F2 = ((F2Bits band 1) /= 0),
-%  #'basic.deliver'{consumer_tag = F0, delivery_tag = F1, redelivered = F2, exchange = F3, routing_key = F4};
         %% A delivery
-        %-record(amqp_msg, {props = #'P_basic'{}, payload = <<>>}).
         {#'basic.deliver'{delivery_tag = TagRet}, Content} ->
             io:format("in basic.deliver....~n"),
             %% Do something with the message payload
             %% (some work here)
+	        timer:sleep(10000),
             io:format("Tag:~p, TagRet:~p, Content:~p.~n", [Tag, TagRet, Content#amqp_msg.payload]),
+            %-record(amqp_msg, {props = #'P_basic'{}, payload = <<>>}).
             %% Ack the message  , 注意，这里是返回的 delivery_tag 不是传进来的, 不然会失败
             amqp_channel:cast(Channel, #'basic.ack'{delivery_tag = TagRet}),
             io:format("after ack .....~n"),
@@ -114,15 +111,13 @@ close_connection(Connection) ->
 
 
 start() ->
-   Connection=connect_amqp(),
-   Channel=open_channel(Connection),
-   declare_exchange(Channel),
-   Q=declare_queue(Channel),
-   binding_queue(Q, Channel),
-   Tag=consumer_message(Channel, Q),
+   Connection=amqp_consumer_ack:connect_amqp(),
+   Channel=amqp_consumer_ack:open_channel(Connection),
+   amqp_consumer_ack:declare_exchange(Channel),
+   Q=amqp_consumer_ack:declare_queue(Channel),
+   amqp_consumer_ack:binding_queue(Q, Channel),
+   Tag=amqp_consumer_ack:consumer_message(Channel, Q),
    io:format("Tag:~p~n", [Tag]),
-   loop(Channel, Tag),
-   %close_channel(Channel),
-   %close_connection(Connection),
+   amqp_consumer_ack:loop(Channel, Tag),
    "Finish".
 

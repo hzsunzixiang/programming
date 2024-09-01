@@ -1,7 +1,13 @@
 -module(send).
 -export([start/0]).
+-export([amqp_connection/0]).
 
 -include_lib("amqp_client/include/amqp_client.hrl").
+
+amqp_connection() ->
+    {ok, Connection} =
+        amqp_connection:start(#amqp_params_network{host = "localhost"}),
+    Connection.
 
 start() ->
     {ok, Connection} =

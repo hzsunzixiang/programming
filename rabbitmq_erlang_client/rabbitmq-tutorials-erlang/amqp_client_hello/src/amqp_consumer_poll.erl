@@ -55,8 +55,6 @@ binding_queue(Q, Channel)->
 %     in function  amqp_consumer_poll:loop/2 (/home/ericksun/programming/rabbitmq_erlang_client/rebar3/amqp_client_hello/src/amqp_consumer_poll.erl, line 67)
 get_message(Channel, Q) ->
     io:format("in loop...."),
-
-
     %% If the queue were empty when the #'basic.get'{} command was invoked, then the channel will return an #'basic.get_empty' result, as illustrated here:
 	%%
     %% Poll for a message
@@ -93,13 +91,11 @@ close_connection(Connection) ->
 
 
 start() ->
-   Connection=connect_amqp(),
-   Channel=open_channel(Connection),
-   declare_exchange(Channel),
-   Q=declare_queue(Channel),
-   binding_queue(Q, Channel),
-   get_message(Channel, Q),
-   %close_channel(Channel),
-   %close_connection(Connection),
+   Connection=amqp_consumer_poll:connect_amqp(),
+   Channel=amqp_consumer_poll:open_channel(Connection),
+   amqp_consumer_poll:declare_exchange(Channel),
+   Q=amqp_consumer_poll:declare_queue(Channel),
+   amqp_consumer_poll:binding_queue(Q, Channel),
+   amqp_consumer_poll:get_message(Channel, Q),
    "Finish".
 
