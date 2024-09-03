@@ -18,7 +18,8 @@ call(Num) ->
         amqp_connection:start(#amqp_params_network{host = "localhost"}),
     {ok, Channel} = amqp_connection:open_channel(Connection),
     RequestQueue = <<"rpc_queue">>,
-    CorrelationId = uuid:get_v4(),
+    %CorrelationId = uuid:get_v4(),
+	CorrelationId = integer_to_binary(erlang:unique_integer()),
 
     amqp_channel:call(Channel, #'queue.declare'{queue = RequestQueue}),
 
@@ -41,8 +42,9 @@ call(Num) ->
     
     Response = wait_for_messages(CorrelationId),
 
-    amqp_channel:close(Channel),
-    amqp_connection:close(Connection),
+	%% 注释掉之后可以看到临时队列
+    %%amqp_channel:close(Channel),
+    %%amqp_connection:close(Connection),
 
     Response.
 
@@ -56,3 +58,14 @@ wait_for_messages(CorrelationId) ->
                 -1
             end
     end.
+
+
+%%Eshell V14.2.5.1 (press Ctrl+G to abort, type help(). for help)
+%%(client@rabbitmq-1)1> rpc_client:start(["10"]).
+%% [x] Requesting fib(10)
+%% [.] Got 55
+%%ok
+%%(client@rabbitmq-1)2> rpc_client:start(["12"]).
+%% [x] Requesting fib(12)
+%% [.] Got 144
+%%ok
