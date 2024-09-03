@@ -1,5 +1,4 @@
--module(receive_mq).
-%%-module(receive). % 这个是关键字，不能以这个命名
+-module(recv).
 -include_lib("amqp_client/include/amqp_client.hrl").
 -compile([export_all]).
 -compile(nowarn_export_all).
