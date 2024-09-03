@@ -3,7 +3,7 @@
 -compile([export_all]).
 -compile(nowarn_export_all).
 
-main() ->
+start() ->
     {ok, Connection} =
         amqp_connection:start(#amqp_params_network{host = "localhost"}),
     {ok, Channel} = amqp_connection:open_channel(Connection),
@@ -12,7 +12,7 @@ main() ->
     %amqp_channel:call(Channel, #'confirm.select'{queue = <<"hello">>}), %  field queue undefined in record 'confirm.select'
 	%-record('confirm.select', {nowait = false}).
 	%-record('confirm.select_ok', {}).
-    #'consume_ok'{} = amqp_channel:call(Channel, #'confirm.select'{}), % 
+    #'confirm.select_ok'{} = amqp_channel:call(Channel, #'confirm.select'{}), % 
 
     amqp_channel:cast(Channel,
                       #'basic.publish'{
@@ -24,12 +24,13 @@ main() ->
     amqp_channel:register_confirm_handler(Channel, self()),
 
 	Result = amqp_channel:wait_for_confirms_or_die(Channel, 5000),
-    loop(Channel),
+    io:format(" [x] wait_for_confirms_or_die: Result:~p~n", [Result]),
+    loop(),
     ok = amqp_channel:close(Channel),
     ok = amqp_connection:close(Connection),
     ok.
 
-loop(Channel) ->
+loop() ->
     receive
         #'basic.ack'{} ->
             io:format(" [x] Saw basic.ack~n");

@@ -4,7 +4,7 @@
 -compile(nowarn_export_all).
 
 
-main() ->
+start() ->
     {ok, Connection} =
         amqp_connection:start(#amqp_params_network{host = "localhost", heartbeat = 30}),
     {ok, Channel} = amqp_connection:open_channel(Connection),
