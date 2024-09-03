@@ -64,6 +64,7 @@ publish_message(Channel, Q) ->
     amqp_channel:call(Channel, Publish, Msg),
     receive
         {BasicReturn, Content} ->
+			%-record('basic.return', {reply_code, reply_text = <<"">>, exchange, routing_key}).
             %#'basic.return'{reply_text = <<"unroutable">>, exchange = X} = BasicReturn,
             #'basic.return'{reply_text = Y, exchange = X} = BasicReturn,
             %% Do something with the returned message
