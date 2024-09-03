@@ -1,13 +1,10 @@
 -module(emit_log_direct).
+
 -include_lib("amqp_client/include/amqp_client.hrl").
 -compile([export_all]).
 -compile(nowarn_export_all).
 
-%1> emit_log_direct:main(["error", "Run. Run. Or it will explode."]).
-% [x] Sent <<"error">>:<<"Run. Run. Or it will explode.">>
-% ok
-
-main(Argv) ->
+start(Argv) ->
     {ok, Connection} =
         amqp_connection:start(#amqp_params_network{host = "localhost"}),
     {ok, Channel} = amqp_connection:open_channel(Connection),
@@ -32,6 +29,7 @@ main(Argv) ->
     ok = amqp_channel:close(Channel),
     ok = amqp_connection:close(Connection),
     ok.
-%#!/usr/bin/env escript
-%%! -pz ./_build/default/lib/amqp_client/ebin ./_build/default/lib/credentials_obfuscation/ebin ./_build/default/lib/jsx/ebin ./_build/default/lib/rabbit_common/ebin ./_build/default/lib/recon/ebin
+%1> emit_log_direct:start(["error", "Run. Run. Or it will explode."]).
+% [x] Sent <<"error">>:<<"Run. Run. Or it will explode.">>
+% ok
 
