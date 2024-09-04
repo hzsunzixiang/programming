@@ -1,6 +1,5 @@
 -module(receive_logs_direct).
--compile([export_all]).
--compile(nowarn_export_all).
+-export([start/1]).
 
 -include_lib("amqp_client/include/amqp_client.hrl").
 

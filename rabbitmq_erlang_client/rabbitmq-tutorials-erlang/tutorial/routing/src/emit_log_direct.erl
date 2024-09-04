@@ -1,8 +1,7 @@
 -module(emit_log_direct).
+-export([start/1]).
 
 -include_lib("amqp_client/include/amqp_client.hrl").
--compile([export_all]).
--compile(nowarn_export_all).
 
 start(Argv) ->
     {ok, Connection} =
@@ -29,7 +28,8 @@ start(Argv) ->
     ok = amqp_channel:close(Channel),
     ok = amqp_connection:close(Connection),
     ok.
+
+
 %1> emit_log_direct:start(["error", "Run. Run. Or it will explode."]).
 % [x] Sent <<"error">>:<<"Run. Run. Or it will explode.">>
 % ok
-
