@@ -20,12 +20,14 @@ ip link set dev vm103 up
 # 创建网桥br102 并加入接口
 ip link add br102 type bridge
 ip link set ens160.2 master br102
+ip link set ens160.2 up
 ip link set vm101 master br102
 ip link set vm111 master br102
 
 # 创建网桥br103 并加入接口
 ip link add br103 type bridge
 ip link set ens160.3 master br103
+ip link set ens160.3 up
 ip link set vm103 master br103
 
 # 配置网桥br102的IP
