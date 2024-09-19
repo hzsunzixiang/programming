@@ -7,7 +7,7 @@
 #include <linux/if_tun.h>
 #include<stdlib.h>
 #include<stdio.h>
- #include <unistd.h>
+#include <unistd.h>
 
 
 int tun_alloc(int flags)
@@ -44,7 +44,6 @@ int main()
      *        IFF_TAP   - TAP device
      *        IFF_NO_PI - Do not provide packet information
      */
-    //tun_fd = tun_alloc(IFF_TUN | IFF_NO_PI);
     tun_fd = tun_alloc(IFF_TAP | IFF_NO_PI);
 
     if (tun_fd < 0) {
