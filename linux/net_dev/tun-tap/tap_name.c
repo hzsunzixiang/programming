@@ -51,6 +51,7 @@ int tun_alloc(char *dev, int flags) {
 	 * code below) */
 	strcpy(dev, ifr.ifr_name);
 
+    printf("Open tun/tap device: %s for reading...\n", ifr.ifr_name);
 	/* this is the special file descriptor that the caller will use to talk
 	 * with the virtual interface */
 	return fd;
