@@ -261,11 +261,11 @@ int main(int argc, char *argv[]) {
 		usage();
 	}
 
-	/* initialize tun/tap interface */
-	if ( (tap_fd = tun_alloc(if_name, flags | IFF_NO_PI)) < 0 ) {
-		my_err("Error connecting to tun/tap interface %s!\n", if_name);
-		exit(1);
-	}
+	///* initialize tun/tap interface */
+	//if ( (tap_fd = tun_alloc(if_name, flags | IFF_NO_PI)) < 0 ) {
+	//	my_err("Error connecting to tun/tap interface %s!\n", if_name);
+	//	exit(1);
+	//}
 
 	do_debug("Successfully connected to interface %s\n", if_name);
 
