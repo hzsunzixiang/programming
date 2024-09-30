@@ -20,7 +20,7 @@ ip link set br0 up
 ip link add link ens160 name ens160.2 type vlan id 102
 ip link set ens160.2 up
 
-ip link add link ens160 name ens160.2 type vlan id 103
+ip link add link ens160 name ens160.3 type vlan id 103
 ip link set ens160.3 up
 
 # br0 
