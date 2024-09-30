@@ -23,7 +23,10 @@ ovs-vsctl add-port br0 vm111  tag=102
 #  加入vlan tag 为103的接口
 ovs-vsctl add-port br0 vm103  tag=103
 
-# 网桥br0不用配置IP
+# 网桥br0配置IP
+ip addr add 10.0.2.1/24 dev br0
+ip addr add 10.0.3.1/24 dev br0
+
 # 创建namespace
 sudo ip netns add ns11
 sudo ip netns add ns12
@@ -48,6 +51,10 @@ ip netns exec ns11 ip addr add 10.0.2.2/24 dev vm102
 ip netns exec ns12 ip addr add 10.0.2.3/24 dev vm112
 ip netns exec ns21 ip addr add 10.0.3.2/24 dev vm104
 
+# 设置网关
+ip netns exec ns11 ip route add default via 10.0.2.1
+ip netns exec ns12 ip route add default via 10.0.2.1
+ip netns exec ns21 ip route add default via 10.0.3.1
 
 ## 从namespace内部ping
 #ip netns exec ns11 ping 10.0.2.3
