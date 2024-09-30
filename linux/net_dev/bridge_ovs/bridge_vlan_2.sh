@@ -16,6 +16,10 @@ ip link set dev vm113 up
 ovs-vsctl add-br br0
 ip link set br0 up
 
+# 创建一个虚拟接口，放入网桥
+ip link add link ens160 name ens160.2 type vlan id 1
+ovs-vsctl add-port br0 ens160.2 
+
 #  加入vlan tag 为102的接口
 ovs-vsctl add-port br0 vm101  tag=102
 

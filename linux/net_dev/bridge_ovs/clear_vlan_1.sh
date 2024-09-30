@@ -17,6 +17,9 @@ ip link delete vm111
 # 删除 1对 veth挂接到 vlan103
 ip link delete vm103
 
+# 删除子接口
+ip link delete link ens160 name ens160.2 type vlan id 1
+
 # 删除网桥br0 
 ovs-vsctl del-br br0
 

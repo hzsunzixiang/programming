@@ -1,5 +1,8 @@
 # 转发相关的
 # https://docs.openvswitch.org/en/latest/howto/vlan/
+echo 1 > /proc/sys/net/ipv4/ip_forward
+#iptables -t nat -A POSTROUTING -o br0 -j MASQUERADE
+#iptables -t nat -A POSTROUTING -o ens160 -j MASQUERADE
 
 # 创建 2对 veth挂接到 vlan102
 ip link add dev vm101 type veth peer name vm102
@@ -15,6 +18,10 @@ ip link set dev vm103 up
 # openvswitch的网桥能够同时容纳多个vlan
 ovs-vsctl add-br br0
 ip link set br0 up
+
+# 创建一个虚拟接口，放入网桥
+ip link add link ens160 name ens160.2 type vlan id 1
+ovs-vsctl add-port br0 ens160.2 
 
 #  加入vlan tag 为102的接口
 ovs-vsctl add-port br0 vm101  tag=102
