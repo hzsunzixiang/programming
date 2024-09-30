@@ -17,10 +17,11 @@ ovs-vsctl add-br br0
 ip link set br0 up
 
 # 创建一个虚拟接口，放入网桥
-ip link add link ens160 name ens160.2 type vlan id 0
-ip link set ens160.2 up
+#ip link add link ens160 name ens160.2 type vlan id 0
+#ip link set ens160.2 up
 
-ovs-vsctl add-port br0 ens160.2 
+# 物理接口放入网桥
+ovs-vsctl add-port br0  ens256
 
 #  加入vlan tag 为102的接口
 ovs-vsctl add-port br0 vm101  tag=102
@@ -44,10 +45,6 @@ ip link set vm104 netns ns21
 ip link set vm114 netns ns22
 
 # 启动
-ip netns exec ns11  ip link set dev lo up
-ip netns exec ns21  ip link set dev lo up
-ip netns exec ns22  ip link set dev lo up
-
 ip netns exec ns11  ip link set dev vm102 up
 ip netns exec ns21  ip link set dev vm104 up
 ip netns exec ns22  ip link set dev vm114 up
@@ -57,10 +54,10 @@ ip netns exec ns11 ip addr add 10.0.2.5/24 dev vm102
 ip netns exec ns21 ip addr add 10.0.3.4/24 dev vm104
 ip netns exec ns22 ip addr add 10.0.3.5/24 dev vm114
 
-# 设置网关
-ip netns exec ns11 ip route add default via 10.0.2.4
-ip netns exec ns21 ip route add default via 10.0.3.3
-ip netns exec ns22 ip route add default via 10.0.3.3
+## 设置网关
+#ip netns exec ns11 ip route add default via 10.0.2.4
+#ip netns exec ns21 ip route add default via 10.0.3.3
+#ip netns exec ns22 ip route add default via 10.0.3.3
 
 ## 从namespace内部ping
 #ip netns exec ns21 ping 10.0.3.5
