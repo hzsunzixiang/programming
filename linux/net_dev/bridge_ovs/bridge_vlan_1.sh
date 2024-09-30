@@ -18,7 +18,7 @@ ip link set br0 up
 # 物理接口放入网桥
 ovs-vsctl add-port br0  ens256
 
-#  加入vlan tag 为102的接口
+# 加入vlan tag 为102的接口
 ovs-vsctl add-port br0 vm101  tag=102
 ovs-vsctl add-port br0 vm111  tag=102
 
