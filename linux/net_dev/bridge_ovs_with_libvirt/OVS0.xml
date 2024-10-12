@@ -1,0 +1,52 @@
+<network>
+ <name>OVS0</name>
+ <forward mode='bridge'/>
+ <bridge name='OVS0'/>
+ <virtualport type='openvswitch'/>
+ <portgroup name='VLAN10'>
+   <vlan>
+     <tag id='10'/>
+   </vlan>
+ </portgroup>
+ <portgroup name='VLAN20'>
+   <vlan>
+     <tag id='20'/>
+   </vlan>
+ </portgroup>
+ <portgroup name='VLAN30'>
+   <vlan>
+     <tag id='30'/>
+   </vlan>
+ </portgroup>
+  <portgroup name='VLAN40'>
+   <vlan>
+     <tag id='40'/>
+   </vlan>
+ </portgroup>
+<portgroup name='VLAN99'>
+   <vlan>
+     <tag id='99'/>
+   </vlan>
+ </portgroup>
+ <portgroup name='VLAN100'>
+   <vlan>
+     <tag id='100'/>
+   </vlan>
+ </portgroup>
+ <portgroup name='VLAN102'>
+   <vlan>
+     <tag id='102'/>
+   </vlan>
+ </portgroup>
+<portgroup name='TRUNK'>
+   <vlan trunk='yes'>
+     <tag id='10'/>
+     <tag id='20'/>
+     <tag id='30'/>
+     <tag id='40'/>
+     <tag id='99'/>
+     <tag id='100'/>
+   </vlan>
+ </portgroup>
+</network>
+
