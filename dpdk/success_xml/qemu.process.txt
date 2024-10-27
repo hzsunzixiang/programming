@@ -1,0 +1,13 @@
+/usr/libexec/qemu-kvm
+-name guest=centos-ovs-dpdk-1,debug-threads=on
+......
+-object {"qom-type":"memory-backend-file","id":"ram-node0","mem-path":"/dev/hugepages/libvirt/qemu/2-centos-ovs-dpdk-1","discard-data":true,"share":true,"prealloc":true,"size":536870912}
+-numa node,nodeid=0,cpus=0-1,memdev=ram-node0
+........
+
+-netdev {"type":"tap","fd":"24","vhost":true,"vhostfd":"26","id":"hostnet0"}
+-device {"driver":"virtio-net-pci","netdev":"hostnet0","id":"net0","mac":"52:54:00:e7:b6:8d","bus":"pcie.0","addr":"0x6"}
+-chardev socket,id=charnet1,path=/usr/local/var/run/openvswitch/vhost-user1
+-netdev {"type":"vhost-user","chardev":"charnet1","queues":2,"id":"hostnet1"}
+-device {"driver":"virtio-net-pci","mrg_rxbuf":true,"mq":true,"vectors":6,"netdev":"hostnet1","id":"net1","mac":"52:54:00:ea:ea:d2","bus":"pcie.0","addr":"0x7"}
+
