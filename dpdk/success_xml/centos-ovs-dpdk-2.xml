@@ -13,11 +13,11 @@ or other application using the libvirt API.
       <libosinfo:os id="http://centos.org/centos-stream/9"/>
     </libosinfo:libosinfo>
   </metadata>
-  <memory unit='KiB'>524288</memory>
-  <currentMemory unit='KiB'>524288</currentMemory>
+  <memory unit='KiB'>1048576</memory>
+  <currentMemory unit='KiB'>1048576</currentMemory>
   <memoryBacking>
     <hugepages>
-      <page size='2048' unit='KiB'/>
+      <page size='1048576' unit='KiB'/>
     </hugepages>
     <locked/>
     <source type='file'/>
@@ -26,6 +26,11 @@ or other application using the libvirt API.
     <discard/>
   </memoryBacking>
   <vcpu placement='static'>2</vcpu>
+  <cputune>
+    <vcpupin vcpu='0' cpuset='6'/>
+    <vcpupin vcpu='1' cpuset='7'/>
+    <emulatorpin cpuset='6-7'/>
+  </cputune>
   <os>
     <type arch='x86_64' machine='pc-q35-rhel9.4.0'>hvm</type>
     <boot dev='hd'/>
@@ -41,7 +46,7 @@ or other application using the libvirt API.
     <feature policy='require' name='lahf_lm'/>
     <feature policy='disable' name='svm'/>
     <numa>
-      <cell id='0' cpus='0-1' memory='524288' unit='KiB' memAccess='shared'/>
+      <cell id='0' cpus='0-1' memory='1048576' unit='KiB' memAccess='shared'/>
     </numa>
   </cpu>
   <clock offset='utc'>
@@ -144,20 +149,23 @@ or other application using the libvirt API.
     <controller type='virtio-serial' index='0'>
       <address type='pci' domain='0x0000' bus='0x03' slot='0x00' function='0x0'/>
     </controller>
-    <interface type='network'>
-      <mac address='52:54:00:e7:b6:8d'/>
-      <source network='default'/>
-      <model type='virtio'/>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
-    </interface>
     <interface type='vhostuser'>
       <mac address='52:54:00:ea:ea:d1'/>
-      <source type='unix' path='/usr/local/var/run/openvswitch/vhost-user2' mode='client'/>
+      <source type='unix' path='/usr/local/var/run/openvswitch/dpdkvhostserver1' mode='client'/>
       <model type='virtio'/>
       <driver queues='2'>
         <host mrg_rxbuf='on'/>
       </driver>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
+    </interface>
+    <interface type='vhostuser'>
+      <mac address='52:54:00:ea:ea:c1'/>
+      <source type='unix' path='/tmp/dpdkvhostclient2' mode='server'/>
+      <model type='virtio'/>
+      <driver queues='2'>
+        <host mrg_rxbuf='on'/>
+      </driver>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x08' function='0x0'/>
     </interface>
     <serial type='pty'>
       <target type='isa-serial' port='0'>
