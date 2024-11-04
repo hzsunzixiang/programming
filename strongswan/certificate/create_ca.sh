@@ -29,7 +29,7 @@ function generate_ca_file()
 function generate_end_ca_file()
 {
     #生成终端实体证书
-    #使用以下命令为host moon生成Ed25519私钥：
+    #使用以下命令为host 生成Ed25519私钥：
     pki --gen --type ed25519 --outform pem > $private_key_file_for_end_ca
     
     
@@ -68,7 +68,7 @@ function generate_ca_file()
 function generate_end_ca_file()
 {
     #生成终端实体证书
-    #使用以下命令为host moon生成Ed25519私钥：
+    #使用以下命令为host 生成Ed25519私钥：
     pki --gen --type ed25519 --outform pem > $private_key_file_for_end_ca
     
     
