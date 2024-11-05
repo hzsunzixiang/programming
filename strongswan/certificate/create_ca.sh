@@ -1,18 +1,19 @@
 #!/bin/bash
 
 private_key_file_for_ca=strongswanKey.pem
-private_key_file_for_end_ca=moonKey.pem
 ca_file=strongswanCert.pem
 swanctl_dir=/etc/strongswan/swanctl/
 swanctl_conf_dir=$swanctl_dir/conf.d/
 
-end_ca_request_file=moonReq.pem
-end_ca_file=moonCert.pem
-domain_name_for_ca=moon.strongswan.org
+#private_key_file_for_end_ca=moonKey.pem
+#end_ca_request_file=moonReq.pem
+#end_ca_file=moonCert.pem
+#domain_name_for_ca=moon.strongswan.org
 
-#end_ca_request_file=sunReq.pem
-#end_ca_file=sunCert.pem
-#domain_name_for_ca=sun.strongswan.org
+private_key_file_for_end_ca=sunKey.pem
+end_ca_request_file=sunReq.pem
+end_ca_file=sunCert.pem
+domain_name_for_ca=sun.strongswan.org
 
 
 #################################
