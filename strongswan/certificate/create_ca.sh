@@ -3,9 +3,16 @@
 private_key_file_for_ca=strongswanKey.pem
 private_key_file_for_end_ca=moonKey.pem
 ca_file=strongswanCert.pem
+swanctl_dir=/etc/strongswan/swanctl/
+swanctl_conf_dir=$swanctl_dir/conf.d/
+
 end_ca_request_file=moonReq.pem
 end_ca_file=moonCert.pem
 domain_name_for_ca=moon.strongswan.org
+
+#end_ca_request_file=sunReq.pem
+#end_ca_file=sunCert.pem
+#domain_name_for_ca=sun.strongswan.org
 
 
 #################################
@@ -70,7 +77,6 @@ function generate_end_ca_file()
     #生成终端实体证书
     #使用以下命令为host 生成Ed25519私钥：
     pki --gen --type ed25519 --outform pem > $private_key_file_for_end_ca
-    
     
     #接下来，使用以下命令创建PKCS#10证书请求：
     pki --req --type priv --in $private_key_file_for_end_ca \
@@ -86,26 +92,24 @@ function generate_end_ca_file()
 
 function put_file_to_directory()
 {
-	swanctl_dir=/usr/local/etc/swanctl
-	swanctl_conf_dir=$swanctl_dir/conf.d/
-    #sudo mkdir -p $swanctl_dir/x509ca
-    #sudo mkdir -p $swanctl_dir/x509
-    #sudo mkdir -p $swanctl_dir/private/
     sudo cp $ca_file $swanctl_dir/x509ca
     sudo cp $end_ca_file $swanctl_dir/x509
     sudo cp $private_key_file_for_end_ca $swanctl_dir/private
 }
 
-generate_ca_file
-generate_end_ca_file
-put_file_to_directory
+function main()
+{
+    generate_ca_file
+    generate_end_ca_file
+    put_file_to_directory
+    
+    echo "######## ca file ##############"
+    pki --print --in $ca_file
+    echo "######## end ca file ##############"
+    pki --print --in $end_ca_file
+    sudo tree $swanctl_dir 
+    rm -f $private_key_file_for_ca $private_key_file_for_end_ca $ca_file $end_ca_request_file  $end_ca_file
+}
 
-echo "######## ca file ##############"
-pki --print --in $ca_file
-
-echo "######## end ca file ##############"
-pki --print --in $end_ca_file
-
-sudo tree $swanctl_dir 
-rm -f $private_key_file_for_ca $private_key_file_for_end_ca $ca_file $end_ca_request_file  $end_ca_file
-
+## 函数入口
+main
