@@ -10,8 +10,10 @@ end_ca_request_file=moonReq.pem
 end_ca_file=moonCert.pem
 domain_name_for_ca=moon.strongswan.org
 
-key_type=ecdsa  #ed25519
-key_length=521
+#key_type=ecdsa  #ed25519
+#key_length=521
+key_type=rsa
+key_length=3072
 
 #private_key_file_for_end_ca=sunKey.pem
 #end_ca_request_file=sunReq.pem
