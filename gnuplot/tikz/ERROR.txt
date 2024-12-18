@@ -1,0 +1,3 @@
+
+不成功： 缺少宏包
+! LaTeX Error: File `gnuplot-lua-tikz.sty' not found.
