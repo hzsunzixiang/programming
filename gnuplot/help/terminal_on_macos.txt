@@ -1,0 +1,39 @@
+Available terminal types:
+       cairolatex  LaTeX picture environment using graphicx package and Cairo backend
+           canvas  HTML Canvas object
+              cgm  Computer Graphics Metafile
+          context  ConTeXt with MetaFun (for PDF documents)
+          domterm  DomTerm terminal emulator with embedded SVG
+             dumb  ascii art for anything that prints text
+              dxf  dxf-file for AutoCad (default size 120x80)
+              emf  Enhanced Metafile format
+         epscairo  eps terminal based on cairo
+         epslatex  LaTeX picture environment using graphicx package
+              fig  FIG graphics language V3.2 for XFIG graphics editor
+              gif  GIF images using libgd and TrueType fonts
+             hpgl  HP7475 and relatives [number of pens] [eject]
+             jpeg  JPEG images using libgd and TrueType fonts
+       kittycairo  kitty in-terminal graphics using cairo
+          kittygd  kitty in-terminal graphics using libgd
+              lua  Lua generic terminal driver
+             pcl5  PCL5e/PCL5c printers using HP-GL/2
+         pdfcairo  pdf terminal based on cairo
+           pict2e  LaTeX2e picture environment
+              png  PNG images using libgd and TrueType fonts
+         pngcairo  png terminal based on cairo
+       postscript  PostScript graphics, including EPSF embedded files (*.eps)
+          pslatex  LaTeX picture environment with PostScript \specials
+            pstex  plain TeX with PostScript \specials
+         pstricks  LaTeX picture environment with PSTricks macros
+               qt  Qt cross-platform interactive terminal
+          sixelgd  sixel using libgd and TrueType fonts
+              svg  W3C Scalable Vector Graphics
+          tek40xx  Tektronix 4010 and others; most TEK emulators
+          tek410x  Tektronix 4106, 4107, 4109 and 420X terminals
+          texdraw  LaTeX texdraw environment
+             tikz  TeX TikZ graphics macros via the lua script driver
+         tkcanvas  Tk canvas widget
+          unknown  Unknown terminal type - not a plotting device
+            vttek  VT-like tek40xx terminal emulator
+             webp  single frame or animation using cairo, pango, and libwebp
+            xterm  Xterm Tektronix 4014 Mode

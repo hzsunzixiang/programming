@@ -1,0 +1,76 @@
+\documentclass{article}
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+%\usepackage[english]{babel}
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+%\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+% Useful packages
+%\usepackage{amsmath}
+\usepackage{graphicx}
+%% nessesary
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage[rflt]{floatflt}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[utf8x]{inputenc}
+\pagestyle{empty}
+
+\begin{document}
+\openup.5em
+
+\begin{floatingfigure}{2.9in}
+%\resizebox{2.5in}{!}{\input{r4}}
+\scalebox{.5}{\input{r4}}
+\end{floatingfigure}
+
+\noindent The figure to the right provides an illustration of L’H\^o\-pi\-tal’s Rule.  Recall
+that this rule can be applied when taking the limit as $x\longrightarrow x_a$
+of a ratio of two functions where the ratio approaches the indeterminate form
+$\frac{0}{0}$; in the case where both functions are differentiable at $x_a$,
+the ratio approaches the ratio of their derivatives. In the case illustrated both
+$\sin(x)$ and $x \longrightarrow0$ as we approach the origin, but the ratio of
+their derivatives, $\frac{\cos(x)}{1} \longrightarrow 1$. L’H\^opital’s Rule
+also applies in the case of the indeterminate form $\frac{\infty}{\infty}$.
+%\usepackage{gnuplot-lua-tikz}
+\end{document}
+
+%%\documentclass{article}
+%%% Language setting
+%%% Replace `english' with e.g. `spanish' to change the document language
+%%\usepackage[english]{babel}
+%%% Set page size and margins
+%%% Replace `letterpaper' with `a4paper' for UK/EU standard size
+%%\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+%%% Useful packages
+%%\usepackage{amsmath}
+%%\usepackage{graphicx}
+%%\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+%%\usepackage[rflt]{floatflt}
+%%\usepackage[T1]{fontenc}
+%%\usepackage{textcomp}
+%%\usepackage[utf8x]{inputenc}
+%%\pagestyle{empty}
+%%
+%%
+%%\begin{document}
+%%
+%%\begin{figure}[h]
+%%\centering
+%%\scalebox{.5}{\input{r4.tex}}
+%%\caption{Monotomic chain dispersion relation}
+%%\end{figure}
+%%
+%%\begin{floatingfigure}{2.9in}
+%%%\resizebox{2.5in}{!}{\input{r4}}
+%%\scalebox{.5}{\input{r4}}
+%%\end{floatingfigure}
+%%\noindent The figure to the right provides an illustration of L’H\^o\-pi\-tal’s Rule.  Recall
+%%that this rule can be applied when taking the limit as $x\longrightarrow x_a$
+%%of a ratio of two functions where the ratio approaches the indeterminate form
+%%$\frac{0}{0}$; in the case where both functions are differentiable at $x_a$,
+%%the ratio approaches the ratio of their derivatives. In the case illustrated both
+%%$\sin(x)$ and $x \longrightarrow0$ as we approach the origin, but the ratio of
+%%their derivatives, $\frac{\cos(x)}{1} \longrightarrow 1$. L’H\^opital’s Rule
+%%also applies in the case of the indeterminate form $\frac{\infty}{\infty}$.
+%%\end{document}

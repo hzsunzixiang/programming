@@ -15,7 +15,8 @@ editor = gedit
 
 # Main file name
 # MASTER_TEX = main-german.tex
-MASTER_TEX = using_epslatex.tex
+MASTER_TEX = using_tikz_and_LaTeX.tex 
+#LITERATURE = bibliography.bib
 
 
 # Derived file names
@@ -26,9 +27,8 @@ GFX_FILES = $(wildcard graphics/*)
 PDF = $(SRC).pdf
 AUX = $(SRC).aux
 
-EPS_GNUPLOT=using_epslatex.gnuplot
-EPS_FILE=r4.eps  
-TEX_FILE_FOR_GRAPHIC=r4.tex
+TIKZ_GNUPLOT=using_tikz_and_LaTeX.gnuplot
+TEX_FILE_FOR_TIKZ=r3.tex
 
 date=$(shell date +%Y%m%d%H%M)
 
@@ -38,14 +38,14 @@ all: $(PDF)
 .PHONY: $(PDF)
 
 #$(PDF): $(MASTER_TEX)  $(TEX_FILES) $(GFX_FILES)
-$(PDF): $(MASTER_TEX) $(TEX_FILES) $(GFX_FILES) $(EPS_FILE) $(TEX_FILE_FOR_GRAPHIC)
+$(PDF): $(MASTER_TEX) $(LITERATURE) $(TEX_FILES) $(GFX_FILES) $(TEX_FILE_FOR_TIKZ)
 	$(pdflatex) $(MASTER_TEX)
-$(EPS_FILE): $(EPS_GNUPLOT)
-	$(gnuplot) $(EPS_GNUPLOT)
+$(TEX_FILE_FOR_TIKZ): 
+	$(gnuplot) $(TIKZ_GNUPLOT)
 
 clean:
 	$(latexmk) -C
-	rm $(EPS_FILE) $(TEX_FILE_FOR_GRAPHIC)
+	#rm $(EPS_FILE) $(TEX_FILE_FOR_GRAPHIC)
 
 # Endversion - mit eingebauter Seitenvorschau
 # mehrere Durchlaeufe, da bei longtable einige runs mehr vonnoeten sind...
