@@ -2,10 +2,12 @@
 latexmk = latexmk
 
 ## Required for thumbpdf as latexmk does not support thumbpdf by itself
-pdflatex = pdflatex
+pdflatex = xelatex
 
+gnuplot = gnuplot
 ## evince at linux
-viewer = 'C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe'
+#viewer = 'C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe'
+viewer = 
 
 ## Editor
 editor = gedit
@@ -13,8 +15,8 @@ editor = gedit
 
 # Main file name
 # MASTER_TEX = main-german.tex
-MASTER_TEX = main-english.tex
-LITERATURE = bibliography.bib
+MASTER_TEX = epslatex.tex
+#LITERATURE = bibliography.bib
 
 
 # Derived file names
@@ -25,6 +27,10 @@ GFX_FILES = $(wildcard graphics/*)
 PDF = $(SRC).pdf
 AUX = $(SRC).aux
 
+EPS_GNUPLOT=epslatex.gp
+EPS_FILE=disp.eps  
+TEX_FILE_FOR_GRAPHIC=disp.tex
+
 date=$(shell date +%Y%m%d%H%M)
 
 # was wird gemacht, falls nur make aufgerufen wird
@@ -32,11 +38,15 @@ date=$(shell date +%Y%m%d%H%M)
 all: $(PDF)
 .PHONY: $(PDF)
 
-$(PDF): $(MASTER_TEX) $(LITERATURE) $(TEX_FILES) $(GFX_FILES)
-	$(latexmk) $(MASTER_TEX)
+#$(PDF): $(MASTER_TEX)  $(TEX_FILES) $(GFX_FILES)
+$(PDF): $(MASTER_TEX) $(LITERATURE) $(TEX_FILES) $(GFX_FILES) $(EPS_FILE) $(TEX_FILE_FOR_GRAPHIC)
+	$(pdflatex) $(MASTER_TEX)
+$(EPS_FILE): $(EPS_GNUPLOT)
+	$(gnuplot) $(EPS_GNUPLOT)
 
 clean:
 	$(latexmk) -C
+	#rm $(EPS_FILE) $(TEX_FILE_FOR_GRAPHIC)
 
 # Endversion - mit eingebauter Seitenvorschau
 # mehrere Durchlaeufe, da bei longtable einige runs mehr vonnoeten sind...
