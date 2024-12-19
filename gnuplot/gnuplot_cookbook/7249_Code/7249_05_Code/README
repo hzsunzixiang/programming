@@ -1,0 +1,30 @@
+Each file in this directory is named the same as one of the 
+recipes in the chapter and contains the code example from the 
+"How to do it" section of the recipe, with some changes to
+ certain recipes, as described below.
+
+ Each file can be run from the terminal with the command "gnuplot
+--persist ", substituting the name of the file for
+"". The "--persist" option tells gnuplot to keep the graph
+ window open and is necessary for the scripts that do not create
+their plots in output files, so you can see the result. Each
+ script has been tested with gnuplot 4.4.3 and produces a plot
+ similar to the illustration in the chapter. Certain scripts 
+assume the existence of a datafile in the current directory, as
+ explained in the chapter text. In the cases where the script has 
+been changed from the version in the chapter, the changes consist
+ only in adding a "set terminal" command and/or changing the names
+ of output files to have the extension appropriate to the 
+terminal. It is impossible to know which terminals (gnuplot
+graphical output devices) the reader has installed; therefore the
+ terminal command was omitted from some of the recipes in order to
+make them more general. However, as scripts that produce output
+files need to have a terminal defined, one had to be selected in 
+order for the script to be runnable. If you do not happen to have
+the terminal installed, you will get an error; in this case you 
+must edit the script to selected one of the available terminals
+on your system.
+
+The scripts that are intended to produce a plot on the screen 
+rather than in a file will open an x11, wxt, or Aquaterm window,
+depending on your installation and your default.
