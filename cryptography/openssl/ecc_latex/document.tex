@@ -12,22 +12,9 @@
 \usepackage{biblatex}
 \addbibresource{biblatex-examples.bib}
 
-\title{A Sample Book}
-\author{John Doe \and Joe Bloggs}
+\title{椭圆曲线(ECC)算法在openssl上的运用}
+\author{ericksun}
 
-\IfFileExists{\jobname.run.xml}
-{
-\includeonly{
-  front,
-%  chap1,
-  chap2,
-%  append
-  }
-}
-{
-% Do a full document initially to generate
-% all the aux files
-}
 
 \begin{document}
 \frontmatter
@@ -35,7 +22,7 @@
 
 % =========================
 \mainmatter
-\include{chap1}
+\include{chap1_list_ecc}
 \include{chap2}
 \appendix
 \include{append}
