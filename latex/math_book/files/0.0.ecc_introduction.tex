@@ -22,255 +22,255 @@
 \section{椭圆曲线的绘图}
 \input{ecc_plot.tex}
 
-\begin{equation}
-    dS = \mu S dt + \sigma S dW
-\end{equation}
-
-where:
-\begin{itemize}
-    \item \( \mu \) is the drift rate of the stock.
-    \item \( \sigma \) is the volatility of the stock.
-    \item \( W \) is a Wiener process or Brownian motion.
-\end{itemize}
-
-\defn{Call and Put Options}{
-    \begin{itemize}
-        \item \textbf{Call Option:} Gives the holder the right (but not the obligation) to buy an asset at a predefined date and price (strike price).
-        \item \textbf{Put Option:} Gives the holder the right (but not the obligation) to sell an asset at a predefined date and price (strike price).
-    \end{itemize}
-}
-
-Under the black and scholes assumptions we the PDE of the price of an European Call :
-
-\thmp{Black and Scholes PDE }{
-\begin{equation}
-    \frac{\partial C}{\partial t} + r S \frac{\partial C}{\partial S} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 C}{\partial S^2} = r C
-\end{equation}
-}{
-Using Ito's Lemma we get : 
-\begin{equation}
-    dC = \frac{\partial C}{\partial t} dt + \frac{\partial C}{\partial S} dS + \frac{1}{2} \frac{\partial^2 C}{\partial S^2} \sigma^2 S^2 dt
-\end{equation}
-
-Substituting \( dS \) into the equation, we get:
-
-\begin{equation}
-    dC = \left( \frac{\partial C}{\partial t} + \frac{\partial C}{\partial S} \mu S + \frac{1}{2} \frac{\partial^2 C}{\partial S^2} \sigma^2 S^2 \right) dt + \frac{\partial C}{\partial S} \sigma S dW
-\end{equation}
-
-This can be rearranged to:
-
-\begin{equation}
-    dC = \left( \frac{\partial C}{\partial t} + \frac{\partial C}{\partial S} \mu S + \frac{1}{2} \frac{\partial^2 C}{\partial S^2} \sigma^2 S^2 \right) dt + \frac{\partial C}{\partial S} \sigma S dW
-\end{equation}
-
-We form a risk-free portfolio by holding a position in the stock and an option. The change in the value of the portfolio is:
-
-\begin{equation}
-    \Pi = -C + \Delta S
-\end{equation}
-
-The change in the portfolio value is:
-
-\begin{equation}
-    d\Pi = -dC + \Delta dS
-\end{equation}
-
-Substituting \( dC \) and \( dS \), and choosing \( \Delta = \frac{\partial C}{\partial S} \), we get:
-
-\begin{equation}
-    d\Pi = -\left( \frac{\partial C}{\partial t} + \frac{1}{2} \frac{\partial^2 C}{\partial S^2} \sigma^2 S^2 \right) dt
-\end{equation}
-
-For the portfolio to be risk-free, \( d\Pi \) must earn the risk-free rate \( r \):
-
-\begin{equation}
-    -\left( \frac{\partial C}{\partial t} + \frac{1}{2} \frac{\partial^2 C}{\partial S^2} \sigma^2 S^2 \right) = r \left( -C + \frac{\partial C}{\partial S} S \right)
-\end{equation}
-
-Simplifying, we get the Black-Scholes partial differential equation:
-\begin{equation*}
-    \frac{\partial C}{\partial t} + r S \frac{\partial C}{\partial S} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 C}{\partial S^2} = r C
-\end{equation*}
-
-}
-
-
-
-\section{Solution to the Black-Scholes Equation for Call Options}
-
-To solve the Black-Scholes equation, we apply the boundary condition for a European call option:
-
-\begin{equation}
-    C(S, T) = \max(S_T - K, 0)
-\end{equation}
-
-where \( K \) is the strike price and \( T \) is the time to expiration.
-
-Using the method of transforming variables, we obtain the solution for a call option:
-
-\thmp{Black and Scholes formulas}{
-The price of a call under black and scholes model is : 
-
-\begin{equation}
-    C(S, t) = S \Phi(d_1) - K e^{-r(T-t)} \Phi(d_2)
-\end{equation}
-
-where:
-\begin{align}
-    d_1 &= \frac{\ln\left(\frac{S}{K}\right) + \left(r + \frac{\sigma^2}{2}\right)(T-t)}{\sigma \sqrt{T-t}} \\
-    d_2 &= d_1 - \sigma \sqrt{T-t}
-\end{align}
-
-and \( \Phi \) is the cumulative distribution function of the standard normal distribution.
-
-}{
-Left exercise for reader. 
-}
-
-
-\section{Solution to the Black-Scholes Equation for Put Options}
-
-Similarly, for a European put option, the boundary condition is:
-
-\begin{equation}
-    P(S, T) = \max(K - S_T, 0)
-\end{equation}
-
-The solution for a put option is given by:
-
-\begin{equation}
-    P(S, t) = K e^{-r(T-t)} \Phi(-d_2) - S \Phi(-d_1)
-\end{equation}
-
-\section{Greeks in the Black-Scholes Model}
-
-The Greeks are sensitivities of the option price to various factors:
-
-\subsection{Delta}
-
-Delta measures the sensitivity of the option price to changes in the underlying asset price:
-
-\begin{equation}
-    \Delta_C = \frac{\partial C}{\partial S} = \Phi(d_1)
-\end{equation}
-
-\begin{equation}
-    \Delta_P = \frac{\partial P}{\partial S} = \Phi(d_1) - 1
-\end{equation}
-
-\subsection{Gamma}
-
-Gamma measures the sensitivity of delta to changes in the underlying asset price:
-
-\begin{equation}
-    \Gamma = \frac{\partial^2 C}{\partial S^2} = \frac{\Phi'(d_1)}{S \sigma \sqrt{T - t}}
-\end{equation}
-
-\subsection{Theta}
-
-Theta measures the sensitivity of the option price to the passage of time:
-
-\begin{equation}
-    \Theta_C = -\frac{S \Phi'(d_1) \sigma}{2 \sqrt{T - t}} - r K e^{-r(T - t)} \Phi(d_2)
-\end{equation}
-
-\begin{equation}
-    \Theta_P = -\frac{S \Phi'(d_1) \sigma}{2 \sqrt{T - t}} + r K e^{-r(T - t)} \Phi(-d_2)
-\end{equation}
-
-\subsection{Vega}
-
-Vega measures the sensitivity of the option price to changes in volatility:
-
-\begin{equation}
-    \nu = \frac{\partial C}{\partial \sigma} = \frac{\partial P}{\partial \sigma} = S \sqrt{T - t} \Phi'(d_1)
-\end{equation}
-
-\subsection{Rho}
-
-Rho measures the sensitivity of the option price to changes in the risk-free interest rate:
-
-\begin{equation}
-    \rho_C = K (T - t) e^{-r(T - t)} \Phi(d_2)
-\end{equation}
-
-\begin{equation}
-    \rho_P = -K (T - t) e^{-r(T - t)} \Phi(-d_2)
-\end{equation}
-
-
-\section{Numerical Examples}
-
-\exm{Call Option Pricing}{
-    Consider a European call option with \( S = 100 \), \( K = 100 \), \( r = 0.05 \), \( \sigma = 0.2 \), and \( T = 1 \) year. Using the Black-Scholes formula, we calculate the call option price.
-}
-
-
-\section{Conclusion}
-
-%\begin{figure}{2.9in}
-%%\resizebox{2.5in}{!}{\input{r4}}
-%%\scalebox{.5}{\input{../Images/ecc_plot/r4.tex}}
-%\scalebox{.5}{\input{../Images/ecc_plot/r4.tex}}
-%%\scalebox{.5}{\input{r4}}
-%%\includegraphics{../Images/ecc_plot/r4}
-%\end{figure}
+%\begin{equation}
+%    dS = \mu S dt + \sigma S dW
+%\end{equation}
 %
-%\begin{figure}{2.9in}
-%%\resizebox{2.5in}{!}{\input{r4}}
-%%\scalebox{.5}{\input{../Images/ecc_plot/r4.tex}}
-%\scalebox{.5}{\input{../Images/ecc_plot/ecc_2_3.tex}}
-%%\scalebox{.5}{\input{r4}}
-%%\includegraphics{../Images/ecc_plot/r4}
-%\end{figure}
-
-%\begin{figure}[h]
-%%\resizebox{2.5in}{!}{\input{r4}}
-%%\scalebox{.5}{\input{../Images/ecc_plot/r4.tex}}
-%%\scalebox{.5}{\input{../Images/ecc_plot/r4.tex}}
-%%\scalebox{.5}{\input{r4}}
-%\includegraphics{../Images/ecc_plot/ecc_2_3}
-%\end{figure}
+%where:
+%\begin{itemize}
+%    \item \( \mu \) is the drift rate of the stock.
+%    \item \( \sigma \) is the volatility of the stock.
+%    \item \( W \) is a Wiener process or Brownian motion.
+%\end{itemize}
 %
-%\begin{figure}[!htbp]
-%\begin{minipage}{0.3\textwidth} \centering
-%\includegraphics{../Images/ecc_plot/ecc_2_3} 
-%%\caption{图表1}
-%\end{minipage}
-%\begin{minipage}{0.3\textwidth} \centering
-%\includegraphics{../Images/ecc_plot/ecc_2_3} 
-%%\caption{图表2}
-%\end{minipage}
-%\begin{minipage}{0.3\textwidth} \centering
-%\includegraphics{../Images/ecc_plot/ecc_2_3} 
-%%\caption{图表3}
-%\end{minipage}
-%\end{figure}
-%\begin{figure}[!htbp]
-%\begin{minipage}{0.3\textwidth} \centering
-%\includegraphics{../Images/ecc_plot/ecc_2_3} 
-%%\caption{图表1}
-%\end{minipage}
-%\begin{minipage}{0.3\textwidth} \centering
-%\includegraphics{../Images/ecc_plot/ecc_2_3} 
-%%\caption{图表2}
-%\end{minipage}
-%\begin{minipage}{0.3\textwidth} \centering
-%\includegraphics{../Images/ecc_plot/ecc_2_3} 
-%%\caption{图表3}
-%\end{minipage}
-%\end{figure}
+%\defn{Call and Put Options}{
+%    \begin{itemize}
+%        \item \textbf{Call Option:} Gives the holder the right (but not the obligation) to buy an asset at a predefined date and price (strike price).
+%        \item \textbf{Put Option:} Gives the holder the right (but not the obligation) to sell an asset at a predefined date and price (strike price).
+%    \end{itemize}
+%}
 %
-%Some text in this section. And here we insert the picture:
-%\begin{figure}[H]
-%  \centering
-%  \includegraphics{../Images/ecc_plot/ecc_2_3}
-%  \caption{This is the inserted picture.}
-%\end{figure}
-%More text after the picture.
-
-The Black-Scholes model is a fundamental tool in financial markets for pricing options. It provides insights into the behavior of option prices and the factors that affect them. Understanding the model and its derivations is crucial for anyone involved in finance.
-
+%Under the black and scholes assumptions we the PDE of the price of an European Call :
+%
+%\thmp{Black and Scholes PDE }{
+%\begin{equation}
+%    \frac{\partial C}{\partial t} + r S \frac{\partial C}{\partial S} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 C}{\partial S^2} = r C
+%\end{equation}
+%}{
+%Using Ito's Lemma we get : 
+%\begin{equation}
+%    dC = \frac{\partial C}{\partial t} dt + \frac{\partial C}{\partial S} dS + \frac{1}{2} \frac{\partial^2 C}{\partial S^2} \sigma^2 S^2 dt
+%\end{equation}
+%
+%Substituting \( dS \) into the equation, we get:
+%
+%\begin{equation}
+%    dC = \left( \frac{\partial C}{\partial t} + \frac{\partial C}{\partial S} \mu S + \frac{1}{2} \frac{\partial^2 C}{\partial S^2} \sigma^2 S^2 \right) dt + \frac{\partial C}{\partial S} \sigma S dW
+%\end{equation}
+%
+%This can be rearranged to:
+%
+%\begin{equation}
+%    dC = \left( \frac{\partial C}{\partial t} + \frac{\partial C}{\partial S} \mu S + \frac{1}{2} \frac{\partial^2 C}{\partial S^2} \sigma^2 S^2 \right) dt + \frac{\partial C}{\partial S} \sigma S dW
+%\end{equation}
+%
+%We form a risk-free portfolio by holding a position in the stock and an option. The change in the value of the portfolio is:
+%
+%\begin{equation}
+%    \Pi = -C + \Delta S
+%\end{equation}
+%
+%The change in the portfolio value is:
+%
+%\begin{equation}
+%    d\Pi = -dC + \Delta dS
+%\end{equation}
+%
+%Substituting \( dC \) and \( dS \), and choosing \( \Delta = \frac{\partial C}{\partial S} \), we get:
+%
+%\begin{equation}
+%    d\Pi = -\left( \frac{\partial C}{\partial t} + \frac{1}{2} \frac{\partial^2 C}{\partial S^2} \sigma^2 S^2 \right) dt
+%\end{equation}
+%
+%For the portfolio to be risk-free, \( d\Pi \) must earn the risk-free rate \( r \):
+%
+%\begin{equation}
+%    -\left( \frac{\partial C}{\partial t} + \frac{1}{2} \frac{\partial^2 C}{\partial S^2} \sigma^2 S^2 \right) = r \left( -C + \frac{\partial C}{\partial S} S \right)
+%\end{equation}
+%
+%Simplifying, we get the Black-Scholes partial differential equation:
+%\begin{equation*}
+%    \frac{\partial C}{\partial t} + r S \frac{\partial C}{\partial S} + \frac{1}{2} \sigma^2 S^2 \frac{\partial^2 C}{\partial S^2} = r C
+%\end{equation*}
+%
+%}
+%
+%
+%
+%\section{Solution to the Black-Scholes Equation for Call Options}
+%
+%To solve the Black-Scholes equation, we apply the boundary condition for a European call option:
+%
+%\begin{equation}
+%    C(S, T) = \max(S_T - K, 0)
+%\end{equation}
+%
+%where \( K \) is the strike price and \( T \) is the time to expiration.
+%
+%Using the method of transforming variables, we obtain the solution for a call option:
+%
+%\thmp{Black and Scholes formulas}{
+%The price of a call under black and scholes model is : 
+%
+%\begin{equation}
+%    C(S, t) = S \Phi(d_1) - K e^{-r(T-t)} \Phi(d_2)
+%\end{equation}
+%
+%where:
+%\begin{align}
+%    d_1 &= \frac{\ln\left(\frac{S}{K}\right) + \left(r + \frac{\sigma^2}{2}\right)(T-t)}{\sigma \sqrt{T-t}} \\
+%    d_2 &= d_1 - \sigma \sqrt{T-t}
+%\end{align}
+%
+%and \( \Phi \) is the cumulative distribution function of the standard normal distribution.
+%
+%}{
+%Left exercise for reader. 
+%}
+%
+%
+%\section{Solution to the Black-Scholes Equation for Put Options}
+%
+%Similarly, for a European put option, the boundary condition is:
+%
+%\begin{equation}
+%    P(S, T) = \max(K - S_T, 0)
+%\end{equation}
+%
+%The solution for a put option is given by:
+%
+%\begin{equation}
+%    P(S, t) = K e^{-r(T-t)} \Phi(-d_2) - S \Phi(-d_1)
+%\end{equation}
+%
+%\section{Greeks in the Black-Scholes Model}
+%
+%The Greeks are sensitivities of the option price to various factors:
+%
+%\subsection{Delta}
+%
+%Delta measures the sensitivity of the option price to changes in the underlying asset price:
+%
+%\begin{equation}
+%    \Delta_C = \frac{\partial C}{\partial S} = \Phi(d_1)
+%\end{equation}
+%
+%\begin{equation}
+%    \Delta_P = \frac{\partial P}{\partial S} = \Phi(d_1) - 1
+%\end{equation}
+%
+%\subsection{Gamma}
+%
+%Gamma measures the sensitivity of delta to changes in the underlying asset price:
+%
+%\begin{equation}
+%    \Gamma = \frac{\partial^2 C}{\partial S^2} = \frac{\Phi'(d_1)}{S \sigma \sqrt{T - t}}
+%\end{equation}
+%
+%\subsection{Theta}
+%
+%Theta measures the sensitivity of the option price to the passage of time:
+%
+%\begin{equation}
+%    \Theta_C = -\frac{S \Phi'(d_1) \sigma}{2 \sqrt{T - t}} - r K e^{-r(T - t)} \Phi(d_2)
+%\end{equation}
+%
+%\begin{equation}
+%    \Theta_P = -\frac{S \Phi'(d_1) \sigma}{2 \sqrt{T - t}} + r K e^{-r(T - t)} \Phi(-d_2)
+%\end{equation}
+%
+%\subsection{Vega}
+%
+%Vega measures the sensitivity of the option price to changes in volatility:
+%
+%\begin{equation}
+%    \nu = \frac{\partial C}{\partial \sigma} = \frac{\partial P}{\partial \sigma} = S \sqrt{T - t} \Phi'(d_1)
+%\end{equation}
+%
+%\subsection{Rho}
+%
+%Rho measures the sensitivity of the option price to changes in the risk-free interest rate:
+%
+%\begin{equation}
+%    \rho_C = K (T - t) e^{-r(T - t)} \Phi(d_2)
+%\end{equation}
+%
+%\begin{equation}
+%    \rho_P = -K (T - t) e^{-r(T - t)} \Phi(-d_2)
+%\end{equation}
+%
+%
+%\section{Numerical Examples}
+%
+%\exm{Call Option Pricing}{
+%    Consider a European call option with \( S = 100 \), \( K = 100 \), \( r = 0.05 \), \( \sigma = 0.2 \), and \( T = 1 \) year. Using the Black-Scholes formula, we calculate the call option price.
+%}
+%
+%
+%\section{Conclusion}
+%
+%%\begin{figure}{2.9in}
+%%%\resizebox{2.5in}{!}{\input{r4}}
+%%%\scalebox{.5}{\input{../Images/ecc_plot/r4.tex}}
+%%\scalebox{.5}{\input{../Images/ecc_plot/r4.tex}}
+%%%\scalebox{.5}{\input{r4}}
+%%%\includegraphics{../Images/ecc_plot/r4}
+%%\end{figure}
+%%
+%%\begin{figure}{2.9in}
+%%%\resizebox{2.5in}{!}{\input{r4}}
+%%%\scalebox{.5}{\input{../Images/ecc_plot/r4.tex}}
+%%\scalebox{.5}{\input{../Images/ecc_plot/ecc_2_3.tex}}
+%%%\scalebox{.5}{\input{r4}}
+%%%\includegraphics{../Images/ecc_plot/r4}
+%%\end{figure}
+%
+%%\begin{figure}[h]
+%%%\resizebox{2.5in}{!}{\input{r4}}
+%%%\scalebox{.5}{\input{../Images/ecc_plot/r4.tex}}
+%%%\scalebox{.5}{\input{../Images/ecc_plot/r4.tex}}
+%%%\scalebox{.5}{\input{r4}}
+%%\includegraphics{../Images/ecc_plot/ecc_2_3}
+%%\end{figure}
+%%
+%%\begin{figure}[!htbp]
+%%\begin{minipage}{0.3\textwidth} \centering
+%%\includegraphics{../Images/ecc_plot/ecc_2_3} 
+%%%\caption{图表1}
+%%\end{minipage}
+%%\begin{minipage}{0.3\textwidth} \centering
+%%\includegraphics{../Images/ecc_plot/ecc_2_3} 
+%%%\caption{图表2}
+%%\end{minipage}
+%%\begin{minipage}{0.3\textwidth} \centering
+%%\includegraphics{../Images/ecc_plot/ecc_2_3} 
+%%%\caption{图表3}
+%%\end{minipage}
+%%\end{figure}
+%%\begin{figure}[!htbp]
+%%\begin{minipage}{0.3\textwidth} \centering
+%%\includegraphics{../Images/ecc_plot/ecc_2_3} 
+%%%\caption{图表1}
+%%\end{minipage}
+%%\begin{minipage}{0.3\textwidth} \centering
+%%\includegraphics{../Images/ecc_plot/ecc_2_3} 
+%%%\caption{图表2}
+%%\end{minipage}
+%%\begin{minipage}{0.3\textwidth} \centering
+%%\includegraphics{../Images/ecc_plot/ecc_2_3} 
+%%%\caption{图表3}
+%%\end{minipage}
+%%\end{figure}
+%%
+%%Some text in this section. And here we insert the picture:
+%%\begin{figure}[H]
+%%  \centering
+%%  \includegraphics{../Images/ecc_plot/ecc_2_3}
+%%  \caption{This is the inserted picture.}
+%%\end{figure}
+%%More text after the picture.
+%
+%The Black-Scholes model is a fundamental tool in financial markets for pricing options. It provides insights into the behavior of option prices and the factors that affect them. Understanding the model and its derivations is crucial for anyone involved in finance.
+%
 
 \end{document}
