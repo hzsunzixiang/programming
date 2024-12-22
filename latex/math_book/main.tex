@@ -1,6 +1,8 @@
 \documentclass[A4,12pt,twoside]{book}
 \usepackage{ctex}
 \usepackage{amd}
+\usepackage{graphicx}
+\usepackage{floatflt}
 
 % %--------------------------------------------------------------------------
 % %         General Setting
@@ -48,13 +50,14 @@
 % %         Core of the document 
 % %--------------------------------------------------------------------------
 \part{椭圆曲线列表}
-\subfile{files/0.0.testchap}
+\subfile{files/0.0.ecc_introduction.tex}
 
-\part{椭圆曲线详情}
-\subfile{files/0.0.testchap}
+%\part{椭圆曲线详情}
+%\subfile{files/0.0.testchap}
+%
+%\part{椭圆曲线的参数介绍}
+%\subfile{files/0.0.testchap}
 
-\part{椭圆曲线的参数介绍}
-\subfile{files/0.0.testchap}
 
 
 
@@ -63,5 +66,6 @@
 % %--------------------------------------------------------------------------
 \nocite{*} % to cite evey things, else cite each on using : \cite{ifrs17}. 
 \printbibliography %to print bibliographie
+
 
 \end{document}
