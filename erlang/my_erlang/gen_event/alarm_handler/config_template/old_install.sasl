@@ -1,0 +1,38 @@
+
+ericksun@VM-165-238-centos:~/programming-master/erlang/my_erlang/gen_event/alarm_handler$ erl
+Erlang R16B03-1 (erts-5.10.4) [source] [64-bit] [smp:8:8] [async-threads:10] [hipe] [kernel-poll:false]
+
+Eshell V5.10.4  (abort with ^G)
+1> LogFilePath = "error_log.log".
+"error_log.log"
+2> error_logger:add_report_handler(sasl_report_file_h, {file,LogFilePath}).
+ok
+
+
+[ericksun@ERICKSUN-MC1:~/workspace/programming/erlang/my_erlang/gen_event/alarm_handler/config_template] (master %)$ erl
+Erlang/OTP 25 [erts-13.2.2.12] [source] [64-bit] [smp:12:12] [ds:12:12:10] [async-threads:1] [dtrace]
+
+Eshell V13.2.2.12  (abort with ^G)
+1> LogFilePath = "error_log.log".
+"error_log.log"
+2> error_logger:add_report_handler(sasl_report_file_h, {file,LogFilePath}).
+{'EXIT',{function_clause,[{sasl_report_file_h,init,
+                                              [{file,"error_log.log"}],
+                                              [{file,"sasl_report_file_h.erl"},{line,32}]},
+                          {gen_event,server_add_handler,4,
+                                     [{file,"gen_event.erl"},{line,698}]},
+                          {gen_event,handle_msg,6,[{file,"gen_event.erl"},{line,540}]},
+                          {proc_lib,init_p_do_apply,3,
+                                    [{file,"proc_lib.erl"},{line,240}]}]}}
+3> error_logger:add_report_handler(sasl_report_tty_h).
+ok
+4> error_logger:add_report_handler(sasl_report_file_h, {file,LogFilePath}).
+{'EXIT',{function_clause,[{sasl_report_file_h,init,
+                                              [{file,"error_log.log"}],
+                                              [{file,"sasl_report_file_h.erl"},{line,32}]},
+                          {gen_event,server_add_handler,4,
+                                     [{file,"gen_event.erl"},{line,698}]},
+                          {gen_event,handle_msg,6,[{file,"gen_event.erl"},{line,540}]},
+                          {proc_lib,init_p_do_apply,3,
+                                    [{file,"proc_lib.erl"},{line,240}]}]}}
+5>

@@ -1,0 +1,66 @@
+
+ericksun@VM-165-238-centos:~/programming-master/erlang/my_erlang/gen_event/alarm_handler$ erl -boot start_sasl -kernel  -config elog2
+Erlang R16B03-1 (erts-5.10.4) [source] [64-bit] [smp:8:8] [async-threads:10] [hipe] [kernel-poll:false]
+
+Eshell V5.10.4  (abort with ^G)
+1> gen_event:which_handlers(error_logger).
+[sasl_report_file_h,error_logger,error_logger_tty_h]
+
+
+ericksun@VM-165-238-centos:~/programming-master/erlang/my_erlang/gen_event/alarm_handler$ cat elog2.config
+[{sasl, [
+         {sasl_error_logger, {file, "test_sasl_file"}}
+]}].
+ericksun@VM-165-238-centos:~/programming-master/erlang/my_erlang/gen_event/alarm_handler$ erl -boot start_sasl -kernel  -config elog2
+Erlang R16B03-1 (erts-5.10.4) [source] [64-bit] [smp:8:8] [async-threads:10] [hipe] [kernel-poll:false]
+
+Eshell V5.10.4  (abort with ^G)
+1>
+BREAK: (a)bort (c)ontinue (p)roc info (i)nfo (l)oaded
+       (v)ersion (k)ill (D)b-tables (d)istribution
+^Cericksun@VM-165-238-centos:~/programming-master/erlang/my_erlang/gen_event/alarm_handler$ cat test_sasl_file
+
+=PROGRESS REPORT==== 24-Jan-2025::15:21:20 ===
+          supervisor: {local,sasl_safe_sup}
+             started: [{pid,<0.37.0>},
+                       {name,alarm_handler},
+                       {mfargs,{alarm_handler,start_link,[]}},
+                       {restart_type,permanent},
+                       {shutdown,2000},
+                       {child_type,worker}]
+
+=PROGRESS REPORT==== 24-Jan-2025::15:21:20 ===
+          supervisor: {local,sasl_safe_sup}
+             started: [{pid,<0.38.0>},
+                       {name,overload},
+                       {mfargs,{overload,start_link,[]}},
+                       {restart_type,permanent},
+                       {shutdown,2000},
+                       {child_type,worker}]
+
+=PROGRESS REPORT==== 24-Jan-2025::15:21:20 ===
+          supervisor: {local,sasl_sup}
+             started: [{pid,<0.36.0>},
+                       {name,sasl_safe_sup},
+                       {mfargs,
+                           {supervisor,start_link,
+                               [{local,sasl_safe_sup},sasl,safe]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,supervisor}]
+
+=PROGRESS REPORT==== 24-Jan-2025::15:21:20 ===
+          supervisor: {local,sasl_sup}
+             started: [{pid,<0.39.0>},
+                       {name,release_handler},
+                       {mfargs,{release_handler,start_link,[]}},
+                       {restart_type,permanent},
+                       {shutdown,2000},
+                       {child_type,worker}]
+
+=PROGRESS REPORT==== 24-Jan-2025::15:21:20 ===
+         application: sasl
+          started_at: nonode@nohost
+
+
+

@@ -1,19 +1,24 @@
 -include_lib("kernel/include/logger.hrl").
 
--module(metadata).
+-module(formatter).
 -compile([export_all]).
 -compile(nowarn_export_all).
 
 
 start() ->
-    ?LOG_ERROR("[My log with foo].", #{foo => bar}),
-	%HandlerMeta = logger:get_handler_config(),
-	%io:format("metadata:~n~p~n", [HandlerMeta]),
+
+	%HandlerConfig = logger:get_handler_config(),
+	%io:format("HandlerConfig:~n~p~n", [HandlerConfig]),
+
+    logger:notice("[My log with foo]."),
     'this is an end'.
 
 
-
-%metadata:
+%ProcessMeta:
+%#{line => 15,pid => <0.9.0>,time => 1697683804236937,file => "metadata.erl",
+%  gl => <0.70.0>,
+%  mfa => {metadata,start,0}}
+%HandlerConfig:
 %[#{id => default,module => logger_std_h,
 %   config =>
 %       #{type => standard_io,burst_limit_enable => true,drop_mode_qlen => 200,
@@ -29,7 +34,12 @@ start() ->
 %        {no_domain,{fun logger_filters:domain/2,{log,undefined,[]}}}],
 %   formatter =>
 %       {logger_formatter,#{template =>
-%                               [time," ",file,", ",mfa,":",line," ",level,
-%                                ": ","{{",foo,"}}\t",msg,"\n"]}}}]
-%2023-10-18T05:08:05.868331-04:00 metadata.erl, metadata:start/0:9 error: {{bar}}        [My log with foo].
+%                               [time," ",file,", ",mfa,":",line," ",pid," ",
+%                                gl," ",level,": ","{{",foo,"}}\t",msg,
+%                                "\n"]}}}]
+%PrimaryConfig:
+%#{level => notice,
+%  metadata => #{foo => foobar},
+%  filter_default => log,filters => []}
+%2023-10-18T22:50:04.236937-04:00 metadata.erl, metadata:start/0:15 <0.9.0> <0.70.0> notice: {{foobar}}  [My log with foo].
 

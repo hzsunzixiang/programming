@@ -1,0 +1,53 @@
+
+ericksun@VM-165-238-centos:~/programming-master/erlang/my_erlang/gen_event/alarm_handler$ erl
+Erlang R16B03-1 (erts-5.10.4) [source] [64-bit] [smp:8:8] [async-threads:10] [hipe] [kernel-poll:false]
+
+Eshell V5.10.4  (abort with ^G)
+1>
+ericksun@VM-165-238-centos:~/programming-master/erlang/my_erlang/gen_event/alarm_handler$ erl -boot start_sasl -kernel  -config elog1
+Erlang R16B03-1 (erts-5.10.4) [source] [64-bit] [smp:8:8] [async-threads:10] [hipe] [kernel-poll:false]
+
+
+=PROGRESS REPORT==== 24-Jan-2025::15:07:42 ===
+          supervisor: {local,sasl_safe_sup}
+             started: [{pid,<0.36.0>},
+                       {name,alarm_handler},
+                       {mfargs,{alarm_handler,start_link,[]}},
+                       {restart_type,permanent},
+                       {shutdown,2000},
+                       {child_type,worker}]
+
+=PROGRESS REPORT==== 24-Jan-2025::15:07:42 ===
+          supervisor: {local,sasl_safe_sup}
+             started: [{pid,<0.37.0>},
+                       {name,overload},
+                       {mfargs,{overload,start_link,[]}},
+                       {restart_type,permanent},
+                       {shutdown,2000},
+                       {child_type,worker}]
+
+=PROGRESS REPORT==== 24-Jan-2025::15:07:42 ===
+          supervisor: {local,sasl_sup}
+             started: [{pid,<0.35.0>},
+                       {name,sasl_safe_sup},
+                       {mfargs,
+                           {supervisor,start_link,
+                               [{local,sasl_safe_sup},sasl,safe]}},
+                       {restart_type,permanent},
+                       {shutdown,infinity},
+                       {child_type,supervisor}]
+
+=PROGRESS REPORT==== 24-Jan-2025::15:07:42 ===
+          supervisor: {local,sasl_sup}
+             started: [{pid,<0.38.0>},
+                       {name,release_handler},
+                       {mfargs,{release_handler,start_link,[]}},
+                       {restart_type,permanent},
+                       {shutdown,2000},
+                       {child_type,worker}]
+
+=PROGRESS REPORT==== 24-Jan-2025::15:07:42 ===
+         application: sasl
+          started_at: nonode@nohost
+Eshell V5.10.4  (abort with ^G)
+1>
