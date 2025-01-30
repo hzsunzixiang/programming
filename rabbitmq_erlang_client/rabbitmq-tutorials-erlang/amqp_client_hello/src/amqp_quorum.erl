@@ -9,7 +9,6 @@ connect_amqp() ->
     %% Start a network connection
     RabbitParams=#amqp_params_network{host=?HOST, username=?RABBIT_USERNAME,
                       password=?RABBIT_PASSWORD, virtual_host=?VHOST, port=?PORT},
-    %RabbitParams=#amqp_params_network{host="192.168.142.130", username=<<"vstation">>, password=<<"vstation">>, virtual_host=<<"vstation">>, port=5672},
     io:format("amqp_connection:start begin ~n"),
     {ok, Connection} = amqp_connection:start(RabbitParams),
     io:format("amqp_connection:start ok ~n"),
@@ -38,10 +37,7 @@ declare_queue(Channel) ->
     % 如果不写队列的名字，默认是这种, <<"amq.gen-tRkmLkwbpU3NxwaRMH0eAw">>
 	% -record('queue.declare', {ticket = 0, queue = <<"">>, passive = false, durable = false, exclusive = false, auto_delete = false, nowait = false, arguments = []}).
 	%
-    % Arg = [{<<"x-queue-type">>,   longstr, <<"quorum">>}]
-    % Arg = [{<<"x-queue-type">>,  <<"quorum">>}],  % error
     Arg = [{<<"x-queue-type">>, longstr, <<"quorum">>}],
-    % Arg = [{<<"x-queue-type">>, binary, <<"quorum">>}], % error
     Declare = #'queue.declare'{
       queue = ?QUEUE_NAME_QUORUM,   % 这里是二进制
       durable = true,
@@ -64,6 +60,19 @@ binding_queue(Q, Channel)->
                             routing_key = Q},
     #'queue.bind_ok'{} = amqp_channel:call(Channel, Binding).
 
+publish_message(Channel, Q) ->
+	%%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = ?QUEUE_NAME_CLASSIC,
+    %% Publish a message
+    Payload = <<"foobar">>,
+	% Here is an example of unrouteable message handling:
+	%Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = Q, mandatory = true},
+	Publish = #'basic.publish'{exchange = ?EXCHANGE, routing_key = Q},
+	Props = #'P_basic'{delivery_mode = 2}, %% persistent message
+    Msg = #amqp_msg{props = Props, payload = Payload},
+    amqp_channel:cast(Channel, Publish, Msg),
+    io:format("amqp_channel:cast basic.publish ok ~n"),
+	ok.
+
 
 close_channel(Channel) ->
     % Close the channel
@@ -78,9 +87,12 @@ start() ->
    Connection=amqp_quorum:connect_amqp(),
    Channel=amqp_quorum:open_channel(Connection),
    amqp_quorum:declare_exchange(Channel),
-   amqp_quorum:delete_queue(Channel),
+   %amqp_quorum:delete_queue(Channel),
    Q=amqp_quorum:declare_queue(Channel),
    amqp_quorum:binding_queue(Q, Channel),
+   amqp_quorum:publish_message(Channel, Q),
+   amqp_quorum:close_channel(Channel),
+   amqp_quorum:close_connection(Connection), 
    "Finish".
 
 

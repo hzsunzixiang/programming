@@ -66,9 +66,11 @@ publish_message(Channel, Q) ->
         {BasicReturn, Content} ->
 			%-record('basic.return', {reply_code, reply_text = <<"">>, exchange, routing_key}).
             %#'basic.return'{reply_text = <<"unroutable">>, exchange = X} = BasicReturn,
-            #'basic.return'{reply_text = Y, exchange = X} = BasicReturn,
+			%-record('basic.return', {reply_code, reply_text = <<"">>, exchange, routing_key}).
+			%
+            #'basic.return'{reply_code = Code, reply_text = Text, exchange = Exchange, routing_key=RoutingKey} = BasicReturn,
             %% Do something with the returned message
-            io:format("receive, exchange:~p, reply_text:~p, Content:~p~n", [X, Y, Content#amqp_msg.payload])
+            io:format("receive, reply_code: ~p, reply_text: ~p, exchange:~p, routing_key:~p, Content:~p~n", [Code, Text, Exchange, RoutingKey, Content#amqp_msg.payload])
 			%%% receive, exchange:<<"vstation">>, reply_text:<<"NO_ROUTE">>, Content:<<"foobar">>
     end.
 
