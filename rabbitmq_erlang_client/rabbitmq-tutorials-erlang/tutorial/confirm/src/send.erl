@@ -12,6 +12,7 @@ start() ->
     %amqp_channel:call(Channel, #'confirm.select'{queue = <<"hello">>}), %  field queue undefined in record 'confirm.select'
 	%-record('confirm.select', {nowait = false}).
 	%-record('confirm.select_ok', {}).
+	
     #'confirm.select_ok'{} = amqp_channel:call(Channel, #'confirm.select'{}), % 
 
     amqp_channel:cast(Channel,
@@ -23,12 +24,16 @@ start() ->
 
     amqp_channel:register_confirm_handler(Channel, self()),
 
-	Result = amqp_channel:wait_for_confirms_or_die(Channel, 5000),
-    io:format(" [x] wait_for_confirms_or_die: Result:~p~n", [Result]),
-    loop(),
+	confirm(Channel),
+
     ok = amqp_channel:close(Channel),
     ok = amqp_connection:close(Connection),
     ok.
+
+confirm(Channel) ->
+	Result = amqp_channel:wait_for_confirms_or_die(Channel, 5000),
+    io:format(" [x] wait_for_confirms_or_die: Result:~p~n", [Result]),
+    loop().
 
 loop() ->
     receive
