@@ -32,15 +32,15 @@
 a=0x00ffffffff00000001000000000000000000000000fffffffffffffffffffffffc
 b=0x5ac635d8aa3a93e7b3ebbd55769886bc651d06b0cc53b0f63bce3c3e27d2604b
 
-a=0xb9c7077daaa55acf00048bca3c5d04d053a5a4e48c32c88e6776ccc275c94daf
-b=0xea628ae24b0a6852fc55f8a40bf07fa9a9e3be78d76359671f2c4aa2e695ca20
-
+#a=0xb9c7077daaa55acf00048bca3c5d04d053a5a4e48c32c88e6776ccc275c94daf
+#b=0xea628ae24b0a6852fc55f8a40bf07fa9a9e3be78d76359671f2c4aa2e695ca20
+#
 p = 0x00ffffffff00000001000000000000000000000000ffffffffffffffffffffffff
 x=  0x6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296
 y=  0x4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5
 
-print (x**3+a*x+b)%p
-print (y**2)%p
+print((x**3+a*x+b)%p)
+print((y**2)%p)
 
 
 # https://www.johannes-bauer.com/compsci/ecc/
