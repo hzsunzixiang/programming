@@ -4,7 +4,7 @@ CC = gcc
 CFLAGS = -Wall -g -I/usr/include/infiniband
 #CFLAGS = -Wall -g -I/usr/include/
 LDFLAGS = -libverbs
-BIN = rc_pingpong
+BIN = ibv_rc_pingpong 
 OBJ = pingpong.o
 
 all: $(BIN)
