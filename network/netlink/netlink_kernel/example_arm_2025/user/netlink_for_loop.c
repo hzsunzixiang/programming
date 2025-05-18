@@ -1,4 +1,3 @@
-BIN = netlink
 #include <sys/socket.h>
 #include <linux/netlink.h>
 #include <stdlib.h>
@@ -29,7 +28,7 @@ int test_netlink()
 	////address will be selected that the remote peer can reach too.
 	//memset(&src_addr, 0, sizeof(src_addr));
 	//src_addr.nl_family = AF_NETLINK;
-	//src_addr.nl_pid = getpid(); /* self pid */
+	//src_addr.nl_pid = getpid();  // self pid
 
 	//bind(sock_fd, (struct sockaddr *)&src_addr, sizeof(src_addr));
 
@@ -64,8 +63,14 @@ int test_netlink()
 	close(sock_fd);
 	return 0;
 }
+
+
 int main()
 {
-	test_netlink();
+	int i = 0;
+	for(i=0; i<100; i++)
+	{
+		test_netlink();
+	}
 	return 0;
 }
