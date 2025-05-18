@@ -1,5 +1,7 @@
 obj-m := netlink_test.o
-KERNELDIR := /lib/modules/3.2.0-4-amd64/build
+#KERNELDIR := /lib/modules/3.2.0-4-amd64/build
+KERNELDIR := /lib/modules/$(shell uname -r)/build
+
 PWD := $(shell pwd)
 
 modules:
