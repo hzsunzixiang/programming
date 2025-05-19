@@ -55,6 +55,7 @@ int main(int argc, char *argv[])
 		}
 	}
 
+	fprintf(stdout, "ib_devname%s\n",ib_devname);
     //  请求 netlink ： socket(AF_NETLINK, SOCK_RAW|SOCK_CLOEXEC, NETLINK_RDMA) = 3
 	dev_list = ibv_get_device_list(NULL);
 	if (!dev_list) {

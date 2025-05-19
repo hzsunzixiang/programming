@@ -836,7 +836,7 @@ int main(int argc, char *argv[])
 			break;
 
 		case 's':
-			size = strtoul(optarg, NULL, 0);
+			sidev_listze = strtoul(optarg, NULL, 0);
 			break;
 
 		case 'm':
