@@ -1,0 +1,443 @@
+execve("./rdma_server", ["./rdma_server"], 0xfffff9e67c30 /* 39 vars */) = 0
+brk(NULL)                               = 0x2b8f1000
+faccessat(AT_FDCWD, "/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=56319, ...}) = 0
+mmap(NULL, 56319, PROT_READ, MAP_PRIVATE, 3, 0) = 0xffff9529c000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib64/libibverbs.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\0m\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=137760, ...}) = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xffff9529a000
+mmap(NULL, 197448, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9523e000
+mprotect(0xffff9525a000, 77824, PROT_NONE) = 0
+mmap(0xffff9526d000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1f000) = 0xffff9526d000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib64/librdmacm.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0P@\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=137008, ...}) = 0
+mmap(NULL, 201056, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9520c000
+mprotect(0xffff95223000, 98304, PROT_NONE) = 0
+mmap(0xffff9523b000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1f000) = 0xffff9523b000
+mmap(0xffff9523d000, 352, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff9523d000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib64/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0pt\2\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=2253464, ...}) = 0
+mmap(NULL, 1761264, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff9505e000
+mprotect(0xffff951ec000, 57344, PROT_NONE) = 0
+mmap(0xffff951fa000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19c000) = 0xffff951fa000
+mmap(0xffff95200000, 49136, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff95200000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib64/libnl-route-3.so.200", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\340\0\2\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=627304, ...}) = 0
+mmap(NULL, 681640, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94fb7000
+mprotect(0xffff95043000, 65536, PROT_NONE) = 0
+mmap(0xffff95053000, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x8c000) = 0xffff95053000
+mmap(0xffff9505c000, 5800, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff9505c000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib64/libnl-3.so.200", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0p\217\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=203656, ...}) = 0
+mmap(NULL, 262536, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94f76000
+mprotect(0xffff94f97000, 118784, PROT_NONE) = 0
+mmap(0xffff94fb4000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2e000) = 0xffff94fb4000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib64/libgcc_s.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\200+\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=136120, ...}) = 0
+mmap(NULL, 197312, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94f45000
+mprotect(0xffff94f58000, 114688, PROT_NONE) = 0
+mmap(0xffff94f74000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1f000) = 0xffff94f74000
+close(3)                                = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xffff95298000
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xffff94f43000
+set_tid_address(0xffff94f430f0)         = 52728
+set_robust_list(0xffff94f43100, 24)     = 0
+rseq(0xffff94f437c0, 0x20, 0, 0xd428bc00) = 0
+mprotect(0xffff951fa000, 16384, PROT_READ) = 0
+mprotect(0xffff94f74000, 4096, PROT_READ) = 0
+mprotect(0xffff94fb4000, 8192, PROT_READ) = 0
+mprotect(0xffff95053000, 16384, PROT_READ) = 0
+mprotect(0xffff9526d000, 4096, PROT_READ) = 0
+mprotect(0xffff9523b000, 4096, PROT_READ) = 0
+mprotect(0x41f000, 4096, PROT_READ)     = 0
+mprotect(0xffff952ad000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0xffff9529c000, 56319)           = 0
+getrandom("\xd6\xb3\x3f\x23\x58\x12\x02\x67", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x2b8f1000
+brk(0x2b912000)                         = 0x2b912000
+newfstatat(AT_FDCWD, "/etc/libnl/classid", {st_mode=S_IFREG|0644, st_size=1130, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libnl/classid", O_RDONLY|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFREG|0644, st_size=1130, ...}) = 0
+read(3, "################################"..., 4096) = 1130
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+fstat(1, {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x4), ...}) = 0
+write(1, "rdma_server: start\n", 19)    = 19
+socket(AF_NETLINK, SOCK_RAW|SOCK_CLOEXEC, NETLINK_RDMA) = 3
+setsockopt(3, SOL_SOCKET, SO_SNDBUF, [32768], 4) = 0
+setsockopt(3, SOL_SOCKET, SO_RCVBUF, [32768], 4) = 0
+getpid()                                = 52728
+bind(3, {sa_family=AF_NETLINK, nl_pid=-998191624, nl_groups=00000000}, 12) = 0
+getsockname(3, {sa_family=AF_NETLINK, nl_pid=-998191624, nl_groups=00000000}, [12]) = 0
+sendmsg(3, {msg_name={sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, msg_namelen=12, msg_iov=[{iov_base=[{nlmsg_len=28, nlmsg_type=0x140f /* NLMSG_??? */, nlmsg_flags=NLM_F_REQUEST, nlmsg_seq=2547172496, nlmsg_pid=-998191624}, "\x0c\x00\x45\x00\x72\x64\x6d\x61\x5f\x63\x6d\x00"], iov_len=28}], msg_iovlen=1, msg_controllen=0, msg_flags=0}, 0) = 28
+recvmsg(3, {msg_name={sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, msg_namelen=12, msg_iov=[{iov_base=[{nlmsg_len=52, nlmsg_type=0x140f /* NLMSG_??? */, nlmsg_flags=0, nlmsg_seq=2547172496, nlmsg_pid=-998191624}, "\x0c\x00\x48\x00\x79\x0a\x00\x00\x00\x00\x00\x00\x0c\x00\x47\x00\x04\x00\x00\x00\x00\x00\x00\x00\x0c\x00\x46\x00\x72\x64\x6d\x61"...], iov_len=16384}], msg_iovlen=1, msg_controllen=0, msg_flags=0}, 0) = 52
+close(3)                                = 0
+getuid()                                = 1000
+geteuid()                               = 1000
+geteuid()                               = 1000
+prlimit64(0, RLIMIT_MEMLOCK, NULL, {rlim_cur=8192*1024, rlim_max=8192*1024}) = 0
+socket(AF_NETLINK, SOCK_RAW|SOCK_CLOEXEC, NETLINK_RDMA) = 3
+setsockopt(3, SOL_SOCKET, SO_SNDBUF, [32768], 4) = 0
+setsockopt(3, SOL_SOCKET, SO_RCVBUF, [32768], 4) = 0
+getpid()                                = 52728
+bind(3, {sa_family=AF_NETLINK, nl_pid=-280965640, nl_groups=00000000}, 12) = 0
+getsockname(3, {sa_family=AF_NETLINK, nl_pid=-280965640, nl_groups=00000000}, [12]) = 0
+sendmsg(3, {msg_name={sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, msg_namelen=12, msg_iov=[{iov_base={nlmsg_len=16, nlmsg_type=0x1401 /* NLMSG_??? */, nlmsg_flags=NLM_F_REQUEST|0x300, nlmsg_seq=2547172496, nlmsg_pid=-280965640}, iov_len=16}], msg_iovlen=1, msg_controllen=0, msg_flags=0}, 0) = 16
+recvmsg(3, {msg_name={sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, msg_namelen=12, msg_iov=[{iov_base=[{nlmsg_len=116, nlmsg_type=0x1401 /* NLMSG_??? */, nlmsg_flags=NLM_F_MULTI, nlmsg_seq=2547172496, nlmsg_pid=-280965640}, "\x08\x00\x01\x00\x00\x00\x00\x00\x09\x00\x02\x00\x72\x78\x65\x30\x00\x00\x00\x00\x08\x00\x03\x00\x01\x00\x00\x00\x0c\x00\x04\x00"...], iov_len=16384}], msg_iovlen=1, msg_controllen=0, msg_flags=0}, 0) = 116
+recvmsg(3, {msg_name={sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, msg_namelen=12, msg_iov=[{iov_base=[{nlmsg_len=20, nlmsg_type=NLMSG_DONE, nlmsg_flags=NLM_F_MULTI, nlmsg_seq=2547172496, nlmsg_pid=-280965640}, 0], iov_len=16384}], msg_iovlen=1, msg_controllen=0, msg_flags=0}, 0) = 20
+sendmsg(3, {msg_name={sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, msg_namelen=12, msg_iov=[{iov_base=[{nlmsg_len=36, nlmsg_type=0x140f /* NLMSG_??? */, nlmsg_flags=NLM_F_REQUEST, nlmsg_seq=2547172497, nlmsg_pid=-280965640}, "\x08\x00\x01\x00\x00\x00\x00\x00\x0b\x00\x45\x00\x75\x76\x65\x72\x62\x73\x00\x00"], iov_len=36}], msg_iovlen=1, msg_controllen=0, msg_flags=0}, 0) = 36
+recvmsg(3, {msg_name={sa_family=AF_NETLINK, nl_pid=0, nl_groups=00000000}, msg_namelen=12, msg_iov=[{iov_base=[{nlmsg_len=60, nlmsg_type=0x140f /* NLMSG_??? */, nlmsg_flags=0, nlmsg_seq=2547172497, nlmsg_pid=-280965640}, "\x08\x00\x49\x00\x0e\x00\x00\x00\x0c\x00\x48\x00\xc0\xe7\x00\x00\x00\x00\x00\x00\x0c\x00\x47\x00\x02\x00\x00\x00\x00\x00\x00\x00"...], iov_len=16384}], msg_iovlen=1, msg_controllen=0, msg_flags=0}, 0) = 60
+newfstatat(AT_FDCWD, "/dev/infiniband/uverbs0", {st_mode=S_IFCHR|0666, st_rdev=makedev(0xe7, 0xc0), ...}, 0) = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/etc/libibverbs.d", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+fstat(3, {st_mode=S_IFDIR|0755, st_size=4096, ...}) = 0
+getdents64(3, 0x2b8f29c0 /* 19 entries */, 32768) = 632
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/.", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/..", {st_mode=S_IFDIR|0755, st_size=8192, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/bnxt_re.driver", {st_mode=S_IFREG|0644, st_size=15, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/bnxt_re.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=15, ...}) = 0
+read(4, "driver bnxt_re\n", 4096)       = 15
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/cxgb4.driver", {st_mode=S_IFREG|0644, st_size=13, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/cxgb4.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=13, ...}) = 0
+read(4, "driver cxgb4\n", 4096)         = 13
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/efa.driver", {st_mode=S_IFREG|0644, st_size=11, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/efa.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=11, ...}) = 0
+read(4, "driver efa\n", 4096)           = 11
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/erdma.driver", {st_mode=S_IFREG|0644, st_size=13, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/erdma.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=13, ...}) = 0
+read(4, "driver erdma\n", 4096)         = 13
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/hfi1verbs.driver", {st_mode=S_IFREG|0644, st_size=17, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/hfi1verbs.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=17, ...}) = 0
+read(4, "driver hfi1verbs\n", 4096)     = 17
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/hns.driver", {st_mode=S_IFREG|0644, st_size=11, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/hns.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=11, ...}) = 0
+read(4, "driver hns\n", 4096)           = 11
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/ipathverbs.driver", {st_mode=S_IFREG|0644, st_size=18, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/ipathverbs.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=18, ...}) = 0
+read(4, "driver ipathverbs\n", 4096)    = 18
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/irdma.driver", {st_mode=S_IFREG|0644, st_size=13, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/irdma.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=13, ...}) = 0
+read(4, "driver irdma\n", 4096)         = 13
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/mana.driver", {st_mode=S_IFREG|0644, st_size=12, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/mana.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=12, ...}) = 0
+read(4, "driver mana\n", 4096)          = 12
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/mlx4.driver", {st_mode=S_IFREG|0644, st_size=12, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/mlx4.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=12, ...}) = 0
+read(4, "driver mlx4\n", 4096)          = 12
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/mlx5.driver", {st_mode=S_IFREG|0644, st_size=12, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/mlx5.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=12, ...}) = 0
+read(4, "driver mlx5\n", 4096)          = 12
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/mthca.driver", {st_mode=S_IFREG|0644, st_size=13, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/mthca.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=13, ...}) = 0
+read(4, "driver mthca\n", 4096)         = 13
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/ocrdma.driver", {st_mode=S_IFREG|0644, st_size=14, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/ocrdma.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=14, ...}) = 0
+read(4, "driver ocrdma\n", 4096)        = 14
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/qedr.driver", {st_mode=S_IFREG|0644, st_size=12, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/qedr.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=12, ...}) = 0
+read(4, "driver qedr\n", 4096)          = 12
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/rxe.driver", {st_mode=S_IFREG|0644, st_size=11, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/rxe.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=11, ...}) = 0
+read(4, "driver rxe\n", 4096)           = 11
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/siw.driver", {st_mode=S_IFREG|0644, st_size=11, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/siw.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=11, ...}) = 0
+read(4, "driver siw\n", 4096)           = 11
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+newfstatat(AT_FDCWD, "/etc/libibverbs.d/vmw_pvrdma.driver", {st_mode=S_IFREG|0644, st_size=18, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/libibverbs.d/vmw_pvrdma.driver", O_RDONLY|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFREG|0644, st_size=18, ...}) = 0
+read(4, "driver vmw_pvrdma\n", 4096)    = 18
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+getdents64(3, 0x2b8f29c0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+getuid()                                = 1000
+geteuid()                               = 1000
+openat(AT_FDCWD, "/usr/lib64/libibverbs/libvmw_pvrdma-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\260\25\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=68672, ...}) = 0
+mmap(NULL, 131080, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94f22000
+mprotect(0xffff94f26000, 110592, PROT_NONE) = 0
+mmap(0xffff94f41000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94f41000
+mmap(0xffff94f42000, 8, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94f42000
+close(3)                                = 0
+mprotect(0xffff94f41000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/libsiw-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0000\23\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=68592, ...}) = 0
+mmap(NULL, 131080, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94f01000
+mprotect(0xffff94f05000, 110592, PROT_NONE) = 0
+mmap(0xffff94f20000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94f20000
+mmap(0xffff94f21000, 8, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94f21000
+close(3)                                = 0
+mprotect(0xffff94f20000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/librxe-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\320\30\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=69048, ...}) = 0
+mmap(NULL, 131080, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94ee0000
+mprotect(0xffff94ee6000, 102400, PROT_NONE) = 0
+mmap(0xffff94eff000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94eff000
+mmap(0xffff94f00000, 8, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94f00000
+close(3)                                = 0
+mprotect(0xffff94eff000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/libqedr-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\300\26\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=68872, ...}) = 0
+mmap(NULL, 131080, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94ebf000
+mprotect(0xffff94ec8000, 90112, PROT_NONE) = 0
+mmap(0xffff94ede000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94ede000
+mmap(0xffff94edf000, 8, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94edf000
+close(3)                                = 0
+mprotect(0xffff94ede000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/libocrdma-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0P\26\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=68760, ...}) = 0
+mmap(NULL, 131080, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94e9e000
+mprotect(0xffff94ea3000, 106496, PROT_NONE) = 0
+mmap(0xffff94ebd000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94ebd000
+mmap(0xffff94ebe000, 8, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94ebe000
+close(3)                                = 0
+mprotect(0xffff94ebd000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/libmthca-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\200\27\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=68752, ...}) = 0
+mmap(NULL, 131080, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94e7d000
+mprotect(0xffff94e84000, 98304, PROT_NONE) = 0
+mmap(0xffff94e9c000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94e9c000
+mmap(0xffff94e9d000, 8, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94e9d000
+close(3)                                = 0
+mprotect(0xffff94e9c000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/libmlx5-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\340|\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=473168, ...}) = 0
+mmap(NULL, 535544, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94dfa000
+mprotect(0xffff94e65000, 77824, PROT_NONE) = 0
+mmap(0xffff94e78000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x6e000) = 0xffff94e78000
+mmap(0xffff94e7b000, 7160, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94e7b000
+close(3)                                = 0
+mprotect(0xffff94e78000, 8192, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/libmlx4-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\340!\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=69328, ...}) = 0
+mmap(NULL, 131080, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94dd9000
+mprotect(0xffff94de3000, 86016, PROT_NONE) = 0
+mmap(0xffff94df8000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94df8000
+mmap(0xffff94df9000, 8, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94df9000
+close(3)                                = 0
+mprotect(0xffff94df8000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/libmana-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\220\25\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=68808, ...}) = 0
+mmap(NULL, 131080, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94db8000
+mprotect(0xffff94dbf000, 98304, PROT_NONE) = 0
+mmap(0xffff94dd7000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94dd7000
+mmap(0xffff94dd8000, 8, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94dd8000
+close(3)                                = 0
+mprotect(0xffff94dd7000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/libirdma-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\240\30\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=69144, ...}) = 0
+mmap(NULL, 131080, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94d97000
+mprotect(0xffff94d9f000, 94208, PROT_NONE) = 0
+mmap(0xffff94db6000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94db6000
+mmap(0xffff94db7000, 8, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94db7000
+close(3)                                = 0
+mprotect(0xffff94db6000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/libipathverbs-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0p\27\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=68688, ...}) = 0
+mmap(NULL, 131080, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94d76000
+mprotect(0xffff94d7a000, 110592, PROT_NONE) = 0
+mmap(0xffff94d95000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94d95000
+mmap(0xffff94d96000, 8, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94d96000
+close(3)                                = 0
+mprotect(0xffff94d95000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/libhns-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\300\36\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=69592, ...}) = 0
+mmap(NULL, 131088, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94d55000
+mprotect(0xffff94d60000, 81920, PROT_NONE) = 0
+mmap(0xffff94d74000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94d74000
+mmap(0xffff94d75000, 16, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94d75000
+close(3)                                = 0
+mprotect(0xffff94d74000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/libhfi1verbs-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0p\27\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=68688, ...}) = 0
+mmap(NULL, 131080, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94d34000
+mprotect(0xffff94d38000, 110592, PROT_NONE) = 0
+mmap(0xffff94d53000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94d53000
+mmap(0xffff94d54000, 8, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94d54000
+close(3)                                = 0
+mprotect(0xffff94d53000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/liberdma-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\360\23\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=68592, ...}) = 0
+mmap(NULL, 131080, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94d13000
+mprotect(0xffff94d17000, 110592, PROT_NONE) = 0
+mmap(0xffff94d32000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94d32000
+mmap(0xffff94d33000, 8, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94d33000
+close(3)                                = 0
+mprotect(0xffff94d32000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/libefa-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0@\27\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=69216, ...}) = 0
+mmap(NULL, 131080, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94cf2000
+mprotect(0xffff94cfb000, 90112, PROT_NONE) = 0
+mmap(0xffff94d11000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94d11000
+mmap(0xffff94d12000, 8, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94d12000
+close(3)                                = 0
+mprotect(0xffff94d11000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/libcxgb4-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0p\26\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=68936, ...}) = 0
+mmap(NULL, 131136, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94cd1000
+mprotect(0xffff94cd9000, 94208, PROT_NONE) = 0
+mmap(0xffff94cf0000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94cf0000
+close(3)                                = 0
+mprotect(0xffff94cf0000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/usr/lib64/libibverbs/libbnxt_re-rdmav34.so", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0 \30\0\0\0\0\0\0"..., 832) = 832
+fstat(3, {st_mode=S_IFREG|0755, st_size=68840, ...}) = 0
+mmap(NULL, 131080, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0xffff94cb0000
+mprotect(0xffff94cb7000, 98304, PROT_NONE) = 0
+mmap(0xffff94ccf000, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0xffff94ccf000
+mmap(0xffff94cd0000, 8, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0xffff94cd0000
+close(3)                                = 0
+mprotect(0xffff94ccf000, 4096, PROT_READ) = 0
+openat(AT_FDCWD, "/dev/infiniband/rdma_cm", O_RDWR|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFCHR|0666, st_rdev=makedev(0xa, 0x79), ...}) = 0
+write(3, "\0\0\0\0\30\0\4\0P\241\217+\0\0\0\0\270t\231\304\377\377\0\0?\1\2\0\0\0\0\0", 32) = 32
+write(3, "\24\0\0\0\210\0\0\0\0\0\0\0000\0\0\0\33\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 144) = 144
+write(3, "\23\0\0\0\20\0\30\1Ps\231\304\377\377\0\0\0\0\0\0\0\0\0\0", 24) = 24
+write(3, "\23\0\0\0\20\0\30\1`s\231\304\377\377\0\0\0\0\0\0\2\0\0\0", 24) = 24
+write(3, "\1\0\0\0\20\0\4\0\260t\231\304\377\377\0\0\0\0\0\0\0\0\0\0", 24) = 24
+close(3)                                = 0
+openat(AT_FDCWD, "/dev/infiniband/rdma_cm", O_RDWR|O_CLOEXEC) = 3
+fstat(3, {st_mode=S_IFCHR|0666, st_rdev=makedev(0xa, 0x79), ...}) = 0
+write(3, "\0\0\0\0\30\0\4\0000\244\217+\0\0\0\0xu\231\304\377\377\0\0\6\1\2\0\0\0\0\0", 32) = 32
+write(3, "\24\0\0\0\210\0\0\0\0\0\0\0\20\0\0\0\2\0\35/\0\0\0\0\0\0\0\0\0\0\0\0"..., 144) = 144
+write(3, "\23\0\0\0\20\0\30\1\20t\231\304\377\377\0\0\0\0\0\0\0\0\0\0", 24) = 24
+write(3, "\23\0\0\0\20\0\30\1 t\231\304\377\377\0\0\0\0\0\0\2\0\0\0", 24) = 24
+write(3, "\7\0\0\0\10\0\0\0\0\0\0\0\0\0\0\0", 16) = 16
+write(3, "\23\0\0\0\20\0\30\1\360t\231\304\377\377\0\0\0\0\0\0\0\0\0\0", 24) = 24
+write(3, "\f\0\0\0\10\0P\1Ht\231\304\377\377\0\0", 16) = 16
+openat(AT_FDCWD, "/dev/infiniband/rdma_cm", O_RDWR|O_CLOEXEC) = 4
+fstat(4, {st_mode=S_IFCHR|0666, st_rdev=makedev(0xa, 0x79), ...}) = 0
+write(4, "\22\0\0\0\20\0\4\0\260r\231\304\377\377\0\0\1\0\0\0\3\0\0\0", 24) = 24
+write(4, "\23\0\0\0\20\0\30\1\0r\231\304\377\377\0\0\1\0\0\0\0\0\0\0", 24) = 24
+openat(AT_FDCWD, "/dev/infiniband/uverbs0", O_RDWR|O_CLOEXEC) = 5
+fstat(5, {st_mode=S_IFCHR|0666, st_rdev=makedev(0xe7, 0xc0), ...}) = 0
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4996ed0) = -1 ENOSPC (No space left on device)
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4996e60) = 0
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4996f48) = 0
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4996c10) = 0
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4996f38) = 0
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4997000) = 0
+write(4, "\23\0\0\0\20\0\30\1\20r\231\304\377\377\0\0\1\0\0\0\2\0\0\0", 24) = 24
+write(4, "\23\0\0\0\20\0\270\1\0q\231\304\377\377\0\0\1\0\0\0\1\0\0\0", 24) = 24
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc49973a0) = 0
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc49971f0) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_SHARED, 5, 0x4de000) = 0xffff952a9000
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc49973a0) = 0
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc49971f0) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_SHARED, 5, 0x4df000) = 0xffff952a8000
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4997090) = 0
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_SHARED, 5, 0x4e1000) = 0xffff952a7000
+mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_SHARED, 5, 0x4e0000) = 0xffff952a6000
+write(4, "\v\0\0\0\20\0\220\0Xs\231\304\377\377\0\0\1\0\0\0\1\0\0\0", 24) = 24
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4997280) = 0
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4997480) = 0
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4997460) = 0
+write(4, "\v\0\0\0\20\0\220\0\310r\231\304\377\377\0\0\1\0\0\0\1\0\0\0", 24) = 24
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc49971f0) = 0
+write(4, "\v\0\0\0\20\0\220\0\310r\231\304\377\377\0\0\1\0\0\0\2\0\0\0", 24) = 24
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc49971f0) = 0
+write(4, "\v\0\0\0\20\0\220\0\330r\231\304\377\377\0\0\1\0\0\0\3\0\0\0", 24) = 24
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4997200) = 0
+write(4, "\10\0\0\0(\1\0\0\20\250\217+\0\0\0\09\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"..., 304) = 304
+write(4, "\f\0\0\0\10\0P\1\230r\231\304\377\377\0\0", 16) = 16
+write(5, "\34\0\0\0\10\0\1\0\320t\231\304\377\377\0\0\3\0\0\0\0\0\0\0\0\0\0\0\200\0\0\0", 32) = 32
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4997510) = 0
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc49973e0) = 0
+write(4, "\n\0\0\0\4\0\0\0\1\0\0\0", 12) = 12
+write(4, "\f\0\0\0\10\0P\1ht\231\304\377\377\0\0", 16) = 16
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4997588) = 0
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4997598) = 0
+munmap(0xffff952a7000, 4096)            = 0
+munmap(0xffff952a6000, 4096)            = 0
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4997578) = 0
+munmap(0xffff952a9000, 4096)            = 0
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4997578) = 0
+munmap(0xffff952a8000, 4096)            = 0
+close(7)                                = 0
+close(8)                                = 0
+write(4, "\1\0\0\0\20\0\4\0\320u\231\304\377\377\0\0\1\0\0\0\0\0\0\0", 24) = 24
+ioctl(5, RDMA_VERBS_IOCTL, 0xffffc4997588) = 0
+close(4)                                = 0
+write(3, "\1\0\0\0\20\0\4\0\320u\231\304\377\377\0\0\0\0\0\0\0\0\0\0", 24) = 24
+close(3)                                = 0
+write(1, "rdma_server: end 0\n", 19)    = 19
+exit_group(0)                           = ?
++++ exited with 0 +++
