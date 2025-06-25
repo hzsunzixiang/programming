@@ -17,4 +17,6 @@ int main(int argc, char **argv) {
     while ((n = read(fromfd, &buf, sizeof(buf))) > 0) {
         write(tofd, &buf, n);
     }
+	(void) close(fromfd);
+	(void) close(tofd);
 }
