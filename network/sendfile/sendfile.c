@@ -16,4 +16,6 @@ int main(int argc, char **argv) {
     while (n > 0) {
         n = sendfile(tofd, fromfd, 0, BUF_SIZE);
     }
+	(void) close(fromfd);
+	(void) close(tofd);
 }
